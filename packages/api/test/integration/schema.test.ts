@@ -83,6 +83,7 @@ const QUERIES = [
   'pickupPoints',
   'orderEntryOperation',
   'orderFormItems',
+  'recommendations',
 ]
 
 const MUTATIONS = [
@@ -93,6 +94,7 @@ const MUTATIONS = [
   'processOrderAuthorization',
   'uploadFileToOrderEntry',
   'startOrderEntryOperation',
+  'startRecommendationSession',
 ]
 
 let schema: GraphQLSchema

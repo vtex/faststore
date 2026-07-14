@@ -671,6 +671,8 @@ export type Mutation = {
    * Returns an operationId to poll for the operation status.
    */
   startOrderEntryOperation: Maybe<StoreOrderEntryOperationResult>;
+  /** Starts an anonymous personalization session for the current shopper. */
+  startRecommendationSession: Scalars['Boolean']['output'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>;
   /**
@@ -899,6 +901,8 @@ export type Query = {
   products: Array<StoreProduct>;
   /** Returns information about the profile. */
   profile: Maybe<Profile>;
+  /** Returns personalized product recommendations for a given campaign. */
+  recommendations: RecommendationResponse;
   /** Returns if there's a redirect for a search. */
   redirect: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
@@ -997,6 +1001,13 @@ export type QueryProfileArgs = {
 };
 
 
+export type QueryRecommendationsArgs = {
+  campaignVrn: Scalars['String']['input'];
+  products: InputMaybe<Array<Scalars['String']['input']>>;
+  userId: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryRedirectArgs = {
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>;
   term: InputMaybe<Scalars['String']['input']>;
@@ -1030,6 +1041,18 @@ export type QueryShippingArgs = {
 
 export type QueryUserOrderArgs = {
   orderId: Scalars['String']['input'];
+};
+
+export type RecommendationCampaign = {
+  id: Scalars['String']['output'];
+  title: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type RecommendationResponse = {
+  campaign: RecommendationCampaign;
+  correlationId: Scalars['String']['output'];
+  products: Array<StoreProduct>;
 };
 
 export type SkuSpecificationField = {
@@ -2651,6 +2674,15 @@ export type Filter_FacetsFragment =
 
 export type ProductDetailsFragment_ProductFragment = { sku: string, name: string, gtin: string, description: string, unitMultiplier: number | null, id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> };
 
+export type ClientRecommendationsQueryQueryVariables = Exact<{
+  campaignVrn: Scalars['String']['input'];
+  userId: InputMaybe<Scalars['String']['input']>;
+  products: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+}>;
+
+
+export type ClientRecommendationsQueryQuery = { recommendations: { correlationId: string, products: Array<{ slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null }>, campaign: { id: string, title: string | null, type: string } } };
+
 export type ProductComparisonFragment_ProductFragment = { sku: string, slug: string, name: string, gtin: string, description: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, priceWithTaxes: number, listPrice: number, quantity: number, listPriceWithTaxes: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, skuSpecifications: Array<{ field: { id: string | null, name: string, originalName: string | null }, values: Array<{ name: string, id: string | null, fieldId: string | null, originalName: string | null }> }>, specificationGroups: Array<{ name: string, originalName: string, specifications: Array<{ name: string, originalName: string, values: Array<string> }> }> };
 
 export type ProductSkuMatrixSidebarFragment_ProductFragment = { id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ sku: string, name: string, image: Array<{ url: string, alternateName: string }>, offers: { highPrice: number, lowPrice: number, lowPriceWithTaxes: number, offerCount: number, priceCurrency: string, offers: Array<{ listPrice: number, listPriceWithTaxes: number, sellingPrice: number, priceCurrency: string, price: number, priceWithTaxes: number, priceValidUntil: string, itemCondition: string, availability: string, quantity: number }> }, additionalProperty: Array<{ propertyID: string, value: any, name: string, valueReference: any }> }> | null } | null } };
@@ -2772,6 +2804,11 @@ export type ValidateUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ValidateUserQuery = { validateUser: { isValid: boolean } | null };
+
+export type StartRecommendationSessionMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type StartRecommendationSessionMutation = { startRecommendationSession: boolean };
 
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart;
@@ -3460,6 +3497,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
   fuzzy
 }
     `, {"fragmentName":"SearchEvent_metadata"}) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>;
+export const ClientRecommendationsQueryDocument = {"__meta__":{"operationName":"ClientRecommendationsQuery","operationHash":"db61ca57203036d24d5e1e2c9e40d6d0906f0056"}} as unknown as TypedDocumentString<ClientRecommendationsQueryQuery, ClientRecommendationsQueryQueryVariables>;
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"4b33c5c07f440dc7489e55619dc2211a13786e72"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
 export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"f03d0963fed159ac4bbe11f90ea09c635a66b68c"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
@@ -3474,6 +3512,7 @@ export const AvailableContractsQueryDocument = {"__meta__":{"operationName":"Ava
 export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;
 export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operationName":"ProcessOrderAuthorizationMutation","operationHash":"8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d"}} as unknown as TypedDocumentString<ProcessOrderAuthorizationMutationMutation, ProcessOrderAuthorizationMutationMutationVariables>;
 export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
+export const StartRecommendationSessionDocument = {"__meta__":{"operationName":"StartRecommendationSession","operationHash":"1def6438c0cd87b85002411ac7326c221f192583"}} as unknown as TypedDocumentString<StartRecommendationSessionMutation, StartRecommendationSessionMutationVariables>;
 export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"32c15f8888ca34f223def7972b7f19090808435a"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
 export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"ClientPickupPointsQuery","operationHash":"3fa04e88c811fcb5ece7206fd5aa745bdbc143a8"}} as unknown as TypedDocumentString<ClientPickupPointsQueryQuery, ClientPickupPointsQueryQueryVariables>;
 export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"SubscribeToNewsletter","operationHash":"feb7005103a859e2bc8cf2360d568806fd88deba"}} as unknown as TypedDocumentString<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;

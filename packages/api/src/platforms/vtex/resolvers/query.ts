@@ -20,6 +20,7 @@ import type {
 } from '../../../__generated__/schema'
 import { getOrderEntryOperation } from './getOrderEntryOperation'
 import { getOrderFormItems } from './getOrderFormItems'
+import { recommendations } from './recommendations'
 import {
   BadRequestError,
   ForbiddenError,
@@ -838,4 +839,5 @@ export const Query = {
   },
   orderEntryOperation: getOrderEntryOperation,
   orderFormItems: getOrderFormItems,
+  recommendations,
 }

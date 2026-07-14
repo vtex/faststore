@@ -690,6 +690,8 @@ export type Mutation = {
    * Returns an operationId to poll for the operation status.
    */
   startOrderEntryOperation?: Maybe<StoreOrderEntryOperationResult>;
+  /** Starts an anonymous personalization session for the current shopper. */
+  startRecommendationSession: Scalars['Boolean']['output'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /**
@@ -930,6 +932,8 @@ export type Query = {
   products: Array<StoreProduct>;
   /** Returns information about the profile. */
   profile?: Maybe<Profile>;
+  /** Returns personalized product recommendations for a given campaign. */
+  recommendations: RecommendationResponse;
   /** Returns if there's a redirect for a search. */
   redirect?: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
@@ -1028,6 +1032,13 @@ export type QueryProfileArgs = {
 };
 
 
+export type QueryRecommendationsArgs = {
+  campaignVrn: Scalars['String']['input'];
+  products?: InputMaybe<Array<Scalars['String']['input']>>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryRedirectArgs = {
   selectedFacets?: InputMaybe<Array<IStoreSelectedFacet>>;
   term?: InputMaybe<Scalars['String']['input']>;
@@ -1061,6 +1072,20 @@ export type QueryShippingArgs = {
 
 export type QueryUserOrderArgs = {
   orderId: Scalars['String']['input'];
+};
+
+export type RecommendationCampaign = {
+  __typename?: 'RecommendationCampaign';
+  id: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type RecommendationResponse = {
+  __typename?: 'RecommendationResponse';
+  campaign: RecommendationCampaign;
+  correlationId: Scalars['String']['output'];
+  products: Array<StoreProduct>;
 };
 
 export type SkuSpecificationField = {
