@@ -67,6 +67,9 @@ jobs:
       - name: Verify publish manifests
         run: pnpm release:verify
 
+      - name: Diagnose changed packages
+        run: node ./scripts/diagnose-changed.mjs
+
       - name: Publish (main)
         if: github.ref_name == 'main'
         run: pnpm release
