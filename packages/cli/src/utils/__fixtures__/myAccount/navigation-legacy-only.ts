@@ -1,4 +1,4 @@
-import { getMyAccountRoutes } from 'src/sdk/account/getMyAccountRoutes'
+import { getMyAccountRoutes } from '@faststore/core'
 
 export default getMyAccountRoutes({
   routes: [
