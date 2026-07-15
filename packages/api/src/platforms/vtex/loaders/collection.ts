@@ -63,28 +63,28 @@ export const getCollectionLoader = (_: Options, clients: Clients) => {
           // that happens to share the linkId "camisetas".
           // The full slug is also injected into the result for meta.selectedFacets
           // and breadcrumb URL construction.
-          const categories =
+          const category =
             await clients.commerce.catalog.byLinkId.category(normalizedSlug)
-          if (categories !== null && categories.length > 0) {
+          if (category) {
             return {
-              ...categories[0],
+              ...category,
               entityType: 'category' as const,
               slug: normalizedSlug,
             }
           }
 
           // Step 2: brand (always single-segment)
-          const brands =
+          const brand =
             await clients.commerce.catalog.byLinkId.brand(normalizedSlug)
-          if (brands !== null && brands.length > 0) {
-            return { ...brands[0], entityType: 'brand' as const }
+          if (brand) {
+            return { ...brand, entityType: 'brand' as const }
           }
 
           // Step 3: collection cluster (always single-segment)
-          const collections =
+          const collection =
             await clients.commerce.catalog.byLinkId.collection(normalizedSlug)
-          if (collections !== null && collections.length > 0) {
-            return { ...collections[0], entityType: 'collection' as const }
+          if (collection) {
+            return { ...collection, entityType: 'collection' as const }
           }
 
           throw new NotFoundError(

@@ -239,8 +239,14 @@ describe('VTEX Commerce', () => {
 
 describe('Catalog byLinkId', () => {
   describe('category', () => {
-    it('calls the correct by-linkid URL and returns the response', async () => {
-      const mockCategory = [{ id: 1, name: 'Apparel', linkId: 'apparel' }]
+    it('calls the correct by-linkid URL and returns the single entity', async () => {
+      // The Catalog by-linkid endpoint returns a single entity object, not a list.
+      const mockCategory = {
+        id: 9281,
+        name: 'Apparel',
+        linkId: 'Apparel',
+        availableLinkIds: { 'en-US': 'Apparel', 'pt-BR': 'Vestuário' },
+      }
       fetchAPIMocked.mockResolvedValueOnce(mockCategory)
 
       const { commerce } = clients.getClients(apiOptions, context)
@@ -255,7 +261,7 @@ describe('Catalog byLinkId', () => {
     })
 
     it('URL-encodes special characters in the linkId', async () => {
-      fetchAPIMocked.mockResolvedValueOnce([])
+      fetchAPIMocked.mockResolvedValueOnce(null)
 
       const { commerce } = clients.getClients(apiOptions, context)
       // Ampersand is a reserved URL character that encodeURIComponent must encode
@@ -264,6 +270,19 @@ describe('Catalog byLinkId', () => {
       const [url] = fetchAPIMocked.mock.calls[0]
       expect(url).toContain('Computer%26Software')
       expect(url).not.toContain('Computer&Software')
+    })
+
+    it('preserves "/" separators in multi-segment paths while encoding each segment', async () => {
+      fetchAPIMocked.mockResolvedValueOnce(null)
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.catalog.byLinkId.category('computer&software/eletronicos')
+
+      const [url] = fetchAPIMocked.mock.calls[0]
+      // The path separator must stay literal so the API validates each level,
+      // while special characters inside a segment are still encoded.
+      expect(url).toContain('/by-linkid/computer%26software/eletronicos')
+      expect(url).not.toContain('%2F')
     })
 
     it('returns null when the API responds with 404', async () => {
@@ -286,16 +305,21 @@ describe('Catalog byLinkId', () => {
   })
 
   describe('brand', () => {
-    it('calls the correct by-linkid URL and returns the response', async () => {
-      const mockBrand = [{ id: 10, name: 'Adidas', linkId: 'adidas' }]
+    it('calls the correct by-linkid URL and returns the single entity', async () => {
+      const mockBrand = {
+        id: 9280,
+        name: 'Brand',
+        linkId: 'Brand',
+        availableLinkIds: { 'en-US': 'Brand' },
+      }
       fetchAPIMocked.mockResolvedValueOnce(mockBrand)
 
       const { commerce } = clients.getClients(apiOptions, context)
-      const result = await commerce.catalog.byLinkId.brand('adidas')
+      const result = await commerce.catalog.byLinkId.brand('brand')
 
       expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
       const [url] = fetchAPIMocked.mock.calls[0]
-      expect(url).toContain('/api/catalog_system/pub/brand/by-linkid/adidas')
+      expect(url).toContain('/api/catalog_system/pub/brand/by-linkid/brand')
       expect(result).toEqual(mockBrand)
     })
 
@@ -319,10 +343,13 @@ describe('Catalog byLinkId', () => {
   })
 
   describe('collection', () => {
-    it('calls the correct by-linkid URL and returns the response', async () => {
-      const mockCollection = [
-        { id: 42, name: 'Summer Sale', linkId: 'summer-sale' },
-      ]
+    it('calls the correct by-linkid URL and returns the single entity', async () => {
+      const mockCollection = {
+        id: 42,
+        name: 'Summer Sale',
+        linkId: 'summer-sale',
+        availableLinkIds: null,
+      }
       fetchAPIMocked.mockResolvedValueOnce(mockCollection)
 
       const { commerce } = clients.getClients(apiOptions, context)

@@ -63,6 +63,16 @@ const BASE_INIT = {
   },
 }
 
+/**
+ * Encode a by-linkid path for the category endpoint. Category link paths can be
+ * multi-segment (e.g. "computer---software/eletronicos"); the Catalog endpoint
+ * expects the "/" separators to stay literal so it can validate each level,
+ * while each segment is individually URL-encoded. Running encodeURIComponent on
+ * the whole string would turn "/" into "%2F" and break multi-segment resolution.
+ */
+const encodeLinkIdPath = (linkId: string): string =>
+  linkId.split('/').map(encodeURIComponent).join('/')
+
 export const VtexCommerce = (
   { account, environment, incrementAddress, subDomainPrefix }: Options,
   ctx: GraphqlContext
@@ -114,12 +124,15 @@ export const VtexCommerce = (
           ),
       },
       byLinkId: {
+        // The by-linkid endpoints resolve a slug to a single catalog entity
+        // (or 404 when there is no match). We surface a 404 as `null` so the
+        // loader can cascade category → brand → collection.
         category: async (
           linkId: string
-        ): Promise<ByLinkIdCategoryResponse[] | null> => {
+        ): Promise<ByLinkIdCategoryResponse | null> => {
           try {
             return await fetchAPI(
-              `${base}/api/catalog_system/pub/category/by-linkid/${encodeURIComponent(linkId)}`
+              `${base}/api/catalog_system/pub/category/by-linkid/${encodeLinkIdPath(linkId)}`
             )
           } catch (error) {
             if (isNotFoundError(error)) return null
@@ -128,7 +141,7 @@ export const VtexCommerce = (
         },
         brand: async (
           linkId: string
-        ): Promise<ByLinkIdBrandResponse[] | null> => {
+        ): Promise<ByLinkIdBrandResponse | null> => {
           try {
             return await fetchAPI(
               `${base}/api/catalog_system/pub/brand/by-linkid/${encodeURIComponent(linkId)}`
@@ -140,7 +153,7 @@ export const VtexCommerce = (
         },
         collection: async (
           linkId: string
-        ): Promise<ByLinkIdCollectionResponse[] | null> => {
+        ): Promise<ByLinkIdCollectionResponse | null> => {
           try {
             return await fetchAPI(
               `${base}/api/catalog_system/pub/collection/by-linkid/${encodeURIComponent(linkId)}`

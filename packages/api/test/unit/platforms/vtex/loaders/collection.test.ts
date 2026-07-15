@@ -90,9 +90,9 @@ describe('getCollectionLoader', () => {
 
   describe('entity type cascade', () => {
     it('resolves to category when category by-linkid returns a match', async () => {
-      mockCategory.mockResolvedValueOnce([
-        makeCategory({ id: 1, name: 'Apparel', linkId: 'apparel' }),
-      ])
+      mockCategory.mockResolvedValueOnce(
+        makeCategory({ id: 1, name: 'Apparel', linkId: 'apparel' })
+      )
 
       const result = await makeLoader().load('apparel')
 
@@ -103,9 +103,9 @@ describe('getCollectionLoader', () => {
 
     it('falls through to brand when category returns null', async () => {
       mockCategory.mockResolvedValueOnce(null)
-      mockBrand.mockResolvedValueOnce([
-        makeBrand({ id: 10, name: 'Adidas', linkId: 'adidas' }),
-      ])
+      mockBrand.mockResolvedValueOnce(
+        makeBrand({ id: 10, name: 'Adidas', linkId: 'adidas' })
+      )
 
       const result = await makeLoader().load('adidas')
 
@@ -113,35 +113,12 @@ describe('getCollectionLoader', () => {
       expect(mockCollection).not.toHaveBeenCalled()
     })
 
-    it('falls through to brand when category returns an empty array', async () => {
-      mockCategory.mockResolvedValueOnce([])
-      mockBrand.mockResolvedValueOnce([
-        makeBrand({ id: 10, name: 'Adidas', linkId: 'adidas' }),
-      ])
-
-      const result = await makeLoader().load('adidas')
-
-      expect(result.entityType).toBe('brand')
-    })
-
     it('falls through to collection when both category and brand return null', async () => {
       mockCategory.mockResolvedValueOnce(null)
       mockBrand.mockResolvedValueOnce(null)
-      mockCollection.mockResolvedValueOnce([
-        makeCollection({ id: 42, name: 'Summer Sale', linkId: 'summer-sale' }),
-      ])
-
-      const result = await makeLoader().load('summer-sale')
-
-      expect(result.entityType).toBe('collection')
-    })
-
-    it('falls through to collection when brand returns an empty array', async () => {
-      mockCategory.mockResolvedValueOnce(null)
-      mockBrand.mockResolvedValueOnce([])
-      mockCollection.mockResolvedValueOnce([
-        makeCollection({ id: 42, name: 'Summer Sale', linkId: 'summer-sale' }),
-      ])
+      mockCollection.mockResolvedValueOnce(
+        makeCollection({ id: 42, name: 'Summer Sale', linkId: 'summer-sale' })
+      )
 
       const result = await makeLoader().load('summer-sale')
 
@@ -161,9 +138,9 @@ describe('getCollectionLoader', () => {
 
   describe('slug normalization', () => {
     it('lowercases a mixed-case slug before hitting the API', async () => {
-      mockCategory.mockResolvedValueOnce([
-        makeCategory({ linkId: 'computer---software' }),
-      ])
+      mockCategory.mockResolvedValueOnce(
+        makeCategory({ linkId: 'computer---software' })
+      )
 
       await makeLoader().load('Computer---Software')
 
@@ -171,9 +148,9 @@ describe('getCollectionLoader', () => {
     })
 
     it('preserves the full slug (lowercased) on the returned category root', async () => {
-      mockCategory.mockResolvedValueOnce([
-        makeCategory({ id: 2, name: 'T-Shirts', linkId: 'camisetas' }),
-      ])
+      mockCategory.mockResolvedValueOnce(
+        makeCategory({ id: 2, name: 'T-Shirts', linkId: 'camisetas' })
+      )
 
       const result = await makeLoader().load('vestuario/Camisetas')
 
@@ -187,14 +164,14 @@ describe('getCollectionLoader', () => {
 
   describe('multi-segment slugs', () => {
     it('passes the full path to the category API for unambiguous resolution', async () => {
-      mockCategory.mockResolvedValueOnce([
+      mockCategory.mockResolvedValueOnce(
         makeCategory({
           id: 3,
           name: 'T-Shirts',
           linkId: 'shirts',
           fatherCategoryId: 1,
-        }),
-      ])
+        })
+      )
 
       await makeLoader().load('apparel/shirts')
 
