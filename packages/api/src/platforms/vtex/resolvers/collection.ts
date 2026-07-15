@@ -42,47 +42,6 @@ const slugifyRoot = (root: Root): string => {
   return root.linkId ?? slugify(root.name)
 }
 
-/**
- * Recursively searches the category tree for the item with the given numeric ID
- * and returns the canonical (default-locale) slug extracted from its URL.
- *
- * The Catalog `by-linkid` endpoint echoes back the queried slug in `linkId`
- * when the lookup is performed by a localized (non-canonical) slug. Using the
- * tree URL instead guarantees we always get the default-locale slug that IS
- * expects for `category-N` selectedFacets and for `otherLocales` hreflang.
- */
-function findCanonicalSlug(
-  tree: Array<{ id: number; url: string; children?: unknown[] }>,
-  targetId: number
-): string | null {
-  for (const item of tree) {
-    if (item.id === targetId) {
-      try {
-        const segments = new URL(item.url).pathname.split('/').filter(Boolean)
-
-        return segments.at(-1) ?? null
-      } catch {
-        return null
-      }
-    }
-
-    if (Array.isArray(item.children) && item.children.length > 0) {
-      const found = findCanonicalSlug(
-        item.children as Array<{
-          id: number
-          url: string
-          children?: unknown[]
-        }>,
-        targetId
-      )
-
-      if (found !== null) return found
-    }
-  }
-
-  return null
-}
-
 export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
   id: ({ id }) => id.toString(),
   slug: (root) => slugifyRoot(root),
@@ -108,10 +67,11 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
       return { selectedFacets: [{ key: 'productclusterids', value: root.id }] }
     }
 
-    // For categories, IS expects canonical (default-locale) slugs in selectedFacets
-    // regardless of which locale's slug the URL uses. The by-linkid API echoes the
-    // queried slug in entity.linkId when called by a localized slug, so we fetch
-    // the category tree and extract the canonical slug from each item's URL instead.
+    // For categories, IS expects the canonical (default-locale) slug in selectedFacets
+    // regardless of which locale the current request uses. The by-linkid API echoes the
+    // queried slug in `linkId`, so we resolve canonical via availableLinkIds[defaultLocale].
+    const { defaultLocale } = getLocalizationConfig(ctx)
+
     const segments = slug.split('/').filter(Boolean)
     const segmentSlugs = segments.map((_, i) =>
       segments.slice(0, i + 1).join('/')
@@ -119,27 +79,18 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
 
     const {
       loaders: { collectionLoader },
-      clients: { commerce },
     } = ctx
 
-    // Fetch tree and segment entities in parallel; tree is cached request-scoped
-    // so otherLocales (if also requested) shares the same fetch.
-    const treePromise =
-      ctx.storage.categoryTree != null
-        ? Promise.resolve(ctx.storage.categoryTree)
-        : commerce.catalog.category.tree(10)
-
-    const [entities, tree] = await Promise.all([
-      Promise.all(segmentSlugs.map((s) => collectionLoader.load(s))),
-      treePromise,
-    ])
-
-    ctx.storage.categoryTree ??= tree
+    const entities = await Promise.all(
+      segmentSlugs.map((s) => collectionLoader.load(s))
+    )
 
     return {
       selectedFacets: entities.map((entity, index) => ({
         key: `category-${index + 1}`,
-        value: findCanonicalSlug(tree, entity.id) ?? entity.linkId,
+        value:
+          (defaultLocale && entity.availableLinkIds?.[defaultLocale]) ||
+          entity.linkId,
       })),
     }
   },
@@ -191,12 +142,11 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
 
     const {
       loaders: { collectionLoader },
-      clients: { commerce },
     } = ctx
 
     // Build per-level slug paths: ["vestuario", "vestuario/camisetas"].
     // The collectionLoader DataLoader cache means any segment already fetched
-    // by breadcrumbList costs nothing here.
+    // by breadcrumbList or meta costs nothing here.
     const segmentSlugs = segments.map((_, i) =>
       segments.slice(0, i + 1).join('/')
     )
@@ -207,20 +157,11 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
       entities = await Promise.all(
         segmentSlugs.map((s) => collectionLoader.load(s))
       )
-    } catch {
+    } catch (err) {
+      console.warn('[otherLocales] failed to load collection entities:', err)
+
       return null
     }
-
-    const defaultLocale = (ctx.discoveryConfig as any)?.localization
-      ?.defaultLocale
-
-    // For category entities, the by-linkid API echoes the queried slug in
-    // entity.linkId rather than the canonical default-locale slug. Use the
-    // category tree (URL field) to resolve the canonical slug for the
-    // defaultLocale instead.
-    const tree = isCategory(root)
-      ? await commerce.catalog.category.tree(10)
-      : null
 
     return configuredLocales
       .map((configuredLocale) => {
@@ -229,19 +170,15 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
           return { locale: configuredLocale, slug }
         }
 
-        // Build the full path by joining each segment's localized linkId.
-        // If any segment has no availableLinkIds entry for this locale, omit it
+        // Build the full path by joining each segment's localized linkId from
+        // availableLinkIds. For the default locale, the canonical slug is also
+        // present in availableLinkIds.
+        // If any segment is missing an entry for this locale, omit the whole URL
         // to keep the hreflang cluster symmetric.
         const parts: string[] = []
 
         for (const entity of entities) {
-          const linkId =
-            entity.availableLinkIds?.[configuredLocale] ??
-            (configuredLocale === defaultLocale &&
-            tree !== null &&
-            isCategory(entity)
-              ? (findCanonicalSlug(tree, entity.id) ?? undefined)
-              : undefined)
+          const linkId = entity.availableLinkIds?.[configuredLocale]
 
           if (!linkId) return null
 

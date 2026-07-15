@@ -37,10 +37,6 @@ export interface GraphqlContext {
       string,
       import('./clients/catalog').LocalizedProductEntry
     >
-    /** Request-scoped cache for the full category tree (depth 10). Shared between meta and otherLocales resolvers. */
-    categoryTree?: import(
-      './clients/commerce/types/CategoryTree'
-    ).CategoryTree[]
   }
   headers: Record<string, string>
   account: string
