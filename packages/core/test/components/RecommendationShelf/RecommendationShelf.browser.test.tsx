@@ -47,27 +47,6 @@ vi.mock(
   })
 )
 
-// Keep the real store config (the cart SDK reads `storeConfig.cart` at module
-// init) and only override the opt-in flag, which we toggle per test.
-const recommendationsFlag = vi.hoisted(() => ({ enabled: true }))
-vi.mock('discovery.config', async (original) => {
-  const actual = (await original()) as { default?: Record<string, unknown> }
-  const base = (actual.default ?? actual) as Record<string, unknown>
-  const experimental = (base.experimental ?? {}) as Record<string, unknown>
-
-  return {
-    default: {
-      ...base,
-      experimental: {
-        ...experimental,
-        get enableRecommendations() {
-          return recommendationsFlag.enabled
-        },
-      },
-    },
-  }
-})
-
 import { RecommendationShelf } from 'src/components/sections/RecommendationShelf/RecommendationShelf'
 
 const CAMPAIGN_VRN = 'vrn:recommendations:acc:rec-top-items-v2:campaign-1'
@@ -91,7 +70,6 @@ beforeEach(() => {
     loading: false,
   })
   useRecommendationUserId.mockReturnValue('user-1')
-  recommendationsFlag.enabled = true
 })
 
 afterEach(() => {
@@ -215,21 +193,5 @@ describe('RecommendationShelf', () => {
     )
 
     expect(getByTestId('skeleton').getAttribute('data-loading')).toBe('true')
-  })
-
-  it('skips the fetch when recommendations are disabled', async () => {
-    recommendationsFlag.enabled = false
-    useRecommendations.mockReturnValue({
-      data: undefined,
-      isLoading: false,
-      error: null,
-    })
-
-    render(<RecommendationShelf campaignVrn={CROSS_SELL_VRN} />)
-
-    await waitFor(() => {
-      const lastArgs = useRecommendations.mock.calls.at(-1)?.[0]
-      expect(lastArgs).toBeNull()
-    })
   })
 })

@@ -3341,5 +3341,15 @@
       "type": "object",
       "properties": {}
     }
+  },
+  {
+    "name": "StartRecommendationSession",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Start Recommendation Session",
+      "description": "Starts the VTEX Recommendations personalization session once per browser session. Add this section once under Global Sections to enable Recommendations for the store. Required for Recommendation Shelf and other personalized recommendation experiences.",
+      "type": "object",
+      "properties": {}
+    }
   }
 ]

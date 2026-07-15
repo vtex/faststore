@@ -115,6 +115,9 @@
             "$ref": "#/components/ShoppingAssistant"
           },
           {
+            "$ref": "#/components/StartRecommendationSession"
+          },
+          {
             "$ref": "#/components/RecommendationShelf"
           }
         ]
@@ -4422,6 +4425,19 @@
       "$componentTitle": "Shopping Assistant",
       "title": "Shopping Assistant",
       "description": "To enable Shopping Assistant, make sure you have finished the setup at Agentic CX > Dashboard.",
+      "type": "object",
+      "properties": {},
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "StartRecommendationSession": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "StartRecommendationSession",
+      "$componentTitle": "Start Recommendation Session",
+      "title": "Start Recommendation Session",
+      "description": "Starts the VTEX Recommendations personalization session once per browser session. Add this section once under Global Sections to enable Recommendations for the store. Required for Recommendation Shelf and other personalized recommendation experiences.",
       "type": "object",
       "properties": {},
       "readOnly": false,

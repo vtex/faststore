@@ -45,7 +45,7 @@ export type RecommendationShelfProps<
   /**
    * Custom card component rendered for each recommended product. Defaults to the
    * core `ProductCard`. This is a code-level override and is not exposed through
-   * the CMS schema (`cms_component__RecommendationShelf.jsonc`).
+   * the CMS schema (`cms_component__recommendationshelf.jsonc`).
    */
   readonly ProductCard?: ComponentType<TCardProps>
   /**

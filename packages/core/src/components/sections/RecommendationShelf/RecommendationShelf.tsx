@@ -4,8 +4,6 @@ import { usePDP } from '@faststore/core'
 import { ProductShelf, Carousel } from '@faststore/ui'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
-import storeConfig from 'discovery.config'
-
 import DefaultProductCard, {
   type ProductCardProps,
 } from 'src/components/product/ProductCard'
@@ -120,14 +118,10 @@ export function RecommendationShelf<
     return pdpProduct ? [pdpProduct] : []
   }, [itemsContext, cartItems, productDetailPage])
 
-  // Gate the whole feature behind the opt-in flag: when Recommendations is
-  // disabled the shelf never requests recommendations (nor renders).
-  const recommendationArgs = storeConfig.experimental.enableRecommendations
-    ? getRecommendationArguments(campaignVrn, {
-        userId,
-        contextProducts,
-      })
-    : null
+  const recommendationArgs = getRecommendationArguments(campaignVrn, {
+    userId,
+    contextProducts,
+  })
 
   const { data, isLoading, error } = useRecommendations(recommendationArgs)
 

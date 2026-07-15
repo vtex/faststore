@@ -18,17 +18,11 @@ vi.mock('src/sdk/graphql/useLazyQuery', () => ({
 const getCookie = vi.hoisted(() => vi.fn())
 vi.mock('src/utils/getCookie', () => ({ getCookie }))
 
-const storeConfigMock = vi.hoisted(() => ({
-  experimental: { enableRecommendations: true },
-}))
-vi.mock('discovery.config', () => ({ default: storeConfigMock }))
-
 import { useStartRecommendationSession } from 'src/sdk/analytics/hooks/useStartRecommendationSession'
 
 beforeEach(() => {
   useLazyQueryMock.mockReturnValue([runStartRecommendationSession, {}])
   runStartRecommendationSession.mockResolvedValue(true)
-  storeConfigMock.experimental.enableRecommendations = true
 })
 
 afterEach(() => {
@@ -53,17 +47,6 @@ describe('useStartRecommendationSession', () => {
 
     await waitFor(() => {
       expect(runStartRecommendationSession).toHaveBeenCalled()
-    })
-  })
-
-  it('does not start a session when recommendations are disabled', async () => {
-    storeConfigMock.experimental.enableRecommendations = false
-    getCookie.mockReturnValue(undefined)
-
-    renderHook(() => useStartRecommendationSession())
-
-    await waitFor(() => {
-      expect(runStartRecommendationSession).not.toHaveBeenCalled()
     })
   })
 })

@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 
 import { gql } from '@faststore/core/api'
 
-import storeConfig from 'discovery.config'
 import { useLazyQuery } from 'src/sdk/graphql/useLazyQuery'
 import { getCookie } from 'src/utils/getCookie'
 import { retry } from 'src/utils/retry'
@@ -24,8 +23,9 @@ type StartRecommendationSessionVariables = Record<string, never>
  * Starts the anonymous recommendation/personalization session once per browser
  * session.
  *
- * Mounted globally from `Layout` so it runs on every page, regardless of
- * whether a recommendation section is present.
+ * Mounted from the CMS `StartRecommendationSession` Global Section so merchants
+ * can opt into Recommendations without changing store code. Add that section
+ * once under Global Sections.
  *
  * The product view is no longer reported through a mutation here: the PDP now
  * exposes the product data as `<meta property="product:*">` tags, which the
@@ -33,9 +33,6 @@ type StartRecommendationSessionVariables = Record<string, never>
  *
  * All work runs client-side in effects (after hydration), so it doesn't affect
  * SSR/TTFB or Lighthouse render metrics.
- *
- * Gated behind the `experimental.enableRecommendations` flag: stores that don't
- * opt into Recommendations never start a session nor hit the Recommendations API.
  */
 export function useStartRecommendationSession() {
   const [runStartRecommendationSession] = useLazyQuery<
@@ -50,14 +47,9 @@ export function useStartRecommendationSession() {
   )
 
   useEffect(() => {
-    if (!storeConfig.experimental.enableRecommendations) {
-      return
-    }
-
     const startRecommendationSessionCookie = getCookie(
       VTEX_REC_USER_START_SESSION
     )
-
     if (startRecommendationSessionCookie) {
       return
     }
