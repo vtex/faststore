@@ -14,7 +14,6 @@ import {
 import {
   CollectionDesksQuery,
   byLinkIdCategoryDesksFetch,
-  catalogCategory10Fetch,
 } from '../mocks/CollectionQuery'
 import { ProductByIdQuery, pdpFetch } from '../mocks/ProductQuery'
 import {
@@ -107,7 +106,7 @@ beforeEach(() => {
 
 test('`collection` query', async () => {
   const run = await createRunner()
-  const fetchAPICalls = [byLinkIdCategoryDesksFetch, catalogCategory10Fetch]
+  const fetchAPICalls = [byLinkIdCategoryDesksFetch]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -115,7 +114,7 @@ test('`collection` query', async () => {
 
   const response = await run(CollectionDesksQuery)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(2)
+  expect(mockedFetch).toHaveBeenCalledTimes(1)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
