@@ -56,19 +56,16 @@ export const getCollectionLoader = (_: Options, clients: Clients) => {
           // pagetype API was not, so skipping this would be a regression.
           const normalizedSlug = slug.toLowerCase()
 
-          // For multi-segment slugs (e.g. "vestuario/camisetas") the entity type is
-          // determined by the last segment — the leaf category owns the page.
-          // The full slug is injected into the result for meta.selectedFacets and
-          // breadcrumb URL construction.
-          const lastSegment = normalizedSlug.split('/').at(-1)!
-
           // Step 1: category
+          // Pass the full path so the API validates each segment and returns only
+          // the unambiguous leaf category. E.g. "vestuario/camisetas" resolves to
+          // the "camisetas" that is a child of "vestuario", not any other category
+          // that happens to share the linkId "camisetas".
+          // The full slug is also injected into the result for meta.selectedFacets
+          // and breadcrumb URL construction.
           const categories =
-            await clients.commerce.catalog.byLinkId.category(lastSegment)
+            await clients.commerce.catalog.byLinkId.category(normalizedSlug)
           if (categories !== null && categories.length > 0) {
-            // When multiple categories share the same linkId at different tree levels
-            // (e.g. "bolas" under both "esportes" and "infantil"), fatherCategoryId-based
-            // disambiguation can be added here in a follow-up. For now, take the first match.
             return {
               ...categories[0],
               entityType: 'category' as const,

@@ -186,7 +186,7 @@ describe('getCollectionLoader', () => {
   })
 
   describe('multi-segment slugs', () => {
-    it('uses only the last path segment when querying the category API', async () => {
+    it('passes the full path to the category API for unambiguous resolution', async () => {
       mockCategory.mockResolvedValueOnce([
         makeCategory({
           id: 3,
@@ -198,8 +198,9 @@ describe('getCollectionLoader', () => {
 
       await makeLoader().load('apparel/shirts')
 
-      // Only "shirts" should be sent to the by-linkid endpoint, not the full path
-      expect(mockCategory).toHaveBeenCalledWith('shirts')
+      // The full path must be sent so the API can validate each segment and
+      // return only the category that is a direct child of "apparel".
+      expect(mockCategory).toHaveBeenCalledWith('apparel/shirts')
     })
   })
 })
