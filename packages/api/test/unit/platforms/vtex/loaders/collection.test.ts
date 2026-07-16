@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import type { GraphqlContext } from '../../../../../src/platforms/vtex'
 import { NotFoundError } from '../../../../../src/platforms/errors'
 import type { Clients } from '../../../../../src/platforms/vtex/clients'
 import type {
@@ -75,8 +76,17 @@ function makeClients(): Clients {
   } as unknown as Clients
 }
 
-function makeLoader() {
-  return getCollectionLoader({} as Options, makeClients())
+/** Minimal context stub. Localization is off by default (no discoveryConfig). */
+function makeCtx(overrides: Partial<GraphqlContext> = {}): GraphqlContext {
+  return {
+    storage: { locale: 'en-US' },
+    discoveryConfig: undefined,
+    ...overrides,
+  } as unknown as GraphqlContext
+}
+
+function makeLoader(ctx: GraphqlContext = makeCtx()) {
+  return getCollectionLoader({} as Options, makeClients(), ctx)
 }
 
 // ─── Tests ────────────────────────────────────────────────────────────────────
@@ -144,7 +154,10 @@ describe('getCollectionLoader', () => {
 
       await makeLoader().load('Computer---Software')
 
-      expect(mockCategory).toHaveBeenCalledWith('computer---software')
+      expect(mockCategory).toHaveBeenCalledWith(
+        'computer---software',
+        undefined
+      )
     })
 
     it('preserves the full slug (lowercased) on the returned category root', async () => {
@@ -177,7 +190,30 @@ describe('getCollectionLoader', () => {
 
       // The full path must be sent so the API can validate each segment and
       // return only the category that is a direct child of "apparel".
-      expect(mockCategory).toHaveBeenCalledWith('apparel/shirts')
+      expect(mockCategory).toHaveBeenCalledWith('apparel/shirts', undefined)
+    })
+  })
+
+  describe('locale forwarding', () => {
+    it('forwards the active locale to by-linkid when localization is enabled', async () => {
+      mockCategory.mockResolvedValueOnce(makeCategory({ linkId: 'vestuario' }))
+
+      const ctx = makeCtx({
+        storage: { locale: 'pt-BR' } as GraphqlContext['storage'],
+        discoveryConfig: { localization: { enabled: true } },
+      })
+
+      await makeLoader(ctx).load('vestuario')
+
+      expect(mockCategory).toHaveBeenCalledWith('vestuario', 'pt-BR')
+    })
+
+    it('passes undefined locale when localization is disabled', async () => {
+      mockCategory.mockResolvedValueOnce(makeCategory({ linkId: 'apparel' }))
+
+      await makeLoader().load('apparel')
+
+      expect(mockCategory).toHaveBeenCalledWith('apparel', undefined)
     })
   })
 })

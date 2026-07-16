@@ -383,4 +383,33 @@ describe('Catalog byLinkId', () => {
       ).rejects.toThrow('Timeout')
     })
   })
+
+  describe('Accept-Language header', () => {
+    it('forwards the given locale for category/brand/collection', async () => {
+      const { commerce } = clients.getClients(apiOptions, context)
+
+      fetchAPIMocked.mockResolvedValue(null)
+
+      await commerce.catalog.byLinkId.category('apparel', 'pt-BR')
+      await commerce.catalog.byLinkId.brand('brand', 'pt-BR')
+      await commerce.catalog.byLinkId.collection('summer-sale', 'pt-BR')
+
+      for (const call of fetchAPIMocked.mock.calls) {
+        const [, init] = call
+        expect(init?.headers?.['Accept-Language']).toBe('pt-BR')
+      }
+    })
+
+    it('sends no init (no Accept-Language) when no locale is provided', async () => {
+      const { commerce } = clients.getClients(apiOptions, context)
+
+      fetchAPIMocked.mockResolvedValue(null)
+
+      await commerce.catalog.byLinkId.category('apparel')
+
+      const [, init] = fetchAPIMocked.mock.calls[0]
+      // No init object at all → the endpoint falls back to the default language.
+      expect(init).toBeUndefined()
+    })
+  })
 })

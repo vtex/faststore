@@ -1,6 +1,7 @@
 import DataLoader from 'dataloader'
 import pLimit from 'p-limit'
 
+import type { GraphqlContext } from '..'
 import { NotFoundError } from '../../errors'
 import type { Clients } from '../clients'
 import type {
@@ -8,6 +9,7 @@ import type {
   ByLinkIdCategoryResponse,
   ByLinkIdCollectionResponse,
 } from '../clients/commerce/types/ByLinkId'
+import { getCatalogLocale } from '../utils/localization'
 
 const CONCURRENT_REQUESTS_MAX = 20
 
@@ -43,10 +45,19 @@ export const isBrand = (root: Root): root is ByLinkIdBrandRoot =>
 export const isCollection = (root: Root): root is ByLinkIdCollectionRoot =>
   root.entityType === 'collection'
 
-export const getCollectionLoader = (_: Options, clients: Clients) => {
+export const getCollectionLoader = (
+  _: Options,
+  clients: Clients,
+  ctx: GraphqlContext
+) => {
   const limit = pLimit(CONCURRENT_REQUESTS_MAX)
 
   const loader = async (slugs: readonly string[]): Promise<Root[]> => {
+    // Resolve the locale to forward to the by-linkid endpoints at
+    // request time. `undefined` when localization is disabled so non-localized
+    // stores keep sending no Accept-Language header.
+    const locale = getCatalogLocale(ctx)
+
     return Promise.all(
       slugs.map((slug: string) =>
         limit(async () => {
@@ -63,8 +74,10 @@ export const getCollectionLoader = (_: Options, clients: Clients) => {
           // that happens to share the linkId "camisetas".
           // The full slug is also injected into the result for meta.selectedFacets
           // and breadcrumb URL construction.
-          const category =
-            await clients.commerce.catalog.byLinkId.category(normalizedSlug)
+          const category = await clients.commerce.catalog.byLinkId.category(
+            normalizedSlug,
+            locale
+          )
           if (category) {
             return {
               ...category,
@@ -74,15 +87,19 @@ export const getCollectionLoader = (_: Options, clients: Clients) => {
           }
 
           // Step 2: brand (always single-segment)
-          const brand =
-            await clients.commerce.catalog.byLinkId.brand(normalizedSlug)
+          const brand = await clients.commerce.catalog.byLinkId.brand(
+            normalizedSlug,
+            locale
+          )
           if (brand) {
             return { ...brand, entityType: 'brand' as const }
           }
 
           // Step 3: collection cluster (always single-segment)
-          const collection =
-            await clients.commerce.catalog.byLinkId.collection(normalizedSlug)
+          const collection = await clients.commerce.catalog.byLinkId.collection(
+            normalizedSlug,
+            locale
+          )
           if (collection) {
             return { ...collection, entityType: 'collection' as const }
           }

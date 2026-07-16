@@ -73,6 +73,14 @@ const BASE_INIT = {
 const encodeLinkIdPath = (linkId: string): string =>
   linkId.split('/').map(encodeURIComponent).join('/')
 
+/**
+ * Build the fetch init that forwards a locale to a by-linkid endpoint. When no
+ * locale is provided the endpoint falls back to the store's default registered
+ * language (non-localized stores behavior).
+ */
+const byLinkIdInit = (locale?: string): RequestInit | undefined =>
+  locale ? { headers: { 'Accept-Language': locale } } : undefined
+
 export const VtexCommerce = (
   { account, environment, incrementAddress, subDomainPrefix }: Options,
   ctx: GraphqlContext
@@ -92,21 +100,6 @@ export const VtexCommerce = (
     : ''
 
   const forwardedHost = host.replace(selectedPrefix, '')
-
-  // When localization is enabled, forward the active locale so the Catalog
-  // by-linkid. Without the header the endpoint falls back to the store's default registered language,
-  // (exactly the same behavior for non-localized stores).
-  const localizationEnabled =
-    (
-      ctx.discoveryConfig as
-        | { localization?: { enabled?: boolean } }
-        | undefined
-    )?.localization?.enabled === true
-
-  const byLinkIdInit: RequestInit | undefined =
-    localizationEnabled && ctx.storage.locale
-      ? { headers: { 'Accept-Language': ctx.storage.locale } }
-      : undefined
 
   return {
     catalog: {
@@ -143,12 +136,13 @@ export const VtexCommerce = (
         // (or 404 when there is no match). We surface a 404 as `null` so the
         // loader can cascade category → brand → collection.
         category: async (
-          linkId: string
+          linkId: string,
+          locale?: string
         ): Promise<ByLinkIdCategoryResponse | null> => {
           try {
             return await fetchAPI(
               `${base}/api/catalog_system/pub/category/by-linkid/${encodeLinkIdPath(linkId)}`,
-              byLinkIdInit
+              byLinkIdInit(locale)
             )
           } catch (error) {
             if (isNotFoundError(error)) return null
@@ -156,12 +150,13 @@ export const VtexCommerce = (
           }
         },
         brand: async (
-          linkId: string
+          linkId: string,
+          locale?: string
         ): Promise<ByLinkIdBrandResponse | null> => {
           try {
             return await fetchAPI(
               `${base}/api/catalog_system/pub/brand/by-linkid/${encodeURIComponent(linkId)}`,
-              byLinkIdInit
+              byLinkIdInit(locale)
             )
           } catch (error) {
             if (isNotFoundError(error)) return null
@@ -169,12 +164,13 @@ export const VtexCommerce = (
           }
         },
         collection: async (
-          linkId: string
+          linkId: string,
+          locale?: string
         ): Promise<ByLinkIdCollectionResponse | null> => {
           try {
             return await fetchAPI(
               `${base}/api/catalog_system/pub/collection/by-linkid/${encodeURIComponent(linkId)}`,
-              byLinkIdInit
+              byLinkIdInit(locale)
             )
           } catch (error) {
             if (isNotFoundError(error)) return null
