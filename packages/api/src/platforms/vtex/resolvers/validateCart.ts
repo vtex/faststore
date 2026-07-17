@@ -78,6 +78,7 @@ const offerToOrderItemInput = (
     name: attachment.name,
     content: attachment.value,
   })),
+  ...(offer.priceToken ? { priceToken: offer.priceToken } : {}),
 })
 
 const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer[]> =>
@@ -94,7 +95,11 @@ const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer[]> =>
   }, new Map<string, IStoreOffer[]>())
 
 const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
-  const pick = (item: Indexed<IStoreOffer>, index: number) => ({
+  // Omit priceToken: it exists on the browser payload but not on orderForm items.
+  const pick = (
+    { priceToken: _, ...item }: Indexed<IStoreOffer>,
+    index: number
+  ) => ({
     ...item,
     itemOffered: {
       sku: item.itemOffered.sku,
