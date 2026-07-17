@@ -61,10 +61,10 @@ export const getCollectionLoader = (
     return Promise.all(
       slugs.map((slug: string) =>
         limit(async () => {
-          // Normalize to lowercase so that merchants who register linkIds with mixed
-          // casing (allowed by the Catalog multilanguage API) get the same resolution
-          // as lowercase URLs. The by-linkid API is case-sensitive, while the legacy
-          // pagetype API was not, so skipping this would be a regression.
+          // Normalize to lowercase for DataLoader cache-key consistency
+          // (e.g. "Sporting" and "sporting" are the same). The by-linkid API is
+          // case-insensitive by design (it preserves the legacy pagetype behavior).
+          // Accents are significant and are preserved by toLowerCase() (e.g. "vestuário").
           const normalizedSlug = slug.toLowerCase()
 
           // Step 1: category
