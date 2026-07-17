@@ -151,7 +151,25 @@ function Page({
     ? (() => {
         const offer = useOffer({ skuId: product.sku })
         return {
-          client: { product: { offers: offer.offers } },
+          client: {
+            product: {
+              offers: {
+                ...offer.offers,
+                // The client-side offer only refreshes price aggregates, so the
+                // per-offer array (used by the buy button) stays from SSG. Inject
+                // the fresh Pricing Fallback token into the best offer so the
+                // value sent to the cart respects the token's short validity.
+                offers: product.offers.offers.map((offerItem, index) =>
+                  index === 0
+                    ? {
+                        ...offerItem,
+                        priceToken: offer.priceToken ?? offerItem.priceToken,
+                      }
+                    : offerItem
+                ),
+              },
+            },
+          },
           isValidating: offer.isValidating,
         }
       })()
@@ -341,6 +359,7 @@ const query = gql(`
           priceValidUntil
           priceCurrency
           itemCondition
+          priceToken
           seller {
             identifier
           }

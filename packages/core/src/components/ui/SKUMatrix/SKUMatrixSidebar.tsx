@@ -53,7 +53,15 @@ function SKUMatrixSidebar(props: SKUMatrixProps) {
     .map((item) => {
       const {
         offers: {
-          offers: [{ price, priceWithTaxes, listPrice, listPriceWithTaxes }],
+          offers: [
+            {
+              price,
+              priceWithTaxes,
+              listPrice,
+              listPriceWithTaxes,
+              priceToken,
+            },
+          ],
         },
       } = item
 
@@ -64,6 +72,7 @@ function SKUMatrixSidebar(props: SKUMatrixProps) {
         listPrice,
         listPriceWithTaxes,
         seller,
+        priceToken,
         quantity: item.selectedCount,
         itemOffered: {
           sku: item.id,
@@ -131,6 +140,7 @@ export const fragment = gql(`
               itemCondition
               availability
               quantity
+              priceToken
             }
           }
           additionalProperty {
