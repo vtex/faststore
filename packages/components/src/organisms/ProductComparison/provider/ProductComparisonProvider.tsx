@@ -37,6 +37,7 @@ export interface IProductComparison {
       listPriceWithTaxes: number
       priceWithTaxes: number
       quantity: number
+      priceToken?: string | null
       seller: { identifier: string }
     }>
   }
