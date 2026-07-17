@@ -79,6 +79,7 @@ function ProductDetailsSettings({
           listPrice,
           seller,
           listPriceWithTaxes,
+          priceToken,
         },
       ],
     },
@@ -92,6 +93,7 @@ function ProductDetailsSettings({
     listPriceWithTaxes,
     seller,
     quantity,
+    priceToken,
     itemOffered: {
       sku,
       name: variantName,
