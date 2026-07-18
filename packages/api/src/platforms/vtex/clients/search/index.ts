@@ -3,6 +3,7 @@ import pLimit from 'p-limit'
 import type { GraphqlContext } from '../../'
 import { getWithCookie } from '../../utils/cookies'
 import type { SelectedFacet } from '../../utils/facets'
+import { isLocalizationEnabled } from '../../utils/localization'
 import {
   buildIntelligentSearchRequest,
   parseSegmentCookie,
@@ -92,11 +93,7 @@ function getSegmentLocale(ctx: GraphqlContext): string {
   // The cookie can lag after locale navigation, while storage.locale is derived
   // from the trusted selectedFacets locale facet in the same request.
 
-  const isLocalizationEnabled =
-    (ctx.discoveryConfig as { localization?: { enabled?: boolean } })
-      ?.localization?.enabled === true
-
-  return isLocalizationEnabled
+  return isLocalizationEnabled(ctx)
     ? ctx.storage.locale || cultureInfo
     : cultureInfo || ctx.storage.locale || ''
 }

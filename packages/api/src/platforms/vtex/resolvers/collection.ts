@@ -1,4 +1,4 @@
-import type { GraphqlContext, GraphqlResolver } from '..'
+import type { GraphqlResolver } from '..'
 import {
   isBrand,
   isCategory,
@@ -7,20 +7,8 @@ import {
   type ByLinkIdCategoryRoot,
   type ByLinkIdCollectionRoot,
 } from '../loaders/collection'
+import { getLocalizationConfig } from '../utils/localization'
 import { slugify } from '../utils/slugify'
-
-interface LocalizationConfig {
-  enabled?: boolean
-  defaultLocale?: string
-  locales?: Record<string, unknown>
-}
-
-function getLocalizationConfig(ctx: GraphqlContext): LocalizationConfig {
-  return (
-    (ctx.discoveryConfig as { localization?: LocalizationConfig } | undefined)
-      ?.localization ?? {}
-  )
-}
 
 export type Root =
   | ByLinkIdCategoryRoot

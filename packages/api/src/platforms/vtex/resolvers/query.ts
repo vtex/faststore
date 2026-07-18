@@ -45,6 +45,7 @@ import {
   findSlug,
   transformSelectedFacet,
 } from '../utils/facets'
+import { isLocalizationEnabled } from '../utils/localization'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { slugify } from '../utils/slugify'
 import { SORT_MAP } from '../utils/sort'
@@ -154,11 +155,8 @@ export const Query = {
         sku.isVariantOf.linkText &&
         !slug.startsWith(sku.isVariantOf.linkText)
       ) {
-        const isLocalizationEnabled =
-          (ctx.discoveryConfig as any)?.localization?.enabled === true
-
         if (
-          isLocalizationEnabled &&
+          isLocalizationEnabled(ctx) &&
           locale &&
           isValidSkuId(slug.split('-').pop() ?? '') &&
           (await isLocalizedSlugMatch(

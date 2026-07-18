@@ -5,6 +5,11 @@ import type { Attachment } from '../clients/commerce/types/OrderForm'
 import { canonicalFromProduct } from '../utils/canonical'
 import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
+import {
+  getConfiguredLocales,
+  getDefaultLocale,
+  isLocalizationEnabled,
+} from '../utils/localization'
 import { bestOfferFirst } from '../utils/productStock'
 import {
   attachmentToPropertyValue,
@@ -130,11 +135,9 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     const mainTree = categories[mainTreeIndex]
     const splittedCategories = removeTrailingSlashes(mainTree).split('/')
 
-    const isLocalizationEnabled =
-      (ctx.discoveryConfig as any)?.localization?.enabled === true
     const locale = ctx.storage.locale
 
-    if (isLocalizationEnabled && locale) {
+    if (isLocalizationEnabled(ctx) && locale) {
       const entry = await getLocalizedProductEntry(ctx, productId, locale)
 
       if (entry) {
@@ -291,22 +294,16 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
   deliveryPromiseBadges: ({ isVariantOf: { deliveryPromisesBadges } }) =>
     deliveryPromisesBadges,
   otherLocales: async (root, _args, ctx) => {
-    const isLocalizationEnabled =
-      (ctx.discoveryConfig as any)?.localization?.enabled === true
+    if (!isLocalizationEnabled(ctx)) return null
 
-    if (!isLocalizationEnabled) return null
-
-    const configuredLocales = Object.keys(
-      (ctx.discoveryConfig as any)?.localization?.locales ?? {}
-    )
+    const configuredLocales = getConfiguredLocales(ctx)
 
     if (configuredLocales.length === 0) return null
 
     const productId = root.isVariantOf.productId
     const itemId = root.itemId
     const locale = ctx.storage.locale
-    const defaultLocale = (ctx.discoveryConfig as any)?.localization
-      ?.defaultLocale
+    const defaultLocale = getDefaultLocale(ctx)
 
     // availableLinkIds returns localized slug for every locale,
     // we fetch for the current locale (reusing the request-scoped cache shared with the slug and
