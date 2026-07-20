@@ -160,6 +160,16 @@ describe('getCollectionLoader', () => {
       )
     })
 
+    it('dedupes cache entries that only differ by casing', async () => {
+      mockCategory.mockResolvedValueOnce(makeCategory({ linkId: 'sporting' }))
+
+      const loader = makeLoader()
+
+      await Promise.all([loader.load('Sporting'), loader.load('sporting')])
+
+      expect(mockCategory).toHaveBeenCalledTimes(1)
+    })
+
     it('preserves the full slug (lowercased) on the returned category root', async () => {
       mockCategory.mockResolvedValueOnce(
         makeCategory({ id: 2, name: 'T-Shirts', linkId: 'camisetas' })

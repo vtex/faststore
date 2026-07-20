@@ -115,5 +115,9 @@ export const getCollectionLoader = (
   return new DataLoader<string, Root>(loader, {
     // DataLoader is used for caching, not batching
     batch: false,
+    // Normalize casing at the cache-key level so load("Sporting") and
+    // load("sporting") share one entry — the loader itself already
+    // lowercases before calling the API, this just dedupes the cache.
+    cacheKeyFn: (slug) => slug.toLowerCase(),
   })
 }
