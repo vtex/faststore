@@ -227,7 +227,7 @@ export function isPublicFileAllowed(
   )
 }
 
-function copyPublicFiles(basePath: string) {
+export function copyPublicFiles(basePath: string) {
   const { userDir, tmpDir } = withBasePath(basePath)
 
   try {
@@ -235,7 +235,15 @@ function copyPublicFiles(basePath: string) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
         dereference: true,
         overwrite: true,
-        filter: (src) => isPublicFileAllowed(src, statSync(src).isDirectory()),
+        filter: (src) => {
+          try {
+            return isPublicFileAllowed(src, statSync(src).isDirectory())
+          } catch {
+            // Skip entries we can't stat (dangling symlinks, permission
+            // errors) so a single bad file never aborts the whole public/ copy.
+            return false
+          }
+        },
       })
       logger.log(`${chalk.green('success')} - Public files copied`)
     }

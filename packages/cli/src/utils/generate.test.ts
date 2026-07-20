@@ -1,7 +1,11 @@
-import { describe, expect, it } from 'vitest'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import {
   PUBLIC_FILES_ALLOWED_EXTENSIONS,
   buildFaststorePackageJson,
+  copyPublicFiles,
   isPublicFileAllowed,
 } from './generate'
 
@@ -170,5 +174,53 @@ describe('isPublicFileAllowed', () => {
     for (const extension of PUBLIC_FILES_ALLOWED_EXTENSIONS) {
       expect(extension.startsWith('.')).toBe(true)
     }
+  })
+})
+
+describe('copyPublicFiles', () => {
+  let basePath: string
+
+  const publicDir = () => path.join(basePath, 'public')
+  const buildDir = () => path.join(basePath, '.faststore', 'public')
+
+  beforeEach(() => {
+    basePath = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-public-'))
+    fs.mkdirSync(path.join(publicDir(), 'fonts'), { recursive: true })
+  })
+
+  afterEach(() => {
+    fs.rmSync(basePath, { recursive: true, force: true })
+  })
+
+  it('copies allowed files, including fonts in nested folders, and skips the rest', () => {
+    fs.writeFileSync(path.join(publicDir(), 'inter.woff2'), 'font')
+    fs.writeFileSync(path.join(publicDir(), 'readme.md'), 'nope')
+    fs.writeFileSync(path.join(publicDir(), 'fonts', 'bold.woff'), 'font')
+    fs.writeFileSync(path.join(publicDir(), 'fonts', 'notes.ts'), 'nope')
+
+    copyPublicFiles(basePath)
+
+    expect(fs.existsSync(path.join(buildDir(), 'inter.woff2'))).toBe(true)
+    expect(fs.existsSync(path.join(buildDir(), 'fonts', 'bold.woff'))).toBe(
+      true
+    )
+    expect(fs.existsSync(path.join(buildDir(), 'readme.md'))).toBe(false)
+    expect(fs.existsSync(path.join(buildDir(), 'fonts', 'notes.ts'))).toBe(
+      false
+    )
+  })
+
+  it('does not abort the whole copy when a single entry cannot be stat-ed', () => {
+    fs.writeFileSync(path.join(publicDir(), 'inter.woff2'), 'font')
+    // Dangling symlink: statSync (with dereference) throws for this entry.
+    fs.symlinkSync(
+      path.join(publicDir(), 'does-not-exist'),
+      path.join(publicDir(), 'broken.woff2')
+    )
+
+    expect(() => copyPublicFiles(basePath)).not.toThrow()
+
+    expect(fs.existsSync(path.join(buildDir(), 'inter.woff2'))).toBe(true)
+    expect(fs.existsSync(path.join(buildDir(), 'broken.woff2'))).toBe(false)
   })
 })
