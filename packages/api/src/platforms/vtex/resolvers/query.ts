@@ -23,7 +23,6 @@ import {
   isForbiddenError,
   isNotFoundError,
 } from '../../errors'
-import type { Clients } from '../clients'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
@@ -45,7 +44,11 @@ import {
   findSlug,
   transformSelectedFacet,
 } from '../utils/facets'
-import { isLocalizationEnabled } from '../utils/localization'
+import {
+  getCatalogLocale,
+  isConfiguredLocale,
+  isLocalizationEnabled,
+} from '../utils/localization'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { slugify } from '../utils/slugify'
 import { SORT_MAP } from '../utils/sort'
@@ -53,6 +56,7 @@ import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
 import { getOrderEntryOperation } from './getOrderEntryOperation'
 import { getOrderFormItems } from './getOrderFormItems'
+import { getLocalizedProductEntry } from './product'
 
 /**
  * Validates that a slug mismatch between IS linkText and the requested slug is
@@ -65,33 +69,14 @@ import { getOrderFormItems } from './getOrderFormItems'
  */
 async function isLocalizedSlugMatch(
   ctx: GraphqlContext,
-  catalog: Clients['catalog'],
   slug: string,
   productGroupID: string,
   locale: string
 ): Promise<boolean> {
   const slugPrefix = slug.slice(0, slug.lastIndexOf('-'))
-  const cacheKey = `${productGroupID}:${locale}`
+  const entry = await getLocalizedProductEntry(ctx, productGroupID, locale)
 
-  try {
-    let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
-
-    if (!entry) {
-      const result = await catalog.getLocalizedProduct(productGroupID, locale)
-      entry = {
-        linkId: result.linkId,
-        categories: result.categories ?? [],
-        availableLinkIds: result.availableLinkIds ?? {},
-      }
-      ctx.storage.productTranslationsCache ??= new Map()
-      ctx.storage.productTranslationsCache.set(cacheKey, entry)
-    }
-
-    return entry.linkId === slugPrefix
-  } catch {
-    // Catalog Dataplane API unavailable — fall through to error
-    return false
-  }
+  return entry?.linkId === slugPrefix
 }
 
 const INVALID_SKU_ID_ERROR = 'Invalid SkuId'
@@ -126,7 +111,7 @@ export const Query = {
 
     const {
       loaders: { skuLoader },
-      clients: { commerce, search, catalog },
+      clients: { commerce, search },
     } = ctx
 
     try {
@@ -161,7 +146,6 @@ export const Query = {
           isValidSkuId(slug.split('-').pop() ?? '') &&
           (await isLocalizedSlugMatch(
             ctx,
-            catalog,
             slug,
             sku.isVariantOf.productId,
             locale
@@ -212,7 +196,11 @@ export const Query = {
     { slug, locale }: QueryCollectionArgs,
     ctx: GraphqlContext
   ) => {
-    if (locale) {
+    // Validate client-supplied locale against the configured locales before
+    // propagating it to downstream platform APIs (Search, Catalog, OrderForm).
+    // Unknown values are ignored so the request falls back to the store default
+    // instead of forwarding arbitrary input.
+    if (locale && isConfiguredLocale(ctx, locale)) {
       mutateLocaleContext(ctx, locale)
     }
 
@@ -220,7 +208,13 @@ export const Query = {
       loaders: { collectionLoader },
     } = ctx
 
-    return collectionLoader.load(slug)
+    // Pass locale on the load key (captured now) so Accept-Language and the
+    // DataLoader cache entry cannot race on a later mutateLocaleContext from
+    // a sibling aliased collection field in the same request.
+    return collectionLoader.load({
+      slug,
+      locale: getCatalogLocale(ctx),
+    })
   },
   search: async (
     _: unknown,

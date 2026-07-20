@@ -1,7 +1,6 @@
 import DataLoader from 'dataloader'
 import pLimit from 'p-limit'
 
-import type { GraphqlContext } from '..'
 import { NotFoundError } from '../../errors'
 import type { Clients } from '../clients'
 import type {
@@ -9,9 +8,20 @@ import type {
   ByLinkIdCategoryResponse,
   ByLinkIdCollectionResponse,
 } from '../clients/commerce/types/ByLinkId'
-import { getCatalogLocale } from '../utils/localization'
 
 const CONCURRENT_REQUESTS_MAX = 20
+
+/**
+ * Load key for the collection DataLoader. `locale` is captured at the call
+ * site (not re-read from mutable `ctx.storage`) so concurrent aliased
+ * `collection` fields with different locales cannot share a cache entry or
+ * race on Accept-Language.
+ */
+export type CollectionLoadKey = {
+  slug: string
+  /** Catalog Accept-Language; `undefined` when localization is disabled. */
+  locale?: string
+}
 
 export type ByLinkIdCategoryRoot = ByLinkIdCategoryResponse & {
   entityType: 'category'
@@ -45,27 +55,21 @@ export const isBrand = (root: Root): root is ByLinkIdBrandRoot =>
 export const isCollection = (root: Root): root is ByLinkIdCollectionRoot =>
   root.entityType === 'collection'
 
-export const getCollectionLoader = (
-  _: Options,
-  clients: Clients,
-  ctx: GraphqlContext
-) => {
+export const getCollectionLoader = (_: Options, clients: Clients) => {
   const limit = pLimit(CONCURRENT_REQUESTS_MAX)
 
-  const loader = async (slugs: readonly string[]): Promise<Root[]> => {
-    // Resolve the locale to forward to the by-linkid endpoints at
-    // request time. `undefined` when localization is disabled so non-localized
-    // stores keep sending no Accept-Language header.
-    const locale = getCatalogLocale(ctx)
-
-    return Promise.all(
-      slugs.map((slug: string) =>
+  const loader = async (keys: readonly CollectionLoadKey[]): Promise<Root[]> =>
+    Promise.all(
+      keys.map((key) =>
         limit(async () => {
           // Normalize to lowercase for DataLoader cache-key consistency
           // (e.g. "Sporting" and "sporting" are the same). The by-linkid API is
           // case-insensitive by design (it preserves the legacy pagetype behavior).
           // Accents are significant and are preserved by toLowerCase() (e.g. "vestuário").
-          const normalizedSlug = slug.toLowerCase()
+          const normalizedSlug = key.slug.toLowerCase()
+          // Use the locale captured on the load key — do not re-read
+          // ctx.storage.locale here (it can change mid-request).
+          const locale = key.locale
 
           // Step 1: category
           // Pass the full path so the API validates each segment and returns only
@@ -105,19 +109,17 @@ export const getCollectionLoader = (
           }
 
           throw new NotFoundError(
-            `No catalog entity found for slug: ${slug}. Cascade exhausted (category → brand → collection).`
+            `No catalog entity found for slug: ${key.slug}. Cascade exhausted (category → brand → collection).`
           )
         })
       )
     )
-  }
 
-  return new DataLoader<string, Root>(loader, {
+  return new DataLoader<CollectionLoadKey, Root, string>(loader, {
     // DataLoader is used for caching, not batching
     batch: false,
-    // Normalize casing at the cache-key level so load("Sporting") and
-    // load("sporting") share one entry — the loader itself already
-    // lowercases before calling the API, this just dedupes the cache.
-    cacheKeyFn: (slug) => slug.toLowerCase(),
+    // Dedup by lowercased slug + captured locale so casing variants share an
+    // entry while same-slug / different-locale loads stay isolated.
+    cacheKeyFn: ({ slug, locale }) => `${slug.toLowerCase()}::${locale ?? ''}`,
   })
 }

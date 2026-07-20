@@ -32,10 +32,15 @@ export interface GraphqlContext {
     flags: FeatureFlags
     searchArgs?: Omit<SearchArgs, 'type'>
     cookies: Map<string, Record<string, string>>
-    /** Cached localized product entries keyed by "productId:locale". Shared between slug validation, otherLocales, and breadcrumb. */
+    /**
+     * Cached in-flight localized product lookups keyed by "productId:locale".
+     * Stores the promise (not just the resolved value) so concurrent sibling
+     * resolvers (slug validation, otherLocales, breadcrumb) dedupe to a single
+     * Catalog Dataplane request within the same request.
+     */
     productTranslationsCache?: Map<
       string,
-      import('./clients/catalog').LocalizedProductEntry
+      Promise<import('./clients/catalog').LocalizedProductEntry | null>
     >
   }
   headers: Record<string, string>

@@ -10,7 +10,7 @@ export const getLoaders = (options: Options, ctx: GraphqlContext) => {
   const { clients } = ctx
   const skuLoader = getSkuLoader(options, clients)
   const simulationLoader = getSimulationLoader(options, clients)
-  const collectionLoader = getCollectionLoader(options, clients, ctx)
+  const collectionLoader = getCollectionLoader(options, clients)
   const salesChannelLoader = getSalesChannelLoader(options, clients)
 
   return {

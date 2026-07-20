@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import type { GraphqlContext } from '../../../../../src/platforms/vtex'
 import { NotFoundError } from '../../../../../src/platforms/errors'
 import type { Clients } from '../../../../../src/platforms/vtex/clients'
 import type {
@@ -76,17 +75,8 @@ function makeClients(): Clients {
   } as unknown as Clients
 }
 
-/** Minimal context stub. Localization is off by default (no discoveryConfig). */
-function makeCtx(overrides: Partial<GraphqlContext> = {}): GraphqlContext {
-  return {
-    storage: { locale: 'en-US' },
-    discoveryConfig: undefined,
-    ...overrides,
-  } as unknown as GraphqlContext
-}
-
-function makeLoader(ctx: GraphqlContext = makeCtx()) {
-  return getCollectionLoader({} as Options, makeClients(), ctx)
+function makeLoader() {
+  return getCollectionLoader({} as Options, makeClients())
 }
 
 // ─── Tests ────────────────────────────────────────────────────────────────────
@@ -104,7 +94,7 @@ describe('getCollectionLoader', () => {
         makeCategory({ id: 1, name: 'Apparel', linkId: 'apparel' })
       )
 
-      const result = await makeLoader().load('apparel')
+      const result = await makeLoader().load({ slug: 'apparel' })
 
       expect(result.entityType).toBe('category')
       expect(mockBrand).not.toHaveBeenCalled()
@@ -117,7 +107,7 @@ describe('getCollectionLoader', () => {
         makeBrand({ id: 10, name: 'Adidas', linkId: 'adidas' })
       )
 
-      const result = await makeLoader().load('adidas')
+      const result = await makeLoader().load({ slug: 'adidas' })
 
       expect(result.entityType).toBe('brand')
       expect(mockCollection).not.toHaveBeenCalled()
@@ -130,7 +120,7 @@ describe('getCollectionLoader', () => {
         makeCollection({ id: 42, name: 'Summer Sale', linkId: 'summer-sale' })
       )
 
-      const result = await makeLoader().load('summer-sale')
+      const result = await makeLoader().load({ slug: 'summer-sale' })
 
       expect(result.entityType).toBe('collection')
     })
@@ -140,9 +130,9 @@ describe('getCollectionLoader', () => {
       mockBrand.mockResolvedValueOnce(null)
       mockCollection.mockResolvedValueOnce(null)
 
-      await expect(makeLoader().load('nonexistent')).rejects.toBeInstanceOf(
-        NotFoundError
-      )
+      await expect(
+        makeLoader().load({ slug: 'nonexistent' })
+      ).rejects.toBeInstanceOf(NotFoundError)
     })
   })
 
@@ -152,7 +142,7 @@ describe('getCollectionLoader', () => {
         makeCategory({ linkId: 'computer---software' })
       )
 
-      await makeLoader().load('Computer---Software')
+      await makeLoader().load({ slug: 'Computer---Software' })
 
       expect(mockCategory).toHaveBeenCalledWith(
         'computer---software',
@@ -165,7 +155,10 @@ describe('getCollectionLoader', () => {
 
       const loader = makeLoader()
 
-      await Promise.all([loader.load('Sporting'), loader.load('sporting')])
+      await Promise.all([
+        loader.load({ slug: 'Sporting' }),
+        loader.load({ slug: 'sporting' }),
+      ])
 
       expect(mockCategory).toHaveBeenCalledTimes(1)
     })
@@ -175,7 +168,7 @@ describe('getCollectionLoader', () => {
         makeCategory({ id: 2, name: 'T-Shirts', linkId: 'camisetas' })
       )
 
-      const result = await makeLoader().load('vestuario/Camisetas')
+      const result = await makeLoader().load({ slug: 'vestuario/Camisetas' })
 
       expect(isCategory(result)).toBe(true)
       if (isCategory(result)) {
@@ -196,7 +189,7 @@ describe('getCollectionLoader', () => {
         })
       )
 
-      await makeLoader().load('apparel/shirts')
+      await makeLoader().load({ slug: 'apparel/shirts' })
 
       // The full path must be sent so the API can validate each segment and
       // return only the category that is a direct child of "apparel".
@@ -205,25 +198,42 @@ describe('getCollectionLoader', () => {
   })
 
   describe('locale forwarding', () => {
-    it('forwards the active locale to by-linkid when localization is enabled', async () => {
+    it('forwards the locale from the load key to by-linkid', async () => {
       mockCategory.mockResolvedValueOnce(makeCategory({ linkId: 'vestuario' }))
 
-      const ctx = makeCtx({
-        storage: { locale: 'pt-BR' } as GraphqlContext['storage'],
-        discoveryConfig: { localization: { enabled: true } },
-      })
-
-      await makeLoader(ctx).load('vestuario')
+      await makeLoader().load({ slug: 'vestuario', locale: 'pt-BR' })
 
       expect(mockCategory).toHaveBeenCalledWith('vestuario', 'pt-BR')
     })
 
-    it('passes undefined locale when localization is disabled', async () => {
+    it('passes undefined locale when the load key omits it', async () => {
       mockCategory.mockResolvedValueOnce(makeCategory({ linkId: 'apparel' }))
 
-      await makeLoader().load('apparel')
+      await makeLoader().load({ slug: 'apparel' })
 
       expect(mockCategory).toHaveBeenCalledWith('apparel', undefined)
+    })
+
+    it('does not share cache entries across different locales for the same slug', async () => {
+      mockCategory
+        .mockResolvedValueOnce(
+          makeCategory({ linkId: 'apparel', name: 'Apparel' })
+        )
+        .mockResolvedValueOnce(
+          makeCategory({ linkId: 'vestuario', name: 'Vestuário' })
+        )
+
+      const loader = makeLoader()
+
+      const [en, pt] = await Promise.all([
+        loader.load({ slug: 'apparel', locale: 'en-US' }),
+        loader.load({ slug: 'apparel', locale: 'pt-BR' }),
+      ])
+
+      expect(mockCategory).toHaveBeenCalledTimes(2)
+      expect(mockCategory).toHaveBeenCalledWith('apparel', 'en-US')
+      expect(mockCategory).toHaveBeenCalledWith('apparel', 'pt-BR')
+      expect([en.name, pt.name].sort()).toEqual(['Apparel', 'Vestuário'].sort())
     })
   })
 })

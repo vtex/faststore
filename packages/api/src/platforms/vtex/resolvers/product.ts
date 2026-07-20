@@ -44,37 +44,46 @@ function removeTrailingSlashes(path: string) {
 
 /**
  * Returns a cached-or-fetched localized product entry from the Catalog Dataplane.
- * The entry is stored in `ctx.storage.productTranslationsCache` so it is shared
+ * The promise is stored in `ctx.storage.productTranslationsCache` so it is shared
  * across the `breadcrumbList`, `otherLocales`, and slug-validation resolvers within
  * the same request.
+ *
+ * The in-flight promise (not just the resolved value) is cached so concurrent
+ * sibling resolvers dedupe to a single Catalog Dataplane request instead of each
+ * missing the cache and issuing a duplicate fetch.
  */
-async function getLocalizedProductEntry(
+export async function getLocalizedProductEntry(
   ctx: GraphqlContext,
   productId: string,
   locale: string
 ): Promise<LocalizedProductEntry | null> {
   const cacheKey = `${productId}:${locale}`
-  const cached = ctx.storage.productTranslationsCache?.get(cacheKey)
+  ctx.storage.productTranslationsCache ??= new Map()
+  const cache = ctx.storage.productTranslationsCache
 
+  const cached = cache.get(cacheKey)
   if (cached) return cached
 
-  try {
-    const result = await ctx.clients.catalog.getLocalizedProduct(
-      productId,
-      locale
-    )
-    const entry: LocalizedProductEntry = {
-      linkId: result.linkId,
-      categories: result.categories ?? [],
-      availableLinkIds: result.availableLinkIds ?? {},
-    }
-    ctx.storage.productTranslationsCache ??= new Map()
-    ctx.storage.productTranslationsCache.set(cacheKey, entry)
+  const entry = (async (): Promise<LocalizedProductEntry | null> => {
+    try {
+      const result = await ctx.clients.catalog.getLocalizedProduct(
+        productId,
+        locale
+      )
 
-    return entry
-  } catch {
-    return null
-  }
+      return {
+        linkId: result.linkId,
+        categories: result.categories ?? [],
+        availableLinkIds: result.availableLinkIds ?? {},
+      }
+    } catch {
+      return null
+    }
+  })()
+
+  cache.set(cacheKey, entry)
+
+  return entry
 }
 
 /**

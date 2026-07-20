@@ -7,7 +7,7 @@ import {
   type ByLinkIdCategoryRoot,
   type ByLinkIdCollectionRoot,
 } from '../loaders/collection'
-import { getLocalizationConfig } from '../utils/localization'
+import { getCatalogLocale, getLocalizationConfig } from '../utils/localization'
 import { slugify } from '../utils/slugify'
 
 export type Root =
@@ -70,7 +70,9 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
     } = ctx
 
     const entities = await Promise.all(
-      segmentSlugs.map((s) => collectionLoader.load(s))
+      segmentSlugs.map((s) =>
+        collectionLoader.load({ slug: s, locale: getCatalogLocale(ctx) })
+      )
     )
 
     return {
@@ -100,7 +102,9 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
     )
 
     const collections = await Promise.all(
-      slugs.map((s) => collectionLoader.load(s))
+      slugs.map((s) =>
+        collectionLoader.load({ slug: s, locale: getCatalogLocale(ctx) })
+      )
     )
 
     return {
@@ -143,7 +147,9 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
 
     try {
       entities = await Promise.all(
-        segmentSlugs.map((s) => collectionLoader.load(s))
+        segmentSlugs.map((s) =>
+          collectionLoader.load({ slug: s, locale: getCatalogLocale(ctx) })
+        )
       )
     } catch (err) {
       console.warn('[otherLocales] failed to load collection entities:', err)
