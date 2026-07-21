@@ -431,6 +431,46 @@ type Query {
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
+  Returns the list of Quotes that the authenticated Buyer can view.
+  """
+  listUserQuotes(
+    """
+    Page number (1-based).
+    """
+    page: Int
+    """
+    Number of items per page.
+    """
+    perPage: Int
+    """
+    Filter by quote status values.
+    """
+    status: [String]
+    """
+    Filter quotes created on or after this ISO 8601 date-time.
+    """
+    createdAtFrom: String
+    """
+    Filter quotes created on or before this ISO 8601 date-time.
+    """
+    createdAtTo: String
+    """
+    Filter quotes expiring on or after this ISO 8601 date-time.
+    """
+    expiresAtFrom: String
+    """
+    Filter quotes expiring on or before this ISO 8601 date-time.
+    """
+    expiresAtTo: String
+    """
+    Filter quotes by label (partial match).
+    """
+    label: String
+  ): UserQuoteListResult
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
   Returns information about the current user details.
   """
   userDetails: StoreUserDetails!
@@ -448,6 +488,25 @@ type Query {
   Returns information about the user validation.
   """
   validateUser: ValidateUserData
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Lists the commercial contracts associated with the given Organization Unit,
+  resolved to human-readable corporate names. Governed: only contracts associated
+  with the authenticated buyer's Organization Unit are returned.
+  """
+  availableContracts(
+    """
+    The Organization Unit identifier whose contracts will be listed.
+    """
+    orgUnitId: String!
+  ): [StoreContract!]! @auth @cacheControl(scope: "private", sMaxAge: 0)
+
+  """
+  Returns whether the current authenticated user belongs to a B2B organization unit.
+  """
+  isOrganizationMember: Boolean!
     @auth
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
@@ -470,6 +529,15 @@ type Query {
   Returns the items in an orderForm by its ID.
   """
   orderFormItems(orderFormId: String!): [StoreOrderFormCartItem!]! @auth
+  """
+  Returns personalized product recommendations for a given campaign.
+  """
+  recommendations(
+    campaignVrn: String!
+    userId: String
+    products: [String!]
+  ): RecommendationResponse!
+    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
 }
 
 type ValidateUserData {

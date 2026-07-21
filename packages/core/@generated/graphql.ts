@@ -358,7 +358,7 @@ export type IGeoCoordinates = {
 
 export type IOrderEntryOperation = {
   objectKey: Scalars['String']['input'];
-  orderFormId?: InputMaybe<Scalars['String']['input']>;
+  orderFormId: InputMaybe<Scalars['String']['input']>;
   sessionToken: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -671,6 +671,8 @@ export type Mutation = {
    * Returns an operationId to poll for the operation status.
    */
   startOrderEntryOperation: Maybe<StoreOrderEntryOperationResult>;
+  /** Starts an anonymous personalization session for the current shopper. */
+  startRecommendationSession: Scalars['Boolean']['output'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>;
   /**
@@ -871,10 +873,20 @@ export type Query = {
   allCollections: StoreCollectionConnection;
   /** Returns information about all products. */
   allProducts: StoreProductConnection;
+  /**
+   * Lists the commercial contracts associated with the given Organization Unit,
+   * resolved to human-readable corporate names. Governed: only contracts associated
+   * with the authenticated buyer's Organization Unit are returned.
+   */
+  availableContracts: Array<StoreContract>;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /** Returns whether the current authenticated user belongs to a B2B organization unit. */
+  isOrganizationMember: Scalars['Boolean']['output'];
   /** Returns the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>;
+  /** Returns the list of Quotes that the authenticated Buyer can view. */
+  listUserQuotes: Maybe<UserQuoteListResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
   orderEntryOperation: Maybe<StoreOrderEntryOperationStatus>;
   /** Returns the items in an orderForm by its ID. */
@@ -889,6 +901,8 @@ export type Query = {
   products: Array<StoreProduct>;
   /** Returns information about the profile. */
   profile: Maybe<Profile>;
+  /** Returns personalized product recommendations for a given campaign. */
+  recommendations: RecommendationResponse;
   /** Returns if there's a redirect for a search. */
   redirect: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
@@ -918,6 +932,11 @@ export type QueryAllProductsArgs = {
 };
 
 
+export type QueryAvailableContractsArgs = {
+  orgUnitId: Scalars['String']['input'];
+};
+
+
 export type QueryCollectionArgs = {
   slug: Scalars['String']['input'];
 };
@@ -932,6 +951,18 @@ export type QueryListUserOrdersArgs = {
   perPage: InputMaybe<Scalars['Int']['input']>;
   status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   text: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryListUserQuotesArgs = {
+  createdAtFrom: InputMaybe<Scalars['String']['input']>;
+  createdAtTo: InputMaybe<Scalars['String']['input']>;
+  expiresAtFrom: InputMaybe<Scalars['String']['input']>;
+  expiresAtTo: InputMaybe<Scalars['String']['input']>;
+  label: InputMaybe<Scalars['String']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  perPage: InputMaybe<Scalars['Int']['input']>;
+  status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -970,6 +1001,13 @@ export type QueryProfileArgs = {
 };
 
 
+export type QueryRecommendationsArgs = {
+  campaignVrn: Scalars['String']['input'];
+  products: InputMaybe<Array<Scalars['String']['input']>>;
+  userId: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryRedirectArgs = {
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>;
   term: InputMaybe<Scalars['String']['input']>;
@@ -1003,6 +1041,18 @@ export type QueryShippingArgs = {
 
 export type QueryUserOrderArgs = {
   orderId: Scalars['String']['input'];
+};
+
+export type RecommendationCampaign = {
+  id: Scalars['String']['output'];
+  title: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type RecommendationResponse = {
+  campaign: RecommendationCampaign;
+  correlationId: Scalars['String']['output'];
+  products: Array<StoreProduct>;
 };
 
 export type SkuSpecificationField = {
@@ -1294,6 +1344,16 @@ export type StoreCollectionType =
   | 'Department'
   /** Third level of product categorization. */
   | 'SubCategory';
+
+/** A commercial contract available to a buyer's Organization Unit. */
+export type StoreContract = {
+  /** Human-readable corporate name of the contract (resolved from MasterData). */
+  corporateName: Scalars['String']['output'];
+  /** Contract identifier (the contract/scope ID associated with the Organization Unit). */
+  id: Scalars['ID']['output'];
+  /** Indicates whether this contract is the one currently active in the session. */
+  isActive: Scalars['Boolean']['output'];
+};
 
 /** Currency information. */
 export type StoreCurrency = {
@@ -2560,6 +2620,42 @@ export type UserOrderTransactions = {
   transactionId: Maybe<Scalars['String']['output']>;
 };
 
+/** Pagination metadata for the quotes list. */
+export type UserQuoteListPaging = {
+  /** Current page number (1-based). */
+  currentPage: Scalars['Int']['output'];
+  /** Number of items per page. */
+  perPage: Scalars['Int']['output'];
+  /** Total number of quotes matching the query. */
+  total: Scalars['Int']['output'];
+};
+
+/** Result returned by the listUserQuotes query. */
+export type UserQuoteListResult = {
+  /** Array of quote summaries for the current page. */
+  list: Array<UserQuoteSummary>;
+  /** Pagination information. */
+  paging: UserQuoteListPaging;
+};
+
+/** Summary of a quote returned in list results. */
+export type UserQuoteSummary = {
+  /** Total amount of the quote. */
+  amount: Scalars['Float']['output'];
+  /** ISO 8601 date-time when the quote was created. */
+  createdAt: Scalars['String']['output'];
+  /** Name or email of the user who created the quote. */
+  createdBy: Maybe<Scalars['String']['output']>;
+  /** ISO 8601 date-time when the quote expires. */
+  expiresAt: Scalars['String']['output'];
+  /** Unique identifier of the quote. */
+  id: Scalars['String']['output'];
+  /** Optional label assigned to the quote. */
+  label: Maybe<Scalars['String']['output']>;
+  /** Status of the quote. */
+  status: Scalars['String']['output'];
+};
+
 export type ValidateUserData = {
   /** Indicates if the user is valid. */
   isValid: Scalars['Boolean']['output'];
@@ -2577,6 +2673,15 @@ export type Filter_FacetsFragment =
 ;
 
 export type ProductDetailsFragment_ProductFragment = { sku: string, name: string, gtin: string, description: string, unitMultiplier: number | null, id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> };
+
+export type ClientRecommendationsQueryQueryVariables = Exact<{
+  campaignVrn: Scalars['String']['input'];
+  userId: InputMaybe<Scalars['String']['input']>;
+  products: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+}>;
+
+
+export type ClientRecommendationsQueryQuery = { recommendations: { correlationId: string, products: Array<{ slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null }>, campaign: { id: string, title: string | null, type: string } } };
 
 export type ProductComparisonFragment_ProductFragment = { sku: string, slug: string, name: string, gtin: string, description: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, priceWithTaxes: number, listPrice: number, quantity: number, listPriceWithTaxes: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, skuSpecifications: Array<{ field: { id: string | null, name: string, originalName: string | null }, values: Array<{ name: string, id: string | null, fieldId: string | null, originalName: string | null }> }>, specificationGroups: Array<{ name: string, originalName: string, specifications: Array<{ name: string, originalName: string, values: Array<string> }> }> };
 
@@ -2645,6 +2750,25 @@ export type ServerProfileQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ServerProfileQueryQuery = { accountProfile: { name: string | null, email: string | null, id: string | null } };
 
+export type ServerListQuotesQueryQueryVariables = Exact<{
+  page: InputMaybe<Scalars['Int']['input']>;
+  perPage: InputMaybe<Scalars['Int']['input']>;
+  status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  createdAtFrom: InputMaybe<Scalars['String']['input']>;
+  createdAtTo: InputMaybe<Scalars['String']['input']>;
+  expiresAtFrom: InputMaybe<Scalars['String']['input']>;
+  expiresAtTo: InputMaybe<Scalars['String']['input']>;
+  label: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type ServerListQuotesQueryQuery = { listUserQuotes: { list: Array<{ id: string, status: string, label: string | null, createdAt: string, expiresAt: string, amount: number, createdBy: string | null }>, paging: { total: number, currentPage: number, perPage: number } } | null };
+
+export type ServerQuotesOrganizationMemberQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ServerQuotesOrganizationMemberQueryQuery = { isOrganizationMember: boolean };
+
 export type ServerSecurityQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2654,6 +2778,13 @@ export type ServerUserDetailsQueryQueryVariables = Exact<{ [key: string]: never;
 
 
 export type ServerUserDetailsQueryQuery = { accountProfile: { name: string | null }, userDetails: { username: string | null, name: string | null, email: string | null, phone: string | null, role: Array<string | null> | null, orgUnit: string | null } };
+
+export type AvailableContractsQueryQueryVariables = Exact<{
+  orgUnitId: Scalars['String']['input'];
+}>;
+
+
+export type AvailableContractsQueryQuery = { availableContracts: Array<{ id: string, corporateName: string, isActive: boolean }> };
 
 export type CancelOrderMutationMutationVariables = Exact<{
   data: IUserOrderCancel;
@@ -2673,6 +2804,11 @@ export type ValidateUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ValidateUserQuery = { validateUser: { isValid: boolean } | null };
+
+export type StartRecommendationSessionMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type StartRecommendationSessionMutation = { startRecommendationSession: boolean };
 
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart;
@@ -2714,7 +2850,7 @@ export type OrderEntryOperationQueryQueryVariables = Exact<{
 }>;
 
 
-export type OrderEntryOperationQueryQuery = { orderEntryOperation: { status: string, entityId: string, message: string | null, missingItems: Array<{ itemId: string, itemName: string | null, reason: string }> | null } | null };
+export type OrderEntryOperationQueryQuery = { orderEntryOperation: { status: string, entityId: string | null, message: string | null, missingItems: Array<{ itemId: string, itemName: string | null, reason: string }> | null } | null };
 
 export type UploadFileToOrderEntryMutationMutationVariables = Exact<{
   data: IOrderEntryUpload;
@@ -3361,17 +3497,22 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
   fuzzy
 }
     `, {"fragmentName":"SearchEvent_metadata"}) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>;
+export const ClientRecommendationsQueryDocument = {"__meta__":{"operationName":"ClientRecommendationsQuery","operationHash":"db61ca57203036d24d5e1e2c9e40d6d0906f0056"}} as unknown as TypedDocumentString<ClientRecommendationsQueryQuery, ClientRecommendationsQueryQueryVariables>;
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"4b33c5c07f440dc7489e55619dc2211a13786e72"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
 export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"f03d0963fed159ac4bbe11f90ea09c635a66b68c"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
 export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"672fe0f00b7b710b63fc6573c0a6b2ec54812b8f"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;
+export const ServerListQuotesQueryDocument = {"__meta__":{"operationName":"ServerListQuotesQuery","operationHash":"cce44921361a629c793364adb43319601cc0aa33"}} as unknown as TypedDocumentString<ServerListQuotesQueryQuery, ServerListQuotesQueryQueryVariables>;
+export const ServerQuotesOrganizationMemberQueryDocument = {"__meta__":{"operationName":"ServerQuotesOrganizationMemberQuery","operationHash":"9ba9119f2a361c83af8ecc703cb28f915df10ac8"}} as unknown as TypedDocumentString<ServerQuotesOrganizationMemberQueryQuery, ServerQuotesOrganizationMemberQueryQueryVariables>;
 export const ServerSecurityDocument = {"__meta__":{"operationName":"ServerSecurity","operationHash":"0890ba3456c40a426893b80b698df7a84cfdd6a1"}} as unknown as TypedDocumentString<ServerSecurityQuery, ServerSecurityQueryVariables>;
 export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"ServerUserDetailsQuery","operationHash":"630ec1f47f2710ce3d7895e9131482641f30c837"}} as unknown as TypedDocumentString<ServerUserDetailsQueryQuery, ServerUserDetailsQueryQueryVariables>;
+export const AvailableContractsQueryDocument = {"__meta__":{"operationName":"AvailableContractsQuery","operationHash":"011619bb1be93a21f6530fe4d193dec96a89e88a"}} as unknown as TypedDocumentString<AvailableContractsQueryQuery, AvailableContractsQueryQueryVariables>;
 export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;
 export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operationName":"ProcessOrderAuthorizationMutation","operationHash":"8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d"}} as unknown as TypedDocumentString<ProcessOrderAuthorizationMutationMutation, ProcessOrderAuthorizationMutationMutationVariables>;
 export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
+export const StartRecommendationSessionDocument = {"__meta__":{"operationName":"StartRecommendationSession","operationHash":"1def6438c0cd87b85002411ac7326c221f192583"}} as unknown as TypedDocumentString<StartRecommendationSessionMutation, StartRecommendationSessionMutationVariables>;
 export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"32c15f8888ca34f223def7972b7f19090808435a"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
 export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"ClientPickupPointsQuery","operationHash":"3fa04e88c811fcb5ece7206fd5aa745bdbc143a8"}} as unknown as TypedDocumentString<ClientPickupPointsQueryQuery, ClientPickupPointsQueryQueryVariables>;
 export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"SubscribeToNewsletter","operationHash":"feb7005103a859e2bc8cf2360d568806fd88deba"}} as unknown as TypedDocumentString<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;

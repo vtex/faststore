@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0-dev.2](https://github.com/vtex/faststore/compare/v4.5.0-dev.1...v4.5.0-dev.2) (2026-07-20)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.5.0-dev.1](https://github.com/vtex/faststore/compare/v4.5.0-dev.0...v4.5.0-dev.1) (2026-07-14)
+
+### Bug Fixes
+
+- **api:** add storeCookies option to fetchAPI for recommendations ([0e36d26](https://github.com/vtex/faststore/commit/0e36d269600ad9d219e8899ad58d6f81b18f70cb))
+- **api:** close Recommendation describe block after merge with dev ([1852ee1](https://github.com/vtex/faststore/commit/1852ee1c70602898b482439f247e018d21956a3e))
+- **api:** expose recommendation and personalization operations ([961112a](https://github.com/vtex/faststore/commit/961112a8d2434e9fa961e7b6805850d90165d70f))
+- **api:** use private cache scope for personalized recommendations ([ec92aef](https://github.com/vtex/faststore/commit/ec92aefc06d173b179478e6a94a68651d8c4e7cc))
+
+### Features
+
+- **api, core:** implement server-side validation for recommendations and enable opt-in feature ([060d0a0](https://github.com/vtex/faststore/commit/060d0a0a151faa8494d1ae781f18baad5505b149))
+- **api, core:** return StoreProduct from recommendations for consistent interface ([1ea6afa](https://github.com/vtex/faststore/commit/1ea6afacbc768c1395b3b46e735bac6a0cfed73e))
+- **core:** B2B contract switcher in the account drawer ([#3390](https://github.com/vtex/faststore/issues/3390)) ([380396a](https://github.com/vtex/faststore/commit/380396a7405f7bdb472b1219274d84807c61e153)), closes [#3354](https://github.com/vtex/faststore/issues/3354)
+
+# [4.5.0-dev.0](https://github.com/vtex/faststore/compare/v4.4.1-dev.0...v4.5.0-dev.0) (2026-07-03)
+
+### Features
+
+- quotes list for B2B buyers in My Account ([#3388](https://github.com/vtex/faststore/issues/3388)) ([a6c1ef6](https://github.com/vtex/faststore/commit/a6c1ef6d13abd1f525832ccca9a5c0dc6a4b1a87)), closes [faststore-dx-spec-kit#13](https://github.com/faststore-dx-spec-kit/issues/13)
+
+## [4.4.1-dev.0](https://github.com/vtex/faststore/compare/v4.4.0...v4.4.1-dev.0) (2026-07-02)
+
+**Note:** Version bump only for package @faststore/api
+
 # [4.4.0](https://github.com/vtex/faststore/compare/v4.4.0-dev.6...v4.4.0) (2026-07-02)
 
 **Note:** Version bump only for package @faststore/api

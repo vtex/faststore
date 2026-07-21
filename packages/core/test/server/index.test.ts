@@ -109,12 +109,16 @@ const QUERIES = [
   'productCount',
   'userOrder',
   'listUserOrders',
+  'listUserQuotes',
   'userDetails',
   'accountProfile',
   'validateUser',
+  'availableContracts',
+  'isOrganizationMember',
   'pickupPoints',
   'orderEntryOperation',
   'orderFormItems',
+  'recommendations',
 ]
 
 const OPTIONAL_GENERATED_QUERIES = new Set(['accountName'])
@@ -127,6 +131,7 @@ const MUTATIONS = [
   'processOrderAuthorization',
   'uploadFileToOrderEntry',
   'startOrderEntryOperation',
+  'startRecommendationSession',
 ]
 
 describe('FastStore GraphQL Layer', () => {

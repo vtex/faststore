@@ -1,0 +1,11 @@
+type RecommendationResponse {
+  products: [StoreProduct!]!
+  correlationId: String!
+  campaign: RecommendationCampaign!
+}
+
+type RecommendationCampaign {
+  id: String!
+  title: String
+  type: String!
+}

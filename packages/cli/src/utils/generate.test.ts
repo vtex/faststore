@@ -1,5 +1,13 @@
-import { describe, expect, it } from 'vitest'
-import { buildFaststorePackageJson } from './generate'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import {
+  PUBLIC_FILES_ALLOWED_EXTENSIONS,
+  buildFaststorePackageJson,
+  copyPublicFiles,
+  isPublicFileAllowed,
+} from './generate'
 
 describe('buildFaststorePackageJson', () => {
   const coreManifest = {
@@ -118,5 +126,101 @@ describe('buildFaststorePackageJson', () => {
     const result = buildFaststorePackageJson(coreManifest)
 
     expect(result).not.toHaveProperty('volta')
+  })
+})
+
+describe('isPublicFileAllowed', () => {
+  it('always allows directories regardless of their name', () => {
+    expect(isPublicFileAllowed('/public', true)).toBe(true)
+    expect(isPublicFileAllowed('/public/fonts', true)).toBe(true)
+    expect(isPublicFileAllowed('/public/assets/images', true)).toBe(true)
+  })
+
+  it('copies self-hosted font files', () => {
+    expect(isPublicFileAllowed('/public/fonts/inter.woff', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/fonts/inter.woff2', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/fonts/inter.ttf', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/fonts/inter.otf', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/fonts/inter.eot', false)).toBe(true)
+  })
+
+  it('still copies the previously supported extensions', () => {
+    expect(isPublicFileAllowed('/public/manifest.json', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/robots.txt', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/sitemap.xml', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/favicon.ico', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/logo.svg', false)).toBe(true)
+  })
+
+  it('matches the extension case-insensitively', () => {
+    expect(isPublicFileAllowed('/public/fonts/Inter.WOFF2', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/LOGO.SVG', false)).toBe(true)
+  })
+
+  it('rejects files whose extension is not allowed', () => {
+    expect(isPublicFileAllowed('/public/script.ts', false)).toBe(false)
+    expect(isPublicFileAllowed('/public/styles.css', false)).toBe(false)
+    expect(isPublicFileAllowed('/public/notes.md', false)).toBe(false)
+  })
+
+  it('does not match extensions as a substring of the file name', () => {
+    // Regression: the old filter used `endsWith`, so `basico` matched `ico`.
+    expect(isPublicFileAllowed('/public/basico', false)).toBe(false)
+    expect(isPublicFileAllowed('/public/data.myjson', false)).toBe(false)
+    expect(isPublicFileAllowed('/public/nested/public', false)).toBe(false)
+  })
+
+  it('exposes the allowed extensions as dot-prefixed values', () => {
+    for (const extension of PUBLIC_FILES_ALLOWED_EXTENSIONS) {
+      expect(extension.startsWith('.')).toBe(true)
+    }
+  })
+})
+
+describe('copyPublicFiles', () => {
+  let basePath: string
+
+  const publicDir = () => path.join(basePath, 'public')
+  const buildDir = () => path.join(basePath, '.faststore', 'public')
+
+  beforeEach(() => {
+    basePath = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-public-'))
+    fs.mkdirSync(path.join(publicDir(), 'fonts'), { recursive: true })
+  })
+
+  afterEach(() => {
+    fs.rmSync(basePath, { recursive: true, force: true })
+  })
+
+  it('copies allowed files, including fonts in nested folders, and skips the rest', () => {
+    fs.writeFileSync(path.join(publicDir(), 'inter.woff2'), 'font')
+    fs.writeFileSync(path.join(publicDir(), 'readme.md'), 'nope')
+    fs.writeFileSync(path.join(publicDir(), 'fonts', 'bold.woff'), 'font')
+    fs.writeFileSync(path.join(publicDir(), 'fonts', 'notes.ts'), 'nope')
+
+    copyPublicFiles(basePath)
+
+    expect(fs.existsSync(path.join(buildDir(), 'inter.woff2'))).toBe(true)
+    expect(fs.existsSync(path.join(buildDir(), 'fonts', 'bold.woff'))).toBe(
+      true
+    )
+    expect(fs.existsSync(path.join(buildDir(), 'readme.md'))).toBe(false)
+    expect(fs.existsSync(path.join(buildDir(), 'fonts', 'notes.ts'))).toBe(
+      false
+    )
+  })
+
+  it('does not abort the whole copy when a single entry cannot be stat-ed', () => {
+    fs.writeFileSync(path.join(publicDir(), 'inter.woff2'), 'font')
+    // Dangling symlink: statSync (with dereference) throws for this entry.
+    fs.symlinkSync(
+      path.join(publicDir(), 'does-not-exist'),
+      path.join(publicDir(), 'broken.woff2')
+    )
+
+    expect(() => copyPublicFiles(basePath)).not.toThrow()
+
+    expect(fs.existsSync(path.join(buildDir(), 'inter.woff2'))).toBe(true)
+    expect(fs.existsSync(path.join(buildDir(), 'broken.woff2'))).toBe(false)
   })
 })

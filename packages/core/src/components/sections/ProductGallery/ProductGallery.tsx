@@ -40,7 +40,7 @@ function ProductGallerySection({
   const [title, searchTerm] = isSearchPage(context)
     ? [context?.data?.title, context?.data?.searchTerm]
     : isPLP(context)
-      ? [context?.data?.collection?.seo?.title]
+      ? [(context as PLPContext)?.data?.collection?.seo?.title]
       : ['']
 
   const totalCount = context?.data?.search?.products?.pageInfo?.totalCount ?? 0

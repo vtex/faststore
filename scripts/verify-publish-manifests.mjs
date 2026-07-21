@@ -1,16 +1,22 @@
 #!/usr/bin/env node
-// Verifies that the package manifests we are about to publish do not contain
-// unresolved `workspace:` or `catalog:` protocols. These protocols are pnpm
-// workspace primitives that MUST be rewritten to concrete versions before a
-// package is uploaded to the npm registry. Publishing them as-is breaks
-// installation for any consumer outside of this monorepo.
+// Verifies that the package manifests we are about to publish are safe to
+// upload to the npm registry. Two guards run per package:
+//
+//  1. No unresolved `workspace:` / `catalog:` protocols. These are pnpm
+//     workspace primitives that MUST be rewritten to concrete versions before
+//     publish; shipping them breaks installation for consumers outside this
+//     monorepo.
+//  2. A valid `repository.url` that matches this repo. npm provenance (OIDC
+//     Trusted Publisher) compares the manifest repo against the CI repo, so a
+//     missing/empty/mismatched `repository.url` fails publish with `E422`
+//     (the exact failure that hit `@faststore/diagnostics` in the v4 launch).
 //
 // Strategy: pack every non-private package in `packages/*` with `pnpm pack`
 // (which is the same code path `pnpm publish` uses to produce the tarball)
 // and inspect the `package/package.json` entry inside each tarball.
 //
-// Exits with status 1 if any unresolved protocol is found, so it can be wired
-// into CI as a guard before the actual publish step.
+// Exits with status 1 if any guard fails, so it can be wired into CI as a
+// guard before the actual publish step.
 
 import { execFileSync } from 'node:child_process'
 import {
@@ -21,7 +27,7 @@ import {
   rmSync,
 } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join, resolve } from 'node:path'
+import { basename, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createGunzip } from 'node:zlib'
 
@@ -40,6 +46,25 @@ const DEP_FIELDS = [
 function readJson(path) {
   return JSON.parse(readFileSync(path, 'utf8'))
 }
+
+// Normalize a git/repository URL for comparison: drop the `git+` prefix, a
+// trailing `.git`, and any trailing slash. Accepts a string or the object form
+// (`{ type, url, directory }`).
+function normalizeRepoUrl(repository) {
+  const raw =
+    typeof repository === 'string' ? repository : (repository?.url ?? '')
+  return raw
+    .trim()
+    .replace(/^git\+/, '')
+    .replace(/\.git$/, '')
+    .replace(/\/$/, '')
+}
+
+// The repository URL every published package must point at. Read from the root
+// manifest so this script stays repo-agnostic (works on forks/mirrors too).
+const EXPECTED_REPO_URL = normalizeRepoUrl(
+  readJson(join(ROOT, 'package.json')).repository
+)
 
 function listPublicPackages() {
   return readdirSync(PACKAGES_DIR, { withFileTypes: true })
@@ -125,6 +150,34 @@ function findUnresolvedProtocols(manifest) {
   return offenders
 }
 
+// Returns an array of human-readable problems with the manifest's `repository`
+// field (empty array means it is valid).
+function findRepositoryProblems(manifest, expectedDir) {
+  if (!EXPECTED_REPO_URL) return [] // no root repo url to compare against
+
+  const problems = []
+  const repository = manifest.repository
+  const url = normalizeRepoUrl(repository)
+
+  if (!url) {
+    problems.push('repository.url is missing or empty')
+  } else if (url !== EXPECTED_REPO_URL) {
+    problems.push(`repository.url = "${url}" (expected "${EXPECTED_REPO_URL}")`)
+  }
+
+  // `repository.directory` is optional, but when present it must point at the
+  // package's own folder so provenance/tooling can locate the source.
+  if (repository && typeof repository === 'object' && repository.directory) {
+    if (repository.directory !== expectedDir) {
+      problems.push(
+        `repository.directory = "${repository.directory}" (expected "${expectedDir}")`
+      )
+    }
+  }
+
+  return problems
+}
+
 async function main() {
   const packages = listPublicPackages()
   if (packages.length === 0) {
@@ -160,11 +213,16 @@ async function main() {
       )
       const manifest = JSON.parse(manifestRaw)
       const offenders = findUnresolvedProtocols(manifest)
+      const expectedDir = `packages/${basename(pkgDir)}`
+      const repoProblems = findRepositoryProblems(manifest, expectedDir)
 
-      if (offenders.length > 0) {
+      if (offenders.length > 0 || repoProblems.length > 0) {
         console.log('FAIL')
         for (const { field, name, version } of offenders) {
           console.error(`  ${field}.${name} = "${version}"`)
+        }
+        for (const problem of repoProblems) {
+          console.error(`  ${problem}`)
         }
         failed = true
       } else {
@@ -177,9 +235,13 @@ async function main() {
 
   if (failed) {
     console.error(
-      '\nUnresolved workspace:/catalog: protocols would be published.\n' +
-        'Make sure release scripts use `pnpm -r publish` (not `lerna publish` /\n' +
-        '`npm publish`) so the protocols are rewritten before upload.'
+      '\nOne or more manifests are not safe to publish:\n' +
+        '  • Unresolved workspace:/catalog: protocols — make sure release\n' +
+        '    scripts use `pnpm -r publish` (not `lerna publish` / `npm publish`)\n' +
+        '    so the protocols are rewritten before upload.\n' +
+        `  • repository.url must match "${EXPECTED_REPO_URL}" (and\n` +
+        '    repository.directory must point at the package) — a missing or\n' +
+        '    mismatched value fails npm provenance with E422.'
     )
     process.exit(1)
   }

@@ -113,6 +113,9 @@
           },
           {
             "$ref": "#/components/ShoppingAssistant"
+          },
+          {
+            "$ref": "#/components/RecommendationShelf"
           }
         ]
       }
@@ -4425,6 +4428,92 @@
       "writeOnly": false,
       "deprecated": false,
       "$abstract": false
+    },
+    "RecommendationShelf": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "RecommendationShelf",
+      "$componentTitle": "Recommendation Shelf",
+      "title": "Recommendation Shelf",
+      "description": "Display a carousel of personalized product recommendations from a VTEX Recommendations campaign.",
+      "type": "object",
+      "required": ["campaignVrn"],
+      "properties": {
+        "title": {
+          "title": "Title",
+          "description": "Override the shelf title. If not set, the campaign title will be used.",
+          "type": "string"
+        },
+        "campaignVrn": {
+          "title": "Campaign VRN",
+          "description": "Recommendation campaign VRN (e.g. vrn:recommendations:my-account:rec-persona-v2:abc123).",
+          "type": "string",
+          "pattern": "^vrn:recommendations:[^:]+:(rec-cross-v2|rec-similar-v2|rec-persona-v2|rec-last-v2|rec-top-items-v2|rec-search-v2|rec-next-v2|rec-visual-v2):[^:]+$"
+        },
+        "itemsContext": {
+          "title": "Items context",
+          "description": "Source of the products used as context for the recommendation request. 'Product page' uses the product currently being viewed; 'Cart' uses the items currently in the cart (useful for cross-sell shelves on the cart page). Only affects context-based campaigns such as cross-sell, similar items, visual similarity and next interaction.",
+          "type": "string",
+          "default": "PDP",
+          "enum": ["PDP", "CART"],
+          "enumNames": ["Product page", "Cart"]
+        },
+        "carouselConfiguration": {
+          "title": "Carousel Configuration",
+          "type": "object",
+          "properties": {
+            "itemsPerPageDesktop": {
+              "title": "Items per page (desktop)",
+              "description": "Number of products shown per page on desktop viewports.",
+              "type": "number",
+              "default": 4
+            },
+            "itemsPerPageMobile": {
+              "title": "Items per page (mobile)",
+              "description": "Number of products shown per page on mobile and tablet viewports.",
+              "type": "number",
+              "default": 2
+            },
+            "variant": {
+              "title": "Carousel track variant",
+              "description": "How the carousel navigates between items.",
+              "type": "string",
+              "default": "scroll",
+              "enum": ["slide", "scroll"],
+              "enumNames": ["Slide", "Scroll"]
+            },
+            "infiniteMode": {
+              "title": "Infinite navigation?",
+              "description": "Only applies to the 'slide' variant.",
+              "type": "boolean",
+              "default": false
+            },
+            "controls": {
+              "title": "Navigation controls",
+              "description": "Which navigation elements should be visible.",
+              "type": "string",
+              "default": "complete",
+              "enum": ["complete", "navigationArrows", "paginationBullets"],
+              "enumNames": ["Arrows and bullets", "Arrows only", "Bullets only"]
+            }
+          }
+        },
+        "productCardConfiguration": {
+          "title": "Product Card Configuration",
+          "type": "object",
+          "properties": {
+            "showDiscountBadge": {
+              "title": "Show discount badge?",
+              "type": "boolean",
+              "default": true
+            },
+            "bordered": {
+              "title": "Cards should be bordered?",
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      }
     }
   }
 }

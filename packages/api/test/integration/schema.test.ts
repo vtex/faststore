@@ -74,12 +74,16 @@ const QUERIES = [
   'productCount',
   'userOrder',
   'listUserOrders',
+  'listUserQuotes',
   'userDetails',
   'accountProfile',
   'validateUser',
+  'availableContracts',
+  'isOrganizationMember',
   'pickupPoints',
   'orderEntryOperation',
   'orderFormItems',
+  'recommendations',
 ]
 
 const MUTATIONS = [
@@ -90,6 +94,7 @@ const MUTATIONS = [
   'processOrderAuthorization',
   'uploadFileToOrderEntry',
   'startOrderEntryOperation',
+  'startRecommendationSession',
 ]
 
 let schema: GraphQLSchema
