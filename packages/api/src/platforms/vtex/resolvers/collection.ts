@@ -35,7 +35,10 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
   slug: (root) => slugifyRoot(root),
   seo: (root) => ({
     title: root.title ?? root.name,
-    description: root.metaTagDescription,
+    // pagetype.metaTagDescription and catalog `description` share the same
+    // source (confirmed with Catalog). Prefer metaTagDescription when present
+    // for forward-compat; fall back to description for by-linkid parity.
+    description: root.metaTagDescription ?? root.description,
   }),
   type: (root) => {
     if (isBrand(root)) return 'Brand'
