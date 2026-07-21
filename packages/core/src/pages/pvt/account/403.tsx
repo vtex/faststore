@@ -1,4 +1,4 @@
-import type { Locator } from '@vtex/client-cms'
+import type { Locator, Section } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
@@ -7,22 +7,23 @@ import {
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 
-import { LinkButton } from '@faststore/ui'
 import { gql } from '@generated/gql'
 import type {
   ServerAccountPageQueryQuery,
   ServerAccountPageQueryQueryVariables,
 } from '@generated/graphql'
-import { MyAccountLayout } from 'src/components/account'
+import RenderSections, {
+  RenderSectionsBase,
+} from 'src/components/cms/RenderSections'
+import ACCOUNT_COMPONENTS from 'src/components/cms/account/Components'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
-import RenderSections from 'src/components/cms/RenderSections'
-import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
 import { useRefreshToken } from 'src/sdk/account/useRefreshToken'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { fetchMyAccountPageContent } from 'src/server/cms/fetchMyAccountPageContent'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
 import { isLocalHost } from 'src/utils/isLocalHost'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
@@ -30,7 +31,6 @@ import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 import storeConfig from 'discovery.config'
 
-/* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   ...PLUGINS_COMPONENTS,
@@ -39,47 +39,36 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type Props = {
   globalSections?: GlobalSectionsData
-  accountName?: ServerAccountPageQueryQuery['accountProfile']['name']
+  pageSections: Section[]
   needsRefreshToken?: boolean
   fromPage?: string
 }
 
 function Page({
   globalSections: globalSectionsProp,
-  accountName,
+  pageSections,
   needsRefreshToken,
   fromPage,
 }: Props) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? { sections: [], settings: {} }
 
-  // Use the new hook to handle refresh token with session management
   const { shouldShow403 } = useRefreshToken(needsRefreshToken, fromPage)
 
-  // Handle refresh token case - show loading while attempting refresh
   if (needsRefreshToken && !shouldShow403) {
     console.info('Refreshing authentication...')
     return <></>
   }
 
-  // Show 403 page if refresh failed or if we don't need refresh token
   return (
-    <PageProvider context={{ globalSettings }}>
+    <PageProvider context={{ globalSettings, accountPageData: {} }}>
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <MyAccountLayout accountName={accountName}>
-          <EmptyState
-            title="Unauthorized Access"
-            titleIcon={{ icon: 'ShoppingCart', alt: 'Shopping Cart' }}
-            subtitle="You don't have permission to access this page."
-            showLoader={false}
-          >
-            <LinkButton variant="secondary" href="/pvt/account">
-              Back to Account
-            </LinkButton>
-          </EmptyState>
-        </MyAccountLayout>
+        <RenderSectionsBase
+          sections={pageSections}
+          components={ACCOUNT_COMPONENTS}
+        />
       </RenderSections>
     </PageProvider>
   )
@@ -102,28 +91,36 @@ const getServerSidePropsBase: GetServerSideProps<
     previewData: context.previewData,
     locale: context.locale,
   }
+
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(contentContext)
 
-  const [account, globalSections, globalSectionsHeader, globalSectionsFooter] =
-    await Promise.all([
-      execute<
-        ServerAccountPageQueryQueryVariables,
-        ServerAccountPageQueryQuery
-      >(
-        {
-          variables: {},
-          operation: query,
-        },
-        { headers: { ...context.req.headers } }
-      ),
-      globalSectionsPromise,
-      globalSectionsHeaderPromise,
-      globalSectionsFooterPromise,
-    ])
+  const [
+    pageContent,
+    account,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
+    fetchMyAccountPageContent(
+      'myAccountUnauthorized',
+      contentContext,
+      '/pvt/account/403'
+    ),
+    execute<ServerAccountPageQueryQueryVariables, ServerAccountPageQueryQuery>(
+      {
+        variables: {},
+        operation: query,
+      },
+      { headers: { ...context.req.headers } }
+    ),
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ])
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,
@@ -131,24 +128,20 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   })
 
+  const fromPage =
+    typeof context.query.from === 'string' ? context.query.from : ''
+
   if (account.errors) {
     console.error(...account.errors)
 
     const statusCode: number = (account.errors[0] as any)?.extensions?.status
 
-    const fromPage =
-      typeof context.query.from === 'string' ? context.query.from : ''
-
-    // The refresh-token round-trip is unreachable from localhost (cross-origin
-    // POST that drops the `vid_rt` cookie), and forcing it would clear the
-    // manually injected `VtexIdclientAutCookie_<account>`. Render the static
-    // 403 view instead so developers can keep testing logged-in scenarios
-    // regardless of the `experimental.refreshToken` flag.
     const isLocal = isLocalHost(getRequestHostname(context.req.headers.host))
 
     return {
       props: {
         globalSections: globalSectionsResult,
+        pageSections: pageContent.sections,
         needsRefreshToken:
           !isLocal &&
           (statusCode === 401 || statusCode === 403) &&
@@ -168,9 +161,9 @@ const getServerSidePropsBase: GetServerSideProps<
 
   return {
     props: {
-      // The sections from the CMS page are not utilized here for the My Account page.
       globalSections: globalSectionsResult,
-      accountName: account?.data?.accountProfile?.name ?? '',
+      pageSections: pageContent.sections,
+      fromPage,
     },
   }
 }

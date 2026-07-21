@@ -1,6 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "4.3.0-dev.2",
+  "version": "4.4.0",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.mjs",
   "typings": "dist/index.d.ts",
@@ -36,7 +36,7 @@
     "react-swipeable": "catalog:"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
     "@types/papaparse": "^5.5.0",
     "@types/react": "catalog:",

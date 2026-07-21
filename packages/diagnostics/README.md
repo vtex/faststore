@@ -17,7 +17,7 @@
   </a>
 </p>
 
-`@faststore/diagnostics` initializes OpenTelemetry tracing, logging, and metrics for FastStore server-side instrumentation. It is a thin wrapper around `@vtex/diagnostics-nodejs` and is consumed by `@faststore/core` via Next.js instrumentation when telemetry is enabled.
+`@faststore/diagnostics` initializes OpenTelemetry tracing, logging, and metrics for FastStore server-side instrumentation.
 
 ## Package structure
 
@@ -94,5 +94,4 @@ Versioning and publishing are managed at the monorepo root by Lerna. Do not publ
 
 - **Sampling config (dev):** [`configs/dev.json`](./configs/dev.json) — 100% sample rate
 - **Sampling config (prod):** [`configs/prod.json`](./configs/prod.json) — 1% default, 30% for `trace_all`
-- **Upstream library:** [@vtex/diagnostics-nodejs](https://www.npmjs.com/package/@vtex/diagnostics-nodejs)
 - **OpenTelemetry:** [opentelemetry.io](https://opentelemetry.io)

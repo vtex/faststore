@@ -103,6 +103,135 @@ export type OrderStatusKey = keyof typeof orderStatusMap
 export type OrderStatusVariant =
   (typeof orderStatusMap)[OrderStatusKey]['variant']
 
+export type OrderStatusCmsLabels = Partial<{
+  orderPlacedStatus: string
+  pendingApprovalStatus: string
+  paymentPendingStatus: string
+  paymentApprovedStatus: string
+  paymentDeniedStatus: string
+  readyForDeliveryStatus: string
+  invoicedStatus: string
+  cancellationRequestedStatus: string
+  canceledStatus: string
+}>
+
+const ORDER_STATUS_CMS_LABEL_KEYS = [
+  'orderPlacedStatus',
+  'pendingApprovalStatus',
+  'paymentPendingStatus',
+  'paymentApprovedStatus',
+  'paymentDeniedStatus',
+  'readyForDeliveryStatus',
+  'invoicedStatus',
+  'cancellationRequestedStatus',
+  'canceledStatus',
+] as const satisfies readonly (keyof OrderStatusCmsLabels)[]
+
+const CMS_LABEL_TO_CANONICAL: Record<
+  keyof Required<OrderStatusCmsLabels>,
+  string
+> = {
+  orderPlacedStatus: 'Order Placed',
+  pendingApprovalStatus: 'Pending approval',
+  paymentPendingStatus: 'Payment Pending',
+  paymentApprovedStatus: 'Payment Approved',
+  paymentDeniedStatus: 'Payment Denied',
+  readyForDeliveryStatus: 'Ready for Delivery',
+  invoicedStatus: 'Invoiced',
+  cancellationRequestedStatus: 'Cancellation Requested',
+  canceledStatus: 'Canceled',
+}
+
+function cmsLabelsToDisplayOverrides(
+  cmsLabels?: OrderStatusCmsLabels
+): Record<string, string> {
+  if (!cmsLabels) {
+    return {}
+  }
+
+  const overrides: Record<string, string> = {}
+
+  for (const key of ORDER_STATUS_CMS_LABEL_KEYS) {
+    const label = cmsLabels[key]
+    if (label) {
+      overrides[CMS_LABEL_TO_CANONICAL[key].toLowerCase()] = label
+    }
+  }
+
+  return overrides
+}
+
+export function pickOrderStatusCmsLabels(
+  data?: Record<string, unknown>
+): OrderStatusCmsLabels | undefined {
+  if (!data) {
+    return undefined
+  }
+
+  const labels: OrderStatusCmsLabels = {}
+  let hasAny = false
+
+  for (const key of ORDER_STATUS_CMS_LABEL_KEYS) {
+    const value = data[key]
+    if (typeof value === 'string' && value.length > 0) {
+      labels[key] = value
+      hasAny = true
+    }
+  }
+
+  return hasAny ? labels : undefined
+}
+
+export function extractOrderStatusLabelsFromSections<
+  T extends { data?: unknown },
+>(sections: T[]): OrderStatusCmsLabels | undefined {
+  const merged: OrderStatusCmsLabels = {}
+  let hasAny = false
+
+  for (const section of sections) {
+    const picked = pickOrderStatusCmsLabels(
+      (section.data ?? {}) as Record<string, unknown>
+    )
+
+    if (picked) {
+      Object.assign(merged, picked)
+      hasAny = true
+    }
+  }
+
+  return hasAny ? merged : undefined
+}
+
+export function getLocalizedOrderStatusMap(
+  cmsLabels?: OrderStatusCmsLabels
+): Record<OrderStatusKey, OrderStatusMapValue> {
+  const overrides = cmsLabelsToDisplayOverrides(cmsLabels)
+  const localizedMap = {} as Record<OrderStatusKey, OrderStatusMapValue>
+
+  for (const [key, value] of Object.entries(orderStatusMap) as [
+    OrderStatusKey,
+    OrderStatusMapValue,
+  ][]) {
+    const override = overrides[value.label.toLowerCase()]
+    localizedMap[key] = override ? { ...value, label: override } : value
+  }
+
+  return localizedMap
+}
+
+export function getOrderStatusLabel({
+  status,
+  cmsLabels,
+  statusFallback,
+}: {
+  status: string
+  cmsLabels?: OrderStatusCmsLabels
+  statusFallback?: string
+}): string {
+  const localizedMap = getLocalizedOrderStatusMap(cmsLabels)
+  return localizedMap[status as OrderStatusKey]?.label ?? statusFallback ?? '-'
+}
+
 export const groupOrderStatusByLabel = (): Record<string, string[]> => {
   const groupedStatus: Record<string, string[]> = {}
 

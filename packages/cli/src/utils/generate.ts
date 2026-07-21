@@ -17,7 +17,6 @@ const {
   copySync,
   existsSync,
   mkdirsSync,
-  moveSync,
   readFileSync,
   readdirSync,
   removeSync,
@@ -565,36 +564,6 @@ async function validateAndInstallMissingDependencies(basePath: string) {
       spinner.stop()
     }
   })
-}
-
-const DISABLED_PROXY_FILENAME = 'proxy__DISABLED.ts'
-
-/**
- * Toggle proxy based on localization feature flag (localization.enabled) in discovery config.
- * When flag is off: renames proxy.ts → proxy__DISABLED.ts so Next.js does not run it.
- * When flag is on: renames proxy__DISABLED.ts → proxy.ts so Next.js runs it.
- */
-export function toggleProxyByLocalizationFlag(
-  basePath: string,
-  localizationEnabled: boolean
-): void {
-  try {
-    const { tmpDir } = withBasePath(basePath)
-    const proxyPath = path.join(tmpDir, 'src', 'proxy.ts')
-    const disabledPath = path.join(tmpDir, 'src', DISABLED_PROXY_FILENAME)
-
-    const shouldEnableProxy = existsSync(disabledPath) && !existsSync(proxyPath)
-    const shouldDisableProxy = existsSync(proxyPath)
-
-    if (localizationEnabled && shouldEnableProxy) {
-      moveSync(disabledPath, proxyPath)
-    } else if (!localizationEnabled && shouldDisableProxy) {
-      moveSync(proxyPath, disabledPath)
-    }
-  } catch (error) {
-    logger.error(error)
-    throw error
-  }
 }
 
 async function enableSearchSSR(basePath: string) {

@@ -38,30 +38,47 @@ const debounce = <T extends (...args: any[]) => any>(
   }
 }
 
+/**
+ * Reconciles a value coming from IDB with the current in-memory value before
+ * it is written into the store. Consumers use this to keep fields that have an
+ * external source of truth (e.g. locale/currency derived from the URL) from
+ * being overwritten by a stale IDB payload — both on hydration and on the
+ * cross-tab `focus`/`visibilitychange` sync.
+ */
+export type Reconcile<T> = (fromIDB: T, current: T) => T
+
 export const persisted =
-  <T>(key: string) =>
+  <T>(key: string, reconcile?: Reconcile<T>) =>
   (store: Store<T>) => {
     let hydrated = false
+
+    const merge = (value: T): T =>
+      reconcile ? reconcile(value, store.read()) : value
 
     const hydrateFromIDB = async () => {
       const payload = await getIDB<T>(key)
 
-      if (typeof document !== 'undefined') {
-        store.set(payload ?? store.readInitial())
-      }
-
+      // Flip before the set so the reconciled value is persisted at load time,
+      // curing a stale payload (e.g. outdated locale) without waiting for the
+      // next write. Safe now that the initial read has completed.
       hydrated = true
+
+      if (typeof document !== 'undefined') {
+        store.set(merge(payload ?? store.readInitial()))
+      }
     }
 
     hydrateFromIDB()
 
-    // Cross-tab sync: when the user returns to this tab, unconditionally
-    // pull the latest value from IDB (another tab may have written it).
+    // Cross-tab sync: when the user returns to this tab, pull the latest value
+    // from IDB (another tab may have written it), reconciling it first so that
+    // externally-owned fields (e.g. URL-derived locale) are not clobbered by a
+    // stale payload.
     const syncFromIDB = async () => {
       const payload = await getIDB<T>(key)
 
       if (typeof document !== 'undefined' && payload !== undefined) {
-        store.set(payload)
+        store.set(merge(payload))
       }
     }
 
@@ -73,9 +90,10 @@ export const persisted =
       () => document.visibilityState === 'visible' && debouncedSync()
     )
 
-    // Block IDB writes until the initial read completes.  This prevents a
-    // race where an early store.set (from session sync, etc.) overwrites
-    // saved data before it has been read back.
+    // Block IDB writes until the initial read completes (`hydrated` is set
+    // inside `hydrateFromIDB` right after the read). This prevents a race where
+    // an early store.set (from session sync, etc.) overwrites saved data before
+    // it has been read back.
     store.subscribe((value) => {
       if (hydrated) {
         setIDB(key, value)
