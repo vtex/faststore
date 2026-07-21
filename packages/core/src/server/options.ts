@@ -23,7 +23,7 @@ export const apiOptions: APIOptions = {
       storeConfig.api?.enableUnavailableItemsOnCart ?? false,
   },
   version,
-  OTEL_ENABLED: true,
+  OTEL_ENABLED: false,
   discoveryConfig: storeConfig,
 }
 
@@ -44,6 +44,6 @@ export async function withTraceClient<T extends APIOptions = typeof apiOptions>(
 
   return {
     ...apiOptions,
-    OTEL_ENABLED: true,
+    OTEL_ENABLED: false,
   } satisfies T
 }
