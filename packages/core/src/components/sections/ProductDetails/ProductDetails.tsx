@@ -401,6 +401,7 @@ export const fragment = gql(`
         listPrice
         listPriceWithTaxes
         quantity
+        priceToken
         seller {
           identifier
         }

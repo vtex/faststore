@@ -510,6 +510,8 @@ export type IStoreOffer = {
   listPrice: Scalars['Float']['input'];
   /** Also known as spot price. */
   price: Scalars['Float']['input'];
+  /** Signed price token (JWT) from the Pricing Fallback feature, forwarded to Checkout on add-to-cart. */
+  priceToken?: InputMaybe<Scalars['String']['input']>;
   /** Number of items offered. */
   quantity: Scalars['Int']['input'];
   /** Seller responsible for the offer. */
@@ -1560,6 +1562,12 @@ export type StoreOffer = {
   price: Scalars['Float']['output'];
   /** ISO code of the currency used for the offer prices. */
   priceCurrency: Scalars['String']['output'];
+  /**
+   * Signed price token (JWT) used by the Pricing Fallback feature. When present, it should be
+   * forwarded to Checkout on add-to-cart so the platform can trust the offer's price even if
+   * the Pricing System is unavailable. May be null when the signing step fails or the feature is disabled.
+   */
+  priceToken?: Maybe<Scalars['String']['output']>;
   /** Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time. */
   priceValidUntil: Scalars['String']['output'];
   /** Also known as spot price with taxes. */

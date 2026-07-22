@@ -167,4 +167,11 @@ export const StoreOffer: Record<string, GraphqlResolver<Root>> = {
 
     return null
   },
+  priceToken: (root) => {
+    if (isSearchItem(root)) {
+      return root.PriceToken ?? null
+    }
+
+    return null
+  },
 }

@@ -38,6 +38,7 @@ interface IAllVariantProducts {
       itemCondition: string
       availability: string
       quantity: number
+      priceToken?: string | null
     }>
   }
 }

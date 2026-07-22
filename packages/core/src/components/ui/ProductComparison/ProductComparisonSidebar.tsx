@@ -89,6 +89,7 @@ function ProductComparisonSidebar(props: UIProductComparisonSidebarProps) {
             listPriceWithTaxes: offer.listPriceWithTaxes,
             priceWithTaxes: offer.priceWithTaxes,
             quantity: offer.quantity,
+            priceToken: offer.priceToken,
             seller: { identifier: offer.seller.identifier },
           })),
         },
@@ -129,6 +130,7 @@ function ProductComparisonSidebar(props: UIProductComparisonSidebarProps) {
                 seller,
                 quantity,
                 listPriceWithTaxes,
+                priceToken,
               },
             ],
           },
@@ -141,6 +143,7 @@ function ProductComparisonSidebar(props: UIProductComparisonSidebarProps) {
           listPrice,
           listPriceWithTaxes,
           seller,
+          priceToken,
           quantity: productIdToBuy === id ? 1 : 0,
           itemOffered: {
             sku,
@@ -226,6 +229,7 @@ export const fragment = gql(`
         listPrice
         quantity
         listPriceWithTaxes
+        priceToken
         seller {
           identifier
         }

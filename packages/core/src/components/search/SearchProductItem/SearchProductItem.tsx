@@ -82,6 +82,7 @@ function SearchProductItem({
           listPriceWithTaxes,
           seller,
           priceWithTaxes,
+          priceToken,
           quantity: offersQuantity,
         },
       ],
@@ -127,6 +128,7 @@ function SearchProductItem({
       listPriceWithTaxes,
       seller,
       quantity,
+      priceToken,
       itemOffered: {
         sku,
         name,
