@@ -35,7 +35,7 @@ import type {
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
-import { enhanceSku } from '../utils/enhanceSku'
+import { enhanceSku, type EnhancedSku } from '../utils/enhanceSku'
 import {
   findChannel,
   findCrossSelling,
@@ -85,6 +85,80 @@ const shouldFallbackToProductRoute = (error: unknown) =>
     (error.message === INVALID_SKU_ID_ERROR ||
       error.message.startsWith(SLUG_MISMATCH_ERROR)))
 
+/**
+ * Here be dragons 🦄🦄🦄
+ *
+ * In some cases, the slug has a valid skuId for a different product. This
+ * guards that the fetched sku is the one we actually asked for, throwing
+ * SLUG_MISMATCH_ERROR (caught by the caller) when it isn't.
+ *
+ * When localization is enabled, the slug prefix may be a localized LinkId
+ * that differs from the IS linkText (always in the default locale). In that
+ * case we validate against the Catalog Dataplane API before rejecting the
+ * slug.
+ */
+async function assertSkuMatchesSlug(
+  ctx: GraphqlContext,
+  sku: EnhancedSku,
+  slug: string | null | undefined,
+  locale: string | null | undefined
+): Promise<void> {
+  const { linkText, productId } = sku.isVariantOf
+
+  if (!slug || !linkText || slug.startsWith(linkText)) {
+    return
+  }
+
+  const isValidLocalizedMatch =
+    isLocalizationEnabled(ctx) &&
+    locale &&
+    isValidSkuId(slug.split('-').pop() ?? '') &&
+    (await isLocalizedSlugMatch(ctx, slug, productId, locale))
+
+  if (isValidLocalizedMatch) {
+    return
+  }
+
+  throw new Error(`${SLUG_MISMATCH_ERROR} slug: ${slug}, linkText: ${linkText}`)
+}
+
+/**
+ * Fallback used when the sku/slug lookup above fails (invalid skuId, not
+ * found, or slug mismatch): resolves the slug through the legacy pagetype
+ * route and fetches the product from Intelligent Search by id instead.
+ */
+async function fetchProductBySlugFallback(
+  ctx: GraphqlContext,
+  slug: string | null | undefined
+): Promise<EnhancedSku> {
+  if (slug == null) {
+    throw new BadRequestError('Missing slug or id')
+  }
+
+  const {
+    clients: { commerce, search },
+  } = ctx
+
+  const route = await commerce.catalog.portal.pagetype(`${slug}/p`)
+
+  if (route.pageType !== 'Product' || !route.id) {
+    throw new NotFoundError(`No product found for slug ${slug}`)
+  }
+
+  const product = await search
+    .fetchProduct({
+      field: 'id',
+      value: String(route.id),
+    })
+    .catch(() => null)
+
+  if (!product) {
+    throw new NotFoundError(`No product found for id ${route.id}`)
+  }
+
+  return enhanceSku(pickBestSku(product.items), product)
+}
+
 export const Query = {
   product: async (
     _: unknown,
@@ -107,7 +181,6 @@ export const Query = {
 
     const {
       loaders: { skuLoader },
-      clients: { commerce, search },
     } = ctx
 
     try {
@@ -119,41 +192,7 @@ export const Query = {
 
       const sku = await skuLoader.load(skuId)
 
-      /**
-       * Here be dragons 🦄🦄🦄
-       *
-       * In some cases, the slug has a valid skuId for a different
-       * product. This condition makes sure that the fetched sku
-       * is the one we actually asked for.
-       *
-       * When localization is enabled, the slug prefix may be a localized
-       * LinkId that differs from the IS linkText (always in the default locale).
-       * In that case we validate against the Catalog Dataplane API before
-       * rejecting the slug.
-       * */
-      if (
-        slug &&
-        sku.isVariantOf.linkText &&
-        !slug.startsWith(sku.isVariantOf.linkText)
-      ) {
-        if (
-          isLocalizationEnabled(ctx) &&
-          locale &&
-          isValidSkuId(slug.split('-').pop() ?? '') &&
-          (await isLocalizedSlugMatch(
-            ctx,
-            slug,
-            sku.isVariantOf.productId,
-            locale
-          ))
-        ) {
-          return sku
-        }
-
-        throw new Error(
-          `Slug was set but the fetched sku does not satisfy the slug condition. slug: ${slug}, linkText: ${sku.isVariantOf.linkText}`
-        )
-      }
+      await assertSkuMatchesSlug(ctx, sku, slug, locale)
 
       return sku
     } catch (err) {
@@ -161,30 +200,7 @@ export const Query = {
         throw err
       }
 
-      if (slug == null) {
-        throw new BadRequestError('Missing slug or id')
-      }
-
-      const route = await commerce.catalog.portal.pagetype(`${slug}/p`)
-
-      if (route.pageType !== 'Product' || !route.id) {
-        throw new NotFoundError(`No product found for slug ${slug}`)
-      }
-
-      const product = await search
-        .fetchProduct({
-          field: 'id',
-          value: String(route.id),
-        })
-        .catch(() => null)
-
-      if (!product) {
-        throw new NotFoundError(`No product found for id ${route.id}`)
-      }
-
-      const sku = pickBestSku(product.items)
-
-      return enhanceSku(sku, product)
+      return fetchProductBySlugFallback(ctx, slug)
     }
   },
   collection: (
