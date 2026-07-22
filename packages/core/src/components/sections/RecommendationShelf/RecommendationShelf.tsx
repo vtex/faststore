@@ -64,6 +64,7 @@ export function RecommendationShelf<
 >({
   title,
   campaignVrn,
+  enableRecommendations = false,
   itemsContext = 'PDP',
   ProductCard,
   mapProductToProductCard,
@@ -118,10 +119,14 @@ export function RecommendationShelf<
     return pdpProduct ? [pdpProduct] : []
   }, [itemsContext, cartItems, productDetailPage])
 
-  const recommendationArgs = getRecommendationArguments(campaignVrn, {
-    userId,
-    contextProducts,
-  })
+  // Gate the whole feature behind the CMS opt-in: when Recommendations is
+  // disabled the shelf never requests recommendations (nor renders).
+  const recommendationArgs = enableRecommendations
+    ? getRecommendationArguments(campaignVrn, {
+        userId,
+        contextProducts,
+      })
+    : null
 
   const { data, isLoading, error } = useRecommendations(recommendationArgs)
 

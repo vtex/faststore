@@ -4,13 +4,12 @@ CMS section that renders a carousel of personalized product recommendations from
 
 - **Data source:** VTEX Recommendations BFF, exposed by `@faststore/api` through the `recommendations` GraphQL query.
 - **Registration:** global CMS component (`$componentKey: "RecommendationShelf"`), available on any page via CMS.
-- **Opt-in via CMS:** enable Recommendations by adding **Start Recommendation Session** once under **Global Sections**. No store code changes or feature flags are required.
+- **Opt-in via CMS:** enable Recommendations with the **Enable recommendations?** toggle on the shelf (default `false`). No store code changes or feature flags are required.
 
 ## Contents
 
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
-- [Start Recommendation Session](#start-recommendation-session)
 - [CMS configuration](#cms-configuration)
 - [Campaign types (VRN) and context](#campaign-types-vrn-and-context)
 - [Runtime behavior](#runtime-behavior)
@@ -23,7 +22,7 @@ CMS section that renders a carousel of personalized product recommendations from
 
 The shelf renders products only when the following conditions are met:
 
-1. **Start Recommendation Session in Global Sections.** Add the **Start Recommendation Session** component once under the store's Global Sections. It starts the anonymous personalization session (`startRecommendationSession` mutation) once per browser session. Without it, the shelf does not receive a usable recommendation user id and will not fetch recommendations.
+1. **Enable recommendations on the shelf.** Set **Enable recommendations?** to `true` on the Recommendation Shelf in the CMS. This opts the store into the personalization session (`startRecommendationSession` mutation, owned by Layout) and allows the shelf to fetch recommendations. Without it (default `false`), no session is started and the shelf does not fetch.
 
 2. **Active VTEX Recommendations campaign.** Provide a valid campaign **VRN**. Example: `vrn:recommendations:my-account:rec-persona-v2:abc123`.
 
@@ -33,11 +32,7 @@ The shelf renders products only when the following conditions are met:
 
 ## Setup
 
-### 1. Add Start Recommendation Session to Global Sections
-
-In the store CMS, open **Global Sections** and add **Start Recommendation Session** once. The section has no visible UI; it only starts the personalization session in the browser.
-
-### 2. Obtain the campaign VRN
+### 1. Obtain the campaign VRN
 
 In the VTEX Recommendations admin, create or select a campaign and copy its **VRN**. The expected format is:
 
@@ -47,32 +42,9 @@ vrn:recommendations:<account>:<campaign-type>:<campaign-id>
 
 Supported `<campaign-type>` values are listed under [Campaign types (VRN) and context](#campaign-types-vrn-and-context).
 
-### 3. Add Recommendation Shelf via CMS
+### 2. Add Recommendation Shelf via CMS
 
-Add **Recommendation Shelf** to the target page (home, PDP, PLP, cart, and so on) and configure at least **Campaign VRN** (required).
-
-## Start Recommendation Session
-
-| Field | Value |
-| --- | --- |
-| `$componentKey` | `StartRecommendationSession` |
-| CMS title | Start Recommendation Session |
-| Placement | **Global Sections** (once) |
-| Props | None |
-
-Behavior:
-
-- Runs the `startRecommendationSession` GraphQL mutation once per browser session (gated by the `vtex-rec-user-start-session` cookie).
-- Retries with exponential backoff when the endpoint is not ready.
-- Persists BFF `vtex-rec-*` `Set-Cookie` headers through `ctx.storage.cookies`.
-- Runs client-side after hydration and does not affect SSR, TTFB, or Lighthouse render metrics.
-- Stores that omit this Global Section never start a Recommendations session (CMS opt-in).
-
-Related files:
-
-- Component: `src/components/sections/StartRecommendationSession/`
-- Hook: `src/sdk/analytics/hooks/useStartRecommendationSession.ts`
-- CMS schema: `cms/faststore/components/cms_component__startrecommendationsession.jsonc`
+Add **Recommendation Shelf** to the target page (home, PDP, PLP, cart, and so on), configure at least **Campaign VRN** (required), and turn **Enable recommendations?** on.
 
 ## CMS configuration
 
@@ -80,6 +52,7 @@ Schema: `cms/faststore/components/cms_component__recommendationshelf.jsonc`.
 
 | CMS property | Key | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- | --- |
+| Enable recommendations? | `enableRecommendations` | boolean | No | `false` | Opt-in that starts the personalization session (via Layout) and allows this shelf to fetch recommendations. |
 | Title | `title` | string | No | — | Overrides the shelf title. Falls back to the campaign title. If both are empty, the heading is not rendered. |
 | Campaign VRN | `campaignVrn` | string | **Yes** | — | Recommendation campaign VRN. Validated by regex (see campaign types below). |
 | Items context | `itemsContext` | `PDP` \| `CART` | No | `PDP` | Source of products used as request context. Applies only to context-based campaigns. |
@@ -119,12 +92,18 @@ Context-based campaigns (cross-sell, similar items, visual similarity, next inte
 
 All recommendation work runs client-side after hydration:
 
-1. **Session start (CMS opt-in)** — `StartRecommendationSession` in Global Sections mounts `useStartRecommendationSession()`, which calls `startRecommendationSession` once per browser session.
+1. **Session start (CMS opt-in)** — `Layout` calls `useStartRecommendationSession(pageProps)` once. The hook checks whether any `RecommendationShelf` in the CMS data has `enableRecommendations: true` and no-ops when none do. Multiple enabled shelves on the same page still start the session only once (in-memory lock + session cookie).
 2. **User id resolution** — `useRecommendationUserId()` reads the `vtex-rec-user-id` cookie, retrying until a value is available or the retry budget is exhausted.
-3. **Request arguments** — `getRecommendationArguments()` builds `{ userId, campaignVrn, products }` or returns `null` when the VRN is invalid, the user id is missing, or a context-based campaign has no context products.
+3. **Request arguments** — when enabled, `getRecommendationArguments()` builds `{ userId, campaignVrn, products }` or returns `null` when the VRN is invalid, the user id is missing, or a context-based campaign has no context products. When disabled, arguments stay `null`.
 4. **Fetch** — `useRecommendations()` runs `ClientRecommendationsQuery` and returns `products`, `correlationId`, and `campaign`.
 5. **Render** — shows `ProductShelfSkeleton` while loading; returns `null` on error or empty results; otherwise renders the carousel and optional heading.
 6. **Tracking** — when correlation and campaign identifiers are present, the shelf emits `data-af-*` attributes for Activity Flow. PDP product views use `product:*` meta tags from `pages/[slug]/p.tsx`.
+
+Related files:
+
+- Shelf: `src/components/sections/RecommendationShelf/`
+- Hook: `src/sdk/analytics/hooks/useStartRecommendationSession.ts`
+- Layout: `src/Layout.tsx`
 
 ## Code-level overrides
 
@@ -134,6 +113,7 @@ In addition to CMS props, the component accepts code-level overrides (not expose
 import { RecommendationShelf } from 'src/components/sections/RecommendationShelf'
 
 <RecommendationShelf
+  enableRecommendations
   campaignVrn="vrn:recommendations:my-account:rec-cross-v2:abc123"
   itemsContext="PDP"
   ProductCard={MyCustomCard}
@@ -160,7 +140,7 @@ As a global component, the shelf can be placed on any CMS page. Suggested placem
 - **Cart:** cross-sell with `itemsContext: CART`.
 - **PLP:** context-agnostic campaigns.
 
-The personalization session runs only when **Start Recommendation Session** is present in Global Sections.
+The personalization session runs only when at least one shelf has **Enable recommendations?** turned on.
 
 ## Privacy and cache
 
@@ -172,7 +152,7 @@ The personalization session runs only when **Start Recommendation Session** is p
 
 **The shelf does not render.** Check, in order:
 
-1. Is **Start Recommendation Session** present under **Global Sections**?
+1. Is **Enable recommendations?** set to `true` on the shelf?
 2. Is `campaignVrn` valid and is the campaign active?
 3. Is the `vtex-rec-user-id` cookie available? Without a user id, the shelf does not fetch.
 4. For context-based campaigns, is product context available (`PDP` on a product page, or a non-empty cart for `CART`)?

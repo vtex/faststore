@@ -52,14 +52,6 @@ const RecommendationShelf = dynamic(
   { ssr: false }
 )
 
-const StartRecommendationSession = dynamic(
-  () =>
-    import(
-      /* webpackChunkName: "StartRecommendationSession" */ 'src/components/sections/StartRecommendationSession'
-    ),
-  { ssr: false }
-)
-
 const COMPONENTS: Record<string, ComponentType<any>> = {
   [getComponentKey(Alert, 'Alert')]: Alert,
   [getComponentKey(Navbar, 'Navbar')]: Navbar,
@@ -72,8 +64,6 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   [getComponentKey(ShoppingAssistant, 'ShoppingAssistant')]: ShoppingAssistant,
   [getComponentKey(RecommendationShelf, 'RecommendationShelf')]:
     RecommendationShelf,
-  [getComponentKey(StartRecommendationSession, 'StartRecommendationSession')]:
-    StartRecommendationSession,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }

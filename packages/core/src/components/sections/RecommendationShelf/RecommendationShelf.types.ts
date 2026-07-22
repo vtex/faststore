@@ -31,6 +31,13 @@ export type RecommendationShelfProps<
   readonly title?: string
   readonly campaignVrn: string
   /**
+   * Opt-in for VTEX Recommendations on this shelf. When `true`, Layout starts
+   * the personalization session (`useStartRecommendationSession`) and this
+   * shelf fetches recommendations. When `false` (default), neither happens.
+   * @default false
+   */
+  readonly enableRecommendations?: boolean
+  /**
    * Where to read the products used as context for the recommendation request:
    * - `'PDP'`: the current product detail page product.
    * - `'CART'`: the products currently in the cart (useful for cross-sell on the
