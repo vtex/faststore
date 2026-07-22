@@ -31,6 +31,13 @@ export type RecommendationShelfProps<
   readonly title?: string
   readonly campaignVrn: string
   /**
+   * Opt-in for VTEX Recommendations on this shelf. When `true`, Layout starts
+   * the personalization session (`useStartRecommendationSession`) and this
+   * shelf fetches recommendations. When `false` (default), neither happens.
+   * @default false
+   */
+  readonly enableRecommendations?: boolean
+  /**
    * Where to read the products used as context for the recommendation request:
    * - `'PDP'`: the current product detail page product.
    * - `'CART'`: the products currently in the cart (useful for cross-sell on the
@@ -45,7 +52,7 @@ export type RecommendationShelfProps<
   /**
    * Custom card component rendered for each recommended product. Defaults to the
    * core `ProductCard`. This is a code-level override and is not exposed through
-   * the CMS schema (`cms_component__RecommendationShelf.jsonc`).
+   * the CMS schema (`cms_component__recommendationshelf.jsonc`).
    */
   readonly ProductCard?: ComponentType<TCardProps>
   /**

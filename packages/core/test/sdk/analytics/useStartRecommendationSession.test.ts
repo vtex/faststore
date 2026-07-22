@@ -18,17 +18,50 @@ vi.mock('src/sdk/graphql/useLazyQuery', () => ({
 const getCookie = vi.hoisted(() => vi.fn())
 vi.mock('src/utils/getCookie', () => ({ getCookie }))
 
-const storeConfigMock = vi.hoisted(() => ({
-  experimental: { enableRecommendations: true },
-}))
-vi.mock('discovery.config', () => ({ default: storeConfigMock }))
+import {
+  resetStartRecommendationSessionLock,
+  useStartRecommendationSession,
+} from 'src/sdk/analytics/hooks/useStartRecommendationSession'
 
-import { useStartRecommendationSession } from 'src/sdk/analytics/hooks/useStartRecommendationSession'
+const enabledPageProps = {
+  sections: [
+    {
+      name: 'RecommendationShelf',
+      data: { enableRecommendations: true },
+    },
+  ],
+}
+
+const multipleEnabledShelvesPageProps = {
+  sections: [
+    {
+      name: 'RecommendationShelf',
+      data: { enableRecommendations: true, campaignVrn: 'vrn:a' },
+    },
+    {
+      name: 'RecommendationShelf',
+      data: { enableRecommendations: true, campaignVrn: 'vrn:b' },
+    },
+    {
+      name: 'ProductShelf',
+      data: {},
+    },
+  ],
+}
+
+const disabledPageProps = {
+  sections: [
+    {
+      name: 'RecommendationShelf',
+      data: { enableRecommendations: false },
+    },
+  ],
+}
 
 beforeEach(() => {
+  resetStartRecommendationSessionLock()
   useLazyQueryMock.mockReturnValue([runStartRecommendationSession, {}])
   runStartRecommendationSession.mockResolvedValue(true)
-  storeConfigMock.experimental.enableRecommendations = true
 })
 
 afterEach(() => {
@@ -36,34 +69,76 @@ afterEach(() => {
 })
 
 describe('useStartRecommendationSession', () => {
+  it('does not start a session when no RecommendationShelf is enabled in CMS', async () => {
+    getCookie.mockReturnValue(undefined)
+
+    renderHook(() => useStartRecommendationSession(disabledPageProps))
+
+    await waitFor(() => {
+      expect(runStartRecommendationSession).not.toHaveBeenCalled()
+    })
+  })
+
+  it('does not start a session when page props are missing', async () => {
+    getCookie.mockReturnValue(undefined)
+
+    renderHook(() => useStartRecommendationSession())
+
+    await waitFor(() => {
+      expect(runStartRecommendationSession).not.toHaveBeenCalled()
+    })
+  })
+
   it('does not start a session when the session cookie already exists', async () => {
     getCookie.mockReturnValue('already-started')
 
-    renderHook(() => useStartRecommendationSession())
+    renderHook(() => useStartRecommendationSession(enabledPageProps))
 
     await waitFor(() => {
       expect(runStartRecommendationSession).not.toHaveBeenCalled()
     })
   })
 
-  it('starts a session when no session cookie is present', async () => {
+  it('starts a session when CMS enableRecommendations is true and no session cookie is present', async () => {
     getCookie.mockReturnValue(undefined)
 
-    renderHook(() => useStartRecommendationSession())
+    renderHook(() => useStartRecommendationSession(enabledPageProps))
 
     await waitFor(() => {
-      expect(runStartRecommendationSession).toHaveBeenCalled()
+      expect(runStartRecommendationSession).toHaveBeenCalledTimes(1)
     })
   })
 
-  it('does not start a session when recommendations are disabled', async () => {
-    storeConfigMock.experimental.enableRecommendations = false
+  it('starts a session only once when the page has multiple enabled RecommendationShelves', async () => {
     getCookie.mockReturnValue(undefined)
 
-    renderHook(() => useStartRecommendationSession())
+    const { rerender } = renderHook(
+      ({ pageProps }) => useStartRecommendationSession(pageProps),
+      { initialProps: { pageProps: multipleEnabledShelvesPageProps } }
+    )
+
+    // Simulate Layout re-renders caused by multiple shelves updating.
+    rerender({ pageProps: multipleEnabledShelvesPageProps })
+    rerender({ pageProps: multipleEnabledShelvesPageProps })
 
     await waitFor(() => {
-      expect(runStartRecommendationSession).not.toHaveBeenCalled()
+      expect(runStartRecommendationSession).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  it('does not start a second session when the hook mounts again without a cookie', async () => {
+    getCookie.mockReturnValue(undefined)
+
+    renderHook(() => useStartRecommendationSession(enabledPageProps))
+
+    await waitFor(() => {
+      expect(runStartRecommendationSession).toHaveBeenCalledTimes(1)
+    })
+
+    renderHook(() => useStartRecommendationSession(enabledPageProps))
+
+    await waitFor(() => {
+      expect(runStartRecommendationSession).toHaveBeenCalledTimes(1)
     })
   })
 })

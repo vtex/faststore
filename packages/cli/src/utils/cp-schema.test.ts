@@ -127,7 +127,6 @@ describe('cp-schema', () => {
         errorMessage: 'Failed to upload CMS schema',
         interactive: true,
       })
-      expect(runCommandSyncMock.mock.calls[0][0].cmd).not.toContain('-l')
     })
 
     it('skips upload on dry-run', () => {

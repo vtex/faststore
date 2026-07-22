@@ -4434,10 +4434,16 @@
       "$componentKey": "RecommendationShelf",
       "$componentTitle": "Recommendation Shelf",
       "title": "Recommendation Shelf",
-      "description": "Display a carousel of personalized product recommendations from a VTEX Recommendations campaign.",
+      "description": "Display a carousel of personalized product recommendations from a VTEX Recommendations campaign. Enable the shelf with the Enable recommendations toggle (off by default).",
       "type": "object",
       "required": ["campaignVrn"],
       "properties": {
+        "enableRecommendations": {
+          "title": "Enable recommendations?",
+          "description": "When enabled, starts the VTEX Recommendations personalization session (once per browser session) and fetches personalized products for this shelf. Off by default so stores that do not use Recommendations never hit the Recommendations API.",
+          "type": "boolean",
+          "default": false
+        },
         "title": {
           "title": "Title",
           "description": "Override the shelf title. If not set, the campaign title will be used.",

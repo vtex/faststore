@@ -201,9 +201,6 @@ module.exports = {
     },
     refreshToken: false,
     scrollRestoration: false,
-    // Opt-in flag for VTEX Recommendations. When disabled (default), the store
-    // never starts a personalization session nor calls the Recommendations API.
-    enableRecommendations: false,
     /** Package names to transpile (e.g. ['@vtex/components']). Use a non-empty list to enable Next.js transpilation. */
     transpilePackages: [],
   },
