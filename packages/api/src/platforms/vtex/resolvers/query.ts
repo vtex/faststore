@@ -44,11 +44,7 @@ import {
   findSlug,
   transformSelectedFacet,
 } from '../utils/facets'
-import {
-  getCatalogLocale,
-  isConfiguredLocale,
-  isLocalizationEnabled,
-} from '../utils/localization'
+import { getCatalogLocale, isLocalizationEnabled } from '../utils/localization'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { slugify } from '../utils/slugify'
 import { SORT_MAP } from '../utils/sort'
@@ -193,24 +189,17 @@ export const Query = {
   },
   collection: (
     _: unknown,
-    { slug, locale }: QueryCollectionArgs,
+    { slug }: QueryCollectionArgs,
     ctx: GraphqlContext
   ) => {
-    // Validate client-supplied locale against the configured locales before
-    // propagating it to downstream platform APIs (Search, Catalog, OrderForm).
-    // Unknown values are ignored so the request falls back to the store default
-    // instead of forwarding arbitrary input.
-    if (locale && isConfiguredLocale(ctx, locale)) {
-      mutateLocaleContext(ctx, locale)
-    }
-
     const {
       loaders: { collectionLoader },
     } = ctx
 
-    // Pass locale on the load key (captured now) so Accept-Language and the
-    // DataLoader cache entry cannot race on a later mutateLocaleContext from
-    // a sibling aliased collection field in the same request.
+    // The request locale is set on ctx.storage.locale by the core `execute`
+    // wrapper (from Next.js i18n) rather than a GraphQL argument, so overridable
+    // fragments (API extensions) that also select `collection` keep merging
+    // without argument conflicts.
     return collectionLoader.load({
       slug,
       locale: getCatalogLocale(ctx),

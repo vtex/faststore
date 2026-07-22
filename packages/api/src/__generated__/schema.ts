@@ -950,7 +950,6 @@ export type QueryAllProductsArgs = {
 
 
 export type QueryCollectionArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
   slug: Scalars['String']['input'];
 };
 

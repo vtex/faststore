@@ -444,41 +444,28 @@ describe('StoreCollection', () => {
 })
 
 describe('Query.collection', () => {
-  it('forwards a configured locale on the load key and mutates context', () => {
+  it('forwards the request locale (from context) on the load key', () => {
+    // The locale is set on ctx.storage.locale by the core `execute` wrapper
+    // (Next.js i18n), not via a GraphQL argument. The resolver only reads it.
     const load = vi.fn(() => Promise.resolve({}))
     const ctx = makeCtx({
       localizationEnabled: true,
-      locale: 'en-US',
+      locale: 'pt-BR',
       locales: { 'en-US': {}, 'pt-BR': {} },
       load,
     })
-    ;(Query.collection as any)(
-      null,
-      { slug: 'vestuario', locale: 'pt-BR' },
-      ctx
-    )
+    ;(Query.collection as any)(null, { slug: 'vestuario' }, ctx)
 
-    expect(ctx.storage.locale).toBe('pt-BR')
     expect(load).toHaveBeenCalledWith({ slug: 'vestuario', locale: 'pt-BR' })
-  })
-
-  it('ignores an unconfigured locale and keeps the store default', () => {
-    const load = vi.fn(() => Promise.resolve({}))
-    const ctx = makeCtx({
-      localizationEnabled: true,
-      locale: 'en-US',
-      locales: { 'en-US': {}, 'pt-BR': {} },
-      load,
-    })
-    ;(Query.collection as any)(null, { slug: 'apparel', locale: 'zz-ZZ' }, ctx)
-
-    expect(ctx.storage.locale).toBe('en-US')
-    expect(load).toHaveBeenCalledWith({ slug: 'apparel', locale: 'en-US' })
   })
 
   it('sends no catalog locale when localization is disabled', () => {
     const load = vi.fn(() => Promise.resolve({}))
-    const ctx = makeCtx({ localizationEnabled: false, load })
+    const ctx = makeCtx({
+      localizationEnabled: false,
+      locale: 'pt-BR',
+      load,
+    })
     ;(Query.collection as any)(null, { slug: 'apparel' }, ctx)
 
     expect(load).toHaveBeenCalledWith({ slug: 'apparel', locale: undefined })

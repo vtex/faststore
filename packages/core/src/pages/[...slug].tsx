@@ -86,9 +86,9 @@ function Page({
 }
 
 const query = gql(`
-  query ServerCollectionPageQuery($slug: String!, $locale: String) {
+  query ServerCollectionPageQuery($slug: String!) {
     ...ServerCollectionPage
-    collection(slug: $slug, locale: $locale) {
+    collection(slug: $slug) {
       seo {
         title
         description
@@ -174,8 +174,9 @@ export const getStaticProps: GetStaticProps<
       ServerCollectionPageQueryQueryVariables,
       ServerCollectionPageQueryQuery
     >({
-      variables: { slug, locale },
+      variables: { slug },
       operation: query,
+      locale,
     }),
     contentService.getPlpContent(
       {
