@@ -18,12 +18,8 @@ interface Options {
   incrementAddress: boolean
   flags?: FeatureFlags
   version?: string
-  OTEL?: {
-    enabled: boolean
-    traceparent?: string
-    tracestate?: string
-  }
   discoveryConfig?: Record<string, unknown>
+  OTEL_ENABLED: boolean
 }
 
 interface FeatureFlags {

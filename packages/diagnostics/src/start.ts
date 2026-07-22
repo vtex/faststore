@@ -1,26 +1,9 @@
-import {
-  CreateTracesExporterConfig,
-  CreateExporter,
-} from '@vtex/diagnostics-nodejs/dist/exporters/index.js'
-import { NewTelemetryClient } from '@vtex/diagnostics-nodejs/dist/telemetry/client.js'
+import { NodeSDK } from '@opentelemetry/sdk-node'
+import { resourceFromAttributes } from '@opentelemetry/resources'
+import { traceExporter } from './tracer'
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
-import resolvePackage from 'resolve-pkg'
-
-import { name as currentPkgName } from '../package.json' with { type: 'json' }
-
-async function setupTracesExporter() {
-  const OTLP_TRACES_ENDPOINT =
-    process.env.OTLP_TRACES_ENDPOINT || 'localhost:4317'
-
-  const tracesConfig = CreateTracesExporterConfig({
-    endpoint: OTLP_TRACES_ENDPOINT,
-    insecure: global.fsDiagnostics.IS_DEV ?? false,
-  })
-
-  const tracesExporter = CreateExporter(tracesConfig, 'otlp')
-  await tracesExporter.initialize()
-  return tracesExporter
-}
+import { UndiciInstrumentation } from '@opentelemetry/instrumentation-undici'
+import { getLoggerExporter, setupLogs } from './logger'
 
 export async function getTelemetryClient(opt: {
   serviceName: string
@@ -29,55 +12,45 @@ export async function getTelemetryClient(opt: {
   account: string
   packageName: string
 }) {
-  if (global.fsDiagnostics.TELEMETRY_CLIENTS.has(opt.packageName))
-    return global.fsDiagnostics.TELEMETRY_CLIENTS.get(opt.packageName)
+  if (global.fsDiagnostics.TELEMETRY_CLIENT)
+    return global.fsDiagnostics.TELEMETRY_CLIENT
 
-  const client = await NewTelemetryClient(
-    currentPkgName,
-    opt.clientName,
-    opt.serviceName,
-    {
-      additionalAttrs: {
-        '@faststore_version': opt.version,
-        '@faststore_package_name': opt.packageName,
-        '@faststore_account_name': opt.account ?? 'unknown',
-        '@faststore_environment': process.env.NODE_ENV ?? 'development',
-      },
-      // debug: global.fsDiagnostics.IS_DEV,
-      config: {
-        configPath: resolvePackage(
-          `@faststore/diagnostics/configs/${global.fsDiagnostics.IS_DEV ? 'dev' : 'prod'}.json`,
-          {
-            cwd: process.env.PWD ?? process.cwd(),
-          }
-        ),
-      },
-    }
-  )
+  const resource = resourceFromAttributes({
+    'service.name': opt.serviceName,
+    'service.version': opt.version,
+    'vtex.account.name': opt.account ?? 'unknown',
+    'vtex.application.id': opt.serviceName,
+    'vtex.diagnostics.name': 'faststore_custom',
+    '@faststore_version': opt.version,
+    '@faststore_package_name': opt.packageName,
+    '@faststore_account_name': opt.account ?? 'unknown',
+    '@faststore_environment': process.env.NODE_ENV ?? 'development',
+  })
 
-  const tracesExporter = await setupTracesExporter()
-  const logger = await client.newLogsClient()
-  const metrics = await client.newMetricsClient()
+  const sdk = new NodeSDK({
+    resource,
+    spanProcessors: [traceExporter()],
+    logRecordProcessors: [getLoggerExporter()],
+    instrumentations: [new HttpInstrumentation(), new UndiciInstrumentation()],
+  })
 
-  global.fsDiagnostics.TRACE_CLIENTS.set(
-    opt.packageName,
-    await client.newTracesClient({
-      setGlobalProvider: true,
-      exporter: tracesExporter,
-    })
-  )
+  global.fsDiagnostics.TELEMETRY_CLIENT = sdk
 
-  client.registerInstrumentations([new HttpInstrumentation()])
+  const logs = setupLogs(resource)
 
-  await logger.shutdown()
-  await metrics.shutdown()
+  sdk.start()
 
   if (global.fsDiagnostics.IS_DEV) console.log('TELEMETRY CLIENT STARTED', opt)
 
-  global.fsDiagnostics.TELEMETRY_CLIENTS.set(opt.packageName, client)
-  return client
-}
+  process.on('SIGTERM', async () => {
+    await logs.shutdown()
 
-export function getTraceClient(serviceName: string) {
-  return global.fsDiagnostics.TRACE_CLIENTS.get(serviceName)
+    sdk
+      .shutdown()
+      .then(() => console.log('OTel SDK shut down gracefully'))
+      .catch((err) => console.error('Error shutting down OTel SDK', err))
+      .finally(() => process.exit(0))
+  })
+
+  return sdk
 }

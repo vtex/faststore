@@ -1,12 +1,12 @@
-/// <reference types="vite/client" />
-
-import type { TelemetryClient } from '@vtex/diagnostics-nodejs/dist/telemetry/client.js'
-import type { TraceClient } from '@vtex/diagnostics-nodejs/dist/types/traces.js'
+import type { NodeSDK } from '@opentelemetry/sdk-node'
+import type { LoggerProvider } from '@opentelemetry/sdk-logs'
 
 declare global {
   var fsDiagnostics: {
-    TELEMETRY_CLIENTS: Map<string, TelemetryClient | undefined>
-    TRACE_CLIENTS: Map<string, TraceClient | undefined>
+    TELEMETRY_CLIENT: NodeSDK | undefined
+    LOGGER_CLIENT: LoggerProvider | undefined
     IS_DEV: boolean
+    OTLP_TRACES_ENDPOINT: string
+    OTLP_LOGGER_ENDPOINT: string
   }
 }

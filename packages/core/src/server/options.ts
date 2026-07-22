@@ -1,5 +1,5 @@
 import type { APIOptions } from '@faststore/api'
-import { getTraceClient } from '@faststore/diagnostics'
+import { getTelemetryClient } from '@faststore/diagnostics'
 import storeConfig from '../../discovery.config'
 import pkgJSON from '../../package.json'
 
@@ -23,25 +23,27 @@ export const apiOptions: APIOptions = {
       storeConfig.api?.enableUnavailableItemsOnCart ?? false,
   },
   version,
-  OTEL: {
-    enabled: storeConfig.analytics.otelEnabled,
-  },
+  OTEL_ENABLED: false,
   discoveryConfig: storeConfig,
 }
 
 export async function withTraceClient<T extends APIOptions = typeof apiOptions>(
   apiOptions: T
 ): Promise<T> {
-  const OTEL = {}
-  getTraceClient(
-    apiOptions?.discoveryConfig?.analytics?.serviceName ?? name
-  )?.inject(OTEL)
+  // Safe guard in dev mode to prevent the
+  // global scope to be erased in hot-module-reload.
+  if (process.env.NODE_ENV !== 'production') {
+    await getTelemetryClient({
+      serviceName: storeConfig.analytics?.serviceName ?? 'faststore',
+      version,
+      account: storeConfig.api.storeId,
+      clientName: storeConfig.api.storeId,
+      packageName: name,
+    })
+  }
 
   return {
     ...apiOptions,
-    OTEL: {
-      ...OTEL,
-      enabled: storeConfig.analytics?.otelEnabled?.toString() === 'true',
-    },
-  } as T
+    OTEL_ENABLED: false,
+  } satisfies T
 }

@@ -24,11 +24,13 @@ const apiOptions = {
   locale: 'en-US',
   subDomainPrefix: ['www'],
   hideUnavailableItems: false,
+  showSponsored: false,
   incrementAddress: false,
   flags: {
     enableOrderFormSync: true,
     enableUnavailableItemsOnCart: false,
   },
+  OTEL_ENABLED: false,
 } as Options
 
 vi.useFakeTimers({ shouldAdvanceTime: true })

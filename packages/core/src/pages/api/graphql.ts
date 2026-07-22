@@ -13,6 +13,9 @@ import { getRequestHostname } from 'src/utils/getRequestHostname'
 import { isLocalHost } from 'src/utils/isLocalHost'
 import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
 import { execute } from '../../server'
+import { getOTELLogger, logger } from '@faststore/diagnostics'
+
+const OTELLogger = logger(getOTELLogger('@faststore/core'))
 
 const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
 const DEFAULT_STALE_WHILE_REVALIDATE = 60 * 60 // 1 hour
@@ -150,6 +153,10 @@ const hasVtexIdclientAutCookie = (request: NextApiRequest): boolean => {
 const handler: NextApiHandler = async (request, response) => {
   if (request.method !== 'POST' && request.method !== 'GET') {
     response.status(405).end()
+    OTELLogger(
+      'info',
+      `Invalid request method.\nRequest: ${JSON.stringify(request)}`
+    )
 
     return
   }
@@ -157,6 +164,14 @@ const handler: NextApiHandler = async (request, response) => {
   try {
     // value is used to cache bust the request if there is a VtexIdclientAutCookie
     const { operation, variables, query, v: value } = parseRequest(request)
+
+    OTELLogger(
+      'debug',
+      `operation: ${operation?.__meta__?.operationName} hash: ${operation?.__meta__?.operationHash}
+variables: ${JSON.stringify(variables, null, 2)}
+query: ${query}
+value: ${value}`
+    )
 
     const isLocal = isLocalHost(getRequestHostname(request.headers.host))
 
@@ -209,11 +224,14 @@ const handler: NextApiHandler = async (request, response) => {
       // upstream status) is nested in `originalError`. Recover it so the BFF
       // propagates the real status instead of collapsing everything to 500.
       const fastStoreError = errors.map(recoverFastStoreError).find(Boolean)
-
       console.error(
         'Graphql execution returned with error: ',
         errors.map((graphqlError) => {
           const fsError = recoverFastStoreError(graphqlError)
+          OTELLogger(
+            'error',
+            `Graphql execution returned with error:\ngraphql-Error: ${graphqlError}\nfaststore-Error: ${fsError}`
+          )
 
           return {
             message: (graphqlError as { message?: string })?.message,
@@ -283,9 +301,7 @@ const handler: NextApiHandler = async (request, response) => {
         'cache-control',
         `${scope}, s-maxage=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
       )
-    } else {
-      response.setHeader('cache-control', 'no-cache, no-store')
-    }
+    } else response.setHeader('cache-control', 'no-cache, no-store')
 
     const setCookieValues = Array.from(extensions.cookies.values())
     if (setCookieValues.length > 0 && !hasErrors) {
@@ -300,6 +316,7 @@ const handler: NextApiHandler = async (request, response) => {
     response.setHeader('content-type', 'application/json')
     response.send(JSON.stringify({ data, errors }))
   } catch (err) {
+    OTELLogger('error', err)
     console.error(
       'Something unexpected occurred querying Graphql endpoint: \n',
       err

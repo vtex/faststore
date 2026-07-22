@@ -1,5 +1,40 @@
 import { assertValidSchema } from 'graphql'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+
+vi.mock('@faststore/diagnostics', () => {
+  const mockSpan = {
+    setStatus: vi.fn(),
+    recordException: vi.fn(),
+    end: vi.fn(),
+  }
+
+  return {
+    getTelemetryClient: vi.fn().mockResolvedValue({
+      registerInstrumentations: vi.fn(),
+    }),
+    getTraceClient: vi.fn(),
+    getOTELLogger: vi.fn(),
+    logger: vi.fn(() => vi.fn()),
+    OTELAPI: {
+      trace: {
+        getTracer: vi.fn(() => ({
+          startSpan: vi.fn(() => mockSpan),
+        })),
+        setSpan: vi.fn(),
+      },
+      context: {
+        active: vi.fn(() => ({})),
+        with: vi.fn((_context, fn) => fn()),
+      },
+      propagation: {
+        inject: vi.fn(),
+        extract: vi.fn(() => ({})),
+      },
+      SpanKind: { INTERNAL: 0 },
+      SpanStatusCode: { ERROR: 2 },
+    },
+  }
+})
 
 import storeConfig from '../../discovery.config'
 import { execute, getEnvelop, getFinalAPISchema } from '../../src/server'

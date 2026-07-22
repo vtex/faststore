@@ -1,4 +1,3 @@
-import { OTELAPI } from '@faststore/diagnostics'
 import { mergeSchemas } from '@graphql-tools/schema'
 import { type GraphQLSchema, isSchema } from 'graphql'
 import { withDirectives } from '../../directives'
@@ -35,29 +34,24 @@ export interface GraphqlContext {
   }
   headers: Record<string, string>
   account: string
-  OTEL: Record<string, unknown>
+  OTEL_ENABLED: boolean
 }
 
 export const GraphqlVtexContextFactory = async (options: Options) => {
-  return OTELAPI.context.with(
-    OTELAPI.propagation.extract(OTELAPI.context.active(), options.OTEL),
-    () =>
-      (ctx: any): GraphqlContext => {
-        ctx.storage = {
-          channel: ChannelMarshal.parse(options.channel),
-          flags: options.flags ?? {},
-          locale: options.locale,
-          cookies: new Map<string, Record<string, string>>(),
-        }
-        ctx.clients = getClients(options, ctx)
-        ctx.loaders = getLoaders(options, ctx)
-        ctx.account = options.account
-        ctx.OTEL = options.OTEL
-        ctx.discoveryConfig = options.discoveryConfig
-
-        return ctx
-      }
-  )
+  return (ctx: any): GraphqlContext => {
+    ctx.storage = {
+      channel: ChannelMarshal.parse(options.channel),
+      flags: options.flags ?? {},
+      locale: options.locale,
+      cookies: new Map<string, Record<string, string>>(),
+    }
+    ctx.clients = getClients(options, ctx)
+    ctx.loaders = getLoaders(options, ctx)
+    ctx.account = options.account
+    ctx.discoveryConfig = options.discoveryConfig
+    ctx.OTEL_ENABLED = options.OTEL_ENABLED
+    return ctx
+  }
 }
 
 export type GraphqlResolver<S = any, V = any, R = any> = Resolver<
