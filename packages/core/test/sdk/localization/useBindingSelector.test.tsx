@@ -30,10 +30,20 @@ function createFakeStorage() {
   }
 }
 
-/** Stubs a browser-like `window` with the given pathname and a fresh storage. */
-function stubWindow(pathname: string) {
-  const sessionStorage = createFakeStorage()
-  vi.stubGlobal('window', { location: { pathname }, sessionStorage })
+/**
+ * Stubs a browser-like global scope with the given pathname and storage.
+ *
+ * The production helpers guard on `typeof window` but read `globalThis.location`
+ * / `globalThis.sessionStorage` (which coincide with `window` in a real browser).
+ * Under the node test environment those are distinct, so we stub all three: the
+ * `window` keeps the guard passing while `location`/`sessionStorage` back the reads.
+ * Pass an existing `sessionStorage` to simulate navigation while storage persists.
+ */
+function stubWindow(pathname: string, sessionStorage = createFakeStorage()) {
+  const location = { pathname }
+  vi.stubGlobal('window', { location, sessionStorage })
+  vi.stubGlobal('location', location)
+  vi.stubGlobal('sessionStorage', sessionStorage)
 
   return sessionStorage
 }
@@ -306,40 +316,35 @@ describe('useBindingSelector integration scenarios', () => {
 
     it('round-trips the map for the SKU referenced by the current path', () => {
       // Persisted while on a working PDP (SKU 65).
-      stubWindow('/adidas-mens-performance-polo-blast-blue-65/p')
+      const storage = stubWindow(
+        '/adidas-mens-performance-polo-blast-blue-65/p'
+      )
       persistOtherLocales(otherLocales)
 
       // Later, on a 404 for en-CA (same SKU 65, default-locale slug in the URL).
-      vi.stubGlobal('window', {
-        location: {
-          pathname: '/en-CA/adidas-mens-performance-polo-blast-blue-65/p',
-        },
-        sessionStorage: window.sessionStorage,
-      })
+      stubWindow('/en-CA/adidas-mens-performance-polo-blast-blue-65/p', storage)
 
       expect(recoverOtherLocales()).toEqual(otherLocales)
     })
 
     it('returns null when the current path references a different SKU', () => {
-      stubWindow('/adidas-mens-performance-polo-blast-blue-65/p')
+      const storage = stubWindow(
+        '/adidas-mens-performance-polo-blast-blue-65/p'
+      )
       persistOtherLocales(otherLocales)
 
-      vi.stubGlobal('window', {
-        location: { pathname: '/en-CA/some-other-product-99/p' },
-        sessionStorage: window.sessionStorage,
-      })
+      stubWindow('/en-CA/some-other-product-99/p', storage)
 
       expect(recoverOtherLocales()).toBeNull()
     })
 
     it('returns null when the current path is not a PDP', () => {
-      stubWindow('/adidas-mens-performance-polo-blast-blue-65/p')
+      const storage = stubWindow(
+        '/adidas-mens-performance-polo-blast-blue-65/p'
+      )
       persistOtherLocales(otherLocales)
 
-      vi.stubGlobal('window', {
-        location: { pathname: '/en-CA' },
-        sessionStorage: window.sessionStorage,
-      })
+      stubWindow('/en-CA', storage)
 
       expect(recoverOtherLocales()).toBeNull()
     })

@@ -80,4 +80,23 @@ type StoreCollection {
   Collection type.
   """
   type: StoreCollectionType!
+  """
+  Localized versions of this collection for all available locales.
+  Only populated when localization is enabled.
+  """
+  otherLocales: [StoreCollectionLocale!]
+}
+
+"""
+Localized collection data for a specific locale.
+"""
+type StoreCollectionLocale {
+  """
+  Locale code (e.g. "pt-BR", "it-IT").
+  """
+  locale: String!
+  """
+  Localized collection slug (e.g. "vestuario/camisetas").
+  """
+  slug: String!
 }

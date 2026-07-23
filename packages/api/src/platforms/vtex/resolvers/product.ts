@@ -1,9 +1,15 @@
-import type { GraphqlResolver } from '..'
+import type { GraphqlContext, GraphqlResolver } from '..'
 import type { StoreImage, StoreProductImageArgs } from '../../..'
+import type { LocalizedProductEntry } from '../clients/catalog'
 import type { Attachment } from '../clients/commerce/types/OrderForm'
 import { canonicalFromProduct } from '../utils/canonical'
 import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
+import {
+  getConfiguredLocales,
+  getDefaultLocale,
+  isLocalizationEnabled,
+} from '../utils/localization'
 import { bestOfferFirst } from '../utils/productStock'
 import {
   attachmentToPropertyValue,
@@ -34,6 +40,50 @@ const nonEmptyArray = <T>(array: T[] | null | undefined) =>
 
 function removeTrailingSlashes(path: string) {
   return path.replace(/^\/+|\/+$/g, '')
+}
+
+/**
+ * Returns a cached-or-fetched localized product entry from the Catalog Dataplane.
+ * The promise is stored in `ctx.storage.productTranslationsCache` so it is shared
+ * across the `breadcrumbList`, `otherLocales`, and slug-validation resolvers within
+ * the same request.
+ *
+ * The in-flight promise (not just the resolved value) is cached so concurrent
+ * sibling resolvers dedupe to a single Catalog Dataplane request instead of each
+ * missing the cache and issuing a duplicate fetch.
+ */
+export async function getLocalizedProductEntry(
+  ctx: GraphqlContext,
+  productId: string,
+  locale: string
+): Promise<LocalizedProductEntry | null> {
+  const cacheKey = `${productId}:${locale}`
+  ctx.storage.productTranslationsCache ??= new Map()
+  const cache = ctx.storage.productTranslationsCache
+
+  const cached = cache.get(cacheKey)
+  if (cached) return cached
+
+  const entry = (async (): Promise<LocalizedProductEntry | null> => {
+    try {
+      const result = await ctx.clients.catalog.getLocalizedProduct(
+        productId,
+        locale
+      )
+
+      return {
+        linkId: result.linkId,
+        categories: result.categories ?? [],
+        availableLinkIds: result.availableLinkIds ?? {},
+      }
+    } catch {
+      return null
+    }
+  })()
+
+  cache.set(cacheKey, entry)
+
+  return entry
 }
 
 /**
@@ -94,37 +144,10 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     const mainTree = categories[mainTreeIndex]
     const splittedCategories = removeTrailingSlashes(mainTree).split('/')
 
-    const isLocalizationEnabled =
-      (ctx.discoveryConfig as any)?.localization?.enabled === true
     const locale = ctx.storage.locale
 
-    if (isLocalizationEnabled && locale) {
-      // productTranslationsCache is request-scoped and shared with the slug and otherLocales
-      // resolvers — if any of them already called getLocalizedProduct for this product+locale,
-      // we reuse the result here at zero extra cost.
-      const cacheKey = `${productId}:${locale}`
-      let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
-
-      if (!entry) {
-        try {
-          const result = await ctx.clients.catalog.getLocalizedProduct(
-            productId,
-            locale
-          )
-          // Store both linkId (for the product item URL) and the full categories array
-          // (for per-level localized slugs). We intentionally keep categories[] rather than
-          // just the leaf category so we never need to reconstruct the hierarchy via split('/').
-          entry = {
-            linkId: result.linkId,
-            categories: result.categories ?? [],
-            availableLinkIds: result.availableLinkIds ?? {},
-          }
-          ctx.storage.productTranslationsCache ??= new Map()
-          ctx.storage.productTranslationsCache.set(cacheKey, entry)
-        } catch {
-          // Catalog Dataplane API unavailable — fall through to IS-based behavior below
-        }
-      }
+    if (isLocalizationEnabled(ctx) && locale) {
+      const entry = await getLocalizedProductEntry(ctx, productId, locale)
 
       if (entry) {
         // Extract the category IDs that belong to the main tree (same tree chosen from IS above).
@@ -280,46 +303,23 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
   deliveryPromiseBadges: ({ isVariantOf: { deliveryPromisesBadges } }) =>
     deliveryPromisesBadges,
   otherLocales: async (root, _args, ctx) => {
-    const isLocalizationEnabled =
-      (ctx.discoveryConfig as any)?.localization?.enabled === true
+    if (!isLocalizationEnabled(ctx)) return null
 
-    if (!isLocalizationEnabled) return null
-
-    const configuredLocales = Object.keys(
-      (ctx.discoveryConfig as any)?.localization?.locales ?? {}
-    )
+    const configuredLocales = getConfiguredLocales(ctx)
 
     if (configuredLocales.length === 0) return null
 
     const productId = root.isVariantOf.productId
     const itemId = root.itemId
     const locale = ctx.storage.locale
-    const defaultLocale = (ctx.discoveryConfig as any)?.localization
-      ?.defaultLocale
+    const defaultLocale = getDefaultLocale(ctx)
 
     // availableLinkIds returns localized slug for every locale,
     // we fetch for the current locale (reusing the request-scoped cache shared with the slug and
     // breadcrumb resolvers) and read the full map from the response.
-    const cacheKey = `${productId}:${locale}`
-    let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
+    const entry = await getLocalizedProductEntry(ctx, productId, locale)
 
-    if (!entry?.availableLinkIds) {
-      try {
-        const result = await ctx.clients.catalog.getLocalizedProduct(
-          productId,
-          locale
-        )
-        entry = {
-          linkId: result.linkId,
-          categories: result.categories ?? [],
-          availableLinkIds: result.availableLinkIds ?? {},
-        }
-        ctx.storage.productTranslationsCache ??= new Map()
-        ctx.storage.productTranslationsCache.set(cacheKey, entry)
-      } catch {
-        return null
-      }
-    }
+    if (!entry?.availableLinkIds) return null
 
     const { availableLinkIds } = entry
     const { linkText } = root.isVariantOf
