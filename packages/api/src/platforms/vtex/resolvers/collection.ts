@@ -2,71 +2,114 @@ import type { GraphqlResolver } from '..'
 import type { Brand } from '../clients/commerce/types/Brand'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { CollectionPageType } from '../clients/commerce/types/Portal'
-import { isCollectionPageType } from '../loaders/collection'
+import {
+  isBrand,
+  isCategory,
+  isCollection,
+  type ByLinkIdBrandRoot,
+  type ByLinkIdCategoryRoot,
+  type ByLinkIdCollectionRoot,
+} from '../loaders/collection'
+import { getCatalogLocale, getLocalizationConfig } from '../utils/localization'
 import { slugify } from '../utils/slugify'
 
-export type Root =
+type ByLinkIdRoot =
+  | ByLinkIdCategoryRoot
+  | ByLinkIdBrandRoot
+  | ByLinkIdCollectionRoot
+
+/**
+ * @deprecated Legacy pagetype-based shape. It is no longer produced at runtime
+ * since the by-linkid migration and only remains in the public `Root` union to
+ * avoid a breaking change for stores that still reference `StoreCollectionRoot`.
+ *
+ * TODO: remove in the next major of `@faststore/api` (drop from the `Root`
+ * union below) — this is a breaking change and must ship with a BREAKING CHANGE note.
+ */
+export type LegacyStoreCollectionRoot =
   | Brand
   | (CategoryTree & { level: number })
   | CollectionPageType
 
-const isBrand = (x: any): x is Brand | CollectionPageType =>
-  x.type === 'brand' ||
-  (isCollectionPageType(x) && x.pageType.toLowerCase() === 'brand')
+/**
+ * Public `StoreCollectionRoot` type (re-exported from the package entrypoint).
+ * Kept as a backward-compatible superset: the legacy members are retained
+ * (see {@link LegacyStoreCollectionRoot}) so existing consumers keep compiling,
+ * while `ByLinkIdRoot` reflects the real runtime shape.
+ */
+export type Root = ByLinkIdRoot | LegacyStoreCollectionRoot
 
-const isCollection = (x: Root): x is CollectionPageType =>
-  isCollectionPageType(x) && x.pageType.toLowerCase() === 'collection'
-
-const slugifyRoot = (root: Root) => {
-  if (isBrand(root) || isCollection(root)) {
-    return slugify(root.name)
+const slugifyRoot = (root: ByLinkIdRoot): string => {
+  if (isCategory(root)) {
+    // root.slug is the full accumulated input slug (e.g. "vestuario/camisetas"),
+    // injected by the loader — no URL parsing needed.
+    return root.slug
   }
 
-  if (isCollectionPageType(root)) {
-    return new URL(`https://${root.url}`).pathname.slice(1).toLowerCase()
+  if (isBrand(root)) {
+    return root.linkId
   }
 
-  return new URL(root.url).pathname.slice(1).toLowerCase()
+  // collection — linkId may be null for clusters not yet registered in multilanguage
+  return root.linkId ?? slugify(root.name)
 }
 
-export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
+export const StoreCollection: Record<string, GraphqlResolver<ByLinkIdRoot>> = {
   id: ({ id }) => id.toString(),
   slug: (root) => slugifyRoot(root),
-  seo: (root) =>
-    isBrand(root) || isCollectionPageType(root)
-      ? {
-          title: root.title ?? root.name,
-          description: root.metaTagDescription,
-        }
-      : {
-          title: root.Title,
-          description: root.MetaTagDescription,
-        },
-  type: (root) =>
-    isBrand(root)
-      ? 'Brand'
-      : isCollectionPageType(root)
-        ? root.pageType
-        : root.level === 0
-          ? 'Department'
-          : 'Category',
-  meta: (root) => {
+  seo: (root) => ({
+    title: root.title ?? root.name,
+    // pagetype.metaTagDescription and catalog `description` share the same
+    // source (confirmed with Catalog). Prefer metaTagDescription when present
+    // for forward-compat; fall back to description for by-linkid parity.
+    description: root.metaTagDescription ?? root.description,
+  }),
+  type: (root) => {
+    if (isBrand(root)) return 'Brand'
+    if (isCollection(root)) return 'Collection'
+    // Department = root category (no parent); Category = everything else.
+    // SubCategory distinction (3rd level+) requires recursive parent lookup — deferred.
+    return root.fatherCategoryId === null ? 'Department' : 'Category'
+  },
+  meta: async (root, _, ctx) => {
     const slug = slugifyRoot(root)
 
-    return isBrand(root)
-      ? {
-          selectedFacets: [{ key: 'brand', value: slug }],
-        }
-      : isCollection(root)
-        ? {
-            selectedFacets: [{ key: 'productclusterids', value: root.id }],
-          }
-        : {
-            selectedFacets: slug.split('/').map((segment, index) => ({
-              key: `category-${index + 1}`,
-              value: segment,
-            })),
-          }
+    if (isBrand(root)) {
+      return { selectedFacets: [{ key: 'brand', value: slug }] }
+    }
+
+    if (isCollection(root)) {
+      return { selectedFacets: [{ key: 'productclusterids', value: root.id }] }
+    }
+
+    // For categories, IS expects the canonical (default-locale) slug in selectedFacets
+    // regardless of which locale the current request uses. The by-linkid API echoes the
+    // queried slug in `linkId`, so we resolve canonical via availableLinkIds[defaultLocale].
+    const { defaultLocale } = getLocalizationConfig(ctx)
+
+    const segments = slug.split('/').filter(Boolean)
+    const segmentSlugs = segments.map((_, i) =>
+      segments.slice(0, i + 1).join('/')
+    )
+
+    const {
+      loaders: { collectionLoader },
+    } = ctx
+
+    const entities = await Promise.all(
+      segmentSlugs.map((s) =>
+        collectionLoader.load({ slug: s, locale: getCatalogLocale(ctx) })
+      )
+    )
+
+    return {
+      selectedFacets: entities.map((entity, index) => ({
+        key: `category-${index + 1}`,
+        value:
+          (defaultLocale && entity.availableLinkIds?.[defaultLocale]) ||
+          entity.linkId,
+      })),
+    }
   },
   breadcrumbList: async (root, _, ctx) => {
     const {
@@ -76,36 +119,97 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
     const slug = slugifyRoot(root)
 
     /**
-     * Split slug into segments so we fetch all data for
-     * the breadcrumb. For instance, if we get `/foo/bar`
-     * we need all metadata for both `/foo` and `/bar` and
-     * thus we need to fetch pageType for `/foo` and `/bar`
+     * Split slug into segments so each breadcrumb level gets its own
+     * by-linkid result. For "vestuario/camisetas" this produces two loader
+     * calls: one for "vestuario" and one for "vestuario/camisetas".
      */
-    const segments = slug.split('/').filter((segment) => Boolean(segment))
-    const slugs = segments.map((__, index) =>
+    const segments = slug.split('/').filter(Boolean)
+    const slugs = segments.map((_, index) =>
       segments.slice(0, index + 1).join('/')
     )
 
-    const collections: (CollectionPageType & {
-      slug: string
-    })[] = await Promise.all(
-      slugs.map(async (s) => {
-        const collection = await collectionLoader.load(s)
-        return { slug: s, ...collection }
-      })
+    const collections = await Promise.all(
+      slugs.map((s) =>
+        collectionLoader.load({ slug: s, locale: getCatalogLocale(ctx) })
+      )
     )
 
     return {
       itemListElement: collections.map((collection, index) => ({
-        item: isCollection(collection)
-          ? `/${collection.slug}`
-          : new URL(
-              `https://${(collection as CollectionPageType).url}`
-            ).pathname.toLowerCase(),
+        item: `/${slugifyRoot(collection)}`,
         name: collection.name,
         position: index + 1,
       })),
       numberOfItems: collections.length,
     }
+  },
+
+  otherLocales: async (root, _, ctx) => {
+    const localizationConfig = getLocalizationConfig(ctx)
+
+    if (!localizationConfig.enabled) return null
+
+    const configuredLocales = Object.keys(localizationConfig.locales ?? {})
+
+    if (configuredLocales.length === 0) return null
+
+    const currentLocale = ctx.storage.locale
+    const slug = slugifyRoot(root)
+    const segments = slug.split('/').filter(Boolean)
+
+    if (segments.length === 0) return null
+
+    const {
+      loaders: { collectionLoader },
+    } = ctx
+
+    // Build per-level slug paths: ["vestuario", "vestuario/camisetas"].
+    // The collectionLoader DataLoader cache means any segment already fetched
+    // by breadcrumbList or meta costs nothing here.
+    const segmentSlugs = segments.map((_, i) =>
+      segments.slice(0, i + 1).join('/')
+    )
+
+    let entities: ByLinkIdRoot[]
+
+    try {
+      entities = await Promise.all(
+        segmentSlugs.map((s) =>
+          collectionLoader.load({ slug: s, locale: getCatalogLocale(ctx) })
+        )
+      )
+    } catch (err) {
+      console.warn('[otherLocales] failed to load collection entities:', err)
+
+      return null
+    }
+
+    return configuredLocales
+      .map((configuredLocale) => {
+        if (configuredLocale === currentLocale) {
+          // The input slug is already the localized path for the current locale.
+          return { locale: configuredLocale, slug }
+        }
+
+        // Build the full path by joining each segment's localized linkId from
+        // availableLinkIds. For the default locale, the canonical slug is also
+        // present in availableLinkIds.
+        // If any segment is missing an entry for this locale, omit the whole URL
+        // to keep the hreflang cluster symmetric.
+        const parts: string[] = []
+
+        for (const entity of entities) {
+          const linkId = entity.availableLinkIds?.[configuredLocale]
+
+          if (!linkId) return null
+
+          parts.push(linkId)
+        }
+
+        return parts.length > 0
+          ? { locale: configuredLocale, slug: parts.join('/') }
+          : null
+      })
+      .filter((e): e is { locale: string; slug: string } => e !== null)
   },
 }

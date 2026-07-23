@@ -1242,6 +1242,11 @@ export type StoreCollection = {
   id: Scalars['ID']['output'];
   /** Collection meta information. Used for search. */
   meta: StoreCollectionMeta;
+  /**
+   * Localized versions of this collection for all available locales.
+   * Only populated when localization is enabled.
+   */
+  otherLocales: Maybe<Array<StoreCollectionLocale>>;
   /** Meta tag data. */
   seo: StoreSeo;
   /** Corresponding collection URL slug, with which to retrieve this entity. */
@@ -1272,6 +1277,14 @@ export type StoreCollectionFacet = {
   key: Scalars['String']['output'];
   /** Facet value. */
   value: Scalars['String']['output'];
+};
+
+/** Localized collection data for a specific locale. */
+export type StoreCollectionLocale = {
+  /** Locale code (e.g. "pt-BR", "it-IT"). */
+  locale: Scalars['String']['output'];
+  /** Localized collection slug (e.g. "vestuario/camisetas"). */
+  slug: Scalars['String']['output'];
 };
 
 /** Collection meta information. Used for search. */
@@ -2621,7 +2634,7 @@ export type ServerCollectionPageQueryQueryVariables = Exact<{
 }>;
 
 
-export type ServerCollectionPageQueryQuery = { collection: { id: string, seo: { title: string, description: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, meta: { selectedFacets: Array<{ key: string, value: string }> } } };
+export type ServerCollectionPageQueryQuery = { collection: { id: string, seo: { title: string, description: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, meta: { selectedFacets: Array<{ key: string, value: string }> }, otherLocales: Array<{ locale: string, slug: string }> | null } };
 
 export type ServerProductQueryQueryVariables = Exact<{
   locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet;
@@ -3375,7 +3388,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
 }
     `, {"fragmentName":"SearchEvent_metadata"}) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>;
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
-export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"4b33c5c07f440dc7489e55619dc2211a13786e72"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
+export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"d46841b30ae1f6350021b5cf02f253d56c848664"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
 export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"c51aaec5d4ed39e5b8d7d65f460fcd2bc8645346"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;

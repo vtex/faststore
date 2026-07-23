@@ -14,6 +14,7 @@ import {
   type UserOrderCancel,
   type UserOrderListResult,
 } from '../../../..'
+import { isNotFoundError } from '../../../errors'
 import type { GraphqlContext } from '../../index'
 import { getWithAppKeyAndToken } from '../../utils/auth'
 import type { Channel } from '../../utils/channel'
@@ -26,6 +27,11 @@ import {
 import type { ContractResponse } from './Contract'
 import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
+import type {
+  ByLinkIdBrandResponse,
+  ByLinkIdCategoryResponse,
+  ByLinkIdCollectionResponse,
+} from './types/ByLinkId'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
 import type {
@@ -56,6 +62,24 @@ const BASE_INIT = {
     'content-type': 'application/json',
   },
 }
+
+/**
+ * Encode a by-linkid path for the category endpoint. Category link paths can be
+ * multi-segment (e.g. "computer---software/eletronicos"); the Catalog endpoint
+ * expects the "/" separators to stay literal so it can validate each level,
+ * while each segment is individually URL-encoded. Running encodeURIComponent on
+ * the whole string would turn "/" into "%2F" and break multi-segment resolution.
+ */
+const encodeLinkIdPath = (linkId: string): string =>
+  linkId.split('/').map(encodeURIComponent).join('/')
+
+/**
+ * Build the fetch init that forwards a locale to a by-linkid endpoint. When no
+ * locale is provided the endpoint falls back to the store's default registered
+ * language (non-localized stores behavior).
+ */
+const byLinkIdInit = (locale?: string): RequestInit | undefined =>
+  locale ? { headers: { 'Accept-Language': locale } } : undefined
 
 export const VtexCommerce = (
   { account, environment, incrementAddress, subDomainPrefix }: Options,
@@ -106,6 +130,53 @@ export const VtexCommerce = (
             undefined,
             { storeCookies }
           ),
+      },
+      byLinkId: {
+        // The by-linkid endpoints resolve a slug to a single catalog entity
+        // (or 404 when there is no match). We surface a 404 as `null` so the
+        // loader can cascade category → brand → collection.
+        category: async (
+          linkId: string,
+          locale?: string
+        ): Promise<ByLinkIdCategoryResponse | null> => {
+          try {
+            return await fetchAPI(
+              `${base}/api/catalog_system/pub/category/by-linkid/${encodeLinkIdPath(linkId)}`,
+              byLinkIdInit(locale)
+            )
+          } catch (error) {
+            if (isNotFoundError(error)) return null
+            throw error
+          }
+        },
+        brand: async (
+          linkId: string,
+          locale?: string
+        ): Promise<ByLinkIdBrandResponse | null> => {
+          try {
+            return await fetchAPI(
+              `${base}/api/catalog_system/pub/brand/by-linkid/${encodeURIComponent(linkId)}`,
+              byLinkIdInit(locale)
+            )
+          } catch (error) {
+            if (isNotFoundError(error)) return null
+            throw error
+          }
+        },
+        collection: async (
+          linkId: string,
+          locale?: string
+        ): Promise<ByLinkIdCollectionResponse | null> => {
+          try {
+            return await fetchAPI(
+              `${base}/api/catalog_system/pub/collection/by-linkid/${encodeURIComponent(linkId)}`,
+              byLinkIdInit(locale)
+            )
+          } catch (error) {
+            if (isNotFoundError(error)) return null
+            throw error
+          }
+        },
       },
       products: {
         crossselling: ({

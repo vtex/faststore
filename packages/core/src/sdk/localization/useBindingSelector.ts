@@ -42,13 +42,28 @@ export function persistOtherLocales(
   if (!skuId) return
 
   try {
-    window.sessionStorage.setItem(
+    globalThis.sessionStorage.setItem(
       `${OTHER_LOCALES_STORAGE_PREFIX}${skuId}`,
       JSON.stringify(otherLocales)
     )
   } catch {
     // sessionStorage may be unavailable (private mode/quota); non-critical.
   }
+}
+
+function isLocalizedProductLocaleArray(
+  value: unknown
+): value is LocalizedProductLocale[] {
+  return (
+    Array.isArray(value) &&
+    value.every(
+      (item) =>
+        typeof item === 'object' &&
+        item !== null &&
+        typeof (item as Record<string, unknown>).locale === 'string' &&
+        typeof (item as Record<string, unknown>).slug === 'string'
+    )
+  )
 }
 
 /**
@@ -58,15 +73,17 @@ export function persistOtherLocales(
 export function recoverOtherLocales(): LocalizedProductLocale[] | null {
   if (typeof window === 'undefined') return null
 
-  const skuId = getSkuIdFromPdpPath(window.location.pathname)
+  const skuId = getSkuIdFromPdpPath(globalThis.location.pathname)
   if (!skuId) return null
 
   try {
-    const raw = window.sessionStorage.getItem(
+    const raw = globalThis.sessionStorage.getItem(
       `${OTHER_LOCALES_STORAGE_PREFIX}${skuId}`
     )
 
-    return raw ? (JSON.parse(raw) as LocalizedProductLocale[]) : null
+    if (!raw) return null
+    const parsed: unknown = JSON.parse(raw)
+    return isLocalizedProductLocaleArray(parsed) ? parsed : null
   } catch {
     return null
   }
@@ -125,13 +142,16 @@ export interface UseBindingSelectorReturn {
  * Hook that provides state and actions for the localization selector.
  * Manages locale selection, currency filtering, and binding resolution.
  *
- * @param otherLocales - Optional list of localized slugs for the current product.
- *   When provided (e.g. on PDP), the save action navigates to the localized product
- *   URL instead of preserving the current page path verbatim.
+ * @param otherLocales - Optional list of localized slugs for the current page.
+ *   When provided (e.g. on PDP or PLP), the save action navigates to the
+ *   localized page URL instead of preserving the current page path verbatim.
+ * @param urlSuffix - Suffix appended after the slug when building the redirect URL.
+ *   Use '/p' for product pages (default) and '' for collection/PLP pages.
  * @returns Object with languages, currencies, selections, and actions
  */
 export function useBindingSelector(
-  otherLocales?: Array<{ locale: string; slug: string }> | null
+  otherLocales?: Array<{ locale: string; slug: string }> | null,
+  urlSuffix = '/p'
 ): UseBindingSelectorReturn {
   const { locale: currentLocale, currency: currentCurrency } = useSession()
   const localizationConfig = storeConfig.localization as LocalizationConfig
@@ -162,14 +182,14 @@ export function useBindingSelector(
     }
   }, [currentCurrency?.code])
 
-  // Persist the product's localized slugs (when on a PDP) so a later locale
-  // switch can rebuild the canonical localized URL even from a context-less
-  // page (e.g. a 404 for a locale where the product is unavailable).
+  // Persist the product's localized slugs so a later locale switch can rebuild
+  // the canonical localized URL even from a context-less page (e.g. a 404).
+  // Only relevant on PDPs — PLP otherLocales are collection slugs, not products.
   useEffect(() => {
-    if (otherLocales?.length) {
+    if (urlSuffix === '/p' && otherLocales?.length) {
       persistOtherLocales(otherLocales)
     }
-  }, [otherLocales])
+  }, [otherLocales, urlSuffix])
 
   // Build language options with disambiguation - returns Record<localeCode, languageName>
   const languages = useMemo(
@@ -282,9 +302,15 @@ export function useBindingSelector(
 
       if (entry) {
         const baseUrl = binding.url.replace(/\/$/, '')
-        window.location.href = `${baseUrl}/${entry.slug}/p${window.location.search}${window.location.hash}`
+        globalThis.location.href = `${baseUrl}/${entry.slug}${urlSuffix}${globalThis.location.search}${globalThis.location.hash}`
         return
       }
+    }
+
+    // otherLocales is empty/null but we're still on a PDP: strip the stale slug.
+    if (globalThis.location.pathname.endsWith('/p')) {
+      globalThis.location.href = binding.url
+      return
     }
 
     // No localized slugs available (not even persisted): preserve the current
@@ -292,9 +318,9 @@ export function useBindingSelector(
     // locale home. For a default-locale slug this resolves the product; for an
     // unavailable/untranslated slug it yields a 404 at the product URL, never the
     // locale root.
-    window.location.href = buildRedirectUrl(
+    globalThis.location.href = buildRedirectUrl(
       binding.url,
-      `${window.location.pathname}${window.location.search}${window.location.hash}`
+      `${globalThis.location.pathname}${globalThis.location.search}${globalThis.location.hash}`
     )
   }, [
     localeCode,
@@ -302,6 +328,7 @@ export function useBindingSelector(
     localizationConfig.locales,
     localizationConfig.defaultLocale,
     otherLocales,
+    urlSuffix,
   ])
 
   const isSaveEnabled = Boolean(localeCode && currencyCode && !error)

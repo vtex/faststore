@@ -6,7 +6,8 @@ import { getSkuLoader } from './sku'
 
 export type Loaders = ReturnType<typeof getLoaders>
 
-export const getLoaders = (options: Options, { clients }: GraphqlContext) => {
+export const getLoaders = (options: Options, ctx: GraphqlContext) => {
+  const { clients } = ctx
   const skuLoader = getSkuLoader(options, clients)
   const simulationLoader = getSimulationLoader(options, clients)
   const collectionLoader = getCollectionLoader(options, clients)

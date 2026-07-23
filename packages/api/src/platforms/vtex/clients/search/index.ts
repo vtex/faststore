@@ -3,6 +3,7 @@ import pLimit from 'p-limit'
 import type { GraphqlContext } from '../../'
 import { getWithCookie } from '../../utils/cookies'
 import type { SelectedFacet } from '../../utils/facets'
+import { isLocalizationEnabled } from '../../utils/localization'
 import {
   buildIntelligentSearchRequest,
   parseSegmentCookie,
@@ -80,10 +81,21 @@ function getRegionIdFromContext(ctx: GraphqlContext): string | undefined {
 
 function getSegmentLocale(ctx: GraphqlContext): string {
   const segment = parseSegmentCookie(ctx.headers?.cookie)
+  const cultureInfo = (segment.cultureInfo as string | undefined) || ''
 
-  // Prefer ctx.storage.locale (set from trusted selectedFacets) over the
-  // vtex_segment cookie, which can lag on hard locale-switch navigation.
-  return ctx.storage.locale || (segment.cultureInfo as string | undefined) || ''
+  // Locale flows from the URL into IS in one chain:
+  //   router.locale (Next.js)
+  //     → selectedFacets locale facet (useLocalizedVariables in @faststore/core)
+  //     → ctx.storage.locale (mutateLocaleContext in query.ts)
+  //     → IS locale query param (here)
+  //
+  // For localized stores: prefer storage.locale over the vtex_segment cookie.
+  // The cookie can lag after locale navigation, while storage.locale is derived
+  // from the trusted selectedFacets locale facet in the same request.
+
+  return isLocalizationEnabled(ctx)
+    ? ctx.storage.locale || cultureInfo
+    : cultureInfo || ctx.storage.locale || ''
 }
 
 export const IntelligentSearch = (

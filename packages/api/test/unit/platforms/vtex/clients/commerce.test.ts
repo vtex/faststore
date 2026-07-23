@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import * as clients from '../../../../../src/platforms/vtex/clients'
 // This should be imported AFTER the '../../../../../src/platforms/vtex/clients'
+import { NotFoundError } from '../../../../../src/platforms/errors'
 import { GraphqlVtexContextFactory } from '../../../../../src/platforms/vtex'
 
 const apiOptions = {
@@ -232,6 +233,183 @@ describe('VTEX Commerce', () => {
         expect(init.method).toBe('GET')
         expect(result).toEqual(mockResponse)
       })
+    })
+  })
+})
+
+describe('Catalog byLinkId', () => {
+  describe('category', () => {
+    it('calls the correct by-linkid URL and returns the single entity', async () => {
+      // The Catalog by-linkid endpoint returns a single entity object, not a list.
+      const mockCategory = {
+        id: 9281,
+        name: 'Apparel',
+        linkId: 'Apparel',
+        availableLinkIds: { 'en-US': 'Apparel', 'pt-BR': 'Vestuário' },
+      }
+      fetchAPIMocked.mockResolvedValueOnce(mockCategory)
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      const result = await commerce.catalog.byLinkId.category('apparel')
+
+      expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+      const [url] = fetchAPIMocked.mock.calls[0]
+      expect(url).toContain(
+        '/api/catalog_system/pub/category/by-linkid/apparel'
+      )
+      expect(result).toEqual(mockCategory)
+    })
+
+    it('URL-encodes special characters in the linkId', async () => {
+      fetchAPIMocked.mockResolvedValueOnce(null)
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      // Ampersand is a reserved URL character that encodeURIComponent must encode
+      await commerce.catalog.byLinkId.category('Computer&Software')
+
+      const [url] = fetchAPIMocked.mock.calls[0]
+      expect(url).toContain('Computer%26Software')
+      expect(url).not.toContain('Computer&Software')
+    })
+
+    it('preserves "/" separators in multi-segment paths while encoding each segment', async () => {
+      fetchAPIMocked.mockResolvedValueOnce(null)
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.catalog.byLinkId.category('computer&software/eletronicos')
+
+      const [url] = fetchAPIMocked.mock.calls[0]
+      // The path separator must stay literal so the API validates each level,
+      // while special characters inside a segment are still encoded.
+      expect(url).toContain('/by-linkid/computer%26software/eletronicos')
+      expect(url).not.toContain('%2F')
+    })
+
+    it('returns null when the API responds with 404', async () => {
+      fetchAPIMocked.mockRejectedValueOnce(new NotFoundError())
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      const result = await commerce.catalog.byLinkId.category('nonexistent')
+
+      expect(result).toBeNull()
+    })
+
+    it('rethrows non-404 errors', async () => {
+      fetchAPIMocked.mockRejectedValueOnce(new Error('Network error'))
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await expect(
+        commerce.catalog.byLinkId.category('apparel')
+      ).rejects.toThrow('Network error')
+    })
+  })
+
+  describe('brand', () => {
+    it('calls the correct by-linkid URL and returns the single entity', async () => {
+      const mockBrand = {
+        id: 9280,
+        name: 'Brand',
+        linkId: 'Brand',
+        availableLinkIds: { 'en-US': 'Brand' },
+      }
+      fetchAPIMocked.mockResolvedValueOnce(mockBrand)
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      const result = await commerce.catalog.byLinkId.brand('brand')
+
+      expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+      const [url] = fetchAPIMocked.mock.calls[0]
+      expect(url).toContain('/api/catalog_system/pub/brand/by-linkid/brand')
+      expect(result).toEqual(mockBrand)
+    })
+
+    it('returns null when the API responds with 404', async () => {
+      fetchAPIMocked.mockRejectedValueOnce(new NotFoundError())
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      const result = await commerce.catalog.byLinkId.brand('unknown-brand')
+
+      expect(result).toBeNull()
+    })
+
+    it('rethrows non-404 errors', async () => {
+      fetchAPIMocked.mockRejectedValueOnce(new Error('Server error'))
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await expect(commerce.catalog.byLinkId.brand('adidas')).rejects.toThrow(
+        'Server error'
+      )
+    })
+  })
+
+  describe('collection', () => {
+    it('calls the correct by-linkid URL and returns the single entity', async () => {
+      const mockCollection = {
+        id: 42,
+        name: 'Summer Sale',
+        linkId: 'summer-sale',
+        availableLinkIds: null,
+      }
+      fetchAPIMocked.mockResolvedValueOnce(mockCollection)
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      const result = await commerce.catalog.byLinkId.collection('summer-sale')
+
+      expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+      const [url] = fetchAPIMocked.mock.calls[0]
+      expect(url).toContain(
+        '/api/catalog_system/pub/collection/by-linkid/summer-sale'
+      )
+      expect(result).toEqual(mockCollection)
+    })
+
+    it('returns null when the API responds with 404', async () => {
+      fetchAPIMocked.mockRejectedValueOnce(new NotFoundError())
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      const result = await commerce.catalog.byLinkId.collection(
+        'nonexistent-collection'
+      )
+
+      expect(result).toBeNull()
+    })
+
+    it('rethrows non-404 errors', async () => {
+      fetchAPIMocked.mockRejectedValueOnce(new Error('Timeout'))
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await expect(
+        commerce.catalog.byLinkId.collection('summer-sale')
+      ).rejects.toThrow('Timeout')
+    })
+  })
+
+  describe('Accept-Language header', () => {
+    it('forwards the given locale for category/brand/collection', async () => {
+      const { commerce } = clients.getClients(apiOptions, context)
+
+      fetchAPIMocked.mockResolvedValue(null)
+
+      await commerce.catalog.byLinkId.category('apparel', 'pt-BR')
+      await commerce.catalog.byLinkId.brand('brand', 'pt-BR')
+      await commerce.catalog.byLinkId.collection('summer-sale', 'pt-BR')
+
+      for (const call of fetchAPIMocked.mock.calls) {
+        const [, init] = call
+        expect(init?.headers?.['Accept-Language']).toBe('pt-BR')
+      }
+    })
+
+    it('sends no init (no Accept-Language) when no locale is provided', async () => {
+      const { commerce } = clients.getClients(apiOptions, context)
+
+      fetchAPIMocked.mockResolvedValue(null)
+
+      await commerce.catalog.byLinkId.category('apparel')
+
+      const [, init] = fetchAPIMocked.mock.calls[0]
+      // No init object at all → the endpoint falls back to the default language.
+      expect(init).toBeUndefined()
     })
   })
 })

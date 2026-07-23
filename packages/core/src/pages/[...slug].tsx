@@ -106,6 +106,10 @@ const query = gql(`
           value
         }
       }
+      otherLocales {
+        locale
+        slug
+      }
     }
   }
 `)
@@ -172,6 +176,7 @@ export const getStaticProps: GetStaticProps<
     >({
       variables: { slug },
       operation: query,
+      locale,
     }),
     contentService.getPlpContent(
       {

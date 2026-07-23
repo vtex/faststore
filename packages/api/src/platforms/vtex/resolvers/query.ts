@@ -23,16 +23,19 @@ import {
   isForbiddenError,
   isNotFoundError,
 } from '../../errors'
-import type { Clients } from '../clients'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 import type { GraphqlContext } from '../index'
+import type {
+  ByLinkIdBrandRoot,
+  ByLinkIdCategoryRoot,
+} from '../loaders/collection'
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
-import { enhanceSku } from '../utils/enhanceSku'
+import { enhanceSku, type EnhancedSku } from '../utils/enhanceSku'
 import {
   findChannel,
   findCrossSelling,
@@ -41,12 +44,15 @@ import {
   findSlug,
   transformSelectedFacet,
 } from '../utils/facets'
+import { getCatalogLocale, isLocalizationEnabled } from '../utils/localization'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
+import { slugify } from '../utils/slugify'
 import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
 import { getOrderEntryOperation } from './getOrderEntryOperation'
 import { getOrderFormItems } from './getOrderFormItems'
+import { getLocalizedProductEntry } from './product'
 
 /**
  * Validates that a slug mismatch between IS linkText and the requested slug is
@@ -59,33 +65,14 @@ import { getOrderFormItems } from './getOrderFormItems'
  */
 async function isLocalizedSlugMatch(
   ctx: GraphqlContext,
-  catalog: Clients['catalog'],
   slug: string,
   productGroupID: string,
   locale: string
 ): Promise<boolean> {
   const slugPrefix = slug.slice(0, slug.lastIndexOf('-'))
-  const cacheKey = `${productGroupID}:${locale}`
+  const entry = await getLocalizedProductEntry(ctx, productGroupID, locale)
 
-  try {
-    let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
-
-    if (!entry) {
-      const result = await catalog.getLocalizedProduct(productGroupID, locale)
-      entry = {
-        linkId: result.linkId,
-        categories: result.categories ?? [],
-        availableLinkIds: result.availableLinkIds ?? {},
-      }
-      ctx.storage.productTranslationsCache ??= new Map()
-      ctx.storage.productTranslationsCache.set(cacheKey, entry)
-    }
-
-    return entry.linkId === slugPrefix
-  } catch {
-    // Catalog Dataplane API unavailable — fall through to error
-    return false
-  }
+  return entry?.linkId === slugPrefix
 }
 
 const INVALID_SKU_ID_ERROR = 'Invalid SkuId'
@@ -97,6 +84,80 @@ const shouldFallbackToProductRoute = (error: unknown) =>
   (error instanceof Error &&
     (error.message === INVALID_SKU_ID_ERROR ||
       error.message.startsWith(SLUG_MISMATCH_ERROR)))
+
+/**
+ * Here be dragons 🦄🦄🦄
+ *
+ * In some cases, the slug has a valid skuId for a different product. This
+ * guards that the fetched sku is the one we actually asked for, throwing
+ * SLUG_MISMATCH_ERROR (caught by the caller) when it isn't.
+ *
+ * When localization is enabled, the slug prefix may be a localized LinkId
+ * that differs from the IS linkText (always in the default locale). In that
+ * case we validate against the Catalog Dataplane API before rejecting the
+ * slug.
+ */
+async function assertSkuMatchesSlug(
+  ctx: GraphqlContext,
+  sku: EnhancedSku,
+  slug: string | null | undefined,
+  locale: string | null | undefined
+): Promise<void> {
+  const { linkText, productId } = sku.isVariantOf
+
+  if (!slug || !linkText || slug.startsWith(linkText)) {
+    return
+  }
+
+  const isValidLocalizedMatch =
+    isLocalizationEnabled(ctx) &&
+    locale &&
+    isValidSkuId(slug.split('-').pop() ?? '') &&
+    (await isLocalizedSlugMatch(ctx, slug, productId, locale))
+
+  if (isValidLocalizedMatch) {
+    return
+  }
+
+  throw new Error(`${SLUG_MISMATCH_ERROR} slug: ${slug}, linkText: ${linkText}`)
+}
+
+/**
+ * Fallback used when the sku/slug lookup above fails (invalid skuId, not
+ * found, or slug mismatch): resolves the slug through the legacy pagetype
+ * route and fetches the product from Intelligent Search by id instead.
+ */
+async function fetchProductBySlugFallback(
+  ctx: GraphqlContext,
+  slug: string | null | undefined
+): Promise<EnhancedSku> {
+  if (slug == null) {
+    throw new BadRequestError('Missing slug or id')
+  }
+
+  const {
+    clients: { commerce, search },
+  } = ctx
+
+  const route = await commerce.catalog.portal.pagetype(`${slug}/p`)
+
+  if (route.pageType !== 'Product' || !route.id) {
+    throw new NotFoundError(`No product found for slug ${slug}`)
+  }
+
+  const product = await search
+    .fetchProduct({
+      field: 'id',
+      value: String(route.id),
+    })
+    .catch(() => null)
+
+  if (!product) {
+    throw new NotFoundError(`No product found for id ${route.id}`)
+  }
+
+  return enhanceSku(pickBestSku(product.items), product)
+}
 
 export const Query = {
   product: async (
@@ -120,7 +181,6 @@ export const Query = {
 
     const {
       loaders: { skuLoader },
-      clients: { commerce, search, catalog },
     } = ctx
 
     try {
@@ -132,45 +192,7 @@ export const Query = {
 
       const sku = await skuLoader.load(skuId)
 
-      /**
-       * Here be dragons 🦄🦄🦄
-       *
-       * In some cases, the slug has a valid skuId for a different
-       * product. This condition makes sure that the fetched sku
-       * is the one we actually asked for.
-       *
-       * When localization is enabled, the slug prefix may be a localized
-       * LinkId that differs from the IS linkText (always in the default locale).
-       * In that case we validate against the Catalog Dataplane API before
-       * rejecting the slug.
-       * */
-      if (
-        slug &&
-        sku.isVariantOf.linkText &&
-        !slug.startsWith(sku.isVariantOf.linkText)
-      ) {
-        const isLocalizationEnabled =
-          (ctx.discoveryConfig as any)?.localization?.enabled === true
-
-        if (
-          isLocalizationEnabled &&
-          locale &&
-          isValidSkuId(slug.split('-').pop() ?? '') &&
-          (await isLocalizedSlugMatch(
-            ctx,
-            catalog,
-            slug,
-            sku.isVariantOf.productId,
-            locale
-          ))
-        ) {
-          return sku
-        }
-
-        throw new Error(
-          `Slug was set but the fetched sku does not satisfy the slug condition. slug: ${slug}, linkText: ${sku.isVariantOf.linkText}`
-        )
-      }
+      await assertSkuMatchesSlug(ctx, sku, slug, locale)
 
       return sku
     } catch (err) {
@@ -178,30 +200,7 @@ export const Query = {
         throw err
       }
 
-      if (slug == null) {
-        throw new BadRequestError('Missing slug or id')
-      }
-
-      const route = await commerce.catalog.portal.pagetype(`${slug}/p`)
-
-      if (route.pageType !== 'Product' || !route.id) {
-        throw new NotFoundError(`No product found for slug ${slug}`)
-      }
-
-      const product = await search
-        .fetchProduct({
-          field: 'id',
-          value: String(route.id),
-        })
-        .catch(() => null)
-
-      if (!product) {
-        throw new NotFoundError(`No product found for id ${route.id}`)
-      }
-
-      const sku = pickBestSku(product.items)
-
-      return enhanceSku(sku, product)
+      return fetchProductBySlugFallback(ctx, slug)
     }
   },
   collection: (
@@ -213,7 +212,14 @@ export const Query = {
       loaders: { collectionLoader },
     } = ctx
 
-    return collectionLoader.load(slug)
+    // The request locale is set on ctx.storage.locale by the core `execute`
+    // wrapper (from Next.js i18n) rather than a GraphQL argument, so overridable
+    // fragments (API extensions) that also select `collection` keep merging
+    // without argument conflicts.
+    return collectionLoader.load({
+      slug,
+      locale: getCatalogLocale(ctx),
+    })
   },
   search: async (
     _: unknown,
@@ -378,25 +384,47 @@ export const Query = {
       commerce.catalog.category.tree(),
     ])
 
-    const categories: Array<CategoryTree & { level: number }> = []
-    const dfs = (node: CategoryTree, level: number) => {
-      categories.push({ ...node, level })
+    // Flatten the category tree. parentId is tracked per node so
+    // the type resolver can correctly classify Departments (fatherCategoryId: null)
+    // vs Categories (fatherCategoryId: number).
+    const categoryRoots: ByLinkIdCategoryRoot[] = []
+    const dfs = (node: CategoryTree, parentId: number | null) => {
+      categoryRoots.push({
+        id: node.id,
+        name: node.name,
+        fatherCategoryId: parentId,
+        linkId: slugify(node.name),
+        title: node.Title,
+        description: null,
+        metaTagDescription: node.MetaTagDescription,
+        availableLinkIds: null,
+        entityType: 'category' as const,
+        slug: new URL(node.url).pathname.slice(1).toLowerCase(),
+      })
 
       for (const child of node.children) {
-        dfs(child, level + 1)
+        dfs(child, node.id)
       }
     }
 
     for (const node of tree) {
-      dfs(node, 0)
+      dfs(node, null)
     }
 
-    const collections = [
-      ...brands
-        .filter((brand) => brand.isActive)
-        .map((x) => ({ ...x, type: 'brand' })),
-      ...categories,
-    ]
+    const brandRoots: ByLinkIdBrandRoot[] = brands
+      .filter((brand) => brand.isActive)
+      .map((brand) => ({
+        id: brand.id,
+        name: brand.name,
+        linkId: slugify(brand.name),
+        title: brand.title,
+        description: null,
+        metaTagDescription: brand.metaTagDescription,
+        availableLinkIds: null,
+        entityType: 'brand' as const,
+      }))
+
+    const collections = [...brandRoots, ...categoryRoots]
 
     const validCollections = collections
       // Nullable slugs may cause one route to override the other

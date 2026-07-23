@@ -7,14 +7,6 @@ export const AllCollectionsQueryFirst5 = `query allCollections {
         id
         slug
         type
-        breadcrumbList {
-          itemListElement {
-            item
-            name
-            position
-          }
-          numberOfItems
-        }
         meta {
           selectedFacets {
             key
@@ -55,50 +47,5 @@ export const catalogCategory3Fetch = {
   options: { storeCookies: expect.any(Function) },
   result: JSON.parse(
     '[{"id":9282,"name":"Office","hasChildren":true,"url":"http://storeframework.vtexcommercestable.com.br/office","children":[{"id":9295,"name":"Desks","hasChildren":false,"url":"http://storeframework.vtexcommercestable.com.br/office/desks","children":[],"Title":"Desks","MetaTagDescription":"Desks for better productivity"},{"id":9296,"name":"Chairs","hasChildren":false,"url":"http://storeframework.vtexcommercestable.com.br/office/chairs","children":[],"Title":"Chairs","MetaTagDescription":"Comfort chairs"}],"Title":"Office","MetaTagDescription":"For the office and home office"},{"id":9285,"name":"Kitchen and Home Appliances","hasChildren":true,"url":"http://storeframework.vtexcommercestable.com.br/kitchen-and-home-appliances","children":[{"id":9293,"name":"Fridges","hasChildren":false,"url":"http://storeframework.vtexcommercestable.com.br/kitchen-and-home-appliances/fridges","children":[],"Title":"Fridges","MetaTagDescription":"Fridges for the penguin"},{"id":9294,"name":"Appliances","hasChildren":false,"url":"http://storeframework.vtexcommercestable.com.br/kitchen-and-home-appliances/appliances","children":[],"Title":"Appliances","MetaTagDescription":"Appliances for you"}],"Title":"Home Appliances","MetaTagDescription":"Stay home with style"},{"id":9286,"name":"Computer and Software","hasChildren":true,"url":"http://storeframework.vtexcommercestable.com.br/computer-and-software","children":[{"id":9291,"name":"Smartphones","hasChildren":false,"url":"http://storeframework.vtexcommercestable.com.br/computer-and-software/smartphones","children":[],"Title":"Smartphones","MetaTagDescription":"You know what it is"},{"id":9292,"name":"Gadgets","hasChildren":false,"url":"http://storeframework.vtexcommercestable.com.br/computer-and-software/gadgets","children":[],"Title":"Gadgets","MetaTagDescription":"Gadgets for you"}],"Title":"Computer and Software","MetaTagDescription":"Get in touch with tomorrows world today"},{"id":9297,"name":"Technology","hasChildren":false,"url":"http://storeframework.vtexcommercestable.com.br/technology","children":[],"Title":"Technology","MetaTagDescription":"Technology"}]'
-  ),
-}
-
-export const catalogPageTypeSkechers = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/catalog_system/pub/portal/pagetype/skechers',
-  init: undefined,
-  options: { storeCookies: expect.any(Function) },
-  result: JSON.parse(
-    `{"id":"2000001","name":"Skechers","url":"storeframework.vtexcommercestable.com.br/Skechers","title":"Skechers","metaTagDescription":"Sport, casual, work, wide, kids' & performance shoes with style, comfort, innovation, quality & value.","pageType":"Brand"}`
-  ),
-}
-
-export const catalogPageTypeAdidas = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/catalog_system/pub/portal/pagetype/adidas',
-  init: undefined,
-  options: { storeCookies: expect.any(Function) },
-  result: JSON.parse(
-    `{"id":"2000004","name":"adidas","url":"storeframework.vtexcommercestable.com.br/adidas","title":"adidas","metaTagDescription":"adidas shoes, clothing and view new collections for adidas Originals, running, football, soccer, training and much more.","pageType":"Brand"}`
-  ),
-}
-
-export const catalogPageTypeAcer = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/catalog_system/pub/portal/pagetype/acer',
-  init: undefined,
-  options: { storeCookies: expect.any(Function) },
-  result: JSON.parse(
-    `{"id":"2000002","name":"Acer","url":"storeframework.vtexcommercestable.com.br/Acer","title":"Acer","metaTagDescription":"Acer laptops, desktops as well as servers and storage, personal digital assistance (PDA), peripherals, peripherals and e-business services for government, business, education, and home users.","pageType":"Brand"}`
-  ),
-}
-
-export const catalogPageTypeIRobot = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/catalog_system/pub/portal/pagetype/irobot',
-  init: undefined,
-  options: { storeCookies: expect.any(Function) },
-  result: JSON.parse(
-    `{"id":"2000003","name":"iRobot","url":"storeframework.vtexcommercestable.com.br/iRobot","title":"iRobot","metaTagDescription":"iRobot, the leading global consumer robot company, designs and builds robots that empower people to do more both inside and outside of the home.","pageType":"Brand"}`
-  ),
-}
-
-export const catalogPageTypeBrand = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/catalog_system/pub/portal/pagetype/brand',
-  init: undefined,
-  options: { storeCookies: expect.any(Function) },
-  result: JSON.parse(
-    `{"id":"9280","name":"Brand","url":"storeframework.vtexcommercestable.com.br/Brand","title":"Brand","metaTagDescription":"Brand","pageType":"Brand"}`
   ),
 }
