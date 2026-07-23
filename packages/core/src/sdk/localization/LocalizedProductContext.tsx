@@ -21,14 +21,16 @@ interface LocalizedProductData {
 
 const LocalizedProductContext = createContext<LocalizedProductData | null>(null)
 
-interface LocalizedProductProviderProps extends PropsWithChildren {
-  otherLocales: LocalizedProductLocale[] | null | undefined
-  /**
-   * Suffix to append to the localized slug when building the redirect URL.
-   * Defaults to '/p' (product pages). Pass '' for collection/PLP pages.
-   */
-  urlSuffix?: string
-}
+type LocalizedProductProviderProps = Readonly<
+  PropsWithChildren<{
+    otherLocales: LocalizedProductLocale[] | null | undefined
+    /**
+     * Suffix to append to the localized slug when building the redirect URL.
+     * Defaults to '/p' (product pages). Pass '' for collection/PLP pages.
+     */
+    urlSuffix?: string
+  }>
+>
 
 /**
  * Provides localized page data (otherLocales, urlSuffix) to any component in

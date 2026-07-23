@@ -42,7 +42,7 @@ export function persistOtherLocales(
   if (!skuId) return
 
   try {
-    window.sessionStorage.setItem(
+    globalThis.sessionStorage.setItem(
       `${OTHER_LOCALES_STORAGE_PREFIX}${skuId}`,
       JSON.stringify(otherLocales)
     )
@@ -73,11 +73,11 @@ function isLocalizedProductLocaleArray(
 export function recoverOtherLocales(): LocalizedProductLocale[] | null {
   if (typeof window === 'undefined') return null
 
-  const skuId = getSkuIdFromPdpPath(window.location.pathname)
+  const skuId = getSkuIdFromPdpPath(globalThis.location.pathname)
   if (!skuId) return null
 
   try {
-    const raw = window.sessionStorage.getItem(
+    const raw = globalThis.sessionStorage.getItem(
       `${OTHER_LOCALES_STORAGE_PREFIX}${skuId}`
     )
 
@@ -302,14 +302,14 @@ export function useBindingSelector(
 
       if (entry) {
         const baseUrl = binding.url.replace(/\/$/, '')
-        window.location.href = `${baseUrl}/${entry.slug}${urlSuffix}${window.location.search}${window.location.hash}`
+        globalThis.location.href = `${baseUrl}/${entry.slug}${urlSuffix}${globalThis.location.search}${globalThis.location.hash}`
         return
       }
     }
 
     // otherLocales is empty/null but we're still on a PDP: strip the stale slug.
-    if (window.location.pathname.endsWith('/p')) {
-      window.location.href = binding.url
+    if (globalThis.location.pathname.endsWith('/p')) {
+      globalThis.location.href = binding.url
       return
     }
 
@@ -318,9 +318,9 @@ export function useBindingSelector(
     // locale home. For a default-locale slug this resolves the product; for an
     // unavailable/untranslated slug it yields a 404 at the product URL, never the
     // locale root.
-    window.location.href = buildRedirectUrl(
+    globalThis.location.href = buildRedirectUrl(
       binding.url,
-      `${window.location.pathname}${window.location.search}${window.location.hash}`
+      `${globalThis.location.pathname}${globalThis.location.search}${globalThis.location.hash}`
     )
   }, [
     localeCode,
