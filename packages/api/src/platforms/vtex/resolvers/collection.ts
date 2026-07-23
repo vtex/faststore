@@ -1,4 +1,7 @@
 import type { GraphqlResolver } from '..'
+import type { Brand } from '../clients/commerce/types/Brand'
+import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
+import type { CollectionPageType } from '../clients/commerce/types/Portal'
 import {
   isBrand,
   isCategory,
@@ -10,12 +13,33 @@ import {
 import { getCatalogLocale, getLocalizationConfig } from '../utils/localization'
 import { slugify } from '../utils/slugify'
 
-export type Root =
+type ByLinkIdRoot =
   | ByLinkIdCategoryRoot
   | ByLinkIdBrandRoot
   | ByLinkIdCollectionRoot
 
-const slugifyRoot = (root: Root): string => {
+/**
+ * @deprecated Legacy pagetype-based shape. It is no longer produced at runtime
+ * since the by-linkid migration and only remains in the public `Root` union to
+ * avoid a breaking change for stores that still reference `StoreCollectionRoot`.
+ *
+ * TODO: remove in the next major of `@faststore/api` (drop from the `Root`
+ * union below) — this is a breaking change and must ship with a BREAKING CHANGE note.
+ */
+export type LegacyStoreCollectionRoot =
+  | Brand
+  | (CategoryTree & { level: number })
+  | CollectionPageType
+
+/**
+ * Public `StoreCollectionRoot` type (re-exported from the package entrypoint).
+ * Kept as a backward-compatible superset: the legacy members are retained
+ * (see {@link LegacyStoreCollectionRoot}) so existing consumers keep compiling,
+ * while `ByLinkIdRoot` reflects the real runtime shape.
+ */
+export type Root = ByLinkIdRoot | LegacyStoreCollectionRoot
+
+const slugifyRoot = (root: ByLinkIdRoot): string => {
   if (isCategory(root)) {
     // root.slug is the full accumulated input slug (e.g. "vestuario/camisetas"),
     // injected by the loader — no URL parsing needed.
@@ -30,7 +54,7 @@ const slugifyRoot = (root: Root): string => {
   return root.linkId ?? slugify(root.name)
 }
 
-export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
+export const StoreCollection: Record<string, GraphqlResolver<ByLinkIdRoot>> = {
   id: ({ id }) => id.toString(),
   slug: (root) => slugifyRoot(root),
   seo: (root) => ({
@@ -146,7 +170,7 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
       segments.slice(0, i + 1).join('/')
     )
 
-    let entities: Root[]
+    let entities: ByLinkIdRoot[]
 
     try {
       entities = await Promise.all(
