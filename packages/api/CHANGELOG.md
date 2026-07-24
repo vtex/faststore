@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0-dev.4](https://github.com/vtex/faststore/compare/v4.5.0-dev.3...v4.5.0-dev.4) (2026-07-24)
+
+### Features
+
+- **core:** localized product URLs, breadcrumbs PDP and PLPs ([#3402](https://github.com/vtex/faststore/issues/3402)) ([3c6b6ef](https://github.com/vtex/faststore/commit/3c6b6ef29ef902ccae3ff784297b24e6c6bc7802)), closes [#3352](https://github.com/vtex/faststore/issues/3352) [#3401](https://github.com/vtex/faststore/issues/3401)
+
 # [4.5.0-dev.3](https://github.com/vtex/faststore/compare/v4.5.0-dev.2...v4.5.0-dev.3) (2026-07-22)
 
 **Note:** Version bump only for package @faststore/api
