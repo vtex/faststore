@@ -21,6 +21,7 @@ import type { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../discovery.config'
 import { faststoreLoader } from 'src/components/ui/Image/loader'
+import { LocalizedProductProvider } from 'src/sdk/localization/LocalizedProductContext'
 import ProductListing from './ProductListing'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
@@ -142,43 +143,48 @@ export default function ProductListingPage({
     : undefined
 
   return (
-    <SearchProvider
-      onChange={applySearchState}
-      itemsPerPage={itemsPerPage}
-      shouldResetInfiniteScroll={!storeConfig.experimental?.scrollRestoration}
-      {...searchParams}
+    <LocalizedProductProvider
+      otherLocales={server.collection?.otherLocales}
+      urlSuffix=""
     >
-      {lcpImageUrl && (
-        <Head>
-          <link
-            rel="preload"
-            as="image"
-            href={lcpImageUrl}
-            fetchPriority="high"
-          />
-        </Head>
-      )}
-      {/* SEO */}
-      <NextSeo
-        title={title}
-        description={description}
-        titleTemplate={titleTemplate}
-        canonical={canonical}
-        openGraph={{
-          type: 'website',
-          title,
-          description,
-        }}
-      />
-      <BreadcrumbJsonLd itemListElements={itemListElements} />
+      <SearchProvider
+        onChange={applySearchState}
+        itemsPerPage={itemsPerPage}
+        shouldResetInfiniteScroll={!storeConfig.experimental?.scrollRestoration}
+        {...searchParams}
+      >
+        {lcpImageUrl && (
+          <Head>
+            <link
+              rel="preload"
+              as="image"
+              href={lcpImageUrl}
+              fetchPriority="high"
+            />
+          </Head>
+        )}
+        {/* SEO */}
+        <NextSeo
+          title={title}
+          description={description}
+          titleTemplate={titleTemplate}
+          canonical={canonical}
+          openGraph={{
+            type: 'website',
+            title,
+            description,
+          }}
+        />
+        <BreadcrumbJsonLd itemListElements={itemListElements} />
 
-      <ProductListing
-        globalSections={globalSections}
-        globalSettings={globalSettings}
-        page={plpContentType}
-        data={server}
-        serverManyProductsVariables={serverManyProductsVariables}
-      />
-    </SearchProvider>
+        <ProductListing
+          globalSections={globalSections}
+          globalSettings={globalSettings}
+          page={plpContentType}
+          data={server}
+          serverManyProductsVariables={serverManyProductsVariables}
+        />
+      </SearchProvider>
+    </LocalizedProductProvider>
   )
 }
