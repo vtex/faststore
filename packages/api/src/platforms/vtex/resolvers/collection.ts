@@ -66,6 +66,9 @@ export const StoreCollection: Record<string, GraphqlResolver<ByLinkIdRoot>> = {
   }),
   type: (root) => {
     if (isBrand(root)) return 'Brand'
+    // Clusters and curated collections share the collection/by-linkid endpoint,
+    // whose response has no discriminator between them, so both report as
+    // 'Collection'. The enum still declares 'Cluster' for backward compat.
     if (isCollection(root)) return 'Collection'
     // Department = root category (no parent); Category = everything else.
     // SubCategory distinction (3rd level+) requires recursive parent lookup — deferred.

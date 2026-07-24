@@ -1403,19 +1403,34 @@ export type StoreCollectionMeta = {
   selectedFacets: Array<StoreCollectionFacet>;
 };
 
-/** Product collection type. Possible values are `Department`, `Category`, `Brand`, `Cluster`, `SubCategory` or `Collection`. */
+/**
+ * Product collection type. Possible values are `Department`, `Category`, `Brand` or `Collection`.
+ *
+ * `SubCategory` and `Cluster` are still declared for backward compatibility but are
+ * deprecated and never returned.
+ */
 export const enum StoreCollectionType {
   /** Product brand. */
   Brand = 'Brand',
   /** Second level of product categorization. */
   Category = 'Category',
-  /** Product cluster. */
+  /**
+   * Product cluster.
+   *
+   * Deprecated: never returned — clusters resolve as `Collection`.
+   * @deprecated Never returned since the by-linkid migration: clusters and curated collections are both served by `collection/by-linkid`, whose response carries no discriminator between them, so both resolve as `Collection`. Scheduled for removal in the next major.
+   */
   Cluster = 'Cluster',
   /** Product collection. */
   Collection = 'Collection',
   /** First level of product categorization. */
   Department = 'Department',
-  /** Third level of product categorization. */
+  /**
+   * Third level of product categorization.
+   *
+   * Deprecated: never returned — third-level categories resolve as `Category`.
+   * @deprecated Never returned since the by-linkid migration: the category response only exposes `fatherCategoryId`, which distinguishes root from non-root but not tree depth, so third-level categories resolve as `Category`. Scheduled for removal in the next major.
+   */
   SubCategory = 'SubCategory'
 };
 

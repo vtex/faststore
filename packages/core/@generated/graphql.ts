@@ -1343,19 +1343,32 @@ export type StoreCollectionMeta = {
   selectedFacets: Array<StoreCollectionFacet>;
 };
 
-/** Product collection type. Possible values are `Department`, `Category`, `Brand`, `Cluster`, `SubCategory` or `Collection`. */
+/**
+ * Product collection type. Possible values are `Department`, `Category`, `Brand` or `Collection`.
+ *
+ * `SubCategory` and `Cluster` are still declared for backward compatibility but are
+ * deprecated and never returned.
+ */
 export type StoreCollectionType =
   /** Product brand. */
   | 'Brand'
   /** Second level of product categorization. */
   | 'Category'
-  /** Product cluster. */
+  /**
+   * Product cluster.
+   *
+   * Deprecated: never returned — clusters resolve as `Collection`.
+   */
   | 'Cluster'
   /** Product collection. */
   | 'Collection'
   /** First level of product categorization. */
   | 'Department'
-  /** Third level of product categorization. */
+  /**
+   * Third level of product categorization.
+   *
+   * Deprecated: never returned — third-level categories resolve as `Category`.
+   */
   | 'SubCategory';
 
 /** A commercial contract available to a buyer's Organization Unit. */
