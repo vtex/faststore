@@ -207,4 +207,34 @@ module.exports = {
 
   // Text direction: 'ltr' (left-to-right) or 'rtl' (right-to-left)
   direction: 'ltr',
+
+  // /llms.txt curated content for LLM consumers. Disabled by default; opt in per store.
+  llms: {
+    enabled: false,
+    title: '',
+    tagline: '',
+    about: '',
+    contact: {
+      email: '',
+      url: '',
+    },
+    // Static section overrides. When provided, the corresponding dynamic
+    // section (e.g. CMS lookup) is skipped.
+    customSections: [],
+    // Inline static prose for /llms-full.txt without going through the CMS.
+    customPages: [],
+    // CMS slug allow-list for institutional pages. Empty array means: skip the
+    // CMS section entirely until a slug list is provided.
+    institutionalSlugs: [],
+    // Dynamic sources for /llms.txt and /llms-full.txt.
+    sources: {
+      categories: { enabled: true, limit: 25 },
+      contentTypes: [],
+      slugAllowList: [],
+      slugDenyList: ['404', '500'],
+      textSectionNames: ['BannerText', 'Hero'],
+    },
+    // Cap to keep file small and within small context windows.
+    maxLinksPerSection: 25,
+  },
 }
