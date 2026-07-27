@@ -151,7 +151,7 @@ export async function getTypeDefsFromFolder(
   // globby patterns must use forward slashes — on Windows, path.join produces
   // backslashes, which globby treats as escape characters and matches nothing
   const pattern = globbyModule.convertPathToPattern(
-    path.join(...[...basePath, ...pathArray])
+    path.join(...basePath, ...pathArray)
   )
 
   return globbyModule
