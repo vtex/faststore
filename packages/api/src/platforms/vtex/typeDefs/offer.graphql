@@ -54,6 +54,12 @@ type StoreOffer {
   Whether this offer is a gift (e.g. free promotional item).
   """
   isGift: Boolean
+  """
+  Signed price token (JWT) used by the Pricing Fallback feature. When present, it should be
+  forwarded to Checkout on add-to-cart so the platform can trust the offer's price even if
+  the Pricing System is unavailable. May be null when the signing step fails or the feature is disabled.
+  """
+  priceToken: String
 }
 
 """
@@ -80,4 +86,8 @@ input IStoreOffer {
   Number of items offered.
   """
   quantity: Int!
+  """
+  Signed price token (JWT) from the Pricing Fallback feature, forwarded to Checkout on add-to-cart.
+  """
+  priceToken: String
 }
