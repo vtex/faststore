@@ -152,12 +152,11 @@ export async function getTypeDefsFromFolder(
     path.join(...basePath, ...pathArray)
   )
 
+  // spell out the glob instead of using expandDirectories: it stats the
+  // escaped pattern string, so it never expands paths that needed escaping
+  // (e.g. parentheses in a parent directory name)
   return globbyModule
-    .globbySync(pattern, {
-      expandDirectories: {
-        extensions: ['graphql'],
-      },
-    })
+    .globbySync(`${pattern}/**/*.graphql`)
     .map((typeDef: string) =>
       parse(fs.readFileSync(typeDef, { encoding: 'utf-8' }))
     )
