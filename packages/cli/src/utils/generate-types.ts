@@ -132,9 +132,18 @@ async function generateSchemaFile(rootPath: string) {
   saveSchemaFile(finalSchema)
 }
 
-export async function getTypeDefsFromFolder(root: string, customPath: string) {
-  const globby = await import('globby')
-  const globbyModule = (globby as any).default ?? globby
+type GlobbyModule = typeof import('globby')
+
+export async function getTypeDefsFromFolder(
+  root: string,
+  customPath: string | string[]
+) {
+  // depending on how the bundle is consumed, the ESM namespace may be nested
+  // under `default` — fall back to the namespace itself
+  const globbyImport = (await import('globby')) as GlobbyModule & {
+    default?: GlobbyModule
+  }
+  const globbyModule = globbyImport.default ?? globbyImport
   const basePath = [root, 'src', 'graphql']
 
   const pathArray = Array.isArray(customPath) ? customPath : [customPath]
