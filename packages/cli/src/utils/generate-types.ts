@@ -132,14 +132,21 @@ async function generateSchemaFile(rootPath: string) {
   saveSchemaFile(finalSchema)
 }
 
-async function getTypeDefsFromFolder(root: string, customPath: string) {
+export async function getTypeDefsFromFolder(root: string, customPath: string) {
   const globby = await import('globby')
+  const globbyModule = (globby as any).default ?? globby
   const basePath = [root, 'src', 'graphql']
 
   const pathArray = Array.isArray(customPath) ? customPath : [customPath]
 
-  return ((globby as any).default ?? globby)
-    .globbySync(path.join(...[...basePath, ...pathArray]), {
+  // globby patterns must use forward slashes — on Windows, path.join produces
+  // backslashes, which globby treats as escape characters and matches nothing
+  const pattern = globbyModule.convertPathToPattern(
+    path.join(...[...basePath, ...pathArray])
+  )
+
+  return globbyModule
+    .globbySync(pattern, {
       expandDirectories: {
         extensions: ['graphql'],
       },
