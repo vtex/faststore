@@ -138,8 +138,6 @@ export async function getTypeDefsFromFolder(
   root: string,
   customPath: string | string[]
 ) {
-  // depending on how the bundle is consumed, the ESM namespace may be nested
-  // under `default` — fall back to the namespace itself
   const globbyImport = (await import('globby')) as GlobbyModule & {
     default?: GlobbyModule
   }
