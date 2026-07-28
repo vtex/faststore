@@ -147,9 +147,9 @@ const getServerSidePropsBase: GetServerSideProps<
 
   return {
     props: {
-      page,
+      page: page ?? ({ sections: [], settings: {} } as PageContentType),
       globalSections: globalSectionsResult,
-      accountName: account.data.accountProfile.name,
+      accountName: account.data?.accountProfile?.name ?? '',
     },
   }
 }

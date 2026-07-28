@@ -566,3 +566,123 @@ describe('Query.product', () => {
     })
   })
 })
+
+describe('Query.accountProfile', () => {
+  const accountProfile = (Query as any).accountProfile
+
+  const makeRepCtx = ({
+    customerId = 'contract-1',
+  }: { customerId?: string }) => {
+    const getContractById = vi.fn()
+    const getUserById = vi.fn()
+    const sessionMock = vi.fn()
+
+    const jwtPayload = Buffer.from(
+      JSON.stringify({ userId: 'user-1', isRepresentative: true, customerId })
+    ).toString('base64url')
+    const token = `header.${jwtPayload}.signature`
+
+    const ctx = {
+      account: 'b2bfaststoredev',
+      headers: { cookie: `VtexIdclientAutCookie_b2bfaststoredev=${token}` },
+      clients: {
+        commerce: {
+          session: sessionMock,
+          masterData: { getContractById },
+          licenseManager: { getUserById },
+        },
+      },
+    } as any
+
+    return { ctx, getContractById, getUserById, sessionMock }
+  }
+
+  it('does not throw when the representative session is all-null and resolves the contract via jwt.customerId', async () => {
+    const { ctx, getContractById, sessionMock } = makeRepCtx({
+      customerId: 'contract-1',
+    })
+    sessionMock.mockResolvedValue({
+      namespaces: { profile: null, authentication: null, shopper: null },
+    })
+    getContractById.mockResolvedValue({
+      corporateName: 'BENAROYA RESEARCH COUPA',
+    })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(getContractById).toHaveBeenCalledWith({ contractId: 'contract-1' })
+    expect(result).toEqual({
+      name: 'BENAROYA RESEARCH COUPA',
+      email: '',
+      id: 'contract-1',
+    })
+  })
+
+  it('does not throw and skips the CL lookup when no contract id is available anywhere', async () => {
+    const { ctx, getContractById, sessionMock } = makeRepCtx({ customerId: '' })
+    sessionMock.mockResolvedValue({
+      namespaces: {
+        profile: null,
+        authentication: null,
+        shopper: {
+          firstName: { value: 'Joao' },
+          lastName: { value: 'Caetano' },
+        },
+      },
+    })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(getContractById).not.toHaveBeenCalled()
+    expect(result).toEqual({ name: 'Joao Caetano', email: '', id: '' })
+  })
+
+  it('does not fail the field when getContractById throws', async () => {
+    const { ctx, getContractById, sessionMock } = makeRepCtx({
+      customerId: 'contract-1',
+    })
+    sessionMock.mockResolvedValue({
+      namespaces: {
+        profile: null,
+        authentication: { storeUserEmail: { value: 'rep@acme.com' } },
+        shopper: {
+          firstName: { value: 'Joao' },
+          lastName: { value: 'Caetano' },
+        },
+      },
+    })
+    getContractById.mockRejectedValue(new Error('CL unavailable'))
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(getContractById).toHaveBeenCalledWith({ contractId: 'contract-1' })
+    expect(result).toEqual({
+      name: 'Joao Caetano',
+      email: 'rep@acme.com',
+      id: 'contract-1',
+    })
+  })
+
+  it('uses the populated profile namespace when available', async () => {
+    const { ctx, getContractById, sessionMock } = makeRepCtx({
+      customerId: 'contract-1',
+    })
+    sessionMock.mockResolvedValue({
+      namespaces: {
+        profile: { id: { value: 'contract-1' }, email: { value: 'x@y.com' } },
+        authentication: null,
+        shopper: null,
+      },
+    })
+    getContractById.mockResolvedValue({ corporateName: 'Corp X' })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(getContractById).toHaveBeenCalledWith({ contractId: 'contract-1' })
+    expect(result).toEqual({
+      name: 'Corp X',
+      email: 'x@y.com',
+      id: 'contract-1',
+    })
+  })
+})
