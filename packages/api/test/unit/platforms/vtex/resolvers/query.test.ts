@@ -686,4 +686,3 @@ describe('Query.accountProfile', () => {
     })
   })
 })
-
