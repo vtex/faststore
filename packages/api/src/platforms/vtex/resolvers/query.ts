@@ -852,7 +852,8 @@ export const Query = {
           contract = await commerce.masterData.getContractById({ contractId })
         } catch (err) {
           console.error(
-            `Error while getting contract data for contract ID (${contractId}).\n`
+            `Error while getting contract data for contract ID (${contractId}).`,
+            err
           )
         }
       }
