@@ -842,7 +842,9 @@ export const Query = {
       const authentication = sessionData.namespaces.authentication ?? null
 
       const contractId =
-        resolveActiveContractIdFromSession(sessionData) || jwt?.customerId || ''
+        resolveActiveContractIdFromSession(sessionData) ||
+        jwt?.customerId?.trim() ||
+        ''
 
       let contract = null
       if (contractId) {
@@ -867,7 +869,7 @@ export const Query = {
         id:
           profile?.id?.value ||
           authentication?.customerId?.value ||
-          jwt?.customerId ||
+          jwt?.customerId?.trim() ||
           '',
         // createdAt: '',
       }
