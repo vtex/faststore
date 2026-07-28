@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0-dev.5](https://github.com/vtex/faststore/compare/v4.5.0-dev.4...v4.5.0-dev.5) (2026-07-27)
+
+### Features
+
+- forward Pricing Fallback price token to Checkout ([#3415](https://github.com/vtex/faststore/issues/3415)) ([bc6cda2](https://github.com/vtex/faststore/commit/bc6cda2cdaed0540896ca7202246ad2d3dcd5766))
+
 # [4.5.0-dev.4](https://github.com/vtex/faststore/compare/v4.5.0-dev.3...v4.5.0-dev.4) (2026-07-24)
 
 ### Features

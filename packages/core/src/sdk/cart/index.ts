@@ -18,8 +18,9 @@ import { createValidationStore, useStore } from '../useStore'
 
 export interface CartItem
   extends SDKCartItem,
-    Omit<CartItemFragment, 'isGift'> {
+    Omit<CartItemFragment, 'isGift' | 'priceToken'> {
   isGift?: boolean | null
+  priceToken?: string | null
 }
 
 export interface Cart extends SDKCart<CartItem> {
@@ -58,6 +59,7 @@ export const ValidateCartMutation = gql(`
     listPrice
     listPriceWithTaxes
     isGift
+    priceToken
     itemOffered {
       ...CartProductItem
     }
@@ -128,12 +130,14 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
             seller,
             quantity,
             itemOffered,
+            priceToken,
           }): IStoreOffer => {
             return {
               price,
               listPrice,
               seller,
               quantity,
+              priceToken,
               itemOffered: {
                 sku: itemOffered.sku,
                 image: itemOffered.image,

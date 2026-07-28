@@ -135,6 +135,22 @@ function buildHreflangLinks(
   return links
 }
 
+// With client-side offer enabled, `useOffer` only refreshes price aggregates —
+// it does not rebuild the per-seller array the buy button reads. Keep that array
+// from SSG, but inject the fresh Pricing Fallback token into the best offer so the
+// value sent to the cart respects the token's short validity window.
+const withFreshPriceToken = (
+  serverOffers: ServerProductQueryQuery['product']['offers'],
+  offer: ReturnType<typeof useOffer>
+) => ({
+  ...offer.offers,
+  offers: serverOffers.offers.map((offerItem, index) =>
+    index === 0
+      ? { ...offerItem, priceToken: offer.priceToken ?? offerItem.priceToken }
+      : offerItem
+  ),
+})
+
 function Page({
   data: server,
   sections,
@@ -198,7 +214,11 @@ function Page({
     ? (() => {
         const offer = useOffer({ skuId: product.sku })
         return {
-          client: { product: { offers: offer.offers } },
+          client: {
+            product: {
+              offers: withFreshPriceToken(product.offers, offer),
+            },
+          },
           isValidating: offer.isValidating,
         }
       })()
@@ -388,6 +408,7 @@ const query = gql(`
           priceValidUntil
           priceCurrency
           itemCondition
+          priceToken
           seller {
             identifier
           }
