@@ -7,10 +7,13 @@ const DEFAULT_AGENT = 'yarn'
 
 // Retrieves the package manager based on the developer lockfile, using `ni`.
 export function getPreferredPackageManager() {
-  const resolved = spawnSync('na', ['?'], {
+  // `stdout` is null when the probe cannot be spawned at all, so it has to be
+  // treated as unknown rather than dereferenced.
+  const probe = spawnSync('na', ['?'], {
     encoding: 'utf8',
     shell: true,
-  }).stdout.trim()
+  })
+  const resolved = probe.stdout?.trim() ?? ''
 
   // `na` prefixes its output with "volta run" when Volta is installed, so the
   // agent has to be read from behind that prefix.
