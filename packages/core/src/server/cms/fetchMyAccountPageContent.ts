@@ -32,6 +32,15 @@ export async function fetchMyAccountPageContent(
 
       return { sections: [], settings: {} } as PageContentType
     })
+    // getSingleContent resolves to `undefined` (rather than rejecting) when
+    // no CMS entry exists yet for this contentType — e.g. a newly introduced
+    // My Account page before any content has been authored for it. Fall back
+    // the same way the `.catch()` above does, instead of letting `undefined`
+    // reach `pageContent.sections` below.
+    .then(
+      (content) =>
+        content ?? ({ sections: [], settings: {} } as PageContentType)
+    )
 
   const sections = withDefaultMyAccountSections(
     contentType,

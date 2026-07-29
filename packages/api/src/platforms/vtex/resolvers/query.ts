@@ -14,6 +14,7 @@ import type {
   QuerySellersArgs,
   QueryShippingArgs,
   QueryUserOrderArgs,
+  SavedCard,
   UserOrderFromList,
 } from '../../../__generated__/schema'
 import { getOrderEntryOperation } from './getOrderEntryOperation'
@@ -592,6 +593,25 @@ export const Query = {
         currencyCode: order.currencyCode,
       })),
       paging: orders.paging,
+    }
+  },
+  listCreditCards: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const cards = await commerce.savedCards.listCreditCards()
+
+    return {
+      list: cards?.map((card: SavedCard) => ({
+        accountId: card.accountId,
+        bin: card.bin,
+        cardNumber: card.cardNumber,
+        paymentSystem: card.paymentSystem,
+        paymentSystemName: card.paymentSystemName,
+        isDefault: card.isDefault,
+        isActive: card.isActive,
+      })),
     }
   },
   validateUser: async (_: unknown, __: unknown, _ctx: GraphqlContext) => {

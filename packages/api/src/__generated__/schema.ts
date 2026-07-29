@@ -904,6 +904,8 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /** Returns the list of saved credit cards for the current user. */
+  listCreditCards?: Maybe<SavedCardListResult>;
   /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
@@ -1049,6 +1051,32 @@ export type SkuSpecificationValue = {
   id?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   originalName?: Maybe<Scalars['String']['output']>;
+};
+
+/** A saved payment card returned by the Saved-cards service. */
+export type SavedCard = {
+  __typename?: 'SavedCard';
+  /** Account identifier that owns the card. */
+  accountId?: Maybe<Scalars['String']['output']>;
+  /** First digits of the card (BIN). */
+  bin?: Maybe<Scalars['String']['output']>;
+  /** Masked card number, per PCI display rules. */
+  cardNumber?: Maybe<Scalars['String']['output']>;
+  /** Whether this card is active. */
+  isActive?: Maybe<Scalars['Boolean']['output']>;
+  /** Whether this card is the account default. */
+  isDefault?: Maybe<Scalars['Boolean']['output']>;
+  /** Numeric payment system identifier. */
+  paymentSystem?: Maybe<Scalars['String']['output']>;
+  /** Human-readable payment system name (e.g. Visa, Mastercard). */
+  paymentSystemName?: Maybe<Scalars['String']['output']>;
+};
+
+/** Result of listing the current user's saved credit cards. */
+export type SavedCardListResult = {
+  __typename?: 'SavedCardListResult';
+  /** The list of saved credit cards. */
+  list?: Maybe<Array<SavedCard>>;
 };
 
 /** Search result. */

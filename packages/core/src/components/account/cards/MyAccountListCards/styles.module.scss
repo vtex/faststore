@@ -1,0 +1,105 @@
+@use "sass:meta";
+
+.page {
+  @include meta.load-css("~@faststore/ui/src/components/organisms/EmptyState/styles.scss");
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-4, 1.5rem);
+
+  [data-fs-list-cards-tabs] {
+    display: flex;
+    gap: var(--fs-spacing-4, 1.5rem);
+    border-bottom: 1px solid var(--fs-border-color, #d9d9d9);
+  }
+
+  [data-fs-list-cards-tab] {
+    display: inline-flex;
+    gap: var(--fs-spacing-0-5, 0.25rem);
+    align-items: center;
+    padding: var(--fs-spacing-1, 0.5rem) 0;
+    font: inherit;
+    color: var(--fs-text-secondary, #6f6f6f);
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  [data-fs-list-cards-tab-active="true"] {
+    font-weight: 600;
+    color: var(--fs-text-link, #0632c1);
+    border-bottom: 2px solid var(--fs-text-link, #0632c1);
+  }
+
+  [data-fs-list-cards-controls] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--fs-spacing-2, 1rem);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  [data-fs-list-cards-search-wrapper] {
+    flex: 1;
+    max-width: 25rem;
+  }
+
+  [data-fs-list-cards-pagination] {
+    display: flex;
+    gap: var(--fs-spacing-1, 0.5rem);
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  [data-fs-list-cards-grid] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 10rem);
+    gap: 1.25rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  [data-fs-list-cards-item] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-spacing-1, 0.5rem);
+    padding: var(--fs-spacing-2, 1rem);
+    border: 1px solid var(--fs-border-color, #d9d9d9);
+    border-radius: var(--fs-border-radius, 0.25rem);
+  }
+
+  [data-fs-list-cards-item-brand] {
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  [data-fs-list-cards-item-label] {
+    display: flex;
+    gap: var(--fs-spacing-0-5, 0.25rem);
+    align-items: center;
+  }
+
+  [data-fs-list-cards-item-default-badge] {
+    padding: 0.0625rem 0.5rem;
+    font-size: 0.75rem;
+    color: var(--fs-text-secondary, #6f6f6f);
+    border: 1px solid var(--fs-border-color, #d9d9d9);
+    border-radius: 999px;
+  }
+
+  [data-fs-list-cards-item-number] {
+    font-size: 0.875rem;
+    color: var(--fs-text-secondary, #6f6f6f);
+  }
+
+  // The shared EmptyState is designed for full-page empty states
+  // (min-height: 50vh) — shrink that here so it sits inline within this
+  // list section instead of pushing a huge block, while keeping its
+  // default centered content.
+  [data-fs-empty-state] {
+    min-height: auto;
+    padding: 0;
+  }
+}

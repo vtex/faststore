@@ -15,6 +15,7 @@ export type AccountNavigationLabels = Partial<{
   switchLabel: string
   companyLabel: string
   contractLabel: string
+  cardsLabel: string
 }>
 
 interface GetMyAccountRouteParams {
@@ -27,12 +28,14 @@ export const PROFILE_ROUTE = '/pvt/account/profile'
 export const ORDERS_ROUTE = '/pvt/account/orders'
 export const USER_DETAILS_ROUTE = '/pvt/account/user-details'
 export const SECURITY_ROUTE = '/pvt/account/security'
+export const CARDS_ROUTE = '/pvt/account/cards'
 
 const ROUTE_LABEL_KEYS: Record<string, keyof AccountNavigationLabels> = {
   [PROFILE_ROUTE]: 'profileLabel',
   [ORDERS_ROUTE]: 'ordersLabel',
   [USER_DETAILS_ROUTE]: 'userDetailsLabel',
   [SECURITY_ROUTE]: 'securityLabel',
+  [CARDS_ROUTE]: 'cardsLabel',
 }
 
 // This is the default route list for My Account, we should add then as the feature is implemented
@@ -46,6 +49,10 @@ const DEFAULT_ROUTES: Route[] = [
     route: ORDERS_ROUTE,
   },
   {
+    title: 'Cards',
+    route: CARDS_ROUTE,
+  },
+  {
     title: 'User Details',
     route: USER_DETAILS_ROUTE,
   },
@@ -54,6 +61,11 @@ const DEFAULT_ROUTES: Route[] = [
     route: SECURITY_ROUTE,
   },
 ]
+
+// Cards is gated by the `useAdHocCard` permission for Unit/Contract-affiliated
+// buyers (spec US-4). Built fresh here — `main` has no B2B route-gating
+// mechanism to reuse (see specs/my-account-cards.md, Decision 4).
+export const ROUTES_REQUIRING_AD_HOC_CARD_ACCESS = [CARDS_ROUTE]
 
 function withNavigationLabels(
   routes: Route[],

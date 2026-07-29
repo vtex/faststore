@@ -9,6 +9,7 @@ import {
   type IProcessOrderAuthorization,
   type IUserOrderCancel,
   type QueryListUserOrdersArgs,
+  type SavedCard,
   type StoreMarketingData,
   type UserOrder,
   type UserOrderCancel,
@@ -630,6 +631,23 @@ export const VtexCommerce = (
             method: 'POST',
             headers,
             body: JSON.stringify(body),
+          },
+          { storeCookies }
+        )
+      },
+    },
+    savedCards: {
+      listCreditCards: (): Promise<SavedCard[]> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/saved-cards/credit-card?an=${account}`,
+          {
+            method: 'GET',
+            headers,
           },
           { storeCookies }
         )

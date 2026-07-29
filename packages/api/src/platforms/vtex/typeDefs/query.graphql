@@ -391,6 +391,13 @@ type Query {
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
+  Returns the list of saved credit cards for the current user.
+  """
+  listCreditCards: SavedCardListResult
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
   Returns the list of Orders that the User can view.
   """
   listUserOrders(

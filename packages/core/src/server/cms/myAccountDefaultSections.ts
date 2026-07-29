@@ -5,6 +5,7 @@ export type MyAccountContentType =
   | 'myAccountUserDetails'
   | 'myAccountSecurity'
   | 'myAccountUnauthorized'
+  | 'myAccountCards'
 
 export type DefaultMyAccountSection = {
   name: string
@@ -15,6 +16,7 @@ export type DefaultMyAccountSection = {
 const DEFAULT_SECTION_KEYS: Record<MyAccountContentType, string[]> = {
   myAccountProfile: ['AccountNavigation', 'AccountProfile'],
   myAccountOrders: ['AccountNavigation', 'AccountOrdersList'],
+  myAccountCards: ['AccountNavigation', 'AccountListCards'],
   myAccountOrderDetails: [
     'AccountNavigation',
     'AccountOrderDetails',

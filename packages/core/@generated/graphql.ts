@@ -358,7 +358,7 @@ export type IGeoCoordinates = {
 
 export type IOrderEntryOperation = {
   objectKey: Scalars['String']['input'];
-  orderFormId?: InputMaybe<Scalars['String']['input']>;
+  orderFormId: InputMaybe<Scalars['String']['input']>;
   sessionToken: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -873,6 +873,8 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /** Returns the list of saved credit cards for the current user. */
+  listCreditCards: Maybe<SavedCardListResult>;
   /** Returns the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
@@ -1016,6 +1018,30 @@ export type SkuSpecificationValue = {
   id: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   originalName: Maybe<Scalars['String']['output']>;
+};
+
+/** A saved payment card returned by the Saved-cards service. */
+export type SavedCard = {
+  /** Account identifier that owns the card. */
+  accountId: Maybe<Scalars['String']['output']>;
+  /** First digits of the card (BIN). */
+  bin: Maybe<Scalars['String']['output']>;
+  /** Masked card number, per PCI display rules. */
+  cardNumber: Maybe<Scalars['String']['output']>;
+  /** Whether this card is active. */
+  isActive: Maybe<Scalars['Boolean']['output']>;
+  /** Whether this card is the account default. */
+  isDefault: Maybe<Scalars['Boolean']['output']>;
+  /** Numeric payment system identifier. */
+  paymentSystem: Maybe<Scalars['String']['output']>;
+  /** Human-readable payment system name (e.g. Visa, Mastercard). */
+  paymentSystemName: Maybe<Scalars['String']['output']>;
+};
+
+/** Result of listing the current user's saved credit cards. */
+export type SavedCardListResult = {
+  /** The list of saved credit cards. */
+  list: Maybe<Array<SavedCard>>;
 };
 
 /** Search result. */
@@ -2617,6 +2643,11 @@ export type ServerProductQueryQueryVariables = Exact<{
 
 export type ServerProductQueryQuery = { product: { sku: string, gtin: string, mpn: string, name: string, description: string, releaseDate: string, unitMultiplier: number | null, id: string, seo: { title: string, description: string, canonical: string }, brand: { name: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, highPrice: number, lowPriceWithTaxes: number, priceCurrency: string, offers: Array<{ availability: string, price: number, priceValidUntil: string, priceCurrency: string, itemCondition: string, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
 
+export type ServerListCardsQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ServerListCardsQueryQuery = { listCreditCards: { list: Array<{ accountId: string | null, bin: string | null, cardNumber: string | null, paymentSystem: string | null, paymentSystemName: string | null, isDefault: boolean | null, isActive: boolean | null }> | null } | null, accountProfile: { name: string | null } };
+
 export type UserOrderItemsFragmentFragment = { id: string | null, name: string | null, quantity: number | null, sellingPrice: number | null, unitMultiplier: number | null, measurementUnit: string | null, imageUrl: string | null, detailUrl: string | null, refId: string | null, rewardValue: number | null };
 
 export type ServerOrderDetailsQueryQueryVariables = Exact<{
@@ -2714,7 +2745,7 @@ export type OrderEntryOperationQueryQueryVariables = Exact<{
 }>;
 
 
-export type OrderEntryOperationQueryQuery = { orderEntryOperation: { status: string, entityId: string, message: string | null, missingItems: Array<{ itemId: string, itemName: string | null, reason: string }> | null } | null };
+export type OrderEntryOperationQueryQuery = { orderEntryOperation: { status: string, entityId: string | null, message: string | null, missingItems: Array<{ itemId: string, itemName: string | null, reason: string }> | null } | null };
 
 export type UploadFileToOrderEntryMutationMutationVariables = Exact<{
   data: IOrderEntryUpload;
@@ -3364,6 +3395,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"4b33c5c07f440dc7489e55619dc2211a13786e72"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
 export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"f03d0963fed159ac4bbe11f90ea09c635a66b68c"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
+export const ServerListCardsQueryDocument = {"__meta__":{"operationName":"ServerListCardsQuery","operationHash":"689766c5c374a3eac102c9fa18217e232f0295ad"}} as unknown as TypedDocumentString<ServerListCardsQueryQuery, ServerListCardsQueryQueryVariables>;
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
 export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"672fe0f00b7b710b63fc6573c0a6b2ec54812b8f"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;

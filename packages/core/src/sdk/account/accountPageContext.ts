@@ -1,4 +1,5 @@
 import type {
+  ServerListCardsQueryQuery,
   ServerListOrdersQueryQuery,
   ServerOrderDetailsQueryQuery,
   ServerProfileQueryQuery,
@@ -27,6 +28,16 @@ export type AccountOrdersListPageData = {
   }
 }
 
+export type AccountCardsPageData = {
+  personalCards: NonNullable<
+    ServerListCardsQueryQuery['listCreditCards']
+  >['list']
+  // Shared cards data source is blocked pending confirmation (spec US-2) — stubbed empty for now.
+  sharedCards: NonNullable<ServerListCardsQueryQuery['listCreditCards']>['list']
+  hasOrgAssociation: boolean
+  hasError: boolean
+}
+
 export type AccountOrderDetailsPageData = {
   order: ServerOrderDetailsQueryQuery['userOrder']
   orderStatusLabels?: OrderStatusCmsLabels
@@ -53,6 +64,7 @@ export type AccountPageData =
   | AccountOrderDetailsPageData
   | AccountSecurityPageData
   | AccountUserDetailsPageData
+  | AccountCardsPageData
   | Record<string, never>
 
 export interface AccountPageContext extends PageGlobalContext {
