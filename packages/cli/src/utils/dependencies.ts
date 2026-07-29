@@ -12,7 +12,7 @@ export async function installDependencies({
   cwd,
   errorMessage,
 }: InstallDependenciesOptions) {
-  const { agent, command } = await resolvePackageManager()
+  const { agent, command } = await resolvePackageManager(cwd)
   const installCommand = agent === 'npm' ? 'install' : 'add'
 
   runCommandSync({

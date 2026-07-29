@@ -153,7 +153,9 @@ describe('resolvePackageManager', () => {
   })
 
   it('throws instead of forwarding an unknown agent to a shell', async () => {
-    vi.mocked(detect).mockResolvedValue('deno' as never)
+    // Deliberately not a real package manager, so this keeps asserting the
+    // UnknownAgentError path even if `ni` grows support for a new agent.
+    vi.mocked(detect).mockResolvedValue('not-a-package-manager' as never)
 
     await expect(resolvePackageManager(cwd)).rejects.toThrow(UnknownAgentError)
   })

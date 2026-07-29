@@ -27,13 +27,19 @@ export default class Start extends Command {
     const basePath = getBasePath(args.path)
     const port = args.port ?? 3000
     const { getRoot, tmpDir } = withBasePath(basePath)
-    const { command, argv } = await resolvePackageManager()
+    const { command, argv } = await resolvePackageManager(basePath)
 
     if (!existsSync(path.join(getRoot(), '.next'))) {
-      spawnSync(`${command} faststore build`, {
+      const build = spawnSync(`${command} faststore build`, {
         shell: true,
         stdio: 'inherit',
       })
+
+      if (build.status !== 0) {
+        throw new Error(
+          `"${command} faststore build" failed, so there is no build to serve.`
+        )
+      }
     }
 
     const [bin, ...runnerArgs] = argv

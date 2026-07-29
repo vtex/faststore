@@ -39,6 +39,7 @@ describe('Start', () => {
     storeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-start-'))
     fs.mkdirSync(path.join(storeDir, '.next'))
     vi.clearAllMocks()
+    spawnSyncMock.mockReturnValue({ status: 0 })
   })
 
   afterEach(() => {
@@ -54,6 +55,7 @@ describe('Start', () => {
 
     await runStart()
 
+    expect(resolvePackageManagerMock).toHaveBeenCalledWith(storeDir)
     expect(spawnMock).toHaveBeenCalledWith(
       'yarn',
       ['next', 'start', path.join(storeDir, '.faststore'), '-p', '3000'],
@@ -99,5 +101,19 @@ describe('Start', () => {
       'volta run yarn faststore build',
       { shell: true, stdio: 'inherit' }
     )
+    expect(spawnMock).toHaveBeenCalled()
+  })
+
+  it('does not serve when the build fails', async () => {
+    fs.rmSync(path.join(storeDir, '.next'), { recursive: true })
+    resolvePackageManagerMock.mockResolvedValue({
+      agent: 'yarn',
+      command: 'yarn',
+      argv: ['yarn'],
+    })
+    spawnSyncMock.mockReturnValue({ status: 1 })
+
+    await expect(runStart()).rejects.toThrow('faststore build" failed')
+    expect(spawnMock).not.toHaveBeenCalled()
   })
 })
