@@ -1,4 +1,4 @@
-import { getPreferredPackageManager } from './commands'
+import { resolvePackageManager } from './commands'
 import { runCommandSync } from './runCommandSync'
 
 type InstallDependenciesOptions = {
@@ -12,11 +12,11 @@ export async function installDependencies({
   cwd,
   errorMessage,
 }: InstallDependenciesOptions) {
-  const packageManager = await getPreferredPackageManager()
-  const installCommand = packageManager === 'npm' ? 'install' : 'add'
+  const { agent, command } = await resolvePackageManager()
+  const installCommand = agent === 'npm' ? 'install' : 'add'
 
   runCommandSync({
-    cmd: `${packageManager} ${installCommand} ${dependencies.join(' ')}`,
+    cmd: `${command} ${installCommand} ${dependencies.join(' ')}`,
     errorMessage,
     throws: 'error',
     cwd,

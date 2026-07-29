@@ -2,7 +2,7 @@ import { Args, Command } from '@oclif/core'
 import { spawn, spawnSync } from 'node:child_process'
 import fsExtra from 'fs-extra'
 import path from 'node:path'
-import { getPreferredPackageManager } from '../utils/commands'
+import { resolvePackageManager } from '../utils/commands'
 import { getBasePath, withBasePath } from '../utils/directory'
 
 const { existsSync } = fsExtra
@@ -27,18 +27,20 @@ export default class Start extends Command {
     const basePath = getBasePath(args.path)
     const port = args.port ?? 3000
     const { getRoot, tmpDir } = withBasePath(basePath)
-    const packageManager = await getPreferredPackageManager()
+    const { command, argv } = await resolvePackageManager()
 
     if (!existsSync(path.join(getRoot(), '.next'))) {
-      spawnSync(`${packageManager} faststore build`, {
+      spawnSync(`${command} faststore build`, {
         shell: true,
         stdio: 'inherit',
       })
     }
 
+    const [bin, ...runnerArgs] = argv
+
     return spawn(
-      packageManager,
-      ['next', 'start', tmpDir, '-p', String(port)],
+      bin,
+      [...runnerArgs, 'next', 'start', tmpDir, '-p', String(port)],
       {
         stdio: 'inherit',
       }
