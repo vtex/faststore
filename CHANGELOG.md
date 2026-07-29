@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0-dev.6](https://github.com/vtex/faststore/compare/v4.5.0-dev.5...v4.5.0-dev.6) (2026-07-28)
+
+### Bug Fixes
+
+- prevent My Account 500s from empty session profile and missing CMS content ([#3417](https://github.com/vtex/faststore/issues/3417)) ([2c2a18f](https://github.com/vtex/faststore/commit/2c2a18fe8f4127404d6634933cce778a64169c08))
+
 # [4.5.0-dev.5](https://github.com/vtex/faststore/compare/v4.5.0-dev.4...v4.5.0-dev.5) (2026-07-27)
 
 ### Features

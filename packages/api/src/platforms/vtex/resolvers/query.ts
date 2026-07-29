@@ -838,16 +838,40 @@ export const Query = {
       }
 
       const profile = sessionData.namespaces.profile ?? null
-      const contract = await commerce.masterData.getContractById({
-        contractId: profile?.id?.value ?? '',
-      })
+      const shopper = sessionData.namespaces.shopper ?? null
+      const authentication = sessionData.namespaces.authentication ?? null
 
-      const name = resolveActiveContractDisplayName(contract, profile)
+      const contractId =
+        resolveActiveContractIdFromSession(sessionData) ||
+        jwt?.customerId?.trim() ||
+        ''
+
+      let contract = null
+      if (contractId) {
+        try {
+          contract = await commerce.masterData.getContractById({ contractId })
+        } catch (err) {
+          console.error(
+            `Error while getting contract data for contract ID (${contractId}).`,
+            err
+          )
+        }
+      }
+
+      const shopperName =
+        `${(shopper?.firstName?.value ?? '').trim()} ${(shopper?.lastName?.value ?? '').trim()}`.trim()
+      const name =
+        resolveActiveContractDisplayName(contract, profile) || shopperName
 
       return {
         name: name || '',
-        email: profile?.email?.value || '',
-        id: profile?.id?.value || '',
+        email:
+          profile?.email?.value || authentication?.storeUserEmail?.value || '',
+        id:
+          profile?.id?.value ||
+          authentication?.customerId?.value ||
+          jwt?.customerId?.trim() ||
+          '',
         // createdAt: '',
       }
     }
