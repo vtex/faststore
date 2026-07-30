@@ -21,24 +21,24 @@ export function getPreferredPackageManager() {
       ? resolved.slice(voltaPrefix.length + 1)
       : resolved
 
-  if (!(agents as string[]).includes(agent)) {
-    if (agent !== '') {
-      logger.warn(
-        `${chalk.yellow(
-          'warning'
-        )} - Could not resolve a known package manager, "na" returned: ${agent
-          .split('\n')[0]
-          .slice(0, 120)}`
-      )
-      logger.warn(
-        `${chalk.yellow(
-          'warning'
-        )} - Using "${DEFAULT_AGENT}" instead. If more than one lockfile is committed, keep a single one so the package manager is unambiguous.`
-      )
-    }
-
-    return voltaPrefix ? `${voltaPrefix} ${DEFAULT_AGENT}` : DEFAULT_AGENT
+  if (agents.some((knownAgent) => knownAgent === agent)) {
+    return resolved
   }
 
-  return resolved
+  if (agent !== '') {
+    logger.warn(
+      `${chalk.yellow(
+        'warning'
+      )} - Could not resolve a known package manager, "na" returned: ${agent
+        .split('\n')[0]
+        .slice(0, 120)}`
+    )
+    logger.warn(
+      `${chalk.yellow(
+        'warning'
+      )} - Using "${DEFAULT_AGENT}" instead. If more than one lockfile is committed, keep a single one so the package manager is unambiguous.`
+    )
+  }
+
+  return voltaPrefix ? `${voltaPrefix} ${DEFAULT_AGENT}` : DEFAULT_AGENT
 }
