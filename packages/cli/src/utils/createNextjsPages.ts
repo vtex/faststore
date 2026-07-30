@@ -58,7 +58,7 @@ const createExternalPages = ({
     if (isReactFile && isDestinationAvailable) {
       const relativePagePath = filePath
         .replace(baseCustomizationPagesDir, '')
-        .replace(/\\/g, '/')
+        .replaceAll(/\\/g, '/')
         .replace(/\.tsx$/, '')
       const normalizedRoute = normalizeAccountRoute(relativePagePath)
 
@@ -185,7 +185,7 @@ function generateCmsPages({
     const pagePath = customizationTsx
       ? `src/customizations/src/pages${customizationTsx
           .replace(customizationPagesDir, '')
-          .replace(/\\/g, '/')
+          .replaceAll(/\\/g, '/')
           .replace(/\.tsx$/, '')}`
       : undefined
 

@@ -20,7 +20,7 @@ function readStringProp(
     `${propName}\\s*:\\s*(['"\`])((?:\\\\.|(?!\\1).)*)\\1`,
     'm'
   )
-  const match = objectLiteral.match(pattern)
+  const match = pattern.exec(objectLiteral)
   return match?.[2]
 }
 
@@ -50,11 +50,12 @@ export function readMyAccountCmsRoutes(
   }
 
   // Strip line comments to avoid false matches inside comments.
-  const withoutLineComments = sourceText.replace(/^\s*\/\/.*$/gm, '')
+  const withoutLineComments = sourceText.replaceAll(/^\s*\/\/.*$/gm, '')
 
-  const routesMatch = withoutLineComments.match(
-    /getMyAccountRoutes\s*\(\s*\{[\s\S]*?routes\s*:\s*\[([\s\S]*?)\]/
-  )
+  const routesMatch =
+    /getMyAccountRoutes\s*\(\s*\{[\s\S]*?routes\s*:\s*\[([\s\S]*?)\]/.exec(
+      withoutLineComments
+    )
 
   if (!routesMatch) {
     logger.warn(

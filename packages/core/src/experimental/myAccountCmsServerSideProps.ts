@@ -6,10 +6,7 @@ import type {
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 
-import {
-  type GlobalSectionsData,
-  getGlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
+import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import type { AccountNavigationLabels } from 'src/sdk/account/getMyAccountRoutes'
 import { validateUser } from 'src/sdk/account/validateUser'
@@ -136,7 +133,7 @@ export function myAccountCmsServerSideProps(
 
     return {
       props: {
-        globalSections: globalSectionsResult as GlobalSectionsData,
+        globalSections: globalSectionsResult,
         accountName: account.data?.accountProfile?.name ?? '',
         isRepresentative,
         pageSections,
