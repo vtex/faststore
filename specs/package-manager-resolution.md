@@ -89,7 +89,7 @@ Make package-manager resolution **safe by construction** and **self-explanatory 
 | 1 | Happy path | `yarn.lock` only; `yarn` on `PATH` | `faststore build` | Resolves `yarn`; runs `yarn run build` in `.faststore`; no new log lines |
 | 2 | Happy path (Volta) | `yarn.lock` only; `volta` and `yarn` on `PATH` | `faststore build` | Shell command is `volta run yarn run build`; `spawn` without shell uses argv `['volta','run','yarn']` |
 | 3 | Error → the incident | `pnpm-lock.yaml` + `yarn.lock`; only `yarn` on `PATH` | `faststore build` | Logs that `pnpm` was detected from `pnpm-lock.yaml` and is not installed, and that `yarn` is used instead; build proceeds; no shell syntax error |
-| 4 | Error | `pnpm-lock.yaml` only; neither `pnpm` nor `yarn` on `PATH`; `npm` present | `faststore build` | Logs the detection and the substitution; resolves `npm`; `installDependencies` uses `npm install`, not `npm add` |
+| 4 | Error | `pnpm-lock.yaml` only; neither `pnpm` nor `yarn` on `PATH`; `npm` present | `faststore build` | Logs the detection and the substitution; the build resolves and runs with `npm`. If the generate step needs to install missing feature dependencies, it throws the named error instead of writing a `package-lock.json` next to `pnpm-lock.yaml` |
 | 5 | Error | No usable agent on `PATH` at all | `faststore build` | Throws a named error listing the detected agent and the candidates tried; never emits a partial shell command |
 | 6 | Edge | No lockfile, no `packageManager` field | `faststore build` | Resolves the documented default (`yarn` when available) deterministically; `ni`'s `defaultAgent: 'prompt'` never surfaces |
 | 7 | Edge | `package.json` has `packageManager` naming an agent `ni` does not know | `faststore build` | Falls through to lockfile detection as `ni` already does; the unknown value is reported once, and never used as a command |
@@ -99,7 +99,7 @@ Make package-manager resolution **safe by construction** and **self-explanatory 
 
 - **FR-1**: Resolution MUST use `@antfu/ni`'s library API with `programmatic: true`, not the `na` binary. The binary exposes no way to disable the interactive fallback.
 - **FR-2**: Resolution MUST validate the resolved agent against `ni`'s `agents` list before the value is used to build any command.
-- **FR-3**: When the resolved agent's binary is not on `PATH`, resolution MUST log an explicit diagnostic and substitute the first available candidate, rather than failing.
+- **FR-3**: When the resolved agent's binary is not on `PATH`, resolution MUST log an explicit diagnostic and substitute the first available candidate, rather than failing. Substitution is reserved for call sites that only *run* commands: a caller whose operation writes to the project (dependency installation) MUST resolve with substitution disabled, and resolution MUST then throw instead — installing with a substitute agent would write a second, conflicting lockfile.
 - **FR-4**: When no candidate is available, resolution MUST throw a named error. It MUST NOT return a partially-formed or empty command.
 - **FR-5**: Resolution MUST return the agent identity and the executable form as separate values, so callers stop pattern-matching a command string.
 - **FR-6**: The `volta run` prefix MUST be preserved in the executable form, and MUST NOT leak into the agent identity.
@@ -153,8 +153,10 @@ flowchart TD
     D -->|no| E[throw UnknownAgentError]
     D -->|yes| F{cmdExists agent bin?}
     F -->|yes| G[build command + argv]
-    F -->|no| H["log: detected AGENT from SOURCE, not on PATH"]
-    H --> I[try candidates: yarn, npm]
+    F -->|no| P{substitution allowed?}
+    P -->|"no — mutating caller"| Q[throw NoAvailablePackageManagerError]
+    P -->|yes| H["log: detected AGENT from SOURCE, not on PATH"]
+    H --> I[try candidates: yarn, npm, pnpm, bun]
     I -->|none available| J[throw NoAvailablePackageManagerError]
     I -->|found| K["log: using CANDIDATE instead"]
     K --> G
@@ -205,9 +207,10 @@ flowchart TD
 
 - **Status**: Accepted
 - **Context**: Fail-fast produces the cleaner message, but `cmdExists` is `which.sync`, which does not necessarily agree with what a shell would resolve. Throwing on a false negative would break a build that works. In the incident specifically, substituting yarn would have been *correct*: the pipeline's `BUILD_COMMAND` was already `yarn build` and `deps` had already installed with yarn — `ni` was the component that disagreed.
-- **Decision**: When the resolved agent's binary is absent, log the detected agent, the detection source, and the substitution, then use the first available of `yarn`, `npm`. Throw only when no candidate is available.
-- **Consequences**: Regression risk is zero — every path that produced a working command still produces the same one. The operator gets the diagnostic that was previously lost to stderr. The trade-off is that a lockfile inconsistency is reported rather than enforced; enforcement is deliberately left to store-level linting. This decision alone is sufficient for the observed incident: substituting `yarn` matches the manager that installed `node_modules`, so the build completes with no pipeline change required.
-- **Alternative recorded**: fail-fast on `!cmdExists`. Cheap to switch later — it is one branch in `resolvePackageManager` — if the fleet turns out to have no false negatives and the team prefers enforcement.
+- **Decision**: When the resolved agent's binary is absent, log the detected agent, the detection source, and the substitution, then use the first available of `yarn`, `npm`, and then the remaining known agents (`pnpm`, `bun`) as last resorts. Throw only when no candidate is available.
+- **Scope (review follow-up)**: Substitution applies only to call sites that *run* the project (`build`, `dev`, `start`, `test`, `generate-graphql`). The one mutating call site, `installDependencies`, resolves with `substitute: false` and gets a thrown error instead: running e.g. `yarn add` in a pnpm store writes a `yarn.lock` next to `pnpm-lock.yaml`, manufacturing exactly the dual-lockfile ambiguity behind the incident (and `yarn` may not understand `workspace:` ranges in a pnpm project). A deliberate, explained failure is preferable to silently corrupting the store's lockfile state.
+- **Consequences**: Regression risk is zero — every path that produced a working command still produces the same one, and every path that now throws was already failing before this spec (with an unattributable shell error). The operator gets the diagnostic that was previously lost to stderr. The trade-off is that a lockfile inconsistency is reported rather than enforced on the run path; enforcement is deliberately left to store-level linting. This decision alone is sufficient for the observed incident: substituting `yarn` matches the manager that installed `node_modules`, so the build completes with no pipeline change required.
+- **Alternative recorded**: fail-fast on `!cmdExists` everywhere. Cheap to switch later — it is one branch in `resolvePackageManager` — if the fleet turns out to have no false negatives and the team prefers enforcement.
 
 #### Decision 4: Keep `yarn` as the CLI's default when detection yields nothing
 
@@ -281,12 +284,19 @@ Invariant on the three forms, for `agent: 'yarn'`:
  * Never reads stdin and never writes an interactive prompt. The returned
  * `agent` is always a member of ni's `agents` list.
  *
+ * `substitute: false` is for callers that write to the project: with it, a
+ * detected-but-missing agent throws instead of being substituted, because
+ * installing with a substitute would write a conflicting lockfile.
+ *
  * @throws UnknownAgentError                 resolved agent is not a known agent
  * @throws NoAvailablePackageManagerError    neither the detected agent nor any
- *                                           candidate is available on PATH
+ *                                           candidate is available on PATH, or
+ *                                           the detected agent is missing and
+ *                                           `substitute` is `false`
  */
 export async function resolvePackageManager(
-  cwd?: string
+  cwd?: string,
+  options?: { substitute?: boolean }
 ): Promise<ResolvedPackageManager>
 
 /**
@@ -299,7 +309,7 @@ export class UnknownAgentError extends Error {}
 export class NoAvailablePackageManagerError extends Error {}
 ```
 
-Candidate order when the detected agent is unavailable: `['yarn', 'npm']`, first one satisfying `cmdExists`.
+Candidate order when the detected agent is unavailable: `['yarn', 'npm', 'pnpm', 'bun']`, first one satisfying `cmdExists`. `yarn` and `npm` lead because they are what the store build images ship; the remaining known agents are last resorts so an environment that only has one of them still resolves.
 
 Diagnostic emitted on substitution, via `logger.warn`. It must be `warn` and not `log`: `logger.log` is suppressed unless `DISCOVERY_DEBUG=true`, so a `log` call would be invisible in CI, which is where this matters.
 
@@ -327,6 +337,7 @@ The second line appears only when more than one lockfile is present in `cwd`.
 - Every string the CLI interpolates into a `shell: true` command MUST derive from `command`, never from raw `ni` output.
 - `spawn` calls without a shell MUST use `argv`, never `command`.
 - Any resolution outcome other than a successful one MUST be either logged (substitution) or thrown (unknown agent, no candidate). Silent empty or partial values are FORBIDDEN.
+- Call sites that write to the project (dependency installation) MUST resolve with `substitute: false`; substitution is reserved for call sites that only run commands.
 - Diagnostics MUST name only the agent, the detection source, and the substitution. Secrets, tokens, and `.env` values MUST NOT appear.
 - Behaviour for repositories whose detected agent is installed MUST be byte-identical to the pre-change behaviour, Volta prefix included.
 - The 3.x backport MUST preserve the existing `yarn` fallback; widening the guard is permitted, removing it is FORBIDDEN.

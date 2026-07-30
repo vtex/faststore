@@ -35,7 +35,9 @@ describe('installDependencies', () => {
 
     await install()
 
-    expect(resolvePackageManagerMock).toHaveBeenCalledWith('/store')
+    expect(resolvePackageManagerMock).toHaveBeenCalledWith('/store', {
+      substitute: false,
+    })
     expect(runCommandSyncMock).toHaveBeenCalledWith(
       expect.objectContaining({ cmd: 'yarn add preact@10.23.1' })
     )

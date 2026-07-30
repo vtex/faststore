@@ -25,8 +25,21 @@ export class UnknownAgentError extends Error {}
 
 export class NoAvailablePackageManagerError extends Error {}
 
+export interface ResolvePackageManagerOptions {
+  /**
+   * Whether a detected-but-not-installed agent may be substituted with an
+   * available fallback. Callers that write to the project (dependency
+   * installation) must pass `false`: installing with a substitute agent would
+   * leave a second, conflicting lockfile next to the project's own.
+   */
+  substitute?: boolean
+}
+
 const DEFAULT_AGENT: Agent = 'yarn'
-const FALLBACK_AGENTS: Agent[] = ['yarn', 'npm']
+// yarn and npm first — they are what the store build images ship. The
+// remaining known agents are last resorts so an environment that only has
+// pnpm or bun still resolves instead of failing.
+const FALLBACK_AGENTS: Agent[] = ['yarn', 'npm', 'pnpm', 'bun']
 
 /**
  * Resolves the package manager to use for `cwd`.
@@ -36,7 +49,8 @@ const FALLBACK_AGENTS: Agent[] = ['yarn', 'npm']
  * callers interpolate this value straight into shell commands.
  */
 export async function resolvePackageManager(
-  cwd: string = process.cwd()
+  cwd: string = process.cwd(),
+  { substitute = true }: ResolvePackageManagerOptions = {}
 ): Promise<ResolvedPackageManager> {
   const detected = (await detect({ programmatic: true, cwd })) ?? DEFAULT_AGENT
 
@@ -48,9 +62,17 @@ export async function resolvePackageManager(
     )
   }
 
-  const agent = cmdExists(binOf(detected))
-    ? detected
-    : substituteAgent(detected, cwd)
+  let agent = detected
+
+  if (!cmdExists(binOf(detected))) {
+    if (!substitute) {
+      throw new NoAvailablePackageManagerError(
+        `Detected "${detected}", which is not installed in this environment. This operation writes a lockfile, so no other package manager can stand in for it. Install "${detected}", or remove the lockfile or "packageManager" field that selects it.`
+      )
+    }
+
+    agent = substituteAgent(detected, cwd)
+  }
 
   const voltaPrefix = getVoltaPrefix()
   const command = voltaPrefix ? `${voltaPrefix} ${binOf(agent)}` : binOf(agent)

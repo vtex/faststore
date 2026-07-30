@@ -12,7 +12,12 @@ export async function installDependencies({
   cwd,
   errorMessage,
 }: InstallDependenciesOptions) {
-  const { agent, command } = await resolvePackageManager(cwd)
+  // Installing writes a lockfile: a substitute agent would leave a second,
+  // conflicting one next to the project's (e.g. `yarn add` in a pnpm store
+  // creates a `yarn.lock`), so only the detected agent is acceptable here.
+  const { agent, command } = await resolvePackageManager(cwd, {
+    substitute: false,
+  })
   const installCommand = agent === 'npm' ? 'install' : 'add'
 
   runCommandSync({

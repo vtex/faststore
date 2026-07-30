@@ -118,6 +118,33 @@ describe('resolvePackageManager', () => {
     expect(agent).toBe('npm')
   })
 
+  it('falls back to any known agent as a last resort', async () => {
+    vi.mocked(detect).mockResolvedValue('yarn')
+    vi.mocked(cmdExists).mockImplementation(onlyAvailable('bun'))
+
+    const { agent } = await resolvePackageManager(cwd)
+
+    expect(agent).toBe('bun')
+  })
+
+  it('throws instead of substituting when substitution is disabled', async () => {
+    vi.mocked(detect).mockResolvedValue('pnpm')
+    vi.mocked(cmdExists).mockImplementation(onlyAvailable('yarn', 'npm'))
+
+    await expect(
+      resolvePackageManager(cwd, { substitute: false })
+    ).rejects.toThrow(NoAvailablePackageManagerError)
+    expect(warnMock).not.toHaveBeenCalled()
+  })
+
+  it('resolves the detected agent normally when substitution is disabled', async () => {
+    vi.mocked(detect).mockResolvedValue('pnpm')
+
+    await expect(
+      resolvePackageManager(cwd, { substitute: false })
+    ).resolves.toMatchObject({ agent: 'pnpm' })
+  })
+
   it('names the committed lockfiles when more than one is present', async () => {
     fs.writeFileSync(path.join(cwd, 'yarn.lock'), '')
     fs.writeFileSync(path.join(cwd, 'pnpm-lock.yaml'), '')

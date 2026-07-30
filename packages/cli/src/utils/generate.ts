@@ -582,7 +582,9 @@ async function validateAndInstallMissingDependencies(basePath: string) {
     })
   }
 
-  missingDependencies.forEach(async ({ feature, dependencies }) => {
+  // Not `forEach(async …)`: a rejection inside a floating callback is an
+  // unhandled rejection, which crashes past oclif's error handling.
+  for (const { feature, dependencies } of missingDependencies) {
     const dependenciesToInstall = dependencies.filter((dependency) => {
       const dependencyName = dependency.split('@')[0]
       return !userPackageJson.dependencies[dependencyName]
@@ -593,15 +595,17 @@ async function validateAndInstallMissingDependencies(basePath: string) {
         `Installing ${feature} missing dependencies\n`
       ).start()
 
-      await installDependencies({
-        dependencies: dependenciesToInstall,
-        cwd: userDir,
-        errorMessage: `failed to install ${feature} dependencies`,
-      })
-
-      spinner.stop()
+      try {
+        await installDependencies({
+          dependencies: dependenciesToInstall,
+          cwd: userDir,
+          errorMessage: `failed to install ${feature} dependencies`,
+        })
+      } finally {
+        spinner.stop()
+      }
     }
-  })
+  }
 }
 
 async function enableSearchSSR(basePath: string) {
