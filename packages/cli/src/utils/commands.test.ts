@@ -36,6 +36,15 @@ describe('getPreferredPackageManager', () => {
     expect(warnMock).not.toHaveBeenCalled()
   })
 
+  it('keeps "?" a literal argument, away from POSIX shell globbing', () => {
+    getPreferredPackageManager()
+
+    expect(spawnSyncMock).toHaveBeenCalledWith('na', ['?'], {
+      encoding: 'utf8',
+      shell: process.platform === 'win32',
+    })
+  })
+
   it('keeps the Volta prefix on a known agent', () => {
     getVoltaPrefixMock.mockReturnValue('volta run')
     spawnSyncMock.mockReturnValue({ stdout: 'volta run yarn\n' })

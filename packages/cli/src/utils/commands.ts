@@ -6,9 +6,12 @@ import { logger } from './logger'
 const DEFAULT_AGENT = 'yarn'
 
 export function getPreferredPackageManager() {
+  // No shell on POSIX: `?` is a glob there, so a single-character filename in
+  // the store would rewrite the probe (e.g. `na x`). Windows still needs a
+  // shell to run the `na.cmd` shim, and cmd.exe does not expand globs.
   const probe = spawnSync('na', ['?'], {
     encoding: 'utf8',
-    shell: true,
+    shell: process.platform === 'win32',
   })
   const resolved = probe.stdout?.trim() ?? ''
 
