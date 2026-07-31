@@ -74,10 +74,14 @@ export async function resolvePackageManager(
     agent = substituteAgent(detected, cwd)
   }
 
+  const argv: [string, ...string[]] = [binOf(agent)]
   const voltaPrefix = getVoltaPrefix()
-  const command = voltaPrefix ? `${voltaPrefix} ${binOf(agent)}` : binOf(agent)
 
-  return { agent, command, argv: command.split(' ') as [string, ...string[]] }
+  if (voltaPrefix) {
+    argv.unshift(...voltaPrefix.split(' '))
+  }
+
+  return { agent, command: argv.join(' '), argv }
 }
 
 /** Shell-ready form of {@link resolvePackageManager}, for callers that only run a command. */

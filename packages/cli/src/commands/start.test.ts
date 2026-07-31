@@ -61,6 +61,7 @@ describe('Start', () => {
       ['next', 'start', path.join(storeDir, '.faststore'), '-p', '3000'],
       { stdio: 'inherit' }
     )
+    expect(spawnSyncMock).not.toHaveBeenCalled()
   })
 
   it('splits a Volta prefix into the spawn arguments', async () => {
