@@ -185,6 +185,9 @@ function Page({
             alt: img.alternateName,
           })),
         }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
         additionalMetaTags={[
           {
             property: 'product:price:amount',

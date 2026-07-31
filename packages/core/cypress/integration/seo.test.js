@@ -47,7 +47,7 @@ describe('Home Page Seo', () => {
       })
   })
 
-  it('has OpenGraph tags', () => {
+  it('has OpenGraph and Twitter tags', () => {
     cy.visit(pages.home, options)
     cy.waitForHydration()
 
@@ -67,6 +67,12 @@ describe('Home Page Seo', () => {
       .should('exist')
       .should(($el) => {
         expect($el.attr('content')).to.be.a('string')
+      })
+
+    cy.get('meta[name="twitter:card"]')
+      .should('exist')
+      .should(($el) => {
+        expect($el.attr('content')).to.eq('summary_large_image')
       })
   })
 })

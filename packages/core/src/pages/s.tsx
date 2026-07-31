@@ -75,6 +75,9 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
         title,
         description,
       },
+      twitter: {
+        cardType: 'summary_large_image',
+      },
     }
   }
 
@@ -93,6 +96,9 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
       type: 'website',
       title: title,
       description: description,
+    },
+    twitter: {
+      cardType: 'summary_large_image',
     },
   }
 }
