@@ -34,6 +34,7 @@ import {
   getGlobalSectionsData,
   type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import { LocalizedProductProvider } from 'src/sdk/localization/LocalizedProductContext'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
@@ -69,6 +70,14 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
+// Maps schema.org `itemCondition` URLs to the values accepted by the
+// Open Graph `product:condition` meta tag (`new` | `refurbished` | `used`).
+const OG_PRODUCT_CONDITION_BY_SCHEMA: Record<string, string> = {
+  'https://schema.org/NewCondition': 'new',
+  'https://schema.org/RefurbishedCondition': 'refurbished',
+  'https://schema.org/UsedCondition': 'used',
+}
+
 type Props = PDPContentType & {
   data: ServerProductQueryQuery
   globalSections: GlobalSectionsData
@@ -85,6 +94,62 @@ const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 
 const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
   .enableClientOffer
+
+function buildHreflangLinks(
+  storeConfig: StoreConfig,
+  otherLocales: Array<{ locale: string; slug: string }> | null | undefined
+): Array<{ rel: string; hrefLang: string; href: string }> {
+  if (!storeConfig.localization?.enabled || !otherLocales?.length) return []
+
+  const locales = storeConfig.localization.locales
+  const baseStoreUrl = storeConfig.storeUrl.replace(/\/$/, '')
+  const defaultLocale = storeConfig.localization.defaultLocale
+  const links: Array<{ rel: string; hrefLang: string; href: string }> = []
+
+  for (const { locale, slug } of otherLocales) {
+    const bindingUrl = locales?.[locale]?.bindings?.[0]?.url
+    if (typeof bindingUrl === 'string' && bindingUrl.length > 0) {
+      links.push({
+        rel: 'alternate',
+        hrefLang: locale,
+        href: `${bindingUrl.replace(/\/$/, '')}/${slug}/p`,
+      })
+    }
+  }
+
+  // PREMISE: the default locale is served at the store root (no locale prefix),
+  // which is how Next.js i18n sub-path routing works — the `defaultLocale` has no
+  // prefix while other locales live under `/{locale}`. Hence `x-default` points to
+  // `${storeUrl}/{slug}/p`. If a store ever serves its default locale under a path
+  // prefix or a dedicated domain instead of the root, this href must be derived
+  // from that locale's binding URL instead of `storeUrl`.
+  const defaultEntry = otherLocales.find((e) => e.locale === defaultLocale)
+  if (defaultEntry) {
+    links.push({
+      rel: 'alternate',
+      hrefLang: 'x-default',
+      href: `${baseStoreUrl}/${defaultEntry.slug}/p`,
+    })
+  }
+
+  return links
+}
+
+// With client-side offer enabled, `useOffer` only refreshes price aggregates —
+// it does not rebuild the per-seller array the buy button reads. Keep that array
+// from SSG, but inject the fresh Pricing Fallback token into the best offer so the
+// value sent to the cart respects the token's short validity window.
+const withFreshPriceToken = (
+  serverOffers: ServerProductQueryQuery['product']['offers'],
+  offer: ReturnType<typeof useOffer>
+) => ({
+  ...offer.offers,
+  offers: serverOffers.offers.map((offerItem, index) =>
+    index === 0
+      ? { ...offerItem, priceToken: offer.priceToken ?? offerItem.priceToken }
+      : offerItem
+  ),
+})
 
 function Page({
   data: server,
@@ -123,6 +188,17 @@ function Page({
       .toString()
   }
 
+  const productCondition =
+    OG_PRODUCT_CONDITION_BY_SCHEMA[
+      product.offers.offers[0]?.itemCondition ?? ''
+    ]
+
+  // hreflang alternate links for multi-locale stores
+  const hreflangLinks = buildHreflangLinks(
+    storeConfig as StoreConfig,
+    server.product.otherLocales
+  )
+
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
     itemListElements = itemListElements.map(
@@ -138,7 +214,11 @@ function Page({
     ? (() => {
         const offer = useOffer({ skuId: product.sku })
         return {
-          client: { product: { offers: offer.offers } },
+          client: {
+            product: {
+              offers: withFreshPriceToken(product.offers, offer),
+            },
+          },
           isValidating: offer.isValidating,
         }
       })()
@@ -199,14 +279,44 @@ function Page({
             property: 'product:price:currency',
             content: currency.code,
           },
+          {
+            property: 'product:id',
+            content: product.isVariantOf?.productGroupID ?? undefined,
+          },
+          {
+            property: 'product:sku',
+            content: product.sku,
+          },
+          {
+            property: 'product:name',
+            content: product.name,
+          },
+          {
+            property: 'product:category',
+            content: itemListElements[0]?.name ?? undefined,
+          },
+          {
+            property: 'product:url',
+            content: meta.canonical,
+          },
+          {
+            property: 'product:brand',
+            content: product.brand.name,
+          },
+          ...(productCondition
+            ? [
+                {
+                  property: 'product:condition',
+                  content: productCondition,
+                },
+              ]
+            : []),
         ]}
+        additionalLinkTags={hreflangLinks}
         titleTemplate={titleTemplate}
       />
 
-      {/* TODO: when localized slugs are available remove this workaround */}
-      {!storeConfig.localization?.enabled && (
-        <BreadcrumbJsonLd itemListElements={itemListElements} />
-      )}
+      <BreadcrumbJsonLd itemListElements={itemListElements} />
 
       <ProductJsonLd
         id={`${meta.canonical}${settings?.seo?.id ?? ''}`}
@@ -238,13 +348,15 @@ function Page({
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <PageProvider context={context}>
-        <RenderSections
-          sections={sections}
-          globalSections={globalSections}
-          components={COMPONENTS}
-        />
-      </PageProvider>
+      <LocalizedProductProvider otherLocales={server.product.otherLocales}>
+        <PageProvider context={context}>
+          <RenderSections
+            sections={sections}
+            globalSections={globalSections}
+            components={COMPONENTS}
+          />
+        </PageProvider>
+      </LocalizedProductProvider>
     </>
   )
 }
@@ -296,6 +408,7 @@ const query = gql(`
           priceValidUntil
           priceCurrency
           itemCondition
+          priceToken
           seller {
             identifier
           }
@@ -304,6 +417,11 @@ const query = gql(`
 
       isVariantOf {
         productGroupID
+      }
+
+      otherLocales {
+        locale
+        slug
       }
 
       ...ProductDetailsFragment_product

@@ -114,7 +114,7 @@ const getServerSidePropsBase: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: account.data.accountProfile.name,
+      accountName: account.data?.accountProfile?.name ?? '',
       isRepresentative,
     },
   }

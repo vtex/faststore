@@ -78,8 +78,9 @@ export const useReorder = () => {
           seller: {
             identifier: item.seller,
           },
-          price: item.price ?? 0,
-          listPrice: item.price ?? 0,
+          price: item.price,
+          listPrice: item.price,
+          priceToken: null,
           itemOffered: {
             sku: item.id ?? '',
             image: item.imageUrl
@@ -111,7 +112,7 @@ export const useReorder = () => {
         orderPayload.orderNumber = currentCart.id
       }
 
-      const { validateCart: validated } = await request<
+      const result = await request<
         ValidateCartMutationMutation,
         ValidateCartMutationMutationVariables
       >(ValidateCartMutation, {
@@ -120,6 +121,8 @@ export const useReorder = () => {
           order: orderPayload as IStoreCart['order'],
         },
       })
+
+      const validated = result?.validateCart ?? null
 
       if (!validated) {
         throw new ReorderError('Failed to add items to cart')
@@ -132,7 +135,7 @@ export const useReorder = () => {
           id: getItemId(item),
         })),
         messages: validated.messages,
-        shouldSplitItem: validated.order.shouldSplitItem,
+        shouldSplitItem: validated.order.shouldSplitItem ?? undefined,
       }
 
       cartStore.set(updatedCart)

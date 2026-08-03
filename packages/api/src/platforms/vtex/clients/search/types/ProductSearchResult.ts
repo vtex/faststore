@@ -175,6 +175,13 @@ export interface CommertialOffer {
   }>
   GetInfoErrorMessage: any | null
   CacheVersionUsedToCallCheckout: string
+  /**
+   * Signed price (JWT) used by the Pricing Fallback feature. When present, it is
+   * forwarded to Checkout on add-to-cart so the platform can trust the offer's
+   * price even if the Pricing System is unavailable. It may be absent when the
+   * signing step fails or the feature is disabled.
+   */
+  PriceToken?: string
 }
 
 export interface Seller {

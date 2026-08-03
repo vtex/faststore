@@ -92,3 +92,24 @@ jobs:
         run: |
           cd starter
           yarn build
+
+  # Informational check (never blocks): flags FastStore packages whose latest
+  # published version lacks an npm provenance/attestation — the symptom of a
+  # manual publish instead of the CD OIDC Trusted Publisher (what broke
+  # @faststore/diagnostics in the v4 launch). See scripts/check-provenance.mjs.
+  provenance:
+    name: npm provenance (informational)
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.13.0
+
+      - name: Check provenance of published packages
+        continue-on-error: true
+        run: node ./scripts/check-provenance.mjs

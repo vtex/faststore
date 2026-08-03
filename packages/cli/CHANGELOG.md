@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0-dev.7](https://github.com/vtex/faststore/compare/v4.5.0-dev.6...v4.5.0-dev.7) (2026-08-03)
+
+### Features
+
+- CMS-driven custom My Account pages ([#3411](https://github.com/vtex/faststore/issues/3411)) ([e38b278](https://github.com/vtex/faststore/commit/e38b2780bb7386a8ef7b83a9e3de5956bf6de50e))
+
+# [4.5.0-dev.6](https://github.com/vtex/faststore/compare/v4.5.0-dev.5...v4.5.0-dev.6) (2026-07-28)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.5.0-dev.5](https://github.com/vtex/faststore/compare/v4.5.0-dev.4...v4.5.0-dev.5) (2026-07-27)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.5.0-dev.4](https://github.com/vtex/faststore/compare/v4.5.0-dev.3...v4.5.0-dev.4) (2026-07-24)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.5.0-dev.3](https://github.com/vtex/faststore/compare/v4.5.0-dev.2...v4.5.0-dev.3) (2026-07-22)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.5.0-dev.2](https://github.com/vtex/faststore/compare/v4.5.0-dev.1...v4.5.0-dev.2) (2026-07-20)
+
+### Features
+
+- copy fonts and nested assets from public/ to build ([#3412](https://github.com/vtex/faststore/issues/3412)) ([ce07376](https://github.com/vtex/faststore/commit/ce07376a7c6aabf727746afdd7e486e3e6afaa76)), closes [#3332](https://github.com/vtex/faststore/issues/3332)
+
+# [4.5.0-dev.1](https://github.com/vtex/faststore/compare/v4.5.0-dev.0...v4.5.0-dev.1) (2026-07-14)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.5.0-dev.0](https://github.com/vtex/faststore/compare/v4.4.1-dev.0...v4.5.0-dev.0) (2026-07-03)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.4.1-dev.0](https://github.com/vtex/faststore/compare/v4.4.0...v4.4.1-dev.0) (2026-07-02)
+
+**Note:** Version bump only for package @faststore/cli
+
 # [4.4.0](https://github.com/vtex/faststore/compare/v4.4.0-dev.6...v4.4.0) (2026-07-02)
 
 **Note:** Version bump only for package @faststore/cli

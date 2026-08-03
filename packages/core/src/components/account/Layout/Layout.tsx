@@ -2,10 +2,12 @@ import type { PropsWithChildren } from 'react'
 import menuRoutes from 'src/customizations/src/myAccount/navigation'
 import {
   type AccountNavigationLabels,
+  ROUTES_ONLY_FOR_B2B_MEMBERS,
   USER_DETAILS_ROUTE,
   getExtraMyAccountRoutes,
   getMyAccountRoutes,
 } from 'src/sdk/account/getMyAccountRoutes'
+import { useSession } from 'src/sdk/session'
 import Menu from '../Menu'
 import styles from '../section.module.scss'
 
@@ -23,6 +25,9 @@ const Layout = ({
   isRepresentative = true,
   navigationLabels,
 }: PropsWithChildren<LayoutProps>) => {
+  const { b2b } = useSession()
+  const isOrgMember = Boolean(b2b?.unitId)
+
   const menuItems = navigationLabels
     ? getMyAccountRoutes({
         routes: getExtraMyAccountRoutes(menuRoutes),
@@ -30,11 +35,15 @@ const Layout = ({
       })
     : menuRoutes
 
-  const routes = isRepresentative
-    ? menuItems
-    : menuItems.filter(
-        ({ route }) => !ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)
-      )
+  const routes = (
+    isRepresentative
+      ? menuItems
+      : menuItems.filter(
+          ({ route }) => !ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)
+        )
+  ).filter(
+    ({ route }) => isOrgMember || !ROUTES_ONLY_FOR_B2B_MEMBERS.includes(route)
+  )
 
   return (
     <section className={styles.layout}>

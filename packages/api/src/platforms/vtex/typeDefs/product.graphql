@@ -94,6 +94,25 @@ type StoreProduct {
   Delivery Promise product's badge.
   """
   deliveryPromiseBadges: [DeliveryPromiseBadge]
+  """
+  Localized versions of this product for all available locales.
+  Only populated when localization is enabled.
+  """
+  otherLocales: [StoreProductLocale!]
+}
+
+"""
+Localized product data for a specific locale.
+"""
+type StoreProductLocale {
+  """
+  Locale code (e.g. "pt-BR", "it-IT").
+  """
+  locale: String!
+  """
+  Localized product slug including the SKU ID suffix (e.g. "adidas-polo-uomo-65").
+  """
+  slug: String!
 }
 
 type SkuSpecification {

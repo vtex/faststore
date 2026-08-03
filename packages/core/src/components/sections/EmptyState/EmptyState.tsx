@@ -1,5 +1,5 @@
-import type { PropsWithChildren } from 'react'
 import { useRouter } from 'next/router'
+import type { PropsWithChildren } from 'react'
 
 import { Icon as UIIcon, Loader as UILoader } from '@faststore/ui'
 
@@ -9,8 +9,8 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 
-import { EmptyStateDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { EmptyStateDefaultComponents } from './DefaultComponents'
 
 export interface EmptyStateProps {
   /**
@@ -53,11 +53,12 @@ const useErrorState = () => {
     query: { errorId, fromUrl },
     pathname,
     asPath,
+    locale,
   } = router
 
   return {
     errorId,
-    fromUrl: fromUrl ?? asPath ?? pathname,
+    fromUrl: fromUrl ?? (locale ? `/${locale}${asPath}` : asPath) ?? pathname,
   }
 }
 
