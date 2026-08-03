@@ -1,21 +1,20 @@
 import { execute, parse } from 'graphql'
-
-import type { Options } from '../../src'
-import { getContextFactory, getSchema } from '../../src'
-import { salesChannelStaleFetch } from '../mocks/salesChannel'
+import { beforeEach, expect, test, vi } from 'vitest'
+import { GraphqlVtexContextFactory, GraphqlVtexSchema } from '../../src'
 import {
+  InvalidCart,
+  ValidCart,
+  ValidateCartMutation,
   checkoutOrderFormCustomDataInvalidFetch,
   checkoutOrderFormCustomDataStaleFetch,
-  checkoutOrderFormCustomDataValidFetch,
   checkoutOrderFormInvalidFetch,
   checkoutOrderFormItemsInvalidFetch,
   checkoutOrderFormStaleFetch,
   checkoutOrderFormValidFetch,
-  InvalidCart,
+  createProductFetchResultForSku,
   productSearchPage1Count1Fetch,
-  ValidateCartMutation,
-  ValidCart,
 } from '../mocks/ValidateCartMutation'
+import { salesChannelStaleFetch } from '../mocks/salesChannel'
 
 const apiOptions = {
   platform: 'vtex',
@@ -32,11 +31,12 @@ const apiOptions = {
   },
 } as Options
 
-const mockedFetch = jest.fn()
+vi.useFakeTimers({ shouldAdvanceTime: true })
+const mockedFetch = vi.fn()
 
-const createRunner = () => {
-  const schemaPromise = getSchema(apiOptions)
-  const contextFactory = getContextFactory(apiOptions)
+const createRunner = async () => {
+  const schemaPromise = GraphqlVtexSchema()
+  const contextFactory = await GraphqlVtexContextFactory(apiOptions)
 
   return async (query: string, variables?: any) => {
     const schema = await schemaPromise
@@ -44,19 +44,19 @@ const createRunner = () => {
     const orderFormCookie =
       'checkout.vtex.com=__ofid=edbe3b03c8c94827a37ec5a6a4648fd2'
 
-    return execute(
+    return execute({
       schema,
-      parse(query),
-      null,
-      {
+      document: parse(query),
+      rootValue: null,
+      contextValue: {
         ...context,
         headers: {
           'content-type': 'application/json',
           cookie: orderFormCookie,
         },
       },
-      variables
-    )
+      variableValues: variables,
+    })
   }
 }
 
@@ -65,6 +65,14 @@ function pickFetchAPICallResult(
   _: RequestInit | undefined,
   expectedFetchAPICalls: Array<Record<'info' | 'init' | 'result', unknown>>
 ) {
+  const url = String(info)
+
+  if (url.includes('/api/intelligent-search/v1/products?')) {
+    const skuId = new URL(url).searchParams.get('value') ?? ''
+
+    return createProductFetchResultForSku(skuId)
+  }
+
   for (const call of expectedFetchAPICalls) {
     if (info === call.info) {
       return call.result
@@ -76,15 +84,13 @@ function pickFetchAPICallResult(
   )
 }
 
-jest.mock('../../src/platforms/vtex/clients/fetch.ts', () => ({
+vi.mock('../../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: async (
     info: RequestInfo,
     init?: RequestInit,
     options?: { storeCookies?: (headers: Headers) => void }
   ) => mockedFetch(info, init, options),
 }))
-
-const run = createRunner()
 
 // Always clear the mocked fetch before each test so we can count and validate
 // the calls performed by each query independently.
@@ -93,27 +99,23 @@ beforeEach(() => {
 })
 
 test('`validateCart` mutation should return `null` when a valid cart is passed', async () => {
+  const run = await createRunner()
   mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, [
-      checkoutOrderFormValidFetch,
-      checkoutOrderFormCustomDataValidFetch,
-      salesChannelStaleFetch,
-    ])
+    pickFetchAPICallResult(info, init, [checkoutOrderFormValidFetch])
   )
 
   const response = await run(ValidateCartMutation, { cart: ValidCart })
 
-  // When cart is valid, the system will:
-  // 1. GET orderForm
-  // 2. PUT customData (update/set etag because cart might have been modified elsewhere)
-  // 3. GET saleschannel (to get currency info)
-  // Since the cart matches and etag is now correct, it returns null (no changes needed)
-  expect(mockedFetch).toHaveBeenCalledTimes(3)
+  // When cart is valid and etag is up to date:
+  // 1. GET orderForm (checkoutOrderFormValidFetch)
+  // 2. GET product data via v1/products (handled dynamically)
+  expect(mockedFetch).toHaveBeenCalledTimes(2)
 
   expect(response.data?.validateCart).toEqual(null)
 })
 
 test('`validateCart` mutation should return the full order when an invalid cart is passed', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [
     checkoutOrderFormInvalidFetch,
     checkoutOrderFormItemsInvalidFetch,
@@ -139,6 +141,7 @@ test('`validateCart` mutation should return the full order when an invalid cart 
 })
 
 test('`validateCart` mutation should return new cart when etag is stale', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [
     checkoutOrderFormStaleFetch,
     checkoutOrderFormCustomDataStaleFetch,

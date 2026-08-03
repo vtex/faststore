@@ -1,4 +1,6 @@
-import type { Context } from '../../src/platforms/vtex'
+import { describe, expect, it } from 'vitest'
+
+import type { GraphqlContext } from '../../src/platforms/vtex'
 import type { ContextForCookies } from '../../src/platforms/vtex/utils/cookies'
 import {
   getAuthCookie,
@@ -104,7 +106,7 @@ describe('updatesContextStorageCookies', () => {
 
     const ctx = {
       storage: { cookies: new Map() },
-    } as Pick<Context, 'storage'>
+    } as Pick<GraphqlContext, 'storage'>
 
     updatesContextStorageCookies(ctx, setCookie)
 
@@ -119,7 +121,7 @@ describe('updatesContextStorageCookies', () => {
 
     const ctx = {
       storage: { cookies: new Map() },
-    } as Pick<Context, 'storage'>
+    } as Pick<GraphqlContext, 'storage'>
 
     updatesContextStorageCookies(ctx, setCookie)
 
@@ -145,7 +147,7 @@ describe('updatesContextStorageCookies', () => {
           Object.entries(cookieStorage)
         ),
       },
-    } as Pick<Context, 'storage'>
+    } as Pick<GraphqlContext, 'storage'>
 
     updatesContextStorageCookies(ctx, setCookie)
 
@@ -160,7 +162,7 @@ describe('getStoreCookie', () => {
   it('Should iterate on headers and call updatesContextStorageCookies for each of them', () => {
     const ctx = {
       storage: { cookies: new Map() },
-    } as Pick<Context, 'storage'>
+    } as Pick<GraphqlContext, 'storage'>
 
     const headers = new Headers()
     headers.append(
@@ -233,5 +235,47 @@ describe('Cookie normalization (duplicate handling)', () => {
 
     // Should return the last (newest) auth token
     expect(result).toEqual('newToken')
+  })
+})
+
+describe('Auth token resolution from merged cookie set', () => {
+  const ACCOUNT = 'mystore'
+
+  it('Should pick the storage-updated auth token over the original request cookie', () => {
+    // Mirrors how `vtexid.validate` resolves the body token: the cookie header
+    // already merges request + storage updates, so the body must follow the same
+    // source to stay consistent with the outgoing `cookie` header.
+    const originalToken = 'jwt-original'
+    const refreshedToken = 'jwt-refreshed'
+
+    const ctx = {
+      headers: {
+        cookie: `vtex_session=foo; VtexIdclientAutCookie_${ACCOUNT}=${originalToken}`,
+      },
+      storage: {
+        cookies: new Map<string, { value: string }>([
+          [`VtexIdclientAutCookie_${ACCOUNT}`, { value: refreshedToken }],
+        ]),
+      },
+    }
+
+    const token = getAuthCookie(getUpdatedCookie(ctx) ?? '', ACCOUNT)
+
+    expect(token).toEqual(refreshedToken)
+  })
+
+  it('Should fall back to the original request cookie when storage has no updates', () => {
+    const originalToken = 'jwt-original'
+
+    const ctx = {
+      headers: {
+        cookie: `VtexIdclientAutCookie_${ACCOUNT}=${originalToken}`,
+      },
+      storage: { cookies: new Map() },
+    }
+
+    const token = getAuthCookie(getUpdatedCookie(ctx) ?? '', ACCOUNT)
+
+    expect(token).toEqual(originalToken)
   })
 })

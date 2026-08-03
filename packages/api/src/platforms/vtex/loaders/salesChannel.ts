@@ -1,6 +1,5 @@
 import DataLoader from 'dataloader'
 
-import type { Options } from '..'
 import type { Clients } from '../clients'
 
 import type { SalesChannel } from './../clients/commerce/types/SalesChannel'

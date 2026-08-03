@@ -1,0 +1,154 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountOrdersList",
+  "$componentTitle": "Account Orders List",
+  "title": "Account Orders List",
+  "description": "Orders list section for My Account",
+  "type": "object",
+  "properties": {
+    "pageTitle": {
+      "type": "string",
+      "title": "Page Title",
+      "default": "Orders"
+    },
+    "searchPlaceholder": {
+      "type": "string",
+      "title": "Search Placeholder",
+      "default": "Search"
+    },
+    "filtersLabel": {
+      "type": "string",
+      "title": "Filters Label",
+      "default": "Filters"
+    },
+    "clearAllLabel": {
+      "type": "string",
+      "title": "Clear All Label",
+      "default": "Clear All"
+    },
+    "viewResultsLabel": {
+      "type": "string",
+      "title": "View Results Label",
+      "default": "View Results"
+    },
+    "noResultsLabel": {
+      "type": "string",
+      "title": "No Results Label",
+      "default": "No results found"
+    },
+    "noOrdersLabel": {
+      "type": "string",
+      "title": "No Orders Label",
+      "default": "You don't have any orders"
+    },
+    "startShoppingLabel": {
+      "type": "string",
+      "title": "Start Shopping Label",
+      "default": "Start shopping"
+    },
+    "placedOnLabel": {
+      "type": "string",
+      "title": "Placed On Label",
+      "default": "Placed on"
+    },
+    "deliveryByLabel": {
+      "type": "string",
+      "title": "Delivery By Label",
+      "default": "Delivery by"
+    },
+    "pendingApprovalLabel": {
+      "type": "string",
+      "title": "Pending Approval Label",
+      "default": "Pending my approval"
+    },
+    "paginationOfLabel": {
+      "type": "string",
+      "title": "Pagination Of Label",
+      "default": "of"
+    },
+    "previousPageLabel": {
+      "type": "string",
+      "title": "Previous Page Label",
+      "default": "Previous Page"
+    },
+    "nextPageLabel": {
+      "type": "string",
+      "title": "Next Page Label",
+      "default": "Next Page"
+    },
+    "viewAllLabel": {
+      "type": "string",
+      "title": "View All Label",
+      "default": "View all"
+    },
+    "viewLessLabel": {
+      "type": "string",
+      "title": "View Less Label",
+      "default": "View less"
+    },
+    "fromLabel": {
+      "type": "string",
+      "title": "From Label",
+      "default": "From"
+    },
+    "toLabel": {
+      "type": "string",
+      "title": "To Label",
+      "default": "To"
+    },
+    "invalidDateRangeLabel": {
+      "type": "string",
+      "title": "Invalid Date Range Label",
+      "default": "Invalid date range"
+    },
+    "orderPlacedStatus": {
+      "type": "string",
+      "title": "Order Placed Status",
+      "default": "Order Placed"
+    },
+    "pendingApprovalStatus": {
+      "type": "string",
+      "title": "Pending Approval Status",
+      "default": "Pending approval"
+    },
+    "paymentPendingStatus": {
+      "type": "string",
+      "title": "Payment Pending Status",
+      "default": "Payment Pending"
+    },
+    "paymentApprovedStatus": {
+      "type": "string",
+      "title": "Payment Approved Status",
+      "default": "Payment Approved"
+    },
+    "paymentDeniedStatus": {
+      "type": "string",
+      "title": "Payment Denied Status",
+      "default": "Payment Denied"
+    },
+    "readyForDeliveryStatus": {
+      "type": "string",
+      "title": "Ready For Delivery Status",
+      "default": "Ready for Delivery"
+    },
+    "invoicedStatus": {
+      "type": "string",
+      "title": "Invoiced Status",
+      "default": "Invoiced"
+    },
+    "cancellationRequestedStatus": {
+      "type": "string",
+      "title": "Cancellation Requested Status",
+      "default": "Cancellation Requested"
+    },
+    "canceledStatus": {
+      "type": "string",
+      "title": "Canceled Status",
+      "default": "Canceled"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

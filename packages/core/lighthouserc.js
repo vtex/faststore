@@ -9,7 +9,7 @@ module.exports = lhConfig({
     'csp-xss': 'off',
 
     // The following rules should be removed one this is fixed:
-    // https://github.com/BuilderIO/partytown/issues/178
+    // https://github.com/QwikDev/partytown/issues/178
     'categories:best-practices': [
       'error',
       {

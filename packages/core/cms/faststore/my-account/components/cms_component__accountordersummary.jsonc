@@ -1,0 +1,29 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountOrderSummary",
+  "$componentTitle": "Account Order Summary",
+  "title": "Account Order Summary",
+  "description": "Order summary section for My Account order details",
+  "type": "object",
+  "properties": {
+    "summaryTitle": {
+      "type": "string",
+      "title": "Summary Title",
+      "default": "Summary"
+    },
+    "totalLabel": {
+      "type": "string",
+      "title": "Total Label",
+      "default": "Total"
+    },
+    "interestLabel": {
+      "type": "string",
+      "title": "Interest Label",
+      "default": "Interest"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

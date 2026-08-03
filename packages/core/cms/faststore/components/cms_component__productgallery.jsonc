@@ -59,6 +59,74 @@
         }
       }
     },
+    "sortBySelector": {
+      "title": "Sort by selector",
+      "type": "object",
+      "required": ["label", "options"],
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string",
+          "default": "Sort by"
+        },
+        "options": {
+          "title": "Options labels",
+          "type": "object",
+          "required": [
+            "price_desc",
+            "price_asc",
+            "orders_desc",
+            "name_asc",
+            "name_desc",
+            "release_desc",
+            "discount_desc",
+            "score_desc"
+          ],
+          "properties": {
+            "price_desc": {
+              "title": "Price - Descending",
+              "type": "string",
+              "default": "Price, descending"
+            },
+            "price_asc": {
+              "title": "Price - Ascending",
+              "type": "string",
+              "default": "Price, ascending"
+            },
+            "orders_desc": {
+              "title": "Orders - Descending",
+              "type": "string",
+              "default": "Top sales"
+            },
+            "name_asc": {
+              "title": "Name - Ascending",
+              "type": "string",
+              "default": "Name, A-Z"
+            },
+            "name_desc": {
+              "title": "Name - Descending",
+              "type": "string",
+              "default": "Name, Z-A"
+            },
+            "release_desc": {
+              "title": "Release - Descending",
+              "type": "string",
+              "default": "Release date"
+            },
+            "discount_desc": {
+              "title": "Discount - Descending",
+              "type": "string",
+              "default": "Discount"
+            },
+            "score_desc": {
+              "title": "Score - Descending",
+              "type": "string",
+              "default": "Relevance"
+            }
+          }
+        }
+      }
+    },
     "filter": {
       "title": "Filter",
       "type": "object",
@@ -153,6 +221,16 @@
           "title": "Sponsored Label",
           "type": "string",
           "default": "Sponsored"
+        },
+        "buttonLabel": {
+          "title": "Button Label",
+          "type": "string",
+          "default": "Add"
+        },
+        "outOfStockLabel": {
+          "title": "Out of Stock Label",
+          "type": "string",
+          "default": "Out of stock"
         }
       }
     },
@@ -182,6 +260,8 @@
             "icon": {
               "title": "Icon",
               "type": "string",
+              "enumNames": ["CircleWavyWarning"],
+              "enum": ["CircleWavyWarning"],
               "default": "CircleWavyWarning"
             }
           }
@@ -203,6 +283,8 @@
             "icon": {
               "title": "Icon",
               "type": "string",
+              "enumNames": ["RocketLaunch"],
+              "enum": ["RocketLaunch"],
               "default": "RocketLaunch"
             }
           }
@@ -251,15 +333,32 @@
                   "type": "string",
                   "default": "Filters"
                 },
-                "productNameFilterLabel": {
-                  "title": "Filter by product name text",
-                  "type": "string",
-                  "default": "Product name"
-                },
-                "sortLabel": {
-                  "title": "Sort filter text",
-                  "type": "string",
-                  "default": "Sort by"
+                "sortLabels": {
+                  "title": "Sort labels",
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "title": "Sort filter text",
+                      "type": "string",
+                      "default": "Sort by"
+                    },
+                    "options": {
+                      "title": "Sort options",
+                      "type": "object",
+                      "properties": {
+                        "productByName": {
+                          "title": "Product Name",
+                          "type": "string",
+                          "default": "Product Name"
+                        },
+                        "productByPrice": {
+                          "title": "Price",
+                          "type": "string",
+                          "default": "Price"
+                        }
+                      }
+                    }
+                  }
                 },
                 "toggleFieldLabel": {
                   "title": "Toggle filter text",
@@ -275,11 +374,6 @@
                   "title": "Add to cart button",
                   "type": "string",
                   "default": "Add to cart"
-                },
-                "priceLabel": {
-                  "title": "Price text",
-                  "type": "string",
-                  "default": "Price"
                 },
                 "priceWithTaxLabel": {
                   "title": "Price with taxes text",
@@ -308,5 +402,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

@@ -1,8 +1,6 @@
-import discoveryConfig from 'discovery.config'
 import fetch from 'isomorphic-unfetch'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { sanitizeHost } from 'src/utils/utilities'
-
-const REFRESH_TOKEN_URL = `${discoveryConfig.storeUrl}/api/vtexid/refreshtoken/webstore`
 
 export interface RefreshTokenResponse {
   status?: string
@@ -27,17 +25,32 @@ async function fetchWithRetry(
   return undefined
 }
 
+function getRefreshTokenUrl(): string {
+  if (globalThis.window !== undefined) {
+    return '/api/vtexid/refreshtoken/webstore'
+  }
+
+  return `${new URL(getStoreURL()).origin}/api/vtexid/refreshtoken/webstore`
+}
+
+function getRefreshTokenHeaders(): HeadersInit {
+  const headers: HeadersInit = {
+    'content-type': 'application/json',
+  }
+
+  if (globalThis.window === undefined) {
+    headers.Host = `${sanitizeHost(new URL(getStoreURL()).origin)}`
+  }
+
+  return headers
+}
+
 export const refreshTokenRequest = async (): Promise<
   RefreshTokenResponse | undefined
 > => {
-  const headers: HeadersInit = {
-    'content-type': 'application/json',
-    Host: `${sanitizeHost(discoveryConfig.storeUrl)}`,
-  }
-
-  return await fetchWithRetry(REFRESH_TOKEN_URL, {
+  return fetchWithRetry(getRefreshTokenUrl(), {
     credentials: 'include',
-    headers,
+    headers: getRefreshTokenHeaders(),
     body: JSON.stringify({}),
     method: 'POST',
   })

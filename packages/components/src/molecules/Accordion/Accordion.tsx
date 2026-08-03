@@ -1,9 +1,9 @@
-import type { HTMLAttributes, ReactElement } from 'react'
+import type { AriaAttributes, HTMLAttributes, ReactElement } from 'react'
 import React, {
-  useContext,
   cloneElement,
-  forwardRef,
   createContext,
+  forwardRef,
+  useContext,
 } from 'react'
 
 interface AccordionContext {
@@ -29,10 +29,21 @@ export interface AccordionProps
    * Function that is triggered when an accordion item is opened/closed.
    */
   onChange: (index: number) => void
+  /**
+   * For accessibility purposes, define a string that labels the current accodion.
+   */
+  'aria-label'?: AriaAttributes['aria-label']
 }
 
 const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
-  { testId = 'fs-accordion', indices, onChange, children, ...otherProps },
+  {
+    testId = 'fs-accordion',
+    indices,
+    onChange,
+    children,
+    'aria-label': ariaLabel,
+    ...otherProps
+  },
   ref
 ) {
   const childrenWithIndex = React.Children.map(
@@ -57,6 +68,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
         data-fs-accordion
         role="region"
         data-testid={testId}
+        aria-label={ariaLabel}
         {...otherProps}
       >
         {childrenWithIndex}

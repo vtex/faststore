@@ -1,0 +1,69 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountOrderPayment",
+  "$componentTitle": "Account Order Payment",
+  "title": "Account Order Payment",
+  "description": "Order payment section for My Account order details",
+  "type": "object",
+  "properties": {
+    "paymentTitle": {
+      "type": "string",
+      "title": "Payment Title",
+      "default": "Payment"
+    },
+    "billingLabel": {
+      "type": "string",
+      "title": "Billing Label",
+      "default": "Billing"
+    },
+    "bankInvoiceLabel": {
+      "type": "string",
+      "title": "Bank Invoice Label",
+      "default": "Bank Invoice"
+    },
+    "paypalLabel": {
+      "type": "string",
+      "title": "PayPal Label",
+      "default": "PayPal"
+    },
+    "giftCardLabel": {
+      "type": "string",
+      "title": "Gift Card Label",
+      "default": "Gift Card"
+    },
+    "endingInLabel": {
+      "type": "string",
+      "title": "Ending In Label",
+      "default": "ending in"
+    },
+    "tidLabel": {
+      "type": "string",
+      "title": "Tid Label",
+      "default": "Tid:"
+    },
+    "authIdLabel": {
+      "type": "string",
+      "title": "AuthId Label",
+      "default": "AuthId:"
+    },
+    "invoiceNumberLabel": {
+      "type": "string",
+      "title": "Invoice Number Label",
+      "default": "Invoice Number:"
+    },
+    "printBankInvoiceLabel": {
+      "type": "string",
+      "title": "Print Bank Invoice Label",
+      "default": "Print Bank Invoice"
+    },
+    "installmentCopy": {
+      "type": "string",
+      "title": "Installment Copy",
+      "default": "{count}x of {value}"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

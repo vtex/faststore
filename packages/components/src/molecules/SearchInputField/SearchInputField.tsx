@@ -13,6 +13,7 @@ type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'>
 type ButtonProps = {
   onClick?: () => void
   testId?: string
+  'aria-label'?: string
 }
 
 export interface SearchInputFieldProps extends InputProps {
@@ -96,6 +97,9 @@ const SearchInputField = forwardRef<
     }
   }
 
+  const { 'aria-label': buttonAriaLabel, ...otherButtonProps } =
+    buttonProps ?? {}
+
   useImperativeHandle(ref, () => ({
     inputRef: inputRef.current,
     formRef: formRef.current,
@@ -121,11 +125,11 @@ const SearchInputField = forwardRef<
           {showAttachmentButton && (
             <>
               <IconButton
+                data-fs-search-input-field-attachment-button
                 type="button"
                 aria-label={attachmentButtonAriaLabel}
                 icon={attachmentButtonIcon ?? <Icon name="Paperclip" />}
                 size="small"
-                data-fs-search-input-field-attachment-button
                 {...attachmentButtonProps}
               />
 
@@ -134,12 +138,12 @@ const SearchInputField = forwardRef<
           )}
 
           <IconButton
+            data-fs-search-input-field-submit-button
             type="submit"
             aria-label={submitButtonAriaLabel}
             icon={buttonIcon ?? <Icon name="MagnifyingGlass" />}
             size="small"
-            data-fs-search-input-field-submit-button
-            {...buttonProps}
+            {...otherButtonProps}
           />
         </div>
       </form>

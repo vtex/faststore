@@ -5,7 +5,7 @@ import {
   QuickOrderDrawerProducts,
   UIProvider,
   useQuickOrderDrawer,
-} from '@faststore/components'
+} from '@faststore/ui'
 import React, { useState } from 'react'
 
 export default {

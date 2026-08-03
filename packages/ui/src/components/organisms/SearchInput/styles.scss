@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-search-input] {
   // --------------------------------------------------------
   // Design Tokens for Search Input
@@ -13,7 +15,7 @@
   position: relative;
 
   &[data-fs-search-input-dropdown-visible="true"] [data-fs-search-input-field-input] {
-      @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
     }

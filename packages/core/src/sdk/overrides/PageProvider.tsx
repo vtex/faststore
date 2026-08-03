@@ -8,8 +8,9 @@ import type {
 import type { PropsWithChildren } from 'react'
 import { createContext, useContext, useMemo } from 'react'
 import type { SearchPageContextType } from 'src/pages/s'
+import type { AccountPageContext } from 'src/sdk/account/accountPageContext'
 
-interface PageGlobalContext {
+export interface PageGlobalContext {
   globalSettings?: Record<string, unknown>
 }
 
@@ -42,6 +43,7 @@ export interface PageProviderContextValue {
 
 type PageProviderContext =
   | PageGlobalContext
+  | AccountPageContext
   | PDPContext
   | PLPContext
   | SearchPageContext

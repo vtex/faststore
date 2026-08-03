@@ -1,4 +1,5 @@
-import path from 'path'
+import path from 'node:path'
+import { describe, expect, it, vi } from 'vitest'
 import {
   allNewCustomContentTypes,
   allNewCustomSections,
@@ -10,58 +11,51 @@ import {
   sectionDuplicates,
 } from '../__mocks__/hcms'
 
+import { withBasePath } from './directory'
 import {
   dedupeAndMergeDefinitions,
-  splitCustomDefinitions,
   mergeCMSFile,
+  splitCustomDefinitions,
 } from './hcms'
-import { withBasePath } from './directory'
 
-jest.mock('fs-extra', () => ({
-  mkdirSync: jest.fn(),
-  readFileSync: jest.fn(),
-  existsSync: jest.fn(),
-  writeFileSync: jest.fn(),
+const fsExtraMocked = vi.hoisted(() => ({
+  mkdirSync: vi.fn(),
+  readFileSync: vi.fn(),
+  existsSync: vi.fn(),
+  writeFileSync: vi.fn(),
 }))
 
-jest.mock('./plugins', () => ({
-  getPluginsList: jest.fn(),
+const pluginsMock = vi.hoisted(() => ({
+  getPluginsList: vi.fn(),
 }))
+
+vi.mock('fs-extra', () => ({ default: fsExtraMocked }))
+vi.mock('./plugins', () => pluginsMock)
 
 describe('mergeCMSFile', () => {
   it("should create a resulting file that contains all core definitions if a custom definitions file doesn't exist", async () => {
-    const { readFileSync, existsSync, writeFileSync } = require('fs-extra')
-    const { tmpCMSDir, userStoreConfigFile } = withBasePath('.')
-
-    existsSync.mockReturnValueOnce(false)
-    readFileSync.mockReturnValueOnce(JSON.stringify(coreContentTypes))
-
-    jest.mock(
-      path.resolve(userStoreConfigFile),
-      () => ({
-        contentSource: {
-          project: 'faststore-3',
-        },
-      }),
-      { virtual: true }
+    fsExtraMocked.existsSync.mockReturnValueOnce(false)
+    fsExtraMocked.readFileSync.mockReturnValueOnce(
+      JSON.stringify(coreContentTypes)
     )
 
-    const { getPluginsList } = require('./plugins')
-    getPluginsList.mockResolvedValue([])
+    const { tmpCMSDir } = withBasePath('.')
+
+    pluginsMock.getPluginsList.mockResolvedValue([])
 
     await mergeCMSFile('content-types.json', '.')
 
-    expect(writeFileSync).toHaveBeenCalledWith(
+    expect(fsExtraMocked.writeFileSync).toHaveBeenCalledWith(
       path.join(tmpCMSDir('faststore-3'), 'content-types.json'),
       JSON.stringify(coreContentTypes)
     )
 
-    existsSync.mockReturnValueOnce(false)
-    readFileSync.mockReturnValueOnce(JSON.stringify(coreSections))
+    fsExtraMocked.existsSync.mockReturnValueOnce(false)
+    fsExtraMocked.readFileSync.mockReturnValueOnce(JSON.stringify(coreSections))
 
     await mergeCMSFile('sections.json', '.')
 
-    expect(writeFileSync).toHaveBeenCalledWith(
+    expect(fsExtraMocked.writeFileSync).toHaveBeenCalledWith(
       path.join(tmpCMSDir('faststore-3'), 'sections.json'),
       JSON.stringify(coreSections)
     )

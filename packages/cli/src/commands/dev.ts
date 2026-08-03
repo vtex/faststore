@@ -1,11 +1,12 @@
-import { Command, Flags } from '@oclif/core'
+import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
-import { spawn } from 'child_process'
+import { spawn, spawnSync } from 'node:child_process'
 import chokidar from 'chokidar'
 import dotenv from 'dotenv'
 
-import { cpSync, existsSync, readFileSync } from 'fs'
-import path from 'path'
+import { cpSync, existsSync, readFileSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
@@ -44,7 +45,7 @@ async function storeDev(
   rootDir: string,
   tmpDir: string,
   coreDir: string,
-  port: number
+  port: number | string
 ) {
   // Only try to read vtex.env if it exists
   let envVars = {}
@@ -60,12 +61,11 @@ async function storeDev(
     }
   }
 
-  const packageManager = getPreferredPackageManager()
+  const packageManager = await getPreferredPackageManager()
 
   runCommandSync({
     cmd: `${packageManager} predev`,
-    errorMessage:
-      'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
+    errorMessage: `The "predev" step ("${packageManager} predev") failed inside the ".faststore" directory. See the error output below for details.`,
     throws: 'error',
     cwd: tmpDir,
   })
@@ -125,22 +125,22 @@ function copyGenerated(from: string, to: string) {
 }
 
 export default class Dev extends Command {
-  static args = [
-    {
-      name: 'account',
-      description:
-        'The account for which the Discovery is running. Currently noop.',
-    },
-    {
+  static args = {
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore being run is. Defaults to cwd.',
-    },
-    {
+    }),
+    account: Args.string({
+      name: 'account',
+      description:
+        'The account for which the Discovery is running. Currently noop.',
+    }),
+    port: Args.string({
       name: 'port',
       description: 'The port where FastStore should run. Defaults to 3000.',
-    },
-  ]
+    }),
+  }
 
   static flags = {
     'watch-plugins': Flags.boolean({
@@ -153,7 +153,7 @@ export default class Dev extends Command {
     const { args, flags } = await this.parse(Dev)
     const basePath = getBasePath(args.path)
 
-    const port = args.port ?? 3000
+    const port = args.port ?? '3000'
     const watchPlugins = flags['watch-plugins']
 
     const { getRoot, tmpDir, coreDir } = withBasePath(basePath)
@@ -186,6 +186,23 @@ export default class Dev extends Command {
     })
 
     await generate({ setup: true, basePath })
+
+    const cliPath = fileURLToPath(
+      import.meta.resolve('@faststore/cli/runner', import.meta.url)
+    )
+
+    spawnSync('node', [cliPath, 'generate-types', tmpDir], {
+      stdio: 'inherit',
+    })
+
+    spawnSync('node', [cliPath, 'cache-graphql', basePath], {
+      stdio: 'inherit',
+    })
+
+    // generate-i18n will validate localization config and check if it's enabled
+    spawnSync('node', [cliPath, 'generate-i18n', basePath], {
+      stdio: 'inherit',
+    })
 
     storeDev(getRoot(), tmpDir, coreDir, port)
 

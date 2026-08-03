@@ -1,4 +1,4 @@
-import type { Resolver } from '..'
+import type { GraphqlResolver } from '..'
 
 type Unit = 'bd' | 'd' | 'h' | 'm'
 const units = ['bd', 'd', 'h', 'm'] as const
@@ -55,7 +55,7 @@ export type Root = {
   shippingEstimate?: string
 }
 
-export const ShippingSLA: Record<string, Resolver<Root>> = {
+export const ShippingSLA: Record<string, GraphqlResolver<Root>> = {
   carrier: (root) => root?.friendlyName ?? root?.name ?? '',
   price: (root) => (root?.price ? root.price / 100 : root?.price),
   localizedEstimates: (root) =>

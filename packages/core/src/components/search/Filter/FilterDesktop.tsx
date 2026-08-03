@@ -40,7 +40,9 @@ function FilterDesktop({
   title,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const cmsData = getGlobalSettings()
-  const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
+  const { deliveryPromise: deliveryPromiseSettings, filters: filtersSettings } =
+    cmsData ?? {}
+  const filterFacetRangeSettings = filtersSettings?.filterFacetRange
   const {
     resetInfiniteScroll,
     state: searchState,
@@ -75,7 +77,7 @@ function FilterDesktop({
             testId={testId}
             index={0}
             type=""
-            label={labelsMap[SHIPPING_FACET_KEY] ?? 'Delivery'}
+            label={labelsMap[SHIPPING_FACET_KEY]}
             description={deliveryPromiseSettings?.deliveryMethods?.description}
           >
             <UIButton
@@ -84,8 +86,7 @@ function FilterDesktop({
               onClick={() => openRegionSlider(regionSliderTypes.setLocation)}
               icon={<UIIcon name="MapPin" />}
             >
-              {deliveryPromiseSettings?.deliveryMethods
-                ?.setLocationButtonLabel ?? 'Set Location'}
+              {deliveryPromiseSettings?.deliveryMethods?.setLocationButtonLabel}
             </UIButton>
           </UIFilterFacets>
         )}
@@ -162,6 +163,14 @@ function FilterDesktop({
                     facet.key.toLowerCase() === 'price'
                       ? useFormattedPrice
                       : undefined
+                  }
+                  minLabel={filterFacetRangeSettings?.minLabel}
+                  maxLabel={filterFacetRangeSettings?.maxLabel}
+                  minPriceErrorMessage={
+                    filterFacetRangeSettings?.minPriceErrorMessage
+                  }
+                  maxPriceErrorMessage={
+                    filterFacetRangeSettings?.maxPriceErrorMessage
                   }
                   onFacetChange={(facet) => {
                     setSearchState({

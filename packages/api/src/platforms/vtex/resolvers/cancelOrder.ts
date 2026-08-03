@@ -1,4 +1,4 @@
-import type { Context } from '..'
+import type { GraphqlContext } from '..'
 import type {
   MutationCancelOrderArgs,
   UserOrderCancel,
@@ -8,7 +8,7 @@ import { BadRequestError } from '../../errors'
 export const cancelOrder = async (
   _: any,
   { data }: MutationCancelOrderArgs,
-  { clients: { commerce } }: Context
+  { clients: { commerce } }: GraphqlContext
 ): Promise<UserOrderCancel | null> => {
   if (!data?.orderId) {
     throw new BadRequestError('Missing orderId')

@@ -1,18 +1,28 @@
 import { useState } from 'react'
 import { Button } from '@faststore/ui'
 
-import AccountTable from '../components/MyAccountTable'
-import AccountHeader from '../components/MyAccountHeader'
+import AccountTable from '../components/Table'
+import AccountHeader from '../components/Header'
 
 import { SecurityDrawer } from './SecurityDrawer'
+import {
+  type SecuritySectionLabels,
+  resolveSecurityLabels,
+} from './securityLabels'
 import styles from './styles.module.scss'
 
-type SecuritySectionProps = { userEmail: string; accountName?: string }
+type SecuritySectionProps = {
+  userEmail: string
+  accountName?: string
+  labels?: SecuritySectionLabels
+}
 
 export const SecuritySection = ({
   userEmail,
   accountName,
+  labels: labelsProp,
 }: SecuritySectionProps) => {
+  const labels = resolveSecurityLabels(labelsProp)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   return (
     <>
@@ -22,17 +32,18 @@ export const SecuritySection = ({
           accountName={accountName}
           isOpen={isDrawerOpen}
           onClose={() => setIsDrawerOpen(false)}
+          labels={labels}
         />
       )}
 
       <section data-fs-securiry-section className={styles.section}>
-        <AccountHeader pageTitle="Security" />
+        <AccountHeader pageTitle={labels.pageTitle} />
 
         <div data-fs-security-container>
           <AccountTable
             rows={[
               {
-                heading: 'Password',
+                heading: labels.passwordLabel,
                 data: (
                   <>
                     <span data-fs-security-table-data-text>••••••••••</span>
@@ -41,7 +52,7 @@ export const SecuritySection = ({
                       data-fs-security-table-action-button
                       onClick={() => setIsDrawerOpen(true)}
                     >
-                      Reset password
+                      {labels.resetPasswordLabel}
                     </Button>
                   </>
                 ),

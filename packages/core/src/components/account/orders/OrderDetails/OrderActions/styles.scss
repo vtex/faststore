@@ -1,0 +1,22 @@
+@use "@faststore/ui/src/styles/base/utilities";
+
+[data-fs-order-actions] {
+  display: flex;
+  flex-flow: row;
+  flex-shrink: 0;
+  align-items: center;
+
+  [data-fs-dropdown-button] {
+    width: var(--fs-spacing-7);
+  }
+
+  [data-fs-order-actions-item] {
+    color: var(--fs-color-text);
+  }
+
+  [data-fs-order-actions-item-reorder] {
+    @include utilities.media(">=tablet") {
+      display: none;
+    }
+  }
+}

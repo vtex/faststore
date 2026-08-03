@@ -1,6 +1,6 @@
 import chalk from 'chalk'
-import type { ChildProcess, ExecException } from 'child_process'
-import { execSync } from 'child_process'
+import type { ChildProcess, ExecException } from 'node:child_process'
+import { execSync } from 'node:child_process'
 import { logger } from './logger'
 
 type ExecSyncError = (ExecException & ChildProcess) | undefined
@@ -8,17 +8,17 @@ type ExecSyncError = (ExecException & ChildProcess) | undefined
 const showError = ({
   message,
   cmd,
-  error,
+  output,
 }: {
   message: string
   cmd: string
-  error: ExecSyncError
+  output?: string
 }) => {
   logger.error(`${chalk.red('error')} - ${message}`)
 
-  if (cmd && error) {
-    logger.log(`${chalk.magenta('DEBUG')} - $ ${cmd} error root ↓`)
-    logger.log(error.stdout?.toString())
+  if (cmd && output) {
+    logger.error(`${chalk.magenta('$')} ${cmd}`)
+    logger.error(output)
   }
 
   process.exit(1)
@@ -27,17 +27,17 @@ const showError = ({
 const showWarning = ({
   message,
   cmd,
-  error,
+  output,
 }: {
   message: string
   cmd: string
-  error: ExecSyncError
+  output?: string
 }) => {
   logger.warn(`${chalk.yellow('warn')} - ${message}`)
 
-  if (cmd && error) {
-    logger.log(`${chalk.magenta('DEBUG')} - $ ${cmd} warn root ↓`)
-    logger.log(error.stdout?.toString())
+  if (cmd && output) {
+    logger.warn(`${chalk.magenta('$')} ${cmd}`)
+    logger.warn(output)
   }
 }
 
@@ -46,33 +46,46 @@ export const runCommandSync = ({
   errorMessage,
   throws,
   cwd,
+  interactive = false,
 }: {
   cmd: string
   errorMessage: string
   throws: 'warning' | 'error'
   cwd?: string
+  interactive?: boolean
 }) => {
-  const debug = process.env.DISCOVERY_DEBUG === 'true' ? true : false
-
   try {
     logger.log(`[STARTED] ${cmd}`)
 
-    const res = execSync(
-      debug ? `${cmd} --debug --verbose 2>&1` : `${cmd} 2>&1`,
-      {
-        stdio: 'pipe',
-        cwd,
-      }
-    )
-    logger.log(`[STATUS] ${res.toString()}`)
+    // Interactive mode (stdio: 'inherit') wires the child to the parent TTY so
+    // the toolbelt can prompt the user — e.g. generate-schema's "override
+    // default definitions?" confirmation and upload-schema's version selection.
+    // execSync stays synchronous, preserving generate → upload ordering. Output
+    // goes straight to the terminal, so it can't be captured (and need not be).
+    //
+    // Non-interactive mode merges stdout + stderr via 2>&1 so the captured
+    // output holds the tool's real error. We intentionally do not append
+    // --debug/--verbose: strict toolbelt commands reject unknown flags. Verbose
+    // progress logging is gated by DISCOVERY_DEBUG in the logger itself.
+    const res = execSync(interactive ? cmd : `${cmd} 2>&1`, {
+      stdio: interactive ? 'inherit' : 'pipe',
+      cwd,
+    })
+    logger.log(`[STATUS] ${res?.toString() ?? 'Unknown'}`)
     logger.log(`[FINISHED] ${cmd}`)
   } catch (error) {
-    const sanitizedError = debug ? (error as ExecSyncError) : undefined
+    const execError = error as ExecSyncError
+    // Always surface the tool's own output (stdout+stderr are merged via 2>&1)
+    // so store devs see the real root cause instead of only the generic message.
+    const output =
+      execError?.stdout?.toString() ||
+      execError?.stderr?.toString() ||
+      undefined
 
     if (throws === 'warning') {
-      showWarning({ message: errorMessage, cmd, error: sanitizedError })
+      showWarning({ message: errorMessage, cmd, output })
     } else {
-      showError({ message: errorMessage, cmd, error: sanitizedError })
+      showError({ message: errorMessage, cmd, output })
     }
   }
 }

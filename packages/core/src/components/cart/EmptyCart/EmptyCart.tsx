@@ -6,21 +6,29 @@ import {
 
 interface Props {
   /**
-   * This function is called when `Start Shopping` button is clicked
+   * Title text for empty cart state
+   */
+  title?: string
+  /**
+   * Button label for empty cart action
+   */
+  buttonLabel?: string
+  /**
+   * This function is called when the button is clicked
    */
   onDismiss: () => void
 }
 
-function EmptyCart({ onDismiss }: Props) {
+function EmptyCart({ title, buttonLabel, onDismiss }: Props) {
   return (
     <UIEmptyState
-      title="Your Cart is empty"
+      title={title}
       titleIcon={
         <UIIcon name="ShoppingCart" width={56} height={56} weight="thin" />
       }
     >
       <UIButton onClick={onDismiss} variant="secondary">
-        Start Shopping
+        {buttonLabel}
       </UIButton>
     </UIEmptyState>
   )

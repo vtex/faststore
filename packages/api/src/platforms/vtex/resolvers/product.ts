@@ -1,10 +1,15 @@
-import type { Resolver } from '..'
+import type { GraphqlContext, GraphqlResolver } from '..'
 import type { StoreImage, StoreProductImageArgs } from '../../..'
-import type { PromiseType } from '../../../typings'
+import type { LocalizedProductEntry } from '../clients/catalog'
 import type { Attachment } from '../clients/commerce/types/OrderForm'
 import { canonicalFromProduct } from '../utils/canonical'
 import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
+import {
+  getConfiguredLocales,
+  getDefaultLocale,
+  isLocalizationEnabled,
+} from '../utils/localization'
 import { bestOfferFirst } from '../utils/productStock'
 import {
   attachmentToPropertyValue,
@@ -38,6 +43,50 @@ function removeTrailingSlashes(path: string) {
 }
 
 /**
+ * Returns a cached-or-fetched localized product entry from the Catalog Dataplane.
+ * The promise is stored in `ctx.storage.productTranslationsCache` so it is shared
+ * across the `breadcrumbList`, `otherLocales`, and slug-validation resolvers within
+ * the same request.
+ *
+ * The in-flight promise (not just the resolved value) is cached so concurrent
+ * sibling resolvers dedupe to a single Catalog Dataplane request instead of each
+ * missing the cache and issuing a duplicate fetch.
+ */
+export async function getLocalizedProductEntry(
+  ctx: GraphqlContext,
+  productId: string,
+  locale: string
+): Promise<LocalizedProductEntry | null> {
+  const cacheKey = `${productId}:${locale}`
+  ctx.storage.productTranslationsCache ??= new Map()
+  const cache = ctx.storage.productTranslationsCache
+
+  const cached = cache.get(cacheKey)
+  if (cached) return cached
+
+  const entry = (async (): Promise<LocalizedProductEntry | null> => {
+    try {
+      const result = await ctx.clients.catalog.getLocalizedProduct(
+        productId,
+        locale
+      )
+
+      return {
+        linkId: result.linkId,
+        categories: result.categories ?? [],
+        availableLinkIds: result.availableLinkIds ?? {},
+      }
+    } catch {
+      return null
+    }
+  })()
+
+  cache.set(cacheKey, entry)
+
+  return entry
+}
+
+/**
  * Finds the index of the main category tree that matches the given category ID.
  * This avoids including similar categories in the breadcrumb list.
  * If Intelligent Search starts providing the list without similar categories, we'll have direct access to the main tree
@@ -56,16 +105,16 @@ const findMainTreeIndex = (categoriesIds: string[], categoryId: string) => {
   return mainTreeIndex < 0 ? 0 : mainTreeIndex
 }
 
-export const StoreProduct: Record<string, Resolver<Root>> & {
-  offers: Resolver<
+export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
+  offers: GraphqlResolver<
     Root,
     any,
     Array<EnhancedCommercialOffer<Root['sellers'][number], Root>>
   >
 
-  isVariantOf: Resolver<Root, any, Root>
+  isVariantOf: GraphqlResolver<Root, any, Root>
 
-  image: Resolver<Root, any, StoreImage[]>
+  image: GraphqlResolver<Root, any, StoreImage[]>
 } = {
   productID: ({ itemId }) => itemId,
   name: ({ isVariantOf, name }) => name ?? isVariantOf.productName,
@@ -78,20 +127,74 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   }),
   brand: ({ isVariantOf: { brand } }) => ({ name: brand }),
   unitMultiplier: ({ unitMultiplier }) => unitMultiplier,
-  breadcrumbList: ({
-    isVariantOf: {
-      categories,
-      productName,
-      linkText,
-      categoryId,
-      categoriesIds,
-    },
-    itemId,
-  }) => {
+  breadcrumbList: async (root, _args, ctx) => {
+    const {
+      isVariantOf: {
+        categories,
+        productName,
+        linkText,
+        categoryId,
+        categoriesIds,
+        productId,
+      },
+      itemId,
+    } = root
+
     const mainTreeIndex = findMainTreeIndex(categoriesIds, categoryId)
     const mainTree = categories[mainTreeIndex]
     const splittedCategories = removeTrailingSlashes(mainTree).split('/')
 
+    const locale = ctx.storage.locale
+
+    if (isLocalizationEnabled(ctx) && locale) {
+      const entry = await getLocalizedProductEntry(ctx, productId, locale)
+
+      if (entry) {
+        // Extract the category IDs that belong to the main tree (same tree chosen from IS above).
+        // A product can be registered in multiple trees; Catalog Dataplane returns all of them
+        // in categories[], so we filter to only the ones matching this tree's IDs.
+        const mainTreeIds = new Set(
+          removeTrailingSlashes(categoriesIds[mainTreeIndex])
+            .split('/')
+            .filter(Boolean)
+        )
+
+        const localizedCategories = entry.categories
+          .filter((category) => mainTreeIds.has(category.id.toString()))
+          .sort(
+            (a, b) =>
+              a.fullPath.split('/').length - b.fullPath.split('/').length
+          )
+
+        // Length guard: if Catalog Dataplane returns fewer categories than IS expects
+        // (e.g. data inconsistency or empty categories), fall through to the IS fallback.
+        const hasAllBreadcrumbLevels =
+          localizedCategories.length === splittedCategories.length
+        if (hasAllBreadcrumbLevels) {
+          return {
+            itemListElement: [
+              // Category items: both name and slug come from Catalog Dataplane, ensuring
+              // they are always consistent with each other for the requested locale.
+              ...localizedCategories.map((category, index) => ({
+                name: category.name,
+                item: `/${category.fullPathUriName}/`,
+                position: index + 1,
+              })),
+              {
+                name: productName,
+                item: getPath(entry.linkId, itemId),
+                position: splittedCategories.length + 1,
+              },
+            ],
+            numberOfItems: splittedCategories.length,
+          }
+        }
+      }
+    }
+
+    // Fallback: localization disabled, Catalog Dataplane unavailable, or category count mismatch.
+    // Builds paths by applying slugify() to the IS category names, which mirrors the behaviour
+    // of the VTEX Rewriter for default-locale slugs.
     return {
       itemListElement: [
         ...splittedCategories.map((name, index) => {
@@ -199,4 +302,49 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   advertisement: ({ isVariantOf: { advertisement } }) => advertisement,
   deliveryPromiseBadges: ({ isVariantOf: { deliveryPromisesBadges } }) =>
     deliveryPromisesBadges,
+  otherLocales: async (root, _args, ctx) => {
+    if (!isLocalizationEnabled(ctx)) return null
+
+    const configuredLocales = getConfiguredLocales(ctx)
+
+    if (configuredLocales.length === 0) return null
+
+    const productId = root.isVariantOf.productId
+    const itemId = root.itemId
+    const locale = ctx.storage.locale
+    const defaultLocale = getDefaultLocale(ctx)
+
+    // availableLinkIds returns localized slug for every locale,
+    // we fetch for the current locale (reusing the request-scoped cache shared with the slug and
+    // breadcrumb resolvers) and read the full map from the response.
+    const entry = await getLocalizedProductEntry(ctx, productId, locale)
+
+    if (!entry?.availableLinkIds) return null
+
+    const { availableLinkIds } = entry
+    const { linkText } = root.isVariantOf
+
+    return configuredLocales
+      .map((configuredLocale) => {
+        // The default locale always uses the canonical IS linkText: it is always
+        // present and matches the Query.product `slug.startsWith(linkText)` fast
+        // path, so the fallback URL resolves cleanly even when the catalog has no
+        // default-locale entry in availableLinkIds.
+        if (configuredLocale === defaultLocale) {
+          return { locale: configuredLocale, slug: getSlug(linkText, itemId) }
+        }
+
+        // Non-default locales only appear when they have a registered localized slug
+        // in availableLinkIds. Untranslated locales are omitted so they are never
+        // advertised as hreflang alternates — this keeps the hreflang cluster
+        // symmetric across all locale variants of the product (every variant emits
+        // the same set: default + translated locales). The LocalizationSelector
+        // falls back to the default slug under the target prefix for omitted locales.
+        const linkId = availableLinkIds[configuredLocale]
+        return linkId
+          ? { locale: configuredLocale, slug: getSlug(linkId, itemId) }
+          : null
+      })
+      .filter((e): e is { locale: string; slug: string } => e !== null)
+  },
 }

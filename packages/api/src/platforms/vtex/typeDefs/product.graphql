@@ -1,0 +1,168 @@
+"""
+Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on.
+"""
+type StoreProduct {
+  """
+  Meta tag data.
+  """
+  seo: StoreSeo!
+  """
+  List of items consisting of chain linked web pages, ending with the current page.
+  """
+  breadcrumbList: StoreBreadcrumbList!
+  """
+  Corresponding collection URL slug, with which to retrieve this entity.
+  """
+  slug: String!
+  """
+  Product name.
+  """
+  name: String!
+  """
+  Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs.
+  """
+  productID: String!
+  """
+  Product brand.
+  """
+  brand: StoreBrand!
+  """
+  Product description.
+  """
+  description: String!
+  """
+  Array of images.
+  """
+  image(context: String = "generic", limit: Int = -1): [StoreImage!]!
+  """
+  Aggregate offer information.
+  """
+  offers: StoreAggregateOffer!
+  """
+  Stock Keeping Unit. Merchant-specific ID for the product.
+  """
+  sku: String!
+  """
+  Global Trade Item Number.
+  """
+  gtin: String!
+  """
+  Manufacturer Part Number. Identifies the product to its manufacturer.
+  """
+  mpn: String!
+  """
+  Array with review information.
+  """
+  review: [StoreReview!]!
+  """
+  Aggregate ratings data.
+  """
+  aggregateRating: StoreAggregateRating!
+  """
+  Indicates product group related to this product.
+  """
+  isVariantOf: StoreProductGroup!
+  """
+  Array of additional properties.
+  """
+  additionalProperty: [StorePropertyValue!]!
+  """
+  The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601
+  """
+  releaseDate: String!
+  """
+  Sku Unit Multiplier
+  """
+  unitMultiplier: Float
+  """
+  Advertisement information about the product.
+  """
+  advertisement: Advertisement
+  """
+  Indicates whether the product has specifications.
+  """
+  hasSpecifications: Boolean
+  """
+  Indicate the specifications of a product.
+  """
+  skuSpecifications: [SkuSpecification!]!
+  """
+  Indicate the specifications of a group of SKUs.
+  """
+  specificationGroups: [SpecificationGroup!]!
+  """
+  Delivery Promise product's badge.
+  """
+  deliveryPromiseBadges: [DeliveryPromiseBadge]
+  """
+  Localized versions of this product for all available locales.
+  Only populated when localization is enabled.
+  """
+  otherLocales: [StoreProductLocale!]
+}
+
+"""
+Localized product data for a specific locale.
+"""
+type StoreProductLocale {
+  """
+  Locale code (e.g. "pt-BR", "it-IT").
+  """
+  locale: String!
+  """
+  Localized product slug including the SKU ID suffix (e.g. "adidas-polo-uomo-65").
+  """
+  slug: String!
+}
+
+type SkuSpecification {
+  field: SKUSpecificationField!
+  values: [SKUSpecificationValue!]!
+}
+
+type SKUSpecificationValue {
+  name: String!
+  id: String
+  fieldId: String
+  originalName: String
+}
+
+type SKUSpecificationField {
+  name: String!
+  originalName: String
+  id: String
+}
+
+type SpecificationGroup {
+  name: String!
+  originalName: String!
+  specifications: [Specification!]!
+}
+
+type Specification {
+  name: String!
+  originalName: String!
+  values: [String!]!
+}
+
+"""
+Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on.
+"""
+input IStoreProduct {
+  """
+  Stock Keeping Unit. Merchant-specific ID for the product.
+  """
+  sku: String!
+  """
+  Product name.
+  """
+  name: String!
+  """
+  Array of product images.
+  """
+  image: [IStoreImage!]!
+  """
+  Custom Product Additional Properties.
+  """
+  additionalProperty: [IStorePropertyValue!]
+}

@@ -1,7 +1,9 @@
+import { describe, expect, it } from 'vitest'
+
 import {
-  productGroupRootWithoutSkuProperties,
   productGroup1SkuProperty,
   productGroup2SkuProperties,
+  productGroupRootWithoutSkuProperties,
 } from '../mocks/skuVariants'
 
 import {

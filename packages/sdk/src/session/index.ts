@@ -1,4 +1,4 @@
-import { createStore } from './../store/composed'
+import { type CreateStoreOptions, createStore } from './../store/composed'
 
 export interface Currency {
   code: string // Ex: USD
@@ -70,5 +70,6 @@ export interface Session {
 export const createSessionStore = (
   defaultSession: Session,
   onValidate?: (value: Session) => Promise<Session | null>,
-  namespace = 'fs::session'
-) => createStore(defaultSession, namespace, onValidate)
+  namespace = 'fs::session',
+  options?: CreateStoreOptions<Session>
+) => createStore(defaultSession, namespace, onValidate, options)

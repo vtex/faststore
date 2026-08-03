@@ -24,12 +24,13 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   PreviewData
 > = async (context) => {
-  const { previewData } = context
+  const { previewData, locale } = context
+  const contentContext = { previewData, locale }
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
@@ -43,8 +44,8 @@ export const getStaticProps: GetStaticProps<
         globalSectionsFooter,
       ] = await Promise.all([
         contentService.getSingleContent<SearchContentType>({
+          ...contentContext,
           contentType: 'search',
-          previewData,
           documentId: page.documentId,
           versionId: page.versionId,
           releaseId: page.releaseId,
@@ -69,8 +70,8 @@ export const getStaticProps: GetStaticProps<
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
       contentService.getSingleContent<SearchContentType>({
+        ...contentContext,
         contentType: 'search',
-        previewData,
       }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,

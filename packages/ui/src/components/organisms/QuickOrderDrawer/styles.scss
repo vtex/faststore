@@ -1,16 +1,6 @@
-[data-fs-quick-order-drawer] {
-  @import "../../atoms/Badge/styles";
-  @import "../../atoms/Button/styles";
-  @import "../../atoms/Icon/styles";
-  @import "../../atoms/Overlay/styles";
-  @import "../../atoms/Price/styles";
-  @import "../../atoms/Skeleton/styles";
-  @import "../../molecules/Alert/styles";
-  @import "../../molecules/QuantitySelector/styles";
-  @import "../../molecules/Table/styles";
-  @import "../../molecules/Tooltip/styles";
-  @import "../../organisms/SlideOver/styles";
+@use "../../../styles/base/utilities";
 
+[data-fs-quick-order-drawer] {
   // --------------------------------------------------------
   // Design Tokens for Quick Order Drawer
   // --------------------------------------------------------
@@ -101,7 +91,7 @@
   &[data-fs-slide-over][data-fs-slide-over-size="partial"] {
     width: var(--fs-quick-order-drawer-width);
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       width: var(--fs-quick-order-drawer-width);
       max-width: var(--fs-quick-order-drawer-width);
     }

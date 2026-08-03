@@ -5,9 +5,9 @@ import React, {
   useMemo,
   useState,
 } from 'react'
+import type { IProductComparison } from '.'
 import { useFadeEffect, useProductComparison } from '../../hooks'
 import SlideOver, { SlideOverHeader, type SlideOverProps } from '../SlideOver'
-import type { IProductComparison } from '.'
 
 import {
   Table,
@@ -20,18 +20,18 @@ import ToggleField from '../../molecules/ToggleField'
 
 import Badge from '../../atoms/Badge'
 import Button from '../../atoms/Button'
-import Select from '../../atoms/Select'
+import Icon from '../../atoms/Icon'
 import Price, { type PriceFormatter } from '../../atoms/Price'
+import Select from '../../atoms/Select'
+import Dropdown, {
+  DropdownButton,
+  DropdownItem,
+  DropdownMenu,
+} from '../../molecules/Dropdown'
 import ProductCard, {
   ProductCardContent,
   ProductCardImage,
 } from '../../molecules/ProductCard'
-import Dropdown, {
-  DropdownButton,
-  DropdownMenu,
-  DropdownItem,
-} from '../../molecules/Dropdown'
-import Icon from '../../atoms/Icon'
 
 const SPECIFICATION = 'SPECIFICATION'
 
@@ -55,25 +55,23 @@ export interface ProductComparisonSidebarProps
    */
   title: string
   /**
-   * Defines the sort label.
+   * Defines the sort-related labels.
    */
-  sortLabel: string
+  sortLabels: {
+    label?: string
+    options?: {
+      productByName?: string
+      productByPrice?: string
+    }
+  }
   /**
    * Defines the filter label.
    */
   filterLabel: string
   /**
-   * Defines the product name label.
-   */
-  productNameFilterLabel: string
-  /**
    * Defines the toggle field label.
    */
   toggleFieldLabel: string
-  /**
-   * Defines the price label.
-   */
-  priceLabel: string
   /**
    * Defines the preference label.
    */
@@ -135,12 +133,10 @@ function useProductSpecifications(
 
 function ProductComparisonSidebar({
   title,
-  sortLabel,
+  sortLabels: { label: sortLabel = '', options: sortOptionsLabels = {} } = {},
   filterLabel,
   preferencesLabel,
-  productNameFilterLabel,
   toggleFieldLabel,
-  priceLabel,
   cartButtonLabel,
   priceWithTaxLabel,
   technicalInformation,
@@ -297,7 +293,7 @@ function ProductComparisonSidebar({
                 {selectedFilter === 'productByName' && (
                   <Icon name="Checked" width={16} height={16} />
                 )}
-                <p>{productNameFilterLabel}</p>
+                <p>{sortOptionsLabels?.productByName}</p>
               </DropdownItem>
               <DropdownItem
                 dismissOnClick={false}
@@ -309,7 +305,7 @@ function ProductComparisonSidebar({
                 {selectedFilter === 'productByPrice' && (
                   <Icon name="Checked" width={16} height={16} />
                 )}
-                <p>{priceLabel}</p>
+                <p>{sortOptionsLabels?.productByPrice}</p>
               </DropdownItem>
             </div>
           </DropdownMenu>

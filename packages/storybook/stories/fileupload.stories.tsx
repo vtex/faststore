@@ -4,7 +4,7 @@ import {
   FileUploadStatus,
   FileUploadState,
   SearchInputField,
-} from '@faststore/components'
+} from '@faststore/ui'
 import React, { useState } from 'react'
 
 export default {

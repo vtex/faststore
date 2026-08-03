@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-filter-skeleton] {
   // --------------------------------------------------------
   // Design Tokens for Filter Skeleton
@@ -24,7 +26,7 @@
 
   margin-top: var(--fs-filter-skeleton-margin-top);
 
-  @include media("<notebook") { display: none; }
+  @include utilities.media("<notebook") { display: none; }
 
   [data-fs-filter-skeleton-text] {
     max-width: var(--fs-filter-skeleton-title-max-width);

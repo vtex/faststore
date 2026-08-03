@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-product-details] {
   // --------------------------------------------------------
   // Design Tokens for Product Details
@@ -23,7 +25,7 @@
     flex-direction: column;
     row-gap: var(--fs-product-details-vertical-spacing);
 
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       row-gap: 0;
@@ -40,15 +42,15 @@
     }
 
     [data-fs-product-price] {
-      [data-fs-price-variant="spot"]{
-          margin: 0;
-          font-size: var(--fs-text-size-4);
-          font-weight: var(--fs-text-weight-black);
-          line-height: 1.12;
+      [data-fs-price-variant="spot"] {
+        margin: 0;
+        font-size: var(--fs-text-size-4);
+        font-weight: var(--fs-text-weight-black);
+        line-height: 1.12;
       }
     }
 
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       padding: var(--fs-spacing-3);
       border: var(--fs-product-details-section-border-width) solid var(--fs-product-details-section-border-color);
 
@@ -57,7 +59,7 @@
       }
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       padding: var(--fs-product-details-vertical-spacing) var(--fs-spacing-5);
     }
   }
@@ -66,12 +68,12 @@
   [data-fs-product-details-info] {
     background-color: var(--fs-product-details-section-bkg-color);
 
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       grid-column: 8 / span 5;
       height: 100%;
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       grid-column: 9 / span 4;
     }
   }
@@ -81,7 +83,7 @@
   // -----------------------------
 
   [data-fs-product-details-title] {
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       border-bottom: 0;
       border-radius: var(--fs-product-details-section-border-radius) var(--fs-product-details-section-border-radius) 0 0;
     }
@@ -96,7 +98,7 @@
     flex-direction: column;
     row-gap: var(--fs-product-details-vertical-spacing);
 
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       grid-row: span 5;
       row-gap: 0;
       border-radius: 0 0 var(--fs-product-details-section-border-radius) var(--fs-product-details-section-border-radius);
@@ -133,29 +135,29 @@
   // -----------------------------
 
   [data-fs-product-details-gallery] {
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       grid-row: 1 / span 3;
       grid-column: span 7;
       max-height: 23.75rem;
     }
 
-    @include media(">tablet", "<notebook") {
+    @include utilities.media(">tablet", "<notebook") {
       max-height: 35rem;
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       max-height: 33.125rem;
     }
 
     &[data-fs-image-gallery="without-selector"] {
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         grid-row-end: span 4;
         grid-column: span 8;
       }
     }
 
     &[data-fs-image-gallery="with-selector"] {
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         grid-row: 1 / span 4;
         grid-column: span 8;
       }
@@ -167,31 +169,31 @@
   // -----------------------------
 
   [data-fs-product-description] {
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       grid-row: span 10;
       grid-column: span 7;
       margin-top: var(--fs-spacing-7);
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       grid-column: span 8;
     }
   }
 
   [data-fs-product-details-description-content] {
-    font-size: var(--fs-text-size-body);
-    line-height: 1.5;
-   /**
+    /**
     * display: contents allows you to remove an element from the box tree but still keep its contents
     * It doesn't have padding or margin, for example.
-    * 
+    *
     * https://blogs.igalia.com/mrego/2018/01/11/display-contents-is-coming/
-    */  
+    */
     display: contents;
+    font-size: var(--fs-text-size-body);
+    line-height: 1.5;
   }
 
   [data-fs-image-gallery="with-selector"] ~ [data-fs-product-description] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       grid-column: 2 / 9;
     }
   }

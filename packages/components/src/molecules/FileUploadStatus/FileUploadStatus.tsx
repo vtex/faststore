@@ -5,6 +5,7 @@ import { Button, Icon } from '../..'
 
 export enum FileUploadState {
   Uploading = 'uploading',
+  Processing = 'processing',
   Completed = 'completed',
   Error = 'error',
 }
@@ -84,6 +85,11 @@ export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
    */
   uploadingStatusText: string
   /**
+   * Status text when state is Processing/polling (e.g. from CMS).
+   * @default 'Importing...'
+   */
+  processingStatusText?: string
+  /**
    * Status text when state is Completed (e.g. from CMS). May include file size.
    */
   completedStatusText: string
@@ -109,6 +115,7 @@ const FileUploadStatus = ({
   selectFileButtonLabel,
   errorMessages,
   uploadingStatusText,
+  processingStatusText,
   completedStatusText,
   fileName,
   ...otherProps
@@ -134,6 +141,8 @@ const FileUploadStatus = ({
     switch (state) {
       case FileUploadState.Uploading:
         return uploadingStatusText
+      case FileUploadState.Processing:
+        return processingStatusText ?? 'Importing...'
       case FileUploadState.Completed:
         return completedStatusText
       default:
@@ -146,6 +155,12 @@ const FileUploadStatus = ({
       case FileUploadState.Uploading:
         return (
           <div data-fs-file-upload-status-icon-loading>
+            <Icon name="CircleNotch" width={24} height={24} strokeWidth={5} />
+          </div>
+        )
+      case FileUploadState.Processing:
+        return (
+          <div data-fs-file-upload-status-icon-processing>
             <Icon name="CircleNotch" width={24} height={24} strokeWidth={5} />
           </div>
         )

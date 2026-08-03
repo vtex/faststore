@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"]
+    },
+    "Playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "github": {
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${env:GITHUB_MCP_TOKEN}"
+      }
+    },
+    "Figma": {
+      "url": "https://mcp.figma.com/mcp"
+    },
+    "vtex-docs": {
+      "type": "sse",
+      "url": "https://docs-assistant.vtex.com/api/mcp/sse"
+    },
+    "vtex-developer": {
+      "command": "npx",
+      "args": ["-y", "@vtex/developer-mcp"]
+    },
+    "Atlassian": {
+      "url": "https://mcp.atlassian.com/v1/mcp/authv2"
+    }
+  }
+}

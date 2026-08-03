@@ -1,11 +1,10 @@
-import type { Resolver } from '..'
+import type { GraphqlResolver } from '..'
 import type {
   Maybe,
   UserOrderCustomField,
   UserOrderDeliveryOption,
   UserOrderPriceTag,
 } from '../../..'
-import type { PromiseType } from '../../../typings'
 import type { Query } from './query'
 import { getLocalizedEstimates } from './shippingSLA'
 
@@ -21,7 +20,7 @@ const deliveryChannelsMapping = {
   ['']: '',
 } as const
 
-export const UserOrderResult: Record<string, Resolver<Root>> = {
+export const UserOrderResult: Record<string, GraphqlResolver<Root>> = {
   deliveryOptionsData: (root) => {
     const { shippingData, items } = root
     const logisticsInfo = shippingData?.logisticsInfo || []

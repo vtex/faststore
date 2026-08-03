@@ -1,0 +1,93 @@
+"""
+Offer information.
+"""
+type StoreOffer {
+  """
+  This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf.
+  """
+  listPrice: Float!
+  """
+  List price among with current taxes.
+  """
+  listPriceWithTaxes: Float!
+  """
+  Computed price before applying coupons, taxes or benefits. This may change before it reaches the shelf.
+  """
+  sellingPrice: Float!
+  """
+  ISO code of the currency used for the offer prices.
+  """
+  priceCurrency: String!
+  """
+  Also known as spot price.
+  """
+  price: Float!
+  """
+  Also known as spot price with taxes.
+  """
+  priceWithTaxes: Float!
+  """
+  Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time.
+  """
+  priceValidUntil: String!
+  """
+  Offer item condition.
+  """
+  itemCondition: String!
+  """
+  Offer item availability.
+  """
+  availability: String!
+  """
+  Seller responsible for the offer.
+  """
+  seller: StoreOrganization!
+  """
+  Information on the item being offered.
+  """
+  itemOffered: StoreProduct!
+  """
+  Number of items offered.
+  """
+  quantity: Int!
+  """
+  Whether this offer is a gift (e.g. free promotional item).
+  """
+  isGift: Boolean
+  """
+  Signed price token (JWT) used by the Pricing Fallback feature. When present, it should be
+  forwarded to Checkout on add-to-cart so the platform can trust the offer's price even if
+  the Pricing System is unavailable. May be null when the signing step fails or the feature is disabled.
+  """
+  priceToken: String
+}
+
+"""
+Offer input.
+"""
+input IStoreOffer {
+  """
+  Also known as spot price.
+  """
+  price: Float!
+  """
+  This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf.
+  """
+  listPrice: Float!
+  """
+  Seller responsible for the offer.
+  """
+  seller: IStoreOrganization!
+  """
+  Information on the item being offered.
+  """
+  itemOffered: IStoreProduct!
+  """
+  Number of items offered.
+  """
+  quantity: Int!
+  """
+  Signed price token (JWT) from the Pricing Fallback feature, forwarded to Checkout on add-to-cart.
+  """
+  priceToken: String
+}

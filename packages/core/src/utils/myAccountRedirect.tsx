@@ -1,5 +1,5 @@
 import storeConfig from 'discovery.config'
-import type { ParsedUrlQuery } from 'querystring'
+import type { ParsedUrlQuery } from 'node:querystring'
 
 /**
  * Check if the Faststore My Account feature flag is enabled.

@@ -1,0 +1,19 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountOrderMoreInfo",
+  "$componentTitle": "Account Order More Info",
+  "title": "Account Order More Info",
+  "description": "More information section for My Account order details",
+  "type": "object",
+  "properties": {
+    "moreInfoTitle": {
+      "type": "string",
+      "title": "More Info Title",
+      "default": "More information"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

@@ -1,9 +1,10 @@
-import React, { type PropsWithChildren } from 'react'
 import { act, renderHook } from '@testing-library/react'
 import type { FC } from 'react'
+import React, { type PropsWithChildren } from 'react'
+import { expect, test } from 'vitest'
 
-import { UIProvider, useGlobalUIState } from '../../src'
 import type { UIActions, UIEffects, UIInitialState } from '../../src'
+import { UIProvider, useGlobalUIState } from '../../src'
 
 test('UI PRovider: Open/Close minicart', async () => {
   const { result } = renderHook(useGlobalUIState, { wrapper: UIProvider })

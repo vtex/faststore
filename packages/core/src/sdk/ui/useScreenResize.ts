@@ -1,4 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
+
+// useLayoutEffect fires synchronously before the browser paints, eliminating
+// the layout shift caused by useEffect firing after the first paint.
+// Falls back to useEffect on the server (SSR) where window is not available.
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 // We are using the Moto G Power device measurement as a reference (mobile), as used by PageSpeed Insights.
 const MAX_MOBILE_WIDTH = 420
@@ -10,7 +16,7 @@ function useScreenResize() {
   const [isTablet, setIsTablet] = useState(undefined)
   const [isDesktop, setIsDesktop] = useState(undefined)
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= MAX_MOBILE_WIDTH)
       setIsTablet(

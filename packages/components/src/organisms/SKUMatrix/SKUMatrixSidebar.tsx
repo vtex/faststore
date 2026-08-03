@@ -67,6 +67,13 @@ export interface SKUMatrixSidebarProps
     width?: number
     height?: number
   }>
+  /**
+   * Labels related to the 'invalid quantity' toast.
+   */
+  invalidQuantityToastLabels?: {
+    title?: string
+    message?: string
+  }
 }
 
 function SKUMatrixSidebar({
@@ -80,6 +87,7 @@ function SKUMatrixSidebar({
   ImageComponent = ImageComponentFallback,
   buyProps: { onClick: buyButtonOnClick, ...buyProps },
   overlayProps,
+  invalidQuantityToastLabels,
   ...otherProps
 }: SKUMatrixSidebarProps) {
   const {
@@ -262,8 +270,13 @@ function SKUMatrixSidebar({
                           quantity: number
                         ) => {
                           pushToast({
-                            title: 'Invalid quantity!',
-                            message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
+                            title: invalidQuantityToastLabels?.title,
+                            message:
+                              invalidQuantityToastLabels?.message
+                                ?.replace('%{min}', min.toString())
+                                ?.replace('%{max}', maxValue.toString())
+                                ?.replace('%{quantity}', quantity.toString()) ||
+                              '',
                             status: 'INFO',
                             icon: (
                               <Icon

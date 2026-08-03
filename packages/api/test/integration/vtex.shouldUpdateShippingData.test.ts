@@ -1,3 +1,6 @@
+import { describe, expect, it } from 'vitest'
+
+import { shouldUpdateShippingData } from '../../src/platforms/vtex/utils/shouldUpdateShippingData'
 import {
   OrderFormWithDifferentPostalCodeFromSession,
   OrderFormWithItems,
@@ -8,7 +11,6 @@ import {
   mockSessionInvalidDeliveryWindow,
   mockSessionValidDeliveryWindow,
 } from '../mocks/shouldUpdateShippingData'
-import { shouldUpdateShippingData } from '../../src/platforms/vtex/utils/shouldUpdateShippingData'
 
 describe('shouldUpdateShippingData', () => {
   it('For an empty items array at the OrderForm it should not update the Shipping Data', () => {

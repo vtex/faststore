@@ -7,6 +7,7 @@ import {
   getCookieDomains,
   getVtexCookieNames,
 } from 'src/utils/clearCookies'
+import { getRequestHostname } from 'src/utils/getRequestHostname'
 
 const ADDITIONAL_COOKIES = ['CheckoutOrderFormOwnership'] as const
 
@@ -24,9 +25,9 @@ const handler: NextApiHandler = async (
   }
 
   try {
-    const hostname = request.headers.host?.split(':')[0] ?? ''
+    const hostname = getRequestHostname(request.headers.host)
     const cookies = parse(request.headers.cookie ?? '')
-    const domains = getCookieDomains(hostname)
+    const domains = hostname ? getCookieDomains(hostname) : [undefined]
     const clearedCookies: string[] = []
 
     const vtexCookieNames = getVtexCookieNames(Object.keys(cookies))

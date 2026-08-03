@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-product-shelf] {
   // --------------------------------------------------------
   // Design Tokens for Product Shelf
@@ -14,15 +16,15 @@
   width: 100%;
 
   [data-fs-product-shelf-items] {
+    position: relative;
     display: flex;
+    column-gap: var(--fs-product-shelf-items-gap);
     align-items: stretch;
     overflow-x: auto;
-    position: relative;
-    column-gap: var(--fs-product-shelf-items-gap);
 
     [data-fs-product-shelf-item] { width: 100%; }
 
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       padding-top: var(--fs-product-shelf-items-padding-top);
       padding-bottom: var(--fs-product-shelf-items-padding-bottom);
       overflow-x: auto;

@@ -1,10 +1,9 @@
 import DataLoader from 'dataloader'
 
-import { enhanceSku } from '../utils/enhanceSku'
 import { NotFoundError } from '../../errors'
-import type { EnhancedSku } from '../utils/enhanceSku'
-import type { Options } from '..'
 import type { Clients } from '../clients'
+import type { EnhancedSku } from '../utils/enhanceSku'
+import { enhanceSku } from '../utils/enhanceSku'
 
 export const getSkuLoader = ({ flags }: Options, clients: Clients) => {
   const loader = async (keys: readonly string[]) => {
@@ -13,10 +12,9 @@ export const getSkuLoader = ({ flags }: Options, clients: Clients) => {
       (key) => key.split('-')[1] === 'invisibleItems'
     )
 
-    const { products } = await clients.search.products({
-      query: `sku:${skuIds.join(';')}`,
-      page: 0,
-      count: skuIds.length,
+    const products = await clients.search.productsByIdentifier({
+      field: 'sku',
+      values: skuIds,
       showInvisibleItems,
       ...(flags?.enableUnavailableItemsOnCart && {
         hideUnavailableItems: false,

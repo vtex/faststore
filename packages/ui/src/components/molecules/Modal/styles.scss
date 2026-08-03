@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-modal] {
   // --------------------------------------------------------
   // Design Tokens for Modal
@@ -58,7 +60,7 @@
   background-color: var(--fs-modal-background-color);
   border-radius: var(--fs-modal-border-radius);
 
-  @include media(">=tablet") {
+  @include utilities.media(">=tablet") {
     width: var(--fs-modal-width-tablet);
     min-width: var(--fs-modal-min-width-tablet);
   }

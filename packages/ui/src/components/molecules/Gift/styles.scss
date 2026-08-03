@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-gift] {
   // --------------------------------------------------------
   // Design Tokens for Gift
@@ -35,7 +37,7 @@
   // --------------------------------------------------------
 
   position: relative;
-  margin-top: calc(var(--fs-gift-icon-size)/2);
+  margin-top: calc(var(--fs-gift-icon-size) / 2);
 
   [data-fs-gift-wrapper] {
     display: grid;
@@ -43,9 +45,9 @@
     align-items: flex-start;
     height: var(--fs-gift-height);
     overflow: hidden;
+    background-color: var(--fs-gift-bkg-color);
     border: var(--fs-gift-border-width) solid var(--fs-gift-border-color);
     border-radius: var(--fs-gift-border-radius);
-    background-color: var(--fs-gift-bkg-color);
   }
 
   [data-fs-gift-image] {
@@ -71,7 +73,7 @@
     line-height: var(--fs-gift-title-line-height);
     color: var(--fs-gift-title-color);
 
-    @include truncate-title;
+    @include utilities.truncate-title;
   }
 
   [data-fs-gift-product-summary] {

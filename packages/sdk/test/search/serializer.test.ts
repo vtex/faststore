@@ -1,4 +1,5 @@
-import { formatSearchState, parseSearchState, initSearchState } from '../../src'
+import { expect, test } from 'vitest'
+import { formatSearchState, initSearchState, parseSearchState } from '../../src'
 
 test('Search State Serializer: Basic serialization', async () => {
   let state = initSearchState()

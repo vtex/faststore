@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-search-input-field-wrapper] {
   position: relative;
   display: inline-flex;
@@ -39,11 +41,9 @@
   width: 100%;
   height: var(--fs-search-input-field-height-mobile);
 
-  @include input-focus-ring;
+  @include utilities.input-focus-ring;
 
-  @include media(">=notebook") {
-    height: var(--fs-search-input-field-height-desktop);
-  }
+  @include utilities.media(">=notebook") { height: var(--fs-search-input-field-height-desktop); }
 
   [data-fs-search-input-field-actions] {
     position: relative;
@@ -52,7 +52,7 @@
     gap: 0;
     align-items: center;
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       position: absolute;
       min-height: var(--fs-search-input-field-button-min-height);
       inset-inline-end: 0;
@@ -69,13 +69,11 @@
       border var(--fs-search-input-field-transition-timing)
       var(--fs-search-input-field-transition-function);
 
-    @include media("<notebook") {
-      border: 0;
-    }
+    @include utilities.media("<notebook") { border: 0; }
   }
 
   [data-fs-icon-button][data-fs-button-variant] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       min-height: var(--fs-search-input-field-button-min-height);
       padding-top: var(--fs-search-input-field-button-padding-top-desktop);
       padding-bottom:
@@ -106,7 +104,7 @@
   &[data-fs-search-input-field] [data-fs-search-input-field-upload-button] {
     right: 2.5rem;
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       right: 3rem;
     }
   }

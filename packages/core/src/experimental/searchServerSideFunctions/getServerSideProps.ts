@@ -3,24 +3,26 @@ import type { SearchPageProps } from './getStaticProps'
 
 import storeConfig from 'discovery.config'
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
-import { type SearchContentType, getPage } from 'src/server/cms'
+import type { SearchContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
-import type { PreviewData } from 'src/server/content/types'
 import { contentService } from 'src/server/content/service'
+import type { PreviewData } from 'src/server/content/types'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
-export const getServerSideProps: GetServerSideProps<
+const getServerSidePropsBase: GetServerSideProps<
   SearchPageProps,
   Record<string, string>,
   PreviewData
 > = async (context) => {
-  const { previewData, query, res } = context
+  const { previewData, query, res, locale } = context
   const searchTerm = (query.q as string)?.split('+').join(' ')
+  const contentContext = { previewData, locale }
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
@@ -33,8 +35,8 @@ export const getServerSideProps: GetServerSideProps<
         globalSectionsFooter,
       ] = await Promise.all([
         contentService.getSingleContent<SearchContentType>({
+          ...contentContext,
           contentType: 'search',
-          previewData,
           documentId: page.documentId,
           versionId: page.versionId,
           releaseId: page.releaseId,
@@ -62,8 +64,8 @@ export const getServerSideProps: GetServerSideProps<
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
       contentService.getSingleContent<SearchContentType>({
+        ...contentContext,
         contentType: 'search',
-        previewData,
       }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
@@ -89,3 +91,7 @@ export const getServerSideProps: GetServerSideProps<
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)

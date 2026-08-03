@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 export const salesChannelStaleFetch = {
   info: 'https://storeframework.vtexcommercestable.com.br/api/catalog_system/pub/saleschannel/1',
   init: undefined,

@@ -1,61 +1,20 @@
-import { makeExecutableSchema } from '@graphql-tools/schema'
-
-import {
-  getContextFactory as getContextFactoryVTEX,
-  getResolvers as getResolversVTEX,
-} from './platforms/vtex'
-import { typeDefs } from './typeDefs'
-import authDirective from './directives/auth'
-import cacheControlDirective from './directives/cacheControl'
-import type { Directive } from './directives'
-import type { Options as OptionsVTEX } from './platforms/vtex'
-
 export * from './__generated__/schema'
-export * from './platforms/errors'
-export { default as authDirective } from './directives/auth'
+export * from './directives'
 export {
-  default as cacheControlDirective,
   stringify as stringifyCacheControl,
+  type CacheControl,
 } from './directives/cacheControl'
-export type { CacheControl } from './directives/cacheControl'
+export { GraphqlVtexContextFactory, GraphqlVtexSchema } from './platforms/vtex'
+export { typeDefs } from './platforms/vtex/typeDefs'
 
-export type Options = OptionsVTEX
-
-const platforms = {
-  vtex: {
-    getResolvers: getResolversVTEX,
-    getContextFactory: getContextFactoryVTEX,
-  },
-}
-
-const directives: Directive[] = [cacheControlDirective, authDirective]
-
-export const getTypeDefs = () => [
-  typeDefs,
-  ...directives.map((d) => d.typeDefs),
-]
-
-export const getResolvers = (options: Options) =>
-  platforms[options.platform].getResolvers(options)
-
-export const getContextFactory = (options: Options) =>
-  platforms[options.platform].getContextFactory(options)
-
-export const getSchema = async (options: Options) => {
-  const schema = makeExecutableSchema({
-    resolvers: getResolvers(options),
-    typeDefs: getTypeDefs(),
-  })
-
-  return directives.reduce((s, d) => d.transformer(s), schema)
-}
-
-export * from './platforms/vtex/resolvers/root'
-export type { Resolver } from './platforms/vtex'
-
+export * from './platforms/errors'
+export type { GraphqlResolver } from './platforms/vtex'
 export type {
   CommertialOffer,
   Item,
   ProductSearchResult,
   Seller,
 } from './platforms/vtex/clients/search/types/ProductSearchResult'
+export * from './platforms/vtex/resolvers/root'
+
+export type APIOptions = Options

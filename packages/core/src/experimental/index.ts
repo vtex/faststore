@@ -41,7 +41,7 @@ export { useShippingSimulation as useShippingSimulation_unstable } from '../../s
 export { default as useScreenResize_unstable } from '../../src/sdk/ui/useScreenResize'
 
 // Components
-export { OrganizationSignInButton as OrganizationSignInButton_unstable } from '../../src/components/account/MyAccountDrawer/OrganizationSignInButton'
+export { OrganizationSignInButton as OrganizationSignInButton_unstable } from '../../src/components/account/Drawer/OrganizationSignInButton'
 export { ProfileChallenge as ProfileChallenge_unstable } from '../../src/components/auth/ProfileChallenge'
 export { ButtonSignIn as ButtonSignIn_unstable } from '../../src/components/ui/Button'
 
@@ -53,3 +53,34 @@ export {
   deliveryPromiseStore as deliveryPromiseStore_unstable,
   useDeliveryPromise as useDeliveryPromise_unstable,
 } from 'src/sdk/deliveryPromise'
+
+// Localization
+export { default as LocalizationSelector_unstable } from '../components/localization/LocalizationSelector'
+export type {
+  LocalizationSelectorErrorMessages,
+  LocalizationSelectorProps,
+} from '../components/localization/LocalizationSelector/LocalizationSelector'
+export { default as LocalizationButton_unstable } from '../components/ui/LocalizationButton'
+export type {
+  LocalizationButtonErrorMessages,
+  LocalizationButtonProps,
+} from '../components/ui/LocalizationButton/LocalizationButton'
+export {
+  useBindingSelector as useBindingSelector_unstable,
+  useLocaleValidation as useLocaleValidation_unstable,
+} from '../sdk/localization'
+export {
+  isValidUrl as isValidUrl_unstable,
+  resolveBinding as resolveBinding_unstable,
+} from '../sdk/localization/bindingSelector'
+export type {
+  Binding,
+  BindingSelectorError,
+  Locale,
+} from '../sdk/localization/types'
+export type { UseBindingSelectorReturn } from '../sdk/localization/useBindingSelector'
+export { useLink as useLink_unstable } from '../sdk/ui/useLink'
+export { default as Link_unstable } from '../components/ui/Link'
+export { localizeRedirectDestination as localizeRedirectDestination_unstable } from '../utils/localization/localizeRedirectDestination'
+export { useLocalizedProduct as useLocalizedProduct_unstable } from '../sdk/localization/LocalizedProductContext'
+export type { LocalizedProductLocale as LocalizedProductLocale_unstable } from '../sdk/localization/LocalizedProductContext'

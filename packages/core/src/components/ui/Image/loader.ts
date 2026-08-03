@@ -5,14 +5,14 @@ function handleVtexUrls(src: string, width: number, quality = 8) {
     quality > 10 ? Math.ceil(Math.min(quality, 100) / 10) : quality
 
   // Handle VTEX IDs pattern: /ids/{number}/{filename}.{extension}?{queryParams} (Product Images)
-  const regex = /(\/ids\/\d+)\/([^/?]+)(\.[^/?]+)(\?.+)?$/
+  const regex = /(\/ids\/[\d-]+)\/([^/?]+)(\.[^/?]+)(\?.+)?$/
   if (regex.test(src)) {
     return src.replace(
       regex,
       (_match, idPart, filename, _extension, queryString = '') => {
         const qs = new URLSearchParams(queryString)
         qs.set('quality', customQuality.toString())
-        return `${idPart}-${width}-auto/${filename}.webp?${qs.toString()}`
+        return `${idPart.split('-').at(0)}-${width}-auto/${filename}.webp?${qs.toString()}`
       }
     )
   }

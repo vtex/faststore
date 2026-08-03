@@ -1,9 +1,12 @@
-import type { Locator } from '@vtex/client-cms'
+import type { Locator, Section } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { MyAccountLayout } from 'src/components/account'
-import RenderSections from 'src/components/cms/RenderSections'
+import { Layout } from 'src/components/account'
+import RenderSections, {
+  RenderSectionsBase,
+} from 'src/components/cms/RenderSections'
+import ACCOUNT_COMPONENTS from 'src/components/cms/account/Components'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
@@ -17,68 +20,66 @@ import type {
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/before'
 import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
+import type { AccountOrdersListPageData } from 'src/sdk/account/accountPageContext'
+import type { AccountNavigationLabels } from 'src/sdk/account/getMyAccountRoutes'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { extractAccountNavigationData } from 'src/server/cms/myAccountDefaultSections'
+import { fetchMyAccountPageContent } from 'src/server/cms/fetchMyAccountPageContent'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
 
 import storeConfig from 'discovery.config'
-import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
-import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { extractStatusFromError } from 'src/utils/utilities'
 
-/* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 
 type ListOrdersPageProps = {
-  listOrders: ServerListOrdersQueryQuery['listUserOrders']
-  total: number
-  perPage: number
-  filters: {
-    page: number
-    status: string[]
-    dateInitial: string
-    dateFinal: string
-    text: string
-    clientEmail: string
-    pendingMyApproval?: boolean
-  }
+  pageSections: Section[]
+  navigationLabels: AccountNavigationLabels
+  accountPageData: AccountOrdersListPageData
 } & MyAccountProps
 
 export default function ListOrdersPage({
   globalSections: globalSectionsProp,
+  pageSections,
+  navigationLabels,
+  accountPageData,
   accountName,
-  listOrders,
-  total,
-  perPage,
-  filters,
   isRepresentative,
 }: ListOrdersPageProps) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
 
   return (
-    <PageProvider context={{ globalSettings }}>
+    <PageProvider
+      context={{
+        globalSettings,
+        accountPageData,
+        navigationLabels,
+      }}
+    >
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <MyAccountLayout
+        <Layout
           isRepresentative={isRepresentative}
           accountName={accountName}
+          navigationLabels={navigationLabels}
         >
           <BeforeSection />
-          <MyAccountListOrders
-            listOrders={listOrders}
-            filters={filters}
-            perPage={perPage}
-            total={total}
+          <RenderSectionsBase
+            sections={pageSections}
+            components={ACCOUNT_COMPONENTS}
           />
           <AfterSection />
-        </MyAccountLayout>
+        </Layout>
       </RenderSections>
     </PageProvider>
   )
@@ -125,8 +126,8 @@ const query = gql(`
   }
 `)
 
-export const getServerSideProps: GetServerSideProps<
-  MyAccountProps,
+const getServerSidePropsBase: GetServerSideProps<
+  ListOrdersPageProps,
   Record<string, string>,
   Locator
 > = async (context) => {
@@ -135,7 +136,10 @@ export const getServerSideProps: GetServerSideProps<
     account: storeConfig.api.storeId,
   })
 
-  const { previewData } = context
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
@@ -149,7 +153,7 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const page = Number(context.query.page as string | undefined) || 1
   const perPage = 25 // TODO: make this configurable
@@ -164,7 +168,6 @@ export const getServerSideProps: GetServerSideProps<
   const clientEmail = (context.query.clientEmail as string | undefined) || ''
   const pendingMyApproval = context.query.pendingMyApproval === 'true'
 
-  // Map labels from FastStore status to API status
   const groupedStatus = groupOrderStatusByLabel()
   const allStatuses =
     status
@@ -181,11 +184,17 @@ export const getServerSideProps: GetServerSideProps<
       .filter(Boolean) || []
 
   const [
+    pageContent,
     listOrders,
     globalSections,
     globalSectionsHeader,
     globalSectionsFooter,
   ] = await Promise.all([
+    fetchMyAccountPageContent(
+      'myAccountOrders',
+      contentContext,
+      '/pvt/account/orders'
+    ),
     execute<ServerListOrdersQueryQueryVariables, ServerListOrdersQueryQuery>(
       {
         variables: {
@@ -210,12 +219,10 @@ export const getServerSideProps: GetServerSideProps<
   if (listOrders.errors) {
     console.error(...listOrders.errors)
 
-    const status = extractStatusFromError(listOrders.errors[0])
+    const statusCode = extractStatusFromError(listOrders.errors[0])
 
-    // Redirect to 403 for authentication errors (401/403) to handle token refresh
-    // Redirect to 404 for other errors
     const destination =
-      status === 403 || status === 401
+      statusCode === 403 || statusCode === 401
         ? `/pvt/account/403?from=${encodeURIComponent('/pvt/account/orders')}`
         : '/pvt/account/404'
 
@@ -227,6 +234,10 @@ export const getServerSideProps: GetServerSideProps<
     }
   }
 
+  const { pageSections, navigationData } = extractAccountNavigationData(
+    pageContent.sections
+  )
+
   const globalSectionsResult = injectGlobalSections({
     globalSections,
     globalSectionsHeader,
@@ -236,20 +247,28 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: listOrders.data.accountProfile.name,
-      listOrders: listOrders.data.listUserOrders,
-      total: listOrders.data.listUserOrders.paging.total,
-      perPage: listOrders.data.listUserOrders.paging.perPage,
-      filters: {
-        page: listOrders.data.listUserOrders.paging.currentPage ?? page,
-        status,
-        dateInitial,
-        dateFinal,
-        text,
-        clientEmail,
-        pendingMyApproval,
+      accountName: listOrders.data.accountProfile.name ?? '',
+      navigationLabels: navigationData as AccountNavigationLabels,
+      accountPageData: {
+        listOrders: listOrders.data.listUserOrders,
+        total: listOrders.data.listUserOrders.paging.total,
+        perPage: listOrders.data.listUserOrders.paging.perPage,
+        filters: {
+          page: listOrders.data.listUserOrders.paging.currentPage ?? page,
+          status,
+          dateInitial,
+          dateFinal,
+          text,
+          clientEmail,
+          pendingMyApproval,
+        },
       },
+      pageSections,
       isRepresentative,
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)

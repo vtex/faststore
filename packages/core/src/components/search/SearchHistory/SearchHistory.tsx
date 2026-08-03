@@ -5,7 +5,12 @@ import {
 } from '@faststore/ui'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 
-const SearchHistory = ({ ...props }) => {
+interface SearchHistoryProps {
+  title?: string
+  [key: string]: unknown
+}
+
+const SearchHistory = ({ title, ...props }: SearchHistoryProps) => {
   const {
     values: { onSearchSelection },
   } = useSearch()
@@ -16,7 +21,7 @@ const SearchHistory = ({ ...props }) => {
   }
 
   return (
-    <UISearchHistory title="History" onClear={clearSearchHistory} {...props}>
+    <UISearchHistory title={title} onClear={clearSearchHistory} {...props}>
       {searchHistory.map((item) => (
         <UISearchHistoryTerm
           key={item.term}

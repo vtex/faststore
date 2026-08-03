@@ -23,6 +23,22 @@ export interface FilterFacetRangeProps {
    * This function is called when `Checkbox` from the facet changes.
    */
   onFacetChange: OnFacetChange
+  /**
+   * Label for the minimum value input field.
+   */
+  minLabel?: string
+  /**
+   * Label for the maximum value input field.
+   */
+  maxLabel?: string
+  /**
+   * Error message for the minimum price input field.
+   */
+  minPriceErrorMessage?: string
+  /**
+   * Error message for the maximum price input field.
+   */
+  maxPriceErrorMessage?: string
 }
 
 const formatRange = (min: number, max: number) =>
@@ -34,6 +50,10 @@ function FilterFacetRange({
   formatter,
   facetKey,
   onFacetChange,
+  minLabel,
+  maxLabel,
+  minPriceErrorMessage,
+  maxPriceErrorMessage,
 }: FilterFacetRangeProps) {
   return (
     <PriceRange
@@ -42,6 +62,10 @@ function FilterFacetRange({
       max={max}
       formatter={formatter}
       step={1}
+      minLabel={minLabel}
+      maxLabel={maxLabel}
+      minPriceErrorMessage={minPriceErrorMessage}
+      maxPriceErrorMessage={maxPriceErrorMessage}
       onEnd={(v) =>
         onFacetChange(
           {

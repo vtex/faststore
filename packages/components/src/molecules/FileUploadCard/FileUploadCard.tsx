@@ -81,6 +81,11 @@ export interface FileUploadCardProps
    */
   uploadingStatusText: string
   /**
+   * Status text when processing/polling in FileUploadStatus (e.g. from CMS).
+   * @default 'Importing...'
+   */
+  processingStatusText?: string
+  /**
    * Status text when completed in FileUploadStatus (e.g. from CMS). Receives file size in bytes.
    */
   getCompletedStatusText: (fileSize: number) => string
@@ -102,6 +107,10 @@ export interface FileUploadCardProps
    * Indicates if the file is being uploaded.
    */
   isUploading?: boolean
+  /**
+   * Indicates if the OES operation is polling/processing after upload.
+   */
+  isProcessing?: boolean
   /**
    * Indicates if there was an error during file upload.
    */
@@ -134,11 +143,13 @@ const FileUploadCard = ({
   removeButtonAriaLabel,
   searchButtonLabel,
   uploadingStatusText,
+  processingStatusText,
   getCompletedStatusText,
   errorMessages,
   formatterFileSize,
   formatterFileName,
   isUploading = false,
+  isProcessing = false,
   hasError = false,
   errorType: errorTypeProp,
   errorMessage,
@@ -146,6 +157,7 @@ const FileUploadCard = ({
 }: FileUploadCardProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const fileTypeErrorRef = useRef<FileUploadErrorType | undefined>(undefined)
   const [dragActive, setDragActive] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [uploadState, setUploadState] = useState<FileUploadState>(
@@ -174,6 +186,7 @@ const FileUploadCard = ({
 
   useEffect(() => {
     if (!selectedFile) return
+    if (fileTypeErrorRef.current) return
 
     if (hasError) {
       setUploadState(FileUploadState.Error)
@@ -187,9 +200,15 @@ const FileUploadCard = ({
       return
     }
 
+    if (isProcessing) {
+      setUploadState(FileUploadState.Processing)
+      setErrorType(undefined)
+      return
+    }
+
     setUploadState(FileUploadState.Completed)
     setErrorType(undefined)
-  }, [hasError, selectedFile, isUploading, errorTypeProp])
+  }, [hasError, selectedFile, isUploading, isProcessing, errorTypeProp])
 
   const isValidFileType = (file: File): boolean => {
     const fileName = file.name.toLowerCase()
@@ -216,18 +235,15 @@ const FileUploadCard = ({
       setSelectedFile(file)
 
       if (!isValidFileType(file)) {
+        fileTypeErrorRef.current = FileUploadErrorType.Unsupported
         setUploadState(FileUploadState.Error)
         setErrorType(FileUploadErrorType.Unsupported)
         return
       }
 
+      fileTypeErrorRef.current = undefined
       setErrorType(undefined)
-
-      if (isUploading) {
-        setUploadState(FileUploadState.Uploading)
-      } else {
-        setUploadState(FileUploadState.Completed)
-      }
+      setUploadState(FileUploadState.Uploading)
 
       if (onFileSelect) {
         onFileSelect(files)
@@ -258,18 +274,15 @@ const FileUploadCard = ({
       setSelectedFile(file)
 
       if (!isValidFileType(file)) {
+        fileTypeErrorRef.current = FileUploadErrorType.Unsupported
         setUploadState(FileUploadState.Error)
         setErrorType(FileUploadErrorType.Unsupported)
         return
       }
 
+      fileTypeErrorRef.current = undefined
       setErrorType(undefined)
-
-      if (isUploading) {
-        setUploadState(FileUploadState.Uploading)
-      } else {
-        setUploadState(FileUploadState.Completed)
-      }
+      setUploadState(FileUploadState.Uploading)
 
       if (onFileSelect) {
         onFileSelect(files)
@@ -300,6 +313,7 @@ const FileUploadCard = ({
   }
 
   const handleRemoveFile = () => {
+    fileTypeErrorRef.current = undefined
     setSelectedFile(null)
     setUploadState(FileUploadState.Uploading)
     setErrorType(undefined)
@@ -351,6 +365,7 @@ const FileUploadCard = ({
           downloadTemplateButtonLabel={downloadTemplateButtonLabel}
           selectFileButtonLabel={selectFileButtonLabel}
           uploadingStatusText={uploadingStatusText}
+          processingStatusText={processingStatusText}
           completedStatusText={getCompletedStatusText(selectedFile.size)}
           fileName={
             formatterFileName

@@ -48,7 +48,7 @@
         "noUnusedTemplateLiteral": "off",
         "useTemplate": "off",
         "useSelfClosingElements": "off",
-        "useNodejsImportProtocol": "off",
+        "useNodejsImportProtocol": "error",
         "noNonNullAssertion": "off",
         "useSingleVarDeclarator": "off",
         "noParameterAssign": "off"

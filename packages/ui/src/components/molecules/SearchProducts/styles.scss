@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-search-products] {
   // --------------------------------------------------------
   // Design Tokens for Search Products
@@ -111,7 +113,7 @@
     text-decoration: none;
     outline: none;
 
-    @include truncate-title;
+    @include utilities.truncate-title;
   }
 
   [data-fs-search-product-item-prices] {
@@ -153,7 +155,7 @@
   [data-fs-search-product-item-control-actions-desktop] {
     display: none;
 
-    @include media(">tablet") {
+    @include utilities.media(">tablet") {
       display: block;
     }
   }
@@ -161,7 +163,7 @@
   [data-fs-search-product-item-control-actions-mobile] {
     display: block;
 
-    @include media(">tablet") {
+    @include utilities.media(">tablet") {
       display: none;
     }
   }

@@ -1,5 +1,4 @@
-import type { Resolver } from '..'
-import type { PromiseType } from '../../../typings'
+import type { GraphqlResolver } from '..'
 import { enhanceSku } from '../utils/enhanceSku'
 import {
   createSlugsMap,
@@ -15,7 +14,7 @@ type SlugsMapArgs = {
   dominantVariantName: string
 }
 
-export const SkuVariants: Record<string, Resolver<Root>> = {
+export const SkuVariants: Record<string, GraphqlResolver<Root>> = {
   activeVariations: (root) => getActiveSkuVariations(root.variations),
   allVariantsByName: (root) =>
     getVariantsByName(root.isVariantOf.skuSpecifications),

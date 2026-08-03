@@ -59,7 +59,8 @@
   border-radius: var(--fs-border-radius);
 }
 
-[data-fs-file-upload-status-icon-loading] {
+[data-fs-file-upload-status-icon-loading],
+[data-fs-file-upload-status-icon-processing] {
   display: flex;
   align-items: center;
   justify-content: center;

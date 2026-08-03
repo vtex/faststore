@@ -2,6 +2,7 @@ import type {
   ProcessOrderAuthorizationRule,
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
+  QueryAvailableContractsArgs,
   QueryCollectionArgs,
   QueryListUserOrdersArgs,
   QueryPickupPointsArgs,
@@ -14,8 +15,10 @@ import type {
   QuerySellersArgs,
   QueryShippingArgs,
   QueryUserOrderArgs,
+  StoreContract,
   UserOrderFromList,
 } from '../../../__generated__/schema'
+import { recommendations } from './recommendations'
 import {
   BadRequestError,
   ForbiddenError,
@@ -26,11 +29,22 @@ import {
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
-import type { Context } from '../index'
+import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
+import type { GraphqlContext } from '../index'
+import type {
+  ByLinkIdBrandRoot,
+  ByLinkIdCategoryRoot,
+} from '../loaders/collection'
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
+import {
+  mapSessionContractsToStoreContracts,
+  parseSessionAvailableContracts,
+  resolveActiveContractDisplayName,
+  resolveActiveContractIdFromSession,
+} from '../utils/contract'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
-import { enhanceSku } from '../utils/enhanceSku'
+import { enhanceSku, type EnhancedSku } from '../utils/enhanceSku'
 import {
   findChannel,
   findCrossSelling,
@@ -39,13 +53,127 @@ import {
   findSlug,
   transformSelectedFacet,
 } from '../utils/facets'
+import { getCatalogLocale, isLocalizationEnabled } from '../utils/localization'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
+import { slugify } from '../utils/slugify'
 import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
+import { getOrderEntryOperation } from './getOrderEntryOperation'
+import { getOrderFormItems } from './getOrderFormItems'
+import { getLocalizedProductEntry } from './product'
+
+/**
+ * Validates that a slug mismatch between IS linkText and the requested slug is
+ * actually a localized slug match. Fetches the localized product entry from
+ * Catalog Dataplane (with request-scoped caching) and checks whether the slug
+ * prefix matches the localized linkId for the current locale.
+ *
+ * Returns true if the slug is a valid localized match, false otherwise
+ * (including when the Dataplane API is unavailable).
+ */
+async function isLocalizedSlugMatch(
+  ctx: GraphqlContext,
+  slug: string,
+  productGroupID: string,
+  locale: string
+): Promise<boolean> {
+  const slugPrefix = slug.slice(0, slug.lastIndexOf('-'))
+  const entry = await getLocalizedProductEntry(ctx, productGroupID, locale)
+
+  return entry?.linkId === slugPrefix
+}
+
+const INVALID_SKU_ID_ERROR = 'Invalid SkuId'
+const SLUG_MISMATCH_ERROR =
+  'Slug was set but the fetched sku does not satisfy the slug condition.'
+
+const shouldFallbackToProductRoute = (error: unknown) =>
+  isNotFoundError(error) ||
+  (error instanceof Error &&
+    (error.message === INVALID_SKU_ID_ERROR ||
+      error.message.startsWith(SLUG_MISMATCH_ERROR)))
+
+/**
+ * Here be dragons 🦄🦄🦄
+ *
+ * In some cases, the slug has a valid skuId for a different product. This
+ * guards that the fetched sku is the one we actually asked for, throwing
+ * SLUG_MISMATCH_ERROR (caught by the caller) when it isn't.
+ *
+ * When localization is enabled, the slug prefix may be a localized LinkId
+ * that differs from the IS linkText (always in the default locale). In that
+ * case we validate against the Catalog Dataplane API before rejecting the
+ * slug.
+ */
+async function assertSkuMatchesSlug(
+  ctx: GraphqlContext,
+  sku: EnhancedSku,
+  slug: string | null | undefined,
+  locale: string | null | undefined
+): Promise<void> {
+  const { linkText, productId } = sku.isVariantOf
+
+  if (!slug || !linkText || slug.startsWith(linkText)) {
+    return
+  }
+
+  const isValidLocalizedMatch =
+    isLocalizationEnabled(ctx) &&
+    locale &&
+    isValidSkuId(slug.split('-').pop() ?? '') &&
+    (await isLocalizedSlugMatch(ctx, slug, productId, locale))
+
+  if (isValidLocalizedMatch) {
+    return
+  }
+
+  throw new Error(`${SLUG_MISMATCH_ERROR} slug: ${slug}, linkText: ${linkText}`)
+}
+
+/**
+ * Fallback used when the sku/slug lookup above fails (invalid skuId, not
+ * found, or slug mismatch): resolves the slug through the legacy pagetype
+ * route and fetches the product from Intelligent Search by id instead.
+ */
+async function fetchProductBySlugFallback(
+  ctx: GraphqlContext,
+  slug: string | null | undefined
+): Promise<EnhancedSku> {
+  if (slug == null) {
+    throw new BadRequestError('Missing slug or id')
+  }
+
+  const {
+    clients: { commerce, search },
+  } = ctx
+
+  const route = await commerce.catalog.portal.pagetype(`${slug}/p`)
+
+  if (route.pageType !== 'Product' || !route.id) {
+    throw new NotFoundError(`No product found for slug ${slug}`)
+  }
+
+  const product = await search
+    .fetchProduct({
+      field: 'id',
+      value: String(route.id),
+    })
+    .catch(() => null)
+
+  if (!product) {
+    throw new NotFoundError(`No product found for id ${route.id}`)
+  }
+
+  return enhanceSku(pickBestSku(product.items), product)
+}
 
 export const Query = {
-  product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
+  product: async (
+    _: unknown,
+    { locator }: QueryProductArgs,
+    ctx: GraphqlContext
+  ) => {
     // Insert channel in context for later usage
     const channel = findChannel(locator)
     const locale = findLocale(locator)
@@ -62,72 +190,45 @@ export const Query = {
 
     const {
       loaders: { skuLoader },
-      clients: { commerce, search },
     } = ctx
 
     try {
       const skuId = id ?? slug?.split('-').pop() ?? ''
 
       if (!isValidSkuId(skuId)) {
-        throw new Error('Invalid SkuId')
+        throw new Error(INVALID_SKU_ID_ERROR)
       }
 
       const sku = await skuLoader.load(skuId)
 
-      /**
-       * Here be dragons 🦄🦄🦄
-       *
-       * In some cases, the slug has a valid skuId for a different
-       * product. This condition makes sure that the fetched sku
-       * is the one we actually asked for
-       * */
-      if (
-        slug &&
-        sku.isVariantOf.linkText &&
-        !slug.startsWith(sku.isVariantOf.linkText)
-      ) {
-        throw new Error(
-          `Slug was set but the fetched sku does not satisfy the slug condition. slug: ${slug}, linkText: ${sku.isVariantOf.linkText}`
-        )
-      }
+      await assertSkuMatchesSlug(ctx, sku, slug, locale)
 
       return sku
     } catch (err) {
-      if (slug == null) {
-        throw new BadRequestError('Missing slug or id')
+      if (!shouldFallbackToProductRoute(err)) {
+        throw err
       }
 
-      const route = await commerce.catalog.portal.pagetype(`${slug}/p`)
-
-      if (route.pageType !== 'Product' || !route.id) {
-        throw new NotFoundError(`No product found for slug ${slug}`)
-      }
-
-      const {
-        products: [product],
-      } = await search.products({
-        page: 0,
-        count: 1,
-        query: `product:${route.id}`,
-        // Manually disabling this flag to prevent regionalization issues
-        hideUnavailableItems: false,
-      })
-
-      if (!product) {
-        throw new NotFoundError(`No product found for id ${route.id}`)
-      }
-
-      const sku = pickBestSku(product.items)
-
-      return enhanceSku(sku, product)
+      return fetchProductBySlugFallback(ctx, slug)
     }
   },
-  collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
+  collection: (
+    _: unknown,
+    { slug }: QueryCollectionArgs,
+    ctx: GraphqlContext
+  ) => {
     const {
       loaders: { collectionLoader },
     } = ctx
 
-    return collectionLoader.load(slug)
+    // The request locale is set on ctx.storage.locale by the core `execute`
+    // wrapper (from Next.js i18n) rather than a GraphQL argument, so overridable
+    // fragments (API extensions) that also select `collection` keep merging
+    // without argument conflicts.
+    return collectionLoader.load({
+      slug,
+      locale: getCatalogLocale(ctx),
+    })
   },
   search: async (
     _: unknown,
@@ -139,7 +240,7 @@ export const Query = {
       selectedFacets,
       sponsoredCount,
     }: QuerySearchArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     // Insert channel in context for later usage
     const channel = findChannel(selectedFacets)
@@ -154,39 +255,60 @@ export const Query = {
       mutateLocaleContext(ctx, locale)
     }
 
-    let query = term
-
-    /**
-     * In case we are using crossSelling, we need to modify the search
-     * we will be performing on our search engine. The idea in here
-     * is to use the cross selling API for fetching the productIds our
-     * search will return for us.
-     * Doing this two request workflow makes it possible to have cross
-     * selling with Search features, like pagination, internationalization
-     * etc
-     */
-    if (crossSelling) {
-      const products = await ctx.clients.commerce.catalog.products.crossselling(
-        {
-          type: FACET_CROSS_SELLING_MAP[crossSelling.key],
-          productId: crossSelling.value,
-        }
-      )
-
-      query = `product:${products
-        .map((x) => x.productId)
-        .slice(0, first)
-        .join(';')}`
-    }
-
     const after = maybeAfter ? Number(maybeAfter) : 0
     const searchArgs: Omit<SearchArgs, 'type'> = {
       page: Math.ceil(after / first) || 0,
       count: first,
-      query: query ?? undefined,
-      sort: SORT_MAP[sort ?? 'score_desc'],
+      query: term ?? undefined,
+      sort: SORT_MAP[sort ?? 'score_desc'] ?? SORT_MAP.score_desc,
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
       sponsoredCount: sponsoredCount ?? undefined,
+    }
+
+    /**
+     * In case we are using crossSelling, we fetch product IDs from the
+     * cross selling API and then hydrate them using the PDP endpoint
+     * via productsByIdentifier.
+     */
+    if (crossSelling) {
+      const crossSellingProducts =
+        await ctx.clients.commerce.catalog.products.crossselling({
+          type: FACET_CROSS_SELLING_MAP[crossSelling.key],
+          productId: crossSelling.value,
+        })
+
+      const productIds = crossSellingProducts
+        .map((x) => x.productId)
+        .slice(0, first)
+
+      const productSearchPromise: Promise<ProductSearchResult> =
+        ctx.clients.search
+          .productsByIdentifier({ field: 'id', values: productIds })
+          .then((products) => ({
+            products,
+            recordsFiltered: products.length,
+            pagination: {
+              count: products.length,
+              current: { index: 0, proxyURL: '' },
+              before: [],
+              after: [],
+              perPage: first,
+              next: { index: 0, proxyURL: '' },
+              previous: { index: 0, proxyURL: '' },
+              first: { index: 0, proxyURL: '' },
+              last: { index: 0, proxyURL: '' },
+            },
+            sampling: false,
+            options: { sorts: [], counts: [] },
+            translated: false,
+            locale: '',
+            query: '',
+            operator: 'and',
+            fuzzy: '0',
+            searchId: '',
+          }))
+
+      return { searchArgs, productSearchPromise }
     }
 
     const productSearchPromise = ctx.clients.search.products(searchArgs)
@@ -196,7 +318,7 @@ export const Query = {
   allProducts: async (
     _: unknown,
     { first, after: maybeAfter }: QueryAllProductsArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { search },
@@ -232,7 +354,7 @@ export const Query = {
   products: async (
     _: unknown,
     { productIds }: QueryProductsArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { search },
@@ -242,14 +364,12 @@ export const Query = {
       return []
     }
 
-    const query = `id:${productIds.join(';')}`
-    const products = await search.products({
-      page: 0,
-      count: productIds.length,
-      query,
+    const products = await search.productsByIdentifier({
+      field: 'id',
+      values: productIds,
     })
 
-    return products.products
+    return products
       .flatMap((product) =>
         product.items.map((sku) => enhanceSku(sku, product))
       )
@@ -260,7 +380,7 @@ export const Query = {
   allCollections: async (
     _: unknown,
     { first, after: maybeAfter }: QueryAllCollectionsArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { commerce },
@@ -273,25 +393,47 @@ export const Query = {
       commerce.catalog.category.tree(),
     ])
 
-    const categories: Array<CategoryTree & { level: number }> = []
-    const dfs = (node: CategoryTree, level: number) => {
-      categories.push({ ...node, level })
+    // Flatten the category tree. parentId is tracked per node so
+    // the type resolver can correctly classify Departments (fatherCategoryId: null)
+    // vs Categories (fatherCategoryId: number).
+    const categoryRoots: ByLinkIdCategoryRoot[] = []
+    const dfs = (node: CategoryTree, parentId: number | null) => {
+      categoryRoots.push({
+        id: node.id,
+        name: node.name,
+        fatherCategoryId: parentId,
+        linkId: slugify(node.name),
+        title: node.Title,
+        description: null,
+        metaTagDescription: node.MetaTagDescription,
+        availableLinkIds: null,
+        entityType: 'category' as const,
+        slug: new URL(node.url).pathname.slice(1).toLowerCase(),
+      })
 
       for (const child of node.children) {
-        dfs(child, level + 1)
+        dfs(child, node.id)
       }
     }
 
     for (const node of tree) {
-      dfs(node, 0)
+      dfs(node, null)
     }
 
-    const collections = [
-      ...brands
-        .filter((brand) => brand.isActive)
-        .map((x) => ({ ...x, type: 'brand' })),
-      ...categories,
-    ]
+    const brandRoots: ByLinkIdBrandRoot[] = brands
+      .filter((brand) => brand.isActive)
+      .map((brand) => ({
+        id: brand.id,
+        name: brand.name,
+        linkId: slugify(brand.name),
+        title: brand.title,
+        description: null,
+        metaTagDescription: brand.metaTagDescription,
+        availableLinkIds: null,
+        entityType: 'brand' as const,
+      }))
+
+    const collections = [...brandRoots, ...categoryRoots]
 
     const validCollections = collections
       // Nullable slugs may cause one route to override the other
@@ -318,7 +460,7 @@ export const Query = {
   shipping: async (
     _: unknown,
     { country, items, postalCode }: QueryShippingArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       loaders: { simulationLoader },
@@ -338,7 +480,7 @@ export const Query = {
   redirect: async (
     _: unknown,
     { term, selectedFacets }: QueryRedirectArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     // Currently the search redirection can be done through a search term or filter (facet) so we limit the redirect query to always have one of these values otherwise we do not execute it.
     // https://help.vtex.com/en/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/4Gd2wLQFbCwTsh8RUDwSoL?&utm_source=autocomplete
@@ -361,7 +503,7 @@ export const Query = {
   sellers: async (
     _: unknown,
     { postalCode, geoCoordinates, country, salesChannel }: QuerySellersArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { commerce },
@@ -381,7 +523,11 @@ export const Query = {
       sellers,
     }
   },
-  profile: async (_: unknown, { id }: QueryProfileArgs, ctx: Context) => {
+  profile: async (
+    _: unknown,
+    { id }: QueryProfileArgs,
+    ctx: GraphqlContext
+  ) => {
     const {
       clients: { commerce },
     } = ctx
@@ -407,7 +553,7 @@ export const Query = {
   productCount: async (
     _: unknown,
     { term }: QueryProductCountArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { search },
@@ -422,7 +568,7 @@ export const Query = {
   userOrder: async (
     _: unknown,
     { orderId }: QueryUserOrderArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     try {
       if (!orderId) {
@@ -525,7 +671,7 @@ export const Query = {
   listUserOrders: async (
     _: unknown,
     filters: QueryListUserOrdersArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { commerce },
@@ -549,34 +695,129 @@ export const Query = {
       paging: orders.paging,
     }
   },
-  validateUser: async (_: unknown, __: unknown, _ctx: Context) => {
+  listUserQuotes: async (
+    _: unknown,
+    filters: {
+      page?: number
+      perPage?: number
+      status?: string[]
+      createdAtFrom?: string
+      createdAtTo?: string
+      expiresAtFrom?: string
+      expiresAtTo?: string
+      label?: string
+    },
+    ctx: GraphqlContext
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const result = await commerce.quotes.listUserQuotes(filters)
+
+    const uniqueCreatedByIds = [
+      ...new Set(result.items.map((quote) => quote.createdBy).filter(Boolean)),
+    ] as string[]
+
+    const createdByNameById = new Map<string, string>()
+    await Promise.all(
+      uniqueCreatedByIds.map(async (userId) => {
+        try {
+          const [shopper] = await commerce.masterData.getShopperById({
+            userId,
+          })
+          if (shopper) {
+            const fullName = [shopper.firstName, shopper.lastName]
+              .filter(Boolean)
+              .join(' ')
+            if (fullName) createdByNameById.set(userId, fullName)
+          }
+        } catch {
+          // Fall back to the raw id below if the lookup fails
+        }
+      })
+    )
+
+    const list = result.items.map((quote) => ({
+      id: quote.id,
+      status: quote.status,
+      label: quote.label ?? null,
+      createdAt: quote.createdAt,
+      expiresAt: quote.expiresAt,
+      amount: quote.amount,
+      createdBy: quote.createdBy
+        ? (createdByNameById.get(quote.createdBy) ?? quote.createdBy)
+        : null,
+    }))
+
+    return {
+      list,
+      paging: {
+        total: result.totalItems,
+        currentPage: result.pageNumber,
+        perPage: result.pageSize,
+      },
+    }
+  },
+  validateUser: async (_: unknown, __: unknown, _ctx: GraphqlContext) => {
     // Authentication is now handled by @auth directive
     // If we reach here, validation was successful, otherwise an error would have been thrown
     return {
       isValid: true,
     }
   },
-  // only b2b users
-  userDetails: async (_: unknown, __: unknown, ctx: Context) => {
+  isOrganizationMember: async (
+    _: unknown,
+    __: unknown,
+    ctx: GraphqlContext
+  ) => {
     const {
       clients: { commerce },
     } = ctx
 
     const sessionData = await commerce.session('').catch(() => null)
 
-    const shopper = sessionData?.namespaces.shopper ?? null
+    return Boolean(sessionData?.namespaces.authentication?.unitId?.value)
+  },
+  // only b2b users
+  userDetails: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
+    const {
+      account,
+      headers,
+      clients: { commerce },
+    } = ctx
+
+    const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
+    const userId = jwt?.userId ?? ''
+
+    const [sessionData, shopperResult, lmRoles] = await Promise.all([
+      commerce.session('').catch(() => null),
+      userId
+        ? commerce.masterData.getShopperById({ userId }).catch(() => null)
+        : Promise.resolve(null),
+      userId
+        ? commerce.licenseManager.getUserRoles({ userId }).catch(() => null)
+        : Promise.resolve(null),
+    ])
+
+    const shopper = shopperResult?.[0]
     const authentication = sessionData?.namespaces.authentication ?? null
 
+    const fullName =
+      `${(shopper?.firstName ?? '').trim()} ${(shopper?.lastName ?? '').trim()}`.trim()
+
     return {
-      name: shopper?.firstName?.value ?? '',
-      email: authentication?.storeUserEmail.value ?? '',
-      role: ['Admin'], // TODO change when implemented roles,
+      username: authentication?.storeUserEmail?.value ?? '',
+      name: fullName,
+      email: authentication?.storeUserEmail?.value ?? '',
+      phone: shopper?.phone ?? '',
+      role: lmRoles?.Roles?.map((r) => r.Name) ?? [],
       orgUnit: authentication?.unitName?.value ?? '',
     }
   },
   // If isRepresentative, return b2b information.
   // If not, return b2c user information
-  accountProfile: async (_: unknown, __: unknown, ctx: Context) => {
+  accountProfile: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
     const {
       account,
       headers,
@@ -597,18 +838,40 @@ export const Query = {
       }
 
       const profile = sessionData.namespaces.profile ?? null
-      const contract = await commerce.masterData.getContractById({
-        contractId: profile?.id?.value ?? '',
-      })
+      const shopper = sessionData.namespaces.shopper ?? null
+      const authentication = sessionData.namespaces.authentication ?? null
 
+      const contractId =
+        resolveActiveContractIdFromSession(sessionData) ||
+        jwt?.customerId?.trim() ||
+        ''
+
+      let contract = null
+      if (contractId) {
+        try {
+          contract = await commerce.masterData.getContractById({ contractId })
+        } catch (err) {
+          console.error(
+            `Error while getting contract data for contract ID (${contractId}).`,
+            err
+          )
+        }
+      }
+
+      const shopperName =
+        `${(shopper?.firstName?.value ?? '').trim()} ${(shopper?.lastName?.value ?? '').trim()}`.trim()
       const name =
-        contract?.corporateName ??
-        `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim()
+        resolveActiveContractDisplayName(contract, profile) || shopperName
 
       return {
         name: name || '',
-        email: profile?.email?.value || '',
-        id: profile?.id?.value || '',
+        email:
+          profile?.email?.value || authentication?.storeUserEmail?.value || '',
+        id:
+          profile?.id?.value ||
+          authentication?.customerId?.value ||
+          jwt?.customerId?.trim() ||
+          '',
         // createdAt: '',
       }
     }
@@ -626,10 +889,59 @@ export const Query = {
       // createdAt: '',
     }
   },
+  // only b2b users
+  // Contract list from VTEX session `shopper.availableContracts`.
+  availableContracts: async (
+    _: unknown,
+    { orgUnitId }: QueryAvailableContractsArgs,
+    ctx: GraphqlContext
+  ): Promise<StoreContract[]> => {
+    if (!orgUnitId) {
+      throw new BadRequestError('Missing orgUnitId')
+    }
+
+    const {
+      account,
+      headers,
+      clients: { commerce },
+    } = ctx
+
+    const sessionData = await commerce.session('').catch(() => null)
+    const authToken = getAuthCookie(headers?.cookie ?? '', account)
+    let jwt: ReturnType<typeof parseJwt> = null
+
+    try {
+      jwt = authToken ? parseJwt(authToken) : null
+    } catch {
+      jwt = null
+    }
+
+    const sessionUnitId =
+      sessionData?.namespaces.authentication?.unitId?.value?.trim() ??
+      jwt?.unitId?.trim() ??
+      ''
+
+    if (!sessionUnitId || sessionUnitId !== orgUnitId) {
+      throw new ForbiddenError(
+        'You are not allowed to list contracts for this organization unit'
+      )
+    }
+
+    const contracts = parseSessionAvailableContracts(
+      sessionData?.namespaces.shopper
+    )
+
+    const activeContractId =
+      resolveActiveContractIdFromSession(sessionData) ||
+      jwt?.customerId?.trim() ||
+      ''
+
+    return mapSessionContractsToStoreContracts(contracts, activeContractId)
+  },
   pickupPoints: async (
     _: unknown,
     { geoCoordinates }: QueryPickupPointsArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { commerce },
@@ -641,4 +953,7 @@ export const Query = {
 
     return result
   },
+  orderEntryOperation: getOrderEntryOperation,
+  orderFormItems: getOrderFormItems,
+  recommendations,
 }

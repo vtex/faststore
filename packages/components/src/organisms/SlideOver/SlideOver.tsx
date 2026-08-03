@@ -4,7 +4,7 @@ import React from 'react'
 import type { ModalProps, OverlayProps } from '../../'
 import { Modal } from '../../'
 
-export type Direction = 'leftSide' | 'rightSide'
+export type Direction = 'leftSide' | 'rightSide' | 'bottomSide'
 export type WidthSize = 'full' | 'partial'
 
 export interface SlideOverProps extends Omit<ModalProps, 'title'> {

@@ -5,6 +5,7 @@ import {
   SearchProvider,
 } from '@faststore/sdk'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
@@ -19,7 +20,10 @@ import { useApplySearchState } from 'src/sdk/search/state'
 import type { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../discovery.config'
+import { faststoreLoader } from 'src/components/ui/Image/loader'
+import { LocalizedProductProvider } from 'src/sdk/localization/LocalizedProductContext'
 import ProductListing from './ProductListing'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
@@ -93,58 +97,97 @@ export default function ProductListingPage({
     seo: { plp: plpSeo, ...storeSeo },
   } = storeConfig
   const title = collection?.seo.title ?? storeSeo.title
-  const titleTemplate = plpSeo?.titleTemplate ?? storeSeo.titleTemplate
+  const titleTemplate =
+    settings?.seo?.titleTemplate ??
+    plpSeo?.titleTemplate ??
+    storeSeo.titleTemplate
   const description =
     collection?.seo.description || // Use description that comes from the Checkout API
     plpSeo?.descriptionTemplate?.replace(/%s/g, () => title) || // Use description template from the SEO config for PLP
     storeSeo.description // Use default description from the store SEO config
+  const storeURL = getStoreURL()
 
   const [pathname] = router.asPath.split('?')
-  const canonical = `${storeConfig.storeUrl}${pathname}`
+  const canonical = `${storeURL}${pathname}`
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   let itemListElements = collection?.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
-        const pageUrl = storeConfig.storeUrl + pathname
+        const pageUrl = storeURL + pathname
 
         return { name, position, item: pageUrl }
       }
     )
   }
 
-  return (
-    <SearchProvider
-      onChange={applySearchState}
-      itemsPerPage={itemsPerPage}
-      shouldResetInfiniteScroll={!storeConfig.experimental?.scrollRestoration}
-      {...searchParams}
-    >
-      {/* SEO */}
-      <NextSeo
-        title={title}
-        description={description}
-        titleTemplate={titleTemplate}
-        canonical={canonical}
-        openGraph={{
-          type: 'website',
-          title,
-          description,
-        }}
-        twitter={{
-          cardType: 'summary_large_image',
-        }}
-      />
-      <BreadcrumbJsonLd itemListElements={itemListElements} />
+  // Preload the first product image so the browser fetches it at parse time,
+  // before JS hydration. PSI consistently identifies the first product grid
+  // item as the LCP element even when a Hero section is present — the hero
+  // renders at a smaller visual area than the first product card on mobile.
+  //
+  // Width reasoning: next.config.js imageSizes=[34,68,154,320], deviceSizes=[360,412,...].
+  // Product cards use sizes="30vw". At Lighthouse mobile (412px viewport, DPR≈2):
+  //   30vw × 412 × 2 = 247px → browser picks 320 (first step ≥ 247 in the srcset).
+  // Using 320 here makes the preload URL exactly match the <img> srcset selection,
+  // so the browser can reuse the preloaded response instead of fetching a second URL.
+  const rawLcpImageUrl: string | undefined =
+    server?.search?.products?.edges?.[0]?.node?.image?.[0]?.url
+  const lcpImageUrl = rawLcpImageUrl
+    ? faststoreLoader({
+        src: rawLcpImageUrl,
+        width: 320,
+        quality: 75,
+      })
+    : undefined
 
-      <ProductListing
-        globalSections={globalSections}
-        globalSettings={globalSettings}
-        page={plpContentType}
-        data={server}
-        serverManyProductsVariables={serverManyProductsVariables}
-      />
-    </SearchProvider>
+  return (
+    <LocalizedProductProvider
+      otherLocales={server.collection?.otherLocales}
+      urlSuffix=""
+    >
+      <SearchProvider
+        onChange={applySearchState}
+        itemsPerPage={itemsPerPage}
+        shouldResetInfiniteScroll={!storeConfig.experimental?.scrollRestoration}
+        {...searchParams}
+      >
+        {lcpImageUrl && (
+          <Head>
+            <link
+              rel="preload"
+              as="image"
+              href={lcpImageUrl}
+              fetchPriority="high"
+            />
+          </Head>
+        )}
+        {/* SEO */}
+        <NextSeo
+          title={title}
+          description={description}
+          titleTemplate={titleTemplate}
+          canonical={canonical}
+          openGraph={{
+            type: 'website',
+            title,
+            description,
+          }}
+          twitter={{
+            cardType: 'summary_large_image',
+          }}
+        />
+        <BreadcrumbJsonLd itemListElements={itemListElements} />
+
+        <ProductListing
+          globalSections={globalSections}
+          globalSettings={globalSettings}
+          page={plpContentType}
+          data={server}
+          serverManyProductsVariables={serverManyProductsVariables}
+        />
+      </SearchProvider>
+    </LocalizedProductProvider>
   )
 }

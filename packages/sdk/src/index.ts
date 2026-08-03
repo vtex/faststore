@@ -97,7 +97,7 @@ export {
 export { Provider as SearchProvider } from './search/Provider'
 export { useSearch } from './search/useSearch'
 export { usePagination } from './search/usePagination'
-export type { State as SearchState } from './types'
+export type { Facet, State as SearchState } from './types'
 
 // UI
 export { Context as UIContext, Provider as UIProvider } from './ui/Provider'
@@ -123,8 +123,10 @@ export type { Cart, Item as CartItem } from './cart'
 // Store
 export { createStore as createBaseStore } from './store/base'
 export { createStore } from './store/composed'
+export type { CreateStoreOptions } from './store/composed'
 export { optimistic } from './store/optimistic'
 export { persisted } from './store/persisted'
+export type { Reconcile } from './store/persisted'
 export { singleton } from './store/singleton'
 export { compose } from './utils/compose'
 export type { Store } from './store/base'

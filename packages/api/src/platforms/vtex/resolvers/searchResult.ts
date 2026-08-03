@@ -1,8 +1,8 @@
-import { enhanceSku } from '../utils/enhanceSku'
-import type { Resolver } from '..'
+import type { GraphqlResolver } from '..'
 import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
 import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
+import { enhanceSku } from '../utils/enhanceSku'
 import { pickBestSku } from '../utils/sku'
 
 export type Root = {
@@ -17,7 +17,7 @@ const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
       ? facet.key === 'brand'
       : false
 
-export const StoreSearchResult: Record<string, Resolver<Root>> = {
+export const StoreSearchResult: Record<string, GraphqlResolver<Root>> = {
   suggestions: async (root, _, ctx) => {
     const {
       clients: { search },

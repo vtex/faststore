@@ -1,0 +1,39 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountOrderBudgets",
+  "$componentTitle": "Account Order Budgets",
+  "title": "Account Order Budgets",
+  "description": "Budgets section for My Account order details",
+  "type": "object",
+  "properties": {
+    "budgetsTitle": {
+      "type": "string",
+      "title": "Budgets Title",
+      "default": "Budgets"
+    },
+    "nameLabel": {
+      "type": "string",
+      "title": "Name Label",
+      "default": "Name"
+    },
+    "availableLabel": {
+      "type": "string",
+      "title": "Available Label",
+      "default": "Available"
+    },
+    "toBeSpentLabel": {
+      "type": "string",
+      "title": "To Be Spent Label",
+      "default": "To be spent"
+    },
+    "remainingLabel": {
+      "type": "string",
+      "title": "Remaining Label",
+      "default": "Remaining"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

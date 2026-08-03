@@ -18,6 +18,22 @@ export interface PriceRangeProps
    * Defines a string value that labels the current element.
    */
   'aria-label'?: AriaAttributes['aria-label']
+  /**
+   * Label for the minimum value input field.
+   */
+  minLabel?: string
+  /**
+   * Label for the maximum value input field.
+   */
+  maxLabel?: string
+  /**
+   * Error message for the minimum price input field.
+   */
+  minPriceErrorMessage?: string
+  /**
+   * Error message for the maximum price input field.
+   */
+  maxPriceErrorMessage?: string
 }
 
 type PriceRangeRefType = {
@@ -36,6 +52,10 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       testId = 'fs-price-range',
       variant,
       'aria-label': ariaLabel,
+      minLabel = 'Min',
+      maxLabel = 'Max',
+      minPriceErrorMessage = "Min price can't be greater than max",
+      maxPriceErrorMessage = "Max price can't be smaller than min",
       ...otherProps
     },
     ref
@@ -83,7 +103,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       }
 
       if (Number(value) > Math.floor(priceRange.max)) {
-        setInputMinError(`Min price can't be greater than max`)
+        setInputMinError(minPriceErrorMessage)
       }
 
       setPriceRange({ ...priceRange, min: Number(value) })
@@ -101,7 +121,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       }
 
       if (Number(value) < Math.round(priceRange.min)) {
-        setInputMaxError(`Max price can't be smaller than min`)
+        setInputMaxError(maxPriceErrorMessage)
       }
 
       setPriceRange({ ...priceRange, max: Number(value) })
@@ -155,7 +175,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
           <InputField
             id="price-range-min"
             step={step}
-            label="Min"
+            label={minLabel}
             type="number"
             inputMode="numeric"
             error={inputMinError}
@@ -168,7 +188,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
           />
           <InputField
             id="price-range-max"
-            label="Max"
+            label={maxLabel}
             step={step}
             type="number"
             inputMode="numeric"

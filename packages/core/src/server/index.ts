@@ -11,37 +11,33 @@ import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
 import type { CacheControl, Maybe } from '@faststore/api'
 import {
-  authDirective,
-  cacheControlDirective,
   BadRequestError,
-  getContextFactory,
-  getResolvers,
+  GraphqlVtexContextFactory,
+  GraphqlVtexSchema,
   isFastStoreError,
 } from '@faststore/api'
 import { loadFilesSync } from '@graphql-tools/load-files'
+import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import type { TypeSource } from '@graphql-tools/utils'
 import * as GraphQLJS from 'graphql'
 import { GraphQLError } from 'graphql'
-import path from 'path'
-
-import persisted from '@generated/persisted-documents.json'
+import path from 'node:path'
 
 import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolvers'
 import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
 
 import type { Operation } from '../sdk/graphql/request'
-import { apiOptions } from './options'
+import { apiOptions, withTraceClient } from './options'
 
 interface ExecuteOptions<V = Record<string, unknown>> {
   operation: Operation
   variables: V
   query?: string | null
+  locale?: string
 }
 
-const persistedQueries = new Map(Object.entries(persisted))
-
-const apiContextFactory = getContextFactory(apiOptions)
+const persistedQueries = new Map()
 
 const customFormatError: MaskError = (err) => {
   if (err instanceof GraphQLError && isFastStoreError(err.originalError)) {
@@ -59,22 +55,25 @@ function loadGeneratedSchema(): TypeSource {
   })
 }
 
-function getFinalAPISchema() {
-  const generatedSchema = loadGeneratedSchema()
-  const nativeResolvers = getResolvers(apiOptions)
+export function getFinalAPISchema() {
+  const finalTypeDefs = mergeTypeDefs([
+    GraphqlVtexSchema(),
+    loadGeneratedSchema(),
+  ])
 
   const schema = makeExecutableSchema({
-    typeDefs: generatedSchema,
-    resolvers: [nativeResolvers, vtexExtensionsResolvers, thirdPartyResolvers],
+    typeDefs: finalTypeDefs,
+    resolvers: [vtexExtensionsResolvers, thirdPartyResolvers],
   })
 
-  // Apply directive transformations
-  const directives = [cacheControlDirective, authDirective]
-  return directives.reduce((s, d) => d.transformer(s), schema)
+  return GraphqlVtexSchema(schema)
 }
 
-export const getEnvelop = async () =>
-  envelop({
+export const getEnvelop = async () => {
+  const options = await withTraceClient(apiOptions)
+  const apiContextFactory = await GraphqlVtexContextFactory(options)
+
+  return envelop({
     plugins: [
       useEngine(GraphQLJS),
       useSchema(getFinalAPISchema()),
@@ -85,6 +84,7 @@ export const getEnvelop = async () =>
       useParserCache(),
     ],
   })
+}
 
 const envelopPromise = getEnvelop()
 
@@ -99,9 +99,17 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
     cookies: Map<string, Record<string, string>> | null
   }
 }> => {
-  const { operation, variables, query: maybeQuery } = options
+  const { operation, variables, query: maybeQuery, locale } = options
   const { operationHash, operationName } = operation['__meta__']
 
+  if (!persistedQueries.size) {
+    const persistedQueriesLoaded = await import(
+      '@generated/persisted-documents.json'
+    )
+    Object.entries(
+      persistedQueriesLoaded.default ?? persistedQueriesLoaded
+    ).forEach(([key, value]) => persistedQueries.set(key, value))
+  }
   const query = maybeQuery ?? persistedQueries.get(operationHash)
 
   if (query == null) {
@@ -119,6 +127,14 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
   } = enveloped(envelopContext)
 
   const contextValue = await contextFactory(envelopContext)
+
+  // Override the store-default locale with the per-request locale (if any) so
+  // localization-aware resolvers read it from ctx.storage.locale. Resolvers that
+  // carry their own locale (e.g. product/search via locator facets) still
+  // override this default inside their own resolution.
+  if (locale) {
+    contextValue.storage.locale = locale
+  }
 
   const { data, errors } = (await run({
     schema,

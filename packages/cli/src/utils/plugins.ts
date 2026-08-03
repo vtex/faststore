@@ -1,13 +1,10 @@
-import {
-  copySync,
-  existsSync,
-  mkdirSync,
-  readdirSync,
-  writeFileSync,
-} from 'fs-extra'
+import fsExtra from 'fs-extra'
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { withBasePath } from './directory'
-import path from 'path'
 import { logger } from './logger'
+
+const { copySync, existsSync, mkdirSync, readdirSync, writeFileSync } = fsExtra
 
 export type PageConfig = {
   path: string
@@ -71,7 +68,9 @@ export const getPluginsList = async (basePath: string): Promise<Plugin[]> => {
   const { tmpStoreConfigFile } = withBasePath(basePath)
 
   try {
-    const { plugins = [] } = await import(tmpStoreConfigFile)
+    const {
+      default: { plugins = [] },
+    } = await import(pathToFileURL(tmpStoreConfigFile).href)
     return plugins
   } catch (error) {
     logger.error(`Could not load plugins from store config`)
@@ -134,8 +133,9 @@ const getPluginPageFileContent = (
 import * as page from 'src/plugins/${pluginName}/pages/${pageName}'
 ${appLayout ? `import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'` : ``}
 ${appLayout ? `import RenderSections from 'src/components/cms/RenderSections'` : ``}
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
-export async function getServerSideProps(${appLayout ? '{ previewData, ...otherProps }' : 'otherProps'}) {
+async function getServerSidePropsBase(${appLayout ? '{ previewData, ...otherProps }' : 'otherProps'}) {
   const noop = async function() {}
   const loaderData = await (page.loader || noop)(otherProps)
 ${appLayout ? `const { sections = [] } = await getGlobalSectionsData(previewData)` : ``}
@@ -147,6 +147,8 @@ ${appLayout ? `const { sections = [] } = await getGlobalSectionsData(previewData
     }
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(getServerSidePropsBase)
 export default function Page(props) {
   ${
     appLayout
@@ -167,7 +169,9 @@ const generatePluginPages = async (basePath: string, plugins: Plugin[]) => {
     const pluginName = getPluginName(plugin)
     const pluginConfigPath = getPackagePath(pluginName, PLUGIN_CONFIG_FILE)
 
-    const pluginConfig = await import(pluginConfigPath)
+    const { default: pluginConfig } = await import(
+      pathToFileURL(pluginConfigPath).href
+    )
 
     const { pages: pagesCustom } = getPluginCustomConfig(plugin)
 
@@ -281,7 +285,9 @@ const addPluginsTheme = async (basePath: string, plugins: Plugin[]) => {
         getPackagePath(getPluginName(plugin), 'src', 'themes', 'index.scss')
       )
     )
-    .map((plugin) => `@import "${getPluginName(plugin)}/src/themes/index.scss"`)
+    .map(
+      (plugin) => `@use "${getPluginName(plugin)}/src/themes/index.scss" as *;`
+    )
     .join('\n')
 
   writeFileSync(tmpThemesPluginsFile, pluginImportsContent)
@@ -307,7 +313,9 @@ const generatePluginApis = async (basePath: string, plugins: Plugin[]) => {
     const pluginName = getPluginName(plugin)
     const pluginConfigPath = getPackagePath(pluginName, PLUGIN_CONFIG_FILE)
 
-    const pluginConfig = await import(pluginConfigPath)
+    const { default: pluginConfig } = await import(
+      pathToFileURL(pluginConfigPath).href
+    )
 
     const { apis: apisCustom } = getPluginCustomConfig(plugin)
 

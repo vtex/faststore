@@ -7,9 +7,8 @@ import styles from './section.module.scss'
 interface ScrollToTopButtonProps {
   /**
    * Button copy.
-   * @default 'Scroll to top'
    */
-  text?: string
+  text: string
   /**
    * Button's icon.
    * @default <Icon name="CaretUp" width={16} height={16} weight="bold" />
@@ -23,7 +22,7 @@ interface ScrollToTopButtonProps {
 }
 
 function ScrollToTopButton({
-  text = 'Scroll to top',
+  text,
   icon = <Icon name="CaretUp" width={16} height={16} weight="bold" />,
   iconPosition = 'left',
 }: ScrollToTopButtonProps) {
@@ -40,5 +39,7 @@ function ScrollToTopButton({
     </Section>
   )
 }
+
+ScrollToTopButton.$componentKey = 'ScrollToTopButton'
 
 export default ScrollToTopButton

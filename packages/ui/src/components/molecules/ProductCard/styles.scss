@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-product-card] {
   // --------------------------------------------------------
   // Design Tokens for Product Card
@@ -85,7 +87,7 @@
   transition: var(--fs-product-card-transition-property) var(--fs-product-card-transition-timing) var(--fs-product-card-transition-function);
 
   &:focus-within {
-    @include focus-ring;
+    @include utilities.focus-ring;
 
     background-color: var(--fs-product-card-bkg-color-focus);
   }
@@ -137,7 +139,7 @@
       text-decoration: none;
       outline: none;
 
-      > span { @include truncate-title(1); }
+      > span { @include utilities.truncate-title(1); }
 
       &::after {
         position: absolute;
@@ -164,7 +166,7 @@
     color: var(--fs-product-card-title-color);
     > a { line-height: 1.25; }
 
-    @include truncate-title(var(--fs-product-card-title-max-lines));
+    @include utilities.truncate-title(var(--fs-product-card-title-max-lines));
   }
 
   [data-fs-product-card-prices] {
@@ -247,9 +249,9 @@
       padding-right: var(--fs-product-card-wide-content-padding);
       padding-left: var(--fs-product-card-wide-content-padding);
 
-      [data-fs-link] > span { @include truncate-title(2); }
+      [data-fs-link] > span { @include utilities.truncate-title(2); }
 
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         flex-direction: row;
         justify-content: space-between;
       }

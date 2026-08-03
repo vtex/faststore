@@ -1,15 +1,34 @@
+@use "sass:meta";
+
 // Establish a layer order up-front, FS UI base styles have the lowest priority
 @layer base, components, theme;
 
 // FastStore UI's base styles
-@import "@faststore/ui/src/styles/global.scss";
+@include meta.load-css("~@faststore/ui/src/styles/global.scss");
 
 // Components & Sections styles
-@import "@faststore/ui/src/components/atoms/Skeleton/styles.scss";
-@import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
-@import "@faststore/ui/src/components/atoms/SROnly/styles.scss";
-@import "src/components/sections/Section/section.scss";
+@include meta.load-css("~@faststore/ui/src/components/atoms/Skeleton/styles.scss");
+@include meta.load-css("~@faststore/ui/src/components/atoms/Overlay/styles.scss");
+@include meta.load-css("~@faststore/ui/src/components/atoms/SROnly/styles.scss");
+@include meta.load-css("src/components/sections/Section/section.scss");
 
 // Importing this component because is being used outside the context of the Section
-@import "@faststore/ui/src/components/organisms/QuickOrderDrawer/styles.scss";
-@import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
+@include meta.load-css("~@faststore/ui/src/components/molecules/Dropdown/styles.scss");
+@include meta.load-css("~@faststore/ui/src/components/molecules/Card/styles.scss");
+@include meta.load-css("~@faststore/ui/src/components/molecules/FileUploadCard/styles.scss");
+@include meta.load-css("~@faststore/ui/src/components/molecules/FileUploadStatus/styles.scss");
+@include meta.load-css("~@faststore/ui/src/components/organisms/QuickOrderDrawer/styles.scss");
+@include meta.load-css("~@faststore/ui/src/components/organisms/SlideOver/styles.scss");
+
+// QuickOrderDrawer renders via createPortal (document.body), outside .section scope.
+// Wrapped in @layer components to match the same specificity as section-scoped styles.
+@layer components {
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Badge/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Price/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/Alert/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/QuantitySelector/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/Table/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/Tooltip/styles.scss");
+}

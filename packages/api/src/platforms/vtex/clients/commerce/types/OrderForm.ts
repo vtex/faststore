@@ -4,6 +4,11 @@ export interface OrderFormInputItem {
   seller: string
   index?: number
   attachments?: Attachment[]
+  /**
+   * Signed price token (JWT) from the Pricing Fallback feature. Forwarded to Checkout so it can
+   * trust the offer's price even if the Pricing System is down. Omitted when not available.
+   */
+  priceToken?: string
 }
 
 export interface Attachment {
@@ -120,10 +125,7 @@ export interface OrderForm {
     name: string
     logo: string
   }>
-  clientPreferencesData: {
-    locale: string
-    optinNewsLetter: any | null
-  }
+  clientPreferencesData: ClientPreferencesData | null
   commercialConditionData: any | null
   storePreferencesData: {
     countryCode: string
@@ -154,6 +156,11 @@ export interface OrderForm {
   }
   subscriptionData: SubscriptionData | null
   itemsOrdination: any | null
+}
+
+export interface ClientPreferencesData {
+  locale: string
+  optinNewsLetter?: boolean | null
 }
 
 export interface OrderFormCustomData {

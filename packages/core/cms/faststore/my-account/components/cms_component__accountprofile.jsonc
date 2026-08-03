@@ -1,0 +1,39 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountProfile",
+  "$componentTitle": "Account Profile",
+  "title": "Account Profile",
+  "description": "Profile section for My Account page showing user information",
+  "type": "object",
+  "properties": {
+    "pageTitle": {
+      "type": "string",
+      "title": "Page Title",
+      "default": "Profile"
+    },
+    "nameLabel": {
+      "type": "string",
+      "title": "Name Label",
+      "default": "Name"
+    },
+    "emailLabel": {
+      "type": "string",
+      "title": "Email Label",
+      "default": "Email"
+    },
+    "idLabel": {
+      "type": "string",
+      "title": "ID Label",
+      "default": "ID"
+    },
+    "createdDateLabel": {
+      "type": "string",
+      "title": "Created Date Label",
+      "default": "Created date"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

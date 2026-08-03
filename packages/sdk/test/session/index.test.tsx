@@ -1,4 +1,5 @@
 import { set } from 'idb-keyval'
+import { expect, test } from 'vitest'
 
 import { type Session, createSessionStore } from '../../src'
 import { waitFor } from '../waitFor'

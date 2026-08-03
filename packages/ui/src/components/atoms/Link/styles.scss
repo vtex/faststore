@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-link] {
   // --------------------------------------------------------
   // Design Tokens for Link
@@ -54,7 +56,7 @@
     border-radius: var(--fs-link-border-radius);
     transition: var(--fs-link-transition-property) var(--fs-link-transition-timing) var(--fs-link-transition-function);
 
-    @include focus-ring-visible;
+    @include utilities.focus-ring-visible;
   }
 
   // --------------------------------------------------------
@@ -83,7 +85,7 @@
   &[data-fs-link-size="small"] {
     font-size: var(--fs-link-small-text-size);
 
-    @include media(">=notebook") { padding: var(--fs-link-small-padding); }
+    @include utilities.media(">=notebook") { padding: var(--fs-link-small-padding); }
   }
 
   &[data-fs-link-inverse="true"] {

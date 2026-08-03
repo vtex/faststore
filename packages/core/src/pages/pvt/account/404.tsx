@@ -12,7 +12,7 @@ import type {
   ServerAccountPageQueryQuery,
   ServerAccountPageQueryQueryVariables,
 } from '@generated/graphql'
-import { MyAccountLayout } from 'src/components/account'
+import { Layout } from 'src/components/account'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections, {
   RenderSectionsBase,
@@ -24,6 +24,8 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { type PageContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { localizeRedirectDestination } from 'src/utils/localization/localizeRedirectDestination'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 /* A list of components that can be used in the CMS. */
@@ -53,11 +55,11 @@ function Page({
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <MyAccountLayout accountName={accountName}>
+        <Layout accountName={accountName}>
           {sections && sections.length > 0 && (
             <RenderSectionsBase sections={sections} components={COMPONENTS} />
           )}
-        </MyAccountLayout>
+        </Layout>
       </RenderSections>
     </PageProvider>
   )
@@ -71,11 +73,15 @@ const query = gql(`
   }
 `)
 
-export const getServerSideProps: GetServerSideProps<
+const getServerSidePropsBase: GetServerSideProps<
   Props,
   Record<string, string>,
   Locator
 > = async (context) => {
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
   })
@@ -88,7 +94,7 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [
     page,
@@ -98,7 +104,8 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooter,
   ] = await Promise.all([
     getPage<PageContentType>({
-      ...(context.previewData?.contentType === '404' && context.previewData),
+      ...(contentContext.previewData?.contentType === '404' &&
+        contentContext.previewData),
       contentType: '404',
     }),
     execute<ServerAccountPageQueryQueryVariables, ServerAccountPageQueryQuery>(
@@ -122,7 +129,10 @@ export const getServerSideProps: GetServerSideProps<
     if (statusCode === 401 || statusCode === 403) {
       return {
         redirect: {
-          destination: `/pvt/account/403?from=${encodeURIComponent('/pvt/account/404')}`,
+          destination: localizeRedirectDestination(
+            `/pvt/account/403?from=${encodeURIComponent('/pvt/account/404')}`,
+            context
+          ),
           permanent: false,
         },
       }
@@ -137,11 +147,15 @@ export const getServerSideProps: GetServerSideProps<
 
   return {
     props: {
-      page,
+      page: page ?? ({ sections: [], settings: {} } as PageContentType),
       globalSections: globalSectionsResult,
-      accountName: account.data.accountProfile.name,
+      accountName: account.data?.accountProfile?.name ?? '',
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)
 
 export default Page

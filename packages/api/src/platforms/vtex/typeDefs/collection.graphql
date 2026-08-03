@@ -1,0 +1,115 @@
+"""
+Product collection type. Possible values are `Department`, `Category`, `Brand` or `Collection`.
+
+`SubCategory` and `Cluster` are still declared for backward compatibility but are
+deprecated and never returned.
+"""
+enum StoreCollectionType {
+  """
+  First level of product categorization.
+  """
+  Department
+  """
+  Second level of product categorization.
+  """
+  Category
+  """
+  Third level of product categorization.
+
+  Deprecated: never returned — third-level categories resolve as `Category`.
+  """
+  SubCategory
+    @deprecated(
+      reason: "Never returned since the by-linkid migration: the category response only exposes `fatherCategoryId`, which distinguishes root from non-root but not tree depth, so third-level categories resolve as `Category`. Scheduled for removal in the next major."
+    )
+  """
+  Product brand.
+  """
+  Brand
+  """
+  Product cluster.
+
+  Deprecated: never returned — clusters resolve as `Collection`.
+  """
+  Cluster
+    @deprecated(
+      reason: "Never returned since the by-linkid migration: clusters and curated collections are both served by `collection/by-linkid`, whose response carries no discriminator between them, so both resolve as `Collection`. Scheduled for removal in the next major."
+    )
+  """
+  Product collection.
+  """
+  Collection
+}
+
+"""
+Product collection facet, used for search.
+"""
+type StoreCollectionFacet {
+  """
+  Facet key.
+  """
+  key: String!
+  """
+  Facet value.
+  """
+  value: String!
+}
+
+"""
+Collection meta information. Used for search.
+"""
+type StoreCollectionMeta {
+  """
+  List of selected collection facets.
+  """
+  selectedFacets: [StoreCollectionFacet!]!
+}
+
+"""
+Product collection information.
+"""
+type StoreCollection {
+  """
+  Meta tag data.
+  """
+  seo: StoreSeo!
+  """
+  List of items consisting of chain linked web pages, ending with the current page.
+  """
+  breadcrumbList: StoreBreadcrumbList!
+  """
+  Collection meta information. Used for search.
+  """
+  meta: StoreCollectionMeta!
+  """
+  Collection ID.
+  """
+  id: ID!
+  """
+  Corresponding collection URL slug, with which to retrieve this entity.
+  """
+  slug: String!
+  """
+  Collection type.
+  """
+  type: StoreCollectionType!
+  """
+  Localized versions of this collection for all available locales.
+  Only populated when localization is enabled.
+  """
+  otherLocales: [StoreCollectionLocale!]
+}
+
+"""
+Localized collection data for a specific locale.
+"""
+type StoreCollectionLocale {
+  """
+  Locale code (e.g. "pt-BR", "it-IT").
+  """
+  locale: String!
+  """
+  Localized collection slug (e.g. "vestuario/camisetas").
+  """
+  slug: String!
+}

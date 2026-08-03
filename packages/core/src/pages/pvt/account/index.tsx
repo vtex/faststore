@@ -1,16 +1,15 @@
 import type { GetServerSideProps, NextPage } from 'next'
+import { localizeRedirectDestination } from 'src/utils/localization/localizeRedirectDestination'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 const MyAccountRedirectPage: NextPage = () => {
   return null
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-  req,
-}) => {
+const getServerSidePropsBase: GetServerSideProps = async (context) => {
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
-    query,
+    query: context.query,
   })
 
   if (!isFaststoreMyAccountEnabled) {
@@ -19,10 +18,14 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     redirect: {
-      destination: '/pvt/account/profile',
+      destination: localizeRedirectDestination('/pvt/account/profile', context),
       permanent: false,
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)
 
 export default MyAccountRedirectPage

@@ -1,10 +1,11 @@
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { sendAnalyticsEvent } from '../../src/analytics/sendAnalyticsEvent'
 import type { CustomEvent } from './__fixtures__/EventSamples'
 import {
-  CUSTOM_EVENT_SAMPLE,
   ADD_TO_CART_SAMPLE,
-  WRAPPED_CUSTOM_EVENT_SAMPLE,
+  CUSTOM_EVENT_SAMPLE,
   WRAPPED_ADD_TO_CART_SAMPLE,
+  WRAPPED_CUSTOM_EVENT_SAMPLE,
 } from './__fixtures__/EventSamples'
 
 const noop = () => {}
@@ -12,11 +13,11 @@ const origin = 'http://localhost:8080/'
 
 describe('sendAnalyticsEvent', () => {
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
 
   it('window.postMessage is called with correct params', () => {
-    const postMessageSpy = jest
+    const postMessageSpy = vi
       .spyOn(window, 'postMessage')
       .mockImplementation(noop)
 
@@ -35,7 +36,7 @@ describe('sendAnalyticsEvent', () => {
   })
 
   it('sendAnalyticsEvent is able to send custom events', () => {
-    const postMessageSpy = jest
+    const postMessageSpy = vi
       .spyOn(window, 'postMessage')
       .mockImplementation(noop)
 
