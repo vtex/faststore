@@ -144,6 +144,18 @@ describe('createNextJsPages', () => {
     ).toBe(false)
   })
 
+  it('does not generate CMS pages for routes that only look like the allowed prefix', () => {
+    seedNavigation('navigation-collision.ts')
+
+    createNextJsPages(tempDir)
+
+    expect(
+      fs.existsSync(
+        path.join(corePagesDir, 'pvt', 'accounting', 'dashboard.tsx')
+      )
+    ).toBe(false)
+  })
+
   it('wires before/after extensions for hybrid CMS pages', () => {
     seedNavigation('navigation-with-cms.ts')
 

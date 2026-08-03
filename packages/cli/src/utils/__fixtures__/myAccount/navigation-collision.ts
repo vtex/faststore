@@ -12,5 +12,10 @@ export default getMyAccountRoutes({
       title: 'Outside',
       contentType: 'myAccountOutside',
     },
+    {
+      route: '/pvt/accounting/dashboard',
+      title: 'Prefix Lookalike',
+      contentType: 'myAccountLookalike',
+    },
   ],
 })

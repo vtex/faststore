@@ -75,7 +75,11 @@ const createExternalPages = ({
 }
 
 function isAllowedPrefixPage(file: string) {
-  return ALLOWED_PREFIX_PAGES.some((prefix) => file.startsWith(prefix))
+  // Match on route-segment boundaries so `/pvt/accounting` is not treated as
+  // a `/pvt/account` descendant.
+  return ALLOWED_PREFIX_PAGES.some(
+    (prefix) => file === prefix || file.startsWith(`${prefix}/`)
+  )
 }
 
 function normalizeAccountRoute(routeOrRelativePath: string): string {
