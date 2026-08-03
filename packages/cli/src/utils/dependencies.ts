@@ -1,4 +1,4 @@
-import { getPreferredPackageManager } from './commands'
+import { resolvePackageManager } from './commands'
 import { runCommandSync } from './runCommandSync'
 
 type InstallDependenciesOptions = {
@@ -12,11 +12,16 @@ export async function installDependencies({
   cwd,
   errorMessage,
 }: InstallDependenciesOptions) {
-  const packageManager = await getPreferredPackageManager()
-  const installCommand = packageManager === 'npm' ? 'install' : 'add'
+  // Installing writes a lockfile: a substitute agent would leave a second,
+  // conflicting one next to the project's (e.g. `yarn add` in a pnpm store
+  // creates a `yarn.lock`), so only the detected agent is acceptable here.
+  const { agent, command } = await resolvePackageManager(cwd, {
+    substitute: false,
+  })
+  const installCommand = agent === 'npm' ? 'install' : 'add'
 
   runCommandSync({
-    cmd: `${packageManager} ${installCommand} ${dependencies.join(' ')}`,
+    cmd: `${command} ${installCommand} ${dependencies.join(' ')}`,
     errorMessage,
     throws: 'error',
     cwd,
