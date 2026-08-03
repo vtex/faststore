@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0-dev.7](https://github.com/vtex/faststore/compare/v4.5.0-dev.6...v4.5.0-dev.7) (2026-08-03)
+
+### Features
+
+- CMS-driven custom My Account pages ([#3411](https://github.com/vtex/faststore/issues/3411)) ([e38b278](https://github.com/vtex/faststore/commit/e38b2780bb7386a8ef7b83a9e3de5956bf6de50e))
+
 # [4.5.0-dev.6](https://github.com/vtex/faststore/compare/v4.5.0-dev.5...v4.5.0-dev.6) (2026-07-28)
 
 **Note:** Version bump only for package @faststore/cli
