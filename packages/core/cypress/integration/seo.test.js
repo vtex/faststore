@@ -123,7 +123,7 @@ describe('Product Page Seo', () => {
       })
   })
 
-  it('has OpenGraph tags', () => {
+  it('has OpenGraph and Twitter tags', () => {
     cy.visit(pages.pdp, options)
     cy.waitForHydration()
 
@@ -161,6 +161,12 @@ describe('Product Page Seo', () => {
       .should('exist')
       .should(($el) => {
         expect($el.attr('content')).to.be.a('string')
+      })
+
+    cy.get('meta[name="twitter:card"]')
+      .should('exist')
+      .should(($el) => {
+        expect($el.attr('content')).to.eq('summary_large_image')
       })
   })
 })
@@ -207,7 +213,7 @@ describe('Collection Page Seo', () => {
       })
   })
 
-  it('has OpenGraph tags', () => {
+  it('has OpenGraph and Twitter tags', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
@@ -227,6 +233,12 @@ describe('Collection Page Seo', () => {
       .should('exist')
       .should(($el) => {
         expect($el.attr('content')).to.be.a('string')
+      })
+
+    cy.get('meta[name="twitter:card"]')
+      .should('exist')
+      .should(($el) => {
+        expect($el.attr('content')).to.eq('summary_large_image')
       })
   })
 })
@@ -262,7 +274,7 @@ describe('Filtered Collection Page Seo', () => {
       })
   })
 
-  it('has OpenGraph tags', () => {
+  it('has OpenGraph and Twitter tags', () => {
     cy.visit(pages.collection_filtered, options)
     cy.waitForHydration()
 
@@ -283,6 +295,12 @@ describe('Filtered Collection Page Seo', () => {
       .should(($el) => {
         expect($el.attr('content')).to.be.a('string')
       })
+
+    cy.get('meta[name="twitter:card"]')
+      .should('exist')
+      .should(($el) => {
+        expect($el.attr('content')).to.eq('summary_large_image')
+      })
   })
 })
 
@@ -301,7 +319,7 @@ describe('Search Page Seo', () => {
     cy.get('link[rel="canonical"]').should('not.exist')
   })
 
-  it('has OpenGraph tags', () => {
+  it('has OpenGraph and Twitter tags', () => {
     cy.visit(pages.search, options)
     cy.waitForHydration()
 
@@ -321,6 +339,12 @@ describe('Search Page Seo', () => {
       .should('exist')
       .should(($el) => {
         expect($el.attr('content')).to.be.a('string')
+      })
+
+    cy.get('meta[name="twitter:card"]')
+      .should('exist')
+      .should(($el) => {
+        expect($el.attr('content')).to.eq('summary_large_image')
       })
   })
 })
