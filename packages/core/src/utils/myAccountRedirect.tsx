@@ -1,6 +1,16 @@
 import storeConfig from 'discovery.config'
 import type { ParsedUrlQuery } from 'node:querystring'
 
+type MyAccountRedirect = { destination: string; permanent: boolean }
+
+/**
+ * Discriminated union so callers that guard on `isFaststoreMyAccountEnabled`
+ * get a non-nullable `redirect`.
+ */
+export type MyAccountRedirectResult =
+  | { isFaststoreMyAccountEnabled: false; redirect: MyAccountRedirect }
+  | { isFaststoreMyAccountEnabled: true; redirect: null }
+
 /**
  * Check if the Faststore My Account feature flag is enabled.
  * If not, redirect to the legacy My Account URL with the query parameters.
@@ -8,10 +18,9 @@ import type { ParsedUrlQuery } from 'node:querystring'
  * @param {ParsedUrlQuery} query - The query parameters from the request.
  * @returns {Object} - An object containing the feature flag status and redirect information.
  */
-export function getMyAccountRedirect({ query }: { query: ParsedUrlQuery }): {
-  isFaststoreMyAccountEnabled: boolean
-  redirect: { destination: string; permanent: boolean } | null
-} {
+export function getMyAccountRedirect({
+  query,
+}: { query: ParsedUrlQuery }): MyAccountRedirectResult {
   const isFaststoreMyAccountEnabled =
     storeConfig.experimental?.enableFaststoreMyAccount
 
@@ -29,8 +38,8 @@ export function getMyAccountRedirect({ query }: { query: ParsedUrlQuery }): {
       permanent: false,
     }
 
-    return { isFaststoreMyAccountEnabled, redirect }
+    return { isFaststoreMyAccountEnabled: false, redirect }
   }
 
-  return { isFaststoreMyAccountEnabled, redirect: null }
+  return { isFaststoreMyAccountEnabled: true, redirect: null }
 }
