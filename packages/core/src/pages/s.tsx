@@ -84,6 +84,9 @@ function generateSEOData(
         title,
         description,
       },
+      twitter: {
+        cardType: 'summary_large_image',
+      },
     }
   }
 
@@ -102,6 +105,9 @@ function generateSEOData(
       type: 'website',
       title: title,
       description: description,
+    },
+    twitter: {
+      cardType: 'summary_large_image',
     },
   }
 }

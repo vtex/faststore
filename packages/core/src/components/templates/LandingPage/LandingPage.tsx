@@ -80,6 +80,9 @@ export default function LandingPage({
           description:
             settings?.seo?.description ?? storeConfig.seo.description,
         }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
       />
       <SiteLinksSearchBoxJsonLd
         url={storeURL}
