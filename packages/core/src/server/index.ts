@@ -35,6 +35,7 @@ interface ExecuteOptions<V = Record<string, unknown>> {
   operation: Operation
   variables: V
   query?: string | null
+  locale?: string
 }
 
 const persistedQueries = new Map()
@@ -99,7 +100,7 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
     cookies: Map<string, Record<string, string>> | null
   }
 }> => {
-  const { operation, variables, query: maybeQuery } = options
+  const { operation, variables, query: maybeQuery, locale } = options
   const { operationHash, operationName } = operation['__meta__']
 
   if (!persistedQueries.size) {
@@ -127,6 +128,14 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
   } = enveloped(envelopContext)
 
   const contextValue = await contextFactory(envelopContext)
+
+  // Override the store-default locale with the per-request locale (if any) so
+  // localization-aware resolvers read it from ctx.storage.locale. Resolvers that
+  // carry their own locale (e.g. product/search via locator facets) still
+  // override this default inside their own resolution.
+  if (locale) {
+    contextValue.storage.locale = locale
+  }
 
   // Create a per-request root span and make it the active context so the
   // resolver spans created by `@faststore/api` (`ResolverTrace`) parent to it.

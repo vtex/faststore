@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1-dev.2](https://github.com/vtex/faststore/compare/v4.5.1-dev.1...v4.5.1-dev.2) (2026-08-04)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.5.1-dev.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.0...v4.5.1-dev.1) (2026-08-04)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.5.1-dev.0](https://github.com/vtex/faststore/compare/v4.5.0...v4.5.1-dev.0) (2026-08-03)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.5.0](https://github.com/vtex/faststore/compare/v4.5.0-dev.7...v4.5.0) (2026-08-03)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.5.0-dev.7](https://github.com/vtex/faststore/compare/v4.5.0-dev.6...v4.5.0-dev.7) (2026-08-03)
+
+### Features
+
+- CMS-driven custom My Account pages ([#3411](https://github.com/vtex/faststore/issues/3411)) ([e38b278](https://github.com/vtex/faststore/commit/e38b2780bb7386a8ef7b83a9e3de5956bf6de50e))
+
+# [4.5.0-dev.6](https://github.com/vtex/faststore/compare/v4.5.0-dev.5...v4.5.0-dev.6) (2026-07-28)
+
+### Bug Fixes
+
+- prevent My Account 500s from empty session profile and missing CMS content ([#3417](https://github.com/vtex/faststore/issues/3417)) ([2c2a18f](https://github.com/vtex/faststore/commit/2c2a18fe8f4127404d6634933cce778a64169c08))
+
+# [4.5.0-dev.5](https://github.com/vtex/faststore/compare/v4.5.0-dev.4...v4.5.0-dev.5) (2026-07-27)
+
+### Features
+
+- forward Pricing Fallback price token to Checkout ([#3415](https://github.com/vtex/faststore/issues/3415)) ([bc6cda2](https://github.com/vtex/faststore/commit/bc6cda2cdaed0540896ca7202246ad2d3dcd5766))
+
+# [4.5.0-dev.4](https://github.com/vtex/faststore/compare/v4.5.0-dev.3...v4.5.0-dev.4) (2026-07-24)
+
+### Features
+
+- **core:** localized product URLs, breadcrumbs PDP and PLPs ([#3402](https://github.com/vtex/faststore/issues/3402)) ([3c6b6ef](https://github.com/vtex/faststore/commit/3c6b6ef29ef902ccae3ff784297b24e6c6bc7802)), closes [#3352](https://github.com/vtex/faststore/issues/3352) [#3401](https://github.com/vtex/faststore/issues/3401)
+
+# [4.5.0-dev.3](https://github.com/vtex/faststore/compare/v4.5.0-dev.2...v4.5.0-dev.3) (2026-07-22)
+
+### Features
+
+- **core:** move recommendation session start to CMS Global Section ([8589056](https://github.com/vtex/faststore/commit/8589056046b38e5dbc4f8ce6dcc669f7a15a4d85))
+
 # [4.5.0-dev.2](https://github.com/vtex/faststore/compare/v4.5.0-dev.1...v4.5.0-dev.2) (2026-07-20)
 
 **Note:** Version bump only for package @faststore/core

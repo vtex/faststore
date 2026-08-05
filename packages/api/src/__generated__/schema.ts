@@ -510,6 +510,8 @@ export type IStoreOffer = {
   listPrice: Scalars['Float']['input'];
   /** Also known as spot price. */
   price: Scalars['Float']['input'];
+  /** Signed price token (JWT) from the Pricing Fallback feature, forwarded to Checkout on add-to-cart. */
+  priceToken?: InputMaybe<Scalars['String']['input']>;
   /** Number of items offered. */
   quantity: Scalars['Int']['input'];
   /** Seller responsible for the offer. */
@@ -1347,6 +1349,11 @@ export type StoreCollection = {
   id: Scalars['ID']['output'];
   /** Collection meta information. Used for search. */
   meta: StoreCollectionMeta;
+  /**
+   * Localized versions of this collection for all available locales.
+   * Only populated when localization is enabled.
+   */
+  otherLocales?: Maybe<Array<StoreCollectionLocale>>;
   /** Meta tag data. */
   seo: StoreSeo;
   /** Corresponding collection URL slug, with which to retrieve this entity. */
@@ -1382,6 +1389,15 @@ export type StoreCollectionFacet = {
   value: Scalars['String']['output'];
 };
 
+/** Localized collection data for a specific locale. */
+export type StoreCollectionLocale = {
+  __typename?: 'StoreCollectionLocale';
+  /** Locale code (e.g. "pt-BR", "it-IT"). */
+  locale: Scalars['String']['output'];
+  /** Localized collection slug (e.g. "vestuario/camisetas"). */
+  slug: Scalars['String']['output'];
+};
+
 /** Collection meta information. Used for search. */
 export type StoreCollectionMeta = {
   __typename?: 'StoreCollectionMeta';
@@ -1389,19 +1405,34 @@ export type StoreCollectionMeta = {
   selectedFacets: Array<StoreCollectionFacet>;
 };
 
-/** Product collection type. Possible values are `Department`, `Category`, `Brand`, `Cluster`, `SubCategory` or `Collection`. */
+/**
+ * Product collection type. Possible values are `Department`, `Category`, `Brand` or `Collection`.
+ *
+ * `SubCategory` and `Cluster` are still declared for backward compatibility but are
+ * deprecated and never returned.
+ */
 export const enum StoreCollectionType {
   /** Product brand. */
   Brand = 'Brand',
   /** Second level of product categorization. */
   Category = 'Category',
-  /** Product cluster. */
+  /**
+   * Product cluster.
+   *
+   * Deprecated: never returned — clusters resolve as `Collection`.
+   * @deprecated Never returned since the by-linkid migration: clusters and curated collections are both served by `collection/by-linkid`, whose response carries no discriminator between them, so both resolve as `Collection`. Scheduled for removal in the next major.
+   */
   Cluster = 'Cluster',
   /** Product collection. */
   Collection = 'Collection',
   /** First level of product categorization. */
   Department = 'Department',
-  /** Third level of product categorization. */
+  /**
+   * Third level of product categorization.
+   *
+   * Deprecated: never returned — third-level categories resolve as `Category`.
+   * @deprecated Never returned since the by-linkid migration: the category response only exposes `fatherCategoryId`, which distinguishes root from non-root but not tree depth, so third-level categories resolve as `Category`. Scheduled for removal in the next major.
+   */
   SubCategory = 'SubCategory'
 };
 
@@ -1560,6 +1591,12 @@ export type StoreOffer = {
   price: Scalars['Float']['output'];
   /** ISO code of the currency used for the offer prices. */
   priceCurrency: Scalars['String']['output'];
+  /**
+   * Signed price token (JWT) used by the Pricing Fallback feature. When present, it should be
+   * forwarded to Checkout on add-to-cart so the platform can trust the offer's price even if
+   * the Pricing System is unavailable. May be null when the signing step fails or the feature is disabled.
+   */
+  priceToken?: Maybe<Scalars['String']['output']>;
   /** Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time. */
   priceValidUntil: Scalars['String']['output'];
   /** Also known as spot price with taxes. */
@@ -1688,6 +1725,11 @@ export type StoreProduct = {
   name: Scalars['String']['output'];
   /** Aggregate offer information. */
   offers: StoreAggregateOffer;
+  /**
+   * Localized versions of this product for all available locales.
+   * Only populated when localization is enabled.
+   */
+  otherLocales?: Maybe<Array<StoreProductLocale>>;
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String']['output'];
   /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
@@ -1750,6 +1792,15 @@ export type StoreProductGroup = {
    * components.
    */
   skuVariants?: Maybe<SkuVariants>;
+};
+
+/** Localized product data for a specific locale. */
+export type StoreProductLocale = {
+  __typename?: 'StoreProductLocale';
+  /** Locale code (e.g. "pt-BR", "it-IT"). */
+  locale: Scalars['String']['output'];
+  /** Localized product slug including the SKU ID suffix (e.g. "adidas-polo-uomo-65"). */
+  slug: Scalars['String']['output'];
 };
 
 /** Properties that can be associated with products and products groups. */

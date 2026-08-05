@@ -8,16 +8,6 @@ exports[`\`allCollections\` query 1`] = `
         {
           "cursor": "0",
           "node": {
-            "breadcrumbList": {
-              "itemListElement": [
-                {
-                  "item": "/brand",
-                  "name": "Brand",
-                  "position": 1,
-                },
-              ],
-              "numberOfItems": 1,
-            },
             "id": "9280",
             "meta": {
               "selectedFacets": [
@@ -40,16 +30,6 @@ exports[`\`allCollections\` query 1`] = `
         {
           "cursor": "1",
           "node": {
-            "breadcrumbList": {
-              "itemListElement": [
-                {
-                  "item": "/skechers",
-                  "name": "Skechers",
-                  "position": 1,
-                },
-              ],
-              "numberOfItems": 1,
-            },
             "id": "2000001",
             "meta": {
               "selectedFacets": [
@@ -72,16 +52,6 @@ exports[`\`allCollections\` query 1`] = `
         {
           "cursor": "2",
           "node": {
-            "breadcrumbList": {
-              "itemListElement": [
-                {
-                  "item": "/acer",
-                  "name": "Acer",
-                  "position": 1,
-                },
-              ],
-              "numberOfItems": 1,
-            },
             "id": "2000002",
             "meta": {
               "selectedFacets": [
@@ -104,16 +74,6 @@ exports[`\`allCollections\` query 1`] = `
         {
           "cursor": "3",
           "node": {
-            "breadcrumbList": {
-              "itemListElement": [
-                {
-                  "item": "/irobot",
-                  "name": "iRobot",
-                  "position": 1,
-                },
-              ],
-              "numberOfItems": 1,
-            },
             "id": "2000003",
             "meta": {
               "selectedFacets": [
@@ -136,16 +96,6 @@ exports[`\`allCollections\` query 1`] = `
         {
           "cursor": "4",
           "node": {
-            "breadcrumbList": {
-              "itemListElement": [
-                {
-                  "item": "/adidas",
-                  "name": "adidas",
-                  "position": 1,
-                },
-              ],
-              "numberOfItems": 1,
-            },
             "id": "2000004",
             "meta": {
               "selectedFacets": [
@@ -498,27 +448,18 @@ exports[`\`collection\` query 1`] = `
       "breadcrumbList": {
         "itemListElement": [
           {
-            "item": "/office",
-            "name": "Office",
+            "item": "/desks",
+            "name": "Desks",
             "position": 1,
           },
-          {
-            "item": "/office/desks",
-            "name": "Desks",
-            "position": 2,
-          },
         ],
-        "numberOfItems": 2,
+        "numberOfItems": 1,
       },
       "id": "9295",
       "meta": {
         "selectedFacets": [
           {
             "key": "category-1",
-            "value": "office",
-          },
-          {
-            "key": "category-2",
             "value": "desks",
           },
         ],
@@ -529,7 +470,7 @@ exports[`\`collection\` query 1`] = `
         "title": "Desks",
         "titleTemplate": "",
       },
-      "slug": "office/desks",
+      "slug": "desks",
       "type": "Category",
     },
   },

@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1-dev.2](https://github.com/vtex/faststore/compare/v4.5.1-dev.1...v4.5.1-dev.2) (2026-08-04)
+
+**Note:** Version bump only for package @faststore/components
+
+## [4.5.1-dev.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.0...v4.5.1-dev.1) (2026-08-04)
+
+**Note:** Version bump only for package @faststore/components
+
+## [4.5.1-dev.0](https://github.com/vtex/faststore/compare/v4.5.0...v4.5.1-dev.0) (2026-08-03)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.5.0](https://github.com/vtex/faststore/compare/v4.5.0-dev.7...v4.5.0) (2026-08-03)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.5.0-dev.7](https://github.com/vtex/faststore/compare/v4.5.0-dev.6...v4.5.0-dev.7) (2026-08-03)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.5.0-dev.6](https://github.com/vtex/faststore/compare/v4.5.0-dev.5...v4.5.0-dev.6) (2026-07-28)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.5.0-dev.5](https://github.com/vtex/faststore/compare/v4.5.0-dev.4...v4.5.0-dev.5) (2026-07-27)
+
+### Features
+
+- forward Pricing Fallback price token to Checkout ([#3415](https://github.com/vtex/faststore/issues/3415)) ([bc6cda2](https://github.com/vtex/faststore/commit/bc6cda2cdaed0540896ca7202246ad2d3dcd5766))
+
+# [4.5.0-dev.4](https://github.com/vtex/faststore/compare/v4.5.0-dev.3...v4.5.0-dev.4) (2026-07-24)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.5.0-dev.3](https://github.com/vtex/faststore/compare/v4.5.0-dev.2...v4.5.0-dev.3) (2026-07-22)
+
+**Note:** Version bump only for package @faststore/components
+
 # [4.5.0-dev.2](https://github.com/vtex/faststore/compare/v4.5.0-dev.1...v4.5.0-dev.2) (2026-07-20)
 
 **Note:** Version bump only for package @faststore/components

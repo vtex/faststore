@@ -31,10 +31,22 @@ export interface GraphqlContext {
     flags: FeatureFlags
     searchArgs?: Omit<SearchArgs, 'type'>
     cookies: Map<string, Record<string, string>>
+    /**
+     * Cached in-flight localized product lookups keyed by "productId:locale".
+     * Stores the promise (not just the resolved value) so concurrent sibling
+     * resolvers (slug validation, otherLocales, breadcrumb) dedupe to a single
+     * Catalog Dataplane request within the same request.
+     */
+    productTranslationsCache?: Map<
+      string,
+      Promise<import('./clients/catalog').LocalizedProductEntry | null>
+    >
   }
   headers: Record<string, string>
   account: string
   OTEL_ENABLED: boolean
+  /** Discovery config passed from @faststore/core, including localization settings. */
+  discoveryConfig?: Record<string, unknown>
 }
 
 export const GraphqlVtexContextFactory = async (options: Options) => {
@@ -45,11 +57,15 @@ export const GraphqlVtexContextFactory = async (options: Options) => {
       locale: options.locale,
       cookies: new Map<string, Record<string, string>>(),
     }
+    ctx.account = options.account
+    ctx.OTEL_ENABLED = options.OTEL_ENABLED
+    ctx.discoveryConfig = options.discoveryConfig
+    // Build clients/loaders last: they capture `ctx` and read storage,
+    // discoveryConfig, etc. at request time, so everything they may depend on
+    // must already be assigned.
     ctx.clients = getClients(options, ctx)
     ctx.loaders = getLoaders(options, ctx)
-    ctx.account = options.account
-    ctx.discoveryConfig = options.discoveryConfig
-    ctx.OTEL_ENABLED = options.OTEL_ENABLED
+
     return ctx
   }
 }
