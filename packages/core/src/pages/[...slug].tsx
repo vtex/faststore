@@ -216,6 +216,7 @@ export const getStaticProps: GetStaticProps<
 
     return {
       notFound: true,
+      revalidate: 60 * 5, // 5 minutes
     }
   }
 

@@ -482,6 +482,8 @@ export const getStaticProps: GetStaticProps<
 
     return {
       notFound: true,
+      revalidate:
+        (storeConfig as StoreConfig).experimental.revalidate ?? 60 * 5, // 5 minutes
     }
   }
 
