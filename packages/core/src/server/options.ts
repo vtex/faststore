@@ -23,6 +23,6 @@ export const apiOptions: APIOptions = {
   },
   version,
   // feature flag default to false as it should not emit traces/logs yet
-  OTEL_ENABLED: true,
+  OTEL_ENABLED: false,
   discoveryConfig: storeConfig,
 }
