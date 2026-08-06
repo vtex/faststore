@@ -1,6 +1,10 @@
 import deepEquals from 'fast-deep-equal'
 
 import { parse } from 'cookie'
+import {
+  channelAfterExternalOrderFormSync,
+  shouldRefetchOrderFormWithSessionSalesChannel,
+} from '../utils/cartSalesChannel'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
 import {
@@ -336,6 +340,23 @@ const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
   return cookieValue ? cookieValue.split('=')[1] : ''
 }
 
+/** Adopt the orderForm SC when another system changed the cart (stale etag). */
+const adoptOrderFormSalesChannelIfNeeded = (
+  ctx: GraphqlContext,
+  orderForm: OrderForm,
+  isOrderFormStaleFlag: boolean
+) => {
+  const adoptedChannel = channelAfterExternalOrderFormSync(
+    ctx.storage.channel,
+    orderForm.salesChannel,
+    isOrderFormStaleFlag
+  )
+
+  if (adoptedChannel) {
+    mutateChannelContext(ctx, adoptedChannel)
+  }
+}
+
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
@@ -374,10 +395,17 @@ export const validateCart = async (
     mutateLocaleContext(ctx, locale)
   }
 
-  // Step1: Get OrderForm from VTEX Commerce
-  const orderForm = await commerce.checkout.orderForm({
-    id: orderFormIdFromCookie || undefined,
+  // Step1: Get OrderForm from VTEX Commerce.
+  // For existing carts (`orderFormId` present), omit `sc` on the first GET so
+  // Checkout keeps the orderForm's current sales channel. Passing a stale
+  // session SC (e.g. after Quick Order) would recalculate the cart and drop
+  // items only available in the orderForm's trade policy. New carts still
+  // send `sc` from the session (see commerce.checkout.orderForm).
+  const orderFormId = orderFormIdFromCookie || undefined
+  let orderForm = await commerce.checkout.orderForm({
+    id: orderFormId,
     channel: ctx.storage.channel,
+    preserveSalesChannel: Boolean(orderFormId),
   })
   const orderNumber = orderForm.orderFormId
 
@@ -398,6 +426,10 @@ export const validateCart = async (
   const isStale = isOrderFormStale(orderForm, sessionJwt)
 
   if (isStale) {
+    // Adopt the orderForm SC so subsequent checkout calls (etag, etc.) stay
+    // on the trade policy that actually owns the items.
+    adoptOrderFormSalesChannelIfNeeded(ctx, orderForm, isStale)
+
     const newOrderForm = await setOrderFormEtag(
       orderForm,
       commerce,
@@ -406,6 +438,23 @@ export const validateCart = async (
     if (orderNumber) {
       return orderFormToCart(newOrderForm, skuLoader, shouldSplitItem)
     }
+  }
+
+  // Session owns the channel when the cart is not externally stale. If the
+  // user switched sales channel in-session (e.g. locale/binding), re-fetch
+  // with the session SC so Checkout recalculates under the new trade policy.
+  if (
+    shouldRefetchOrderFormWithSessionSalesChannel(
+      ctx.storage.channel.salesChannel,
+      orderForm.salesChannel,
+      isStale
+    )
+  ) {
+    orderForm = await commerce.checkout.orderForm({
+      id: orderForm.orderFormId,
+      channel: ctx.storage.channel,
+      preserveSalesChannel: false,
+    })
   }
 
   // Step2: Process items from both browser and checkout so they have the same shape

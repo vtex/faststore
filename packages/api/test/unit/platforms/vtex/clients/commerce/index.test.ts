@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import * as clients from '../../../../../src/platforms/vtex/clients'
-// This should be imported AFTER the '../../../../../src/platforms/vtex/clients'
-import { NotFoundError } from '../../../../../src/platforms/errors'
-import { GraphqlVtexContextFactory } from '../../../../../src/platforms/vtex'
+import * as clients from '../../../../../../src/platforms/vtex/clients'
+// This should be imported AFTER the '../../../../../../src/platforms/vtex/clients'
+import { NotFoundError } from '../../../../../../src/platforms/errors'
+import { GraphqlVtexContextFactory } from '../../../../../../src/platforms/vtex'
 
 const apiOptions = {
   platform: 'vtex',
@@ -27,7 +27,7 @@ beforeEach(() => {
   fetchAPIMocked.mockClear()
 })
 
-vi.mock('../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
+vi.mock('../../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: async (
     info: RequestInfo,
     init?: RequestInit,
@@ -69,6 +69,61 @@ describe('VTEX Commerce', () => {
           })
         ).toThrow(Error)
         expect(fetchAPIMocked).not.toHaveBeenCalled()
+      })
+    })
+
+    describe('orderForm', () => {
+      it('includes sc query param by default', async () => {
+        fetchAPIMocked.mockResolvedValueOnce({
+          orderFormId: 'of-1',
+          salesChannel: '1',
+          items: [],
+        })
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        await commerce.checkout.orderForm({ id: 'of-1' })
+
+        const [url] = fetchAPIMocked.mock.calls[0]
+        expect(url).toContain('/api/checkout/pub/orderForm/of-1?')
+        expect(url).toContain('sc=1')
+        expect(url).toContain('refreshOutdatedData=true')
+      })
+
+      it('omits sc when preserveSalesChannel is true for an existing cart', async () => {
+        fetchAPIMocked.mockResolvedValueOnce({
+          orderFormId: 'of-1',
+          salesChannel: '4',
+          items: [{ id: 'sku-1' }],
+        })
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        await commerce.checkout.orderForm({
+          id: 'of-1',
+          preserveSalesChannel: true,
+        })
+
+        const [url] = fetchAPIMocked.mock.calls[0]
+        expect(url).toContain('/api/checkout/pub/orderForm/of-1?')
+        expect(url).not.toContain('sc=')
+        expect(url).toContain('refreshOutdatedData=true')
+      })
+
+      it('still sends sc when preserveSalesChannel is true but creating a new cart', async () => {
+        fetchAPIMocked.mockResolvedValueOnce({
+          orderFormId: 'of-new',
+          salesChannel: '1',
+          items: [],
+        })
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        await commerce.checkout.orderForm({
+          preserveSalesChannel: true,
+        })
+
+        const [url] = fetchAPIMocked.mock.calls[0]
+        expect(url).toContain('/api/checkout/pub/orderForm?')
+        expect(url).toContain('sc=1')
+        expect(url).not.toContain('refreshOutdatedData')
       })
     })
   })

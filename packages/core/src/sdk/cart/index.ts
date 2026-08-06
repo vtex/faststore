@@ -13,8 +13,9 @@ import type {
 
 import storeConfig from '../../../discovery.config'
 import { request } from '../graphql/request'
-import { sessionStore } from '../session'
+import { hasValidatedSessionStore, sessionStore } from '../session'
 import { createValidationStore, useStore } from '../useStore'
+import { waitForSessionValidated } from './waitForSessionValidated'
 
 export interface CartItem
   extends SDKCartItem,
@@ -114,6 +115,8 @@ const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
     .join('::')
 
 const validateCart = async (cart: Cart): Promise<Cart | null> => {
+  await waitForSessionValidated(hasValidatedSessionStore)
+
   const { validateCart: validated = null } = await request<
     ValidateCartMutationMutation,
     ValidateCartMutationMutationVariables

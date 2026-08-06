@@ -194,6 +194,9 @@ export const validateSession = async (session: Session) => {
 const [validationStore, onValidate, hasValidatedStore] =
   createValidationStore(validateSession)
 
+/** True after at least one validateSession cycle finished (success or failure). */
+export const hasValidatedSessionStore = hasValidatedStore
+
 const urlAwareInitialSession = getInitialSession()
 const defaultStore = createSessionStore(
   urlAwareInitialSession,
