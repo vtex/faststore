@@ -340,6 +340,23 @@ const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
   return cookieValue ? cookieValue.split('=')[1] : ''
 }
 
+/** Adopt the orderForm SC when another system changed the cart (stale etag). */
+const adoptOrderFormSalesChannelIfNeeded = (
+  ctx: GraphqlContext,
+  orderForm: OrderForm,
+  isOrderFormStaleFlag: boolean
+) => {
+  const adoptedChannel = channelAfterExternalOrderFormSync(
+    ctx.storage.channel,
+    orderForm.salesChannel,
+    isOrderFormStaleFlag
+  )
+
+  if (adoptedChannel) {
+    mutateChannelContext(ctx, adoptedChannel)
+  }
+}
+
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
@@ -411,14 +428,7 @@ export const validateCart = async (
   if (isStale) {
     // Adopt the orderForm SC so subsequent checkout calls (etag, etc.) stay
     // on the trade policy that actually owns the items.
-    const adoptedChannel = channelAfterExternalOrderFormSync(
-      ctx.storage.channel,
-      orderForm.salesChannel,
-      isStale
-    )
-    if (adoptedChannel) {
-      mutateChannelContext(ctx, adoptedChannel)
-    }
+    adoptOrderFormSalesChannelIfNeeded(ctx, orderForm, isStale)
 
     const newOrderForm = await setOrderFormEtag(
       orderForm,

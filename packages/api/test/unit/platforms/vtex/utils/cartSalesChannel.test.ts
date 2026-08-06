@@ -41,8 +41,11 @@ describe('channelAfterExternalOrderFormSync', () => {
       true
     )
 
-    expect(result).not.toBeNull()
-    expect(JSON.parse(result as string)).toMatchObject({
+    if (result === null) {
+      throw new Error('expected channel string after adopting orderForm SC')
+    }
+
+    expect(JSON.parse(result)).toMatchObject({
       salesChannel: '4',
       hasOnlyDefaultSalesChannel: false,
     })

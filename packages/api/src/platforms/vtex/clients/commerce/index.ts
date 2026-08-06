@@ -463,7 +463,9 @@ export const VtexCommerce = (
           params.set('refreshOutdatedData', refreshOutdatedData.toString())
         }
         const qs = params.toString()
-        const url = `${base}/api/checkout/pub/orderForm${id ? `/${id}` : ''}${qs ? `?${qs}` : ''}`
+        const orderFormPath = id ? `/${id}` : ''
+        const queryString = qs ? `?${qs}` : ''
+        const url = `${base}/api/checkout/pub/orderForm${orderFormPath}${queryString}`
 
         return fetchAPI(
           url,
