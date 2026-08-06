@@ -34,7 +34,6 @@ export const ResolverTrace = <
         '@faststore_package_name': name,
         '@faststore_account_name': graphqlContext.account,
         '@faststore_environment': process.env.NODE_ENV,
-        '@faststore_resolver_args': serializeAttribute(vars),
         '@faststore_resolver_parent_type': info?.parentType?.name,
         '@faststore_resolver_field_name': info?.fieldName,
       },
@@ -64,19 +63,6 @@ export const ResolverTrace = <
     } catch (error) {
       return recordResolverError(error, span, resolverName)
     }
-  }
-}
-
-/** Span attributes only accept primitives, so structured values are serialized. */
-function serializeAttribute(value: unknown): string | undefined {
-  if (value === undefined || value === null) {
-    return undefined
-  }
-
-  try {
-    return JSON.stringify(value)
-  } catch {
-    return undefined
   }
 }
 
