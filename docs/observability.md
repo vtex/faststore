@@ -6,17 +6,17 @@ Next.js instrumentation hook in `@faststore/core`.
 
 ## Enabling
 
-Telemetry is **disabled by default**. Turn it on in the store's
-`discovery.config.js`:
+Telemetry is **off until the feature is released**. It is gated by two hardcoded
+flags rather than by store configuration, so a store cannot turn it on:
 
-```js
-analytics: {
-  otelEnabled: true,
-}
-```
+| Flag | File | Controls |
+| :--- | :--- | :--- |
+| `instrumentationEnabled` | [`packages/core/src/instrumentation.ts`](../packages/core/src/instrumentation.ts) | Starting the OTel SDK, and therefore whether `logger()` emits anything |
+| `OTEL_ENABLED` | [`packages/core/src/server/options.ts`](../packages/core/src/server/options.ts) | The per-request root span in `execute()` and the resolver spans from `@faststore/api` |
 
-This single flag controls both SDK startup (`packages/core/src/instrumentation.ts`)
-and whether resolvers emit spans (`OTEL_ENABLED` in the GraphQL context).
+Flip both to `true` to exercise the pipeline locally. `logger()` is a no-op
+until the SDK has started, so `OTEL_ENABLED` on its own emits neither traces nor
+logs.
 
 ## Configuration
 

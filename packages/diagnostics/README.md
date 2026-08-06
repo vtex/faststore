@@ -17,7 +17,7 @@
   </a>
 </p>
 
-`@faststore/diagnostics` initializes OpenTelemetry tracing, logging, and metrics for FastStore server-side instrumentation.
+`@faststore/diagnostics` initializes OpenTelemetry tracing and logging for FastStore server-side instrumentation.
 
 ## Package structure
 
@@ -73,7 +73,7 @@ log('error', 'Request failed: %s', reason)
 
 Endpoints connect over plaintext gRPC unless the configured URL starts with `https://`.
 
-To enable telemetry in a store, set `analytics.otelEnabled: true` in `discovery.config.js`.
+Telemetry is off until the feature is released: `@faststore/core` gates SDK startup behind `instrumentationEnabled` in `src/instrumentation.ts` and resolver spans behind `OTEL_ENABLED` in `src/server/options.ts`. See the [observability runbook](../../docs/observability.md#enabling).
 
 ## How to develop
 
@@ -81,9 +81,10 @@ To make changes:
 
 1. Edit the relevant file in `src/`
 2. Run `pnpm build` to compile
-3. Verify via `@faststore/core` — since it's a workspace dependency, `instrumentation.ts` picks up your local build automatically
+3. Run `pnpm test` for the unit tests
+4. Verify via `@faststore/core` — since it's a workspace dependency, `instrumentation.ts` picks up your local build automatically
 
-> Changes are validated by running `@faststore/core` with `analytics.otelEnabled: true` and checking that traces reach the configured OTLP endpoint.
+> Changes are validated by running `@faststore/core` with both gating flags set to `true` and checking that traces and logs reach the configured OTLP endpoints.
 
 ## How to run
 
