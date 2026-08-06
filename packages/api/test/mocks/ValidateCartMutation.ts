@@ -262,7 +262,7 @@ export const InvalidCart = {
 // Valid Cart
 
 export const checkoutOrderFormValidFetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?sc=1&refreshOutdatedData=true',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?refreshOutdatedData=true',
   init: {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'X-FORWARDED-HOST': '' },
@@ -289,7 +289,7 @@ export const checkoutOrderFormCustomDataValidFetch = {
 // "Invalid" Cart
 
 export const checkoutOrderFormInvalidFetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?sc=1&refreshOutdatedData=true',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?refreshOutdatedData=true',
   init: {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'X-FORWARDED-HOST': '' },
@@ -515,7 +515,7 @@ export const createProductFetchResultForSku = (
 
 // Stale Cart
 export const checkoutOrderFormStaleFetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?sc=1&refreshOutdatedData=true',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?refreshOutdatedData=true',
   init: {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'X-FORWARDED-HOST': '' },

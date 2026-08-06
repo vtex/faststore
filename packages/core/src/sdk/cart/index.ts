@@ -13,7 +13,7 @@ import type {
 
 import storeConfig from '../../../discovery.config'
 import { request } from '../graphql/request'
-import { sessionStore } from '../session'
+import { hasValidatedSessionStore, sessionStore } from '../session'
 import { createValidationStore, useStore } from '../useStore'
 
 export interface CartItem
@@ -26,6 +26,44 @@ export interface CartItem
 export interface Cart extends SDKCart<CartItem> {
   messages?: CartMessageFragment[]
   shouldSplitItem?: boolean
+}
+
+/** Max time to wait for the first validateSession before validating the cart. */
+const SESSION_VALIDATION_WAIT_MS = 3_000
+
+/**
+ * Defers cart validation until session has been validated at least once, so
+ * `session.channel` (sales channel) is less likely to be stale relative to
+ * Session Manager / external flows like Quick Order.
+ */
+const waitForSessionValidated = async (): Promise<void> => {
+  if (hasValidatedSessionStore.read()) {
+    return
+  }
+
+  await new Promise<void>((resolve) => {
+    const timeoutId = setTimeout(() => {
+      unsubscribe()
+      resolve()
+    }, SESSION_VALIDATION_WAIT_MS)
+
+    const unsubscribe = hasValidatedSessionStore.subscribe((validated) => {
+      if (!validated) {
+        return
+      }
+
+      clearTimeout(timeoutId)
+      unsubscribe()
+      resolve()
+    })
+
+    // Race: validation may have finished between read() and subscribe()
+    if (hasValidatedSessionStore.read()) {
+      clearTimeout(timeoutId)
+      unsubscribe()
+      resolve()
+    }
+  })
 }
 
 export const ValidateCartMutation = gql(`
@@ -114,6 +152,8 @@ const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
     .join('::')
 
 const validateCart = async (cart: Cart): Promise<Cart | null> => {
+  await waitForSessionValidated()
+
   const { validateCart: validated = null } = await request<
     ValidateCartMutationMutation,
     ValidateCartMutationMutationVariables
