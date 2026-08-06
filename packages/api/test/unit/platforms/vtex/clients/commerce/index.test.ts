@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import * as clients from '../../../../../src/platforms/vtex/clients'
-// This should be imported AFTER the '../../../../../src/platforms/vtex/clients'
-import { NotFoundError } from '../../../../../src/platforms/errors'
-import { GraphqlVtexContextFactory } from '../../../../../src/platforms/vtex'
+import * as clients from '../../../../../../src/platforms/vtex/clients'
+// This should be imported AFTER the '../../../../../../src/platforms/vtex/clients'
+import { NotFoundError } from '../../../../../../src/platforms/errors'
+import { GraphqlVtexContextFactory } from '../../../../../../src/platforms/vtex'
 
 const apiOptions = {
   platform: 'vtex',
@@ -27,7 +27,7 @@ beforeEach(() => {
   fetchAPIMocked.mockClear()
 })
 
-vi.mock('../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
+vi.mock('../../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: async (
     info: RequestInfo,
     init?: RequestInit,
