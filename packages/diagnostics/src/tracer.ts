@@ -1,25 +1,22 @@
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-grpc'
-import * as grpc from '@grpc/grpc-js'
-import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-node'
+import {
+  BatchSpanProcessor,
+  ParentBasedSampler,
+  type Sampler,
+  TraceIdRatioBasedSampler,
+} from '@opentelemetry/sdk-trace-node'
+import { createChannelCredentials } from './credentials'
 
+/**
+ * Payload compression follows the standard `OTEL_EXPORTER_OTLP_COMPRESSION`
+ * environment variable (set it to `gzip` to reduce egress).
+ */
 export function traceExporter() {
-  const OTLP_TRACES_ENDPOINT =
-    globalThis.fsDiagnostics.OTLP_TRACES_ENDPOINT || 'http://localhost:4317'
-
-  // let credentials = grpc.credentials.createSsl()
-  let credentials = grpc.credentials.createInsecure()
-  if (
-    OTLP_TRACES_ENDPOINT.includes('localhost') ||
-    OTLP_TRACES_ENDPOINT.includes('127.0.0.1') ||
-    globalThis.fsDiagnostics.IS_DEV
-  ) {
-    credentials = grpc.credentials.createInsecure()
-  }
+  const endpoint = globalThis.fsDiagnostics.OTLP_TRACES_ENDPOINT
 
   const collectorExporter = new OTLPTraceExporter({
-    credentials,
-    url: OTLP_TRACES_ENDPOINT,
-    compression: 'gzip' as any,
+    credentials: createChannelCredentials(endpoint),
+    url: endpoint,
   })
 
   return new BatchSpanProcessor(collectorExporter, {
@@ -28,4 +25,17 @@ export function traceExporter() {
     scheduledDelayMillis: 5000,
     exportTimeoutMillis: 30_000,
   })
+}
+
+/**
+ * Development traces everything; elsewhere a ratio sampler keeps export volume
+ * (and collector cost) bounded. Parent-based so a sampled request keeps all of
+ * its child spans instead of producing partial traces.
+ */
+export function traceSampler(): Sampler {
+  const ratio = globalThis.fsDiagnostics.IS_DEV
+    ? 1
+    : globalThis.fsDiagnostics.OTLP_TRACES_SAMPLE_RATE
+
+  return new ParentBasedSampler({ root: new TraceIdRatioBasedSampler(ratio) })
 }

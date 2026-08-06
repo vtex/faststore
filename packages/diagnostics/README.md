@@ -23,12 +23,12 @@
 
 ```text
 src/
-├── globals.ts    # Initializes the global fsDiagnostics state (telemetry client map, IS_DEV flag)
-├── start.ts      # getTelemetryClient() and getTraceClient() implementations
-└── index.ts      # Public exports
-configs/
-├── dev.json      # Telemetry client config for development
-└── prod.json     # Telemetry client config for production
+├── globals.ts     # Initializes the global fsDiagnostics state (endpoints, sample rate, IS_DEV flag)
+├── credentials.ts # gRPC channel credentials shared by both exporters
+├── tracer.ts      # Span processor and sampler
+├── logger.ts      # Log record processor and the logger() emitter
+├── start.ts       # getTelemetryClient() implementation
+└── index.ts       # Public exports
 ```
 
 ## How it works
@@ -48,20 +48,36 @@ await getTelemetryClient({
 })
 ```
 
-This initializes traces, logs, and metrics clients and registers HTTP instrumentation. Telemetry data is exported to an OTLP endpoint.
+This starts a single `NodeSDK` per process, which registers the global tracer and logger providers and installs HTTP and Undici instrumentation. Telemetry is exported to an OTLP gRPC endpoint.
+
+Application code emits logs through `logger()`, which resolves the provider on each call and is a no-op until the SDK has started:
+
+```ts
+import { logger } from '@faststore/diagnostics'
+
+const log = logger('@faststore/core')
+
+// printf-style: arguments are only formatted when telemetry is enabled
+log('error', 'Request failed: %s', reason)
+```
 
 ## Configuration
 
 | Variable | Default | Description |
 | :--- | :--- | :--- |
-| `OTLP_TRACES_ENDPOINT` | `localhost:4317` | OTLP gRPC endpoint for trace export |
-| `NODE_ENV` | — | `production` disables dev mode and uses `configs/prod.json` |
+| `OTLP_TRACES_ENDPOINT` | VTEX traces collector | OTLP gRPC endpoint for trace export |
+| `OTLP_LOGGER_ENDPOINT` | VTEX logs collector | OTLP gRPC endpoint for log export |
+| `OTLP_TRACES_SAMPLE_RATE` | `0.3` | Fraction of traces exported outside development (development always samples everything) |
+| `OTEL_EXPORTER_OTLP_COMPRESSION` | — | Set to `gzip` to compress exported payloads |
+| `NODE_ENV` | — | Any value other than `production` enables dev mode |
+
+Endpoints connect over plaintext gRPC unless the configured URL starts with `https://`.
 
 To enable telemetry in a store, set `analytics.otelEnabled: true` in `discovery.config.js`.
 
 ## How to develop
 
-All logic lives in `src/start.ts` and `src/globals.ts`. To make changes:
+To make changes:
 
 1. Edit the relevant file in `src/`
 2. Run `pnpm build` to compile
@@ -92,6 +108,5 @@ Versioning and publishing are managed at the monorepo root by Lerna. Do not publ
 
 ## Documentation
 
-- **Sampling config (dev):** [`configs/dev.json`](./configs/dev.json) — 100% sample rate
-- **Sampling config (prod):** [`configs/prod.json`](./configs/prod.json) — 1% default, 30% for `trace_all`
+- **Observability runbook:** [`docs/observability.md`](../../docs/observability.md)
 - **OpenTelemetry:** [opentelemetry.io](https://opentelemetry.io)

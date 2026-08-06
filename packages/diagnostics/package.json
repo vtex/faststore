@@ -10,13 +10,13 @@
   "main": "./dist/cjs/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "files": [
-    "configs",
     "dist"
   ],
   "exports": {
@@ -25,8 +25,7 @@
       "require": "./dist/cjs/index.js",
       "import": "./dist/es/index.mjs",
       "default": "./dist/es/index.mjs"
-    },
-    "./configs/*": "./configs/*"
+    }
   },
   "packageManager": "pnpm@10.28.0",
   "dependencies": {
@@ -47,7 +46,8 @@
     "tslib": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-dts": "catalog:"
+    "vite-plugin-dts": "catalog:",
+    "vitest": "catalog:"
   },
   "publishConfig": {
     "access": "public"

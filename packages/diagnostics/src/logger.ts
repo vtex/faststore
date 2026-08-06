@@ -1,74 +1,48 @@
-import type { Resource } from '@opentelemetry/resources'
-
-import {
-  LoggerProvider,
-  BatchLogRecordProcessor,
-} from '@opentelemetry/sdk-logs'
+import { SeverityNumber, logs } from '@opentelemetry/api-logs'
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-grpc'
-import { credentials } from '@grpc/grpc-js'
-import { type Logger, SeverityNumber, logs } from '@opentelemetry/api-logs'
+import { BatchLogRecordProcessor } from '@opentelemetry/sdk-logs'
 import { format } from 'node:util'
+import { createChannelCredentials } from './credentials'
 
 export function getLoggerExporter() {
-  const OTLP_LOGGER_ENDPOINT =
-    globalThis.fsDiagnostics.OTLP_LOGGER_ENDPOINT || 'http://localhost:4317'
-
-  // let c = credentials.createSsl()
-  let c = credentials.createInsecure()
-  if (
-    OTLP_LOGGER_ENDPOINT.includes('localhost') ||
-    OTLP_LOGGER_ENDPOINT.includes('127.0.0.1') ||
-    globalThis.fsDiagnostics.IS_DEV
-  ) {
-    c = credentials.createInsecure()
-  }
+  const endpoint = globalThis.fsDiagnostics.OTLP_LOGGER_ENDPOINT
 
   return new BatchLogRecordProcessor(
     new OTLPLogExporter({
-      credentials: c,
-      url: OTLP_LOGGER_ENDPOINT,
+      credentials: createChannelCredentials(endpoint),
+      url: endpoint,
     })
   )
 }
 
-export function setupLogs(resource: Resource): LoggerProvider {
-  if (globalThis.fsDiagnostics.LOGGER_CLIENT)
-    return globalThis.fsDiagnostics.LOGGER_CLIENT
-
-  const loggerProvider = new LoggerProvider({
-    resource,
-    processors: [getLoggerExporter()],
-  })
-
-  logs.setGlobalLoggerProvider(loggerProvider)
-
-  globalThis.fsDiagnostics.LOGGER_CLIENT ??= loggerProvider
-
-  return loggerProvider
-}
-
-export function getOTELLogger(name = 'faststore') {
-  return globalThis.fsDiagnostics.LOGGER_CLIENT?.getLogger(name)
-}
-
-const CONSOLE_SEVERITY = {
+const SEVERITY = {
   error: { number: SeverityNumber.ERROR, text: 'ERROR' },
   warn: { number: SeverityNumber.WARN, text: 'WARN' },
   info: { number: SeverityNumber.INFO, text: 'INFO' },
   debug: { number: SeverityNumber.DEBUG, text: 'DEBUG' },
 } as const
 
-export function logger(client?: Logger | undefined) {
-  return (severity: keyof typeof CONSOLE_SEVERITY, ...args: unknown[]) => {
-    if (!client)
-      console.info(
-        'OTEL logger is disabled. No logs will be sent to OTEL backend.'
-      )
+export type LogSeverity = keyof typeof SEVERITY
 
-    client?.emit({
-      severityNumber: CONSOLE_SEVERITY[severity].number,
-      severityText: CONSOLE_SEVERITY[severity].text,
-      body: format(args),
+/**
+ * Builds a `util.format`-style emitter for the given instrumentation scope.
+ *
+ * The underlying provider is resolved on every call because callers hold these
+ * emitters in module-level constants, which are evaluated before
+ * `getTelemetryClient` installs the provider. Formatting is deferred until a
+ * provider exists so disabled telemetry costs nothing on hot paths — pass
+ * printf-style arguments rather than pre-built template strings.
+ */
+export function logger(name: string) {
+  return (severity: LogSeverity, ...args: unknown[]) => {
+    if (!globalThis.fsDiagnostics.TELEMETRY_CLIENT) {
+      return
+    }
+
+    logs.getLogger(name).emit({
+      severityNumber: SEVERITY[severity].number,
+      severityText: SEVERITY[severity].text,
+      body: format(...args),
     })
   }
 }

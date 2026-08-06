@@ -14,7 +14,6 @@ const getRootFolder = () => {
 console.log(`
   Root folder at: ${getRootFolder()}
   AccountID: ${storeConfig.api?.storeId ?? 'Unknown'}
-  Analytics Enabled: true
 `)
 
 /**

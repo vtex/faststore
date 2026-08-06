@@ -19,7 +19,8 @@ interface Options {
   flags?: FeatureFlags
   version?: string
   discoveryConfig?: Record<string, unknown>
-  OTEL_ENABLED: boolean
+  /** Emit OpenTelemetry spans from resolvers. Defaults to disabled. */
+  OTEL_ENABLED?: boolean
 }
 
 interface FeatureFlags {

@@ -1,23 +1,51 @@
 # Observability
 
-This projects uses OpenTelemetry to logs and traces. This logs and traces are sent to specific collectors defined in some environment variables.
+FastStore uses OpenTelemetry for server-side logs and traces, exported over OTLP
+gRPC to VTEX collectors. The SDK is started by `@faststore/diagnostics` from the
+Next.js instrumentation hook in `@faststore/core`.
+
+## Enabling
+
+Telemetry is **disabled by default**. Turn it on in the store's
+`discovery.config.js`:
+
+```js
+analytics: {
+  otelEnabled: true,
+}
+```
+
+This single flag controls both SDK startup (`packages/core/src/instrumentation.ts`)
+and whether resolvers emit spans (`OTEL_ENABLED` in the GraphQL context).
+
+## Configuration
+
+Endpoints and sampling default to the VTEX collectors and can be overridden with
+environment variables — see
+[`packages/diagnostics/src/globals.ts`](../packages/diagnostics/src/globals.ts):
+
+| Variable | Description |
+| :--- | :--- |
+| `OTLP_TRACES_ENDPOINT` | OTLP gRPC endpoint for traces |
+| `OTLP_LOGGER_ENDPOINT` | OTLP gRPC endpoint for logs |
+| `OTLP_TRACES_SAMPLE_RATE` | Fraction of traces exported outside development (default `0.3`) |
+
+To send logs to the development collector, set `OTLP_LOGGER_ENDPOINT` to
+`developer-logs.opentelemetry-collector.vtex.systems:80`.
 
 ## Logs
 
-The log is exported to a collector URL defined by `OTLP_LOGGER_ENDPOINT` var defined [here](../packages/diagnostics/src/globals.ts). The variable is configured with the correct production variable. To log in development the following url should be used: `developer-logs.opentelemetry-collector.vtex.systems:80`
+Search in the [Grafana app](https://grafana.vtex.com/explore) by attribute:
 
-To see the generated logs one should go to the (grafana app)[https://grafana.vtex.com/explore] and search by attrs:
-  - `vtex.account.name:required_logs_account_name` -> Example: `vtex.account.name:storeframework`
-  - `vtex.application.id:faststore`
+- `vtex.account.name:<account>` — for example `vtex.account.name:storeframework`
+- `vtex.application.id:faststore`
 
-* Tip: The developer logs is queried at `victoria-logs-developer` and the production one at `victoria-logs-main`
+> Development logs are queried at `victoria-logs-developer`, production at `victoria-logs-main`.
 
 ## Traces
 
-The traces are exported to a collector URL defined by `OTLP_TRACES_ENDPOINT` variable defined [here](../packages/diagnostics/src/globals.ts). The variable is configured with the correct production variable.
+Connect to the VPN and open the [SigNoz app](https://signoz-traces.vtex.systems/home),
+then search for traces carrying:
 
-To see the traces collected we should connected to the vpn go to the (sgnoz app)[https://signoz-traces.vtex.systems/home] and search for
-traces that contains the following attrs:
-  - `@faststore_account_name: required_trace_account_name`
-  - `@faststore_environment:production|development`
-You can search for @faststore_environment="development" or @faststore_environment="production"
+- `@faststore_account_name: <account>`
+- `@faststore_environment: production` or `@faststore_environment: development`

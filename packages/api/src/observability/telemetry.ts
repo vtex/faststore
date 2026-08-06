@@ -1,9 +1,7 @@
-import { OTELAPI } from '@faststore/diagnostics'
+import { logger, OTELAPI } from '@faststore/diagnostics'
 import { name, version } from '../../package.json' with { type: 'json' }
-import { getOTELLogger, logger } from '@faststore/diagnostics'
-import { format } from 'node:util'
 
-const OTELLogger = logger(getOTELLogger('@faststore/api'))
+const OTELLogger = logger('@faststore/api')
 
 export const ResolverTrace = <
   TContext extends {
@@ -16,7 +14,7 @@ export const ResolverTrace = <
   TReturn = any,
 >(
   fn: (source: TSource, vars: TVars, context: TContext, info: any) => TReturn,
-  resolverName?: string
+  resolverName = 'Unknown Graphql Resolver'
 ) => {
   return (
     source: TSource,
@@ -24,14 +22,11 @@ export const ResolverTrace = <
     graphqlContext: TContext,
     info: any
   ): TReturn => {
-    if ((graphqlContext?.OTEL_ENABLED ?? false) === false) {
+    if (!graphqlContext?.OTEL_ENABLED) {
       return fn(source, vars, graphqlContext, info)
     }
 
-    resolverName ??= 'Unknown Graphql Resolver'
-    const tracer = OTELAPI.trace.getTracer('Graphql')
-
-    const span = tracer.startSpan(resolverName, {
+    const span = OTELAPI.trace.getTracer('Graphql').startSpan(resolverName, {
       kind: OTELAPI.SpanKind.INTERNAL,
       attributes: {
         timestamp: Date.now(),
@@ -39,45 +34,64 @@ export const ResolverTrace = <
         '@faststore_package_name': name,
         '@faststore_account_name': graphqlContext.account,
         '@faststore_environment': process.env.NODE_ENV,
+        '@faststore_resolver_args': serializeAttribute(vars),
+        '@faststore_resolver_parent_type': info?.parentType?.name,
+        '@faststore_resolver_field_name': info?.fieldName,
       },
     })
 
-    const context = OTELAPI.trace.setSpan(OTELAPI.context.active(), span)
+    const otelContext = OTELAPI.trace.setSpan(OTELAPI.context.active(), span)
 
     try {
-      const returnedValue = OTELAPI.context.with(context, () =>
+      const result = OTELAPI.context.with(otelContext, () =>
         fn(source, vars, graphqlContext, info)
       )
 
-      if (returnedValue instanceof Promise) {
-        return returnedValue
-          .then((promisedResult) => {
-            span?.end()
+      if (result instanceof Promise) {
+        return result.then(
+          (value) => {
+            span.end()
 
-            return promisedResult
-          })
-          .catch((err) => {
-            throw catchError(
-              err,
-              span,
-              resolverName ?? 'Unknown Graphql Resolver'
-            )
-          }) as TReturn
+            return value
+          },
+          (error) => recordResolverError(error, span, resolverName)
+        ) as TReturn
       }
 
-      span?.end()
-      return returnedValue
-    } catch (error: any) {
-      throw catchError(error, span, resolverName)
+      span.end()
+
+      return result
+    } catch (error) {
+      return recordResolverError(error, span, resolverName)
     }
   }
 }
 
-function catchError(error: Error, span: OTELAPI.Span, resolverName: string) {
-  span?.setStatus({ code: OTELAPI.SpanStatusCode.ERROR })
-  span?.recordException(error)
-  span?.end()
+/** Span attributes only accept primitives, so structured values are serialized. */
+function serializeAttribute(value: unknown): string | undefined {
+  if (value === undefined || value === null) {
+    return undefined
+  }
+
+  try {
+    return JSON.stringify(value)
+  } catch {
+    return undefined
+  }
+}
+
+/** Marks the span as failed and rethrows, keeping call sites linear. */
+function recordResolverError(
+  error: unknown,
+  span: OTELAPI.Span,
+  resolverName: string
+): never {
+  span.setStatus({ code: OTELAPI.SpanStatusCode.ERROR })
+  span.recordException(error as Error)
+  span.end()
+
   console.error(`Error at resolver: ${resolverName}: \n %o`, error)
-  OTELLogger('error', format(`Error at resolver: ${resolverName}\n%o`, error))
-  return error
+  OTELLogger('error', 'Error at resolver: %s\n%o', resolverName, error)
+
+  throw error
 }

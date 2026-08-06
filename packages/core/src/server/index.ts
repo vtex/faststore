@@ -29,7 +29,7 @@ import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolv
 import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
 
 import type { Operation } from '../sdk/graphql/request'
-import { apiOptions, withTraceClient } from './options'
+import { apiOptions } from './options'
 
 interface ExecuteOptions<V = Record<string, unknown>> {
   operation: Operation
@@ -71,8 +71,7 @@ export function getFinalAPISchema() {
 }
 
 export const getEnvelop = async () => {
-  const options = await withTraceClient(apiOptions)
-  const apiContextFactory = await GraphqlVtexContextFactory(options)
+  const apiContextFactory = await GraphqlVtexContextFactory(apiOptions)
 
   return envelop({
     plugins: [
@@ -137,31 +136,43 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
     contextValue.storage.locale = locale
   }
 
-  // Create a per-request root span and make it the active context so the
-  // resolver spans created by `@faststore/api` (`ResolverTrace`) parent to it.
-  const tracer = OTELAPI.trace.getTracer('@faststore/core')
-  const span = tracer.startSpan(`graphql ${operationName ?? 'operation'}`)
-  const otelContext = OTELAPI.trace.setSpan(OTELAPI.context.active(), span)
-
-  try {
-    const { data, errors } = (await OTELAPI.context.with(otelContext, () =>
+  const { data, errors } = await withRootSpan(
+    `graphql ${operationName ?? 'operation'}`,
+    () =>
       run({
         schema,
         document: parse(query),
         variableValues: variables,
         contextValue,
         operationName,
-      })
-    )) as { data: D; errors: unknown[] }
+      }) as Promise<{ data: D; errors: unknown[] }>
+  )
 
-    return {
-      data,
-      errors,
-      extensions: {
-        cookies: contextValue.storage.cookies,
-        cacheControl: contextValue.cacheControl,
-      },
-    }
+  return {
+    data,
+    errors,
+    extensions: {
+      cookies: contextValue.storage.cookies,
+      cacheControl: contextValue.cacheControl,
+    },
+  }
+}
+
+/**
+ * Runs an operation inside a per-request root span, made the active context so
+ * the resolver spans emitted by `@faststore/api` parent to it. Resolves to a
+ * plain call when telemetry is disabled.
+ */
+async function withRootSpan<T>(name: string, run: () => Promise<T>) {
+  if (!apiOptions.OTEL_ENABLED) {
+    return run()
+  }
+
+  const span = OTELAPI.trace.getTracer('@faststore/core').startSpan(name)
+  const otelContext = OTELAPI.trace.setSpan(OTELAPI.context.active(), span)
+
+  try {
+    return await OTELAPI.context.with(otelContext, run)
   } catch (error) {
     span.setStatus({ code: OTELAPI.SpanStatusCode.ERROR })
     span.recordException(error as Error)

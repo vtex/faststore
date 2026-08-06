@@ -16,7 +16,6 @@ const apiOptions = {
   flags: {
     enableOrderFormSync: true,
   },
-  OTEL: {},
 } as Options
 
 const contextFactory = await GraphqlVtexContextFactory(apiOptions)
