@@ -49,6 +49,7 @@ function endRestoringPaint() {
   restoringPaintTimer = 0
   document.documentElement.classList.remove(RESTORING_SCROLL_CLASS)
 }
+
 function historyStorageKey() {
   return window.history.state?.key ?? `path:${window.location.pathname}`
 }
@@ -514,4 +515,21 @@ export default function useScrollRestoration() {
     // re-binding router listeners on unrelated search state updates.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router])
+}
+
+/** @internal — exported for unit tests only. */
+export const scrollRestorationTestUtils = {
+  SCROLL_STORAGE_PREFIX,
+  PENDING_RESTORE_FLAG,
+  RESTORING_SCROLL_CLASS,
+  destinationPathname,
+  findAnchorCard,
+  normalizePath,
+  pathMatchesAnchor,
+  reset() {
+    pendingPopRestore = false
+    restoreGeneration = 0
+    activeRestoreKey = null
+    endRestoringPaint()
+  },
 }
