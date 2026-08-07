@@ -62,7 +62,8 @@ describe('scrollRestorationTestUtils (pure helpers)', () => {
   it('parses destination pathnames from relative and absolute urls', () => {
     expect(destinationPathname('/office')).toBe('/office')
     expect(destinationPathname('https://example.com/s?q=refil')).toBe('/s')
-    expect(destinationPathname('not a url')).toBe('not a url')
+    // Relative to origin — spaces are percent-encoded by the URL constructor.
+    expect(destinationPathname('not a url')).toBe('/not%20a%20url')
   })
 
   it('finds the product card for a PDP anchor', () => {
@@ -106,6 +107,12 @@ describe('useScrollRestoration', () => {
     })
     window.scrollTo = vi.fn()
     window.history.replaceState({ key: 'plp-key' }, '', '/office')
+    // jsdom does not implement History.scrollRestoration — polyfill for the hook.
+    Object.defineProperty(window.history, 'scrollRestoration', {
+      configurable: true,
+      writable: true,
+      value: 'auto',
+    })
   })
 
   afterEach(() => {
