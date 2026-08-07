@@ -10,8 +10,8 @@ import { useSearch } from '@faststore/sdk'
 
 /** Coarse layout buckets — page height differs a lot across these. */
 export function getGalleryViewportBucket() {
-  if (typeof window === 'undefined') return 'ssr'
-  const width = window.innerWidth
+  if (typeof globalThis.window === 'undefined') return 'ssr'
+  const width = globalThis.innerWidth
   if (width <= 420) return 'mobile'
   if (width <= 768) return 'tablet'
   if (width < 1280) return 'notebook'
@@ -36,7 +36,7 @@ export function buildGalleryPageHeightKey(
     page,
     viewport: search.viewport ?? getGalleryViewportBucket(),
   })
-  return `__fs_gallery_page_h_${raw.replace(/\W/g, '_').slice(0, 180)}`
+  return `__fs_gallery_page_h_${raw.replaceAll(/\W/g, '_').slice(0, 180)}`
 }
 
 export function readGalleryPageHeight(key: string): number | null {
@@ -114,12 +114,15 @@ function GalleryPageHeightLock({ page, children }: Props) {
 
   useEffect(() => {
     const onResize = () => setViewport(getGalleryViewportBucket())
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
+    globalThis.addEventListener('resize', onResize)
+    return () => globalThis.removeEventListener('resize', onResize)
   }, [])
 
   const storageKey = useMemo(() => {
-    const path = typeof window !== 'undefined' ? window.location.pathname : ''
+    const path =
+      typeof globalThis.window === 'undefined'
+        ? ''
+        : globalThis.location.pathname
     return buildGalleryPageHeightKey(page, {
       path,
       term: term ?? null,

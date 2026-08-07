@@ -169,7 +169,7 @@ function ProductGallery({
   useEffect(() => {
     setReservedGalleryHeight(
       resolveReservedGalleryHeight(hasProductsLoaded, pages, {
-        path: window.location.pathname,
+        path: globalThis.location.pathname,
         term: term ?? null,
         sort: sort ?? null,
         selectedFacets,

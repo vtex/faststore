@@ -37,21 +37,21 @@ let restoringPaintTimer = 0
  */
 function beginRestoringPaint() {
   document.documentElement.classList.add(RESTORING_SCROLL_CLASS)
-  window.clearTimeout(restoringPaintTimer)
-  restoringPaintTimer = window.setTimeout(
+  globalThis.clearTimeout(restoringPaintTimer)
+  restoringPaintTimer = globalThis.setTimeout(
     endRestoringPaint,
     RESTORING_PAINT_TIMEOUT_MS
   )
 }
 
 function endRestoringPaint() {
-  window.clearTimeout(restoringPaintTimer)
+  globalThis.clearTimeout(restoringPaintTimer)
   restoringPaintTimer = 0
   document.documentElement.classList.remove(RESTORING_SCROLL_CLASS)
 }
 
 function historyStorageKey() {
-  return window.history.state?.key ?? `path:${window.location.pathname}`
+  return globalThis.history.state?.key ?? `path:${globalThis.location.pathname}`
 }
 
 function readStoredScroll(key: string): StoredScroll | null {
@@ -80,7 +80,7 @@ function pathMatchesAnchor(href: string, anchor: string) {
   const normalizedAnchor = normalizePath(anchor)
   try {
     return (
-      normalizePath(new URL(href, window.location.origin).pathname) ===
+      normalizePath(new URL(href, globalThis.location.origin).pathname) ===
       normalizedAnchor
     )
   } catch {
@@ -90,7 +90,7 @@ function pathMatchesAnchor(href: string, anchor: string) {
 
 function destinationPathname(url: string) {
   try {
-    return new URL(url, window.location.origin).pathname
+    return new URL(url, globalThis.location.origin).pathname
   } catch {
     return url.split('?')[0]
   }
@@ -121,26 +121,26 @@ function findAnchorCard(anchor: string): HTMLElement | null {
 
 function isElementInViewport(el: HTMLElement) {
   const rect = el.getBoundingClientRect()
-  const vh = window.innerHeight
+  const vh = globalThis.innerHeight
   return rect.top < vh * 0.75 && rect.bottom > vh * 0.25 && rect.height > 40
 }
 
 function scrollElementIntoView(el: HTMLElement) {
   const rect = el.getBoundingClientRect()
-  const absoluteTop = rect.top + window.scrollY
+  const absoluteTop = rect.top + globalThis.scrollY
   const targetY = Math.max(
     0,
-    absoluteTop - window.innerHeight / 2 + rect.height / 2
+    absoluteTop - globalThis.innerHeight / 2 + rect.height / 2
   )
-  window.scrollTo({ top: targetY, left: 0, behavior: 'auto' })
+  globalThis.scrollTo({ top: targetY, left: 0, behavior: 'auto' })
 }
 
 function scrollToSavedPosition(stored: StoredScroll) {
   const maxScroll = Math.max(
-    document.documentElement.scrollHeight - window.innerHeight,
+    document.documentElement.scrollHeight - globalThis.innerHeight,
     0
   )
-  window.scrollTo(stored.x, Math.min(stored.y, maxScroll))
+  globalThis.scrollTo(stored.x, Math.min(stored.y, maxScroll))
 }
 
 function cancelRestore() {
@@ -256,15 +256,15 @@ function restoreByCoordinates(session: RestoreSession, tryRestore: () => void) {
     return
   }
 
-  window.setTimeout(() => {
+  globalThis.setTimeout(() => {
     if (isStaleGeneration(session.generation)) return
 
     const maxScroll = Math.max(
-      document.documentElement.scrollHeight - window.innerHeight,
+      document.documentElement.scrollHeight - globalThis.innerHeight,
       0
     )
     const targetY = Math.min(y, maxScroll)
-    if (Math.abs(window.scrollY - targetY) > 40) {
+    if (Math.abs(globalThis.scrollY - targetY) > 40) {
       tryRestore()
       return
     }
@@ -326,11 +326,11 @@ function scheduleRestore() {
     // Later: 100ms while waiting on infinite-scroll pages / GraphQL.
     if (session.attempts < 8) {
       requestAnimationFrame(() => {
-        window.setTimeout(tryRestore, 0)
+        globalThis.setTimeout(tryRestore, 0)
       })
       return
     }
-    window.setTimeout(tryRestore, RESTORE_RETRY_MS)
+    globalThis.setTimeout(tryRestore, RESTORE_RETRY_MS)
   }
 
   const tryRestore = () => {
@@ -347,7 +347,7 @@ function scheduleRestore() {
 
   // Kick off on the next frame so we run after Next's scroll-to-top.
   requestAnimationFrame(() => {
-    window.setTimeout(tryRestore, 0)
+    globalThis.setTimeout(tryRestore, 0)
   })
 }
 
@@ -384,8 +384,8 @@ function consumePendingRestore() {
 function saveScrollPos(anchor?: string) {
   const key = historyStorageKey()
   const payload: StoredScroll = {
-    x: window.scrollX,
-    y: window.scrollY,
+    x: globalThis.scrollX,
+    y: globalThis.scrollY,
   }
   if (anchor) {
     payload.anchor = anchor
@@ -443,7 +443,7 @@ export default function useScrollRestoration() {
       if (!destPath.endsWith('/p')) return
 
       // Only when leaving the current listing page toward a PDP.
-      if (destPath === window.location.pathname) return
+      if (destPath === globalThis.location.pathname) return
 
       saveScrollPos(destPath)
     }
@@ -453,7 +453,7 @@ export default function useScrollRestoration() {
 
       cancelRestore()
 
-      const currentPath = window.location.pathname
+      const currentPath = globalThis.location.pathname
       const destPath = destinationPathname(url)
       const isSamePathNavigation =
         normalizePath(currentPath) === normalizePath(destPath)
@@ -499,7 +499,7 @@ export default function useScrollRestoration() {
     router.events.on('routeChangeStart', onRouteChangeStart)
     router.events.on('routeChangeComplete', onRouteChangeComplete)
     router.events.on('routeChangeError', onRouteChangeError)
-    window.addEventListener('popstate', onPopState)
+    globalThis.addEventListener('popstate', onPopState)
     document.addEventListener('click', onClickCapture, true)
 
     return () => {
@@ -509,7 +509,7 @@ export default function useScrollRestoration() {
       router.events.off('routeChangeStart', onRouteChangeStart)
       router.events.off('routeChangeComplete', onRouteChangeComplete)
       router.events.off('routeChangeError', onRouteChangeError)
-      window.removeEventListener('popstate', onPopState)
+      globalThis.removeEventListener('popstate', onPopState)
       document.removeEventListener('click', onClickCapture, true)
     }
     // resetInfiniteScroll is a stable Zustand action; omit from deps to avoid
