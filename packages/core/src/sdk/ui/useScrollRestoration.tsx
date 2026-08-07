@@ -29,7 +29,7 @@ let pendingPopRestore = false
 let restoreGeneration = 0
 /** History entry currently being restored; prevents popstate+complete from restarting. */
 let activeRestoreKey: string | null = null
-let restoringPaintTimer = 0
+let restoringPaintTimer: ReturnType<typeof setTimeout> | undefined
 
 /**
  * Hide painted pixels while scroll jumps from top/footer to the saved product.
@@ -37,7 +37,9 @@ let restoringPaintTimer = 0
  */
 function beginRestoringPaint() {
   document.documentElement.classList.add(RESTORING_SCROLL_CLASS)
-  globalThis.clearTimeout(restoringPaintTimer)
+  if (restoringPaintTimer !== undefined) {
+    globalThis.clearTimeout(restoringPaintTimer)
+  }
   restoringPaintTimer = globalThis.setTimeout(
     endRestoringPaint,
     RESTORING_PAINT_TIMEOUT_MS
@@ -45,8 +47,10 @@ function beginRestoringPaint() {
 }
 
 function endRestoringPaint() {
-  globalThis.clearTimeout(restoringPaintTimer)
-  restoringPaintTimer = 0
+  if (restoringPaintTimer !== undefined) {
+    globalThis.clearTimeout(restoringPaintTimer)
+  }
+  restoringPaintTimer = undefined
   document.documentElement.classList.remove(RESTORING_SCROLL_CLASS)
 }
 
