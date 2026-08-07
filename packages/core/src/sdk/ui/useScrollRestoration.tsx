@@ -402,7 +402,7 @@ function saveScrollPos(anchor?: string) {
 
 /** Session key used by `@faststore/sdk` infinite-scroll page persistence. */
 function infiniteScrollPagesStorageKey() {
-  const sanitizedKey = globalThis.location.pathname.replace(/\W/g, '_')
+  const sanitizedKey = globalThis.location.pathname.replaceAll(/\W/g, '_')
   return sanitizedKey ? `__fs_gallery_page_${sanitizedKey}` : null
 }
 
