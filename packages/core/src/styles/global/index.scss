@@ -3,6 +3,16 @@
 // Establish a layer order up-front, FS UI base styles have the lowest priority
 @layer base, components, theme;
 
+// Hide painted pixels during PLP scroll restore so the footer does not flash
+// at the top before the viewport jumps back to the saved product card.
+html.fs-restoring-scroll {
+  overflow-x: hidden;
+
+  body {
+    opacity: 0;
+  }
+}
+
 // FastStore UI's base styles
 @include meta.load-css("~@faststore/ui/src/styles/global.scss");
 

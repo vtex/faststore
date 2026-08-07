@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo'
 import dynamic from 'next/dynamic'
-import { Suspense, useState, type MouseEvent } from 'react'
+import { Suspense, useMemo, useState, type MouseEvent } from 'react'
 
 import { useSearch } from '@faststore/sdk'
 import { useUI } from '@faststore/ui'
@@ -24,6 +24,10 @@ import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import styles from '../../sections/ProductGallery/section.module.scss'
+import GalleryPageHeightLock, {
+  getGalleryViewportBucket,
+  getReservedGalleryHeight,
+} from './GalleryPageHeightLock'
 import ProductGalleryPage from './ProductGalleryPage'
 const FilterSkeleton = dynamic(
   () =>
@@ -32,8 +36,6 @@ const FilterSkeleton = dynamic(
       'src/components/skeletons/FilterSkeleton'
     )
 )
-
-const GalleryPageSkeleton = <ProductGridSkeleton loading />
 
 export interface ProductGalleryProps {
   title?: string
@@ -131,7 +133,13 @@ function ProductGallery({
   } = useOverrideComponents<'ProductGallery'>()
 
   const { openFilter, filter: displayFilter } = useUI()
-  const { pages, addNextPage, addPrevPage, itemsPerPage } = useSearch()
+  const {
+    pages,
+    addNextPage,
+    addPrevPage,
+    itemsPerPage,
+    state: { term, sort, selectedFacets },
+  } = useSearch()
   const context = usePage<SearchPageContext | PLPContext>()
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
@@ -150,6 +158,20 @@ function ProductGallery({
   const initialSelectedFacets =
     (data as PLPContext['data'])?.collection?.meta?.selectedFacets ?? []
   const filter = useFilter(facets, initialSelectedFacets)
+
+  // Keep the results column tall on PDP→PLP back nav before pages remount.
+  // Only while products are loading — once grids paint, natural height wins
+  // (avoids huge gaps after a viewport resize with a stale reserved minHeight).
+  const reservedGalleryHeight = useMemo(() => {
+    if (typeof window === 'undefined' || hasProductsLoaded) return 0
+    return getReservedGalleryHeight(pages, {
+      path: window.location.pathname,
+      term: term ?? null,
+      sort: sort ?? null,
+      selectedFacets,
+      viewport: getGalleryViewportBucket(),
+    })
+  }, [pages, term, sort, selectedFacets, hasProductsLoaded])
 
   return (
     <section data-testid="product-gallery" data-fs-product-listing>
@@ -272,7 +294,14 @@ function ProductGallery({
               )}
             </FilterButtonSkeleton.Component>
           </div>
-          <div data-fs-product-listing-results>
+          <div
+            data-fs-product-listing-results
+            style={
+              reservedGalleryHeight > 0
+                ? { minHeight: reservedGalleryHeight }
+                : undefined
+            }
+          >
             {/* Add link to previous page. This helps on SEO */}
             {!!prev && (
               <div data-fs-product-listing-pagination="top">
@@ -313,25 +342,36 @@ function ProductGallery({
                 </LinkButtonPrev.Component>
               </div>
             )}
-            {/* Render ALL products */}
-            {hasProductsLoaded ? (
-              <Suspense fallback={GalleryPageSkeleton}>
-                {pages.map((page) => (
-                  <ProductGalleryPage
-                    key={`gallery-page-${page}`}
-                    page={page}
-                    title={title}
-                    productCard={productCard}
-                    itemsPerPage={itemsPerPage}
-                    firstPage={pages[0]}
-                    shouldShowComparison={showComparisonProducts}
-                    compareLabel={productComparison?.labels?.compareButton}
-                  />
-                ))}
-              </Suspense>
-            ) : (
-              GalleryPageSkeleton
-            )}
+            {/* Render ALL products.
+                Each page has its own Suspense boundary so a refetch on page N
+                does not unmount pages that already have data (avoids CLS when
+                returning from a PDP with infinite-scroll pages restored).
+                GalleryPageHeightLock keeps the last measured page height while
+                skeletons are shown so the list does not collapse — including
+                the initial !hasProductsLoaded frame. */}
+            {pages.map((page) => (
+              <GalleryPageHeightLock key={`gallery-page-${page}`} page={page}>
+                {hasProductsLoaded ? (
+                  <Suspense
+                    fallback={
+                      <ProductGridSkeleton loading count={itemsPerPage} />
+                    }
+                  >
+                    <ProductGalleryPage
+                      page={page}
+                      title={title}
+                      productCard={productCard}
+                      itemsPerPage={itemsPerPage}
+                      firstPage={pages[0]}
+                      shouldShowComparison={showComparisonProducts}
+                      compareLabel={productComparison?.labels?.compareButton}
+                    />
+                  </Suspense>
+                ) : (
+                  <ProductGridSkeleton loading count={itemsPerPage} />
+                )}
+              </GalleryPageHeightLock>
+            ))}
             {/* Add link to next page. This helps on SEO */}
             {next !== false && (
               <div data-fs-product-listing-pagination="bottom">
