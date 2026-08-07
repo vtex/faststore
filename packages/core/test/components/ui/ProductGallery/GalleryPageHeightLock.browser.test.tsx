@@ -159,6 +159,15 @@ describe('GalleryPageHeightLock', () => {
     )
 
     await act(async () => {
+      await Promise.resolve()
+    })
+
+    const lock = container.querySelector(
+      '[data-fs-gallery-page-height-lock]'
+    ) as HTMLElement
+    expect(lock.style.minHeight).toBe('640px')
+
+    await act(async () => {
       rerender(
         <GalleryPageHeightLock page={0}>
           <div data-fs-product-card data-testid="card">
@@ -166,12 +175,8 @@ describe('GalleryPageHeightLock', () => {
           </div>
         </GalleryPageHeightLock>
       )
-      await new Promise((resolve) => requestAnimationFrame(resolve))
     })
 
-    const lock = container.querySelector(
-      '[data-fs-gallery-page-height-lock]'
-    ) as HTMLElement
     expect(lock.style.minHeight).toBe('')
   })
 })

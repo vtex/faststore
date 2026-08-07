@@ -188,7 +188,9 @@ function GalleryPageHeightLock({ page, children }: Props) {
       mutationObserver.disconnect()
       resizeObserver?.disconnect()
     }
-  }, [storageKey])
+    // Re-sync when children swap (e.g. skeleton → product grid). MutationObserver
+    // alone is not reliable across React rerenders in jsdom/CI.
+  }, [storageKey, children])
 
   const style: CSSProperties | undefined =
     isLocked && pendingMinHeight ? { minHeight: pendingMinHeight } : undefined
