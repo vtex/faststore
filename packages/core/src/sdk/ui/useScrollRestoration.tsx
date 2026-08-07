@@ -533,15 +533,11 @@ export default function useScrollRestoration() {
 
       if (isSamePathNavigation || isPdpNavigation) return
 
-      // Skip reset when leaving search — IS client redirects race with a
-      // resetInfiniteScroll state update and can prevent navigation.
-      // Use router.pathname so locale-prefixed paths (`/en/s`) still match.
-      if (router.pathname === '/s') return
-
-      // Leaving a PDP must not wipe listing infinite-scroll memory — that state
-      // still belongs to the PLP history entry the user may Back into.
-      if (normalizePath(currentPath).endsWith('/p')) return
-
+      // Forward navigations away from a listing/PDP must start the next
+      // listing at page 0. Back-nav rehydrates pages via
+      // restoreInfiniteScrollPages (sessionStorage is keyed by pathname).
+      // SO-651 (IS redirect hang) is covered by SearchWrapper's effect-based
+      // replace — do not skip reset here or stale `pages` leak into the next PLP.
       resetInfiniteScroll(0)
     }
 

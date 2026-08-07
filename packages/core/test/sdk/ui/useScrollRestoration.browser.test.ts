@@ -209,7 +209,7 @@ describe('useScrollRestoration', () => {
     })
   })
 
-  it('skips resetInfiniteScroll when leaving /s (IS redirect path)', () => {
+  it('resets infinite scroll when leaving /s for a PLP', () => {
     window.history.replaceState({ key: 'search-key' }, '', '/s?q=refil')
     routerState.pathname = '/s'
     renderHook(() => useScrollRestoration())
@@ -221,22 +221,22 @@ describe('useScrollRestoration', () => {
       onStart?.('/office')
     })
 
-    expect(resetInfiniteScroll).not.toHaveBeenCalled()
+    expect(resetInfiniteScroll).toHaveBeenCalledWith(0)
   })
 
-  it('skips resetInfiniteScroll for locale-prefixed search paths', () => {
+  it('resets infinite scroll when leaving locale-prefixed /s for a PLP', () => {
     // Browser path includes the locale; Next router.pathname does not.
-    window.history.replaceState({ key: 'search-key' }, '', '/en/s?q=refil')
+    window.history.replaceState({ key: 'search-key' }, '', '/pt-BR/s?q=refil')
     routerState.pathname = '/s'
     renderHook(() => useScrollRestoration())
 
     const onStart = getRouteHandler('routeChangeStart')
 
     act(() => {
-      onStart?.('/en/office')
+      onStart?.('/pt-BR/office')
     })
 
-    expect(resetInfiniteScroll).not.toHaveBeenCalled()
+    expect(resetInfiniteScroll).toHaveBeenCalledWith(0)
   })
 
   it('clears a stale PDP anchor when leaving the PLP to a non-PDP page', () => {
@@ -321,17 +321,19 @@ describe('useScrollRestoration', () => {
     expect(resetInfiniteScroll).not.toHaveBeenCalled()
   })
 
-  it('does not reset infinite scroll when leaving a PDP for home', () => {
+  it('resets infinite scroll when leaving a PDP for a different PLP', () => {
+    // Forward nav must not leak the previous listing's pages into the next PLP.
+    // Back-nav rehydrates from `__fs_gallery_page_<plp>` via restoreInfiniteScrollPages.
     window.history.replaceState({ key: 'pdp-key' }, '', '/cool-product/p')
     renderHook(() => useScrollRestoration())
 
     const onStart = getRouteHandler('routeChangeStart')
 
     act(() => {
-      onStart?.('/')
+      onStart?.('/eletronicos')
     })
 
-    expect(resetInfiniteScroll).not.toHaveBeenCalled()
+    expect(resetInfiniteScroll).toHaveBeenCalledWith(0)
   })
 
   it('rehydrates infinite-scroll pages from sessionStorage on popstate', () => {
