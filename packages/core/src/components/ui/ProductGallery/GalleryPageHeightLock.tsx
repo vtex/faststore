@@ -10,7 +10,7 @@ import { useSearch } from '@faststore/sdk'
 
 /** Coarse layout buckets — page height differs a lot across these. */
 export function getGalleryViewportBucket() {
-  if (typeof globalThis.window === 'undefined') return 'ssr'
+  if (globalThis.window === undefined) return 'ssr'
   const width = globalThis.innerWidth
   if (width <= 420) return 'mobile'
   if (width <= 768) return 'tablet'
@@ -120,9 +120,7 @@ function GalleryPageHeightLock({ page, children }: Props) {
 
   const storageKey = useMemo(() => {
     const path =
-      typeof globalThis.window === 'undefined'
-        ? ''
-        : globalThis.location.pathname
+      globalThis.window === undefined ? '' : globalThis.location.pathname
     return buildGalleryPageHeightKey(page, {
       path,
       term: term ?? null,
