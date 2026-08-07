@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 
 import { useSearch } from '@faststore/sdk'
@@ -400,19 +400,80 @@ function saveScrollPos(anchor?: string) {
   writeStoredScroll(key, payload)
 }
 
+/** Session key used by `@faststore/sdk` infinite-scroll page persistence. */
+function infiniteScrollPagesStorageKey() {
+  const sanitizedKey = globalThis.location.pathname.replace(/\W/g, '_')
+  return sanitizedKey ? `__fs_gallery_page_${sanitizedKey}` : null
+}
+
+/**
+ * Rehydrate Zustand `pages` from sessionStorage before scroll restore.
+ * Navigating PDP → elsewhere calls `resetInfiniteScroll(0)` and wipes memory
+ * even though the PLP key (e.g. `__fs_gallery_page__office`) still has
+ * `[0,1,2]`. Without this, Back lands mid-page with only page 0 mounted and
+ * the viewport sits in empty reserved height / near the footer.
+ */
+function restoreInfiniteScrollPages(
+  resetInfiniteScroll: (page: number) => void,
+  addNextPage: () => void,
+  getPages: () => number[]
+) {
+  try {
+    const storageKey = infiniteScrollPagesStorageKey()
+    if (!storageKey) return
+
+    const raw = sessionStorage.getItem(storageKey)
+    if (!raw) return
+
+    const stored = JSON.parse(raw) as unknown
+    if (
+      !Array.isArray(stored) ||
+      stored.length === 0 ||
+      !stored.every((page) => typeof page === 'number')
+    ) {
+      return
+    }
+
+    const current = getPages()
+    if (
+      current.length === stored.length &&
+      current.every((page, index) => page === stored[index])
+    ) {
+      return
+    }
+
+    resetInfiniteScroll(stored[0])
+    for (let i = 1; i < stored.length; i++) {
+      addNextPage()
+    }
+  } catch {
+    // ignore quota / private mode / bad JSON
+  }
+}
+
 export default function useScrollRestoration() {
   const router = useRouter()
-  const { resetInfiniteScroll } = useSearch()
+  const { resetInfiniteScroll, addNextPage, pages } = useSearch()
+  const pagesRef = useRef(pages)
+  pagesRef.current = pages
 
   useEffect(() => {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual'
     }
 
+    const restorePages = () =>
+      restoreInfiniteScrollPages(
+        resetInfiniteScroll,
+        addNextPage,
+        () => pagesRef.current
+      )
+
     // Resume a restore interrupted by effect remount mid back-navigation.
     try {
       if (sessionStorage.getItem(PENDING_RESTORE_FLAG)) {
         consumePendingRestore()
+        restorePages()
         scheduleRestore()
       }
     } catch {
@@ -477,11 +538,16 @@ export default function useScrollRestoration() {
       // Use router.pathname so locale-prefixed paths (`/en/s`) still match.
       if (router.pathname === '/s') return
 
+      // Leaving a PDP must not wipe listing infinite-scroll memory — that state
+      // still belongs to the PLP history entry the user may Back into.
+      if (normalizePath(currentPath).endsWith('/p')) return
+
       resetInfiniteScroll(0)
     }
 
     const onRouteChangeComplete = () => {
       if (!consumePendingRestore()) return
+      restorePages()
       scheduleRestore()
     }
 
@@ -498,6 +564,8 @@ export default function useScrollRestoration() {
     const onPopState = () => {
       // Ensure flag is set even if beforePopState was replaced during remount.
       markPendingRestore()
+      // Remount pages before measuring/scrolling so the PDP anchor can exist.
+      restorePages()
       // Sync paint first — avoids a visible flash at the top of the PLP.
       optimisticRestore()
       scheduleRestore()
@@ -553,6 +621,7 @@ export const scrollRestorationTestUtils = {
   cancelRestore,
   beginRestoringPaint,
   endRestoringPaint,
+  restoreInfiniteScrollPages,
   createSession(
     overrides: Partial<RestoreSession> & { stored?: StoredScroll } = {}
   ): RestoreSession {

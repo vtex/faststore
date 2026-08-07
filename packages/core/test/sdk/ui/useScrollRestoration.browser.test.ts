@@ -6,6 +6,7 @@ import { act, renderHook } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const resetInfiniteScroll = vi.fn()
+const addNextPage = vi.fn()
 const routerEvents = {
   on: vi.fn(),
   off: vi.fn(),
@@ -28,6 +29,8 @@ vi.mock('next/router', () => ({
 vi.mock('@faststore/sdk', () => ({
   useSearch: () => ({
     resetInfiniteScroll,
+    addNextPage,
+    pages: [0],
   }),
 }))
 
@@ -61,6 +64,7 @@ const {
   cancelRestore,
   beginRestoringPaint,
   endRestoringPaint,
+  restoreInfiniteScrollPages,
   createSession,
   setActiveRestoreKey,
   bumpGeneration,
@@ -130,6 +134,7 @@ describe('useScrollRestoration', () => {
   beforeEach(() => {
     reset()
     resetInfiniteScroll.mockClear()
+    addNextPage.mockClear()
     routerEvents.on.mockClear()
     routerEvents.off.mockClear()
     beforePopState.mockClear()
@@ -314,6 +319,67 @@ describe('useScrollRestoration', () => {
     })
 
     expect(resetInfiniteScroll).not.toHaveBeenCalled()
+  })
+
+  it('does not reset infinite scroll when leaving a PDP for home', () => {
+    window.history.replaceState({ key: 'pdp-key' }, '', '/cool-product/p')
+    renderHook(() => useScrollRestoration())
+
+    const onStart = getRouteHandler('routeChangeStart')
+
+    act(() => {
+      onStart?.('/')
+    })
+
+    expect(resetInfiniteScroll).not.toHaveBeenCalled()
+  })
+
+  it('rehydrates infinite-scroll pages from sessionStorage on popstate', () => {
+    window.history.replaceState({ key: 'plp-key' }, '', '/office')
+    sessionStorage.setItem(
+      '__fs_gallery_page__office',
+      JSON.stringify([0, 1, 2])
+    )
+    sessionStorage.setItem(
+      `${SCROLL_STORAGE_PREFIX}plp-key`,
+      JSON.stringify({ x: 0, y: 2975, anchor: '/cool-product/p' })
+    )
+    renderHook(() => useScrollRestoration())
+
+    act(() => {
+      window.dispatchEvent(new PopStateEvent('popstate'))
+    })
+
+    expect(resetInfiniteScroll).toHaveBeenCalledWith(0)
+    expect(addNextPage).toHaveBeenCalledTimes(2)
+  })
+
+  it('restoreInfiniteScrollPages no-ops when memory already matches session', () => {
+    window.history.replaceState({ key: 'plp-key' }, '', '/office')
+    sessionStorage.setItem(
+      '__fs_gallery_page__office',
+      JSON.stringify([0, 1, 2])
+    )
+
+    restoreInfiniteScrollPages(resetInfiniteScroll, addNextPage, () => [
+      0, 1, 2,
+    ])
+
+    expect(resetInfiniteScroll).not.toHaveBeenCalled()
+    expect(addNextPage).not.toHaveBeenCalled()
+  })
+
+  it('restoreInfiniteScrollPages rebuilds pages when memory was wiped', () => {
+    window.history.replaceState({ key: 'plp-key' }, '', '/office')
+    sessionStorage.setItem(
+      '__fs_gallery_page__office',
+      JSON.stringify([0, 1, 2])
+    )
+
+    restoreInfiniteScrollPages(resetInfiniteScroll, addNextPage, () => [0])
+
+    expect(resetInfiniteScroll).toHaveBeenCalledWith(0)
+    expect(addNextPage).toHaveBeenCalledTimes(2)
   })
 
   it('marks pending restore and cloaks paint on beforePopState when scroll exists', () => {
