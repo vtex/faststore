@@ -368,18 +368,10 @@ export default function useScrollRestoration() {
       // ignore
     }
 
-    const onBeforePopState = (state: { key?: string }) => {
-      pendingPopRestore = true
-      const key = state?.key ?? historyStorageKey()
-      try {
-        sessionStorage.setItem(PENDING_RESTORE_FLAG, key)
-      } catch {
-        // ignore
-      }
-      // Cloak as early as Next allows (before PLP paint) when we will restore.
-      if (readStoredScroll(key)) {
-        beginRestoringPaint()
-      }
+    // Next types `BeforePopStateCallback` as NextHistoryState (url/as/options),
+    // while runtime also carries `key`. Use history.state via markPendingRestore.
+    const onBeforePopState = () => {
+      markPendingRestore()
       return true
     }
 
