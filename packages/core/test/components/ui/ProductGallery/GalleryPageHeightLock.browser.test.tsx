@@ -20,7 +20,7 @@ import GalleryPageHeightLock, {
   getGalleryViewportBucket,
   getReservedGalleryHeight,
   readGalleryPageHeight,
-} from '../../../src/components/ui/ProductGallery/GalleryPageHeightLock'
+} from 'src/components/ui/ProductGallery/GalleryPageHeightLock'
 
 describe('GalleryPageHeightLock helpers', () => {
   beforeEach(() => {

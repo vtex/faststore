@@ -55,7 +55,7 @@ vi.mock('src/components/templates/SearchPage/SearchPage', () => ({
   default: () => <div data-testid="search-page" />,
 }))
 
-import SearchWrapper from '../../../src/components/templates/SearchPage/SearchWrapper'
+import SearchWrapper from 'src/components/templates/SearchPage/SearchWrapper'
 
 describe('SearchWrapper Intelligent Search redirect', () => {
   beforeEach(() => {
