@@ -21,8 +21,8 @@ export function getGalleryViewportBucket() {
 /** 32-bit string hash — avoids truncating long facet/path keys into collisions. */
 export function hashGalleryPageHeightKey(value: string) {
   let hash = 0
-  for (let i = 0; i < value.length; i++) {
-    hash = (Math.imul(31, hash) + value.charCodeAt(i)) | 0
+  for (const char of value) {
+    hash = Math.trunc(Math.imul(31, hash) + (char.codePointAt(0) ?? 0))
   }
   return (hash >>> 0).toString(36)
 }
