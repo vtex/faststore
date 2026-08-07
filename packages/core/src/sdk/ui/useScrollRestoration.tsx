@@ -148,6 +148,129 @@ function cancelRestore() {
   endRestoringPaint()
 }
 
+type RestoreSession = {
+  generation: number
+  key: string
+  stored: StoredScroll
+  attempts: number
+  observer: MutationObserver | null
+  defenseUntil: number
+  stableHits: number
+}
+
+function isStaleGeneration(generation: number) {
+  return generation !== restoreGeneration
+}
+
+function cleanupRestoreObserver(session: RestoreSession) {
+  session.observer?.disconnect()
+  session.observer = null
+}
+
+function finishRestore(session: RestoreSession) {
+  if (isStaleGeneration(session.generation)) return
+  cleanupRestoreObserver(session)
+  if (activeRestoreKey === session.key) activeRestoreKey = null
+  endRestoringPaint()
+}
+
+function isAnchorRestoreSettled(session: RestoreSession) {
+  return (
+    session.stableHits >= STABLE_HITS_REQUIRED ||
+    (session.defenseUntil > 0 && Date.now() >= session.defenseUntil)
+  )
+}
+
+function trackAnchorInView(session: RestoreSession, el: HTMLElement) {
+  if (!isElementInViewport(el)) {
+    session.stableHits = 0
+    session.defenseUntil = 0
+    return false
+  }
+
+  session.stableHits += 1
+  if (!session.defenseUntil) {
+    session.defenseUntil = Date.now() + DEFENSE_WINDOW_MS
+  }
+  return isAnchorRestoreSettled(session)
+}
+
+function continueOrFinish(session: RestoreSession, scheduleNext: () => void) {
+  if (session.attempts < RESTORE_MAX_ATTEMPTS) {
+    scheduleNext()
+    return
+  }
+  finishRestore(session)
+}
+
+function ensureAnchorObserver(
+  session: RestoreSession,
+  anchor: string,
+  tryRestore: () => void
+) {
+  if (session.observer) return
+
+  session.observer = new MutationObserver(() => {
+    if (isStaleGeneration(session.generation)) return
+    if (findAnchorCard(anchor)) tryRestore()
+  })
+  session.observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  })
+}
+
+function restoreByAnchor(
+  session: RestoreSession,
+  scheduleNext: () => void,
+  tryRestore: () => void
+) {
+  const anchor = session.stored.anchor
+  if (!anchor) return false
+
+  const el = findAnchorCard(anchor)
+  if (el) {
+    scrollElementIntoView(el)
+    if (trackAnchorInView(session, el)) {
+      finishRestore(session)
+      return true
+    }
+    continueOrFinish(session, scheduleNext)
+    return true
+  }
+
+  // Card not in DOM yet — watch mutations and keep the optimistic Y.
+  ensureAnchorObserver(session, anchor, tryRestore)
+  scrollToSavedPosition(session.stored)
+  continueOrFinish(session, scheduleNext)
+  return true
+}
+
+function restoreByCoordinates(session: RestoreSession, tryRestore: () => void) {
+  const { y } = session.stored
+  scrollToSavedPosition(session.stored)
+
+  if (!(y > 0 && session.attempts < RESTORE_MAX_ATTEMPTS)) {
+    finishRestore(session)
+    return
+  }
+
+  window.setTimeout(() => {
+    if (isStaleGeneration(session.generation)) return
+
+    const maxScroll = Math.max(
+      document.documentElement.scrollHeight - window.innerHeight,
+      0
+    )
+    const targetY = Math.min(y, maxScroll)
+    if (Math.abs(window.scrollY - targetY) > 40) {
+      tryRestore()
+      return
+    }
+    finishRestore(session)
+  }, RESTORE_RETRY_MS)
+}
+
 /**
  * Instant approximate restore — call synchronously on popstate so the user is
  * not left at the top of the PLP while product cards finish mounting.
@@ -183,116 +306,42 @@ function scheduleRestore() {
   if (activeRestoreKey === key) return
 
   activeRestoreKey = key
-  const generation = ++restoreGeneration
-  const { y, anchor } = stored
-  let attempts = 0
-  let observer: MutationObserver | null = null
-  let defenseUntil = 0
-  let stableHits = 0
+  const session: RestoreSession = {
+    generation: ++restoreGeneration,
+    key,
+    stored,
+    attempts: 0,
+    observer: null,
+    defenseUntil: 0,
+    stableHits: 0,
+  }
 
   // Paint the saved position immediately (before waiting on network/DOM).
   scrollToSavedPosition(stored)
 
-  const cleanupObserver = () => {
-    observer?.disconnect()
-    observer = null
-  }
-
-  const finish = () => {
-    if (generation !== restoreGeneration) return
-    cleanupObserver()
-    if (activeRestoreKey === key) activeRestoreKey = null
-    endRestoringPaint()
-  }
-
   const scheduleNext = () => {
-    if (generation !== restoreGeneration) return
+    if (isStaleGeneration(session.generation)) return
     // First frames: rAF for snappy refine once the card exists.
     // Later: 100ms while waiting on infinite-scroll pages / GraphQL.
-    if (attempts < 8) {
+    if (session.attempts < 8) {
       requestAnimationFrame(() => {
         window.setTimeout(tryRestore, 0)
       })
-    } else {
-      window.setTimeout(tryRestore, RESTORE_RETRY_MS)
+      return
     }
+    window.setTimeout(tryRestore, RESTORE_RETRY_MS)
   }
 
   const tryRestore = () => {
-    if (generation !== restoreGeneration) {
-      cleanupObserver()
+    if (isStaleGeneration(session.generation)) {
+      cleanupRestoreObserver(session)
       return
     }
 
-    attempts += 1
+    session.attempts += 1
 
-    if (anchor) {
-      const el = findAnchorCard(anchor)
-      if (el) {
-        scrollElementIntoView(el)
-
-        if (isElementInViewport(el)) {
-          stableHits += 1
-          if (!defenseUntil) {
-            defenseUntil = Date.now() + DEFENSE_WINDOW_MS
-          }
-          if (
-            stableHits >= STABLE_HITS_REQUIRED ||
-            Date.now() >= defenseUntil
-          ) {
-            finish()
-            return
-          }
-        } else {
-          stableHits = 0
-          defenseUntil = 0
-        }
-
-        if (attempts < RESTORE_MAX_ATTEMPTS) {
-          scheduleNext()
-        } else {
-          finish()
-        }
-        return
-      }
-
-      // Card not in DOM yet — watch mutations and keep the optimistic Y.
-      if (!observer) {
-        observer = new MutationObserver(() => {
-          if (generation !== restoreGeneration) return
-          if (findAnchorCard(anchor)) tryRestore()
-        })
-        observer.observe(document.body, { childList: true, subtree: true })
-      }
-
-      if (attempts < RESTORE_MAX_ATTEMPTS) {
-        scrollToSavedPosition(stored)
-        scheduleNext()
-      } else {
-        finish()
-      }
-      return
-    }
-
-    // Fallback: raw coordinates when there is no usable anchor.
-    scrollToSavedPosition(stored)
-
-    if (y > 0 && attempts < RESTORE_MAX_ATTEMPTS) {
-      window.setTimeout(() => {
-        if (generation !== restoreGeneration) return
-        const maxScroll = Math.max(
-          document.documentElement.scrollHeight - window.innerHeight,
-          0
-        )
-        if (Math.abs(window.scrollY - Math.min(y, maxScroll)) > 40) {
-          tryRestore()
-        } else {
-          finish()
-        }
-      }, RESTORE_RETRY_MS)
-    } else {
-      finish()
-    }
+    if (restoreByAnchor(session, scheduleNext, tryRestore)) return
+    restoreByCoordinates(session, tryRestore)
   }
 
   // Kick off on the next frame so we run after Next's scroll-to-top.
