@@ -181,6 +181,20 @@ describe('useScrollRestoration', () => {
     expect(resetInfiniteScroll).toHaveBeenCalledWith(0)
   })
 
+  it('does not treat root as same-path for every navigation', () => {
+    window.history.replaceState({ key: 'home-key' }, '', '/')
+    renderHook(() => useScrollRestoration())
+
+    const onStart = getRouteHandler('routeChangeStart')
+
+    act(() => {
+      onStart?.('/office')
+    })
+
+    // Old url.includes('/') matched every path; normalized compare must not.
+    expect(resetInfiniteScroll).toHaveBeenCalledWith(0)
+  })
+
   it('does not reset infinite scroll when navigating to a PDP', () => {
     window.history.replaceState({ key: 'plp-key' }, '', '/office')
     renderHook(() => useScrollRestoration())

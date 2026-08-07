@@ -115,9 +115,9 @@ function GalleryPageHeightLock({ page, children }: Props) {
 
   const ref = useRef<HTMLDivElement>(null)
   /** Height applied only while this page has no product cards yet. */
-  const [pendingMinHeight, setPendingMinHeight] = useState<number | null>(() =>
-    typeof window === 'undefined' ? null : readGalleryPageHeight(storageKey)
-  )
+  // Start null on SSR and first client paint; storageKey effect applies the
+  // sessionStorage value after mount to avoid hydration mismatches.
+  const [pendingMinHeight, setPendingMinHeight] = useState<number | null>(null)
   const [isLocked, setIsLocked] = useState(true)
 
   useEffect(() => {

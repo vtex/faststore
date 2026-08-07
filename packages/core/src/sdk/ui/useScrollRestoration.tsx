@@ -455,7 +455,8 @@ export default function useScrollRestoration() {
 
       const currentPath = window.location.pathname
       const destPath = destinationPathname(url)
-      const isSamePathNavigation = url.includes(currentPath)
+      const isSamePathNavigation =
+        normalizePath(currentPath) === normalizePath(destPath)
       const isPdpNavigation = destPath.endsWith('/p')
 
       if (!isSamePathNavigation) {

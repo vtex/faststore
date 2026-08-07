@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo'
 import dynamic from 'next/dynamic'
-import { Suspense, useMemo, useState, type MouseEvent } from 'react'
+import { Suspense, useEffect, useState, type MouseEvent } from 'react'
 
 import { useSearch } from '@faststore/sdk'
 import { useUI } from '@faststore/ui'
@@ -162,15 +162,25 @@ function ProductGallery({
   // Keep the results column tall on PDP→PLP back nav before pages remount.
   // Only while products are loading — once grids paint, natural height wins
   // (avoids huge gaps after a viewport resize with a stale reserved minHeight).
-  const reservedGalleryHeight = useMemo(() => {
-    if (typeof window === 'undefined' || hasProductsLoaded) return 0
-    return getReservedGalleryHeight(pages, {
-      path: window.location.pathname,
-      term: term ?? null,
-      sort: sort ?? null,
-      selectedFacets,
-      viewport: getGalleryViewportBucket(),
-    })
+  // Populate after mount so SSR/hydration always start at 0 (sessionStorage is
+  // client-only and would otherwise mismatch).
+  const [reservedGalleryHeight, setReservedGalleryHeight] = useState(0)
+
+  useEffect(() => {
+    if (hasProductsLoaded) {
+      setReservedGalleryHeight(0)
+      return
+    }
+
+    setReservedGalleryHeight(
+      getReservedGalleryHeight(pages, {
+        path: window.location.pathname,
+        term: term ?? null,
+        sort: sort ?? null,
+        selectedFacets,
+        viewport: getGalleryViewportBucket(),
+      })
+    )
   }, [pages, term, sort, selectedFacets, hasProductsLoaded])
 
   return (

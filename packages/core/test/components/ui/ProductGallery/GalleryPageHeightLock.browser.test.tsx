@@ -112,7 +112,7 @@ describe('GalleryPageHeightLock', () => {
     })
   })
 
-  it('applies minHeight while skeleton is showing when a height was saved', () => {
+  it('applies minHeight while skeleton is showing when a height was saved', async () => {
     const key = buildGalleryPageHeightKey(0, {
       path: '/',
       term: null,
@@ -132,6 +132,12 @@ describe('GalleryPageHeightLock', () => {
     const lock = container.querySelector(
       '[data-fs-gallery-page-height-lock]'
     ) as HTMLElement
+
+    // Height is applied after mount (hydration-safe).
+    await act(async () => {
+      await Promise.resolve()
+    })
+
     expect(lock.style.minHeight).toBe('640px')
     expect(screen.getByTestId('skeleton')).toBeTruthy()
   })
