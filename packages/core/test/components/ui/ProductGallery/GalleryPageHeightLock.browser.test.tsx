@@ -74,8 +74,42 @@ describe('GalleryPageHeightLock helpers', () => {
       viewport: 'mobile',
     })
 
-    expect(keyA).toContain('__fs_gallery_page_h_')
+    expect(keyA).toMatch(/^__fs_gallery_page_h_p2_desktop_/)
+    expect(keyB).toMatch(/^__fs_gallery_page_h_p2_mobile_/)
     expect(keyA).not.toBe(keyB)
+  })
+
+  it('keeps page and viewport distinct for long path + facets', () => {
+    // Truncating a sanitized JSON at 180 chars used to drop page/viewport and
+    // collide mobile↔desktop (and page 0↔1) on filtered PLPs.
+    const search = {
+      path: '/eletronicos/celulares-e-smartphones',
+      term: null,
+      sort: 'score_desc',
+      selectedFacets: [
+        { key: 'brand', value: 'samsung' },
+        { key: 'price', value: '1000-to-2000' },
+      ],
+    }
+
+    const mobile = buildGalleryPageHeightKey(0, {
+      ...search,
+      viewport: 'mobile',
+    })
+    const desktop = buildGalleryPageHeightKey(0, {
+      ...search,
+      viewport: 'desktop',
+    })
+    const page1 = buildGalleryPageHeightKey(1, {
+      ...search,
+      viewport: 'desktop',
+    })
+
+    expect(mobile).not.toBe(desktop)
+    expect(desktop).not.toBe(page1)
+    expect(mobile).toContain('_mobile_')
+    expect(desktop).toContain('_desktop_')
+    expect(page1).toMatch(/^__fs_gallery_page_h_p1_/)
   })
 
   it('reads and sums reserved gallery heights', () => {

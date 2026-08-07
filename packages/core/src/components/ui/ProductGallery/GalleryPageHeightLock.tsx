@@ -18,6 +18,15 @@ export function getGalleryViewportBucket() {
   return 'desktop'
 }
 
+/** 32-bit string hash — avoids truncating long facet/path keys into collisions. */
+export function hashGalleryPageHeightKey(value: string) {
+  let hash = 0
+  for (let i = 0; i < value.length; i++) {
+    hash = (Math.imul(31, hash) + value.charCodeAt(i)) | 0
+  }
+  return (hash >>> 0).toString(36)
+}
+
 export function buildGalleryPageHeightKey(
   page: number,
   search: {
@@ -28,15 +37,17 @@ export function buildGalleryPageHeightKey(
     viewport?: string
   }
 ) {
+  const viewport = search.viewport ?? getGalleryViewportBucket()
   const raw = JSON.stringify({
     path: search.path,
     term: search.term,
     sort: search.sort,
     selectedFacets: search.selectedFacets ?? [],
     page,
-    viewport: search.viewport ?? getGalleryViewportBucket(),
+    viewport,
   })
-  return `__fs_gallery_page_h_${raw.replaceAll(/\W/g, '_').slice(0, 180)}`
+  // Hash the full payload so long paths/facets never truncate page/viewport away.
+  return `__fs_gallery_page_h_p${page}_${viewport}_${hashGalleryPageHeightKey(raw)}`
 }
 
 export function readGalleryPageHeight(key: string): number | null {
