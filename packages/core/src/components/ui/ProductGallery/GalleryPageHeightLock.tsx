@@ -80,6 +80,22 @@ export function getReservedGalleryHeight(
   }, 0)
 }
 
+/** Client-only reserved height for the results column while products load. */
+export function resolveReservedGalleryHeight(
+  hasProductsLoaded: boolean,
+  pages: number[],
+  search: {
+    path: string
+    term: string | null
+    sort: string | null
+    selectedFacets: unknown
+    viewport?: string
+  }
+) {
+  if (hasProductsLoaded) return 0
+  return getReservedGalleryHeight(pages, search)
+}
+
 type Props = PropsWithChildren<{
   page: number
 }>

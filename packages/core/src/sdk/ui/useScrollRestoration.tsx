@@ -523,10 +523,50 @@ export const scrollRestorationTestUtils = {
   SCROLL_STORAGE_PREFIX,
   PENDING_RESTORE_FLAG,
   RESTORING_SCROLL_CLASS,
+  STABLE_HITS_REQUIRED,
+  RESTORE_MAX_ATTEMPTS,
   destinationPathname,
   findAnchorCard,
   normalizePath,
   pathMatchesAnchor,
+  isElementInViewport,
+  scrollElementIntoView,
+  scrollToSavedPosition,
+  trackAnchorInView,
+  isAnchorRestoreSettled,
+  restoreByAnchor,
+  restoreByCoordinates,
+  continueOrFinish,
+  finishRestore,
+  ensureAnchorObserver,
+  optimisticRestore,
+  scheduleRestore,
+  markPendingRestore,
+  cancelRestore,
+  beginRestoringPaint,
+  endRestoringPaint,
+  createSession(
+    overrides: Partial<RestoreSession> & { stored?: StoredScroll } = {}
+  ): RestoreSession {
+    const { stored: storedOverride, ...rest } = overrides
+    return {
+      generation: restoreGeneration,
+      key: 'plp-key',
+      attempts: 1,
+      observer: null,
+      defenseUntil: 0,
+      stableHits: 0,
+      ...rest,
+      stored: storedOverride ?? { x: 0, y: 100 },
+    }
+  },
+  setActiveRestoreKey(key: string | null) {
+    activeRestoreKey = key
+  },
+  bumpGeneration() {
+    restoreGeneration += 1
+    return restoreGeneration
+  },
   reset() {
     pendingPopRestore = false
     restoreGeneration = 0

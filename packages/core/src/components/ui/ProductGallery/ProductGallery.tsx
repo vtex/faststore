@@ -26,7 +26,7 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import styles from '../../sections/ProductGallery/section.module.scss'
 import GalleryPageHeightLock, {
   getGalleryViewportBucket,
-  getReservedGalleryHeight,
+  resolveReservedGalleryHeight,
 } from './GalleryPageHeightLock'
 import ProductGalleryPage from './ProductGalleryPage'
 const FilterSkeleton = dynamic(
@@ -167,13 +167,8 @@ function ProductGallery({
   const [reservedGalleryHeight, setReservedGalleryHeight] = useState(0)
 
   useEffect(() => {
-    if (hasProductsLoaded) {
-      setReservedGalleryHeight(0)
-      return
-    }
-
     setReservedGalleryHeight(
-      getReservedGalleryHeight(pages, {
+      resolveReservedGalleryHeight(hasProductsLoaded, pages, {
         path: window.location.pathname,
         term: term ?? null,
         sort: sort ?? null,

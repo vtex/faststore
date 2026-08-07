@@ -20,6 +20,7 @@ import GalleryPageHeightLock, {
   getGalleryViewportBucket,
   getReservedGalleryHeight,
   readGalleryPageHeight,
+  resolveReservedGalleryHeight,
 } from 'src/components/ui/ProductGallery/GalleryPageHeightLock'
 
 describe('GalleryPageHeightLock helpers', () => {
@@ -100,6 +101,19 @@ describe('GalleryPageHeightLock helpers', () => {
     expect(readGalleryPageHeight('bad-key')).toBeNull()
     sessionStorage.setItem('nan-key', 'nope')
     expect(readGalleryPageHeight('nan-key')).toBeNull()
+  })
+
+  it('resolveReservedGalleryHeight is zero once products have loaded', () => {
+    const search = {
+      path: '/office',
+      term: null,
+      sort: 'score_desc',
+      selectedFacets: [],
+      viewport: 'desktop',
+    }
+    sessionStorage.setItem(buildGalleryPageHeightKey(0, search), '800')
+    expect(resolveReservedGalleryHeight(true, [0], search)).toBe(0)
+    expect(resolveReservedGalleryHeight(false, [0], search)).toBe(800)
   })
 })
 
