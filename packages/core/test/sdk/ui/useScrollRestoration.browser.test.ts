@@ -11,11 +11,17 @@ const routerEvents = {
   off: vi.fn(),
 }
 const beforePopState = vi.fn()
+const routerState = {
+  pathname: '/office',
+}
 
 vi.mock('next/router', () => ({
   useRouter: () => ({
     beforePopState,
     events: routerEvents,
+    get pathname() {
+      return routerState.pathname
+    },
   }),
 }))
 
@@ -127,6 +133,7 @@ describe('useScrollRestoration', () => {
     routerEvents.on.mockClear()
     routerEvents.off.mockClear()
     beforePopState.mockClear()
+    routerState.pathname = '/office'
     sessionStorage.clear()
     document.body.innerHTML = ''
     document.documentElement.classList.remove(RESTORING_SCROLL_CLASS)
@@ -199,6 +206,7 @@ describe('useScrollRestoration', () => {
 
   it('skips resetInfiniteScroll when leaving /s (IS redirect path)', () => {
     window.history.replaceState({ key: 'search-key' }, '', '/s?q=refil')
+    routerState.pathname = '/s'
     renderHook(() => useScrollRestoration())
 
     const onStart = getRouteHandler('routeChangeStart')
@@ -209,6 +217,63 @@ describe('useScrollRestoration', () => {
     })
 
     expect(resetInfiniteScroll).not.toHaveBeenCalled()
+  })
+
+  it('skips resetInfiniteScroll for locale-prefixed search paths', () => {
+    // Browser path includes the locale; Next router.pathname does not.
+    window.history.replaceState({ key: 'search-key' }, '', '/en/s?q=refil')
+    routerState.pathname = '/s'
+    renderHook(() => useScrollRestoration())
+
+    const onStart = getRouteHandler('routeChangeStart')
+
+    act(() => {
+      onStart?.('/en/office')
+    })
+
+    expect(resetInfiniteScroll).not.toHaveBeenCalled()
+  })
+
+  it('clears a stale PDP anchor when leaving the PLP to a non-PDP page', () => {
+    window.history.replaceState({ key: 'plp-key' }, '', '/office')
+    sessionStorage.setItem(
+      `${SCROLL_STORAGE_PREFIX}plp-key`,
+      JSON.stringify({ x: 0, y: 900, anchor: '/cool-product/p' })
+    )
+    renderHook(() => useScrollRestoration())
+
+    const onStart = getRouteHandler('routeChangeStart')
+    act(() => {
+      onStart?.('/about')
+    })
+
+    const stored = JSON.parse(
+      sessionStorage.getItem(`${SCROLL_STORAGE_PREFIX}plp-key`) as string
+    )
+    expect(stored.anchor).toBeUndefined()
+    expect(stored.y).toBe(1200)
+  })
+
+  it('does not save scroll on modified product-link clicks', () => {
+    renderHook(() => useScrollRestoration())
+
+    const link = document.createElement('a')
+    link.href = '/cool-product/p'
+    link.textContent = 'Product'
+    document.body.appendChild(link)
+
+    act(() => {
+      link.dispatchEvent(
+        new MouseEvent('click', {
+          bubbles: true,
+          cancelable: true,
+          metaKey: true,
+          button: 0,
+        })
+      )
+    })
+
+    expect(sessionStorage.getItem(`${SCROLL_STORAGE_PREFIX}plp-key`)).toBeNull()
   })
 
   it('resets infinite scroll when leaving a PLP to a non-PDP page', () => {

@@ -391,13 +391,10 @@ function saveScrollPos(anchor?: string) {
     x: globalThis.scrollX,
     y: globalThis.scrollY,
   }
+  // Only attach an anchor for real PDP navigations. Carrying a previous
+  // anchor forward on non-PDP exits would restore a stale product on Back.
   if (anchor) {
     payload.anchor = anchor
-  } else {
-    // Preserve a previously saved anchor for this history entry when we only
-    // refresh coordinates (e.g. duplicate routeChangeStart).
-    const prev = readStoredScroll(key)
-    if (prev?.anchor) payload.anchor = prev.anchor
   }
 
   writeStoredScroll(key, payload)
@@ -435,6 +432,12 @@ export default function useScrollRestoration() {
      */
     const onClickCapture = (event: MouseEvent) => {
       if (pendingPopRestore) return
+      // Ignore modified / non-primary clicks — they open a new tab or do not
+      // navigate, and must not overwrite the PLP scroll anchor.
+      if (event.defaultPrevented || event.button !== 0) return
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return
+      }
       if (!(event.target instanceof Element)) return
 
       const link = event.target.closest('a')
@@ -471,7 +474,8 @@ export default function useScrollRestoration() {
 
       // Skip reset when leaving search — IS client redirects race with a
       // resetInfiniteScroll state update and can prevent navigation.
-      if (currentPath === '/s') return
+      // Use router.pathname so locale-prefixed paths (`/en/s`) still match.
+      if (router.pathname === '/s') return
 
       resetInfiniteScroll(0)
     }

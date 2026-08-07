@@ -9,7 +9,9 @@ html.fs-restoring-scroll {
   overflow-x: hidden;
 
   body {
-    opacity: 0;
+    // Hide from hit-testing and the accessibility tree while scroll jumps —
+    // opacity: 0 would keep the page interactive/AT-visible.
+    visibility: hidden;
   }
 }
 
