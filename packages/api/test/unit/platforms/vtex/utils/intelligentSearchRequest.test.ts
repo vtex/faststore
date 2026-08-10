@@ -486,7 +486,7 @@ describe('buildIntelligentSearchRequest', () => {
         },
       })
 
-      expect(request.path).toBe('brand/nike/')
+      expect(request.path).toBe('brand/nike/productClusterIds/158/')
 
       expect(paramsToObject(request.params)).toEqual({
         from: '24',
@@ -496,11 +496,30 @@ describe('buildIntelligentSearchRequest', () => {
         regionId: 'v2.7DCB7CD533993562A2FC4EAFEC6B3DB4',
         country: 'USA',
         locale: 'en-US',
-        productClusterId: '158',
         hideUnavailableItems: 'false',
         showSponsored: 'true',
         allowRedirect: 'false',
       })
+    })
+
+    it('keeps both an inclusion and an exclusion productClusterIds facet as separate path segments', () => {
+      const request = buildIntelligentSearchRequest({
+        endpoint: 'product-search',
+        segment: {
+          facets: 'productClusterIds=80182;productClusterIds=not:80183',
+        },
+        defaults: { locale: 'en-US', salesChannel: 1 },
+        args: {
+          page: 0,
+          count: 12,
+          selectedFacets: [{ key: 'category-1', value: 'furniture' }],
+        },
+      })
+
+      expect(request.path).toBe(
+        'category-1/furniture/productClusterIds/80182/productClusterIds/not%3A80183/'
+      )
+      expect(paramsToObject(request.params).productClusterId).toBeUndefined()
     })
   })
 })
