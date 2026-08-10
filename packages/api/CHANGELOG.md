@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1-dev.4](https://github.com/vtex/faststore/compare/v4.5.1-dev.3...v4.5.1-dev.4) (2026-08-10)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.5.1-dev.3](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1-dev.3) (2026-08-10)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.5.1-dev.2](https://github.com/vtex/faststore/compare/v4.5.1-dev.1...v4.5.1-dev.2) (2026-08-04)
+
+### Bug Fixes
+
+- **api:** keep excludent productClusterIds as repeated path facets ([3103e86](https://github.com/vtex/faststore/commit/3103e8647764acd3c8eab5b6ccf64e65a8f00662))
+
+## [4.5.1-dev.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.0...v4.5.1-dev.1) (2026-08-04)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.5.1-dev.0](https://github.com/vtex/faststore/compare/v4.5.0...v4.5.1-dev.0) (2026-08-03)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.5.0](https://github.com/vtex/faststore/compare/v4.5.0-dev.7...v4.5.0) (2026-08-03)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.5.0-dev.7](https://github.com/vtex/faststore/compare/v4.5.0-dev.6...v4.5.0-dev.7) (2026-08-03)
+
+**Note:** Version bump only for package @faststore/api
+
 # [4.5.0-dev.6](https://github.com/vtex/faststore/compare/v4.5.0-dev.5...v4.5.0-dev.6) (2026-07-28)
 
 ### Bug Fixes
