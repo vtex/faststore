@@ -174,9 +174,6 @@ export default function ProductListingPage({
             title,
             description,
           }}
-          twitter={{
-            cardType: 'summary_large_image',
-          }}
         />
         <BreadcrumbJsonLd itemListElements={itemListElements} />
 

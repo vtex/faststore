@@ -70,9 +70,6 @@ function Page({
           description:
             settings?.seo?.description ?? storeConfig.seo.description,
         }}
-        twitter={{
-          cardType: 'summary_large_image',
-        }}
       />
       <SiteLinksSearchBoxJsonLd
         type="WebSite"
