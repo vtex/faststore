@@ -126,15 +126,15 @@ function copyGenerated(from: string, to: string) {
 
 export default class Dev extends Command {
   static args = {
-    path: Args.string({
-      name: 'path',
-      description:
-        'The path where the FastStore being run is. Defaults to cwd.',
-    }),
     account: Args.string({
       name: 'account',
       description:
         'The account for which the Discovery is running. Currently noop.',
+    }),
+    path: Args.string({
+      name: 'path',
+      description:
+        'The path where the FastStore being run is. Defaults to cwd.',
     }),
     port: Args.string({
       name: 'port',
