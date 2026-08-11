@@ -1,0 +1,157 @@
+# Opens an automated PR back-merging `main` into `dev` after every release, so
+# the prerelease cycle reopens from the freshly published stable version.
+#
+# It cannot trigger on `push` to main: the release commit Lerna creates is
+# `[no ci] Release: x.y.z`, which makes GitHub skip push-triggered workflows.
+# Instead it runs via `workflow_run` once the CD workflow finishes on `main`.
+#
+# Deterministic conflicts (version fields, CHANGELOGs) are resolved by
+# scripts/back-merge-resolve.mjs; generated files and the lockfile are
+# regenerated. Any leftover (non-deterministic) conflict is auto-resolved to the
+# dev side and the PR is opened as a draft flagged for manual review, so a human
+# confirms no `main` hotfix was dropped before merging.
+name: Back-merge main to dev
+
+on:
+  workflow_run:
+    workflows: ["CD"]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: back-merge-main-to-dev
+  cancel-in-progress: false
+
+jobs:
+  back-merge:
+    name: Back-merge
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.28.0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.13.0
+          cache: "pnpm"
+
+      - name: Configure CI Git User
+        run: |
+          git config user.name vtexgithubbot
+          git config user.email vtexgithubbot@github.com
+
+      - name: Prepare sync branch
+        id: prep
+        run: |
+          git fetch origin main dev --tags
+          VERSION=$(node -p "require('./lerna.json').version")
+          BRANCH="chore/sync-dev-with-main-$VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+          if git merge-base --is-ancestor origin/main origin/dev; then
+            echo "main is already contained in dev; nothing to back-merge."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            git checkout -B "$BRANCH" origin/dev
+          fi
+
+      - name: Merge main and resolve
+        if: steps.prep.outputs.skip == 'false'
+        id: resolve
+        run: |
+          # Let the merge report conflicts without aborting the step.
+          git merge --no-ff origin/main \
+            -m "chore: back-merge main into dev (v${{ steps.prep.outputs.version }})" || true
+
+          # Deterministic conflicts: version fields + CHANGELOGs.
+          node ./scripts/back-merge-resolve.mjs
+
+          # Whatever remains is either regenerated (lockfile / generated code)
+          # or needs a human. Keep the dev side to clear markers, and flag the
+          # non-regenerable ones for review.
+          DRAFT=false
+          FLAGGED=""
+          for f in $(git diff --name-only --diff-filter=U); do
+            case "$f" in
+              pnpm-lock.yaml|*/@generated/*|*/__generated__/*) ;;
+              *) DRAFT=true; FLAGGED="${FLAGGED}- \`${f}\`"$'\n' ;;
+            esac
+            git checkout --ours -- "$f"
+            git add -- "$f"
+          done
+          echo "draft=$DRAFT" >> "$GITHUB_OUTPUT"
+          {
+            echo "flagged<<EOF"
+            printf '%s' "$FLAGGED"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Regenerate lockfile and codegen
+        if: steps.prep.outputs.skip == 'false'
+        run: |
+          pnpm i
+          pnpm --filter @faststore/api build
+          pnpm --filter @faststore/api generate
+          pnpm --filter @faststore/core generate
+          git add -A
+
+      - name: Commit and push
+        if: steps.prep.outputs.skip == 'false'
+        run: |
+          if [ -f .git/MERGE_HEAD ]; then
+            git commit --no-edit
+          elif ! git diff --cached --quiet; then
+            git commit -m "chore: regenerate lockfile and codegen after back-merge"
+          fi
+          git push --force-with-lease origin "${{ steps.prep.outputs.branch }}"
+
+      - name: Open pull request
+        if: steps.prep.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
+          VERSION: ${{ steps.prep.outputs.version }}
+          BRANCH: ${{ steps.prep.outputs.branch }}
+          DRAFT: ${{ steps.resolve.outputs.draft }}
+          FLAGGED: ${{ steps.resolve.outputs.flagged }}
+        run: |
+          EXISTING=$(gh pr list --head "$BRANCH" --base dev --state open --json number --jq '.[0].number' || true)
+          if [ -n "$EXISTING" ]; then
+            echo "PR already open for $BRANCH: #$EXISTING"
+            exit 0
+          fi
+
+          # Build the body via printf + env vars (never shell-interpolate the
+          # flagged file list — it contains backticks).
+          BODY_FILE="$RUNNER_TEMP/pr-body.md"
+          {
+            printf 'Automated back-merge of `main` (v%s) into `dev`, to reopen the prerelease cycle from the freshly published stable version.\n\n' "$VERSION"
+            printf 'Deterministic conflicts (version fields and CHANGELOGs) were resolved automatically; the lockfile and generated files were regenerated.\n'
+            if [ "$DRAFT" = "true" ]; then
+              printf '\n> :warning: **Needs manual review.** Non-deterministic conflicts were auto-resolved by keeping the `dev` side in the files below. Verify no `main` hotfix was dropped before merging:\n\n%s\n' "$FLAGGED"
+            fi
+          } > "$BODY_FILE"
+
+          DRAFT_FLAG=""
+          if [ "$DRAFT" = "true" ]; then DRAFT_FLAG="--draft"; fi
+
+          gh pr create \
+            --base dev \
+            --head "$BRANCH" \
+            --title "chore: update dev with main (v$VERSION)" \
+            --body-file "$BODY_FILE" $DRAFT_FLAG

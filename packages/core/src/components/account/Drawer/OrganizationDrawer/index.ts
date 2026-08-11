@@ -1,3 +1,8 @@
 export { OrganizationDrawer } from './OrganizationDrawer'
 export { OrganizationDrawerBody } from './OrganizationDrawerBody'
+export { OrganizationDrawerFooter } from './OrganizationDrawerFooter'
+export type { OrganizationDrawerFooterProps } from './OrganizationDrawerFooter'
 export { OrganizationDrawerHeader } from './OrganizationDrawerHeader'
+export type { OrganizationDrawerHeaderProps } from './OrganizationDrawerHeader'
+export { ContractSwitcher } from './ContractSwitcher'
+export type { ContractSwitcherProps } from './ContractSwitcher'

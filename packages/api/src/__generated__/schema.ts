@@ -142,16 +142,6 @@ export type BusinessHour = {
   openingTime?: Maybe<Scalars['String']['output']>;
 };
 
-/**
- * Whether a saved card is personally owned by the buyer or shared by their
- * Organization/Contract. Resolved server-side by the Saved-cards service from
- * the buyer's `useAdHocCard` role — never inferred client-side.
- */
-export const enum CardOrigin {
-  Personal = 'personal',
-  Shared = 'shared'
-};
-
 /** Commercial Authorization dimension status. */
 export type CommercialAuthorizationDimensionStatus = {
   __typename?: 'CommercialAuthorizationDimensionStatus';
@@ -520,6 +510,8 @@ export type IStoreOffer = {
   listPrice: Scalars['Float']['input'];
   /** Also known as spot price. */
   price: Scalars['Float']['input'];
+  /** Signed price token (JWT) from the Pricing Fallback feature, forwarded to Checkout on add-to-cart. */
+  priceToken?: InputMaybe<Scalars['String']['input']>;
   /** Number of items offered. */
   quantity: Scalars['Int']['input'];
   /** Seller responsible for the offer. */
@@ -700,6 +692,8 @@ export type Mutation = {
    * Returns an operationId to poll for the operation status.
    */
   startOrderEntryOperation?: Maybe<StoreOrderEntryOperationResult>;
+  /** Starts an anonymous personalization session for the current shopper. */
+  startRecommendationSession: Scalars['Boolean']['output'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /**
@@ -912,21 +906,20 @@ export type Query = {
   allCollections: StoreCollectionConnection;
   /** Returns information about all products. */
   allProducts: StoreProductConnection;
+  /**
+   * Lists the commercial contracts associated with the given Organization Unit,
+   * resolved to human-readable corporate names. Governed: only contracts associated
+   * with the authenticated buyer's Organization Unit are returned.
+   */
+  availableContracts: Array<StoreContract>;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
-  /**
-   * Whether the current user holds the ad-hoc card platform permission, which
-   * gates personal card management for Unit/Contract-affiliated buyers.
-   *
-   * Resolved from the user's roles by License Manager — it is not a session token
-   * claim. Fails open (`true`) when the permission service is unreachable, so an
-   * outage never locks buyers out of their own cards.
-   */
-  hasAdHocCardAccess: Scalars['Boolean']['output'];
-  /** Returns the list of saved credit cards for the current user. */
-  listCreditCards?: Maybe<SavedCardListResult>;
+  /** Returns whether the current authenticated user belongs to a B2B organization unit. */
+  isOrganizationMember: Scalars['Boolean']['output'];
   /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
+  /** Returns the list of Quotes that the authenticated Buyer can view. */
+  listUserQuotes?: Maybe<UserQuoteListResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
   orderEntryOperation?: Maybe<StoreOrderEntryOperationStatus>;
   /** Returns the items in an orderForm by its ID. */
@@ -941,6 +934,8 @@ export type Query = {
   products: Array<StoreProduct>;
   /** Returns information about the profile. */
   profile?: Maybe<Profile>;
+  /** Returns personalized product recommendations for a given campaign. */
+  recommendations: RecommendationResponse;
   /** Returns if there's a redirect for a search. */
   redirect?: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
@@ -970,6 +965,11 @@ export type QueryAllProductsArgs = {
 };
 
 
+export type QueryAvailableContractsArgs = {
+  orgUnitId: Scalars['String']['input'];
+};
+
+
 export type QueryCollectionArgs = {
   slug: Scalars['String']['input'];
 };
@@ -984,6 +984,18 @@ export type QueryListUserOrdersArgs = {
   perPage?: InputMaybe<Scalars['Int']['input']>;
   status?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   text?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryListUserQuotesArgs = {
+  createdAtFrom?: InputMaybe<Scalars['String']['input']>;
+  createdAtTo?: InputMaybe<Scalars['String']['input']>;
+  expiresAtFrom?: InputMaybe<Scalars['String']['input']>;
+  expiresAtTo?: InputMaybe<Scalars['String']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  status?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -1022,6 +1034,13 @@ export type QueryProfileArgs = {
 };
 
 
+export type QueryRecommendationsArgs = {
+  campaignVrn: Scalars['String']['input'];
+  products?: InputMaybe<Array<Scalars['String']['input']>>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryRedirectArgs = {
   selectedFacets?: InputMaybe<Array<IStoreSelectedFacet>>;
   term?: InputMaybe<Scalars['String']['input']>;
@@ -1057,6 +1076,20 @@ export type QueryUserOrderArgs = {
   orderId: Scalars['String']['input'];
 };
 
+export type RecommendationCampaign = {
+  __typename?: 'RecommendationCampaign';
+  id: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type RecommendationResponse = {
+  __typename?: 'RecommendationResponse';
+  campaign: RecommendationCampaign;
+  correlationId: Scalars['String']['output'];
+  products: Array<StoreProduct>;
+};
+
 export type SkuSpecificationField = {
   __typename?: 'SKUSpecificationField';
   id?: Maybe<Scalars['String']['output']>;
@@ -1070,37 +1103,6 @@ export type SkuSpecificationValue = {
   id?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   originalName?: Maybe<Scalars['String']['output']>;
-};
-
-/** A saved payment card returned by the Saved-cards service. */
-export type SavedCard = {
-  __typename?: 'SavedCard';
-  /** Account identifier that owns the card. */
-  accountId?: Maybe<Scalars['String']['output']>;
-  /** First digits of the card (BIN). */
-  bin?: Maybe<Scalars['String']['output']>;
-  /** Masked card number, per PCI display rules. */
-  cardNumber?: Maybe<Scalars['String']['output']>;
-  /** Whether this card is active. */
-  isActive?: Maybe<Scalars['Boolean']['output']>;
-  /** Whether this card is the account default. */
-  isDefault?: Maybe<Scalars['Boolean']['output']>;
-  /**
-   * Whether this card is personally owned by the buyer or shared by their
-   * Organization/Contract.
-   */
-  origin: CardOrigin;
-  /** Numeric payment system identifier. */
-  paymentSystem?: Maybe<Scalars['String']['output']>;
-  /** Human-readable payment system name (e.g. Visa, Mastercard). */
-  paymentSystemName?: Maybe<Scalars['String']['output']>;
-};
-
-/** Result of listing the current user's saved credit cards. */
-export type SavedCardListResult = {
-  __typename?: 'SavedCardListResult';
-  /** The list of saved credit cards. */
-  list?: Maybe<Array<SavedCard>>;
 };
 
 /** Search result. */
@@ -1347,6 +1349,11 @@ export type StoreCollection = {
   id: Scalars['ID']['output'];
   /** Collection meta information. Used for search. */
   meta: StoreCollectionMeta;
+  /**
+   * Localized versions of this collection for all available locales.
+   * Only populated when localization is enabled.
+   */
+  otherLocales?: Maybe<Array<StoreCollectionLocale>>;
   /** Meta tag data. */
   seo: StoreSeo;
   /** Corresponding collection URL slug, with which to retrieve this entity. */
@@ -1382,6 +1389,15 @@ export type StoreCollectionFacet = {
   value: Scalars['String']['output'];
 };
 
+/** Localized collection data for a specific locale. */
+export type StoreCollectionLocale = {
+  __typename?: 'StoreCollectionLocale';
+  /** Locale code (e.g. "pt-BR", "it-IT"). */
+  locale: Scalars['String']['output'];
+  /** Localized collection slug (e.g. "vestuario/camisetas"). */
+  slug: Scalars['String']['output'];
+};
+
 /** Collection meta information. Used for search. */
 export type StoreCollectionMeta = {
   __typename?: 'StoreCollectionMeta';
@@ -1389,20 +1405,46 @@ export type StoreCollectionMeta = {
   selectedFacets: Array<StoreCollectionFacet>;
 };
 
-/** Product collection type. Possible values are `Department`, `Category`, `Brand`, `Cluster`, `SubCategory` or `Collection`. */
+/**
+ * Product collection type. Possible values are `Department`, `Category`, `Brand` or `Collection`.
+ *
+ * `SubCategory` and `Cluster` are still declared for backward compatibility but are
+ * deprecated and never returned.
+ */
 export const enum StoreCollectionType {
   /** Product brand. */
   Brand = 'Brand',
   /** Second level of product categorization. */
   Category = 'Category',
-  /** Product cluster. */
+  /**
+   * Product cluster.
+   *
+   * Deprecated: never returned — clusters resolve as `Collection`.
+   * @deprecated Never returned since the by-linkid migration: clusters and curated collections are both served by `collection/by-linkid`, whose response carries no discriminator between them, so both resolve as `Collection`. Scheduled for removal in the next major.
+   */
   Cluster = 'Cluster',
   /** Product collection. */
   Collection = 'Collection',
   /** First level of product categorization. */
   Department = 'Department',
-  /** Third level of product categorization. */
+  /**
+   * Third level of product categorization.
+   *
+   * Deprecated: never returned — third-level categories resolve as `Category`.
+   * @deprecated Never returned since the by-linkid migration: the category response only exposes `fatherCategoryId`, which distinguishes root from non-root but not tree depth, so third-level categories resolve as `Category`. Scheduled for removal in the next major.
+   */
   SubCategory = 'SubCategory'
+};
+
+/** A commercial contract available to a buyer's Organization Unit. */
+export type StoreContract = {
+  __typename?: 'StoreContract';
+  /** Human-readable corporate name of the contract (resolved from MasterData). */
+  corporateName: Scalars['String']['output'];
+  /** Contract identifier (the contract/scope ID associated with the Organization Unit). */
+  id: Scalars['ID']['output'];
+  /** Indicates whether this contract is the one currently active in the session. */
+  isActive: Scalars['Boolean']['output'];
 };
 
 /** Currency information. */
@@ -1549,6 +1591,12 @@ export type StoreOffer = {
   price: Scalars['Float']['output'];
   /** ISO code of the currency used for the offer prices. */
   priceCurrency: Scalars['String']['output'];
+  /**
+   * Signed price token (JWT) used by the Pricing Fallback feature. When present, it should be
+   * forwarded to Checkout on add-to-cart so the platform can trust the offer's price even if
+   * the Pricing System is unavailable. May be null when the signing step fails or the feature is disabled.
+   */
+  priceToken?: Maybe<Scalars['String']['output']>;
   /** Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time. */
   priceValidUntil: Scalars['String']['output'];
   /** Also known as spot price with taxes. */
@@ -1677,6 +1725,11 @@ export type StoreProduct = {
   name: Scalars['String']['output'];
   /** Aggregate offer information. */
   offers: StoreAggregateOffer;
+  /**
+   * Localized versions of this product for all available locales.
+   * Only populated when localization is enabled.
+   */
+  otherLocales?: Maybe<Array<StoreProductLocale>>;
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String']['output'];
   /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
@@ -1739,6 +1792,15 @@ export type StoreProductGroup = {
    * components.
    */
   skuVariants?: Maybe<SkuVariants>;
+};
+
+/** Localized product data for a specific locale. */
+export type StoreProductLocale = {
+  __typename?: 'StoreProductLocale';
+  /** Locale code (e.g. "pt-BR", "it-IT"). */
+  locale: Scalars['String']['output'];
+  /** Localized product slug including the SKU ID suffix (e.g. "adidas-polo-uomo-65"). */
+  slug: Scalars['String']['output'];
 };
 
 /** Properties that can be associated with products and products groups. */
@@ -2786,6 +2848,45 @@ export type UserOrderTransactions = {
   merchantName?: Maybe<Scalars['String']['output']>;
   payments?: Maybe<Array<Maybe<UserOrderPayments>>>;
   transactionId?: Maybe<Scalars['String']['output']>;
+};
+
+/** Pagination metadata for the quotes list. */
+export type UserQuoteListPaging = {
+  __typename?: 'UserQuoteListPaging';
+  /** Current page number (1-based). */
+  currentPage: Scalars['Int']['output'];
+  /** Number of items per page. */
+  perPage: Scalars['Int']['output'];
+  /** Total number of quotes matching the query. */
+  total: Scalars['Int']['output'];
+};
+
+/** Result returned by the listUserQuotes query. */
+export type UserQuoteListResult = {
+  __typename?: 'UserQuoteListResult';
+  /** Array of quote summaries for the current page. */
+  list: Array<UserQuoteSummary>;
+  /** Pagination information. */
+  paging: UserQuoteListPaging;
+};
+
+/** Summary of a quote returned in list results. */
+export type UserQuoteSummary = {
+  __typename?: 'UserQuoteSummary';
+  /** Total amount of the quote. */
+  amount: Scalars['Float']['output'];
+  /** ISO 8601 date-time when the quote was created. */
+  createdAt: Scalars['String']['output'];
+  /** Name or email of the user who created the quote. */
+  createdBy?: Maybe<Scalars['String']['output']>;
+  /** ISO 8601 date-time when the quote expires. */
+  expiresAt: Scalars['String']['output'];
+  /** Unique identifier of the quote. */
+  id: Scalars['String']['output'];
+  /** Optional label assigned to the quote. */
+  label?: Maybe<Scalars['String']['output']>;
+  /** Status of the quote. */
+  status: Scalars['String']['output'];
 };
 
 export type ValidateUserData = {

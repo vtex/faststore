@@ -20,6 +20,7 @@ const {
   readFileSync,
   readdirSync,
   removeSync,
+  statSync,
   writeFileSync,
   writeJsonSync,
 } = fsExtra
@@ -192,19 +193,56 @@ function copyCoreFiles(basePath: string) {
   }
 }
 
-function copyPublicFiles(basePath: string) {
+// File extensions allowed to be copied from the store's `public/` folder into
+// the build. Fonts are included so stores can self-host them (GDPR / CWV)
+// instead of relying on external CDNs.
+export const PUBLIC_FILES_ALLOWED_EXTENSIONS = [
+  '.json',
+  '.txt',
+  '.xml',
+  '.ico',
+  '.svg',
+  '.woff',
+  '.woff2',
+  '.ttf',
+  '.otf',
+  '.eot',
+]
+
+/**
+ * Decides whether an entry from the store's `public/` folder should be copied
+ * to the build. Directories always pass so nested assets can be reached, and
+ * files are matched by their real extension (not a substring of the path).
+ */
+export function isPublicFileAllowed(
+  src: string,
+  isDirectory: boolean
+): boolean {
+  if (isDirectory) {
+    return true
+  }
+
+  return PUBLIC_FILES_ALLOWED_EXTENSIONS.includes(
+    path.extname(src).toLowerCase()
+  )
+}
+
+export function copyPublicFiles(basePath: string) {
   const { userDir, tmpDir } = withBasePath(basePath)
 
-  const allowList = ['json', 'txt', 'xml', 'ico', 'public', 'svg']
   try {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
         dereference: true,
         overwrite: true,
         filter: (src) => {
-          const allow = allowList.some((ext) => src.endsWith(ext))
-
-          return allow
+          try {
+            return isPublicFileAllowed(src, statSync(src).isDirectory())
+          } catch {
+            // Skip entries we can't stat (dangling symlinks, permission
+            // errors) so a single bad file never aborts the whole public/ copy.
+            return false
+          }
         },
       })
       logger.log(`${chalk.green('success')} - Public files copied`)

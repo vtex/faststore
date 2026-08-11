@@ -30,7 +30,6 @@ type SegmentParams = {
   utmiCampaign?: string
   campaigns?: string
   priceTables?: string
-  productClusterIds?: string
 }
 
 export type Sort =
@@ -117,8 +116,6 @@ const SHIPPING_FACET_KEYS = new Set([
   'pickupPointsHash',
 ])
 
-const QUERY_PARAM_FACET_KEYS = new Set(['productClusterIds'])
-
 const encodeSafeURI = (uri: string) => encodeURI(decodeURI(uri))
 
 const removeDiacriticsFromURL = (url: string) =>
@@ -160,11 +157,9 @@ export function parseSegmentCookie(
 
 function parseSegmentFacetsString(facetsStr: string): {
   shipping: Record<string, string>
-  queryParams: Record<string, string>
   extraFacets: IntelligentSearchFacet[]
 } {
   const shipping: Record<string, string> = {}
-  const queryParams: Record<string, string> = {}
   const extraFacets: IntelligentSearchFacet[] = []
 
   for (const pair of facetsStr.split(';')) {
@@ -179,14 +174,15 @@ function parseSegmentFacetsString(facetsStr: string): {
 
     if (SHIPPING_FACET_KEYS.has(key)) {
       shipping[key] = value
-    } else if (QUERY_PARAM_FACET_KEYS.has(key)) {
-      queryParams[key] = value
     } else {
+      // NOTE: productClusterIds (and any other repeated facet key, e.g. for
+      // excludent collections) must stay as path segments, not collapse into
+      // a single query param — IS expects productClusterIds/X/productClusterIds/not:Y/.
       extraFacets.push({ key, value })
     }
   }
 
-  return { shipping, queryParams, extraFacets }
+  return { shipping, extraFacets }
 }
 
 function extractSegmentData(segment: Record<string, unknown>): {
@@ -194,8 +190,7 @@ function extractSegmentData(segment: Record<string, unknown>): {
   extraFacets: IntelligentSearchFacet[]
 } {
   const facetsStr = typeof segment.facets === 'string' ? segment.facets : ''
-  const { shipping, queryParams, extraFacets } =
-    parseSegmentFacetsString(facetsStr)
+  const { shipping, extraFacets } = parseSegmentFacetsString(facetsStr)
 
   return {
     segmentParams: {
@@ -214,7 +209,6 @@ function extractSegmentData(segment: Record<string, unknown>): {
       campaigns:
         typeof segment.campaigns === 'string' ? segment.campaigns : undefined,
       priceTables: (segment.priceTables as string | undefined) ?? undefined,
-      productClusterIds: queryParams.productClusterIds,
     },
     extraFacets,
   }
@@ -239,7 +233,6 @@ function appendSegmentParams(
     ['utmiCampaign', segmentParams.utmiCampaign],
     ['campaigns', segmentParams.campaigns],
     ['priceTables', segmentParams.priceTables],
-    ['productClusterId', segmentParams.productClusterIds],
   ]
 
   for (const [key, value] of entries) {

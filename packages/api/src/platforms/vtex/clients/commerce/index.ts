@@ -15,6 +15,7 @@ import {
   type UserOrderCancel,
   type UserOrderListResult,
 } from '../../../..'
+import { isNotFoundError } from '../../../errors'
 import type { GraphqlContext } from '../../index'
 import { getWithAppKeyAndToken } from '../../utils/auth'
 import type { Channel } from '../../utils/channel'
@@ -27,6 +28,11 @@ import {
 import type { ContractResponse } from './Contract'
 import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
+import type {
+  ByLinkIdBrandResponse,
+  ByLinkIdCategoryResponse,
+  ByLinkIdCollectionResponse,
+} from './types/ByLinkId'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
 import type {
@@ -46,16 +52,129 @@ import type {
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
+import type {
+  RecommendationResult,
+  StartRecommendationSessionResult,
+} from './types/RecommendationResult'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
+import type { QuoteListResult, ListUserQuotesArgs } from './types/Quote'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
+
+// Identifies the storefront origin to the Recommendations BFF, as required by
+// the API (`x-vtex-rec-origin` header).
+const REC_ORIGIN_SUFFIX = 'storefront/faststore.recommendation-shelf@v4'
+
+export interface RecommendationArgs {
+  campaignVrn: string
+  userId?: string
+  products?: string[]
+  salesChannel?: string
+  locale?: string
+}
 
 const BASE_INIT = {
   method: 'POST',
   headers: {
     'content-type': 'application/json',
   },
+}
+
+/**
+ * Encode a by-linkid path for the category endpoint. Category link paths can be
+ * multi-segment (e.g. "computer---software/eletronicos"); the Catalog endpoint
+ * expects the "/" separators to stay literal so it can validate each level,
+ * while each segment is individually URL-encoded. Running encodeURIComponent on
+ * the whole string would turn "/" into "%2F" and break multi-segment resolution.
+ */
+const encodeLinkIdPath = (linkId: string): string =>
+  linkId.split('/').map(encodeURIComponent).join('/')
+
+/**
+ * Build the fetch init that forwards a locale to a by-linkid endpoint. When no
+ * locale is provided the endpoint falls back to the store's default registered
+ * language (non-localized stores behavior).
+ */
+const byLinkIdInit = (locale?: string): RequestInit | undefined =>
+  locale ? { headers: { 'Accept-Language': locale } } : undefined
+
+const QUOTE_ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
+const QUOTE_VALID_STATUSES = new Set([
+  'Draft',
+  'Requested',
+  'InReview',
+  'Reviewed',
+  'Approved',
+  'Declined',
+  'Expired',
+  'ConvertedToCart',
+  'ConvertedToOrder',
+])
+
+function validateListUserQuotesArgs({
+  page,
+  perPage,
+  status,
+  createdAtFrom,
+  createdAtTo,
+  expiresAtFrom,
+  expiresAtTo,
+}: ListUserQuotesArgs): void {
+  if (page !== undefined && (!Number.isInteger(page) || page < 1)) {
+    throw new Error(
+      `listUserQuotes: invalid page "${page}" — must be a positive integer`
+    )
+  }
+  if (perPage !== undefined && (!Number.isInteger(perPage) || perPage < 1)) {
+    throw new Error(
+      `listUserQuotes: invalid perPage "${perPage}" — must be a positive integer`
+    )
+  }
+  for (const [field, value] of [
+    ['createdAtFrom', createdAtFrom],
+    ['createdAtTo', createdAtTo],
+    ['expiresAtFrom', expiresAtFrom],
+    ['expiresAtTo', expiresAtTo],
+  ] as [string, string | undefined][]) {
+    if (value && !QUOTE_ISO_DATE.test(value)) {
+      throw new Error(
+        `listUserQuotes: invalid ${field} "${value}" — must be YYYY-MM-DD`
+      )
+    }
+  }
+  if (status && status.length > 0) {
+    const invalid = status.filter((s) => !QUOTE_VALID_STATUSES.has(s))
+    if (invalid.length > 0) {
+      throw new Error(
+        `listUserQuotes: invalid status values: ${invalid.join(', ')}`
+      )
+    }
+  }
+}
+
+function buildListUserQuotesParams({
+  page,
+  perPage,
+  status,
+  createdAtFrom,
+  createdAtTo,
+  expiresAtFrom,
+  expiresAtTo,
+  label,
+}: ListUserQuotesArgs): URLSearchParams {
+  const params = new URLSearchParams()
+
+  if (page) params.append('pageNumber', page.toString())
+  if (perPage) params.append('pageSize', perPage.toString())
+  status?.forEach((s) => params.append('status', s))
+  if (createdAtFrom) params.append('createdAtFrom', createdAtFrom)
+  if (createdAtTo) params.append('createdAtTo', createdAtTo)
+  if (expiresAtFrom) params.append('expiresAtFrom', expiresAtFrom)
+  if (expiresAtTo) params.append('expiresAtTo', expiresAtTo)
+  if (label?.trim()) params.append('label', label.trim())
+
+  return params
 }
 
 export const VtexCommerce = (
@@ -77,6 +196,26 @@ export const VtexCommerce = (
     : ''
 
   const forwardedHost = host.replace(selectedPrefix, '')
+
+  // Recommendations BFF (`/api/recommend-bff/v2`) lives under the same account
+  // host as the other commerce APIs, so it's exposed here as a namespace.
+  const recommendationBase = `${base}/api/recommend-bff/v2`
+  const recommendationHeaders: HeadersInit = withCookie({
+    accept: 'application/json',
+    'content-type': 'application/json',
+    'x-vtex-rec-origin': `${account}/${REC_ORIGIN_SUFFIX}`,
+  })
+  const withBuyerAuthHeaders = (
+    additionalHeaders: Record<string, string> = {}
+  ): HeadersInit => {
+    const authToken = getAuthCookie(getUpdatedCookie(ctx) ?? '', account)
+
+    return withCookie({
+      ...additionalHeaders,
+      'X-FORWARDED-HOST': forwardedHost,
+      ...(authToken ? { [`VtexIdclientAutCookie_${account}`]: authToken } : {}),
+    })
+  }
 
   return {
     catalog: {
@@ -107,6 +246,53 @@ export const VtexCommerce = (
             undefined,
             { storeCookies }
           ),
+      },
+      byLinkId: {
+        // The by-linkid endpoints resolve a slug to a single catalog entity
+        // (or 404 when there is no match). We surface a 404 as `null` so the
+        // loader can cascade category → brand → collection.
+        category: async (
+          linkId: string,
+          locale?: string
+        ): Promise<ByLinkIdCategoryResponse | null> => {
+          try {
+            return await fetchAPI(
+              `${base}/api/catalog_system/pub/category/by-linkid/${encodeLinkIdPath(linkId)}`,
+              byLinkIdInit(locale)
+            )
+          } catch (error) {
+            if (isNotFoundError(error)) return null
+            throw error
+          }
+        },
+        brand: async (
+          linkId: string,
+          locale?: string
+        ): Promise<ByLinkIdBrandResponse | null> => {
+          try {
+            return await fetchAPI(
+              `${base}/api/catalog_system/pub/brand/by-linkid/${encodeURIComponent(linkId)}`,
+              byLinkIdInit(locale)
+            )
+          } catch (error) {
+            if (isNotFoundError(error)) return null
+            throw error
+          }
+        },
+        collection: async (
+          linkId: string,
+          locale?: string
+        ): Promise<ByLinkIdCollectionResponse | null> => {
+          try {
+            return await fetchAPI(
+              `${base}/api/catalog_system/pub/collection/by-linkid/${encodeURIComponent(linkId)}`,
+              byLinkIdInit(locale)
+            )
+          } catch (error) {
+            if (isNotFoundError(error)) return null
+            throw error
+          }
+        },
       },
       products: {
         crossselling: ({
@@ -454,7 +640,7 @@ export const VtexCommerce = (
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
+        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,shopper.availableContracts,shopper.activeContractId,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
       )
 
       const headers: HeadersInit = withCookie({
@@ -802,10 +988,9 @@ export const VtexCommerce = (
           throw new BadRequestError('Missing contractId to fetch CL fields.')
         }
 
-        const headers: HeadersInit = withAppKeyAndToken({
+        const headers: HeadersInit = withBuyerAuthHeaders({
           Accept: 'application/json',
           'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
         })
 
         return fetchAPI(
@@ -846,6 +1031,27 @@ export const VtexCommerce = (
             headers,
           },
           {}
+        )
+      },
+    },
+    quotes: {
+      listUserQuotes: (args: ListUserQuotesArgs): Promise<QuoteListResult> => {
+        validateListUserQuotesArgs(args)
+
+        const params = buildListUserQuotesParams(args)
+
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/quoting/quotes?${params.toString()}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
         )
       },
     },
@@ -1024,6 +1230,56 @@ export const VtexCommerce = (
             headers: autHeaders,
           },
           {}
+        )
+      },
+    },
+
+    // Anonymous personalization / recommendations served by the VTEX
+    // Recommendations BFF. The BFF replies with `vtex-rec-*` Set-Cookie headers
+    // (forwarded to the browser via `ctx.storage.cookies`) and returns products
+    // already hydrated in the Intelligent Search shape.
+    recommendation: {
+      recommendations: ({
+        campaignVrn,
+        userId,
+        products = [],
+        salesChannel,
+        locale,
+      }: RecommendationArgs): Promise<RecommendationResult> => {
+        const params = new URLSearchParams({ an: account, campaignVrn })
+
+        if (userId) {
+          params.append('userId', userId)
+        }
+
+        if (products.length > 0) {
+          params.append('products', products.join(','))
+        }
+
+        if (salesChannel) {
+          params.append('salesChannel', salesChannel)
+        }
+
+        if (locale) {
+          params.append('locale', locale)
+        }
+
+        return fetchAPI(
+          `${recommendationBase}/recommendations?${params.toString()}`,
+          { headers: recommendationHeaders },
+          { storeCookies }
+        )
+      },
+
+      startRecommendationSession: (): Promise<
+        StartRecommendationSessionResult | undefined
+      > => {
+        const params = new URLSearchParams({ an: account })
+
+        return fetchAPI(
+          `${recommendationBase}/users/start-session?${params.toString()}`,
+          { method: 'POST', headers: recommendationHeaders },
+          { storeCookies }
         )
       },
     },

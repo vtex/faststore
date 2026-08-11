@@ -35,4 +35,8 @@ type Mutation {
   startOrderEntryOperation(
     data: IOrderEntryOperation!
   ): StoreOrderEntryOperationResult @auth
+  """
+  Starts an anonymous personalization session for the current shopper.
+  """
+  startRecommendationSession: Boolean!
 }

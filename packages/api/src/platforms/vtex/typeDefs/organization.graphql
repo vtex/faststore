@@ -17,3 +17,21 @@ input IStoreOrganization {
   """
   identifier: String!
 }
+
+"""
+A commercial contract available to a buyer's Organization Unit.
+"""
+type StoreContract {
+  """
+  Contract identifier (the contract/scope ID associated with the Organization Unit).
+  """
+  id: ID!
+  """
+  Human-readable corporate name of the contract (resolved from MasterData).
+  """
+  corporateName: String!
+  """
+  Indicates whether this contract is the one currently active in the session.
+  """
+  isActive: Boolean!
+}

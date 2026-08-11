@@ -3,6 +3,110 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1) (2026-08-11)
+
+### Bug Fixes
+
+- **core:** address scroll restoration review feedback ([a5fe6a3](https://github.com/vtex/faststore/commit/a5fe6a35c54e6095f81c7995a815ce6ef3b4dd4e))
+- **core:** align beforePopState callback with NextHistoryState ([10719e5](https://github.com/vtex/faststore/commit/10719e5eca199385d9fe18bdd6d7da290716a1d5))
+- **core:** compare window to undefined directly for Sonar ([bf05a54](https://github.com/vtex/faststore/commit/bf05a54bb014d120b7bdc95ff7c01a4e9b35b485))
+- **core:** harden scroll restore path matching and hydration-safe heights ([34efa6b](https://github.com/vtex/faststore/commit/34efa6bda7549895a4531277c2fe55bd6bbe98a7))
+- **core:** hash gallery height keys to avoid truncation collisions ([9e98043](https://github.com/vtex/faststore/commit/9e980438d74e457fa33aa77900438339463a078c))
+- **core:** prevent IS redirect hang and improve scroll restoration ([5f30778](https://github.com/vtex/faststore/commit/5f30778161eec2e4381b3fe971479dd7cbe53b08))
+- **core:** reset infinite scroll on forward listing navigations ([249226a](https://github.com/vtex/faststore/commit/249226a3acbe4cb26d687cf962125b2593d5949e))
+- **core:** resolve Sonar new-code smells for scroll restoration ([59b41ed](https://github.com/vtex/faststore/commit/59b41ed1d2a30ba693726b19895a0279eb1ba464))
+- **core:** restore PLP infinite-scroll pages on back navigation ([92b2efa](https://github.com/vtex/faststore/commit/92b2efa1d4d0895a10b5a0e71a4d9bf37cae1686))
+- **core:** resync gallery height lock when children change ([5058089](https://github.com/vtex/faststore/commit/50580898d97baf800b97c8a876f7967529859c61))
+- **core:** satisfy Sonar on gallery height key hash ([3a6ce47](https://github.com/vtex/faststore/commit/3a6ce47485c26be75d6d76906df3af64c9e34fd6))
+- **core:** type scroll restore paint timer for DOM/Node setTimeout ([940c903](https://github.com/vtex/faststore/commit/940c90376f8d2eb77665e73a6fb0ea53c9786c8e))
+- **core:** use replaceAll for infinite-scroll session key ([4f52048](https://github.com/vtex/faststore/commit/4f520482a9ba9661782fcf25a286b8f2e6c6b922))
+
+## [4.5.1-dev.2](https://github.com/vtex/faststore/compare/v4.5.1-dev.1...v4.5.1-dev.2) (2026-08-04)
+
+### Bug Fixes
+
+- **api:** keep excludent productClusterIds as repeated path facets ([3103e86](https://github.com/vtex/faststore/commit/3103e8647764acd3c8eab5b6ccf64e65a8f00662))
+
+## [4.5.1-dev.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.0...v4.5.1-dev.1) (2026-08-04)
+
+**Note:** Version bump only for package faststore
+
+## [4.5.1-dev.0](https://github.com/vtex/faststore/compare/v4.5.0...v4.5.1-dev.0) (2026-08-03)
+
+**Note:** Version bump only for package faststore
+
+# [4.5.0](https://github.com/vtex/faststore/compare/v4.5.0-dev.7...v4.5.0) (2026-08-03)
+
+**Note:** Version bump only for package faststore
+
+# [4.5.0-dev.7](https://github.com/vtex/faststore/compare/v4.5.0-dev.6...v4.5.0-dev.7) (2026-08-03)
+
+### Features
+
+- CMS-driven custom My Account pages ([#3411](https://github.com/vtex/faststore/issues/3411)) ([e38b278](https://github.com/vtex/faststore/commit/e38b2780bb7386a8ef7b83a9e3de5956bf6de50e))
+
+# [4.5.0-dev.6](https://github.com/vtex/faststore/compare/v4.5.0-dev.5...v4.5.0-dev.6) (2026-07-28)
+
+### Bug Fixes
+
+- prevent My Account 500s from empty session profile and missing CMS content ([#3417](https://github.com/vtex/faststore/issues/3417)) ([2c2a18f](https://github.com/vtex/faststore/commit/2c2a18fe8f4127404d6634933cce778a64169c08))
+
+# [4.5.0-dev.5](https://github.com/vtex/faststore/compare/v4.5.0-dev.4...v4.5.0-dev.5) (2026-07-27)
+
+### Features
+
+- forward Pricing Fallback price token to Checkout ([#3415](https://github.com/vtex/faststore/issues/3415)) ([bc6cda2](https://github.com/vtex/faststore/commit/bc6cda2cdaed0540896ca7202246ad2d3dcd5766))
+
+# [4.5.0-dev.4](https://github.com/vtex/faststore/compare/v4.5.0-dev.3...v4.5.0-dev.4) (2026-07-24)
+
+### Features
+
+- **core:** localized product URLs, breadcrumbs PDP and PLPs ([#3402](https://github.com/vtex/faststore/issues/3402)) ([3c6b6ef](https://github.com/vtex/faststore/commit/3c6b6ef29ef902ccae3ff784297b24e6c6bc7802)), closes [#3352](https://github.com/vtex/faststore/issues/3352) [#3401](https://github.com/vtex/faststore/issues/3401)
+
+# [4.5.0-dev.3](https://github.com/vtex/faststore/compare/v4.5.0-dev.2...v4.5.0-dev.3) (2026-07-22)
+
+### Features
+
+- **core:** move recommendation session start to CMS Global Section ([8589056](https://github.com/vtex/faststore/commit/8589056046b38e5dbc4f8ce6dcc669f7a15a4d85))
+
+# [4.5.0-dev.2](https://github.com/vtex/faststore/compare/v4.5.0-dev.1...v4.5.0-dev.2) (2026-07-20)
+
+### Features
+
+- copy fonts and nested assets from public/ to build ([#3412](https://github.com/vtex/faststore/issues/3412)) ([ce07376](https://github.com/vtex/faststore/commit/ce07376a7c6aabf727746afdd7e486e3e6afaa76)), closes [#3332](https://github.com/vtex/faststore/issues/3332)
+
+# [4.5.0-dev.1](https://github.com/vtex/faststore/compare/v4.5.0-dev.0...v4.5.0-dev.1) (2026-07-14)
+
+### Bug Fixes
+
+- **api:** add storeCookies option to fetchAPI for recommendations ([0e36d26](https://github.com/vtex/faststore/commit/0e36d269600ad9d219e8899ad58d6f81b18f70cb))
+- **api:** close Recommendation describe block after merge with dev ([1852ee1](https://github.com/vtex/faststore/commit/1852ee1c70602898b482439f247e018d21956a3e))
+- **api:** expose recommendation and personalization operations ([961112a](https://github.com/vtex/faststore/commit/961112a8d2434e9fa961e7b6805850d90165d70f))
+- **api:** use private cache scope for personalized recommendations ([ec92aef](https://github.com/vtex/faststore/commit/ec92aefc06d173b179478e6a94a68651d8c4e7cc))
+- **core:** add recommendation/personalization GraphQL typeDefs ([5f3999b](https://github.com/vtex/faststore/commit/5f3999b3a045d6ca7218cbc9eadee00021a4231c))
+- **core:** harden RecommendationShelf per review feedback ([e369181](https://github.com/vtex/faststore/commit/e36918123b0f14d9628d7ef71238ac714c99a7fc))
+- **ProductGallery:** cast context to PLPContext for SEO title retrieval ([c674edc](https://github.com/vtex/faststore/commit/c674edccb35fabd5432185a4b85290f8447b7af6))
+
+### Features
+
+- **api, core:** implement server-side validation for recommendations and enable opt-in feature ([060d0a0](https://github.com/vtex/faststore/commit/060d0a0a151faa8494d1ae781f18baad5505b149))
+- **api, core:** return StoreProduct from recommendations for consistent interface ([1ea6afa](https://github.com/vtex/faststore/commit/1ea6afacbc768c1395b3b46e735bac6a0cfed73e))
+- **core:** add RecommendationShelf component for personalized product recommendations ([3214947](https://github.com/vtex/faststore/commit/3214947496a3ca28282af1b8a07a8f0567be01e2))
+- **core:** add RecommendationShelf section with personalization tracking ([6c426a8](https://github.com/vtex/faststore/commit/6c426a80bd3e408eac989b00d4b10d45b74f2967))
+- **core:** B2B contract switcher in the account drawer ([#3390](https://github.com/vtex/faststore/issues/3390)) ([380396a](https://github.com/vtex/faststore/commit/380396a7405f7bdb472b1219274d84807c61e153)), closes [#3354](https://github.com/vtex/faststore/issues/3354)
+- **core:** enhance RecommendationShelf with configurable items context and carousel settings ([7b4e2d2](https://github.com/vtex/faststore/commit/7b4e2d274d8acb07b74f6a29c34e806eff311b1f))
+- **core:** make RecommendationShelf carousel and product card configurable ([402816e](https://github.com/vtex/faststore/commit/402816e0dda8529ea081d9dcfd50626d889bf4f8))
+
+# [4.5.0-dev.0](https://github.com/vtex/faststore/compare/v4.4.1-dev.0...v4.5.0-dev.0) (2026-07-03)
+
+### Features
+
+- quotes list for B2B buyers in My Account ([#3388](https://github.com/vtex/faststore/issues/3388)) ([a6c1ef6](https://github.com/vtex/faststore/commit/a6c1ef6d13abd1f525832ccca9a5c0dc6a4b1a87)), closes [faststore-dx-spec-kit#13](https://github.com/faststore-dx-spec-kit/issues/13)
+
+## [4.4.1-dev.0](https://github.com/vtex/faststore/compare/v4.4.0...v4.4.1-dev.0) (2026-07-02)
+
+**Note:** Version bump only for package faststore
+
 # [4.4.0](https://github.com/vtex/faststore/compare/v4.4.0-dev.6...v4.4.0) (2026-07-02)
 
 **Note:** Version bump only for package faststore

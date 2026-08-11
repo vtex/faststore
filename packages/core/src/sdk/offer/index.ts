@@ -5,7 +5,7 @@ import { fetcher } from './fetcher'
 import { bestOfferFirst } from './sort'
 export { getUrl as getOfferUrl } from './fetcher'
 
-const ERROR_DATA = { offers: {}, isValidating: false }
+const ERROR_DATA = { offers: {}, priceToken: null, isValidating: false }
 
 export function useOffer(args: { skuId: string }) {
   const { data, error, isValidating } = useSWR(args.skuId, fetcher)
@@ -41,5 +41,10 @@ export function useOffer(args: { skuId: string }) {
 
   const offers = aggregateOffer(sellers)
 
-  return { offers, isValidating }
+  // Fresh Pricing Fallback signed price token from the best seller. Fetched
+  // directly from Intelligent Search on the client, so it bypasses the SSG/CDN
+  // caches and respects the token's short (~30min) validity window.
+  const priceToken = sellers[0]?.PriceToken ?? null
+
+  return { offers, priceToken, isValidating }
 }

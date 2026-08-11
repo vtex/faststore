@@ -1,4 +1,4 @@
-export type MyAccountContentType =
+export type NativeMyAccountContentType =
   | 'myAccountProfile'
   | 'myAccountOrders'
   | 'myAccountOrderDetails'
@@ -7,13 +7,16 @@ export type MyAccountContentType =
   | 'myAccountUnauthorized'
   | 'myAccountCards'
 
+/** Store content-types are opaque strings; native literals keep autocompletion. */
+export type MyAccountContentType = NativeMyAccountContentType | (string & {})
+
 export type DefaultMyAccountSection = {
   name: string
   $componentKey: string
   data: Record<string, unknown>
 }
 
-const DEFAULT_SECTION_KEYS: Record<MyAccountContentType, string[]> = {
+const DEFAULT_SECTION_KEYS: Record<NativeMyAccountContentType, string[]> = {
   myAccountProfile: ['AccountNavigation', 'AccountProfile'],
   myAccountOrders: ['AccountNavigation', 'AccountOrdersList'],
   myAccountCards: ['AccountNavigation', 'AccountListCards'],
@@ -36,7 +39,9 @@ const DEFAULT_SECTION_KEYS: Record<MyAccountContentType, string[]> = {
 export function getDefaultMyAccountSections(
   contentType: MyAccountContentType
 ): DefaultMyAccountSection[] {
-  return (DEFAULT_SECTION_KEYS[contentType] ?? []).map((key) => ({
+  return (
+    DEFAULT_SECTION_KEYS[contentType as NativeMyAccountContentType] ?? []
+  ).map((key) => ({
     name: key,
     $componentKey: key,
     data: {},

@@ -3,6 +3,12 @@ export interface Route {
   title: string
   /* Accessible path within My Account */
   route: string
+  /**
+   * When set, the page body renders from this CMS content-type.
+   * Presence of this field is the single opt-in for a CMS-driven page.
+   * Pure CMS vs hybrid is derived by the CLI from whether a code body exists.
+   */
+  contentType?: string
 }
 
 export type AccountNavigationLabels = Partial<{
@@ -29,6 +35,9 @@ export const ORDERS_ROUTE = '/pvt/account/orders'
 export const USER_DETAILS_ROUTE = '/pvt/account/user-details'
 export const SECURITY_ROUTE = '/pvt/account/security'
 export const CARDS_ROUTE = '/pvt/account/cards'
+export const QUOTES_ROUTE = '/pvt/account/quotes'
+
+export const ROUTES_ONLY_FOR_B2B_MEMBERS = [QUOTES_ROUTE]
 
 const ROUTE_LABEL_KEYS: Record<string, keyof AccountNavigationLabels> = {
   [PROFILE_ROUTE]: 'profileLabel',
@@ -51,6 +60,10 @@ const DEFAULT_ROUTES: Route[] = [
   {
     title: 'Cards',
     route: CARDS_ROUTE,
+  },
+  {
+    title: 'Quotes',
+    route: QUOTES_ROUTE,
   },
   {
     title: 'User Details',

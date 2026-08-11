@@ -2,10 +2,12 @@ import type { PropsWithChildren } from 'react'
 import menuRoutes from 'src/customizations/src/myAccount/navigation'
 import {
   type AccountNavigationLabels,
+  ROUTES_ONLY_FOR_B2B_MEMBERS,
   USER_DETAILS_ROUTE,
   getExtraMyAccountRoutes,
   getMyAccountRoutes,
 } from 'src/sdk/account/getMyAccountRoutes'
+import { useSession } from 'src/sdk/session'
 import Menu from '../Menu'
 import styles from '../section.module.scss'
 
@@ -23,6 +25,9 @@ const Layout = ({
   isRepresentative = true,
   navigationLabels,
 }: PropsWithChildren<LayoutProps>) => {
+  const { b2b } = useSession()
+  const isOrgMember = Boolean(b2b?.unitId)
+
   const menuItems = navigationLabels
     ? getMyAccountRoutes({
         routes: getExtraMyAccountRoutes(menuRoutes),
@@ -30,15 +35,19 @@ const Layout = ({
       })
     : menuRoutes
 
-  // Cards is never route-gated: `useAdHocCard` only affects the Personal-tab
-  // rendering inside the page itself (spec my-account-cards-gating-plan). The
-  // sidebar entry always stays visible.
-  const routes = menuItems.filter(({ route }) => {
-    if (!isRepresentative && ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)) {
-      return false
-    }
-    return true
-  })
+  // Cards is never route-gated here: `useAdHocCard` only affects the
+  // Personal-tab rendering inside the page itself (spec
+  // my-account-cards-gating-plan), so it never joins
+  // ROUTES_ONLY_FOR_B2B_MEMBERS — the sidebar entry always stays visible.
+  const routes = (
+    isRepresentative
+      ? menuItems
+      : menuItems.filter(
+          ({ route }) => !ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)
+        )
+  ).filter(
+    ({ route }) => isOrgMember || !ROUTES_ONLY_FOR_B2B_MEMBERS.includes(route)
+  )
 
   return (
     <section className={styles.layout}>

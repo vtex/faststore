@@ -44,6 +44,14 @@ const ShoppingAssistant = dynamic(
   { ssr: false }
 )
 
+const RecommendationShelf = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "RecommendationShelf" */ 'src/components/sections/RecommendationShelf'
+    ).then((mod) => mod.RecommendationShelf),
+  { ssr: false }
+)
+
 const COMPONENTS: Record<string, ComponentType<any>> = {
   [getComponentKey(Alert, 'Alert')]: Alert,
   [getComponentKey(Navbar, 'Navbar')]: Navbar,
@@ -54,6 +62,8 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   [getComponentKey(RegionSlider, 'RegionSlider')]: RegionSlider, // out of viewport
   [getComponentKey(Footer, 'Footer')]: Footer, // out of viewport
   [getComponentKey(ShoppingAssistant, 'ShoppingAssistant')]: ShoppingAssistant,
+  [getComponentKey(RecommendationShelf, 'RecommendationShelf')]:
+    RecommendationShelf,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
