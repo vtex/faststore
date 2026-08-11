@@ -1,9 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-  getTypeFromVrn,
-  isValidVrn,
-} from 'src/components/sections/RecommendationShelf/vrn'
+import { getTypeFromVrn, isValidVrn } from 'src/sdk/recommendations/vrn'
 
 const vrn = (type: string) => `vrn:recommendations:account:${type}:campaign-1`
 
