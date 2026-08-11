@@ -51,8 +51,9 @@ export function getRecommendationArguments(
 export type UseRecommendationShelfArgs = {
   readonly campaignVrn: string
   /**
-   * Opt-in for VTEX Recommendations. When `false` (default) no personalization
-   * cookie is read and no request is made.
+   * Opt-in for VTEX Recommendations. When `false` (default) the campaign is
+   * never requested. The anonymous user id is still resolved, but it goes
+   * unused and never leaves the browser.
    */
   readonly enableRecommendations?: boolean
   /**
