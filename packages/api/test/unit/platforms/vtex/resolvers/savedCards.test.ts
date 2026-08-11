@@ -25,6 +25,7 @@ describe('listCreditCards', () => {
         paymentSystemName: 'Visa',
         isDefault: true,
         isActive: true,
+        origin: 'shared',
       },
     ])
 
@@ -40,6 +41,7 @@ describe('listCreditCards', () => {
           paymentSystemName: 'Visa',
           isDefault: true,
           isActive: true,
+          origin: 'shared',
         },
       ],
     })
@@ -52,5 +54,20 @@ describe('listCreditCards', () => {
     const result = await Query.listCreditCards(null, undefined, ctx as any)
 
     expect(result).toEqual({ list: [] })
+  })
+
+  it('passes through origin so the caller can distinguish personal from shared cards', async () => {
+    const ctx = makeContext()
+    ctx.clients.commerce.savedCards.listCreditCards.mockResolvedValueOnce([
+      { accountId: 'acc-shared', origin: 'shared' },
+      { accountId: 'acc-personal', origin: 'personal' },
+    ])
+
+    const result = await Query.listCreditCards(null, undefined, ctx as any)
+
+    expect(result.list.map((card: { origin: string }) => card.origin)).toEqual([
+      'shared',
+      'personal',
+    ])
   })
 })

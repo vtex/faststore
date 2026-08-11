@@ -141,6 +141,15 @@ export type BusinessHour = {
   openingTime: Maybe<Scalars['String']['output']>;
 };
 
+/**
+ * Whether a saved card is personally owned by the buyer or shared by their
+ * Organization/Contract. Resolved server-side by the Saved-cards service from
+ * the buyer's `useAdHocCard` role — never inferred client-side.
+ */
+export type CardOrigin =
+  | 'personal'
+  | 'shared';
+
 /** Commercial Authorization dimension status. */
 export type CommercialAuthorizationDimensionStatus = {
   /** Creation date. */
@@ -873,6 +882,15 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /**
+   * Whether the current user holds the ad-hoc card platform permission, which
+   * gates personal card management for Unit/Contract-affiliated buyers.
+   *
+   * Resolved from the user's roles by License Manager — it is not a session token
+   * claim. Fails open (`true`) when the permission service is unreachable, so an
+   * outage never locks buyers out of their own cards.
+   */
+  hasAdHocCardAccess: Scalars['Boolean']['output'];
   /** Returns the list of saved credit cards for the current user. */
   listCreditCards: Maybe<SavedCardListResult>;
   /** Returns the list of Orders that the User can view. */
@@ -1032,6 +1050,11 @@ export type SavedCard = {
   isActive: Maybe<Scalars['Boolean']['output']>;
   /** Whether this card is the account default. */
   isDefault: Maybe<Scalars['Boolean']['output']>;
+  /**
+   * Whether this card is personally owned by the buyer or shared by their
+   * Organization/Contract.
+   */
+  origin: CardOrigin;
   /** Numeric payment system identifier. */
   paymentSystem: Maybe<Scalars['String']['output']>;
   /** Human-readable payment system name (e.g. Visa, Mastercard). */
@@ -2646,7 +2669,7 @@ export type ServerProductQueryQuery = { product: { sku: string, gtin: string, mp
 export type ServerListCardsQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ServerListCardsQueryQuery = { listCreditCards: { list: Array<{ accountId: string | null, bin: string | null, cardNumber: string | null, paymentSystem: string | null, paymentSystemName: string | null, isDefault: boolean | null, isActive: boolean | null }> | null } | null, accountProfile: { name: string | null } };
+export type ServerListCardsQueryQuery = { hasAdHocCardAccess: boolean, listCreditCards: { list: Array<{ accountId: string | null, bin: string | null, cardNumber: string | null, paymentSystem: string | null, paymentSystemName: string | null, isDefault: boolean | null, isActive: boolean | null, origin: CardOrigin }> | null } | null, accountProfile: { name: string | null } };
 
 export type UserOrderItemsFragmentFragment = { id: string | null, name: string | null, quantity: number | null, sellingPrice: number | null, unitMultiplier: number | null, measurementUnit: string | null, imageUrl: string | null, detailUrl: string | null, refId: string | null, rewardValue: number | null };
 
@@ -3395,7 +3418,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"4b33c5c07f440dc7489e55619dc2211a13786e72"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
 export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"f03d0963fed159ac4bbe11f90ea09c635a66b68c"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
-export const ServerListCardsQueryDocument = {"__meta__":{"operationName":"ServerListCardsQuery","operationHash":"689766c5c374a3eac102c9fa18217e232f0295ad"}} as unknown as TypedDocumentString<ServerListCardsQueryQuery, ServerListCardsQueryQueryVariables>;
+export const ServerListCardsQueryDocument = {"__meta__":{"operationName":"ServerListCardsQuery","operationHash":"6b2c8127883a17239b513326d7f9a14fe48f245a"}} as unknown as TypedDocumentString<ServerListCardsQueryQuery, ServerListCardsQueryQueryVariables>;
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
 export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"672fe0f00b7b710b63fc6573c0a6b2ec54812b8f"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;

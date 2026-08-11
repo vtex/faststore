@@ -31,6 +31,21 @@
     border-bottom: 2px solid var(--fs-text-link, #0632c1);
   }
 
+  // Shared-only rendering (spec my-account-cards-gating-plan): no tab bar to
+  // switch between, just a heading-style label + info tooltip above the grid.
+  [data-fs-list-cards-tabs-shared-only] {
+    display: flex;
+    gap: var(--fs-spacing-0-5, 0.25rem);
+    align-items: center;
+    padding-bottom: var(--fs-spacing-1, 0.5rem);
+    border-bottom: 1px solid var(--fs-border-color, #d9d9d9);
+  }
+
+  [data-fs-list-cards-tab-label] {
+    font-weight: 600;
+    color: var(--fs-text-link, #0632c1);
+  }
+
   [data-fs-list-cards-controls] {
     display: flex;
     flex-wrap: wrap;

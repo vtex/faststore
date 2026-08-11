@@ -142,6 +142,16 @@ export type BusinessHour = {
   openingTime?: Maybe<Scalars['String']['output']>;
 };
 
+/**
+ * Whether a saved card is personally owned by the buyer or shared by their
+ * Organization/Contract. Resolved server-side by the Saved-cards service from
+ * the buyer's `useAdHocCard` role — never inferred client-side.
+ */
+export const enum CardOrigin {
+  Personal = 'personal',
+  Shared = 'shared'
+};
+
 /** Commercial Authorization dimension status. */
 export type CommercialAuthorizationDimensionStatus = {
   __typename?: 'CommercialAuthorizationDimensionStatus';
@@ -904,6 +914,15 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /**
+   * Whether the current user holds the ad-hoc card platform permission, which
+   * gates personal card management for Unit/Contract-affiliated buyers.
+   *
+   * Resolved from the user's roles by License Manager — it is not a session token
+   * claim. Fails open (`true`) when the permission service is unreachable, so an
+   * outage never locks buyers out of their own cards.
+   */
+  hasAdHocCardAccess: Scalars['Boolean']['output'];
   /** Returns the list of saved credit cards for the current user. */
   listCreditCards?: Maybe<SavedCardListResult>;
   /** Returns the list of Orders that the User can view. */
@@ -1066,6 +1085,11 @@ export type SavedCard = {
   isActive?: Maybe<Scalars['Boolean']['output']>;
   /** Whether this card is the account default. */
   isDefault?: Maybe<Scalars['Boolean']['output']>;
+  /**
+   * Whether this card is personally owned by the buyer or shared by their
+   * Organization/Contract.
+   */
+  origin: CardOrigin;
   /** Numeric payment system identifier. */
   paymentSystem?: Maybe<Scalars['String']['output']>;
   /** Human-readable payment system name (e.g. Visa, Mastercard). */

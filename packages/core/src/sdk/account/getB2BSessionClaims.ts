@@ -8,23 +8,25 @@ type GetB2BSessionClaimsParams = {
 
 export type B2BSessionClaims = {
   /**
-   * Whether the buyer is associated with a Unit/Contract. Per the original
-   * Personal Cards PRD (REQ-2), this is detected by the presence of a
-   * `unitId` claim in the VTEX ID JWT — the same cookie `getIsRepresentative`
-   * already decodes.
+   * Whether the buyer is associated with a Unit/Contract. Per the Personal
+   * Cards PRD (REQ-2), this is detected by the presence of a `unitId` claim in
+   * the VTEX ID JWT — the same cookie `getIsRepresentative` already decodes.
+   * Gates the Shared tab (FR-5).
+   *
+   * Note this is the only part of the gate that lives in the token. The
+   * `useAdHocCard` permission is a License Manager resource key resolved from
+   * the user's roles, so it is fetched server-side via the
+   * `hasAdHocCardAccess` GraphQL query — not read from here.
    */
   hasOrgAssociation: boolean
   /**
-   * Whether the buyer holds the `useAdHocCard` platform permission, which
-   * gates the Cards route for Unit/Contract-affiliated buyers (spec US-4).
-   *
-   * NOTE: this permission's exact surfacing in the FastStore session/JWT is
-   * unconfirmed — see specs/my-account-cards.md ("Risks & Mitigations").
-   * Defaults to `true` (ungated) whenever the claim isn't present as an
-   * explicit boolean, so this delivery never wrongly blocks a buyer on a
-   * contract we haven't verified yet. Revisit once confirmed.
+   * Whether the buyer has an individual `customerId` claim, distinct from the
+   * `unitId`/contract association. Combined with `hasAdHocCardAccess`, gates
+   * the Personal tab (spec my-account-cards-gating-plan, the rectified model —
+   * `useAdHocCard` alone doesn't gate the whole Cards route, only Personal-tab
+   * visibility).
    */
-  hasAdHocCardAccess: boolean
+  hasCustomerId: boolean
 }
 
 export function getB2BSessionClaims({
@@ -36,9 +38,5 @@ export function getB2BSessionClaims({
   ]
   const jwt = parseJwt(authCookie)
 
-  const hasOrgAssociation = !!jwt?.unitId
-  const hasAdHocCardAccess =
-    typeof jwt?.useAdHocCard === 'boolean' ? jwt.useAdHocCard : true
-
-  return { hasOrgAssociation, hasAdHocCardAccess }
+  return { hasOrgAssociation: !!jwt?.unitId, hasCustomerId: !!jwt?.customerId }
 }

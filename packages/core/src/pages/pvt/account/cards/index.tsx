@@ -49,11 +49,13 @@ const query = gql(`
         paymentSystemName
         isDefault
         isActive
+        origin
       }
     }
     accountProfile {
       name
     }
+    hasAdHocCardAccess
   }
 `)
 
@@ -61,7 +63,6 @@ type ListCardsPageProps = {
   pageSections: Section[]
   navigationLabels: AccountNavigationLabels
   accountPageData: AccountCardsPageData
-  hasAdHocCardAccess: boolean
 } & MyAccountProps
 
 export default function ListCardsPage({
@@ -71,7 +72,6 @@ export default function ListCardsPage({
   accountPageData,
   accountName,
   isRepresentative,
-  hasAdHocCardAccess,
 }: ListCardsPageProps) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
@@ -89,7 +89,6 @@ export default function ListCardsPage({
 
         <Layout
           isRepresentative={isRepresentative}
-          hasAdHocCardAccess={hasAdHocCardAccess}
           accountName={accountName}
           navigationLabels={navigationLabels}
         >
@@ -113,7 +112,7 @@ const getServerSidePropsBase: GetServerSideProps<
     account: storeConfig.api.storeId,
   })
 
-  const { hasOrgAssociation, hasAdHocCardAccess } = getB2BSessionClaims({
+  const { hasOrgAssociation, hasCustomerId } = getB2BSessionClaims({
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
   })
@@ -129,18 +128,6 @@ const getServerSidePropsBase: GetServerSideProps<
 
   if (!isFaststoreMyAccountEnabled) {
     return { redirect }
-  }
-
-  // Gated route (spec US-4): Unit/Contract-affiliated buyers without
-  // `useAdHocCard` don't get a page-level error — the route is simply
-  // treated as not found, same as other My Account access-denied flows.
-  if (hasOrgAssociation && !hasAdHocCardAccess) {
-    return {
-      redirect: {
-        destination: '/pvt/account/404',
-        permanent: false,
-      },
-    }
   }
 
   const [
@@ -194,6 +181,15 @@ const getServerSidePropsBase: GetServerSideProps<
     }
   }
 
+  // `useAdHocCard` does not gate access to the Cards route (spec
+  // my-account-cards-gating-plan, the rectified model) — it, together with
+  // `customerId`, gates visibility of the Personal tab only. The route always
+  // stays reachable and the sidebar entry always stays visible; there is no
+  // redirect and no menu hiding. Default to allowed so a query failure renders
+  // the page's own error state instead of hiding the Personal tab.
+  const hasAdHocCardAccess = listCards.data?.hasAdHocCardAccess ?? true
+  const canViewPersonalCards = hasCustomerId && hasAdHocCardAccess
+
   const { pageSections, navigationData } = extractAccountNavigationData(
     pageContent.sections
   )
@@ -204,24 +200,28 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   })
 
+  // The Saved-cards service returns personal and shared cards merged into one
+  // list, each tagged `origin` (spec my-account-cards-shared-listing-unblock).
+  // Partition here rather than de-duplicating: a card present under both
+  // origins is intentionally rendered in both tabs.
+  const allCards = hasError ? [] : (listCards.data?.listCreditCards?.list ?? [])
+  const personalCards = allCards.filter((card) => card.origin === 'personal')
+  const sharedCards = allCards.filter((card) => card.origin === 'shared')
+
   return {
     props: {
       globalSections: globalSectionsResult,
       accountName: listCards.data?.accountProfile.name ?? '',
       navigationLabels: navigationData as AccountNavigationLabels,
       accountPageData: {
-        personalCards: hasError
-          ? []
-          : (listCards.data?.listCreditCards?.list ?? []),
-        // Shared cards data source is blocked pending confirmation from
-        // Nicholas (spec US-2) — stubbed empty until the BFF/API side lands.
-        sharedCards: [],
+        personalCards,
+        sharedCards,
         hasOrgAssociation,
+        canViewPersonalCards,
         hasError,
       },
       pageSections,
       isRepresentative,
-      hasAdHocCardAccess,
     },
   }
 }

@@ -62,11 +62,6 @@ const DEFAULT_ROUTES: Route[] = [
   },
 ]
 
-// Cards is gated by the `useAdHocCard` permission for Unit/Contract-affiliated
-// buyers (spec US-4). Built fresh here — `main` has no B2B route-gating
-// mechanism to reuse (see specs/my-account-cards.md, Decision 4).
-export const ROUTES_REQUIRING_AD_HOC_CARD_ACCESS = [CARDS_ROUTE]
-
 function withNavigationLabels(
   routes: Route[],
   labels?: AccountNavigationLabels

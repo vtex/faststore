@@ -1,4 +1,14 @@
 """
+Whether a saved card is personally owned by the buyer or shared by their
+Organization/Contract. Resolved server-side by the Saved-cards service from
+the buyer's `useAdHocCard` role — never inferred client-side.
+"""
+enum CardOrigin {
+  personal
+  shared
+}
+
+"""
 A saved payment card returned by the Saved-cards service.
 """
 type SavedCard {
@@ -30,6 +40,11 @@ type SavedCard {
   Whether this card is active.
   """
   isActive: Boolean
+  """
+  Whether this card is personally owned by the buyer or shared by their
+  Organization/Contract.
+  """
+  origin: CardOrigin!
 }
 
 """

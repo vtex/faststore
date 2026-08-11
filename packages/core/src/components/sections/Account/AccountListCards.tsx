@@ -25,8 +25,13 @@ const AccountListCards = ({
   sharedCardsTooltipLabel = defaultMyAccountListCardsLabels.sharedCardsTooltipLabel,
   defaultCardLabel = defaultMyAccountListCardsLabels.defaultCardLabel,
 }: AccountListCardsProps) => {
-  const { personalCards, sharedCards, hasOrgAssociation, hasError } =
-    useAccountPageData<AccountCardsPageData>()
+  const {
+    personalCards,
+    sharedCards,
+    hasOrgAssociation,
+    canViewPersonalCards,
+    hasError,
+  } = useAccountPageData<AccountCardsPageData>()
 
   return (
     <Section className="section-account-list-cards">
@@ -34,6 +39,7 @@ const AccountListCards = ({
         personalCards={personalCards ?? []}
         sharedCards={sharedCards ?? []}
         hasOrgAssociation={hasOrgAssociation}
+        canViewPersonalCards={canViewPersonalCards}
         hasError={hasError}
         labels={{
           pageTitle,

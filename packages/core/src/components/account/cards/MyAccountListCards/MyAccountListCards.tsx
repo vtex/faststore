@@ -31,6 +31,12 @@ export type MyAccountListCardsProps = {
   sharedCards: SavedCardItem[]
   /** Whether the buyer has an Organizational Unit association — gates the Shared tab (FR-5). */
   hasOrgAssociation: boolean
+  /**
+   * Whether the buyer can view/manage personal cards — gates the Personal tab
+   * (spec my-account-cards-gating-plan). Independent of route access, which
+   * is never gated.
+   */
+  canViewPersonalCards: boolean
   /** Whether either list failed to load — renders the error state instead of the grid (US-5). */
   hasError?: boolean
   labels?: MyAccountListCardsSectionLabels
@@ -77,11 +83,21 @@ export default function MyAccountListCards({
   personalCards,
   sharedCards,
   hasOrgAssociation,
+  canViewPersonalCards,
   hasError = false,
   labels: labelsProp,
 }: MyAccountListCardsProps) {
   const labels = resolveMyAccountListCardsLabels(labelsProp)
-  const [activeTab, setActiveTab] = useState<CardsTabVariant>('personal')
+
+  // Confirmed row (spec my-account-cards-gating-plan, O1): when Personal isn't
+  // available but Shared is, no tab chrome renders — the shared list is shown
+  // directly. The other two combinations (Personal only; neither) are
+  // unconfirmed and keep the pre-existing tab-bar rendering unchanged.
+  const sharedOnly = !canViewPersonalCards && hasOrgAssociation
+
+  const [activeTab, setActiveTab] = useState<CardsTabVariant>(
+    sharedOnly ? 'shared' : 'personal'
+  )
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
 
@@ -118,38 +134,50 @@ export default function MyAccountListCards({
     <div className={styles.page} data-fs-list-cards>
       <AccountHeader pageTitle={labels.pageTitle} />
 
-      <div data-fs-list-cards-tabs role="tablist">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={!isShared}
-          data-fs-list-cards-tab
-          data-fs-list-cards-tab-active={!isShared}
-          onClick={() => handleTabChange('personal')}
-        >
-          {labels.personalTabLabel}
-        </button>
-        {hasOrgAssociation && (
+      {sharedOnly ? (
+        <div data-fs-list-cards-tabs-shared-only>
+          <span data-fs-list-cards-tab-label>{labels.sharedTabLabel}</span>
+          <Tooltip
+            content={labels.sharedCardsTooltipLabel}
+            placement="bottom-start"
+          >
+            <Icon name="Info" width={24} height={24} />
+          </Tooltip>
+        </div>
+      ) : (
+        <div data-fs-list-cards-tabs role="tablist">
           <button
             type="button"
             role="tab"
-            aria-selected={isShared}
+            aria-selected={!isShared}
             data-fs-list-cards-tab
-            data-fs-list-cards-tab-active={isShared}
-            onClick={() => handleTabChange('shared')}
+            data-fs-list-cards-tab-active={!isShared}
+            onClick={() => handleTabChange('personal')}
           >
-            {labels.sharedTabLabel}
-            {isShared && (
-              <Tooltip
-                content={labels.sharedCardsTooltipLabel}
-                placement="bottom-start"
-              >
-                <Icon name="Info" width={24} height={24} />
-              </Tooltip>
-            )}
+            {labels.personalTabLabel}
           </button>
-        )}
-      </div>
+          {hasOrgAssociation && (
+            <button
+              type="button"
+              role="tab"
+              aria-selected={isShared}
+              data-fs-list-cards-tab
+              data-fs-list-cards-tab-active={isShared}
+              onClick={() => handleTabChange('shared')}
+            >
+              {labels.sharedTabLabel}
+              {isShared && (
+                <Tooltip
+                  content={labels.sharedCardsTooltipLabel}
+                  placement="bottom-start"
+                >
+                  <Icon name="Info" width={24} height={24} />
+                </Tooltip>
+              )}
+            </button>
+          )}
+        </div>
+      )}
 
       {!hasError && (
         <div data-fs-list-cards-controls>

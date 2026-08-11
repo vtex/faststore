@@ -29,12 +29,16 @@ export type AccountOrdersListPageData = {
 }
 
 export type AccountCardsPageData = {
+  // Both partitioned from the same listCreditCards response by `origin`
+  // (spec my-account-cards-shared-listing-unblock) — one query, no dedup.
   personalCards: NonNullable<
     ServerListCardsQueryQuery['listCreditCards']
   >['list']
-  // Shared cards data source is blocked pending confirmation (spec US-2) — stubbed empty for now.
   sharedCards: NonNullable<ServerListCardsQueryQuery['listCreditCards']>['list']
   hasOrgAssociation: boolean
+  // Gates the Personal tab (spec my-account-cards-gating-plan) — independent
+  // of route access, which is never gated.
+  canViewPersonalCards: boolean
   hasError: boolean
 }
 

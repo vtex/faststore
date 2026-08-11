@@ -52,6 +52,13 @@ const INVALID_SKU_ID_ERROR = 'Invalid SkuId'
 const SLUG_MISMATCH_ERROR =
   'Slug was set but the fetched sku does not satisfy the slug condition.'
 
+/**
+ * License Manager resource key gating personal card management. Spelled as the
+ * platform registers it — the PRD's prose lowercases the leading `u`, but the
+ * key the API answers for is `UseAdHocCard`.
+ */
+const AD_HOC_CARD_RESOURCE_KEY = 'UseAdHocCard'
+
 const shouldFallbackToProductRoute = (error: unknown) =>
   isNotFoundError(error) ||
   (error instanceof Error &&
@@ -611,8 +618,34 @@ export const Query = {
         paymentSystemName: card.paymentSystemName,
         isDefault: card.isDefault,
         isActive: card.isActive,
+        origin: card.origin,
       })),
     }
+  },
+  hasAdHocCardAccess: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
+    const {
+      account,
+      headers,
+      clients: { commerce },
+    } = ctx
+
+    const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
+    const userId = jwt?.userId ?? ''
+
+    // No resolvable user means no organizational policy to enforce — the
+    // caller (page/menu) still applies its own `unitId` check.
+    if (!userId) {
+      return true
+    }
+
+    // The permission is a License Manager resource key resolved from the
+    // user's roles, not a token claim. Fail open on any failure, matching how
+    // the checkout BFF treats an unavailable/disabled permission service.
+    const granted = await commerce.licenseManager
+      .isResourceGranted({ userId, resourceKey: AD_HOC_CARD_RESOURCE_KEY })
+      .catch(() => null)
+
+    return typeof granted === 'boolean' ? granted : true
   },
   validateUser: async (_: unknown, __: unknown, _ctx: GraphqlContext) => {
     // Authentication is now handled by @auth directive
