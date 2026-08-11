@@ -71,7 +71,7 @@
     "tslib": "catalog:",
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",
-    "vitest": "^4.0.7"
+    "vitest": "catalog:"
   },
   "peerDependencies": {
     "@faststore/diagnostics": "workspace:*",
