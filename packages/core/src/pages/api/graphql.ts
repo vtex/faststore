@@ -13,6 +13,9 @@ import { getRequestHostname } from 'src/utils/getRequestHostname'
 import { isLocalHost } from 'src/utils/isLocalHost'
 import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
 import { execute } from '../../server'
+import { logger } from '@faststore/diagnostics'
+
+const OTELLogger = logger('@faststore/core')
 
 const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
 const DEFAULT_STALE_WHILE_REVALIDATE = 60 * 60 // 1 hour
@@ -150,6 +153,12 @@ const hasVtexIdclientAutCookie = (request: NextApiRequest): boolean => {
 const handler: NextApiHandler = async (request, response) => {
   if (request.method !== 'POST' && request.method !== 'GET') {
     response.status(405).end()
+    OTELLogger(
+      'info',
+      'Invalid request method: %s %s',
+      request.method,
+      request.url
+    )
 
     return
   }
@@ -157,6 +166,15 @@ const handler: NextApiHandler = async (request, response) => {
   try {
     // value is used to cache bust the request if there is a VtexIdclientAutCookie
     const { operation, variables, query, v: value } = parseRequest(request)
+
+    // Variables and the query body are deliberately not logged: they carry
+    // session and customer data.
+    OTELLogger(
+      'debug',
+      'operation: %s hash: %s',
+      operation?.__meta__?.operationName,
+      operation?.__meta__?.operationHash
+    )
 
     const isLocal = isLocalHost(getRequestHostname(request.headers.host))
 
@@ -209,18 +227,21 @@ const handler: NextApiHandler = async (request, response) => {
       // upstream status) is nested in `originalError`. Recover it so the BFF
       // propagates the real status instead of collapsing everything to 500.
       const fastStoreError = errors.map(recoverFastStoreError).find(Boolean)
+      const reportedErrors = errors.map((graphqlError) => {
+        const fsError = recoverFastStoreError(graphqlError)
 
-      console.error(
-        'Graphql execution returned with error: ',
-        errors.map((graphqlError) => {
-          const fsError = recoverFastStoreError(graphqlError)
+        return {
+          message: (graphqlError as { message?: string })?.message,
+          status: fsError?.extensions.status,
+          type: fsError?.extensions.type,
+        }
+      })
 
-          return {
-            message: (graphqlError as { message?: string })?.message,
-            status: fsError?.extensions.status,
-            type: fsError?.extensions.type,
-          }
-        })
+      console.error('Graphql execution returned with error: ', reportedErrors)
+      OTELLogger(
+        'error',
+        'Graphql execution returned with error: %o',
+        reportedErrors
       )
 
       const status = fastStoreError?.extensions.status ?? 500
@@ -302,6 +323,11 @@ const handler: NextApiHandler = async (request, response) => {
   } catch (err) {
     console.error(
       'Something unexpected occurred querying Graphql endpoint: \n',
+      err
+    )
+    OTELLogger(
+      'error',
+      'Something unexpected occurred querying Graphql endpoint: %o',
       err
     )
 

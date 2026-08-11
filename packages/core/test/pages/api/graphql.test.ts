@@ -29,9 +29,13 @@ const createResponse = () => {
   return res as unknown as NextApiResponse & typeof res
 }
 
-const createRequest = (operationName = 'ClientShippingSimulationQuery') =>
+const createRequest = (
+  operationName = 'ClientShippingSimulationQuery',
+  method = 'GET'
+) =>
   ({
-    method: 'GET',
+    method,
+    url: '/api/graphql',
     headers: { host: 'localhost:3000' },
     query: {
       operationName,
@@ -164,4 +168,38 @@ describe('/api/graphql error status propagation', () => {
 
     expect(res.status).toHaveBeenCalledWith(404)
   })
+})
+
+describe('/api/graphql request handling', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it.each(['PUT', 'DELETE', 'PATCH', 'OPTIONS'])(
+    'rejects %s with 405 without reaching the GraphQL layer',
+    async (method) => {
+      const res = createResponse()
+      await handler(createRequest(undefined, method), res)
+
+      expect(res.status).toHaveBeenCalledWith(405)
+      expect(mockedExecute).not.toHaveBeenCalled()
+    }
+  )
+
+  it.each([
+    ['BadRequestError', () => new BadRequestError('malformed'), 400],
+    ['UnauthorizedError', () => new UnauthorizedError('expired'), 401],
+    ['an unexpected failure', () => new Error('socket hang up'), 500],
+  ])(
+    'maps %s thrown by execute to its status',
+    async (_name, makeError, status) => {
+      mockedExecute.mockRejectedValue(makeError())
+
+      const res = createResponse()
+      await handler(createRequest(), res)
+
+      expect(res.status).toHaveBeenCalledWith(status)
+      expect(res.end).toHaveBeenCalled()
+    }
+  )
 })
