@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0-dev.0](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.6.0-dev.0) (2026-08-11)
+
+### Features
+
+- removing vtex/diagnostics-nodejs ([#3389](https://github.com/vtex/faststore/issues/3389)) ([74e2d50](https://github.com/vtex/faststore/commit/74e2d503a44903929b90af7701956536690d4e41))
+
 ## [4.5.1-dev.4](https://github.com/vtex/faststore/compare/v4.5.1-dev.3...v4.5.1-dev.4) (2026-08-10)
 
 **Note:** Version bump only for package @faststore/api
