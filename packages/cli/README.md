@@ -84,7 +84,7 @@ Versioning and publishing are managed at the monorepo root by Lerna. Do not publ
 * [`faststore cache-graphql [STORE]`](#faststore-cache-graphql-store)
 * [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
 * [`faststore create [PATH]`](#faststore-create-path)
-* [`faststore dev [PATH] [ACCOUNT] [PORT]`](#faststore-dev-path-account-port)
+* [`faststore dev [ACCOUNT] [PATH] [PORT]`](#faststore-dev-account-path-port)
 * [`faststore generate`](#faststore-generate)
 * [`faststore help [COMMAND]`](#faststore-help-command)
 * [`faststore prepare [PATH]`](#faststore-prepare-path)
@@ -151,15 +151,15 @@ EXAMPLES
   $ yarn faststore create discovery
 ```
 
-## `faststore dev [PATH] [ACCOUNT] [PORT]`
+## `faststore dev [ACCOUNT] [PATH] [PORT]`
 
 ```
 USAGE
-  $ faststore dev [PATH] [ACCOUNT] [PORT] [--watch-plugins]
+  $ faststore dev [ACCOUNT] [PATH] [PORT] [--watch-plugins]
 
 ARGUMENTS
-  [PATH]     The path where the FastStore being run is. Defaults to cwd.
   [ACCOUNT]  The account for which the Discovery is running. Currently noop.
+  [PATH]     The path where the FastStore being run is. Defaults to cwd.
   [PORT]     The port where FastStore should run. Defaults to 3000.
 
 FLAGS

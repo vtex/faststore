@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1-dev.4](https://github.com/vtex/faststore/compare/v4.5.1-dev.3...v4.5.1-dev.4) (2026-08-10)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.5.1-dev.3](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1-dev.3) (2026-08-10)
+
+### Bug Fixes
+
+- **core:** add twitter card meta tag to default next seo config ([720f3e6](https://github.com/vtex/faststore/commit/720f3e6d04ef523f2fcf0e146c3741b7e5af70fa))
+- **core:** add twittermeta tags validaton for tests ([c8f5872](https://github.com/vtex/faststore/commit/c8f5872e42b69ddae5b2abfa0e8d3140e2bc7163))
+- **core:** lint error ([d07460f](https://github.com/vtex/faststore/commit/d07460f890ba712c9aecbec25bda5de96bf3e4ef))
+- **core:** remove duplicated twitter meta tag ([f388288](https://github.com/vtex/faststore/commit/f388288731ff75fceedba3cd7449ef1088b0b0c2))
+- **metaTags:** add twitter meta tags to nextSeo ([9c2439b](https://github.com/vtex/faststore/commit/9c2439b4a668dd81b7bfe5bdc44df575725067ec))
+
 ## [4.5.1-dev.2](https://github.com/vtex/faststore/compare/v4.5.1-dev.1...v4.5.1-dev.2) (2026-08-04)
 
 **Note:** Version bump only for package @faststore/core
