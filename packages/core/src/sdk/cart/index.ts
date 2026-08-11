@@ -31,6 +31,7 @@ export interface Cart extends SDKCart<CartItem> {
 export const ValidateCartMutation = gql(`
   mutation ValidateCartMutation($cart: IStoreCart!, $session: IStoreSession!) {
     validateCart(cart: $cart, session: $session) {
+      ...StoreCartAdditional
       order {
         orderNumber
         acceptedOffer {
@@ -50,6 +51,7 @@ export const ValidateCartMutation = gql(`
   }
 
   fragment CartItem on StoreOffer {
+    ...CartItemAdditional
     seller {
       identifier
     }

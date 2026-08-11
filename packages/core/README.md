@@ -83,6 +83,58 @@ Store-level UI components (not intended for the shared library) live in `src/com
 
 > Never edit files inside `@generated/` manually — they are overwritten on every `pnpm generate` run.
 
+### Extending `ValidateCartMutation`
+
+`ValidateCartMutation` keeps the native cart fields in `@faststore/core` and
+includes two extension fragments from the customization layer:
+
+- `CartItemAdditional` for fields on cart items (`StoreOffer`)
+- `StoreCartAdditional` for fields on the validated cart (`StoreCart`)
+
+To add fields, extend the native GraphQL types under `src/graphql/vtex` and add
+those fields to `src/customizations/src/fragments/ValidateCartMutation.ts`.
+Resolvers belong in `src/customizations/src/graphql/vtex/resolvers`.
+
+For example:
+
+```graphql
+extend type StoreOffer {
+  customLabel: String
+}
+
+extend type StoreCart {
+  total: Float
+  coupon: String
+}
+```
+
+```graphql
+fragment CartItemAdditional on StoreOffer {
+  customLabel
+}
+
+fragment StoreCartAdditional on StoreCart {
+  total
+  coupon
+}
+```
+
+```ts
+import type { StoreCartRoot } from '@faststore/api'
+
+export default {
+  StoreCart: {
+    total: (root: StoreCartRoot) => root.__orderForm.value / 100,
+    coupon: (root: StoreCartRoot) =>
+      root.__orderForm.marketingData?.coupon ?? null,
+  },
+}
+```
+
+The native `validateCart` resolver remains the source of truth. Cart
+extensions can read the original VTEX `orderForm` through `StoreCartRoot` from
+`@faststore/api`; the internal order form is not exposed as a GraphQL field.
+
 ### Managing SVG icons
 
 Icons are loaded from a single sprite at `public/icons.svg` via the `Icon` component from `@faststore/ui`.

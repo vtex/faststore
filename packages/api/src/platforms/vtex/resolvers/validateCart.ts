@@ -178,6 +178,10 @@ const orderFormToCart = async (
   shouldSplitItem?: boolean | null
 ) => {
   return {
+    // Keep the source orderForm available to StoreCart extension resolvers.
+    // The property is not part of the GraphQL schema and is never serialized
+    // unless a custom resolver explicitly uses it.
+    __orderForm: form,
     order: {
       orderNumber: form.orderFormId,
       acceptedOffer: form.items.map(async (item) => ({
