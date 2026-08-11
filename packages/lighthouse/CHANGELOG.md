@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0-dev.1](https://github.com/vtex/faststore/compare/v4.6.0-dev.0...v4.6.0-dev.1) (2026-08-11)
+
+## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.5.1) (2026-08-11)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
 # [4.6.0-dev.0](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.6.0-dev.0) (2026-08-11)
 
 **Note:** Version bump only for package @faststore/lighthouse
@@ -12,6 +18,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 **Note:** Version bump only for package @faststore/lighthouse
 
 ## [4.5.1-dev.3](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1-dev.3) (2026-08-10)
+
 ## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1) (2026-08-11)
 
 **Note:** Version bump only for package @faststore/lighthouse
