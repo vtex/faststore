@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
-import { cartStore, ValidateCartMutation } from '../cart'
+import {
+  cartStore,
+  getCartFromValidatedCart,
+  ValidateCartMutation,
+} from '../cart'
 import type {
   IStoreOffer,
   ValidateCartMutationMutation,
@@ -19,19 +23,6 @@ import { redirectToCheckout } from '../cart/redirectToCheckout'
 type Order = ServerOrderDetailsQueryQuery['userOrder']
 type AdditionalProperties =
   CartItemFragment['itemOffered']['additionalProperty']
-
-const getItemId = (item: CartItemFragment) => {
-  const propertyIds =
-    item.itemOffered.additionalProperty
-      ?.map((prop) => prop.propertyID)
-      .join('-') ?? ''
-
-  const sellerId = item.seller?.identifier ?? ''
-
-  return [item.itemOffered.sku, sellerId, propertyIds]
-    .filter(Boolean)
-    .join('::')
-}
 
 export const useReorder = () => {
   const [loading, setLoading] = useState(false)
@@ -128,15 +119,7 @@ export const useReorder = () => {
         throw new ReorderError('Failed to add items to cart')
       }
 
-      const updatedCart = {
-        id: validated.order.orderNumber,
-        items: validated.order.acceptedOffer.map((item) => ({
-          ...item,
-          id: getItemId(item),
-        })),
-        messages: validated.messages,
-        shouldSplitItem: validated.order.shouldSplitItem ?? undefined,
-      }
+      const updatedCart = getCartFromValidatedCart(validated)
 
       cartStore.set(updatedCart)
 
