@@ -7,16 +7,19 @@ import ProductCardSkeleton from '../ProductCardSkeleton'
 interface ProductGridSkeletonProps {
   loading?: boolean
   aspectRatio?: number
+  /** How many placeholder cards to render — defaults to the global ITEMS_PER_PAGE. */
+  count?: number
 }
 
 function ProductGridSkeleton({
   children,
   aspectRatio,
   loading = true,
+  count = ITEMS_PER_PAGE,
 }: PropsWithChildren<ProductGridSkeletonProps>) {
   return loading ? (
     <ul data-fs-product-grid>
-      {Array.from({ length: ITEMS_PER_PAGE }, (_, index) => (
+      {Array.from({ length: count }, (_, index) => (
         <li key={String(index)}>
           <ProductCardSkeleton aspectRatio={aspectRatio} bordered />
         </li>
