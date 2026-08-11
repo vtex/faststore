@@ -1,4 +1,3 @@
-import { OTELAPI } from '@faststore/diagnostics'
 import { mergeSchemas } from '@graphql-tools/schema'
 import { type GraphQLSchema, isSchema } from 'graphql'
 import { withDirectives } from '../../directives'
@@ -45,34 +44,30 @@ export interface GraphqlContext {
   }
   headers: Record<string, string>
   account: string
-  OTEL: Record<string, unknown>
+  OTEL_ENABLED: boolean
   /** Discovery config passed from @faststore/core, including localization settings. */
   discoveryConfig?: Record<string, unknown>
 }
 
 export const GraphqlVtexContextFactory = async (options: Options) => {
-  return OTELAPI.context.with(
-    OTELAPI.propagation.extract(OTELAPI.context.active(), options.OTEL),
-    () =>
-      (ctx: any): GraphqlContext => {
-        ctx.storage = {
-          channel: ChannelMarshal.parse(options.channel),
-          flags: options.flags ?? {},
-          locale: options.locale,
-          cookies: new Map<string, Record<string, string>>(),
-        }
-        ctx.account = options.account
-        ctx.OTEL = options.OTEL
-        ctx.discoveryConfig = options.discoveryConfig
-        // Build clients/loaders last: they capture `ctx` and read storage,
-        // discoveryConfig, etc. at request time, so everything they may depend on
-        // must already be assigned.
-        ctx.clients = getClients(options, ctx)
-        ctx.loaders = getLoaders(options, ctx)
+  return (ctx: any): GraphqlContext => {
+    ctx.storage = {
+      channel: ChannelMarshal.parse(options.channel),
+      flags: options.flags ?? {},
+      locale: options.locale,
+      cookies: new Map<string, Record<string, string>>(),
+    }
+    ctx.account = options.account
+    ctx.OTEL_ENABLED = options.OTEL_ENABLED
+    ctx.discoveryConfig = options.discoveryConfig
+    // Build clients/loaders last: they capture `ctx` and read storage,
+    // discoveryConfig, etc. at request time, so everything they may depend on
+    // must already be assigned.
+    ctx.clients = getClients(options, ctx)
+    ctx.loaders = getLoaders(options, ctx)
 
-        return ctx
-      }
-  )
+    return ctx
+  }
 }
 
 export type GraphqlResolver<S = any, V = any, R = any> = Resolver<
