@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  CARDS_ROUTE,
   ORDERS_ROUTE,
   PROFILE_ROUTE,
   QUOTES_ROUTE,
@@ -20,6 +21,7 @@ describe('getMyAccountRoutes', () => {
     expect(result.map((r) => r.route)).toEqual([
       PROFILE_ROUTE,
       ORDERS_ROUTE,
+      CARDS_ROUTE,
       QUOTES_ROUTE,
       USER_DETAILS_ROUTE,
       SECURITY_ROUTE,
