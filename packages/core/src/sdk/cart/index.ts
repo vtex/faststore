@@ -7,6 +7,7 @@ import type {
   CartItemFragment,
   CartMessageFragment,
   IStoreOffer,
+  StoreCartAdditionalFragment,
   ValidateCartMutationMutation,
   ValidateCartMutationMutationVariables,
 } from '@generated/graphql'
@@ -23,14 +24,16 @@ export interface CartItem
   priceToken?: string | null
 }
 
-export interface Cart extends SDKCart<CartItem> {
-  messages?: CartMessageFragment[]
-  shouldSplitItem?: boolean
-}
+export type Cart = SDKCart<CartItem> &
+  Partial<Omit<StoreCartAdditionalFragment, 'order'>> & {
+    messages?: CartMessageFragment[]
+    shouldSplitItem?: boolean
+  }
 
 export const ValidateCartMutation = gql(`
   mutation ValidateCartMutation($cart: IStoreCart!, $session: IStoreSession!) {
     validateCart(cart: $cart, session: $session) {
+      ...StoreCartAdditional
       order {
         orderNumber
         acceptedOffer {
@@ -50,6 +53,7 @@ export const ValidateCartMutation = gql(`
   }
 
   fragment CartItem on StoreOffer {
+    ...CartItemAdditional
     seller {
       identifier
     }
@@ -113,7 +117,27 @@ const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
     .filter(Boolean)
     .join('::')
 
-const validateCart = async (cart: Cart): Promise<Cart | null> => {
+type ValidatedCart = NonNullable<ValidateCartMutationMutation['validateCart']> &
+  StoreCartAdditionalFragment
+
+export const getCartFromValidatedCart = (
+  validated: NonNullable<ValidateCartMutationMutation['validateCart']>
+): Cart => {
+  const { order, messages, ...customCartFields } = validated as ValidatedCart
+
+  return {
+    ...customCartFields,
+    id: order.orderNumber,
+    items: order.acceptedOffer.map((item) => ({
+      ...item,
+      id: getItemId(item),
+    })),
+    messages,
+    shouldSplitItem: order.shouldSplitItem,
+  }
+}
+
+export const validateCart = async (cart: Cart): Promise<Cart | null> => {
   const { validateCart: validated = null } = await request<
     ValidateCartMutationMutation,
     ValidateCartMutationMutationVariables
@@ -151,17 +175,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
     },
   })
 
-  return (
-    validated && {
-      id: validated.order.orderNumber,
-      items: validated.order.acceptedOffer.map((item) => ({
-        ...item,
-        id: getItemId(item),
-      })),
-      messages: validated.messages,
-      shouldSplitItem: validated.order.shouldSplitItem,
-    }
-  )
+  return validated ? getCartFromValidatedCart(validated) : null
 }
 
 const [validationStore, onValidate] = createValidationStore(validateCart)
