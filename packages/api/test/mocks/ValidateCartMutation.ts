@@ -7,6 +7,7 @@ export const ValidateCartMutation = `mutation ValidateCartMutation($cart: IStore
     }
     order {
       orderNumber
+      salesChannel
       acceptedOffer {
         availability
         itemCondition

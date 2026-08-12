@@ -15,10 +15,9 @@ type StoreOrder {
   """
   shouldSplitItem: Boolean
   """
-  Sales channel of the underlying orderForm when FastStore adopted it after an
-  external cart change (e.g. Quick Order). Null on ordinary validations where
-  no SC adoption happened. Optional — existing clients that omit this field
-  are unaffected.
+  Sales channel of the underlying orderForm when FastStore adopted it because
+  the browser session was stale (e.g. after Quick Order). Clients should align
+  `session.channel` to this value. Null when no SC adoption happened.
   """
   salesChannel: String
 }

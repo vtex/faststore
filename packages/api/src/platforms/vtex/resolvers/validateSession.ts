@@ -170,10 +170,19 @@ export const validateSession = async (
     },
     country: store?.countryCode?.value ?? country,
     channel: ChannelMarshal.stringify({
-      salesChannel: store?.channel?.value ?? channel.salesChannel,
+      // When the client already pinned an explicit SC (e.g. adopted from the
+      // orderForm after Quick Order), keep it. Session Manager often still
+      // reports the default SC and would otherwise overwrite the adoption.
+      salesChannel:
+        channel.hasOnlyDefaultSalesChannel === false
+          ? channel.salesChannel || store?.channel?.value
+          : (store?.channel?.value ?? channel.salesChannel),
       regionId: checkout?.regionId?.value ?? channel.regionId,
       seller: seller?.id,
-      hasOnlyDefaultSalesChannel: !store?.channel?.value,
+      hasOnlyDefaultSalesChannel:
+        channel.hasOnlyDefaultSalesChannel === false
+          ? false
+          : !store?.channel?.value,
     }),
     /**
      * B2B data structure in Session:

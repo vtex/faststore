@@ -1,0 +1,58 @@
+import { describe, expect, it, vi } from 'vitest'
+import type { Session } from '@faststore/sdk'
+import { syncSalesChannelFromOrderForm } from '../../../src/sdk/session/syncSalesChannelFromOrderForm'
+
+const baseSession = (salesChannel: string, explicit = true): Session =>
+  ({
+    currency: { code: 'BRL', symbol: 'R$' },
+    locale: 'pt-BR',
+    country: 'BRA',
+    channel: JSON.stringify({
+      salesChannel,
+      regionId: '',
+      hasOnlyDefaultSalesChannel: !explicit,
+    }),
+    person: null,
+  }) as Session
+
+describe('syncSalesChannelFromOrderForm', () => {
+  it('updates session channel silently when SC diverges', () => {
+    const setSilent = vi.fn()
+    const synced = syncSalesChannelFromOrderForm(
+      '2',
+      () => baseSession('1', false),
+      setSilent
+    )
+
+    expect(synced).toBe(true)
+    expect(setSilent).toHaveBeenCalledTimes(1)
+    const next = setSilent.mock.calls[0][0] as Session
+    expect(JSON.parse(next.channel ?? '{}')).toMatchObject({
+      salesChannel: '2',
+      hasOnlyDefaultSalesChannel: false,
+    })
+  })
+
+  it('is a no-op when SC already matches', () => {
+    const setSilent = vi.fn()
+    const synced = syncSalesChannelFromOrderForm(
+      '2',
+      () => baseSession('2'),
+      setSilent
+    )
+
+    expect(synced).toBe(false)
+    expect(setSilent).not.toHaveBeenCalled()
+  })
+
+  it('is a no-op when adopted SC is missing', () => {
+    const setSilent = vi.fn()
+    expect(
+      syncSalesChannelFromOrderForm(null, () => baseSession('1'), setSilent)
+    ).toBe(false)
+    expect(
+      syncSalesChannelFromOrderForm('', () => baseSession('1'), setSilent)
+    ).toBe(false)
+    expect(setSilent).not.toHaveBeenCalled()
+  })
+})

@@ -4,9 +4,10 @@ import type { Store } from '@faststore/sdk'
 export const SESSION_VALIDATION_WAIT_MS = 3_000
 
 /**
- * Defers cart validation until session has been validated at least once, so
- * `session.channel` (sales channel) is less likely to be stale relative to
- * Session Manager / external flows like Quick Order.
+ * Defers cart validation until session has been validated at least once.
+ * This reduces first-paint races between Session and Cart; sales-channel
+ * correctness after external flows (e.g. Quick Order) is enforced in the API
+ * by preserving/adopting the orderForm SC.
  */
 export const waitForSessionValidated = async (
   hasValidatedSessionStore: Store<boolean>,

@@ -1617,9 +1617,9 @@ export type StoreOrder = {
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String']['output'];
   /**
-   * Sales channel of the underlying orderForm when FastStore adopted it after an
-   * external cart change (e.g. Quick Order). Clients should align `session.channel`
-   * to this value so later validations do not force a stale session SC.
+   * Sales channel of the underlying orderForm when FastStore adopted it because
+   * the browser session was stale (e.g. after Quick Order). Clients should align
+   * `session.channel` to this value. Null when no SC adoption happened.
    */
   salesChannel?: Maybe<Scalars['String']['output']>;
   /** Indicates whether or not items with attachments should be split. */

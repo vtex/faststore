@@ -1,8 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  channelAfterExternalOrderFormSync,
-  channelWhenSessionDivergesFromOrderForm,
-} from '../../../../../src/platforms/vtex/utils/cartSalesChannel'
+import { channelWhenSessionDivergesFromOrderForm } from '../../../../../src/platforms/vtex/utils/cartSalesChannel'
 import type { Channel } from '../../../../../src/platforms/vtex/utils/channel'
 
 const baseChannel = (salesChannel: string): Required<Channel> => ({
@@ -10,46 +7,6 @@ const baseChannel = (salesChannel: string): Required<Channel> => ({
   regionId: '',
   seller: '',
   hasOnlyDefaultSalesChannel: true,
-})
-
-describe('channelAfterExternalOrderFormSync', () => {
-  it('returns null when the orderForm is not stale', () => {
-    expect(
-      channelAfterExternalOrderFormSync(baseChannel('1'), '4', false)
-    ).toBeNull()
-  })
-
-  it('returns null when orderForm SC matches session SC', () => {
-    expect(
-      channelAfterExternalOrderFormSync(baseChannel('4'), '4', true)
-    ).toBeNull()
-  })
-
-  it('returns null when orderForm SC is missing', () => {
-    expect(
-      channelAfterExternalOrderFormSync(baseChannel('1'), null, true)
-    ).toBeNull()
-    expect(
-      channelAfterExternalOrderFormSync(baseChannel('1'), '', true)
-    ).toBeNull()
-  })
-
-  it('adopts orderForm SC when stale and divergent (Quick Order case)', () => {
-    const result = channelAfterExternalOrderFormSync(
-      baseChannel('1'),
-      '4',
-      true
-    )
-
-    if (result === null) {
-      throw new Error('expected channel string after adopting orderForm SC')
-    }
-
-    expect(JSON.parse(result)).toMatchObject({
-      salesChannel: '4',
-      hasOnlyDefaultSalesChannel: false,
-    })
-  })
 })
 
 describe('channelWhenSessionDivergesFromOrderForm', () => {
@@ -72,6 +29,15 @@ describe('channelWhenSessionDivergesFromOrderForm', () => {
   it('returns null when SCs already match', () => {
     expect(
       channelWhenSessionDivergesFromOrderForm(baseChannel('2'), '2')
+    ).toBeNull()
+  })
+
+  it('returns null when orderForm SC is missing', () => {
+    expect(
+      channelWhenSessionDivergesFromOrderForm(baseChannel('1'), null)
+    ).toBeNull()
+    expect(
+      channelWhenSessionDivergesFromOrderForm(baseChannel('1'), '')
     ).toBeNull()
   })
 })

@@ -1,10 +1,7 @@
 import deepEquals from 'fast-deep-equal'
 
 import { parse } from 'cookie'
-import {
-  channelAfterExternalOrderFormSync,
-  channelWhenSessionDivergesFromOrderForm,
-} from '../utils/cartSalesChannel'
+import { channelWhenSessionDivergesFromOrderForm } from '../utils/cartSalesChannel'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
 import {
@@ -342,16 +339,14 @@ const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
   return cookieValue ? cookieValue.split('=')[1] : ''
 }
 
-/** Adopt the orderForm SC when another system changed the cart (stale etag). */
-const adoptOrderFormSalesChannelIfNeeded = (
+/** Keep Checkout on the orderForm SC when the browser session lags behind it. */
+const adoptOrderFormSalesChannelWhenSessionDiverges = (
   ctx: GraphqlContext,
-  orderForm: OrderForm,
-  isOrderFormStaleFlag: boolean
-) => {
-  const adoptedChannel = channelAfterExternalOrderFormSync(
+  orderForm: OrderForm
+): string | null => {
+  const adoptedChannel = channelWhenSessionDivergesFromOrderForm(
     ctx.storage.channel,
-    orderForm.salesChannel,
-    isOrderFormStaleFlag
+    orderForm.salesChannel
   )
 
   if (adoptedChannel) {
@@ -360,21 +355,6 @@ const adoptOrderFormSalesChannelIfNeeded = (
   }
 
   return null
-}
-
-/** Keep Checkout on the orderForm SC when the browser session lags behind it. */
-const adoptOrderFormSalesChannelWhenSessionDiverges = (
-  ctx: GraphqlContext,
-  orderForm: OrderForm
-) => {
-  const adoptedChannel = channelWhenSessionDivergesFromOrderForm(
-    ctx.storage.channel,
-    orderForm.salesChannel
-  )
-
-  if (adoptedChannel) {
-    mutateChannelContext(ctx, adoptedChannel)
-  }
 }
 
 /**
@@ -448,10 +428,9 @@ export const validateCart = async (
   if (isStale) {
     // Adopt the orderForm SC so subsequent checkout calls (etag, etc.) stay
     // on the trade policy that actually owns the items.
-    const adoptedSalesChannel = adoptOrderFormSalesChannelIfNeeded(
+    const adoptedSalesChannel = adoptOrderFormSalesChannelWhenSessionDiverges(
       ctx,
-      orderForm,
-      isStale
+      orderForm
     )
 
     const newOrderForm = await setOrderFormEtag(
@@ -472,7 +451,10 @@ export const validateCart = async (
   // Keep Checkout on the orderForm trade policy when the browser session still
   // has a stale SC (Quick Order). Refetching with `sc=session` would wipe
   // items that exist only on the orderForm's sales channel.
-  adoptOrderFormSalesChannelWhenSessionDiverges(ctx, orderForm)
+  const adoptedSalesChannel = adoptOrderFormSalesChannelWhenSessionDiverges(
+    ctx,
+    orderForm
+  )
 
   // Step2: Process items from both browser and checkout so they have the same shape
   const browserItemsById = groupById(acceptedOffer)
@@ -536,8 +518,18 @@ export const validateCart = async (
     ? shouldUpdateShippingData(orderForm, session)
     : { updateShipping: false }
 
-  // If there are no item changes and no shipping data updates needed, return null
+  // If there are no item/shipping changes: still return the cart when we
+  // adopted the orderForm SC so the client can align `fs::session`.
   if (changes.length === 0 && !updateShipping) {
+    if (adoptedSalesChannel) {
+      return orderFormToCart(
+        orderForm,
+        skuLoader,
+        shouldSplitItem,
+        adoptedSalesChannel
+      )
+    }
+
     return null
   }
 
@@ -607,9 +599,23 @@ export const validateCart = async (
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm) && equalMessages) {
+    if (adoptedSalesChannel) {
+      return orderFormToCart(
+        updatedOrderForm,
+        skuLoader,
+        shouldSplitItem,
+        adoptedSalesChannel
+      )
+    }
+
     return null
   }
 
   // Step6: There were changes, convert orderForm to StoreCart
-  return orderFormToCart(updatedOrderForm, skuLoader, shouldSplitItem)
+  return orderFormToCart(
+    updatedOrderForm,
+    skuLoader,
+    shouldSplitItem,
+    adoptedSalesChannel
+  )
 }

@@ -462,10 +462,9 @@ export const VtexCommerce = (
         if (id) {
           params.set('refreshOutdatedData', refreshOutdatedData.toString())
         }
-        const qs = params.toString()
         const orderFormPath = id ? `/${id}` : ''
-        const queryString = qs ? `?${qs}` : ''
-        const url = `${base}/api/checkout/pub/orderForm${orderFormPath}${queryString}`
+        // Always has at least `sc` (new cart) or `refreshOutdatedData` (existing).
+        const url = `${base}/api/checkout/pub/orderForm${orderFormPath}?${params}`
 
         return fetchAPI(
           url,

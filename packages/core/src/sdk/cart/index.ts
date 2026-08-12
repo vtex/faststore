@@ -14,6 +14,7 @@ import type {
 import storeConfig from '../../../discovery.config'
 import { request } from '../graphql/request'
 import { hasValidatedSessionStore, sessionStore } from '../session'
+import { syncSalesChannelFromOrderForm } from '../session/syncSalesChannelFromOrderForm'
 import { createValidationStore, useStore } from '../useStore'
 import { waitForSessionValidated } from './waitForSessionValidated'
 
@@ -34,6 +35,7 @@ export const ValidateCartMutation = gql(`
     validateCart(cart: $cart, session: $session) {
       order {
         orderNumber
+        salesChannel
         acceptedOffer {
           ...CartItem
         }
@@ -153,6 +155,15 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
       },
     },
   })
+
+  const adoptedSalesChannel = validated?.order?.salesChannel
+  if (adoptedSalesChannel) {
+    syncSalesChannelFromOrderForm(
+      adoptedSalesChannel,
+      () => sessionStore.read(),
+      (session) => sessionStore.setSilent(session)
+    )
+  }
 
   return (
     validated && {
