@@ -47,6 +47,7 @@ import type { PreviewData } from 'src/server/content/types'
 type StoreConfig = typeof storeConfig & {
   experimental: {
     revalidate?: number
+    revalidate404?: number
     enableClientOffer?: boolean
   }
 }
@@ -483,7 +484,7 @@ export const getStaticProps: GetStaticProps<
     return {
       notFound: true,
       revalidate:
-        (storeConfig as StoreConfig).experimental.revalidate ?? 60 * 5, // 5 minutes
+        (storeConfig as StoreConfig).experimental.revalidate404 ?? 60 * 5, // 5 minutes
     }
   }
 

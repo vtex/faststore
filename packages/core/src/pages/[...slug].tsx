@@ -191,16 +191,6 @@ export const getStaticProps: GetStaticProps<
     globalSectionsFooterPromise,
   ])
 
-  const [serverManyProductsData, serverManyProductsVariables] =
-    await fetchServerManyProducts({
-      itemsPerPage: cmsPage?.settings?.productGallery?.itemsPerPage,
-      sort: cmsPage?.settings?.productGallery
-        ?.sortBySelection as SearchState['sort'],
-      term: '',
-      selectedFacets: data?.collection?.meta.selectedFacets,
-      locale,
-    })
-
   const notFound = errors.find(isNotFoundError)
 
   if (notFound) {
@@ -216,7 +206,7 @@ export const getStaticProps: GetStaticProps<
 
     return {
       notFound: true,
-      revalidate: 60 * 5, // 5 minutes
+      revalidate: storeConfig.experimental.revalidate404 ?? 60 * 5, // 5 minutes
     }
   }
 
@@ -224,6 +214,16 @@ export const getStaticProps: GetStaticProps<
     console.error(...errors)
     throw errors[0]
   }
+
+  const [serverManyProductsData, serverManyProductsVariables] =
+    await fetchServerManyProducts({
+      itemsPerPage: cmsPage?.settings?.productGallery?.itemsPerPage,
+      sort: cmsPage?.settings?.productGallery
+        ?.sortBySelection as SearchState['sort'],
+      term: '',
+      selectedFacets: data?.collection?.meta.selectedFacets,
+      locale,
+    })
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,
