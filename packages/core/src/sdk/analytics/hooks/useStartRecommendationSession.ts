@@ -54,8 +54,8 @@ export function resetStartRecommendationSessionLock() {
  *   RecommendationShelf fallback), that boolean wins.
  */
 export function useStartRecommendationSession(enabled?: boolean) {
-  const enableRecommendations =
-    enabled ?? storeConfig.experimental?.enableRecommendations === true
+  const flagEnabled = storeConfig.experimental?.enableRecommendations === true
+  const enableRecommendations = enabled ?? flagEnabled
 
   const [runStartRecommendationSession] = useLazyQuery<
     StartRecommendationSessionData,
