@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0-dev.1](https://github.com/vtex/faststore/compare/v4.6.0-dev.0...v4.6.0-dev.1) (2026-08-11)
+
+## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.5.1) (2026-08-11)
+
+### Bug Fixes
+
+- **core:** address scroll restoration review feedback ([a5fe6a3](https://github.com/vtex/faststore/commit/a5fe6a35c54e6095f81c7995a815ce6ef3b4dd4e))
+- **core:** align beforePopState callback with NextHistoryState ([10719e5](https://github.com/vtex/faststore/commit/10719e5eca199385d9fe18bdd6d7da290716a1d5))
+- **core:** compare window to undefined directly for Sonar ([bf05a54](https://github.com/vtex/faststore/commit/bf05a54bb014d120b7bdc95ff7c01a4e9b35b485))
+- **core:** harden scroll restore path matching and hydration-safe heights ([34efa6b](https://github.com/vtex/faststore/commit/34efa6bda7549895a4531277c2fe55bd6bbe98a7))
+- **core:** hash gallery height keys to avoid truncation collisions ([9e98043](https://github.com/vtex/faststore/commit/9e980438d74e457fa33aa77900438339463a078c))
+- **core:** prevent IS redirect hang and improve scroll restoration ([5f30778](https://github.com/vtex/faststore/commit/5f30778161eec2e4381b3fe971479dd7cbe53b08))
+- **core:** reset infinite scroll on forward listing navigations ([249226a](https://github.com/vtex/faststore/commit/249226a3acbe4cb26d687cf962125b2593d5949e))
+- **core:** resolve Sonar new-code smells for scroll restoration ([59b41ed](https://github.com/vtex/faststore/commit/59b41ed1d2a30ba693726b19895a0279eb1ba464))
+- **core:** restore PLP infinite-scroll pages on back navigation ([92b2efa](https://github.com/vtex/faststore/commit/92b2efa1d4d0895a10b5a0e71a4d9bf37cae1686))
+- **core:** resync gallery height lock when children change ([5058089](https://github.com/vtex/faststore/commit/50580898d97baf800b97c8a876f7967529859c61))
+- **core:** satisfy Sonar on gallery height key hash ([3a6ce47](https://github.com/vtex/faststore/commit/3a6ce47485c26be75d6d76906df3af64c9e34fd6))
+- **core:** type scroll restore paint timer for DOM/Node setTimeout ([940c903](https://github.com/vtex/faststore/commit/940c90376f8d2eb77665e73a6fb0ea53c9786c8e))
+- **core:** use replaceAll for infinite-scroll session key ([4f52048](https://github.com/vtex/faststore/commit/4f520482a9ba9661782fcf25a286b8f2e6c6b922))
+
+# [4.6.0-dev.0](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.6.0-dev.0) (2026-08-11)
+
+### Features
+
+- removing vtex/diagnostics-nodejs ([#3389](https://github.com/vtex/faststore/issues/3389)) ([74e2d50](https://github.com/vtex/faststore/commit/74e2d503a44903929b90af7701956536690d4e41))
+
+## [4.5.1-dev.4](https://github.com/vtex/faststore/compare/v4.5.1-dev.3...v4.5.1-dev.4) (2026-08-10)
+
+### Bug Fixes
+
+- restore account, path, port arg order on cli dev command ([#3439](https://github.com/vtex/faststore/issues/3439)) ([b13e834](https://github.com/vtex/faststore/commit/b13e8341539fb8108c35a63f26218c4671d308f8)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [#2491](https://github.com/vtex/faststore/issues/2491) [#2491](https://github.com/vtex/faststore/issues/2491) [#3111](https://github.com/vtex/faststore/issues/3111)
+
+## [4.5.1-dev.3](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1-dev.3) (2026-08-10)
+
+### Bug Fixes
+
+- **core:** add twitter card meta tag to default next seo config ([720f3e6](https://github.com/vtex/faststore/commit/720f3e6d04ef523f2fcf0e146c3741b7e5af70fa))
+- **core:** add twittermeta tags validaton for tests ([c8f5872](https://github.com/vtex/faststore/commit/c8f5872e42b69ddae5b2abfa0e8d3140e2bc7163))
+- **core:** lint error ([d07460f](https://github.com/vtex/faststore/commit/d07460f890ba712c9aecbec25bda5de96bf3e4ef))
+- **core:** remove duplicated twitter meta tag ([f388288](https://github.com/vtex/faststore/commit/f388288731ff75fceedba3cd7449ef1088b0b0c2))
+- **metaTags:** add twitter meta tags to nextSeo ([9c2439b](https://github.com/vtex/faststore/commit/9c2439b4a668dd81b7bfe5bdc44df575725067ec))
+
+## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1) (2026-08-11)
+
+- **core:** address scroll restoration review feedback ([a5fe6a3](https://github.com/vtex/faststore/commit/a5fe6a35c54e6095f81c7995a815ce6ef3b4dd4e))
+- **core:** align beforePopState callback with NextHistoryState ([10719e5](https://github.com/vtex/faststore/commit/10719e5eca199385d9fe18bdd6d7da290716a1d5))
+- **core:** compare window to undefined directly for Sonar ([bf05a54](https://github.com/vtex/faststore/commit/bf05a54bb014d120b7bdc95ff7c01a4e9b35b485))
+- **core:** harden scroll restore path matching and hydration-safe heights ([34efa6b](https://github.com/vtex/faststore/commit/34efa6bda7549895a4531277c2fe55bd6bbe98a7))
+- **core:** hash gallery height keys to avoid truncation collisions ([9e98043](https://github.com/vtex/faststore/commit/9e980438d74e457fa33aa77900438339463a078c))
+- **core:** prevent IS redirect hang and improve scroll restoration ([5f30778](https://github.com/vtex/faststore/commit/5f30778161eec2e4381b3fe971479dd7cbe53b08))
+- **core:** reset infinite scroll on forward listing navigations ([249226a](https://github.com/vtex/faststore/commit/249226a3acbe4cb26d687cf962125b2593d5949e))
+- **core:** resolve Sonar new-code smells for scroll restoration ([59b41ed](https://github.com/vtex/faststore/commit/59b41ed1d2a30ba693726b19895a0279eb1ba464))
+- **core:** restore PLP infinite-scroll pages on back navigation ([92b2efa](https://github.com/vtex/faststore/commit/92b2efa1d4d0895a10b5a0e71a4d9bf37cae1686))
+- **core:** resync gallery height lock when children change ([5058089](https://github.com/vtex/faststore/commit/50580898d97baf800b97c8a876f7967529859c61))
+- **core:** satisfy Sonar on gallery height key hash ([3a6ce47](https://github.com/vtex/faststore/commit/3a6ce47485c26be75d6d76906df3af64c9e34fd6))
+- **core:** type scroll restore paint timer for DOM/Node setTimeout ([940c903](https://github.com/vtex/faststore/commit/940c90376f8d2eb77665e73a6fb0ea53c9786c8e))
+- **core:** use replaceAll for infinite-scroll session key ([4f52048](https://github.com/vtex/faststore/commit/4f520482a9ba9661782fcf25a286b8f2e6c6b922))
+
 ## [4.5.1-dev.2](https://github.com/vtex/faststore/compare/v4.5.1-dev.1...v4.5.1-dev.2) (2026-08-04)
 
 ### Bug Fixes

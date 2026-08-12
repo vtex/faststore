@@ -25,6 +25,7 @@ const apiOptions = {
   locale: 'en-US',
   subDomainPrefix: ['www'],
   hideUnavailableItems: false,
+  showSponsored: false,
   incrementAddress: false,
   flags: {
     enableOrderFormSync: true,
