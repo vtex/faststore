@@ -129,7 +129,7 @@ export interface Item {
   unitMultiplier: number
   modalType: any | null
   images: Image[]
-  Videos: string[]
+  videos: string[]
   variations: Array<{
     name: string
     values: string[]
