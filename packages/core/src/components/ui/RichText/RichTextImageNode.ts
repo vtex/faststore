@@ -35,9 +35,11 @@ function resolveAlignment(alignment: unknown): ImageAlignment {
 }
 
 function resolveWidthPercent(widthPercent: unknown): number {
-  return typeof widthPercent === 'number' && widthPercent > 0
-    ? widthPercent
-    : DEFAULT_WIDTH_PERCENT
+  if (typeof widthPercent !== 'number' || widthPercent <= 0) {
+    return DEFAULT_WIDTH_PERCENT
+  }
+
+  return Math.min(widthPercent, DEFAULT_WIDTH_PERCENT)
 }
 
 function withVtexResizeParams(src: string, widthPercent: number): string {
@@ -78,8 +80,8 @@ export class RichTextImageNode extends DecoratorNode<null> {
     super(key)
     this.__src = src
     this.__altText = altText
-    this.__alignment = alignment
-    this.__widthPercent = widthPercent
+    this.__alignment = resolveAlignment(alignment)
+    this.__widthPercent = resolveWidthPercent(widthPercent)
   }
 
   static getType(): string {
@@ -106,8 +108,8 @@ export class RichTextImageNode extends DecoratorNode<null> {
     return new RichTextImageNode(
       typeof serializedNode.src === 'string' ? serializedNode.src : '',
       typeof serializedNode.altText === 'string' ? serializedNode.altText : '',
-      resolveAlignment(serializedNode.alignment),
-      resolveWidthPercent(serializedNode.widthPercent)
+      serializedNode.alignment,
+      serializedNode.widthPercent
     )
   }
 
