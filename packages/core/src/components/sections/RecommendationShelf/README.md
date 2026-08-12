@@ -99,8 +99,11 @@ All recommendation work runs client-side after hydration:
 5. **Render** — shows `ProductShelfSkeleton` while loading; returns `null` on error or empty results; otherwise renders the carousel and optional heading.
 6. **Tracking** — when correlation and campaign identifiers are present, the shelf emits `data-af-*` attributes for Activity Flow. PDP product views use `product:*` meta tags from `pages/[slug]/p.tsx`.
 
+Steps 1 to 4 carry no presentation: they live in `src/sdk/recommendations` and are orchestrated by `useRecommendationShelf()`, which the shelf consumes.
+
 Related files:
 
+- Shared data layer: `src/sdk/recommendations/`
 - Shelf: `src/components/sections/RecommendationShelf/`
 - Hook: `src/sdk/analytics/hooks/useStartRecommendationSession.ts`
 - Layout: `src/Layout.tsx`
@@ -129,7 +132,7 @@ import { RecommendationShelf } from 'src/components/sections/RecommendationShelf
 - **`ProductCard`**: custom card component (defaults to the core `ProductCard`).
 - **`mapProductToProductCard`**: maps each recommended product (normalized `StoreProduct`) into card props. When provided, it fully owns the card props and the default `productCardConfiguration` merge no longer applies.
 
-Campaign types and VRN validation are defined in `vrn.ts` (`VRN_TYPE_TO_RECOMMENDATION`). Updates should be made there and mirrored in the CMS schema `pattern`.
+Campaign types and VRN validation are defined in `src/sdk/recommendations/vrn.ts` (`VRN_TYPE_TO_RECOMMENDATION`). Updates should be made there and mirrored in the CMS schema `pattern`.
 
 ## Placement guidelines
 

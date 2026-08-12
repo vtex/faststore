@@ -1,65 +1,649 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 
 import { useSearch } from '@faststore/sdk'
 
+const SCROLL_STORAGE_PREFIX = '__fs_scroll_'
+const PENDING_RESTORE_FLAG = '__fs_scroll_pending_restore'
+const RESTORING_SCROLL_CLASS = 'fs-restoring-scroll'
+const RESTORE_MAX_ATTEMPTS = 80
+const RESTORE_RETRY_MS = 100
+/** After the card is in view, briefly defend against Next/layout scroll resets. */
+const DEFENSE_WINDOW_MS = 900
+/** Consecutive in-view checks before we stop early (snappier than full defense). */
+const STABLE_HITS_REQUIRED = 3
+/** Safety: never leave the page hidden if restore never settles. */
+const RESTORING_PAINT_TIMEOUT_MS = 3500
+
+type StoredScroll = {
+  x: number
+  y: number
+  /** PDP path the user opened from this PLP, e.g. `/slug/p`. */
+  anchor?: string
+}
+
+/**
+ * Module-level state — must survive React effect remounts during back nav.
+ */
+let pendingPopRestore = false
+let restoreGeneration = 0
+/** History entry currently being restored; prevents popstate+complete from restarting. */
+let activeRestoreKey: string | null = null
+let restoringPaintTimer: ReturnType<typeof setTimeout> | undefined
+
+/**
+ * Hide painted pixels while scroll jumps from top/footer to the saved product.
+ * Applied before PLP paints so the user never sees the footer flash.
+ */
+function beginRestoringPaint() {
+  document.documentElement.classList.add(RESTORING_SCROLL_CLASS)
+  if (restoringPaintTimer !== undefined) {
+    globalThis.clearTimeout(restoringPaintTimer)
+  }
+  restoringPaintTimer = globalThis.setTimeout(
+    endRestoringPaint,
+    RESTORING_PAINT_TIMEOUT_MS
+  )
+}
+
+function endRestoringPaint() {
+  if (restoringPaintTimer !== undefined) {
+    globalThis.clearTimeout(restoringPaintTimer)
+  }
+  restoringPaintTimer = undefined
+  document.documentElement.classList.remove(RESTORING_SCROLL_CLASS)
+}
+
+function historyStorageKey() {
+  return globalThis.history.state?.key ?? `path:${globalThis.location.pathname}`
+}
+
+function readStoredScroll(key: string): StoredScroll | null {
+  const stored = sessionStorage.getItem(`${SCROLL_STORAGE_PREFIX}${key}`)
+  if (!stored) return null
+
+  try {
+    return JSON.parse(stored) as StoredScroll
+  } catch {
+    return null
+  }
+}
+
+function writeStoredScroll(key: string, payload: StoredScroll) {
+  sessionStorage.setItem(
+    `${SCROLL_STORAGE_PREFIX}${key}`,
+    JSON.stringify(payload)
+  )
+}
+
+function normalizePath(path: string) {
+  return path.split('?')[0].replace(/\/$/, '')
+}
+
+function pathMatchesAnchor(href: string, anchor: string) {
+  const normalizedAnchor = normalizePath(anchor)
+  try {
+    return (
+      normalizePath(new URL(href, globalThis.location.origin).pathname) ===
+      normalizedAnchor
+    )
+  } catch {
+    return href.includes(normalizedAnchor)
+  }
+}
+
+function destinationPathname(url: string) {
+  try {
+    return new URL(url, globalThis.location.origin).pathname
+  } catch {
+    return url.split('?')[0]
+  }
+}
+
+/**
+ * Resolve the product *card* for a PDP path so we scroll the whole tile into
+ * view (image + title), not only the small title link.
+ */
+function findAnchorCard(anchor: string): HTMLElement | null {
+  const links = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>(
+      'a[data-testid="product-link"], a[href*="/p"]'
+    )
+  )
+
+  for (const link of links) {
+    const href = link.getAttribute('href')
+    if (!href || !pathMatchesAnchor(href, anchor)) continue
+
+    const card = link.closest('[data-fs-product-card]')
+    if (card instanceof HTMLElement) return card
+    return link
+  }
+
+  return null
+}
+
+function isElementInViewport(el: HTMLElement) {
+  const rect = el.getBoundingClientRect()
+  const vh = globalThis.innerHeight
+  return rect.top < vh * 0.75 && rect.bottom > vh * 0.25 && rect.height > 40
+}
+
+function scrollElementIntoView(el: HTMLElement) {
+  const rect = el.getBoundingClientRect()
+  const absoluteTop = rect.top + globalThis.scrollY
+  const targetY = Math.max(
+    0,
+    absoluteTop - globalThis.innerHeight / 2 + rect.height / 2
+  )
+  globalThis.scrollTo({ top: targetY, left: 0, behavior: 'auto' })
+}
+
+function scrollToSavedPosition(stored: StoredScroll) {
+  const maxScroll = Math.max(
+    document.documentElement.scrollHeight - globalThis.innerHeight,
+    0
+  )
+  globalThis.scrollTo(stored.x, Math.min(stored.y, maxScroll))
+}
+
+function cancelRestore() {
+  restoreGeneration += 1
+  activeRestoreKey = null
+  endRestoringPaint()
+}
+
+type RestoreSession = {
+  generation: number
+  key: string
+  stored: StoredScroll
+  attempts: number
+  observer: MutationObserver | null
+  defenseUntil: number
+  stableHits: number
+}
+
+function isStaleGeneration(generation: number) {
+  return generation !== restoreGeneration
+}
+
+function cleanupRestoreObserver(session: RestoreSession) {
+  session.observer?.disconnect()
+  session.observer = null
+}
+
+function finishRestore(session: RestoreSession) {
+  if (isStaleGeneration(session.generation)) return
+  cleanupRestoreObserver(session)
+  if (activeRestoreKey === session.key) activeRestoreKey = null
+  endRestoringPaint()
+}
+
+function isAnchorRestoreSettled(session: RestoreSession) {
+  return (
+    session.stableHits >= STABLE_HITS_REQUIRED ||
+    (session.defenseUntil > 0 && Date.now() >= session.defenseUntil)
+  )
+}
+
+function trackAnchorInView(session: RestoreSession, el: HTMLElement) {
+  if (!isElementInViewport(el)) {
+    session.stableHits = 0
+    session.defenseUntil = 0
+    return false
+  }
+
+  session.stableHits += 1
+  if (!session.defenseUntil) {
+    session.defenseUntil = Date.now() + DEFENSE_WINDOW_MS
+  }
+  return isAnchorRestoreSettled(session)
+}
+
+function continueOrFinish(session: RestoreSession, scheduleNext: () => void) {
+  if (session.attempts < RESTORE_MAX_ATTEMPTS) {
+    scheduleNext()
+    return
+  }
+  finishRestore(session)
+}
+
+function ensureAnchorObserver(
+  session: RestoreSession,
+  anchor: string,
+  tryRestore: () => void
+) {
+  if (session.observer) return
+
+  session.observer = new MutationObserver(() => {
+    if (isStaleGeneration(session.generation)) return
+    if (findAnchorCard(anchor)) tryRestore()
+  })
+  session.observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  })
+}
+
+function restoreByAnchor(
+  session: RestoreSession,
+  scheduleNext: () => void,
+  tryRestore: () => void
+) {
+  const anchor = session.stored.anchor
+  if (!anchor) return false
+
+  const el = findAnchorCard(anchor)
+  if (el) {
+    scrollElementIntoView(el)
+    if (trackAnchorInView(session, el)) {
+      finishRestore(session)
+      return true
+    }
+    continueOrFinish(session, scheduleNext)
+    return true
+  }
+
+  // Card not in DOM yet — watch mutations and keep the optimistic Y.
+  ensureAnchorObserver(session, anchor, tryRestore)
+  scrollToSavedPosition(session.stored)
+  continueOrFinish(session, scheduleNext)
+  return true
+}
+
+function restoreByCoordinates(session: RestoreSession, tryRestore: () => void) {
+  const { y } = session.stored
+  scrollToSavedPosition(session.stored)
+
+  if (!(y > 0 && session.attempts < RESTORE_MAX_ATTEMPTS)) {
+    finishRestore(session)
+    return
+  }
+
+  globalThis.setTimeout(() => {
+    if (isStaleGeneration(session.generation)) return
+
+    const maxScroll = Math.max(
+      document.documentElement.scrollHeight - globalThis.innerHeight,
+      0
+    )
+    const targetY = Math.min(y, maxScroll)
+    if (Math.abs(globalThis.scrollY - targetY) > 40) {
+      tryRestore()
+      return
+    }
+    finishRestore(session)
+  }, RESTORE_RETRY_MS)
+}
+
+/**
+ * Instant approximate restore — call synchronously on popstate so the user is
+ * not left at the top of the PLP while product cards finish mounting.
+ */
+function optimisticRestore() {
+  const key = historyStorageKey()
+  const stored = readStoredScroll(key)
+  if (!stored) {
+    endRestoringPaint()
+    return
+  }
+
+  scrollToSavedPosition(stored)
+  if (stored.anchor) {
+    const el = findAnchorCard(stored.anchor)
+    if (el) scrollElementIntoView(el)
+  }
+}
+
+/**
+ * Start (or no-op if already running for this history entry) a restore session.
+ */
+function scheduleRestore() {
+  const key = historyStorageKey()
+  const stored = readStoredScroll(key)
+  if (!stored) {
+    endRestoringPaint()
+    return
+  }
+
+  // Same back-navigation can fire popstate + routeChangeComplete — do not
+  // restart and cancel an in-flight restore for the same history entry.
+  if (activeRestoreKey === key) return
+
+  activeRestoreKey = key
+  const session: RestoreSession = {
+    generation: ++restoreGeneration,
+    key,
+    stored,
+    attempts: 0,
+    observer: null,
+    defenseUntil: 0,
+    stableHits: 0,
+  }
+
+  // Paint the saved position immediately (before waiting on network/DOM).
+  scrollToSavedPosition(stored)
+
+  const scheduleNext = () => {
+    if (isStaleGeneration(session.generation)) return
+    // First frames: rAF for snappy refine once the card exists.
+    // Later: 100ms while waiting on infinite-scroll pages / GraphQL.
+    if (session.attempts < 8) {
+      requestAnimationFrame(() => {
+        globalThis.setTimeout(tryRestore, 0)
+      })
+      return
+    }
+    globalThis.setTimeout(tryRestore, RESTORE_RETRY_MS)
+  }
+
+  const tryRestore = () => {
+    if (isStaleGeneration(session.generation)) {
+      cleanupRestoreObserver(session)
+      return
+    }
+
+    session.attempts += 1
+
+    if (restoreByAnchor(session, scheduleNext, tryRestore)) return
+    restoreByCoordinates(session, tryRestore)
+  }
+
+  // Kick off on the next frame so we run after Next's scroll-to-top.
+  requestAnimationFrame(() => {
+    globalThis.setTimeout(tryRestore, 0)
+  })
+}
+
+function markPendingRestore() {
+  pendingPopRestore = true
+  const key = historyStorageKey()
+  try {
+    sessionStorage.setItem(PENDING_RESTORE_FLAG, key)
+  } catch {
+    // ignore quota / private mode
+  }
+  // Only hide paint when this history entry has a saved PLP position —
+  // otherwise every unrelated browser-back would flash blank.
+  if (readStoredScroll(key)) {
+    beginRestoringPaint()
+  }
+}
+
+function consumePendingRestore() {
+  const fromFlag = pendingPopRestore
+  pendingPopRestore = false
+
+  let flaggedKey: string | null = null
+  try {
+    flaggedKey = sessionStorage.getItem(PENDING_RESTORE_FLAG)
+    sessionStorage.removeItem(PENDING_RESTORE_FLAG)
+  } catch {
+    // ignore
+  }
+
+  return fromFlag || flaggedKey !== null
+}
+
+function saveScrollPos(anchor?: string) {
+  const key = historyStorageKey()
+  const payload: StoredScroll = {
+    x: globalThis.scrollX,
+    y: globalThis.scrollY,
+  }
+  // Only attach an anchor for real PDP navigations. Carrying a previous
+  // anchor forward on non-PDP exits would restore a stale product on Back.
+  if (anchor) {
+    payload.anchor = anchor
+  }
+
+  writeStoredScroll(key, payload)
+}
+
+/** Session key used by `@faststore/sdk` infinite-scroll page persistence. */
+function infiniteScrollPagesStorageKey() {
+  const sanitizedKey = globalThis.location.pathname.replaceAll(/\W/g, '_')
+  return sanitizedKey ? `__fs_gallery_page_${sanitizedKey}` : null
+}
+
+/**
+ * Rehydrate Zustand `pages` from sessionStorage before scroll restore.
+ * Navigating PDP → elsewhere calls `resetInfiniteScroll(0)` and wipes memory
+ * even though the PLP key (e.g. `__fs_gallery_page__office`) still has
+ * `[0,1,2]`. Without this, Back lands mid-page with only page 0 mounted and
+ * the viewport sits in empty reserved height / near the footer.
+ */
+function restoreInfiniteScrollPages(
+  resetInfiniteScroll: (page: number) => void,
+  addNextPage: () => void,
+  getPages: () => number[]
+) {
+  try {
+    const storageKey = infiniteScrollPagesStorageKey()
+    if (!storageKey) return
+
+    const raw = sessionStorage.getItem(storageKey)
+    if (!raw) return
+
+    const stored = JSON.parse(raw) as unknown
+    if (
+      !Array.isArray(stored) ||
+      stored.length === 0 ||
+      !stored.every((page) => typeof page === 'number')
+    ) {
+      return
+    }
+
+    const current = getPages()
+    if (
+      current.length === stored.length &&
+      current.every((page, index) => page === stored[index])
+    ) {
+      return
+    }
+
+    resetInfiniteScroll(stored[0])
+    for (let i = 1; i < stored.length; i++) {
+      addNextPage()
+    }
+  } catch {
+    // ignore quota / private mode / bad JSON
+  }
+}
+
 export default function useScrollRestoration() {
   const router = useRouter()
-  const { resetInfiniteScroll } = useSearch()
+  const { resetInfiniteScroll, addNextPage, pages } = useSearch()
+  const pagesRef = useRef(pages)
+  pagesRef.current = pages
 
   useEffect(() => {
-    let isPopState = false
-
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual'
     }
 
-    const saveScrollPos = () => {
-      const key = window.history.state?.key
-      if (key) {
-        sessionStorage.setItem(
-          `__fs_scroll_${key}`,
-          JSON.stringify({ x: window.scrollX, y: window.scrollY })
-        )
+    const restorePages = () =>
+      restoreInfiniteScrollPages(
+        resetInfiniteScroll,
+        addNextPage,
+        () => pagesRef.current
+      )
+
+    // Resume a restore interrupted by effect remount mid back-navigation.
+    try {
+      if (sessionStorage.getItem(PENDING_RESTORE_FLAG)) {
+        consumePendingRestore()
+        restorePages()
+        scheduleRestore()
       }
+    } catch {
+      // ignore
     }
 
-    const restoreScrollPos = async () => {
-      const key = window.history.state?.key
-      if (key) {
-        const stored = sessionStorage.getItem(`__fs_scroll_${key}`)
-        if (stored) {
-          const { x, y } = await JSON.parse(stored)
-
-          // Products rendering delay
-          setTimeout(() => window.scrollTo(x, y), 800)
-        }
-      }
+    // Next types `BeforePopStateCallback` as NextHistoryState (url/as/options),
+    // while runtime also carries `key`. Use history.state via markPendingRestore.
+    const onBeforePopState = () => {
+      markPendingRestore()
+      return true
     }
 
-    const onBeforePopState = () => (isPopState = true)
+    /**
+     * Capture product navigations as early as possible — more reliable than
+     * waiting for routeChangeStart (and works if the click target is nested).
+     */
+    const onClickCapture = (event: MouseEvent) => {
+      if (pendingPopRestore) return
+      // Ignore modified / non-primary clicks — they open a new tab or do not
+      // navigate, and must not overwrite the PLP scroll anchor.
+      if (event.defaultPrevented || event.button !== 0) return
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return
+      }
+      if (!(event.target instanceof Element)) return
+
+      const link = event.target.closest('a')
+      if (!(link instanceof HTMLAnchorElement)) return
+
+      const href = link.getAttribute('href')
+      if (!href) return
+
+      const destPath = destinationPathname(href)
+      if (!destPath.endsWith('/p')) return
+
+      // Only when leaving the current listing page toward a PDP.
+      if (destPath === globalThis.location.pathname) return
+
+      saveScrollPos(destPath)
+    }
 
     const onRouteChangeStart = (url: string) => {
-      // Save scroll position only when navigating to PDPs
-      if (isPopState || url.includes(window.location.pathname)) return
-      saveScrollPos()
+      if (pendingPopRestore) return
 
-      // Reset each PLP's infinite scroll when navigating to other pages than PDPs
-      if (url.includes(window.location.pathname) || url.endsWith('/p')) return
+      cancelRestore()
+
+      const currentPath = globalThis.location.pathname
+      const destPath = destinationPathname(url)
+      const isSamePathNavigation =
+        normalizePath(currentPath) === normalizePath(destPath)
+      const isPdpNavigation = destPath.endsWith('/p')
+
+      if (!isSamePathNavigation) {
+        saveScrollPos(isPdpNavigation ? destPath : undefined)
+      }
+
+      if (isSamePathNavigation || isPdpNavigation) return
+
+      // Forward navigations away from a listing/PDP must start the next
+      // listing at page 0. Back-nav rehydrates pages via
+      // restoreInfiniteScrollPages (sessionStorage is keyed by pathname).
+      // SO-651 (IS redirect hang) is covered by SearchWrapper's effect-based
+      // replace — do not skip reset here or stale `pages` leak into the next PLP.
       resetInfiniteScroll(0)
+    }
+
+    const onRouteChangeComplete = () => {
+      if (!consumePendingRestore()) return
+      restorePages()
+      scheduleRestore()
+    }
+
+    const onRouteChangeError = () => {
+      pendingPopRestore = false
+      endRestoringPaint()
+      try {
+        sessionStorage.removeItem(PENDING_RESTORE_FLAG)
+      } catch {
+        // ignore
+      }
+    }
+
+    const onPopState = () => {
+      // Ensure flag is set even if beforePopState was replaced during remount.
+      markPendingRestore()
+      // Remount pages before measuring/scrolling so the PDP anchor can exist.
+      restorePages()
+      // Sync paint first — avoids a visible flash at the top of the PLP.
+      optimisticRestore()
+      scheduleRestore()
     }
 
     router.beforePopState(onBeforePopState)
     router.events.on('routeChangeStart', onRouteChangeStart)
-    window.addEventListener('popstate', restoreScrollPos)
+    router.events.on('routeChangeComplete', onRouteChangeComplete)
+    router.events.on('routeChangeError', onRouteChangeError)
+    globalThis.addEventListener('popstate', onPopState)
+    document.addEventListener('click', onClickCapture, true)
 
     return () => {
+      // Do not cancel in-flight restore or flip scrollRestoration to `auto` —
+      // effect remounts during back-nav must not abort or fight the restore.
       router.beforePopState(() => true)
       router.events.off('routeChangeStart', onRouteChangeStart)
-      window.removeEventListener('popstate', restoreScrollPos)
-      if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'auto'
-      }
+      router.events.off('routeChangeComplete', onRouteChangeComplete)
+      router.events.off('routeChangeError', onRouteChangeError)
+      globalThis.removeEventListener('popstate', onPopState)
+      document.removeEventListener('click', onClickCapture, true)
     }
+    // resetInfiniteScroll is a stable Zustand action; omit from deps to avoid
+    // re-binding router listeners on unrelated search state updates.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router])
+}
+
+/** @internal — exported for unit tests only. */
+export const scrollRestorationTestUtils = {
+  SCROLL_STORAGE_PREFIX,
+  PENDING_RESTORE_FLAG,
+  RESTORING_SCROLL_CLASS,
+  STABLE_HITS_REQUIRED,
+  RESTORE_MAX_ATTEMPTS,
+  destinationPathname,
+  findAnchorCard,
+  normalizePath,
+  pathMatchesAnchor,
+  isElementInViewport,
+  scrollElementIntoView,
+  scrollToSavedPosition,
+  trackAnchorInView,
+  isAnchorRestoreSettled,
+  restoreByAnchor,
+  restoreByCoordinates,
+  continueOrFinish,
+  finishRestore,
+  ensureAnchorObserver,
+  optimisticRestore,
+  scheduleRestore,
+  markPendingRestore,
+  cancelRestore,
+  beginRestoringPaint,
+  endRestoringPaint,
+  restoreInfiniteScrollPages,
+  createSession(
+    overrides: Partial<RestoreSession> & { stored?: StoredScroll } = {}
+  ): RestoreSession {
+    const { stored: storedOverride, ...rest } = overrides
+    return {
+      generation: restoreGeneration,
+      key: 'plp-key',
+      attempts: 1,
+      observer: null,
+      defenseUntil: 0,
+      stableHits: 0,
+      ...rest,
+      stored: storedOverride ?? { x: 0, y: 100 },
+    }
+  },
+  setActiveRestoreKey(key: string | null) {
+    activeRestoreKey = key
+  },
+  bumpGeneration() {
+    restoreGeneration += 1
+    return restoreGeneration
+  },
+  reset() {
+    pendingPopRestore = false
+    restoreGeneration = 0
+    activeRestoreKey = null
+    endRestoringPaint()
+  },
 }

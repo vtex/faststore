@@ -14,7 +14,7 @@ vi.mock('src/utils/retry', () => ({
   retry: (fn: () => unknown) => Promise.resolve().then(fn),
 }))
 
-import { useRecommendationUserId } from 'src/components/sections/RecommendationShelf/useRecommendationUserId'
+import { useRecommendationUserId } from 'src/sdk/recommendations/useRecommendationUserId'
 
 const CAMPAIGN_VRN = 'vrn:recommendations:acc:rec-top-items-v2:campaign-1'
 

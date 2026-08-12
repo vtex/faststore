@@ -1,4 +1,4 @@
-import type { RecommendationType } from './RecommendationShelf.types'
+import type { RecommendationType } from './types'
 
 // Single source of truth for the campaign taxonomy: maps each Intelligent Search
 // campaign VRN type to its `RecommendationType`. The supported VRN types, the
