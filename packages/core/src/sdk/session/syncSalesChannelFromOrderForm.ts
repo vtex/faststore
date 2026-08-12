@@ -1,5 +1,35 @@
 import type { Session } from '@faststore/sdk'
 
+function parseChannelRecord(
+  raw: string | null | undefined
+): Record<string, unknown> {
+  try {
+    const parsed: unknown = JSON.parse(raw || '{}')
+
+    if (
+      parsed !== null &&
+      typeof parsed === 'object' &&
+      !Array.isArray(parsed)
+    ) {
+      return parsed as Record<string, unknown>
+    }
+  } catch {
+    // Malformed channel — reset below.
+  }
+
+  return {}
+}
+
+function readSalesChannel(channel: Record<string, unknown>): string {
+  const value = channel.salesChannel
+
+  if (typeof value === 'string' || typeof value === 'number') {
+    return String(value)
+  }
+
+  return ''
+}
+
 /**
  * Aligns `fs::session.channel` with a sales channel adopted from the orderForm
  * (e.g. after Quick Order) without revalidating the cart.
@@ -18,15 +48,10 @@ export function syncSalesChannelFromOrderForm(
   }
 
   const session = readSession()
-  let channel: Record<string, unknown> = {}
+  const channel = parseChannelRecord(session.channel)
+  const nextSalesChannel = String(salesChannel)
 
-  try {
-    channel = JSON.parse(session.channel || '{}') as Record<string, unknown>
-  } catch {
-    channel = {}
-  }
-
-  if (String(channel.salesChannel ?? '') === String(salesChannel)) {
+  if (readSalesChannel(channel) === nextSalesChannel) {
     return false
   }
 
@@ -34,7 +59,7 @@ export function syncSalesChannelFromOrderForm(
     ...session,
     channel: JSON.stringify({
       ...channel,
-      salesChannel: String(salesChannel),
+      salesChannel: nextSalesChannel,
       hasOnlyDefaultSalesChannel: false,
     }),
   })

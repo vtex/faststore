@@ -357,6 +357,20 @@ const adoptOrderFormSalesChannelWhenSessionDiverges = (
   return null
 }
 
+/** Return a cart only when an SC was adopted (so the client can sync session). */
+const cartWhenSalesChannelAdoptedOrNull = (
+  form: OrderForm,
+  skuLoader: GraphqlContext['loaders']['skuLoader'],
+  shouldSplitItem: boolean | null | undefined,
+  adoptedSalesChannel: string | null
+) => {
+  if (!adoptedSalesChannel) {
+    return null
+  }
+
+  return orderFormToCart(form, skuLoader, shouldSplitItem, adoptedSalesChannel)
+}
+
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
@@ -521,16 +535,12 @@ export const validateCart = async (
   // If there are no item/shipping changes: still return the cart when we
   // adopted the orderForm SC so the client can align `fs::session`.
   if (changes.length === 0 && !updateShipping) {
-    if (adoptedSalesChannel) {
-      return orderFormToCart(
-        orderForm,
-        skuLoader,
-        shouldSplitItem,
-        adoptedSalesChannel
-      )
-    }
-
-    return null
+    return cartWhenSalesChannelAdoptedOrNull(
+      orderForm,
+      skuLoader,
+      shouldSplitItem,
+      adoptedSalesChannel
+    )
   }
 
   // Step4: Apply delta changes to order form
@@ -599,16 +609,12 @@ export const validateCart = async (
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm) && equalMessages) {
-    if (adoptedSalesChannel) {
-      return orderFormToCart(
-        updatedOrderForm,
-        skuLoader,
-        shouldSplitItem,
-        adoptedSalesChannel
-      )
-    }
-
-    return null
+    return cartWhenSalesChannelAdoptedOrNull(
+      updatedOrderForm,
+      skuLoader,
+      shouldSplitItem,
+      adoptedSalesChannel
+    )
   }
 
   // Step6: There were changes, convert orderForm to StoreCart

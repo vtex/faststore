@@ -2,18 +2,32 @@ import { describe, expect, it, vi } from 'vitest'
 import type { Session } from '@faststore/sdk'
 import { syncSalesChannelFromOrderForm } from '../../../src/sdk/session/syncSalesChannelFromOrderForm'
 
-const baseSession = (salesChannel: string, explicit = true): Session =>
-  ({
-    currency: { code: 'BRL', symbol: 'R$' },
-    locale: 'pt-BR',
-    country: 'BRA',
-    channel: JSON.stringify({
-      salesChannel,
-      regionId: '',
-      hasOnlyDefaultSalesChannel: !explicit,
-    }),
-    person: null,
-  }) as Session
+const baseSession = (
+  salesChannel: string,
+  explicit = true,
+  channelOverride?: string | null
+): Session => ({
+  currency: { code: 'BRL', symbol: 'R$' },
+  locale: 'pt-BR',
+  country: 'BRA',
+  channel:
+    channelOverride !== undefined
+      ? channelOverride
+      : JSON.stringify({
+          salesChannel,
+          regionId: '',
+          hasOnlyDefaultSalesChannel: !explicit,
+        }),
+  deliveryMode: null,
+  addressType: null,
+  city: null,
+  postalCode: null,
+  geoCoordinates: null,
+  person: null,
+  b2b: null,
+  marketingData: null,
+  refreshAfter: null,
+})
 
 describe('syncSalesChannelFromOrderForm', () => {
   it('updates session channel silently when SC diverges', () => {
@@ -54,5 +68,58 @@ describe('syncSalesChannelFromOrderForm', () => {
       syncSalesChannelFromOrderForm('', () => baseSession('1'), setSilent)
     ).toBe(false)
     expect(setSilent).not.toHaveBeenCalled()
+  })
+
+  it('resets non-object channel JSON before adopting SC', () => {
+    const setSilent = vi.fn()
+
+    for (const invalid of ['null', '[]', '"text"', '0', 'false']) {
+      setSilent.mockClear()
+      const synced = syncSalesChannelFromOrderForm(
+        '2',
+        () => baseSession('1', true, invalid),
+        setSilent
+      )
+
+      expect(synced).toBe(true)
+      expect(JSON.parse(setSilent.mock.calls[0][0].channel)).toMatchObject({
+        salesChannel: '2',
+        hasOnlyDefaultSalesChannel: false,
+      })
+    }
+  })
+
+  it('resets malformed channel JSON before adopting SC', () => {
+    const setSilent = vi.fn()
+    const synced = syncSalesChannelFromOrderForm(
+      '2',
+      () => baseSession('1', true, '{'),
+      setSilent
+    )
+
+    expect(synced).toBe(true)
+    expect(JSON.parse(setSilent.mock.calls[0][0].channel)).toMatchObject({
+      salesChannel: '2',
+      hasOnlyDefaultSalesChannel: false,
+    })
+  })
+
+  it('ignores object-valued salesChannel when comparing', () => {
+    const setSilent = vi.fn()
+    const synced = syncSalesChannelFromOrderForm(
+      '2',
+      () =>
+        baseSession(
+          '1',
+          true,
+          JSON.stringify({ salesChannel: { nested: true } })
+        ),
+      setSilent
+    )
+
+    expect(synced).toBe(true)
+    expect(JSON.parse(setSilent.mock.calls[0][0].channel).salesChannel).toBe(
+      '2'
+    )
   })
 })

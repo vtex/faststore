@@ -172,7 +172,7 @@ const withOrderFormSalesChannel = <
 >(
   fetchMock: T,
   salesChannel: string
-): T => ({
+) => ({
   ...fetchMock,
   result: {
     ...fetchMock.result,
