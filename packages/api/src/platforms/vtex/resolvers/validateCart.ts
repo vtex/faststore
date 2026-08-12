@@ -1,6 +1,7 @@
 import deepEquals from 'fast-deep-equal'
 
 import { parse } from 'cookie'
+import { channelWhenSessionDivergesFromOrderForm } from '../utils/cartSalesChannel'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
 import {
@@ -175,7 +176,8 @@ const joinItems = (form: OrderForm) => {
 const orderFormToCart = async (
   form: OrderForm,
   skuLoader: GraphqlContext['loaders']['skuLoader'],
-  shouldSplitItem?: boolean | null
+  shouldSplitItem?: boolean | null,
+  adoptedSalesChannel?: string | null
 ) => {
   return {
     order: {
@@ -185,6 +187,7 @@ const orderFormToCart = async (
         product: await skuLoader.load(`${item.id}-invisibleItems`),
       })),
       shouldSplitItem,
+      ...(adoptedSalesChannel ? { salesChannel: adoptedSalesChannel } : {}),
     },
     messages: form.messages.map(({ text, status }) => ({
       text,
@@ -336,6 +339,38 @@ const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
   return cookieValue ? cookieValue.split('=')[1] : ''
 }
 
+/** Keep Checkout on the orderForm SC when the browser session lags behind it. */
+const adoptOrderFormSalesChannelWhenSessionDiverges = (
+  ctx: GraphqlContext,
+  orderForm: OrderForm
+): string | null => {
+  const adoptedChannel = channelWhenSessionDivergesFromOrderForm(
+    ctx.storage.channel,
+    orderForm.salesChannel
+  )
+
+  if (adoptedChannel) {
+    mutateChannelContext(ctx, adoptedChannel)
+    return orderForm.salesChannel ? String(orderForm.salesChannel) : null
+  }
+
+  return null
+}
+
+/** Return a cart only when an SC was adopted (so the client can sync session). */
+const cartWhenSalesChannelAdoptedOrNull = (
+  form: OrderForm,
+  skuLoader: GraphqlContext['loaders']['skuLoader'],
+  shouldSplitItem: boolean | null | undefined,
+  adoptedSalesChannel: string | null
+) => {
+  if (!adoptedSalesChannel) {
+    return null
+  }
+
+  return orderFormToCart(form, skuLoader, shouldSplitItem, adoptedSalesChannel)
+}
+
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
@@ -374,10 +409,17 @@ export const validateCart = async (
     mutateLocaleContext(ctx, locale)
   }
 
-  // Step1: Get OrderForm from VTEX Commerce
+  // Step1: Get OrderForm from VTEX Commerce.
+  // For existing carts (`orderFormId` present), omit `sc` on the first GET so
+  // Checkout keeps the orderForm's current sales channel. Passing a stale
+  // session SC (e.g. after Quick Order) would recalculate the cart and drop
+  // items only available in the orderForm's trade policy. New carts still
+  // send `sc` from the session (see commerce.checkout.orderForm).
+  const orderFormId = orderFormIdFromCookie || undefined
   const orderForm = await commerce.checkout.orderForm({
-    id: orderFormIdFromCookie || undefined,
+    id: orderFormId,
     channel: ctx.storage.channel,
+    preserveSalesChannel: Boolean(orderFormId),
   })
   const orderNumber = orderForm.orderFormId
 
@@ -398,15 +440,35 @@ export const validateCart = async (
   const isStale = isOrderFormStale(orderForm, sessionJwt)
 
   if (isStale) {
+    // Adopt the orderForm SC so subsequent checkout calls (etag, etc.) stay
+    // on the trade policy that actually owns the items.
+    const adoptedSalesChannel = adoptOrderFormSalesChannelWhenSessionDiverges(
+      ctx,
+      orderForm
+    )
+
     const newOrderForm = await setOrderFormEtag(
       orderForm,
       commerce,
       sessionJwt
     ).then(joinItems)
     if (orderNumber) {
-      return orderFormToCart(newOrderForm, skuLoader, shouldSplitItem)
+      return orderFormToCart(
+        newOrderForm,
+        skuLoader,
+        shouldSplitItem,
+        adoptedSalesChannel
+      )
     }
   }
+
+  // Keep Checkout on the orderForm trade policy when the browser session still
+  // has a stale SC (Quick Order). Refetching with `sc=session` would wipe
+  // items that exist only on the orderForm's sales channel.
+  const adoptedSalesChannel = adoptOrderFormSalesChannelWhenSessionDiverges(
+    ctx,
+    orderForm
+  )
 
   // Step2: Process items from both browser and checkout so they have the same shape
   const browserItemsById = groupById(acceptedOffer)
@@ -470,9 +532,15 @@ export const validateCart = async (
     ? shouldUpdateShippingData(orderForm, session)
     : { updateShipping: false }
 
-  // If there are no item changes and no shipping data updates needed, return null
+  // If there are no item/shipping changes: still return the cart when we
+  // adopted the orderForm SC so the client can align `fs::session`.
   if (changes.length === 0 && !updateShipping) {
-    return null
+    return cartWhenSalesChannelAdoptedOrNull(
+      orderForm,
+      skuLoader,
+      shouldSplitItem,
+      adoptedSalesChannel
+    )
   }
 
   // Step4: Apply delta changes to order form
@@ -541,9 +609,19 @@ export const validateCart = async (
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm) && equalMessages) {
-    return null
+    return cartWhenSalesChannelAdoptedOrNull(
+      updatedOrderForm,
+      skuLoader,
+      shouldSplitItem,
+      adoptedSalesChannel
+    )
   }
 
   // Step6: There were changes, convert orderForm to StoreCart
-  return orderFormToCart(updatedOrderForm, skuLoader, shouldSplitItem)
+  return orderFormToCart(
+    updatedOrderForm,
+    skuLoader,
+    shouldSplitItem,
+    adoptedSalesChannel
+  )
 }

@@ -3,11 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0-dev.3](https://github.com/vtex/faststore/compare/v4.6.0-dev.2...v4.6.0-dev.3) (2026-08-12)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.6.0-dev.2](https://github.com/vtex/faststore/compare/v4.6.0-dev.1...v4.6.0-dev.2) (2026-08-12)
+
+### Bug Fixes
+
+- **api:** address Sonar and harden session sales-channel sync ([5f6e8e9](https://github.com/vtex/faststore/commit/5f6e8e909def75f60c24cdaffae9303ed2c0a052))
+- **api:** address Sonar findings in validateCart and orderForm URL ([3211231](https://github.com/vtex/faststore/commit/321123179d3e5789fb7730ef94c8f2f0d8b878b1))
+- **api:** keep orderForm sales channel after stale validateCart sync ([09b051b](https://github.com/vtex/faststore/commit/09b051b80aaff7183adf7f5e86aece438bcd38f0))
+- **api:** preserve orderForm sales channel in validateCart ([2336cda](https://github.com/vtex/faststore/commit/2336cda2c95970850dd0d29c1c18043ca8c9078a))
+- **api:** sync adopted orderForm sales channel into session ([8943da7](https://github.com/vtex/faststore/commit/8943da7821f8abec08a39b7907a258bf156b05ee))
+
+# [4.6.0-dev.1](https://github.com/vtex/faststore/compare/v4.6.0-dev.0...v4.6.0-dev.1) (2026-08-11)
+
+## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.5.1) (2026-08-11)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.6.0-dev.0](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.6.0-dev.0) (2026-08-11)
+
+### Features
+
+- removing vtex/diagnostics-nodejs ([#3389](https://github.com/vtex/faststore/issues/3389)) ([74e2d50](https://github.com/vtex/faststore/commit/74e2d503a44903929b90af7701956536690d4e41))
+
 ## [4.5.1-dev.4](https://github.com/vtex/faststore/compare/v4.5.1-dev.3...v4.5.1-dev.4) (2026-08-10)
 
 **Note:** Version bump only for package @faststore/api
 
 ## [4.5.1-dev.3](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1-dev.3) (2026-08-10)
+
+## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1) (2026-08-11)
 
 **Note:** Version bump only for package @faststore/api
 
