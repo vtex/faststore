@@ -22,14 +22,14 @@ export type SerializedRichTextImageNode = Spread<
   SerializedLexicalNode
 >
 
-const VALID_ALIGNMENTS: ImageAlignment[] = ['left', 'center', 'right']
+const VALID_ALIGNMENTS = new Set<ImageAlignment>(['left', 'center', 'right'])
 const DEFAULT_ALIGNMENT: ImageAlignment = 'left'
 const DEFAULT_WIDTH_PERCENT = 100
 const RICH_TEXT_CONTENT_MAX_WIDTH = 720
 const DEFAULT_IMAGE_QUALITY = 8
 
 function resolveAlignment(alignment: unknown): ImageAlignment {
-  return VALID_ALIGNMENTS.includes(alignment as ImageAlignment)
+  return VALID_ALIGNMENTS.has(alignment as ImageAlignment)
     ? (alignment as ImageAlignment)
     : DEFAULT_ALIGNMENT
 }
@@ -146,18 +146,15 @@ export class RichTextImageNode extends DecoratorNode<null> {
     }
 
     const wrapper = document.createElement('div')
-    wrapper.setAttribute('data-fs-rich-text-image-wrapper', '')
-    wrapper.setAttribute('data-fs-rich-text-image-alignment', this.__alignment)
+    wrapper.dataset.fsRichTextImageWrapper = ''
+    wrapper.dataset.fsRichTextImageAlignment = this.__alignment
 
     const img = document.createElement('img')
-    img.setAttribute('data-fs-rich-text-image', '')
-    img.setAttribute(
-      'src',
-      withVtexResizeParams(this.__src, this.__widthPercent)
-    )
-    img.setAttribute('alt', this.__altText)
+    img.dataset.fsRichTextImage = ''
+    img.src = withVtexResizeParams(this.__src, this.__widthPercent)
+    img.alt = this.__altText
     img.setAttribute('loading', 'lazy')
-    img.setAttribute('style', `width: ${this.__widthPercent}%`)
+    img.style.width = `${this.__widthPercent}%`
 
     wrapper.append(img)
 
