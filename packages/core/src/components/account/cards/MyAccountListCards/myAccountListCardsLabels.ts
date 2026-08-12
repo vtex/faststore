@@ -13,6 +13,8 @@ export type MyAccountListCardsSectionLabels = {
   tryAgainLabel?: string
   sharedCardsTooltipLabel?: string
   defaultCardLabel?: string
+  /** Shown in place of the brand name when the service doesn't return one. */
+  genericCardLabel?: string
 }
 
 export const defaultMyAccountListCardsLabels: Required<MyAccountListCardsSectionLabels> =
@@ -32,6 +34,7 @@ export const defaultMyAccountListCardsLabels: Required<MyAccountListCardsSection
     sharedCardsTooltipLabel:
       'These cards are shared by the organization you belong to. Changes can only be made by the administrator.',
     defaultCardLabel: 'Default',
+    genericCardLabel: 'Card',
   }
 
 export function resolveMyAccountListCardsLabels(

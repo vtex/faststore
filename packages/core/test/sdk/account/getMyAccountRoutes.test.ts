@@ -29,6 +29,14 @@ describe('getMyAccountRoutes', () => {
     ])
   })
 
+  it('keeps routes with /pvt prefix unchanged', () => {
+    const result = getMyAccountRoutes({
+      routes: [{ title: 'Custom', route: '/pvt/custom' }],
+    })
+
+    expect(result.find((r) => r.title === 'Custom')?.route).toBe('/pvt/custom')
+  })
+
   it('prefixes routes with /pvt when missing', () => {
     const result = getMyAccountRoutes({
       routes: [{ title: 'Custom', route: '/custom' }],

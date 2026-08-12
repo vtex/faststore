@@ -24,6 +24,7 @@ const AccountListCards = ({
   tryAgainLabel = defaultMyAccountListCardsLabels.tryAgainLabel,
   sharedCardsTooltipLabel = defaultMyAccountListCardsLabels.sharedCardsTooltipLabel,
   defaultCardLabel = defaultMyAccountListCardsLabels.defaultCardLabel,
+  genericCardLabel = defaultMyAccountListCardsLabels.genericCardLabel,
 }: AccountListCardsProps) => {
   const {
     personalCards,
@@ -56,6 +57,7 @@ const AccountListCards = ({
           tryAgainLabel,
           sharedCardsTooltipLabel,
           defaultCardLabel,
+          genericCardLabel,
         }}
       />
     </Section>

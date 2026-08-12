@@ -88,4 +88,21 @@ describe('hasAdHocCardAccess', () => {
     ).not.toHaveBeenCalled()
     expect(result).toBe(true)
   })
+
+  it('does not throw when the auth cookie is malformed, and skips the call', async () => {
+    const ctx = {
+      account: ACCOUNT,
+      headers: { cookie: `VtexIdclientAutCookie_${ACCOUNT}=not-a-jwt` },
+      clients: {
+        commerce: { licenseManager: { isResourceGranted: vi.fn() } },
+      },
+    }
+
+    const result = await Query.hasAdHocCardAccess(null, undefined, ctx as any)
+
+    expect(
+      ctx.clients.commerce.licenseManager.isResourceGranted
+    ).not.toHaveBeenCalled()
+    expect(result).toBe(true)
+  })
 })

@@ -1,10 +1,12 @@
-import { useMemo, useState } from 'react'
+import { useRouter } from 'next/router'
+import type { KeyboardEvent } from 'react'
+import { useMemo, useRef, useState } from 'react'
 
 import {
+  Button,
   EmptyState,
   Icon,
   IconButton,
-  LinkButton,
   SearchInputField,
   Tooltip,
 } from '@faststore/ui'
@@ -43,6 +45,9 @@ export type MyAccountListCardsProps = {
 }
 
 const PAGE_SIZE = 25
+const PERSONAL_TAB_ID = 'fs-list-cards-tab-personal'
+const SHARED_TAB_ID = 'fs-list-cards-tab-shared'
+const PANEL_ID = 'fs-list-cards-panel'
 
 function cardKey(card: SavedCardItem, index: number) {
   return card.accountId ? `${card.accountId}-${index}` : `card-${index}`
@@ -87,6 +92,7 @@ export default function MyAccountListCards({
   hasError = false,
   labels: labelsProp,
 }: MyAccountListCardsProps) {
+  const router = useRouter()
   const labels = resolveMyAccountListCardsLabels(labelsProp)
 
   // Confirmed row (spec my-account-cards-gating-plan, O1): when Personal isn't
@@ -100,6 +106,8 @@ export default function MyAccountListCards({
   )
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
+  const personalTabRef = useRef<HTMLButtonElement>(null)
+  const sharedTabRef = useRef<HTMLButtonElement>(null)
 
   const isShared = activeTab === 'shared'
   const allCards = isShared ? sharedCards : personalCards
@@ -126,6 +134,19 @@ export default function MyAccountListCards({
     setPage(1)
   }
 
+  // Arrow-key navigation between tabs, per the WAI-ARIA tabs pattern. Only
+  // meaningful when both tabs are rendered (hasOrgAssociation); a single tab
+  // has nothing to move to.
+  const handleTablistKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (!hasOrgAssociation) return
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+
+    event.preventDefault()
+    const nextTab: CardsTabVariant = isShared ? 'personal' : 'shared'
+    handleTabChange(nextTab)
+    ;(nextTab === 'personal' ? personalTabRef : sharedTabRef).current?.focus()
+  }
+
   const noCardsLabel = isShared
     ? labels.noSharedCardsLabel
     : labels.noPersonalCardsLabel
@@ -145,135 +166,153 @@ export default function MyAccountListCards({
           </Tooltip>
         </div>
       ) : (
-        <div data-fs-list-cards-tabs role="tablist">
-          <button
-            type="button"
-            role="tab"
-            aria-selected={!isShared}
-            data-fs-list-cards-tab
-            data-fs-list-cards-tab-active={!isShared}
-            onClick={() => handleTabChange('personal')}
+        <div data-fs-list-cards-tabs-row>
+          <div
+            data-fs-list-cards-tabs
+            role="tablist"
+            onKeyDown={handleTablistKeyDown}
           >
-            {labels.personalTabLabel}
-          </button>
-          {hasOrgAssociation && (
             <button
+              ref={personalTabRef}
+              id={PERSONAL_TAB_ID}
               type="button"
               role="tab"
-              aria-selected={isShared}
+              aria-selected={!isShared}
+              aria-controls={PANEL_ID}
+              tabIndex={isShared ? -1 : 0}
               data-fs-list-cards-tab
-              data-fs-list-cards-tab-active={isShared}
-              onClick={() => handleTabChange('shared')}
+              data-fs-list-cards-tab-active={!isShared}
+              onClick={() => handleTabChange('personal')}
             >
-              {labels.sharedTabLabel}
-              {isShared && (
-                <Tooltip
-                  content={labels.sharedCardsTooltipLabel}
-                  placement="bottom-start"
-                >
-                  <Icon name="Info" width={24} height={24} />
-                </Tooltip>
-              )}
+              {labels.personalTabLabel}
             </button>
-          )}
-        </div>
-      )}
-
-      {!hasError && (
-        <div data-fs-list-cards-controls>
-          <div data-fs-list-cards-search-wrapper>
-            <SearchInputField
-              data-fs-list-cards-search
-              placeholder={labels.searchPlaceholder}
-              value={search}
-              onChange={(event) => {
-                setSearch(event.target.value)
-                setPage(1)
-              }}
-              onSubmit={() => {
-                setPage(1)
-              }}
-            />
+            {hasOrgAssociation && (
+              <button
+                ref={sharedTabRef}
+                id={SHARED_TAB_ID}
+                type="button"
+                role="tab"
+                aria-selected={isShared}
+                aria-controls={PANEL_ID}
+                tabIndex={isShared ? 0 : -1}
+                data-fs-list-cards-tab
+                data-fs-list-cards-tab-active={isShared}
+                onClick={() => handleTabChange('shared')}
+              >
+                {labels.sharedTabLabel}
+              </button>
+            )}
           </div>
-          {total > 0 && (
-            <div data-fs-list-cards-pagination>
-              <p>{`${firstIndexLabel} — ${lastIndexLabel} ${labels.paginationOfLabel} ${total}`}</p>
-              <IconButton
-                size="small"
-                variant="tertiary"
-                disabled={currentPage === 1}
-                onClick={() => setPage((current) => current - 1)}
-                icon={<Icon name="CaretLeft" />}
-                aria-label={labels.previousPageLabel}
-              />
-              <IconButton
-                size="small"
-                variant="tertiary"
-                disabled={currentPage === totalPages}
-                onClick={() => setPage((current) => current + 1)}
-                icon={<Icon name="CaretRight" />}
-                aria-label={labels.nextPageLabel}
-              />
-            </div>
+          {isShared && hasOrgAssociation && (
+            <Tooltip
+              content={labels.sharedCardsTooltipLabel}
+              placement="bottom-start"
+            >
+              <Icon name="Info" width={24} height={24} />
+            </Tooltip>
           )}
         </div>
       )}
 
-      {hasError ? (
-        <EmptyState
-          testId="fs-list-cards-error"
-          titleIcon={
-            <Icon name="Warning" width={56} height={56} weight="thin" />
-          }
-          title={labels.errorTitleLabel}
-          bkgColor="light"
-        >
-          <LinkButton
-            data-fs-list-cards-retry
-            href="#"
-            variant="secondary"
-            onClick={(event) => {
-              event.preventDefault()
-              window.location.reload()
-            }}
-          >
-            {labels.tryAgainLabel}
-          </LinkButton>
-        </EmptyState>
-      ) : total === 0 ? (
-        <EmptyState
-          testId="fs-list-cards-empty"
-          titleIcon={
-            <Icon
-              name={search ? 'MagnifyingGlass' : 'Bag2'}
-              width={56}
-              height={56}
-              weight="thin"
-            />
-          }
-          title={search ? labels.noResultsLabel : noCardsLabel}
-          bkgColor="light"
-        />
-      ) : (
-        <div data-fs-list-cards-grid>
-          {pageCards.map((card, index) => (
-            <div key={cardKey(card, index)} data-fs-list-cards-item>
-              <div data-fs-list-cards-item-brand>
-                <Icon name={getBrandIconName(card)} width={32} height={32} />
-              </div>
-              <div data-fs-list-cards-item-label>
-                {card.paymentSystemName ?? labels.pageTitle}
-                {card.isDefault && (
-                  <span data-fs-list-cards-item-default-badge>
-                    {labels.defaultCardLabel}
-                  </span>
-                )}
-              </div>
-              <div data-fs-list-cards-item-number>{card.cardNumber}</div>
+      <div
+        role={sharedOnly ? undefined : 'tabpanel'}
+        id={sharedOnly ? undefined : PANEL_ID}
+        aria-labelledby={
+          sharedOnly ? undefined : isShared ? SHARED_TAB_ID : PERSONAL_TAB_ID
+        }
+      >
+        {!hasError && (
+          <div data-fs-list-cards-controls>
+            <div data-fs-list-cards-search-wrapper>
+              <SearchInputField
+                data-fs-list-cards-search
+                placeholder={labels.searchPlaceholder}
+                value={search}
+                onChange={(event) => {
+                  setSearch(event.target.value)
+                  setPage(1)
+                }}
+                onSubmit={() => {
+                  setPage(1)
+                }}
+              />
             </div>
-          ))}
-        </div>
-      )}
+            {total > 0 && (
+              <div data-fs-list-cards-pagination>
+                <p>{`${firstIndexLabel} — ${lastIndexLabel} ${labels.paginationOfLabel} ${total}`}</p>
+                <IconButton
+                  size="small"
+                  variant="tertiary"
+                  disabled={currentPage === 1}
+                  onClick={() => setPage((current) => current - 1)}
+                  icon={<Icon name="CaretLeft" />}
+                  aria-label={labels.previousPageLabel}
+                />
+                <IconButton
+                  size="small"
+                  variant="tertiary"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setPage((current) => current + 1)}
+                  icon={<Icon name="CaretRight" />}
+                  aria-label={labels.nextPageLabel}
+                />
+              </div>
+            )}
+          </div>
+        )}
+
+        {hasError ? (
+          <EmptyState
+            testId="fs-list-cards-error"
+            titleIcon={
+              <Icon name="Warning" width={56} height={56} weight="thin" />
+            }
+            title={labels.errorTitleLabel}
+            bkgColor="light"
+          >
+            <Button
+              data-fs-list-cards-retry
+              variant="secondary"
+              onClick={() => router.reload()}
+            >
+              {labels.tryAgainLabel}
+            </Button>
+          </EmptyState>
+        ) : total === 0 ? (
+          <EmptyState
+            testId="fs-list-cards-empty"
+            titleIcon={
+              <Icon
+                name={search ? 'MagnifyingGlass' : 'Bag2'}
+                width={56}
+                height={56}
+                weight="thin"
+              />
+            }
+            title={search ? labels.noResultsLabel : noCardsLabel}
+            bkgColor="light"
+          />
+        ) : (
+          <div data-fs-list-cards-grid>
+            {pageCards.map((card, index) => (
+              <div key={cardKey(card, index)} data-fs-list-cards-item>
+                <div data-fs-list-cards-item-brand>
+                  <Icon name={getBrandIconName(card)} width={32} height={32} />
+                </div>
+                <div data-fs-list-cards-item-label>
+                  {card.paymentSystemName ?? labels.genericCardLabel}
+                  {card.isDefault && (
+                    <span data-fs-list-cards-item-default-badge>
+                      {labels.defaultCardLabel}
+                    </span>
+                  )}
+                </div>
+                <div data-fs-list-cards-item-number>{card.cardNumber}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
