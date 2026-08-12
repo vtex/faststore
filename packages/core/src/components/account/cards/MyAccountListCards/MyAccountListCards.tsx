@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import type { KeyboardEvent } from 'react'
+import type { KeyboardEvent, Ref } from 'react'
 import { useMemo, useRef, useState } from 'react'
 
 import {
@@ -84,6 +84,178 @@ function getBrandIconName(card: SavedCardItem) {
   return BRAND_ICON_BY_NAME[name] ?? 'Bag'
 }
 
+type TabsHeaderProps = {
+  sharedOnly: boolean
+  isShared: boolean
+  hasOrgAssociation: boolean
+  labels: Required<MyAccountListCardsSectionLabels>
+  personalTabRef: Ref<HTMLButtonElement>
+  sharedTabRef: Ref<HTMLButtonElement>
+  onTabChange: (tab: CardsTabVariant) => void
+  onTabKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void
+}
+
+// Extracted so the tab-vs-shared-only branching doesn't add to the main
+// component's cognitive complexity budget.
+function TabsHeader({
+  sharedOnly,
+  isShared,
+  hasOrgAssociation,
+  labels,
+  personalTabRef,
+  sharedTabRef,
+  onTabChange,
+  onTabKeyDown,
+}: Readonly<TabsHeaderProps>) {
+  if (sharedOnly) {
+    return (
+      <div data-fs-list-cards-tabs-shared-only>
+        <span data-fs-list-cards-tab-label>{labels.sharedTabLabel}</span>
+        <Tooltip
+          content={labels.sharedCardsTooltipLabel}
+          placement="bottom-start"
+        >
+          <Icon name="Info" width={24} height={24} />
+        </Tooltip>
+      </div>
+    )
+  }
+
+  return (
+    <div data-fs-list-cards-tabs-row>
+      <div data-fs-list-cards-tabs role="tablist">
+        <button
+          ref={personalTabRef}
+          id={PERSONAL_TAB_ID}
+          type="button"
+          role="tab"
+          aria-selected={!isShared}
+          aria-controls={PANEL_ID}
+          tabIndex={isShared ? -1 : 0}
+          data-fs-list-cards-tab
+          data-fs-list-cards-tab-active={!isShared}
+          onClick={() => onTabChange('personal')}
+          onKeyDown={onTabKeyDown}
+        >
+          {labels.personalTabLabel}
+        </button>
+        {hasOrgAssociation && (
+          <button
+            ref={sharedTabRef}
+            id={SHARED_TAB_ID}
+            type="button"
+            role="tab"
+            aria-selected={isShared}
+            aria-controls={PANEL_ID}
+            tabIndex={isShared ? 0 : -1}
+            data-fs-list-cards-tab
+            data-fs-list-cards-tab-active={isShared}
+            onClick={() => onTabChange('shared')}
+            onKeyDown={onTabKeyDown}
+          >
+            {labels.sharedTabLabel}
+          </button>
+        )}
+      </div>
+      {isShared && hasOrgAssociation && (
+        <Tooltip
+          content={labels.sharedCardsTooltipLabel}
+          placement="bottom-start"
+        >
+          <Icon name="Info" width={24} height={24} />
+        </Tooltip>
+      )}
+    </div>
+  )
+}
+
+type CardsGridProps = {
+  cards: SavedCardItem[]
+  labels: Required<MyAccountListCardsSectionLabels>
+}
+
+// Extracted so the .map callback's branching doesn't nest inside the main
+// component's cognitive complexity budget.
+function CardsGrid({ cards, labels }: Readonly<CardsGridProps>) {
+  return (
+    <div data-fs-list-cards-grid>
+      {cards.map((card, index) => (
+        <div key={cardKey(card, index)} data-fs-list-cards-item>
+          <div data-fs-list-cards-item-brand>
+            <Icon name={getBrandIconName(card)} width={32} height={32} />
+          </div>
+          <div data-fs-list-cards-item-label>
+            {card.paymentSystemName ?? labels.genericCardLabel}
+            {card.isDefault && (
+              <span data-fs-list-cards-item-default-badge>
+                {labels.defaultCardLabel}
+              </span>
+            )}
+          </div>
+          <div data-fs-list-cards-item-number>{card.cardNumber}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+type PanelBodyProps = {
+  hasError: boolean
+  total: number
+  search: string
+  noCardsLabel: string
+  pageCards: SavedCardItem[]
+  labels: Required<MyAccountListCardsSectionLabels>
+  onRetry: () => void
+}
+
+// Extracted so the error/empty/grid three-way branching doesn't nest inside
+// the main component's cognitive complexity budget.
+function PanelBody({
+  hasError,
+  total,
+  search,
+  noCardsLabel,
+  pageCards,
+  labels,
+  onRetry,
+}: Readonly<PanelBodyProps>) {
+  if (hasError) {
+    return (
+      <EmptyState
+        testId="fs-list-cards-error"
+        titleIcon={<Icon name="Warning" width={56} height={56} weight="thin" />}
+        title={labels.errorTitleLabel}
+        bkgColor="light"
+      >
+        <Button data-fs-list-cards-retry variant="secondary" onClick={onRetry}>
+          {labels.tryAgainLabel}
+        </Button>
+      </EmptyState>
+    )
+  }
+
+  if (total === 0) {
+    return (
+      <EmptyState
+        testId="fs-list-cards-empty"
+        titleIcon={
+          <Icon
+            name={search ? 'MagnifyingGlass' : 'Bag2'}
+            width={56}
+            height={56}
+            weight="thin"
+          />
+        }
+        title={search ? labels.noResultsLabel : noCardsLabel}
+        bkgColor="light"
+      />
+    )
+  }
+
+  return <CardsGrid cards={pageCards} labels={labels} />
+}
+
 export default function MyAccountListCards({
   personalCards,
   sharedCards,
@@ -91,7 +263,7 @@ export default function MyAccountListCards({
   canViewPersonalCards,
   hasError = false,
   labels: labelsProp,
-}: MyAccountListCardsProps) {
+}: Readonly<MyAccountListCardsProps>) {
   const router = useRouter()
   const labels = resolveMyAccountListCardsLabels(labelsProp)
 
@@ -137,7 +309,7 @@ export default function MyAccountListCards({
   // Arrow-key navigation between tabs, per the WAI-ARIA tabs pattern. Only
   // meaningful when both tabs are rendered (hasOrgAssociation); a single tab
   // has nothing to move to.
-  const handleTablistKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (!hasOrgAssociation) return
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
 
@@ -151,75 +323,27 @@ export default function MyAccountListCards({
     ? labels.noSharedCardsLabel
     : labels.noPersonalCardsLabel
 
+  const activeTabId = isShared ? SHARED_TAB_ID : PERSONAL_TAB_ID
+
   return (
     <div className={styles.page} data-fs-list-cards>
       <AccountHeader pageTitle={labels.pageTitle} />
 
-      {sharedOnly ? (
-        <div data-fs-list-cards-tabs-shared-only>
-          <span data-fs-list-cards-tab-label>{labels.sharedTabLabel}</span>
-          <Tooltip
-            content={labels.sharedCardsTooltipLabel}
-            placement="bottom-start"
-          >
-            <Icon name="Info" width={24} height={24} />
-          </Tooltip>
-        </div>
-      ) : (
-        <div data-fs-list-cards-tabs-row>
-          <div
-            data-fs-list-cards-tabs
-            role="tablist"
-            onKeyDown={handleTablistKeyDown}
-          >
-            <button
-              ref={personalTabRef}
-              id={PERSONAL_TAB_ID}
-              type="button"
-              role="tab"
-              aria-selected={!isShared}
-              aria-controls={PANEL_ID}
-              tabIndex={isShared ? -1 : 0}
-              data-fs-list-cards-tab
-              data-fs-list-cards-tab-active={!isShared}
-              onClick={() => handleTabChange('personal')}
-            >
-              {labels.personalTabLabel}
-            </button>
-            {hasOrgAssociation && (
-              <button
-                ref={sharedTabRef}
-                id={SHARED_TAB_ID}
-                type="button"
-                role="tab"
-                aria-selected={isShared}
-                aria-controls={PANEL_ID}
-                tabIndex={isShared ? 0 : -1}
-                data-fs-list-cards-tab
-                data-fs-list-cards-tab-active={isShared}
-                onClick={() => handleTabChange('shared')}
-              >
-                {labels.sharedTabLabel}
-              </button>
-            )}
-          </div>
-          {isShared && hasOrgAssociation && (
-            <Tooltip
-              content={labels.sharedCardsTooltipLabel}
-              placement="bottom-start"
-            >
-              <Icon name="Info" width={24} height={24} />
-            </Tooltip>
-          )}
-        </div>
-      )}
+      <TabsHeader
+        sharedOnly={sharedOnly}
+        isShared={isShared}
+        hasOrgAssociation={hasOrgAssociation}
+        labels={labels}
+        personalTabRef={personalTabRef}
+        sharedTabRef={sharedTabRef}
+        onTabChange={handleTabChange}
+        onTabKeyDown={handleTabKeyDown}
+      />
 
       <div
         role={sharedOnly ? undefined : 'tabpanel'}
         id={sharedOnly ? undefined : PANEL_ID}
-        aria-labelledby={
-          sharedOnly ? undefined : isShared ? SHARED_TAB_ID : PERSONAL_TAB_ID
-        }
+        aria-labelledby={sharedOnly ? undefined : activeTabId}
       >
         {!hasError && (
           <div data-fs-list-cards-controls>
@@ -261,57 +385,15 @@ export default function MyAccountListCards({
           </div>
         )}
 
-        {hasError ? (
-          <EmptyState
-            testId="fs-list-cards-error"
-            titleIcon={
-              <Icon name="Warning" width={56} height={56} weight="thin" />
-            }
-            title={labels.errorTitleLabel}
-            bkgColor="light"
-          >
-            <Button
-              data-fs-list-cards-retry
-              variant="secondary"
-              onClick={() => router.reload()}
-            >
-              {labels.tryAgainLabel}
-            </Button>
-          </EmptyState>
-        ) : total === 0 ? (
-          <EmptyState
-            testId="fs-list-cards-empty"
-            titleIcon={
-              <Icon
-                name={search ? 'MagnifyingGlass' : 'Bag2'}
-                width={56}
-                height={56}
-                weight="thin"
-              />
-            }
-            title={search ? labels.noResultsLabel : noCardsLabel}
-            bkgColor="light"
-          />
-        ) : (
-          <div data-fs-list-cards-grid>
-            {pageCards.map((card, index) => (
-              <div key={cardKey(card, index)} data-fs-list-cards-item>
-                <div data-fs-list-cards-item-brand>
-                  <Icon name={getBrandIconName(card)} width={32} height={32} />
-                </div>
-                <div data-fs-list-cards-item-label>
-                  {card.paymentSystemName ?? labels.genericCardLabel}
-                  {card.isDefault && (
-                    <span data-fs-list-cards-item-default-badge>
-                      {labels.defaultCardLabel}
-                    </span>
-                  )}
-                </div>
-                <div data-fs-list-cards-item-number>{card.cardNumber}</div>
-              </div>
-            ))}
-          </div>
-        )}
+        <PanelBody
+          hasError={hasError}
+          total={total}
+          search={search}
+          noCardsLabel={noCardsLabel}
+          pageCards={pageCards}
+          labels={labels}
+          onRetry={() => router.reload()}
+        />
       </div>
     </div>
   )

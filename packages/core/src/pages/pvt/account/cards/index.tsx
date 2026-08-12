@@ -7,7 +7,7 @@ import RenderSections, {
   RenderSectionsBase,
 } from 'src/components/cms/RenderSections'
 import ACCOUNT_COMPONENTS from 'src/components/cms/account/Components'
-import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
+import GLOBAL_COMPONENTS from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
@@ -163,9 +163,9 @@ const getServerSidePropsBase: GetServerSideProps<
   const hasError = !!listCards.errors
 
   if (hasError) {
-    console.error(...listCards.errors!)
+    console.error(...listCards.errors)
 
-    const statusCode = extractStatusFromError(listCards.errors![0])
+    const statusCode = extractStatusFromError(listCards.errors[0])
 
     // Auth failures still redirect (consistent with Orders); anything else
     // (e.g. the Saved-cards service being down) renders the page's own error
