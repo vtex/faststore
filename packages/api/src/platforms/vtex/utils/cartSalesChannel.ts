@@ -33,23 +33,27 @@ export function channelAfterExternalOrderFormSync(
 }
 
 /**
- * After a non-stale validation, the session owns the channel. If session SC
- * differs from the orderForm's SC (e.g. locale/binding switch), the cart must
- * be re-fetched with the session SC so Checkout recalculates under the new
- * trade policy.
+ * When session SC and orderForm SC diverge, keep Checkout operations on the
+ * orderForm trade policy. Forcing the session SC (refetch / item updates with
+ * `sc=session`) reintroduces the Quick Order wipe after the first stale sync.
  */
-export function shouldRefetchOrderFormWithSessionSalesChannel(
-  sessionSalesChannel: string | undefined,
-  orderFormSalesChannel: string | null | undefined,
-  isOrderFormStale: boolean
-): boolean {
-  if (isOrderFormStale) {
-    return false
+export function channelWhenSessionDivergesFromOrderForm(
+  currentChannel: Required<Channel>,
+  orderFormSalesChannel: string | null | undefined
+): string | null {
+  if (orderFormSalesChannel == null || orderFormSalesChannel === '') {
+    return null
   }
 
-  if (!sessionSalesChannel || !orderFormSalesChannel) {
-    return false
+  if (
+    String(orderFormSalesChannel) === String(currentChannel.salesChannel ?? '')
+  ) {
+    return null
   }
 
-  return String(sessionSalesChannel) !== String(orderFormSalesChannel)
+  return ChannelMarshal.stringify({
+    ...currentChannel,
+    salesChannel: String(orderFormSalesChannel),
+    hasOnlyDefaultSalesChannel: false,
+  })
 }

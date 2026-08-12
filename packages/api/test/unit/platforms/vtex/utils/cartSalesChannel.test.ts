@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   channelAfterExternalOrderFormSync,
-  shouldRefetchOrderFormWithSessionSalesChannel,
+  channelWhenSessionDivergesFromOrderForm,
 } from '../../../../../src/platforms/vtex/utils/cartSalesChannel'
 import type { Channel } from '../../../../../src/platforms/vtex/utils/channel'
 
@@ -52,31 +52,26 @@ describe('channelAfterExternalOrderFormSync', () => {
   })
 })
 
-describe('shouldRefetchOrderFormWithSessionSalesChannel', () => {
-  it('does not refetch when the orderForm is externally stale', () => {
-    expect(shouldRefetchOrderFormWithSessionSalesChannel('1', '4', true)).toBe(
-      false
+describe('channelWhenSessionDivergesFromOrderForm', () => {
+  it('adopts orderForm SC when session lags behind the cart', () => {
+    const result = channelWhenSessionDivergesFromOrderForm(
+      baseChannel('1'),
+      '2'
     )
+
+    if (result === null) {
+      throw new Error('expected channel adoption when session diverges')
+    }
+
+    expect(JSON.parse(result)).toMatchObject({
+      salesChannel: '2',
+      hasOnlyDefaultSalesChannel: false,
+    })
   })
 
-  it('does not refetch when SCs already match', () => {
-    expect(shouldRefetchOrderFormWithSessionSalesChannel('1', '1', false)).toBe(
-      false
-    )
-  })
-
-  it('refetches when session SC diverges and cart is not stale (locale switch)', () => {
-    expect(shouldRefetchOrderFormWithSessionSalesChannel('2', '1', false)).toBe(
-      true
-    )
-  })
-
-  it('does not refetch when either SC is missing', () => {
+  it('returns null when SCs already match', () => {
     expect(
-      shouldRefetchOrderFormWithSessionSalesChannel(undefined, '1', false)
-    ).toBe(false)
-    expect(
-      shouldRefetchOrderFormWithSessionSalesChannel('1', null, false)
-    ).toBe(false)
+      channelWhenSessionDivergesFromOrderForm(baseChannel('2'), '2')
+    ).toBeNull()
   })
 })

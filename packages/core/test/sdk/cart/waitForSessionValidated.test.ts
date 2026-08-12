@@ -30,6 +30,7 @@ describe('waitForSessionValidated', () => {
     const listeners: Array<(value: boolean) => void> = []
     const store = {
       read: vi.fn(() => false),
+      readInitial: vi.fn(() => false),
       subscribe: vi.fn((listener: (value: boolean) => void) => {
         listeners.push(listener)
         return () => {
@@ -75,6 +76,7 @@ describe('waitForSessionValidated', () => {
         current = true
         return value
       }),
+      readInitial: vi.fn(() => false),
       subscribe: vi.fn((listener: (value: boolean) => void) => {
         listeners.push(listener)
         return () => {

@@ -3,7 +3,7 @@ import deepEquals from 'fast-deep-equal'
 import { parse } from 'cookie'
 import {
   channelAfterExternalOrderFormSync,
-  shouldRefetchOrderFormWithSessionSalesChannel,
+  channelWhenSessionDivergesFromOrderForm,
 } from '../utils/cartSalesChannel'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
@@ -179,7 +179,8 @@ const joinItems = (form: OrderForm) => {
 const orderFormToCart = async (
   form: OrderForm,
   skuLoader: GraphqlContext['loaders']['skuLoader'],
-  shouldSplitItem?: boolean | null
+  shouldSplitItem?: boolean | null,
+  adoptedSalesChannel?: string | null
 ) => {
   return {
     order: {
@@ -189,6 +190,7 @@ const orderFormToCart = async (
         product: await skuLoader.load(`${item.id}-invisibleItems`),
       })),
       shouldSplitItem,
+      ...(adoptedSalesChannel ? { salesChannel: adoptedSalesChannel } : {}),
     },
     messages: form.messages.map(({ text, status }) => ({
       text,
@@ -354,6 +356,24 @@ const adoptOrderFormSalesChannelIfNeeded = (
 
   if (adoptedChannel) {
     mutateChannelContext(ctx, adoptedChannel)
+    return orderForm.salesChannel ? String(orderForm.salesChannel) : null
+  }
+
+  return null
+}
+
+/** Keep Checkout on the orderForm SC when the browser session lags behind it. */
+const adoptOrderFormSalesChannelWhenSessionDiverges = (
+  ctx: GraphqlContext,
+  orderForm: OrderForm
+) => {
+  const adoptedChannel = channelWhenSessionDivergesFromOrderForm(
+    ctx.storage.channel,
+    orderForm.salesChannel
+  )
+
+  if (adoptedChannel) {
+    mutateChannelContext(ctx, adoptedChannel)
   }
 }
 
@@ -402,7 +422,7 @@ export const validateCart = async (
   // items only available in the orderForm's trade policy. New carts still
   // send `sc` from the session (see commerce.checkout.orderForm).
   const orderFormId = orderFormIdFromCookie || undefined
-  let orderForm = await commerce.checkout.orderForm({
+  const orderForm = await commerce.checkout.orderForm({
     id: orderFormId,
     channel: ctx.storage.channel,
     preserveSalesChannel: Boolean(orderFormId),
@@ -428,7 +448,11 @@ export const validateCart = async (
   if (isStale) {
     // Adopt the orderForm SC so subsequent checkout calls (etag, etc.) stay
     // on the trade policy that actually owns the items.
-    adoptOrderFormSalesChannelIfNeeded(ctx, orderForm, isStale)
+    const adoptedSalesChannel = adoptOrderFormSalesChannelIfNeeded(
+      ctx,
+      orderForm,
+      isStale
+    )
 
     const newOrderForm = await setOrderFormEtag(
       orderForm,
@@ -436,26 +460,19 @@ export const validateCart = async (
       sessionJwt
     ).then(joinItems)
     if (orderNumber) {
-      return orderFormToCart(newOrderForm, skuLoader, shouldSplitItem)
+      return orderFormToCart(
+        newOrderForm,
+        skuLoader,
+        shouldSplitItem,
+        adoptedSalesChannel
+      )
     }
   }
 
-  // Session owns the channel when the cart is not externally stale. If the
-  // user switched sales channel in-session (e.g. locale/binding), re-fetch
-  // with the session SC so Checkout recalculates under the new trade policy.
-  if (
-    shouldRefetchOrderFormWithSessionSalesChannel(
-      ctx.storage.channel.salesChannel,
-      orderForm.salesChannel,
-      isStale
-    )
-  ) {
-    orderForm = await commerce.checkout.orderForm({
-      id: orderForm.orderFormId,
-      channel: ctx.storage.channel,
-      preserveSalesChannel: false,
-    })
-  }
+  // Keep Checkout on the orderForm trade policy when the browser session still
+  // has a stale SC (Quick Order). Refetching with `sc=session` would wipe
+  // items that exist only on the orderForm's sales channel.
+  adoptOrderFormSalesChannelWhenSessionDiverges(ctx, orderForm)
 
   // Step2: Process items from both browser and checkout so they have the same shape
   const browserItemsById = groupById(acceptedOffer)

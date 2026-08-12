@@ -14,6 +14,13 @@ type StoreOrder {
   Indicates whether or not items with attachments should be split.
   """
   shouldSplitItem: Boolean
+  """
+  Sales channel of the underlying orderForm when FastStore adopted it after an
+  external cart change (e.g. Quick Order). Null on ordinary validations where
+  no SC adoption happened. Optional — existing clients that omit this field
+  are unaffected.
+  """
+  salesChannel: String
 }
 
 """
