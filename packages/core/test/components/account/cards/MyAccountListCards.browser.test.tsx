@@ -101,6 +101,41 @@ describe('MyAccountListCards', () => {
     expect(screen.getByText('Card')).toBeInTheDocument()
   })
 
+  it('prefers cardLabel over paymentSystemName when the service has a nickname on file', () => {
+    render(
+      <MyAccountListCards
+        personalCards={[{ ...VISA_PERSONAL, cardLabel: 'Team lunch card' }]}
+        sharedCards={[]}
+        hasOrgAssociation={false}
+        canViewPersonalCards
+      />
+    )
+
+    expect(screen.getByText('Team lunch card')).toBeInTheDocument()
+    expect(screen.queryByText('Visa')).not.toBeInTheDocument()
+  })
+
+  it('matches cardLabel when searching', () => {
+    render(
+      <MyAccountListCards
+        personalCards={[
+          { ...VISA_PERSONAL, cardLabel: 'Team lunch card' },
+          MASTERCARD_PERSONAL,
+        ]}
+        sharedCards={[]}
+        hasOrgAssociation={false}
+        canViewPersonalCards
+      />
+    )
+
+    fireEvent.change(screen.getByPlaceholderText('Search'), {
+      target: { value: 'lunch' },
+    })
+
+    expect(screen.getByText('Team lunch card')).toBeInTheDocument()
+    expect(screen.queryByText('Mastercard')).not.toBeInTheDocument()
+  })
+
   it('switches to the Shared tab by clicking it, and shows the tooltip info icon', () => {
     render(
       <MyAccountListCards

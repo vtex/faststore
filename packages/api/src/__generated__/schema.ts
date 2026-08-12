@@ -1133,6 +1133,12 @@ export type SavedCard = {
   accountId?: Maybe<Scalars['String']['output']>;
   /** First digits of the card (BIN). */
   bin?: Maybe<Scalars['String']['output']>;
+  /**
+   * Buyer- or admin-assigned nickname for the card (e.g. "Team lunch card"), when
+   * the Saved-cards service has one on file. Absent for most cards — callers
+   * should fall back to `paymentSystemName` for display.
+   */
+  cardLabel?: Maybe<Scalars['String']['output']>;
   /** Masked card number, per PCI display rules. */
   cardNumber?: Maybe<Scalars['String']['output']>;
   /** Whether this card is active. */

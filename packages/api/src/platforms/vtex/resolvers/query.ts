@@ -715,6 +715,7 @@ export const Query = {
         accountId: card.accountId,
         bin: card.bin,
         cardNumber: card.cardNumber,
+        cardLabel: card.cardLabel,
         paymentSystem: card.paymentSystem,
         paymentSystemName: card.paymentSystemName,
         isDefault: card.isDefault,

@@ -20,6 +20,7 @@ export type SavedCardItem = {
   accountId?: string | null
   bin?: string | null
   cardNumber?: string | null
+  cardLabel?: string | null
   paymentSystem?: string | null
   paymentSystemName?: string | null
   isDefault?: boolean | null
@@ -59,10 +60,18 @@ function matchesSearch(card: SavedCardItem, search: string) {
   const needle = search.trim().toLowerCase()
 
   return (
+    card.cardLabel?.toLowerCase().includes(needle) ||
     card.paymentSystemName?.toLowerCase().includes(needle) ||
     card.cardNumber?.toLowerCase().includes(needle) ||
     false
   )
+}
+
+// The buyer's own nickname for the card takes precedence over the brand name
+// — it's the whole point of setting one. Falls back to the brand name, then
+// a generic label when the service has neither on file.
+function getCardLabel(card: SavedCardItem, genericLabel: string) {
+  return card.cardLabel ?? card.paymentSystemName ?? genericLabel
 }
 
 // Maps the payment system name from the Saved-cards service to one of the
@@ -185,7 +194,7 @@ function CardsGrid({ cards, labels }: Readonly<CardsGridProps>) {
             <Icon name={getBrandIconName(card)} width={32} height={32} />
           </div>
           <div data-fs-list-cards-item-label>
-            {card.paymentSystemName ?? labels.genericCardLabel}
+            {getCardLabel(card, labels.genericCardLabel)}
             {card.isDefault && (
               <span data-fs-list-cards-item-default-badge>
                 {labels.defaultCardLabel}

@@ -45,6 +45,7 @@ const query = gql(`
         accountId
         bin
         cardNumber
+        cardLabel
         paymentSystem
         paymentSystemName
         isDefault

@@ -1096,6 +1096,12 @@ export type SavedCard = {
   accountId: Maybe<Scalars['String']['output']>;
   /** First digits of the card (BIN). */
   bin: Maybe<Scalars['String']['output']>;
+  /**
+   * Buyer- or admin-assigned nickname for the card (e.g. "Team lunch card"), when
+   * the Saved-cards service has one on file. Absent for most cards — callers
+   * should fall back to `paymentSystemName` for display.
+   */
+  cardLabel: Maybe<Scalars['String']['output']>;
   /** Masked card number, per PCI display rules. */
   cardNumber: Maybe<Scalars['String']['output']>;
   /** Whether this card is active. */
@@ -2827,7 +2833,7 @@ export type ServerProductQueryQuery = { product: { sku: string, gtin: string, mp
 export type ServerListCardsQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ServerListCardsQueryQuery = { hasAdHocCardAccess: boolean, listCreditCards: { list: Array<{ accountId: string | null, bin: string | null, cardNumber: string | null, paymentSystem: string | null, paymentSystemName: string | null, isDefault: boolean | null, isActive: boolean | null, origin: CardOrigin }> | null } | null, accountProfile: { name: string | null } };
+export type ServerListCardsQueryQuery = { hasAdHocCardAccess: boolean, listCreditCards: { list: Array<{ accountId: string | null, bin: string | null, cardNumber: string | null, cardLabel: string | null, paymentSystem: string | null, paymentSystemName: string | null, isDefault: boolean | null, isActive: boolean | null, origin: CardOrigin }> | null } | null, accountProfile: { name: string | null } };
 
 export type UserOrderItemsFragmentFragment = { id: string | null, name: string | null, quantity: number | null, sellingPrice: number | null, unitMultiplier: number | null, measurementUnit: string | null, imageUrl: string | null, detailUrl: string | null, refId: string | null, rewardValue: number | null };
 
@@ -3613,7 +3619,7 @@ export const ClientRecommendationsQueryDocument = {"__meta__":{"operationName":"
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"d46841b30ae1f6350021b5cf02f253d56c848664"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
 export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"b89e93519be01aebc01c402489a0ae640d38675a"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
-export const ServerListCardsQueryDocument = {"__meta__":{"operationName":"ServerListCardsQuery","operationHash":"6b2c8127883a17239b513326d7f9a14fe48f245a"}} as unknown as TypedDocumentString<ServerListCardsQueryQuery, ServerListCardsQueryQueryVariables>;
+export const ServerListCardsQueryDocument = {"__meta__":{"operationName":"ServerListCardsQuery","operationHash":"392cf85d18d66b94d6ea8d6b2a3c6ffb5c94683d"}} as unknown as TypedDocumentString<ServerListCardsQueryQuery, ServerListCardsQueryQueryVariables>;
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
 export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"672fe0f00b7b710b63fc6573c0a6b2ec54812b8f"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;

@@ -56,6 +56,20 @@ describe('listCreditCards', () => {
     expect(result).toEqual({ list: [] })
   })
 
+  it('passes through cardLabel when the service has a nickname on file', async () => {
+    const ctx = makeContext()
+    ctx.clients.commerce.savedCards.listCreditCards.mockResolvedValueOnce([
+      { accountId: 'acc-1', cardLabel: 'Team lunch card', origin: 'shared' },
+      { accountId: 'acc-2', origin: 'shared' },
+    ])
+
+    const result = await Query.listCreditCards(null, undefined, ctx as any)
+
+    expect(
+      result.list.map((card: { cardLabel?: string }) => card.cardLabel)
+    ).toEqual(['Team lunch card', undefined])
+  })
+
   it('passes through origin so the caller can distinguish personal from shared cards', async () => {
     const ctx = makeContext()
     ctx.clients.commerce.savedCards.listCreditCards.mockResolvedValueOnce([

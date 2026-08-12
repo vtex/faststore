@@ -25,6 +25,12 @@ type SavedCard {
   """
   cardNumber: String
   """
+  Buyer- or admin-assigned nickname for the card (e.g. "Team lunch card"), when
+  the Saved-cards service has one on file. Absent for most cards — callers
+  should fall back to `paymentSystemName` for display.
+  """
+  cardLabel: String
+  """
   Numeric payment system identifier.
   """
   paymentSystem: String
