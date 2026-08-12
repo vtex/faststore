@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0-dev.4](https://github.com/vtex/faststore/compare/v4.6.0-dev.3...v4.6.0-dev.4) (2026-08-12)
+
+### Bug Fixes
+
+- custom GraphQL typeDefs silently ignored on Windows ([#3419](https://github.com/vtex/faststore/issues/3419)) ([bdeb6a7](https://github.com/vtex/faststore/commit/bdeb6a757c44dda24b96cffc73d34652de165adf))
+
 # [4.6.0-dev.3](https://github.com/vtex/faststore/compare/v4.6.0-dev.2...v4.6.0-dev.3) (2026-08-12)
 
 **Note:** Version bump only for package @faststore/cli
