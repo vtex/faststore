@@ -4,6 +4,9 @@ import type { CarouselProps } from '@faststore/ui'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
 import type { ProductCardProps } from 'src/components/product/ProductCard'
+import type { ItemContext } from 'src/sdk/recommendations'
+
+export type { ItemContext, RecommendationType } from 'src/sdk/recommendations'
 
 /**
  * Maps a recommendation product (a normalized `StoreProduct`, identical to the
@@ -16,14 +19,6 @@ export type RecommendationProductCardMapper<TCardProps = ProductCardProps> = (
   product: ProductSummary_ProductFragment,
   index: number
 ) => TCardProps
-
-/**
- * Source of the products used as context for the recommendation request:
- * - `'PDP'`: the current product detail page product.
- * - `'CART'`: the products currently in the cart (useful for cross-sell on the
- *   cart page).
- */
-export type ItemContext = 'PDP' | 'CART'
 
 export type RecommendationShelfProps<
   TCardProps extends object = ProductCardProps,
@@ -106,13 +101,3 @@ export type RecommendationShelfProps<
     readonly bordered?: boolean
   }
 }
-
-export type RecommendationType =
-  | 'CROSS_SELL'
-  | 'SIMILAR_ITEMS'
-  | 'PERSONALIZED'
-  | 'TOP_ITEMS'
-  | 'LAST_SEEN'
-  | 'SEARCH_BASED'
-  | 'VISUAL_SIMILARITY'
-  | 'NEXT_INTERACTION'

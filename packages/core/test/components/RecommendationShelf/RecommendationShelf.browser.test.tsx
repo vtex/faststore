@@ -29,23 +29,17 @@ vi.mock('src/components/skeletons/ProductShelfSkeleton', () => ({
 }))
 
 const useRecommendations = vi.hoisted(() => vi.fn())
-vi.mock(
-  'src/components/sections/RecommendationShelf/useRecommendations',
-  () => ({
-    useRecommendations,
-  })
-)
+vi.mock('src/sdk/recommendations/useRecommendations', () => ({
+  useRecommendations,
+}))
 
 const useScreenResize = vi.hoisted(() => vi.fn())
 vi.mock('src/sdk/ui/useScreenResize', () => ({ default: useScreenResize }))
 
 const useRecommendationUserId = vi.hoisted(() => vi.fn())
-vi.mock(
-  'src/components/sections/RecommendationShelf/useRecommendationUserId',
-  () => ({
-    useRecommendationUserId,
-  })
-)
+vi.mock('src/sdk/recommendations/useRecommendationUserId', () => ({
+  useRecommendationUserId,
+}))
 
 import { RecommendationShelf } from 'src/components/sections/RecommendationShelf/RecommendationShelf'
 
