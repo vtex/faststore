@@ -52,13 +52,14 @@ export function withNodeModulesBins(
   const pathKey = getPathKey(env)
   const currentEntries = env[pathKey]?.split(path.delimiter) ?? []
   // Package managers already put some of these directories in PATH when they
-  // run a script, so skip the ones that are there.
-  const missingBinDirs = binDirs.filter(
-    (binDir) => !currentEntries.includes(binDir)
-  )
+  // run a script, but not necessarily nearest first. Dropping their copies
+  // before prepending `binDirs` keeps the nearest ancestor in charge instead
+  // of letting a farther one that was missing from PATH jump ahead of it.
+  const binDirSet = new Set(binDirs)
+  const otherEntries = currentEntries.filter((entry) => !binDirSet.has(entry))
 
   return {
     ...env,
-    [pathKey]: [...missingBinDirs, ...currentEntries].join(path.delimiter),
+    [pathKey]: [...binDirs, ...otherEntries].join(path.delimiter),
   }
 }

@@ -1,3 +1,4 @@
+import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -66,15 +67,18 @@ describe('withNodeModulesBins', () => {
     expect(env.Path).toContain('C:\\Windows\\system32')
   })
 
-  it('does not duplicate a bin directory already present in PATH', () => {
+  it('moves a bin directory already in PATH to its nearest-first position instead of duplicating it', () => {
     const storeBinDir = path.join(storeDir, 'node_modules', '.bin')
     const { PATH } = withNodeModulesBins(tmpDir, {
       PATH: [storeBinDir, '/usr/bin'].join(path.delimiter),
     })
     const entries = PATH?.split(path.delimiter) ?? []
 
-    expect(entries.filter((entry) => entry === storeBinDir)).toHaveLength(1)
-    expect(entries[0]).toBe(path.join(workspaceRoot, 'node_modules', '.bin'))
+    expect(entries).toEqual([
+      storeBinDir,
+      path.join(workspaceRoot, 'node_modules', '.bin'),
+      '/usr/bin',
+    ])
   })
 
   it('does not drop the bin directories when PATH is empty', () => {
@@ -85,4 +89,54 @@ describe('withNodeModulesBins', () => {
       path.join(workspaceRoot, 'node_modules', '.bin'),
     ])
   })
+
+  it('returns the environment untouched when no ancestor has a node_modules/.bin', () => {
+    // Sibling of the fixture rather than a descendant: the walk from here goes
+    // straight up the OS temp dir, where no node_modules/.bin exists.
+    const binlessDir = fs.realpathSync(
+      fs.mkdtempSync(path.join(os.tmpdir(), 'bin-paths-binless-'))
+    )
+    const env = { PATH: '/usr/bin', VTEX_ACCOUNT: 'storeframework' }
+
+    try {
+      expect(withNodeModulesBins(binlessDir, env)).toEqual(env)
+    } finally {
+      fs.rmSync(binlessDir, { recursive: true, force: true })
+    }
+  })
+
+  // The tests above only inspect the object we build. This one spawns a real
+  // child process from `.faststore`, the way `dev` and `build` do, to check
+  // that the environment is what makes a bare binary name resolve. Windows
+  // would need a `.cmd` shim for the fixture, so it stays on POSIX.
+  it.skipIf(process.platform === 'win32')(
+    'lets a child process resolve a binary living in an ancestor bin directory',
+    () => {
+      const probe = path.join(
+        storeDir,
+        'node_modules',
+        '.bin',
+        'faststore-bin-probe'
+      )
+      fs.writeFileSync(probe, '#!/bin/sh\necho resolved\n')
+      fs.chmodSync(probe, 0o755)
+
+      const run = (env: NodeJS.ProcessEnv) =>
+        spawnSync('faststore-bin-probe', {
+          shell: true,
+          cwd: tmpDir,
+          encoding: 'utf-8',
+          env,
+        })
+
+      // A PATH that cannot resolve the probe on its own, so that a passing
+      // assertion below can only come from the directories we added.
+      const barePath = { PATH: path.join(workspaceRoot, 'nowhere') }
+
+      expect(run(barePath).status).not.toBe(0)
+      expect(run(withNodeModulesBins(tmpDir, barePath)).stdout.trim()).toBe(
+        'resolved'
+      )
+    }
+  )
 })
