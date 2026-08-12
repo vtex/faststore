@@ -17,6 +17,11 @@ vi.mock('src/sdk/recommendations/useRecommendationUserId', () => ({
   useRecommendationUserId,
 }))
 
+const useStartRecommendationSession = vi.hoisted(() => vi.fn())
+vi.mock('src/sdk/analytics/hooks/useStartRecommendationSession', () => ({
+  useStartRecommendationSession,
+}))
+
 import { useRecommendationShelf } from 'src/sdk/recommendations/useRecommendationShelf'
 
 const TOP_ITEMS_VRN = 'vrn:recommendations:acc:rec-top-items-v2:campaign-1'
@@ -53,12 +58,9 @@ afterEach(() => {
 })
 
 describe('useRecommendationShelf', () => {
-  it('exposes the campaign payload when enabled', () => {
+  it('exposes the campaign payload', () => {
     const { result } = renderHook(() =>
-      useRecommendationShelf({
-        campaignVrn: TOP_ITEMS_VRN,
-        enableRecommendations: true,
-      })
+      useRecommendationShelf({ campaignVrn: TOP_ITEMS_VRN })
     )
 
     expect(result.current.items).toHaveLength(2)
@@ -66,32 +68,32 @@ describe('useRecommendationShelf', () => {
     expect(result.current.correlationId).toBe('corr-1')
   })
 
-  it('never fetches while recommendations are disabled', () => {
+  it('never fetches before a userId resolves', () => {
+    useRecommendationUserId.mockReturnValue(null)
+
     renderHook(() => useRecommendationShelf({ campaignVrn: TOP_ITEMS_VRN }))
 
     expect(lastArgs()).toBeNull()
   })
 
-  it('never fetches before a userId resolves', () => {
+  it('starts the recommendation session as a fallback when userId is missing', () => {
     useRecommendationUserId.mockReturnValue(null)
 
-    renderHook(() =>
-      useRecommendationShelf({
-        campaignVrn: TOP_ITEMS_VRN,
-        enableRecommendations: true,
-      })
-    )
+    renderHook(() => useRecommendationShelf({ campaignVrn: TOP_ITEMS_VRN }))
 
-    expect(lastArgs()).toBeNull()
+    expect(useStartRecommendationSession).toHaveBeenCalledWith(true)
+  })
+
+  it('does not start the recommendation session when userId already exists', () => {
+    useRecommendationUserId.mockReturnValue('user-1')
+
+    renderHook(() => useRecommendationShelf({ campaignVrn: TOP_ITEMS_VRN }))
+
+    expect(useStartRecommendationSession).toHaveBeenCalledWith(false)
   })
 
   it('never fetches on a malformed campaign vrn', () => {
-    renderHook(() =>
-      useRecommendationShelf({
-        campaignVrn: 'not-a-vrn',
-        enableRecommendations: true,
-      })
-    )
+    renderHook(() => useRecommendationShelf({ campaignVrn: 'not-a-vrn' }))
 
     expect(lastArgs()).toBeNull()
   })
@@ -104,7 +106,6 @@ describe('useRecommendationShelf', () => {
     renderHook(() =>
       useRecommendationShelf({
         campaignVrn: CROSS_SELL_VRN,
-        enableRecommendations: true,
         itemsContext: 'CART',
       })
     )
@@ -120,7 +121,6 @@ describe('useRecommendationShelf', () => {
     renderHook(() =>
       useRecommendationShelf({
         campaignVrn: CROSS_SELL_VRN,
-        enableRecommendations: true,
         itemsContext: 'CART',
       })
     )
@@ -132,7 +132,6 @@ describe('useRecommendationShelf', () => {
     renderHook(() =>
       useRecommendationShelf({
         campaignVrn: TOP_ITEMS_VRN,
-        enableRecommendations: true,
         itemsContext: 'CART',
       })
     )
@@ -150,7 +149,6 @@ describe('useRecommendationShelf', () => {
     const { rerender } = renderHook(() =>
       useRecommendationShelf({
         campaignVrn: CROSS_SELL_VRN,
-        enableRecommendations: true,
         itemsContext: 'CART',
       })
     )
@@ -166,12 +164,7 @@ describe('useRecommendationShelf', () => {
       data: { product: { isVariantOf: { productGroupID: 'pg-pdp' } } },
     })
 
-    renderHook(() =>
-      useRecommendationShelf({
-        campaignVrn: CROSS_SELL_VRN,
-        enableRecommendations: true,
-      })
-    )
+    renderHook(() => useRecommendationShelf({ campaignVrn: CROSS_SELL_VRN }))
 
     expect(lastArgs()?.products).toEqual(['pg-pdp'])
   })
@@ -185,10 +178,7 @@ describe('useRecommendationShelf', () => {
     })
 
     const { result } = renderHook(() =>
-      useRecommendationShelf({
-        campaignVrn: TOP_ITEMS_VRN,
-        enableRecommendations: true,
-      })
+      useRecommendationShelf({ campaignVrn: TOP_ITEMS_VRN })
     )
 
     expect(result.current.items).toEqual([])
