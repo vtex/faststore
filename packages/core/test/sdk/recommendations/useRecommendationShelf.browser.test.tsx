@@ -84,6 +84,14 @@ describe('useRecommendationShelf', () => {
     expect(useStartRecommendationSession).toHaveBeenCalledWith(true)
   })
 
+  it('does not start the recommendation session while userId is still resolving', () => {
+    useRecommendationUserId.mockReturnValue(undefined)
+
+    renderHook(() => useRecommendationShelf({ campaignVrn: TOP_ITEMS_VRN }))
+
+    expect(useStartRecommendationSession).toHaveBeenCalledWith(false)
+  })
+
   it('does not start the recommendation session when userId already exists', () => {
     useRecommendationUserId.mockReturnValue('user-1')
 

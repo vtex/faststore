@@ -75,9 +75,10 @@ const EMPTY_ITEMS: RecommendationResponse['products'] = []
  * that consume it, so a new surface can reuse the campaign rules instead of
  * reimplementing them.
  *
- * When `userId` is missing, starts the personalization session as a fallback
- * (Layout already starts it when `experimental.enableRecommendations` is on).
- * Cookie + in-memory lock keep the mutation to one attempt per browser session.
+ * When `userId` lookup resolves to `null`, starts the personalization session
+ * as a fallback (Layout already starts it when
+ * `experimental.enableRecommendations` is on). Cookie + in-memory lock keep
+ * the mutation to one attempt per browser session.
  */
 export function useRecommendationShelf({
   campaignVrn,
@@ -86,8 +87,9 @@ export function useRecommendationShelf({
   const userId = useRecommendationUserId(campaignVrn)
 
   // Fallback when Layout did not start the session (flag off): every shelf
-  // starts it when userId is missing. Cookie + in-memory lock dedupe attempts.
-  useStartRecommendationSession(!userId)
+  // starts it only after userId lookup confirms no id (null). Pending
+  // (undefined) must not trigger a premature start. Cookie + lock dedupe.
+  useStartRecommendationSession(userId === null)
 
   const { data: productDetailPage } = usePDP()
   const { items: cartItems } = useCart()
