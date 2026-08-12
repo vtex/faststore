@@ -94,6 +94,7 @@ function ProductGrid({
     <ProductGridSkeleton
       aspectRatio={aspectRatio}
       loading={products.length === 0}
+      count={pageSize}
     >
       <UIProductGrid
         data-af-element={searchId && 'search-result'}

@@ -7,6 +7,7 @@ import {
   ValidateCartMutation,
   checkoutOrderFormCustomDataInvalidFetch,
   checkoutOrderFormCustomDataStaleFetch,
+  checkoutOrderFormCustomDataValidFetch,
   checkoutOrderFormInvalidFetch,
   checkoutOrderFormItemsInvalidFetch,
   checkoutOrderFormStaleFetch,
@@ -164,4 +165,135 @@ test('`validateCart` mutation should return new cart when etag is stale', async 
   expect(mockedFetch).toHaveBeenCalledTimes(4)
 
   expect(response).toMatchSnapshot()
+})
+
+const withOrderFormSalesChannel = <
+  T extends { result: { salesChannel?: string } },
+>(
+  fetchMock: T,
+  salesChannel: string
+) => ({
+  ...fetchMock,
+  result: {
+    ...fetchMock.result,
+    salesChannel,
+  },
+})
+
+const salesChannelFetch = (salesChannel: string) => ({
+  ...salesChannelStaleFetch,
+  info: salesChannelStaleFetch.info.replace(
+    '/saleschannel/1',
+    `/saleschannel/${salesChannel}`
+  ),
+  result: {
+    ...salesChannelStaleFetch.result,
+    Id: Number(salesChannel),
+  },
+})
+
+/**
+ * Non-stale orderForm (valid etag) + divergent browser cart → item update path.
+ * Session channel remains SC1 via apiOptions; orderForm is on SC2.
+ */
+test('`validateCart` updates items with orderForm SC when session SC diverges', async () => {
+  const run = await createRunner()
+  const orderFormOnSc2 = withOrderFormSalesChannel(
+    checkoutOrderFormValidFetch,
+    '2'
+  )
+  const customDataOnSc2 = withOrderFormSalesChannel(
+    checkoutOrderFormCustomDataValidFetch,
+    '2'
+  )
+
+  mockedFetch.mockImplementation((info, init, options) => {
+    const url = String(info)
+
+    if (url.includes('/items?')) {
+      expect(url).toContain('sc=2')
+      expect(url).not.toContain('sc=1')
+      return {
+        ...checkoutOrderFormItemsInvalidFetch.result,
+        salesChannel: '2',
+      }
+    }
+
+    if (url.includes('/customData/faststore/cartEtag')) {
+      return customDataOnSc2.result
+    }
+
+    return pickFetchAPICallResult(info, init, [
+      orderFormOnSc2,
+      productSearchPage1Count1Fetch,
+      salesChannelFetch('2'),
+    ])
+  })
+
+  const response = await run(ValidateCartMutation, { cart: InvalidCart })
+
+  const getOrderFormUrl = mockedFetch.mock.calls
+    .map(([info]) => String(info))
+    .find(
+      (url) =>
+        /\/orderForm\/[^/?]+(\?|$)/.test(url) &&
+        !url.includes('/items') &&
+        !url.includes('/customData')
+    )
+  const itemsUrl = mockedFetch.mock.calls
+    .map(([info]) => String(info))
+    .find((url) => url.includes('/items?'))
+
+  expect(getOrderFormUrl).toBeDefined()
+  expect(getOrderFormUrl).not.toContain('sc=')
+  expect(itemsUrl).toBeDefined()
+  expect(itemsUrl).toContain('sc=2')
+  expect(
+    mockedFetch.mock.calls.some(([info]) => String(info).includes('sc=1'))
+  ).toBe(false)
+  expect(response.errors).toBeUndefined()
+  expect(response.data?.validateCart).not.toBeNull()
+  expect(response.data?.validateCart?.order?.salesChannel).toBe('2')
+})
+
+test('`validateCart` adopts orderForm SC on stale etag without refetching session SC', async () => {
+  const run = await createRunner()
+  const staleOnSc2 = withOrderFormSalesChannel(checkoutOrderFormStaleFetch, '2')
+  const customDataOnSc2 = withOrderFormSalesChannel(
+    checkoutOrderFormCustomDataStaleFetch,
+    '2'
+  )
+
+  mockedFetch.mockImplementation((info, init) =>
+    pickFetchAPICallResult(info, init, [
+      staleOnSc2,
+      customDataOnSc2,
+      productSearchPage1Count1Fetch,
+      salesChannelFetch('2'),
+    ])
+  )
+
+  const response = await run(ValidateCartMutation, { cart: InvalidCart })
+
+  const checkoutUrls = mockedFetch.mock.calls
+    .map(([info]) => String(info))
+    .filter((url) => url.includes('/api/checkout/pub/orderForm'))
+  const getOrderFormUrl = checkoutUrls.find(
+    (url) =>
+      /\/orderForm\/[^/?]+(\?|$)/.test(url) &&
+      !url.includes('/items') &&
+      !url.includes('/customData')
+  )
+
+  expect(getOrderFormUrl).toBeDefined()
+  expect(getOrderFormUrl).not.toContain('sc=')
+  expect(checkoutUrls.some((url) => url.includes('sc=1'))).toBe(false)
+  expect(
+    mockedFetch.mock.calls.some(([info]) =>
+      String(info).includes('/saleschannel/2')
+    )
+  ).toBe(true)
+  expect(response.errors).toBeUndefined()
+  expect(response.data?.validateCart).not.toBeNull()
+  expect(response.data?.validateCart?.order?.salesChannel).toBe('2')
 })
