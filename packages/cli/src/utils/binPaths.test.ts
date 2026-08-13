@@ -121,9 +121,11 @@ describe('withNodeModulesBins', () => {
       fs.writeFileSync(probe, '#!/bin/sh\necho resolved\n')
       fs.chmodSync(probe, 0o755)
 
+      // no `shell: true`: the OS resolves the bare name from the environment
+      // we hand it, which is the behaviour under test, and it keeps a shell
+      // interpreter out of the test
       const run = (env: NodeJS.ProcessEnv) =>
         spawnSync('faststore-bin-probe', {
-          shell: true,
           cwd: tmpDir,
           encoding: 'utf-8',
           env,
@@ -134,9 +136,11 @@ describe('withNodeModulesBins', () => {
       const barePath = { PATH: path.join(workspaceRoot, 'nowhere') }
 
       expect(run(barePath).status).not.toBe(0)
-      expect(run(withNodeModulesBins(tmpDir, barePath)).stdout.trim()).toBe(
-        'resolved'
-      )
+
+      const resolved = run(withNodeModulesBins(tmpDir, barePath))
+
+      expect(resolved.status).toBe(0)
+      expect(resolved.stdout.trim()).toBe('resolved')
     }
   )
 })
