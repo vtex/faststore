@@ -5,10 +5,10 @@
 import { render } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-const isContentPlatformSourceMock = vi.fn(() => true)
+const isContentPlatformSourceMock = vi.hoisted(() => vi.fn(() => true))
 
 vi.mock('src/server/content/utils', () => ({
-  isContentPlatformSource: () => isContentPlatformSourceMock(),
+  isContentPlatformSource: isContentPlatformSourceMock,
 }))
 
 import { RichText } from '../../../../src/components/ui/RichText/RichText'
