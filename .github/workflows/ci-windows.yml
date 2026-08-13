@@ -15,6 +15,16 @@ on:
     paths:
       - 'packages/cli/**'
       - '.github/workflows/ci-windows.yml'
+  # The paths filter above is also a blind spot: a Windows-only break coming
+  # from outside packages/cli never triggers this job. Manual dispatch is the
+  # escape hatch for those cases.
+  workflow_dispatch:
+
+# Only the tip of a branch is worth testing: a burst of pushes should leave one
+# run standing, not one per push.
+concurrency:
+  group: ci-windows-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   cli:
