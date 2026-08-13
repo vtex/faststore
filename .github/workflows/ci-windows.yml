@@ -1,7 +1,8 @@
 # Runs the @faststore/cli test suite on Windows, the only platform where the
 # path-handling bugs we keep shipping to partners (#3337, #3419, #3440) can
-# actually fail. Informational for now: it does not gate merges until the
-# known Windows-environment failures in the suite are addressed.
+# actually fail. The suite is green on Windows, so the job reports failures
+# instead of swallowing them. It is not a required check yet: that is a branch
+# protection decision, taken once the job has proven stable.
 #
 # The remote Turbo cache is deliberately left out so the run reflects a real
 # Windows build instead of restoring artifacts produced on Linux.
@@ -20,7 +21,6 @@ jobs:
     name: CLI tests (Windows)
     timeout-minutes: 30
     runs-on: windows-latest
-    continue-on-error: true
     # Steps below are single commands, so they run under the default PowerShell.
     # Do not switch this job to bash before fixing `process.env.PWD` in the vite
     # configs: Git Bash sets PWD to an MSYS path (/d/a/...), which is not a valid
