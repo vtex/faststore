@@ -1,0 +1,48 @@
+# Runs the @faststore/cli test suite on Windows, the only platform where the
+# path-handling bugs we keep shipping to partners (#3337, #3419, #3440) can
+# actually fail. Informational for now: it does not gate merges until the
+# known Windows-environment failures in the suite are addressed.
+#
+# The remote Turbo cache is deliberately left out so the run reflects a real
+# Windows build instead of restoring artifacts produced on Linux.
+name: CI (Windows)
+
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - 'packages/cli/**'
+      - '.github/workflows/ci-windows.yml'
+
+jobs:
+  cli:
+    name: CLI tests (Windows)
+    timeout-minutes: 30
+    runs-on: windows-latest
+    continue-on-error: true
+    defaults:
+      run:
+        # Windows defaults to PowerShell, which does not understand the shell
+        # syntax used across our workflows
+        shell: bash
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.28.0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.13.0
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Test @faststore/cli
+        run: pnpm turbo run test --filter=@faststore/cli
