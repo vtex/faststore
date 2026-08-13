@@ -60,11 +60,12 @@ describe('withNodeModulesBins', () => {
   })
 
   it('reuses the existing PATH key casing, as used on Windows', () => {
-    const env = withNodeModulesBins(tmpDir, { Path: 'C:\\Windows\\system32' })
+    const windowsPath = String.raw`C:\Windows\system32`
+    const env = withNodeModulesBins(tmpDir, { Path: windowsPath })
 
     expect(env.PATH).toBeUndefined()
     expect(env.Path).toContain(path.join(storeDir, 'node_modules', '.bin'))
-    expect(env.Path).toContain('C:\\Windows\\system32')
+    expect(env.Path).toContain(windowsPath)
   })
 
   it('moves a bin directory already in PATH to its nearest-first position instead of duplicating it', () => {
@@ -118,8 +119,9 @@ describe('withNodeModulesBins', () => {
         '.bin',
         'faststore-bin-probe'
       )
-      fs.writeFileSync(probe, '#!/bin/sh\necho resolved\n')
-      fs.chmodSync(probe, 0o755)
+      // owner-only exec: the default mode is not executable, and the child
+      // process runs as the same user that writes the file
+      fs.writeFileSync(probe, '#!/bin/sh\necho resolved\n', { mode: 0o700 })
 
       // no `shell: true`: the OS resolves the bare name from the environment
       // we hand it, which is the behaviour under test, and it keeps a shell
