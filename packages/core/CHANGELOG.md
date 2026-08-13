@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0-dev.5](https://github.com/vtex/faststore/compare/v4.6.0-dev.4...v4.6.0-dev.5) (2026-08-13)
+
+### Bug Fixes
+
+- **core:** add experimental.revalidate404 and skip PLP query on notFound ([855a3ee](https://github.com/vtex/faststore/commit/855a3ee2e3393ee092d4b261ad83a8757289e132))
+- **core:** revalidate ISR cache for notFound PDP/PLP paths ([1d1015e](https://github.com/vtex/faststore/commit/1d1015e8874d794c5f54e572afc3c676fabce69c))
+
 # [4.6.0-dev.4](https://github.com/vtex/faststore/compare/v4.6.0-dev.3...v4.6.0-dev.4) (2026-08-12)
 
 **Note:** Version bump only for package @faststore/core
