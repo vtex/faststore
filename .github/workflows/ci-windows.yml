@@ -21,11 +21,10 @@ jobs:
     timeout-minutes: 30
     runs-on: windows-latest
     continue-on-error: true
-    defaults:
-      run:
-        # Windows defaults to PowerShell, which does not understand the shell
-        # syntax used across our workflows
-        shell: bash
+    # Steps below are single commands, so they run under the default PowerShell.
+    # Do not switch this job to bash before fixing `process.env.PWD` in the vite
+    # configs: Git Bash sets PWD to an MSYS path (/d/a/...), which is not a valid
+    # Windows path, and the builds fail on entry resolution.
 
     steps:
       - name: Check out code
