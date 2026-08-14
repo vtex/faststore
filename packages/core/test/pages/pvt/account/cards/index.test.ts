@@ -148,7 +148,7 @@ describe('Cards page getServerSideProps', () => {
     expect(result.props.accountPageData.canViewPersonalCards).toBe(false)
   })
 
-  it('drops personal cards from the SSR payload entirely when canViewPersonalCards is false, even if the service returned some', async () => {
+  it('drops personal cards from the SSR payload in the sharedOnly combination (hasOrgAssociation, canViewPersonalCards false)', async () => {
     mockGetB2BSessionClaims.mockReturnValueOnce({
       hasOrgAssociation: true,
       hasCustomerId: false,
@@ -157,11 +157,28 @@ describe('Cards page getServerSideProps', () => {
 
     const result: any = await getServerSideProps(makeContext())
 
-    // The UI already hides the Personal tab for this combination; this
-    // asserts the data itself never reaches __NEXT_DATA__ either (PR review,
-    // REQ-6's "hide" intent) — not just that the tab is visually hidden.
+    // The UI hides the Personal tab only for this combination (sharedOnly);
+    // this asserts the data itself never reaches __NEXT_DATA__ either (PR
+    // review, REQ-6's "hide" intent) — not just that the tab is visually
+    // hidden.
     expect(result.props.accountPageData.personalCards).toEqual([])
     expect(result.props.accountPageData.sharedCards).toEqual([CARD_SHARED])
+  })
+
+  it('keeps personal cards in the payload when there is no org association, even though canViewPersonalCards is false (FR-7: B2C buyers are never subject to this check)', async () => {
+    mockGetB2BSessionClaims.mockReturnValueOnce({
+      hasOrgAssociation: false,
+      hasCustomerId: false,
+    })
+    mockSuccessfulExecute({ hasAdHocCardAccess: false })
+
+    const result: any = await getServerSideProps(makeContext())
+
+    // Without hasOrgAssociation, the component still renders the Personal
+    // tab (the "kept as-is" O1 combination) — stripping the data here would
+    // silently regress a buyer this gate was never meant to touch, even
+    // though canViewPersonalCards itself is false.
+    expect(result.props.accountPageData.personalCards).toEqual([CARD_PERSONAL])
   })
 
   it('defaults hasAdHocCardAccess to allowed when the query field is missing', async () => {

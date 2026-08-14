@@ -206,13 +206,19 @@ const getServerSidePropsBase: GetServerSideProps<
   // Partition here rather than de-duplicating: a card present under both
   // origins is intentionally rendered in both tabs.
   const allCards = hasError ? [] : (listCards.data?.listCreditCards?.list ?? [])
-  // Drop personal cards from the SSR payload entirely when the buyer can't
-  // view them — the UI already hides the Personal tab, but leaving the data
-  // in `__NEXT_DATA__` regardless would still ship it to the client (PR
-  // review, REQ-6's "hide" intent).
-  const personalCards = canViewPersonalCards
-    ? allCards.filter((card) => card.origin === 'personal')
-    : []
+  // Mirrors MyAccountListCards.tsx's `sharedOnly` exactly — that's the only
+  // combination where the UI actually hides the Personal tab (spec
+  // my-account-cards-gating-plan, O1). Stripping personalCards any time
+  // `canViewPersonalCards` is false would also empty it for the two
+  // "kept as-is" combinations (no `unitId`), which still render the tab and,
+  // per FR-7, must never be subject to this check at all. Drop the data from
+  // the SSR payload only when the chrome that would show it is gone too — an
+  // always-false strip ships nothing extra, but a too-broad one silently
+  // hides real cards from buyers this gate was never meant to touch.
+  const sharedOnly = !canViewPersonalCards && hasOrgAssociation
+  const personalCards = sharedOnly
+    ? []
+    : allCards.filter((card) => card.origin === 'personal')
   const sharedCards = allCards.filter((card) => card.origin === 'shared')
 
   return {
