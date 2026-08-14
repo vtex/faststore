@@ -206,7 +206,13 @@ const getServerSidePropsBase: GetServerSideProps<
   // Partition here rather than de-duplicating: a card present under both
   // origins is intentionally rendered in both tabs.
   const allCards = hasError ? [] : (listCards.data?.listCreditCards?.list ?? [])
-  const personalCards = allCards.filter((card) => card.origin === 'personal')
+  // Drop personal cards from the SSR payload entirely when the buyer can't
+  // view them — the UI already hides the Personal tab, but leaving the data
+  // in `__NEXT_DATA__` regardless would still ship it to the client (PR
+  // review, REQ-6's "hide" intent).
+  const personalCards = canViewPersonalCards
+    ? allCards.filter((card) => card.origin === 'personal')
+    : []
   const sharedCards = allCards.filter((card) => card.origin === 'shared')
 
   return {

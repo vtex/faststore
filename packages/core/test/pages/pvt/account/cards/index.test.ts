@@ -148,6 +148,22 @@ describe('Cards page getServerSideProps', () => {
     expect(result.props.accountPageData.canViewPersonalCards).toBe(false)
   })
 
+  it('drops personal cards from the SSR payload entirely when canViewPersonalCards is false, even if the service returned some', async () => {
+    mockGetB2BSessionClaims.mockReturnValueOnce({
+      hasOrgAssociation: true,
+      hasCustomerId: false,
+    })
+    mockSuccessfulExecute({ hasAdHocCardAccess: false })
+
+    const result: any = await getServerSideProps(makeContext())
+
+    // The UI already hides the Personal tab for this combination; this
+    // asserts the data itself never reaches __NEXT_DATA__ either (PR review,
+    // REQ-6's "hide" intent) — not just that the tab is visually hidden.
+    expect(result.props.accountPageData.personalCards).toEqual([])
+    expect(result.props.accountPageData.sharedCards).toEqual([CARD_SHARED])
+  })
+
   it('defaults hasAdHocCardAccess to allowed when the query field is missing', async () => {
     mockGetB2BSessionClaims.mockReturnValueOnce({
       hasOrgAssociation: true,
