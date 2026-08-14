@@ -173,4 +173,20 @@ describe('/api/graphql error status propagation', () => {
 
     expect(res.status).toHaveBeenCalledWith(404)
   })
+
+  it('treats an empty errors array as success instead of a 500', async () => {
+    mockedExecute.mockResolvedValue({
+      data: { product: { id: '1' } },
+      errors: [],
+      extensions: { cookies: new Map(), cacheControl: undefined },
+    } as never)
+
+    const res = createResponse()
+    await handler(createRequest(), res)
+
+    expect(res.status).not.toHaveBeenCalled()
+    expect(res.send).toHaveBeenCalledWith(
+      JSON.stringify({ data: { product: { id: '1' } }, errors: [] })
+    )
+  })
 })
