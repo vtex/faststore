@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0-dev.6](https://github.com/vtex/faststore/compare/v4.6.0-dev.5...v4.6.0-dev.6) (2026-08-14)
+
+### Bug Fixes
+
+- resolve node_modules bins when running scripts inside .faststore ([#3440](https://github.com/vtex/faststore/issues/3440)) ([2bf174a](https://github.com/vtex/faststore/commit/2bf174a7295d106354d97d7ca2c161ed706cff9a)), closes [#3439](https://github.com/vtex/faststore/issues/3439) [#3419](https://github.com/vtex/faststore/issues/3419)
+
 # [4.6.0-dev.5](https://github.com/vtex/faststore/compare/v4.6.0-dev.4...v4.6.0-dev.5) (2026-08-13)
 
 ### Bug Fixes
