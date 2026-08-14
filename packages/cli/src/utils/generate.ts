@@ -195,7 +195,9 @@ function copyCoreFiles(basePath: string) {
 
 // File extensions allowed to be copied from the store's `public/` folder into
 // the build. Fonts are included so stores can self-host them (GDPR / CWV)
-// instead of relying on external CDNs.
+// instead of relying on external CDNs. Raster and modern image formats are
+// included so favicons, apple-touch icons and social preview images survive
+// the build, along with `.webmanifest` for PWA metadata.
 export const PUBLIC_FILES_ALLOWED_EXTENSIONS = [
   '.json',
   '.txt',
@@ -207,6 +209,13 @@ export const PUBLIC_FILES_ALLOWED_EXTENSIONS = [
   '.ttf',
   '.otf',
   '.eot',
+  '.png',
+  '.jpg',
+  '.jpeg',
+  '.webp',
+  '.gif',
+  '.avif',
+  '.webmanifest',
 ]
 
 /**
