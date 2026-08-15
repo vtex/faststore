@@ -16,7 +16,7 @@
     "build": {
       "dependsOn": ["^build"],
       "env": ["BASE_SITE_URL"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**", "@generated/**"]
     },
     "test": {
       "dependsOn": ["^build"]
