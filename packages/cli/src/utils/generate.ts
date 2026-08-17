@@ -89,7 +89,9 @@ export function buildFaststorePackageJson(
    * flags below outright. Falls back to the bare command when resolution fails,
    * which leaves the previous PATH-based behaviour in place.
    */
-  const next = nextBin ? `node ${JSON.stringify(nextBin)}` : 'next'
+  // Forward slashes rather than JSON.stringify: that escapes the separators of
+  // a Windows path, and the doubled backslashes reach the shell verbatim.
+  const next = nextBin ? `node "${nextBin.replace(/\\/g, '/')}"` : 'next'
 
   return {
     ...rest,

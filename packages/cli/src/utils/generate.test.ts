@@ -83,6 +83,23 @@ describe('buildFaststorePackageJson', () => {
     })
   })
 
+  /**
+   * A Windows path is full of separators that JSON escaping would double, and
+   * the doubled form reaches the shell as written.
+   */
+  it('writes a Windows path with forward slashes', () => {
+    const result = buildFaststorePackageJson(
+      coreManifest,
+      undefined,
+      'C:\\Users\\dev\\store\\node_modules\\next\\dist\\bin\\next'
+    )
+
+    expect(result.scripts).toMatchObject({
+      build:
+        'node "C:/Users/dev/store/node_modules/next/dist/bin/next" build --webpack',
+    })
+  })
+
   it('quotes the resolved path so a directory with spaces still runs', () => {
     const result = buildFaststorePackageJson(
       coreManifest,
