@@ -119,7 +119,10 @@ export function buildFaststorePackageJson(
  * be resolved, or when no relative path exists — a different Windows drive —
  * so the caller falls back to the bare command.
  */
-function relativeNextBin(coreDir: string, tmpDir: string): string | undefined {
+export function relativeNextBin(
+  coreDir: string,
+  tmpDir: string
+): string | undefined {
   const nextBin = resolvePackageBin('next/dist/bin/next', coreDir)
 
   if (!nextBin) {

@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import {
   PUBLIC_FILES_ALLOWED_EXTENSIONS,
   buildFaststorePackageJson,
+  relativeNextBin,
   copyPublicFiles,
   isPublicFileAllowed,
 } from './generate'
@@ -271,5 +272,95 @@ describe('copyPublicFiles', () => {
 
     expect(fs.existsSync(path.join(buildDir(), 'inter.woff2'))).toBe(true)
     expect(fs.existsSync(path.join(buildDir(), 'broken.woff2'))).toBe(false)
+  })
+})
+
+describe('relativeNextBin', () => {
+  let root: string
+
+  /** A core package with its own Next, and the .faststore beside the store. */
+  function tree(withNext = true) {
+    root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'fsp-next-')))
+
+    const coreDir = path.join(root, 'node_modules', '@faststore', 'core')
+    fs.mkdirSync(coreDir, { recursive: true })
+    fs.writeFileSync(
+      path.join(coreDir, 'package.json'),
+      JSON.stringify({
+        name: '@faststore/core',
+        version: '1.0.0',
+        main: 'index.js',
+      })
+    )
+    fs.writeFileSync(path.join(coreDir, 'index.js'), 'module.exports = {}\n')
+
+    if (withNext) {
+      const nextDir = path.join(coreDir, 'node_modules', 'next')
+      fs.mkdirSync(path.join(nextDir, 'dist', 'bin'), { recursive: true })
+      fs.writeFileSync(
+        path.join(nextDir, 'package.json'),
+        JSON.stringify({
+          name: 'next',
+          version: '16.3.1',
+          main: 'index.js',
+          exports: { '.': './index.js', './dist/bin/next': './dist/bin/next' },
+        })
+      )
+      fs.writeFileSync(path.join(nextDir, 'index.js'), 'module.exports = {}\n')
+      fs.writeFileSync(
+        path.join(nextDir, 'dist', 'bin', 'next'),
+        '#!/usr/bin/env node\n'
+      )
+    }
+
+    const tmpDir = path.join(root, '.faststore')
+    fs.mkdirSync(tmpDir, { recursive: true })
+
+    return { coreDir, tmpDir }
+  }
+
+  afterEach(() => {
+    if (root) {
+      fs.rmSync(root, { recursive: true, force: true })
+      root = undefined as unknown as string
+    }
+  })
+
+  it('points at the Next that core resolves, relative to .faststore', () => {
+    const { coreDir, tmpDir } = tree()
+
+    // .faststore sits beside node_modules, so the path climbs out of it once
+    expect(relativeNextBin(coreDir, tmpDir)).toBe(
+      '../node_modules/@faststore/core/node_modules/next/dist/bin/next'
+    )
+  })
+
+  /**
+   * Resolution climbs to an ancestor when a package has no copy of its own,
+   * which is what makes a hoisted install work at all.
+   */
+  it('finds an ancestor copy when core has none of its own', () => {
+    const { coreDir, tmpDir } = tree(false)
+
+    const nextDir = path.join(root, 'node_modules', 'next')
+    fs.mkdirSync(path.join(nextDir, 'dist', 'bin'), { recursive: true })
+    fs.writeFileSync(
+      path.join(nextDir, 'package.json'),
+      JSON.stringify({
+        name: 'next',
+        version: '16.3.1',
+        main: 'index.js',
+        exports: { '.': './index.js', './dist/bin/next': './dist/bin/next' },
+      })
+    )
+    fs.writeFileSync(path.join(nextDir, 'index.js'), 'module.exports = {}\n')
+    fs.writeFileSync(
+      path.join(nextDir, 'dist', 'bin', 'next'),
+      '#!/usr/bin/env node\n'
+    )
+
+    expect(relativeNextBin(coreDir, tmpDir)).toBe(
+      '../node_modules/next/dist/bin/next'
+    )
   })
 })
