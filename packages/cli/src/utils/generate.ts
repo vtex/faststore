@@ -88,10 +88,13 @@ export function buildFaststorePackageJson(
    * different Next than the one core was built against, and it rejects the
    * flags below outright. Falls back to the bare command when resolution fails,
    * which leaves the previous PATH-based behaviour in place.
+   *
+   * `nextBin` is relative to `.faststore`, which is where these scripts run.
+   * An absolute path would carry the whole store directory into a shell string,
+   * and a quote or a `$` anywhere above the project would break it — a relative
+   * path only ever spans `node_modules` segments.
    */
-  // Forward slashes rather than JSON.stringify: that escapes the separators of
-  // a Windows path, and the doubled backslashes reach the shell verbatim.
-  const next = nextBin ? `node "${nextBin.replace(/\\/g, '/')}"` : 'next'
+  const next = nextBin ? `node ${nextBin}` : 'next'
 
   return {
     ...rest,
@@ -108,6 +111,24 @@ export function buildFaststorePackageJson(
       prebuild: 'na run partytown',
     },
   }
+}
+
+/**
+ * The Next executable `@faststore/core` resolves, expressed relative to the
+ * `.faststore` directory its scripts run from. Returns undefined when it cannot
+ * be resolved, or when no relative path exists — a different Windows drive —
+ * so the caller falls back to the bare command.
+ */
+function relativeNextBin(coreDir: string, tmpDir: string): string | undefined {
+  const nextBin = resolvePackageBin('next/dist/bin/next', coreDir)
+
+  if (!nextBin) {
+    return undefined
+  }
+
+  const relative = path.relative(tmpDir, nextBin).replaceAll('\\', '/')
+
+  return relative && !path.isAbsolute(relative) ? relative : undefined
 }
 
 /**
@@ -150,7 +171,7 @@ function filterAndCopyPackageJson(basePath: string) {
   const filteredFileContent = buildFaststorePackageJson(
     coreManifest,
     voltaConfig,
-    resolvePackageBin('next/dist/bin/next', coreDir)
+    relativeNextBin(coreDir, tmpDir)
   )
 
   writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {

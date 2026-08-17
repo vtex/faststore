@@ -70,46 +70,40 @@ describe('buildFaststorePackageJson', () => {
     })
   })
 
-  it('invokes Next through a resolved path when one is given', () => {
-    const nextBin = '/store/node_modules/next/dist/bin/next'
+  it('invokes Next through the resolved path when one is given', () => {
+    const nextBin = '../node_modules/next/dist/bin/next'
 
     const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
 
     expect(result.scripts).toMatchObject({
-      build: `node "${nextBin}" build --webpack`,
-      serve: `node "${nextBin}" serve`,
-      dev: `node "${nextBin}" dev --webpack`,
-      'dev-only': `node "${nextBin}" dev --webpack`,
+      build: `node ${nextBin} build --webpack`,
+      serve: `node ${nextBin} serve`,
+      dev: `node ${nextBin} dev --webpack`,
+      'dev-only': `node ${nextBin} dev --webpack`,
     })
   })
 
   /**
-   * A Windows path is full of separators that JSON escaping would double, and
-   * the doubled form reaches the shell as written.
+   * The path is relative to `.faststore`, so it only ever spans node_modules
+   * segments — a store directory containing a quote, a `$` or a backtick never
+   * reaches the script at all.
    */
-  it('writes a Windows path with forward slashes', () => {
-    const result = buildFaststorePackageJson(
-      coreManifest,
-      undefined,
-      'C:\\Users\\dev\\store\\node_modules\\next\\dist\\bin\\next'
+  it('keeps a store path with shell metacharacters out of the script', () => {
+    const tmpDir = '/Users/dev/my "store" $(x)`y`/.faststore'
+    const nextBin = path.relative(
+      tmpDir,
+      '/Users/dev/my "store" $(x)`y`/node_modules/next/dist/bin/next'
     )
 
-    expect(result.scripts).toMatchObject({
-      build:
-        'node "C:/Users/dev/store/node_modules/next/dist/bin/next" build --webpack',
-    })
-  })
+    const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
+    const build = (result.scripts as Record<string, string>).build
 
-  it('quotes the resolved path so a directory with spaces still runs', () => {
-    const result = buildFaststorePackageJson(
-      coreManifest,
-      undefined,
-      '/My Store/node_modules/next/dist/bin/next'
+    expect(build).toBe(
+      'node ../node_modules/next/dist/bin/next build --webpack'
     )
-
-    expect(result.scripts).toMatchObject({
-      build: 'node "/My Store/node_modules/next/dist/bin/next" build --webpack',
-    })
+    for (const char of ['"', '$', '`', "'"]) {
+      expect(build).not.toContain(char)
+    }
   })
 
   it('leaves the partytown steps alone', () => {
