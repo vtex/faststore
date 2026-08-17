@@ -278,8 +278,27 @@ describe('copyPublicFiles', () => {
 describe('relativeNextBin', () => {
   let root: string
 
-  /** A core package with its own Next, and the .faststore beside the store. */
-  function tree(withNext = true) {
+  /** Writes a package that exposes the Next executable at the given path. */
+  function installNext(at: string) {
+    fs.mkdirSync(path.join(at, 'dist', 'bin'), { recursive: true })
+    fs.writeFileSync(
+      path.join(at, 'package.json'),
+      JSON.stringify({
+        name: 'next',
+        version: '16.3.1',
+        main: 'index.js',
+        exports: { '.': './index.js', './dist/bin/next': './dist/bin/next' },
+      })
+    )
+    fs.writeFileSync(path.join(at, 'index.js'), 'module.exports = {}\n')
+    fs.writeFileSync(
+      path.join(at, 'dist', 'bin', 'next'),
+      '#!/usr/bin/env node\n'
+    )
+  }
+
+  /** A core package and the `.faststore` its generated scripts run from. */
+  function tree() {
     root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'fsp-next-')))
 
     const coreDir = path.join(root, 'node_modules', '@faststore', 'core')
@@ -293,25 +312,6 @@ describe('relativeNextBin', () => {
       })
     )
     fs.writeFileSync(path.join(coreDir, 'index.js'), 'module.exports = {}\n')
-
-    if (withNext) {
-      const nextDir = path.join(coreDir, 'node_modules', 'next')
-      fs.mkdirSync(path.join(nextDir, 'dist', 'bin'), { recursive: true })
-      fs.writeFileSync(
-        path.join(nextDir, 'package.json'),
-        JSON.stringify({
-          name: 'next',
-          version: '16.3.1',
-          main: 'index.js',
-          exports: { '.': './index.js', './dist/bin/next': './dist/bin/next' },
-        })
-      )
-      fs.writeFileSync(path.join(nextDir, 'index.js'), 'module.exports = {}\n')
-      fs.writeFileSync(
-        path.join(nextDir, 'dist', 'bin', 'next'),
-        '#!/usr/bin/env node\n'
-      )
-    }
 
     const tmpDir = path.join(root, '.faststore')
     fs.mkdirSync(tmpDir, { recursive: true })
@@ -328,6 +328,7 @@ describe('relativeNextBin', () => {
 
   it('points at the Next that core resolves, relative to .faststore', () => {
     const { coreDir, tmpDir } = tree()
+    installNext(path.join(coreDir, 'node_modules', 'next'))
 
     // .faststore sits beside node_modules, so the path climbs out of it once
     expect(relativeNextBin(coreDir, tmpDir)).toBe(
@@ -340,24 +341,8 @@ describe('relativeNextBin', () => {
    * which is what makes a hoisted install work at all.
    */
   it('finds an ancestor copy when core has none of its own', () => {
-    const { coreDir, tmpDir } = tree(false)
-
-    const nextDir = path.join(root, 'node_modules', 'next')
-    fs.mkdirSync(path.join(nextDir, 'dist', 'bin'), { recursive: true })
-    fs.writeFileSync(
-      path.join(nextDir, 'package.json'),
-      JSON.stringify({
-        name: 'next',
-        version: '16.3.1',
-        main: 'index.js',
-        exports: { '.': './index.js', './dist/bin/next': './dist/bin/next' },
-      })
-    )
-    fs.writeFileSync(path.join(nextDir, 'index.js'), 'module.exports = {}\n')
-    fs.writeFileSync(
-      path.join(nextDir, 'dist', 'bin', 'next'),
-      '#!/usr/bin/env node\n'
-    )
+    const { coreDir, tmpDir } = tree()
+    installNext(path.join(root, 'node_modules', 'next'))
 
     expect(relativeNextBin(coreDir, tmpDir)).toBe(
       '../node_modules/next/dist/bin/next'
