@@ -6,6 +6,7 @@ import path from 'node:path'
 import ora from 'ora'
 
 import { pathToFileURL } from 'node:url'
+import { resolvePackageBin } from './binPaths'
 import { createNextJsPages } from './createNextjsPages'
 import { installDependencies } from './dependencies'
 import { withBasePath } from './directory'
@@ -68,7 +69,8 @@ function createTmpFolder(basePath: string) {
  */
 export function buildFaststorePackageJson(
   coreManifest: Record<string, unknown>,
-  voltaConfig?: Record<string, unknown>
+  voltaConfig?: Record<string, unknown>,
+  nextBin?: string
 ): Record<string, unknown> {
   const {
     exports: _exports,
@@ -79,6 +81,16 @@ export function buildFaststorePackageJson(
   const existingScripts =
     (rest.scripts as Record<string, string> | undefined) ?? {}
 
+  /**
+   * Invoking Next through the path resolved from `@faststore/core` rather than
+   * by name, so a copy that won the root `.bin` link cannot answer instead. On
+   * a monorepo where another module pins an older major, that copy is a
+   * different Next than the one core was built against, and it rejects the
+   * flags below outright. Falls back to the bare command when resolution fails,
+   * which leaves the previous PATH-based behaviour in place.
+   */
+  const next = nextBin ? `node ${JSON.stringify(nextBin)}` : 'next'
+
   return {
     ...rest,
     name: 'dot-faststore',
@@ -86,10 +98,10 @@ export function buildFaststorePackageJson(
     scripts: {
       ...existingScripts,
       generate: 'faststore generate',
-      build: 'next build --webpack',
-      serve: 'next serve',
-      dev: 'next dev --webpack',
-      'dev-only': 'next dev --webpack',
+      build: `${next} build --webpack`,
+      serve: `${next} serve`,
+      dev: `${next} dev --webpack`,
+      'dev-only': `${next} dev --webpack`,
       predev: 'na run partytown',
       prebuild: 'na run partytown',
     },
@@ -135,7 +147,8 @@ function filterAndCopyPackageJson(basePath: string) {
 
   const filteredFileContent = buildFaststorePackageJson(
     coreManifest,
-    voltaConfig
+    voltaConfig,
+    resolvePackageBin('next/dist/bin/next', coreDir)
   )
 
   writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {

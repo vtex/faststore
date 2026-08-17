@@ -70,6 +70,44 @@ describe('buildFaststorePackageJson', () => {
     })
   })
 
+  it('invokes Next through a resolved path when one is given', () => {
+    const nextBin = '/store/node_modules/next/dist/bin/next'
+
+    const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
+
+    expect(result.scripts).toMatchObject({
+      build: `node "${nextBin}" build --webpack`,
+      serve: `node "${nextBin}" serve`,
+      dev: `node "${nextBin}" dev --webpack`,
+      'dev-only': `node "${nextBin}" dev --webpack`,
+    })
+  })
+
+  it('quotes the resolved path so a directory with spaces still runs', () => {
+    const result = buildFaststorePackageJson(
+      coreManifest,
+      undefined,
+      '/My Store/node_modules/next/dist/bin/next'
+    )
+
+    expect(result.scripts).toMatchObject({
+      build: 'node "/My Store/node_modules/next/dist/bin/next" build --webpack',
+    })
+  })
+
+  it('leaves the partytown steps alone', () => {
+    const result = buildFaststorePackageJson(
+      coreManifest,
+      undefined,
+      '/store/node_modules/next/dist/bin/next'
+    )
+
+    expect(result.scripts).toMatchObject({
+      predev: 'na run partytown',
+      prebuild: 'na run partytown',
+    })
+  })
+
   it('preserves dependencies, devDependencies, engines and other metadata fields', () => {
     const result = buildFaststorePackageJson(coreManifest)
 
