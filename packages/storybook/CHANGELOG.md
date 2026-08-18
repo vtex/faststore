@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.6.1-dev.0](https://github.com/vtex/faststore/compare/v4.6.0...v4.6.1-dev.0) (2026-08-18)
+
+**Note:** Version bump only for package @faststore/storybook
+
 # [4.6.0](https://github.com/vtex/faststore/compare/v4.6.0-dev.6...v4.6.0) (2026-08-18)
 
 **Note:** Version bump only for package @faststore/storybook
