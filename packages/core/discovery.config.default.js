@@ -166,8 +166,7 @@ module.exports = {
   analytics: {
     // https://developers.google.com/tag-platform/tag-manager/web#standard_web_page_installation,
     gtmContainerId: 'GTM-PGHZ95N',
-    serviceName: 'faststore-proxy',
-    otelEnabled: true,
+    serviceName: 'faststore',
   },
 
   cms: {
@@ -192,6 +191,8 @@ module.exports = {
     nofollow: false,
     preact: false,
     enableRedirects: false,
+    // ISR window (seconds) for notFound PDP/PLP paths.
+    revalidate404: 60 * 5, // 5 minutes
     enableSearchSSR: false,
     enableFaststoreMyAccount: false,
     useIsGiftFromOrderForm: false,

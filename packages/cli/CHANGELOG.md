@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0-dev.6](https://github.com/vtex/faststore/compare/v4.6.0-dev.5...v4.6.0-dev.6) (2026-08-14)
+
+### Bug Fixes
+
+- resolve node_modules bins when running scripts inside .faststore ([#3440](https://github.com/vtex/faststore/issues/3440)) ([2bf174a](https://github.com/vtex/faststore/commit/2bf174a7295d106354d97d7ca2c161ed706cff9a)), closes [#3439](https://github.com/vtex/faststore/issues/3439) [#3419](https://github.com/vtex/faststore/issues/3419)
+
+# [4.6.0-dev.5](https://github.com/vtex/faststore/compare/v4.6.0-dev.4...v4.6.0-dev.5) (2026-08-13)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.4](https://github.com/vtex/faststore/compare/v4.6.0-dev.3...v4.6.0-dev.4) (2026-08-12)
+
+### Bug Fixes
+
+- custom GraphQL typeDefs silently ignored on Windows ([#3419](https://github.com/vtex/faststore/issues/3419)) ([bdeb6a7](https://github.com/vtex/faststore/commit/bdeb6a757c44dda24b96cffc73d34652de165adf))
+
+# [4.6.0-dev.3](https://github.com/vtex/faststore/compare/v4.6.0-dev.2...v4.6.0-dev.3) (2026-08-12)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.2](https://github.com/vtex/faststore/compare/v4.6.0-dev.1...v4.6.0-dev.2) (2026-08-12)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.1](https://github.com/vtex/faststore/compare/v4.6.0-dev.0...v4.6.0-dev.1) (2026-08-11)
+
+## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.5.1) (2026-08-11)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.0](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.6.0-dev.0) (2026-08-11)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.5.1-dev.4](https://github.com/vtex/faststore/compare/v4.5.1-dev.3...v4.5.1-dev.4) (2026-08-10)
+
+### Bug Fixes
+
+- restore account, path, port arg order on cli dev command ([#3439](https://github.com/vtex/faststore/issues/3439)) ([b13e834](https://github.com/vtex/faststore/commit/b13e8341539fb8108c35a63f26218c4671d308f8)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [#2491](https://github.com/vtex/faststore/issues/2491) [#2491](https://github.com/vtex/faststore/issues/2491) [#3111](https://github.com/vtex/faststore/issues/3111)
+
+## [4.5.1-dev.3](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1-dev.3) (2026-08-10)
+
 ## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1) (2026-08-11)
 
 **Note:** Version bump only for package @faststore/cli

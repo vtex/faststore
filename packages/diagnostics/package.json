@@ -1,6 +1,6 @@
 {
   "name": "@faststore/diagnostics",
-  "version": "4.5.1",
+  "version": "4.6.0-dev.6",
   "description": "",
   "repository": {
     "type": "git",
@@ -8,39 +8,46 @@
     "directory": "packages/diagnostics"
   },
   "main": "./dist/cjs/index.js",
-  "types": "./dist/src/index.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "files": [
-    "configs",
     "dist"
   ],
   "exports": {
     ".": {
-      "types": "./dist/src/index.d.ts",
+      "types": "./dist/index.d.ts",
       "require": "./dist/cjs/index.js",
       "import": "./dist/es/index.mjs",
-      "default": "./dist/cjs/index.js"
-    },
-    "./configs/*": "./configs/*"
+      "default": "./dist/es/index.mjs"
+    }
   },
   "packageManager": "pnpm@10.28.0",
   "dependencies": {
+    "@grpc/grpc-js": "^1.14.4",
     "@opentelemetry/api": "^1.9.0",
-    "@opentelemetry/instrumentation-http": "^0.212.0",
-    "@vtex/diagnostics-nodejs": "^5.1.1",
-    "resolve-pkg": "^3.0.1"
+    "@opentelemetry/api-logs": "^0.219.0",
+    "@opentelemetry/exporter-logs-otlp-grpc": "^0.219.0",
+    "@opentelemetry/exporter-trace-otlp-grpc": "^0.219.0",
+    "@opentelemetry/instrumentation-http": "^0.219.0",
+    "@opentelemetry/instrumentation-undici": "^0.29.0",
+    "@opentelemetry/resources": "^2.8.0",
+    "@opentelemetry/sdk-logs": "^0.219.0",
+    "@opentelemetry/sdk-node": "^0.219.0",
+    "@opentelemetry/sdk-trace-node": "^2.8.0"
   },
   "devDependencies": {
     "@types/node": "catalog:",
     "tslib": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-dts": "catalog:"
+    "vite-plugin-dts": "catalog:",
+    "vitest": "catalog:"
   },
   "publishConfig": {
     "access": "public"
