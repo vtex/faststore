@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { type ComponentType, useMemo } from 'react'
 
 import UIProductShelf from '../../../components/ui/ProductShelf'
 import { useInView } from 'react-intersection-observer'
@@ -30,7 +30,7 @@ const CrossSellingShelf = ({
   const productGroupID = context?.data?.product?.isVariantOf?.productGroupID
 
   const selectedFacets = useMemo(
-    () => [{ key: kind, value: productGroupID }],
+    () => [{ key: kind, value: productGroupID ?? '' }],
     [kind, productGroupID]
   )
 
@@ -53,8 +53,10 @@ const CrossSellingShelf = ({
 
 CrossSellingShelf.$componentKey = 'CrossSellingShelf'
 
-const OverridableCrossSellingShelf = getOverridableSection<
-  typeof CrossSellingShelf
->('CrossSellingShelf', CrossSellingShelf, CrossSellingShelfDefaultComponents)
+const OverridableCrossSellingShelf = getOverridableSection<ComponentType<any>>(
+  'CrossSellingShelf',
+  CrossSellingShelf,
+  CrossSellingShelfDefaultComponents
+) as typeof CrossSellingShelf
 
 export default OverridableCrossSellingShelf

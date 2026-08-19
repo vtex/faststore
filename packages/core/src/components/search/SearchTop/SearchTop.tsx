@@ -33,9 +33,8 @@ function SearchTop({
   title,
   ...otherProps
 }: SearchTopProps) {
-  const {
-    values: { onSearchSelection },
-  } = useSearch()
+  const { values } = useSearch()
+  const { onSearchSelection } = values!
   const formatSearchPath = useFormatSearchPath()
   const { data } = useTopSearch()
   const terms = (data?.search.suggestions.terms ?? topTerms).slice(
@@ -48,7 +47,7 @@ function SearchTop({
   }
 
   return (
-    <UISearchTop title={title} {...otherProps}>
+    <UISearchTop title={title ?? ''} {...otherProps}>
       {terms.map((term, index) => {
         const path = formatSearchPath({
           term: term.value,

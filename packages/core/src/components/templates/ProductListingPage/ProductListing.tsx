@@ -59,7 +59,7 @@ export default function ProductListing({
   }, [])
 
   const { data: pageProductGalleryData } = useProductGalleryQuery({
-    term,
+    term: term!,
     sort,
     selectedFacets,
     itemsPerPage,

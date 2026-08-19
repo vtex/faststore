@@ -1,5 +1,5 @@
 import type { Locator } from '@vtex/client-cms'
-import type { GetServerSideProps } from 'next'
+import type { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import {
@@ -55,7 +55,7 @@ function Page({
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <Layout accountName={accountName}>
+        <Layout accountName={accountName ?? ''}>
           {sections && sections.length > 0 && (
             <RenderSectionsBase sections={sections} components={COMPONENTS} />
           )}
@@ -147,15 +147,17 @@ const getServerSidePropsBase: GetServerSideProps<
 
   return {
     props: {
-      page: page ?? ({ sections: [], settings: {} } as PageContentType),
+      page:
+        page ?? ({ sections: [], settings: {} } as unknown as PageContentType),
       globalSections: globalSectionsResult,
       accountName: account.data?.accountProfile?.name ?? '',
     },
   }
 }
 
-export const getServerSideProps = withLocaleValidationSSR(
-  getServerSidePropsBase
-)
+export const getServerSideProps = withLocaleValidationSSR<
+  Props,
+  GetServerSidePropsContext<Record<string, string>, Locator>
+>(getServerSidePropsBase)
 
 export default Page

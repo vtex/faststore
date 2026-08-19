@@ -216,14 +216,14 @@ export const getStaticProps: GetStaticProps<
   }
 
   const [serverManyProductsData, serverManyProductsVariables] =
-    await fetchServerManyProducts({
+    (await fetchServerManyProducts({
       itemsPerPage: cmsPage?.settings?.productGallery?.itemsPerPage,
       sort: cmsPage?.settings?.productGallery
         ?.sortBySelection as SearchState['sort'],
       term: '',
       selectedFacets: data?.collection?.meta.selectedFacets,
-      locale,
-    })
+      locale: locale as string,
+    }))!
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,

@@ -395,21 +395,29 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             )}
             {fileUploadVisible && (
               <FileUploadCard
-                title={fileUploadCardConfig?.title}
-                fileInputAriaLabel={fileUploadCardConfig?.fileInputAriaLabel}
-                dropzoneAriaLabel={fileUploadCardConfig?.dropzoneAriaLabel}
-                dropzoneTitle={fileUploadCardConfig?.dropzoneTitle}
+                title={fileUploadCardConfig?.title ?? ''}
+                fileInputAriaLabel={
+                  fileUploadCardConfig?.fileInputAriaLabel ?? ''
+                }
+                dropzoneAriaLabel={
+                  fileUploadCardConfig?.dropzoneAriaLabel ?? ''
+                }
+                dropzoneTitle={fileUploadCardConfig?.dropzoneTitle ?? ''}
                 selectFileButtonLabel={
-                  fileUploadCardConfig?.selectFileButtonLabel
+                  fileUploadCardConfig?.selectFileButtonLabel ?? ''
                 }
                 downloadTemplateButtonLabel={
-                  fileUploadCardConfig?.downloadTemplateButtonLabel
+                  fileUploadCardConfig?.downloadTemplateButtonLabel ?? ''
                 }
                 removeButtonAriaLabel={
-                  fileUploadCardConfig?.removeButtonAriaLabel
+                  fileUploadCardConfig?.removeButtonAriaLabel ?? ''
                 }
-                searchButtonLabel={fileUploadCardConfig?.searchButtonLabel}
-                uploadingStatusText={fileUploadCardConfig?.uploadingStatusText}
+                searchButtonLabel={
+                  fileUploadCardConfig?.searchButtonLabel ?? ''
+                }
+                uploadingStatusText={
+                  fileUploadCardConfig?.uploadingStatusText ?? ''
+                }
                 processingStatusText={
                   fileUploadCardConfig?.processingStatusText ?? 'Importing...'
                 }
@@ -463,7 +471,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             title={
               selectedFile
                 ? formatFileName(selectedFile.name)
-                : drawerConfig?.defaultTitle
+                : (drawerConfig?.defaultTitle ?? '')
             }
             onCloseDrawer={() => {
               setIsQuickOrderDrawerOpen(false)
@@ -473,13 +481,13 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           />
           <QuickOrderDrawerProducts
             columns={{
-              name: drawerConfig?.columns?.name,
+              name: drawerConfig?.columns?.name ?? '',
               availability: {
-                label: drawerConfig?.columns?.availabilityLabel,
+                label: drawerConfig?.columns?.availabilityLabel ?? '',
                 stockDisplaySettings: 'showAvailability',
               },
-              price: drawerConfig?.columns?.price,
-              quantity: drawerConfig?.columns?.quantity,
+              price: drawerConfig?.columns?.price ?? '',
+              quantity: drawerConfig?.columns?.quantity ?? '',
             }}
             formatter={(price) => priceFormatter(price)}
             messages={drawerConfig?.messages}

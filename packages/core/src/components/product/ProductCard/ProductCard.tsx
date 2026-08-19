@@ -1,4 +1,5 @@
 import {
+  type IProductComparison,
   ProductCard as UIProductCard,
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
@@ -7,7 +8,10 @@ import {
 import { memo, useMemo } from 'react'
 
 import { gql } from '@generated'
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import type {
+  DeliveryPromiseBadge,
+  ProductSummary_ProductFragment,
+} from '@generated/graphql'
 import type { ImageProps } from 'next/image'
 import NextLink from 'next/link'
 import { Image } from 'src/components/ui/Image'
@@ -106,7 +110,7 @@ function ProductCard({
 
   const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
   const { badges, shouldDisplayDeliveryPromiseBadges } = useDeliveryPromise({
-    deliveryPromiseBadges,
+    deliveryPromiseBadges: deliveryPromiseBadges as DeliveryPromiseBadge[],
     deliveryPromiseSettings,
   })
 
@@ -144,8 +148,8 @@ function ProductCard({
     <>
       {enableCompareCheckbox && (
         <UIProductComparisonTrigger
-          label={compareLabel}
-          product={product}
+          label={compareLabel ?? ''}
+          product={product as IProductComparison}
           id={product.id}
         />
       )}
@@ -185,7 +189,9 @@ function ProductCard({
           includeTaxesLabel={taxesConfiguration?.taxesLabel}
           sponsored={!!advertisement}
           sponsoredLabel={sponsoredLabel}
-          deliveryPromiseBadges={shouldDisplayDeliveryPromiseBadges && badges}
+          deliveryPromiseBadges={
+            shouldDisplayDeliveryPromiseBadges ? badges : undefined
+          }
         />
       </UIProductCard>
     </>

@@ -164,7 +164,7 @@ function FilterSlider({
 
           handleFilterChange({
             selectedFacets,
-            text: searchInputRef.current?.inputRef.value,
+            text: searchInputRef?.current?.inputRef?.value ?? '',
           })
         },
         disabled: disabled,

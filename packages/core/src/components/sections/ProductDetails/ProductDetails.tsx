@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { type ComponentType, useEffect, useMemo, useState } from 'react'
 
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 
@@ -128,7 +128,8 @@ function ProductDetails({
   } = useOverrideComponents<'ProductDetails'>()
   const { currency } = useSession()
   const context = usePDP()
-  const { product, isValidating } = context?.data
+  const product = context?.data?.product
+  const isValidating = context?.data?.isValidating
   const [quantity, setQuantity] = useState(1)
   const cmsData = getGlobalSettings()
   const {
@@ -146,11 +147,7 @@ function ProductDetails({
     brand,
     isVariantOf,
     description,
-    isVariantOf: {
-      name,
-      productGroupID: productId,
-      skuVariants: { slugsMap },
-    },
+    isVariantOf: { name, productGroupID: productId },
     image: productImages,
     offers: {
       offers: [{ availability, price, listPrice, listPriceWithTaxes, seller }],
@@ -158,6 +155,8 @@ function ProductDetails({
       lowPriceWithTaxes,
     },
   } = product
+
+  const slugsMap = isVariantOf.skuVariants?.slugsMap
 
   useEffect(() => {
     import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
@@ -230,7 +229,7 @@ function ProductDetails({
                   />
                 )
               }
-              refNumber={showRefNumber && productId}
+              refNumber={showRefNumber ? productId : undefined}
             />
           </header>
           <ImageGallery.Component
@@ -420,10 +419,10 @@ export const fragment = gql(`
   }
 `)
 
-const OverridableProductDetails = getOverridableSection<typeof ProductDetails>(
+const OverridableProductDetails = getOverridableSection<ComponentType<any>>(
   'ProductDetails',
   ProductDetails,
   ProductDetailsDefaultComponents
-)
+) as typeof ProductDetails
 
 export default OverridableProductDetails

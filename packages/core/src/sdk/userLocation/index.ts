@@ -11,9 +11,9 @@ const set = (session: Session, data: Partial<Session>) => {
   return { ...session, ...data }
 }
 
-let userAddress: Partial<
-  Pick<Session, 'city' | 'country' | 'geoCoordinates' | 'postalCode'>
-> = undefined
+let userAddress:
+  | Partial<Pick<Session, 'city' | 'country' | 'geoCoordinates' | 'postalCode'>>
+  | undefined = undefined
 const getUserSavedAddress = async (session: Session): Promise<Session> => {
   if (!!userAddress) return set(session, userAddress)
   const user = session?.person
@@ -24,18 +24,18 @@ const getUserSavedAddress = async (session: Session): Promise<Session> => {
 
   userAddress = {
     city,
-    country,
+    country: country ?? undefined,
     geoCoordinates: {
       latitude: geoCoordinate?.[1] ?? null,
       longitude: geoCoordinate?.[0] ?? null,
-    },
+    } as Session['geoCoordinates'],
     postalCode,
   }
 
   return set(session, userAddress)
 }
 
-let geoCoordinates: Session['geoCoordinates'] = undefined
+let geoCoordinates: Session['geoCoordinates'] | undefined = undefined
 export const getNavigatorGeolocation = (session: Session) => {
   return new Promise<Session>((res) => {
     if (!!geoCoordinates) return res(set(session, { geoCoordinates }))

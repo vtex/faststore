@@ -23,8 +23,12 @@ export interface OrderDetailsProps {
  * rendered via RenderSectionsBase on the order details page.
  */
 export default function OrderDetails({ order }: OrderDetailsProps) {
-  const moreInformationCustomFields = order?.customFields?.find(
-    (field) => field.type === 'order'
+  if (!order) {
+    return null
+  }
+
+  const moreInformationCustomFields = order.customFields?.find(
+    (field) => field?.type === 'order'
   )?.fields
 
   return (
@@ -42,7 +46,7 @@ export default function OrderDetails({ order }: OrderDetailsProps) {
             order.deliveryOptionsData as UserOrderDeliveryOptionsData
           }
           fields={
-            order?.customFields?.find((field) => field.type === 'address')
+            order.customFields?.find((field) => field?.type === 'address')
               ?.fields || []
           }
         />
@@ -53,37 +57,37 @@ export default function OrderDetails({ order }: OrderDetailsProps) {
         />
 
         <PaymentCard
-          currencyCode={order.storePreferencesData.currencyCode}
+          currencyCode={order.storePreferencesData?.currencyCode ?? ''}
           paymentData={order.paymentData}
-          allowCancellation={order.allowCancellation}
+          allowCancellation={order.allowCancellation ?? false}
         />
 
         <SummaryCard
           totals={order.totals}
-          currencyCode={order.storePreferencesData.currencyCode}
-          transactions={order.paymentData.transactions}
+          currencyCode={order.storePreferencesData?.currencyCode ?? ''}
+          transactions={order.paymentData?.transactions}
         />
 
-        {order.deliveryOptionsData.deliveryOptions.map((option) => (
+        {order.deliveryOptionsData?.deliveryOptions?.map((option) => (
           <DeliveryOptionAccordion
-            key={option.friendlyDeliveryOptionName}
+            key={option?.friendlyDeliveryOptionName}
             deliveryOption={option as UserOrderDeliveryOption}
-            contact={order.deliveryOptionsData.contact}
-            currencyCode={order.storePreferencesData.currencyCode}
-            customFields={order.customFields.filter(
-              (field) => field.type === 'item'
+            contact={order.deliveryOptionsData?.contact}
+            currencyCode={order.storePreferencesData?.currencyCode ?? ''}
+            customFields={order.customFields?.filter(
+              (field) => field?.type === 'item'
             )}
           />
         ))}
 
-        {moreInformationCustomFields?.length > 0 && (
-          <MoreInformationCard fields={moreInformationCustomFields} />
+        {(moreInformationCustomFields?.length ?? 0) > 0 && (
+          <MoreInformationCard fields={moreInformationCustomFields!} />
         )}
 
         {order.budgetData && (
           <BudgetsCard
             budgetData={order.budgetData}
-            currencyCode={order.storePreferencesData.currencyCode}
+            currencyCode={order.storePreferencesData?.currencyCode ?? ''}
           />
         )}
       </main>

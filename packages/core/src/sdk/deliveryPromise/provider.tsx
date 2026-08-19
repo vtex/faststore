@@ -66,7 +66,7 @@ export function DeliveryPromiseProvider({
 
       // Prevent reset store after reloading the page
       if (
-        state.pickupPoints.length !== 0 &&
+        state.pickupPoints?.length !== 0 &&
         deepEquals(state.pickupPoints, newPickupPoints)
       ) {
         return

@@ -52,7 +52,7 @@ export const OrganizationSignInButton = ({
         <OrganizationDrawer
           isOpen={isOpen}
           closeDrawer={closeDrawer}
-          isRepresentative={isRepresentative}
+          isRepresentative={isRepresentative ?? false}
         />
       )}
     </>

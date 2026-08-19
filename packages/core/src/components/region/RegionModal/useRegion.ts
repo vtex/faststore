@@ -46,7 +46,10 @@ export default function useRegion(): UseRegionValues {
         geoCoordinates: null, // Revalidate geo coordinates in API when users set a new postal code
       } as Session
 
-      const validatedSession = await validateSession(newSession)
+      const validatedSession = (await validateSession(newSession)) as
+        | Session
+        | null
+        | undefined
 
       if (deliveryPromise.enabled) {
         // Check product availability for specific postal code
@@ -63,7 +66,7 @@ export default function useRegion(): UseRegionValues {
 
       !simulation && sessionStore.set(validatedSession ?? newSession)
       setRegionError('')
-      onSuccess?.(simulation ? validatedSession : undefined) // Execute the post-validation action (close modal, etc.)
+      onSuccess?.(simulation ? (validatedSession ?? undefined) : undefined) // Execute the post-validation action (close modal, etc.)
     } catch (error) {
       setRegionError(errorMessage)
     } finally {

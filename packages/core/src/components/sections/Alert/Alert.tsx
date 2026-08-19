@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ComponentType, ReactNode } from 'react'
 
 import CommonAlert, {
   type AlertProps as CommonAlertProps,
@@ -44,10 +44,10 @@ function Alert({ icon, content, link: { text, to }, dismissible }: AlertProps) {
 
 Alert.$componentKey = 'Alert'
 
-const OverridableAlert = getOverridableSection<typeof Alert>(
+const OverridableAlert = getOverridableSection<ComponentType<any>>(
   'Alert',
   Alert,
   AlertDefaultComponents
-)
+) as typeof Alert
 
 export default OverridableAlert

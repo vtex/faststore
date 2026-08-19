@@ -20,7 +20,10 @@ export function getSettingsFromConfig(
   return {
     currency: {
       code: binding.currencyCode,
-      symbol: config.localization.currencies[binding.currencyCode].symbol,
+      symbol:
+        config.localization.currencies[
+          binding.currencyCode as keyof typeof config.localization.currencies
+        ].symbol,
     },
     locale: configObject.code,
     salesChannel: `${Number.isNaN(salesChannel) ? 1 : salesChannel}`,
@@ -41,7 +44,10 @@ export function getSettings(params?: {
 
   let url = params?.url ?? ''
   const defaultConfig =
-    config.localization.locales[config.localization.defaultLocale]
+    config.localization.locales[
+      config.localization
+        .defaultLocale as keyof typeof config.localization.locales
+    ]
 
   const defaultBinding =
     defaultConfig.bindings.find((el) => el.isDefault) ??

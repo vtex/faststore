@@ -6,7 +6,8 @@ import { type LocalizationSettings, getSettings } from './settings'
 
 export const useLocalizationConfig = (params?: { url?: string | URL }) => {
   const defaultConfig = config.localization.locales[
-    config.localization.defaultLocale
+    config.localization
+      .defaultLocale as keyof typeof config.localization.locales
   ] as ConfigType
   const defaultBinding =
     defaultConfig.bindings.find((el) => el.isDefault) ??

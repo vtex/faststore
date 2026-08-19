@@ -10,7 +10,7 @@ export const useLazyQuery = <Data, Variables = Record<string, unknown>>(
   options?: QueryOptions
 ) => {
   const response = useSWR<Data | null>(
-    getKey(operation['__meta__']['operationName'], variables),
+    getKey(operation['__meta__']!['operationName'], variables),
     () => null,
     DEFAULT_OPTIONS
   )

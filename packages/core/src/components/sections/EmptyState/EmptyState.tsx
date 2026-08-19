@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import type { PropsWithChildren } from 'react'
+import type { ComponentType, PropsWithChildren } from 'react'
 
 import { Icon as UIIcon, Loader as UILoader } from '@faststore/ui'
 
@@ -110,10 +110,10 @@ function EmptyState({
 
 EmptyState.$componentKey = 'EmptyState'
 
-const OverridableEmptyState = getOverridableSection<typeof EmptyState>(
+const OverridableEmptyState = getOverridableSection<ComponentType<any>>(
   'EmptyState',
   EmptyState,
   EmptyStateDefaultComponents
-)
+) as typeof EmptyState
 
 export default OverridableEmptyState

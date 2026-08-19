@@ -54,12 +54,12 @@ function DeliveryOptionAccordionDeliveryInfo({
 
       <InfoContainer title={isPickup ? 'Store address' : 'Delivery address'}>
         <span data-fs-delivery-option-accordion-info>
-          <strong>{address.city}</strong>
+          <strong>{address?.city}</strong>
         </span>
-        <span data-fs-delivery-option-accordion-info>{address.street}</span>
+        <span data-fs-delivery-option-accordion-info>{address?.street}</span>
         <span
           data-fs-delivery-option-accordion-info
-        >{`${address.postalCode}${address.state ? `, ${address.state}` : ''}${address.country ? `, ${address.country}.` : ''}`}</span>
+        >{`${address?.postalCode}${address?.state ? `, ${address.state}` : ''}${address?.country ? `, ${address.country}.` : ''}`}</span>
       </InfoContainer>
 
       {/* TODO: Validate this after we check the return from api  */}
@@ -68,13 +68,13 @@ function DeliveryOptionAccordionDeliveryInfo({
           <span data-fs-delivery-option-accordion-info>
             From:{' '}
             {new Date(
-              deliveryOption.deliveryWindow.startDateUtc
+              deliveryOption.deliveryWindow.startDateUtc ?? ''
             ).toLocaleString()}
           </span>
           <span data-fs-delivery-option-accordion-info>
             To:{' '}
             {new Date(
-              deliveryOption.deliveryWindow.endDateUtc
+              deliveryOption.deliveryWindow.endDateUtc ?? ''
             ).toLocaleString()}
           </span>
         </InfoContainer>

@@ -1,5 +1,5 @@
 import type { Locator, Section } from '@vtex/client-cms'
-import type { GetServerSideProps } from 'next'
+import type { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { Layout } from 'src/components/account'
@@ -198,14 +198,14 @@ const getServerSidePropsBase: GetServerSideProps<
       accountName: userDetails.data.accountProfile.name ?? '',
       navigationLabels: navigationData as AccountNavigationLabels,
       accountPageData: {
-        userDetails: userDetails.data?.userDetails ?? {
+        userDetails: (userDetails.data?.userDetails ?? {
           username: '',
           name: '',
           email: '',
           phone: '',
           role: [],
           orgUnit: '',
-        },
+        }) as AccountUserDetailsPageData['userDetails'],
       },
       pageSections,
       isRepresentative,
@@ -213,6 +213,7 @@ const getServerSidePropsBase: GetServerSideProps<
   }
 }
 
-export const getServerSideProps = withLocaleValidationSSR(
-  getServerSidePropsBase
-)
+export const getServerSideProps = withLocaleValidationSSR<
+  UserDetailsPageProps,
+  GetServerSidePropsContext<Record<string, string>, Locator>
+>(getServerSidePropsBase)

@@ -74,10 +74,10 @@ function FilterDesktop({
         {shouldDisplayDeliveryButton && (
           <UIFilterFacets
             key={`${testId}-delivery-unset`}
-            testId={testId}
+            testId={testId ?? ''}
             index={0}
             type=""
-            label={labelsMap[SHIPPING_FACET_KEY]}
+            label={labelsMap[SHIPPING_FACET_KEY] ?? ''}
             description={deliveryPromiseSettings?.deliveryMethods?.description}
           >
             <UIButton
@@ -104,7 +104,7 @@ function FilterDesktop({
           return (
             <UIFilterFacets
               key={`${testId}-${sectionLabel}-${index}`}
-              testId={testId}
+              testId={testId ?? ''}
               index={index}
               type={type}
               label={sectionLabel}
@@ -123,14 +123,14 @@ function FilterDesktop({
                         <UIFilterFacetBooleanItem
                           key={`${testId}-${facet.label}-${item.value}`}
                           id={`${testId}-${facet.label}-${item.value}`}
-                          testId={testId}
+                          testId={testId ?? ''}
                           onFacetChange={(facet) => {
                             onDeliveryFacetChange({ facet })
                             resetInfiniteScroll(0)
                           }}
                           selected={item.selected}
                           value={item.value}
-                          quantity={item.quantity}
+                          quantity={item.quantity ?? undefined}
                           facetKey={facet.key}
                           label={
                             isDeliveryMethodFacet ? (
@@ -162,7 +162,7 @@ function FilterDesktop({
                   formatter={
                     facet.key.toLowerCase() === 'price'
                       ? useFormattedPrice
-                      : undefined
+                      : (undefined as unknown as (value: number) => string)
                   }
                   minLabel={filterFacetRangeSettings?.minLabel}
                   maxLabel={filterFacetRangeSettings?.maxLabel}

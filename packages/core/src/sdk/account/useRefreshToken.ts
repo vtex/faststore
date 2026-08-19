@@ -32,7 +32,7 @@ export const useRefreshToken = (
         if (isRefreshTokenSuccessful(result)) {
           // Update session with new refreshAfter timestamp
           const refreshAfter = String(
-            Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
+            Math.floor(new Date(result?.refreshAfter ?? '').getTime() / 1000)
           )
 
           sessionStore.set({

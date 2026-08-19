@@ -9,7 +9,9 @@ import {
 } from 'src/sdk/account/accountPageContext'
 import Section from '../Section'
 
-export type AccountOrderDetailsProps = OrderDetailsHeaderProps['labels']
+export type AccountOrderDetailsProps = NonNullable<
+  OrderDetailsHeaderProps['labels']
+>
 
 const AccountOrderDetails = ({
   orderNumberPrefix = defaultOrderDetailsHeaderLabels.orderNumberPrefix,

@@ -35,7 +35,7 @@ function OutOfStock({
         icon: <Icon name="CircleWavyCheck" width={30} height={30} />,
       })
     } catch (err) {
-      setError(err.message)
+      setError((err as Error).message)
     } finally {
     }
   }

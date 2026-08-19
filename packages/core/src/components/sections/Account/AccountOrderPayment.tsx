@@ -22,9 +22,9 @@ const AccountOrderPayment = (props: AccountOrderPaymentProps) => {
   return (
     <Section className="section-account-order-payment">
       <PaymentCard
-        currencyCode={order.storePreferencesData.currencyCode}
+        currencyCode={order.storePreferencesData?.currencyCode ?? ''}
         paymentData={order.paymentData}
-        allowCancellation={order.allowCancellation}
+        allowCancellation={order.allowCancellation ?? undefined}
         labels={labels}
       />
     </Section>

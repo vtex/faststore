@@ -7,7 +7,9 @@ import {
 } from '../orderDetailsLabels'
 
 interface BudgetsCardProps {
-  budgetData: ServerOrderDetailsQueryQuery['userOrder']['budgetData']
+  budgetData: NonNullable<
+    ServerOrderDetailsQueryQuery['userOrder']
+  >['budgetData']
   currencyCode: string
   labels?: OrderBudgetsSectionLabels
 }
@@ -26,11 +28,11 @@ function BudgetsCard({
 
   // Process each budget to display correctly
   const budgetRows = budgetData.budgets
-    .filter(
-      (budget) => budget && budget.allocations && budget.allocations.length > 0
+    .filter((budget): budget is NonNullable<typeof budget> =>
+      Boolean(budget && budget.allocations && budget.allocations.length > 0)
     )
     .map((budget) => {
-      const allocations = budget.allocations.filter(Boolean)
+      const allocations = budget.allocations?.filter(Boolean) ?? []
 
       // Calculate toBeSpent: sum all reservation values from all allocations
       // reservations is an object (key: value), so we need to sum all values

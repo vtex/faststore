@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react'
 import SummaryCard from 'src/components/account/orders/OrderDetails/SummaryCard'
 import {
   type OrderSummarySectionLabels,
@@ -22,9 +23,13 @@ const AccountOrderSummary = (props: AccountOrderSummaryProps) => {
   return (
     <Section className="section-account-order-summary">
       <SummaryCard
-        totals={order.totals}
-        currencyCode={order.storePreferencesData.currencyCode}
-        transactions={order.paymentData.transactions}
+        totals={order.totals as ComponentProps<typeof SummaryCard>['totals']}
+        currencyCode={order.storePreferencesData?.currencyCode ?? ''}
+        transactions={
+          order.paymentData?.transactions as ComponentProps<
+            typeof SummaryCard
+          >['transactions']
+        }
         labels={labels}
       />
     </Section>

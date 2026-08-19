@@ -74,12 +74,12 @@ export const useReorder = () => {
             item && item.id && item.quantity && item.seller && item.quantity > 0
         )
         .map((item) => ({
-          quantity: item.quantity,
+          quantity: item.quantity!,
           seller: {
-            identifier: item.seller,
+            identifier: item.seller!,
           },
-          price: item.price,
-          listPrice: item.price,
+          price: item.price!,
+          listPrice: item.price!,
           priceToken: null,
           itemOffered: {
             sku: item.id ?? '',

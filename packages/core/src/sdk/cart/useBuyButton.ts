@@ -48,7 +48,7 @@ export const useBuyButton = (
 
       function getItems() {
         if (!itemIsArray) {
-          return [generatedItem(item)]
+          return [generatedItem(item!)]
         }
 
         return item.map(generatedItem)

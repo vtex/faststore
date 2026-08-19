@@ -31,8 +31,8 @@ export async function fetchMyAccountPageContent(
           page: pagePath,
         })
 
-        return { sections: [], settings: {} } as PageContentType
-      })) ?? ({ sections: [], settings: {} } as PageContentType)
+        return { sections: [], settings: {} } as unknown as PageContentType
+      })) ?? ({ sections: [], settings: {} } as unknown as PageContentType)
 
   const sections = withDefaultMyAccountSections(
     contentType,

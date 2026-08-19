@@ -13,6 +13,7 @@ import { PickupPointCards } from 'src/components/ui/PickupPoints'
 import {
   PICKUP_IN_POINT_FACET_VALUE,
   PICKUP_POINT_FACET_KEY,
+  type PickupPoint,
   SHIPPING_FACET_KEY,
   useDeliveryPromise,
 } from 'src/sdk/deliveryPromise'
@@ -92,7 +93,9 @@ function RegionSlider() {
       ? (globalPickupPoint?.id ?? null)
       : (selectedPickupPointFacet ?? null)
   )
-  const [validatedSession, setValidatedSession] = useState<Session>(undefined)
+  const [validatedSession, setValidatedSession] = useState<Session | undefined>(
+    undefined
+  )
 
   useEffect(() => inputRef.current?.focus(), [])
 
@@ -102,8 +105,8 @@ function RegionSlider() {
   useEffect(() => {
     if (regionSliderType === 'none') return
 
-    setInput(session.postalCode)
-    setAppliedInput(session.postalCode)
+    setInput(session.postalCode ?? '')
+    setAppliedInput(session.postalCode ?? '')
     setPickupPointOption(
       regionSliderType === 'globalChangePickupPoint'
         ? (globalPickupPoint?.id ?? null)
@@ -146,7 +149,7 @@ function RegionSlider() {
         }
       },
       postalCode: input,
-      errorMessage: inputField?.errorMessage,
+      errorMessage: inputField?.errorMessage ?? '',
       noProductsAvailableErrorMessage:
         inputField?.noProductsAvailableErrorMessage,
     })
@@ -181,11 +184,11 @@ function RegionSlider() {
       })
 
       if (regionSliderType === 'globalChangePickupPoint') {
-        const pickupPointFacet = pickupPoints.find(
+        const pickupPointFacet = pickupPoints?.find(
           (pickupPoint) => pickupPoint.id === pickupPointOption
         )
 
-        changeGlobalPickupPoint(pickupPointFacet)
+        changeGlobalPickupPoint(pickupPointFacet as PickupPoint)
       }
     }
 
@@ -215,8 +218,8 @@ function RegionSlider() {
     shouldClearPickupPointsSimulation = true,
   }: { shouldClearPickupPointsSimulation?: boolean } = {}) => {
     setDataLoading(true)
-    setInput(session.postalCode)
-    setAppliedInput(session.postalCode)
+    setInput(session.postalCode ?? '')
+    setAppliedInput(session.postalCode ?? '')
     setValidatedSession(undefined)
     setPickupPointOption(null)
     shouldClearPickupPointsSimulation && clearPickupPointsSimulation()
@@ -230,7 +233,7 @@ function RegionSlider() {
 
     if (selectedPickupInPointFacets.length === 0) {
       if (regionSliderType === 'globalChangePickupPoint') {
-        changeGlobalPickupPoint(null)
+        changeGlobalPickupPoint(null as unknown as PickupPoint)
         await onDismissSlider()
         return closeRegionSlider()
       }
@@ -239,9 +242,9 @@ function RegionSlider() {
     }
 
     if (isChangingPickupPoint) {
-      changePickupPoint(null)
+      changePickupPoint(null as unknown as PickupPoint)
       regionSliderType === 'globalChangePickupPoint' &&
-        changeGlobalPickupPoint(null)
+        changeGlobalPickupPoint(null as unknown as PickupPoint)
     }
 
     setSearchState({
@@ -356,7 +359,7 @@ function RegionSlider() {
         <UIInputField
           id="region-slider-input-field"
           inputRef={inputRef}
-          label={inputField?.label}
+          label={inputField?.label ?? ''}
           actionable
           value={input}
           buttonActionText={
@@ -382,8 +385,8 @@ function RegionSlider() {
           input === appliedInput &&
           !dataLoading && (
             <PickupPointCards
-              pickupPoints={regionError ? [] : pickupPoints}
-              selectedOption={pickupPointOption}
+              pickupPoints={regionError ? [] : (pickupPoints ?? [])}
+              selectedOption={pickupPointOption ?? undefined}
               onChange={handlePickupPointOnChange}
               noPickupPointsAvailableMessage={
                 pickupPoints?.length === 0

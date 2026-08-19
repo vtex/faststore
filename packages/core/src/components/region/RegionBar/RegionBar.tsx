@@ -38,12 +38,14 @@ export interface RegionBarProps {
 }
 
 function RegionBar({
-  icon: { icon: locationIcon, alt: locationIconAlt },
+  icon,
   buttonIcon = undefined,
   label: locationLabel,
   editLabel = undefined,
   ...otherProps
 }: RegionBarProps) {
+  const locationIcon = icon?.icon
+  const locationIconAlt = icon?.alt
   const {
     RegionBar: RegionBarWrapper,
     LocationIcon,
@@ -89,7 +91,7 @@ function RegionBar({
       icon={
         <LocationIcon.Component
           {...LocationIcon.props}
-          name={locationIcon ?? LocationIcon.props.name}
+          name={locationIcon ?? LocationIcon.props.name ?? ''}
           aria-label={locationIconAlt ?? LocationIcon.props['aria-label']}
         />
       }
@@ -108,7 +110,9 @@ function RegionBar({
           <FilterButtonIcon.Component
             {...FilterButtonIcon.props}
             name={
-              filterByPickupPoint?.icon?.icon ?? FilterButtonIcon.props.name
+              filterByPickupPoint?.icon?.icon ??
+              FilterButtonIcon.props.name ??
+              ''
             }
             aria-label={
               filterByPickupPoint?.icon?.alt ??
@@ -129,7 +133,7 @@ function RegionBar({
       // Dynamic props shouldn't be overridable
       // This decision can be reviewed later if needed
       onButtonClick={openModal}
-      postalCode={postalCode}
+      postalCode={postalCode ?? undefined}
       city={textToTitleCase(city ?? '')}
       {...otherProps}
       ref={regionBarRef}

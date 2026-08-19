@@ -144,7 +144,7 @@ export const RenderSectionsBase = ({
     <>
       {sections.map(({ name, data = {}, $componentKey }, index) => {
         const key = $componentKey ?? name
-        const Component = components[key]
+        const Component = components?.[key]
 
         if (!Component) {
           // TODO: add a documentation link to help to do this
@@ -183,7 +183,7 @@ function RenderSections({
   components = COMPONENTS,
 }: PropsWithChildren<Props>) {
   const { firstSections, lastSections } = useDividedSections(
-    globalSections ?? sections
+    globalSections ?? sections ?? []
   )
 
   const augmentedSections = useMemo(
