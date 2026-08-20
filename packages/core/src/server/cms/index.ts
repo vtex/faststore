@@ -89,7 +89,7 @@ export const getCMSPage = async (
       .then((page) => ({ data: [page] }))
   }
 
-  const pages = []
+  const pages: ContentData[] = []
   const page = 1
   const perPage = 10
   const response = await cmsClient.getCMSPagesByContentType(

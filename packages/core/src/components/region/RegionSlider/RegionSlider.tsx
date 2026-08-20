@@ -1,4 +1,9 @@
-import { toggleFacets, useSearch, type Session } from '@faststore/sdk'
+import {
+  toggleFacets,
+  useSearch,
+  type Facet,
+  type Session,
+} from '@faststore/sdk'
 import {
   useUI,
   type FilterSliderProps as UIFilterSliderProps,
@@ -171,7 +176,7 @@ function RegionSlider() {
     }
 
     // If shipping is not 'pickup-in-point', we need to toggle it
-    const facetsToToggle = []
+    const facetsToToggle: Facet[] = []
     const shippingFacet = searchState.selectedFacets.find(
       (facet) => facet.key === SHIPPING_FACET_KEY
     )

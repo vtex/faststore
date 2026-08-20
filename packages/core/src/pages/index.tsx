@@ -13,7 +13,7 @@ import COMPONENTS from 'src/components/cms/home/Components'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { injectGlobalSections } from 'src/server/cms/global'
-import type { PreviewData } from 'src/server/content/types'
+import type { ContentParams, PreviewData } from 'src/server/content/types'
 import { contentService } from 'src/server/content/service'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../discovery.config'
@@ -169,7 +169,10 @@ export const getStaticProps: GetStaticProps<
   ] = getGlobalSectionsData(contentContext)
   const serverDataPromise = getDynamicContent({ pageType: 'home' })
 
-  let cmsPage = null
+  let cmsPage: Pick<
+    ContentParams,
+    'documentId' | 'versionId' | 'releaseId'
+  > | null = null
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
     cmsPage = cmsData['home'][0]
