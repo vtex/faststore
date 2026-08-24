@@ -60,5 +60,12 @@ export const toProductJsonLdOffer = (
     }
   }
 
+  // `price` resolves to null outside the search and order-form roots. Dropping
+  // the key alone would leave a priceless Offer — the same invalid markup the
+  // no-offer case above avoids, so it gets the same treatment.
+  if (isEmpty(offer.price)) {
+    return undefined
+  }
+
   return offer
 }

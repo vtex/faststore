@@ -111,4 +111,16 @@ describe('toProductJsonLdOffer', () => {
   it('returns undefined when the product has no offer', () => {
     expect(toProductJsonLdOffer(undefined, OBJECT_LEVEL)).toBeUndefined()
   })
+
+  // StoreOffer.price resolves to null outside the search and order-form roots.
+  // Dropping the key alone would leave a priceless Offer, which is exactly the
+  // invalid markup the no-offer case avoids.
+  it.each([
+    ['null', null],
+    ['an empty string', ''],
+  ])('returns undefined when the price is %s', (_label, price) => {
+    expect(
+      toProductJsonLdOffer(makeServerOffer({ price }), OBJECT_LEVEL)
+    ).toBeUndefined()
+  })
 })

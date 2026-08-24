@@ -15,9 +15,17 @@ const MILLISECONDS_THRESHOLD = 1e11
 
 const isAllDigits = (value: string) => /^\d+$/.test(value)
 
+// An ISO date-time with no timezone designator. `new Date()` reads these as
+// host-local time (date-only forms are already read as UTC), which would make
+// the emitted calendar day depend on the build machine's zone.
+const ISO_DATE_TIME_WITHOUT_ZONE =
+  /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/
+
 const toDate = (value: string): Date => {
   if (!isAllDigits(value)) {
-    return new Date(value)
+    return new Date(
+      ISO_DATE_TIME_WITHOUT_ZONE.test(value) ? `${value}Z` : value
+    )
   }
 
   const epoch = Number(value)
@@ -36,7 +44,8 @@ const toDate = (value: string): Date => {
  * on any machine. An input carrying a timezone offset is converted first, which
  * means `2026-03-23T21:00:00-05:00` normalizes to `2026-03-24`. That is
  * deliberate: preserving the source calendar day would make the output depend on
- * the offset embedded in each record.
+ * the offset embedded in each record. An input with no timezone designator is
+ * read as UTC rather than as host-local time, for the same reason.
  */
 export const normalizeReleaseDate = (
   value: string | number | null | undefined
