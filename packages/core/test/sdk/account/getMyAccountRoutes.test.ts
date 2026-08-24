@@ -125,6 +125,10 @@ describe('getMyAccountRoutes', () => {
   it('marks Quotes as a B2B-only route', () => {
     expect(ROUTES_ONLY_FOR_B2B_MEMBERS).toContain(QUOTES_ROUTE)
   })
+
+  it('marks Cards as a B2B-only route', () => {
+    expect(ROUTES_ONLY_FOR_B2B_MEMBERS).toContain(CARDS_ROUTE)
+  })
 })
 
 describe('getExtraMyAccountRoutes', () => {

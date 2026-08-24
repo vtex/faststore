@@ -131,6 +131,20 @@ const getServerSidePropsBase: GetServerSideProps<
     return { redirect }
   }
 
+  // Cards requires a unit/contract association, mirroring the sidebar gate in
+  // account/Layout (ROUTES_ONLY_FOR_B2B_MEMBERS). This resolves O1: the
+  // combinations without an association used to render a lone, inert Personal
+  // tab over a list the Saved-cards service answers 500 for. Gated ahead of
+  // the query so those buyers never trigger that call.
+  if (!hasOrgAssociation) {
+    return {
+      redirect: {
+        destination: '/pvt/account/404',
+        permanent: false,
+      },
+    }
+  }
+
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
