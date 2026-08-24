@@ -37,7 +37,8 @@ export function resetStartRecommendationSessionLock() {
  * Mounted from `Layout` (gated by `experimental.enableRecommendations`) so it
  * runs on every page when the store opts in via discovery config. Also used as
  * a fallback from `RecommendationShelf` when the flag is off and `userId` is
- * missing — pass `enabled` to override the feature flag for that call site.
+ * missing (including while lookup is still pending) — pass `enabled` to
+ * override the feature flag for that call site.
  *
  * Multiple callers still produce a single mutation: the in-memory lock plus the
  * session cookie ensure at most one attempt per browser session.

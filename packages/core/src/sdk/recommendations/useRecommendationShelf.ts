@@ -75,10 +75,10 @@ const EMPTY_ITEMS: RecommendationResponse['products'] = []
  * that consume it, so a new surface can reuse the campaign rules instead of
  * reimplementing them.
  *
- * When `userId` lookup resolves to `null`, starts the personalization session
- * as a fallback (Layout already starts it when
- * `experimental.enableRecommendations` is on). Cookie + in-memory lock keep
- * the mutation to one attempt per browser session.
+ * When `userId` is missing (`undefined` or `null`), starts the personalization
+ * session as a fallback in parallel with cookie retry (Layout already starts
+ * it when `experimental.enableRecommendations` is on). Cookie + in-memory lock
+ * keep the mutation to one attempt per browser session.
  */
 export function useRecommendationShelf({
   campaignVrn,
@@ -86,10 +86,12 @@ export function useRecommendationShelf({
 }: UseRecommendationShelfArgs): UseRecommendationShelfResult {
   const userId = useRecommendationUserId(campaignVrn)
 
-  // Fallback when Layout did not start the session (flag off): every shelf
-  // starts it only after userId lookup confirms no id (null). Pending
-  // (undefined) must not trigger a premature start. Cookie + lock dedupe.
-  useStartRecommendationSession(userId === null)
+  // Fallback when Layout did not start the session (flag off): start in
+  // parallel with cookie lookup. `undefined` and `null` both mean no id yet;
+  // waiting for `null` exhausts the retry budget before the mutation can set
+  // `vtex-rec-user-id`, so the first page would never fetch. Cookie + lock
+  // already no-op when a session exists.
+  useStartRecommendationSession(!userId)
 
   const { data: productDetailPage } = usePDP()
   const { items: cartItems } = useCart()
