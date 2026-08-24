@@ -21,6 +21,9 @@ interface Props {
   globalSections?: Array<{ name: string; data: any }>
   sections?: Array<{ name: string; data: any; $componentKey?: string }>
   isInteractive?: boolean
+}
+
+type RenderSectionsBaseProps = Props & {
   /**
    * Opts the whole render pass out of viewport lazy loading, so every section
    * renders on first paint (SSR HTML included) instead of behind a placeholder.
@@ -29,6 +32,10 @@ interface Props {
    * lazy loading only delays content. The public storefront must not set it.
    *
    * Wider counterpart of the per-section `data.skipLazyLoadingSection` flag.
+   *
+   * Only `RenderSectionsBase` honours it: the default `RenderSections` export
+   * also renders global sections (CartSidebar, RegionModal, RegionSlider),
+   * whose lazy loading is load-bearing, so it must not be opted out wholesale.
    */
   skipLazyLoading?: boolean
 }
@@ -150,7 +157,7 @@ export const RenderSectionsBase = ({
   components,
   isInteractive,
   skipLazyLoading,
-}: Props) => {
+}: RenderSectionsBaseProps) => {
   return (
     <>
       {sections.map(({ name, data = {}, $componentKey }, index) => {
