@@ -5,6 +5,7 @@ export type NativeMyAccountContentType =
   | 'myAccountUserDetails'
   | 'myAccountSecurity'
   | 'myAccountUnauthorized'
+  | 'myAccountCards'
 
 /** Store content-types are opaque strings; native literals keep autocompletion. */
 export type MyAccountContentType = NativeMyAccountContentType | (string & {})
@@ -18,6 +19,7 @@ export type DefaultMyAccountSection = {
 const DEFAULT_SECTION_KEYS: Record<NativeMyAccountContentType, string[]> = {
   myAccountProfile: ['AccountNavigation', 'AccountProfile'],
   myAccountOrders: ['AccountNavigation', 'AccountOrdersList'],
+  myAccountCards: ['AccountNavigation', 'AccountListCards'],
   myAccountOrderDetails: [
     'AccountNavigation',
     'AccountOrderDetails',
