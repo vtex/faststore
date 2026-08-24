@@ -320,6 +320,85 @@ describe('StoreProduct', () => {
       expect(result?.find((e: any) => e.locale === 'pt-BR')).toBeUndefined()
     })
 
+    it('resolves the default locale from availableLinkIds while browsing another locale', async () => {
+      // Intelligent Search localizes linkText to the locale being browsed, so a
+      // pt-BR request reports the pt-BR slug as linkText. The en-US alternate must
+      // come from availableLinkIds, otherwise it points at a URL that 404s.
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'camisa-azul',
+        categories: [],
+        availableLinkIds: { 'en-US': 'blue-shirt', 'pt-BR': 'camisa-azul' },
+      })
+
+      const root = makeRoot({ linkText: 'camisa-azul' })
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'pt-BR',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        defaultLocale: 'en-US',
+        getLocalizedProduct,
+      })
+
+      const result = await (StoreProduct.otherLocales as any)(root, {}, ctx)
+
+      expect(result).toContainEqual({ locale: 'en-US', slug: 'blue-shirt-100' })
+      expect(result).toContainEqual({
+        locale: 'pt-BR',
+        slug: 'camisa-azul-100',
+      })
+      // The whole map comes from a single response — no per-locale fan-out.
+      expect(getLocalizedProduct).toHaveBeenCalledTimes(1)
+    })
+
+    it('omits the default locale rather than guessing when it is absent from availableLinkIds', async () => {
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'camisa-azul',
+        categories: [],
+        availableLinkIds: { 'pt-BR': 'camisa-azul' },
+      })
+
+      const root = makeRoot({ linkText: 'camisa-azul' })
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'pt-BR',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        defaultLocale: 'en-US',
+        getLocalizedProduct,
+      })
+
+      const result = await (StoreProduct.otherLocales as any)(root, {}, ctx)
+
+      expect(result?.find((e: any) => e.locale === 'en-US')).toBeUndefined()
+      expect(result).toContainEqual({
+        locale: 'pt-BR',
+        slug: 'camisa-azul-100',
+      })
+    })
+
+    it('falls back to linkText for the locale being browsed', async () => {
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'camisa-azul',
+        categories: [],
+        availableLinkIds: { 'en-US': 'blue-shirt' },
+      })
+
+      const root = makeRoot({ linkText: 'camisa-azul' })
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'pt-BR',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        defaultLocale: 'en-US',
+        getLocalizedProduct,
+      })
+
+      const result = await (StoreProduct.otherLocales as any)(root, {}, ctx)
+
+      expect(result).toContainEqual({
+        locale: 'pt-BR',
+        slug: 'camisa-azul-100',
+      })
+    })
+
     it('returns null when the Dataplane API throws', async () => {
       const getLocalizedProduct = vi
         .fn()

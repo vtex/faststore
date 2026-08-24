@@ -7,7 +7,6 @@ import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
 import {
   getConfiguredLocales,
-  getDefaultLocale,
   isLocalizationEnabled,
 } from '../utils/localization'
 import { bestOfferFirst } from '../utils/productStock'
@@ -312,7 +311,6 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     const productId = root.isVariantOf.productId
     const itemId = root.itemId
     const locale = ctx.storage.locale
-    const defaultLocale = getDefaultLocale(ctx)
 
     // availableLinkIds returns localized slug for every locale,
     // we fetch for the current locale (reusing the request-scoped cache shared with the slug and
@@ -326,21 +324,21 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
 
     return configuredLocales
       .map((configuredLocale) => {
-        // The default locale always uses the canonical IS linkText: it is always
-        // present and matches the Query.product `slug.startsWith(linkText)` fast
-        // path, so the fallback URL resolves cleanly even when the catalog has no
-        // default-locale entry in availableLinkIds.
-        if (configuredLocale === defaultLocale) {
-          return { locale: configuredLocale, slug: getSlug(linkText, itemId) }
-        }
+        // Intelligent Search localizes linkText to the locale being browsed, so it
+        // can only stand in for that locale. Using it for the default locale while
+        // browsing another one produces the browsed locale's slug under the default
+        // locale's prefix, which 404s.
+        const linkId =
+          availableLinkIds[configuredLocale] ??
+          (configuredLocale === locale ? linkText : undefined)
 
-        // Non-default locales only appear when they have a registered localized slug
-        // in availableLinkIds. Untranslated locales are omitted so they are never
-        // advertised as hreflang alternates — this keeps the hreflang cluster
-        // symmetric across all locale variants of the product (every variant emits
-        // the same set: default + translated locales). The LocalizationSelector
-        // falls back to the default slug under the target prefix for omitted locales.
-        const linkId = availableLinkIds[configuredLocale]
+        // Locales with no registered localized slug are omitted rather than
+        // guessed, so an alternate is only ever advertised for a slug the catalog
+        // actually resolves. A product with no translations at all therefore
+        // advertises only the locale being browsed; emitting the untranslated slug
+        // for every locale would advertise URLs for locales that may not sell the
+        // product. The LocalizationSelector falls back to the default slug under
+        // the target prefix for omitted locales.
         return linkId
           ? { locale: configuredLocale, slug: getSlug(linkId, itemId) }
           : null
