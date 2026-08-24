@@ -21,6 +21,16 @@ interface Props {
   globalSections?: Array<{ name: string; data: any }>
   sections?: Array<{ name: string; data: any; $componentKey?: string }>
   isInteractive?: boolean
+  /**
+   * Opts the whole render pass out of viewport lazy loading, so every section
+   * renders on first paint (SSR HTML included) instead of behind a placeholder.
+   *
+   * Meant for authenticated, above-the-fold pages such as My Account, where
+   * lazy loading only delays content. The public storefront must not set it.
+   *
+   * Wider counterpart of the per-section `data.skipLazyLoadingSection` flag.
+   */
+  skipLazyLoading?: boolean
 }
 
 const REGION_SLIDER_SECTION_NAME = 'RegionSlider'
@@ -139,6 +149,7 @@ export const RenderSectionsBase = ({
   sections = [],
   components,
   isInteractive,
+  skipLazyLoading,
 }: Props) => {
   return (
     <>
@@ -159,7 +170,7 @@ export const RenderSectionsBase = ({
 
         return (
           <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
-            {data.skipLazyLoadingSection ? (
+            {skipLazyLoading || data.skipLazyLoadingSection ? (
               <Component {...sectionProps} />
             ) : (
               <LazyLoadingSection

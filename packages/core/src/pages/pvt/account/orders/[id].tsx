@@ -76,6 +76,7 @@ export default function OrderDetailsPage({
           <OrderDetailsPageShell>
             <main data-fs-order-details-content>
               <RenderSectionsBase
+                skipLazyLoading
                 sections={pageSections}
                 components={ACCOUNT_COMPONENTS}
               />
