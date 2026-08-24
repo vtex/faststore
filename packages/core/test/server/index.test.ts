@@ -73,6 +73,8 @@ const QUERIES = [
   'profile',
   'productCount',
   'userOrder',
+  'listCreditCards',
+  'hasAdHocCardAccess',
   'listUserOrders',
   'listUserQuotes',
   'userDetails',

@@ -46,12 +46,14 @@ export const runCommandSync = ({
   errorMessage,
   throws,
   cwd,
+  env,
   interactive = false,
 }: {
   cmd: string
   errorMessage: string
   throws: 'warning' | 'error'
   cwd?: string
+  env?: NodeJS.ProcessEnv
   interactive?: boolean
 }) => {
   try {
@@ -70,6 +72,7 @@ export const runCommandSync = ({
     const res = execSync(interactive ? cmd : `${cmd} 2>&1`, {
       stdio: interactive ? 'inherit' : 'pipe',
       cwd,
+      env,
     })
     logger.log(`[STATUS] ${res?.toString() ?? 'Unknown'}`)
     logger.log(`[FINISHED] ${cmd}`)

@@ -7,6 +7,7 @@ import dotenv from 'dotenv'
 import { cpSync, existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { withNodeModulesBins } from '../utils/binPaths'
 import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
@@ -68,6 +69,7 @@ async function storeDev(
     errorMessage: `The "predev" step ("${packageManager} predev") failed inside the ".faststore" directory. See the error output below for details.`,
     throws: 'error',
     cwd: tmpDir,
+    env: withNodeModulesBins(tmpDir),
   })
 
   const { success } = copyGenerated(
@@ -89,10 +91,10 @@ async function storeDev(
     cwd: tmpDir,
     signal: devAbortController.signal,
     stdio: ['inherit', 'pipe', 'inherit'],
-    env: {
+    env: withNodeModulesBins(tmpDir, {
       ...process.env,
       ...envVars,
-    },
+    }),
   })
 
   let nextStdout = ''
