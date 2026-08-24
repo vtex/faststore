@@ -85,9 +85,24 @@ describe('Cards page getServerSideProps', () => {
     expect(mockExecute).not.toHaveBeenCalled()
   })
 
-  it('redirects to /pvt/account/403 when the query fails with 401/403', async () => {
+  it('redirects to /pvt/account/404 when the buyer has no org association, before querying', async () => {
     mockGetB2BSessionClaims.mockReturnValueOnce({
       hasOrgAssociation: false,
+      hasCustomerId: false,
+    })
+
+    const result: any = await getServerSideProps(makeContext())
+
+    expect(result.redirect.destination).toBe('/pvt/account/404')
+    // Gated ahead of the Saved-cards call: a buyer who cannot reach the page
+    // must not cost a round trip to a service that answers 500 for shoppers
+    // with no customer record.
+    expect(mockExecute).not.toHaveBeenCalled()
+  })
+
+  it('redirects to /pvt/account/403 when the query fails with 401/403', async () => {
+    mockGetB2BSessionClaims.mockReturnValueOnce({
+      hasOrgAssociation: true,
       hasCustomerId: false,
     })
     mockExecute.mockResolvedValueOnce({
@@ -102,7 +117,7 @@ describe('Cards page getServerSideProps', () => {
 
   it('renders the error state (no redirect) when the query fails with a non-auth status', async () => {
     mockGetB2BSessionClaims.mockReturnValueOnce({
-      hasOrgAssociation: false,
+      hasOrgAssociation: true,
       hasCustomerId: false,
     })
     mockExecute.mockResolvedValueOnce({
@@ -135,7 +150,7 @@ describe('Cards page getServerSideProps', () => {
     expect(result.props).not.toHaveProperty('hasAdHocCardAccess')
   })
 
-  it('never gates the route: canViewPersonalCards is false but no redirect happens', async () => {
+  it('does not gate the route on useAdHocCard: canViewPersonalCards is false but an org member still gets the page', async () => {
     mockGetB2BSessionClaims.mockReturnValueOnce({
       hasOrgAssociation: true,
       hasCustomerId: false,
@@ -165,21 +180,10 @@ describe('Cards page getServerSideProps', () => {
     expect(result.props.accountPageData.sharedCards).toEqual([CARD_SHARED])
   })
 
-  it('keeps personal cards in the payload when there is no org association, even though canViewPersonalCards is false (FR-7: B2C buyers are never subject to this check)', async () => {
-    mockGetB2BSessionClaims.mockReturnValueOnce({
-      hasOrgAssociation: false,
-      hasCustomerId: false,
-    })
-    mockSuccessfulExecute({ hasAdHocCardAccess: false })
-
-    const result: any = await getServerSideProps(makeContext())
-
-    // Without hasOrgAssociation, the component still renders the Personal
-    // tab (the "kept as-is" O1 combination) — stripping the data here would
-    // silently regress a buyer this gate was never meant to touch, even
-    // though canViewPersonalCards itself is false.
-    expect(result.props.accountPageData.personalCards).toEqual([CARD_PERSONAL])
-  })
+  // The previous FR-7 case ("keeps personal cards in the payload when there is
+  // no org association") is gone by design: O1 was resolved by gating the
+  // route on org membership, so that combination now 404s and never reaches a
+  // payload at all. See the no-org-association gate test above.
 
   it('defaults hasAdHocCardAccess to allowed when the query field is missing', async () => {
     mockGetB2BSessionClaims.mockReturnValueOnce({
