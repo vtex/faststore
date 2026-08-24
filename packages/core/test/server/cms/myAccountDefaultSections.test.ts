@@ -20,6 +20,50 @@ describe('getDefaultMyAccountSections', () => {
   it('returns an empty list for store (unknown) content-types', () => {
     expect(getDefaultMyAccountSections('myAccountWishlist')).toEqual([])
   })
+
+  /**
+   * SFS-3325 — the order-details defaults must mirror the render order of the
+   * `@deprecated OrderDetails.tsx` component, which is the design reference
+   * available in the repo. The delivery option accordions travel with
+   * AccountOrderDelivery, which is the single known deviation.
+   */
+  it('orders the myAccountOrderDetails defaults like the deprecated component', () => {
+    expect(
+      getDefaultMyAccountSections('myAccountOrderDetails').map(
+        (section) => section.$componentKey
+      )
+    ).toEqual([
+      'AccountNavigation',
+      'AccountOrderDetails',
+      'AccountOrderOrderedBy',
+      'AccountOrderDelivery',
+      'AccountOrderStatus',
+      'AccountOrderPayment',
+      'AccountOrderSummary',
+      'AccountOrderMoreInfo',
+      'AccountOrderBudgets',
+    ])
+  })
+
+  it('keeps the myAccountOrderDetails default section set unchanged', () => {
+    const keys = getDefaultMyAccountSections('myAccountOrderDetails').map(
+      (section) => section.$componentKey
+    )
+
+    expect(new Set(keys)).toEqual(
+      new Set([
+        'AccountNavigation',
+        'AccountOrderDetails',
+        'AccountOrderStatus',
+        'AccountOrderPayment',
+        'AccountOrderDelivery',
+        'AccountOrderSummary',
+        'AccountOrderOrderedBy',
+        'AccountOrderBudgets',
+        'AccountOrderMoreInfo',
+      ])
+    )
+  })
 })
 
 describe('withDefaultMyAccountSections', () => {
