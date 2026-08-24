@@ -9,6 +9,7 @@ import {
   type IProcessOrderAuthorization,
   type IUserOrderCancel,
   type QueryListUserOrdersArgs,
+  type SavedCard,
   type StoreMarketingData,
   type UserOrder,
   type UserOrderCancel,
@@ -836,6 +837,23 @@ export const VtexCommerce = (
         )
       },
     },
+    savedCards: {
+      listCreditCards: (): Promise<SavedCard[]> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/saved-cards/credit-card?an=${account}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
+    },
     units: {
       getUnitByUserId: ({
         userId,
@@ -945,6 +963,30 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/license-manager/storefront/users/${userId}/roles`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+      /**
+       * Whether a License Manager resource key is granted to the user. The
+       * endpoint resolves the user's roles into the resource key server-side,
+       * so callers never have to match role names (which are account-
+       * configurable). Responds with a bare boolean.
+       */
+      isResourceGranted: ({
+        userId,
+        resourceKey,
+      }: { userId: string; resourceKey: string }): Promise<boolean> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/license-manager/storefront/bff/users/${userId}/resources/${resourceKey}/granted?an=${account}`,
           {
             method: 'GET',
             headers,
