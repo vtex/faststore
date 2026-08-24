@@ -2,16 +2,20 @@ import { execute, parse } from 'graphql'
 import { beforeEach, expect, test, vi } from 'vitest'
 import { GraphqlVtexContextFactory, GraphqlVtexSchema } from '../../src'
 import {
+  CartWithServiceOnOneUnit,
   InvalidCart,
   ValidCart,
   ValidateCartMutation,
   checkoutOrderFormCustomDataInvalidFetch,
   checkoutOrderFormCustomDataStaleFetch,
   checkoutOrderFormCustomDataValidFetch,
+  checkoutOrderFormCustomDataWithServiceFetch,
   checkoutOrderFormInvalidFetch,
   checkoutOrderFormItemsInvalidFetch,
+  checkoutOrderFormItemsWithServiceFetch,
   checkoutOrderFormStaleFetch,
   checkoutOrderFormValidFetch,
+  checkoutOrderFormWithServiceFetch,
   createProductFetchResultForSku,
   productSearchPage1Count1Fetch,
 } from '../mocks/ValidateCartMutation'
@@ -296,4 +300,34 @@ test('`validateCart` adopts orderForm SC on stale etag without refetching sessio
   expect(response.errors).toBeUndefined()
   expect(response.data?.validateCart).not.toBeNull()
   expect(response.data?.validateCart?.order?.salesChannel).toBe('2')
+})
+
+test('`validateCart` keeps services attached when only some units carry them', async () => {
+  const run = await createRunner()
+
+  mockedFetch.mockImplementation((info, init) =>
+    pickFetchAPICallResult(info, init, [
+      checkoutOrderFormWithServiceFetch,
+      checkoutOrderFormItemsWithServiceFetch,
+      checkoutOrderFormCustomDataWithServiceFetch,
+    ])
+  )
+
+  await run(ValidateCartMutation, { cart: CartWithServiceOnOneUnit })
+
+  const updateCall = mockedFetch.mock.calls.find(
+    ([info, init]) =>
+      String(info).includes('/items?') && init?.method === 'PATCH'
+  )
+
+  const orderItems = updateCall
+    ? JSON.parse(String(updateCall[1].body)).orderItems
+    : []
+
+  // Collapsing the group onto `head` sets the whole quantity on the first line
+  // and zeroes the rest. The line being zeroed is the one carrying the service,
+  // so the shopper silently loses it.
+  expect(
+    orderItems.some((item: { quantity: number }) => item.quantity === 0)
+  ).toBe(false)
 })
