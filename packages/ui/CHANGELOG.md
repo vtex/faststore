@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.7.0-dev.3](https://github.com/vtex/faststore/compare/v4.7.0-dev.2...v4.7.0-dev.3) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/ui
+
+# [4.7.0-dev.2](https://github.com/vtex/faststore/compare/v4.7.0-dev.1...v4.7.0-dev.2) (2026-08-24)
+
+**Note:** Version bump only for package @faststore/ui
+
 # [4.7.0-dev.1](https://github.com/vtex/faststore/compare/v4.7.0-dev.0...v4.7.0-dev.1) (2026-08-24)
 
 **Note:** Version bump only for package @faststore/ui

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.7.0-dev.3](https://github.com/vtex/faststore/compare/v4.7.0-dev.2...v4.7.0-dev.3) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.7.0-dev.2](https://github.com/vtex/faststore/compare/v4.7.0-dev.1...v4.7.0-dev.2) (2026-08-24)
+
+### Bug Fixes
+
+- gate the Cards route and sidebar entry on org membership ([#3463](https://github.com/vtex/faststore/issues/3463)) ([fa8c42e](https://github.com/vtex/faststore/commit/fa8c42e4bf242de9122dd79ba2681f9117f71695)), closes [#3443](https://github.com/vtex/faststore/issues/3443) [#3443](https://github.com/vtex/faststore/issues/3443) [#3443](https://github.com/vtex/faststore/issues/3443) [#3443](https://github.com/vtex/faststore/issues/3443) [#3443](https://github.com/vtex/faststore/issues/3443)
+
 # [4.7.0-dev.1](https://github.com/vtex/faststore/compare/v4.7.0-dev.0...v4.7.0-dev.1) (2026-08-24)
 
 **Note:** Version bump only for package @faststore/core
