@@ -21,7 +21,6 @@ export function RecommendationShelf<
 >({
   title,
   campaignVrn,
-  enableRecommendations = false,
   itemsContext = 'PDP',
   ProductCard,
   mapProductToProductCard,
@@ -56,7 +55,6 @@ export function RecommendationShelf<
   const { items, isLoading, error, campaign, correlationId } =
     useRecommendationShelf({
       campaignVrn,
-      enableRecommendations,
       itemsContext,
     })
 
