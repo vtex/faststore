@@ -37,7 +37,7 @@ export const SECURITY_ROUTE = '/pvt/account/security'
 export const CARDS_ROUTE = '/pvt/account/cards'
 export const QUOTES_ROUTE = '/pvt/account/quotes'
 
-export const ROUTES_ONLY_FOR_B2B_MEMBERS = [QUOTES_ROUTE]
+export const ROUTES_ONLY_FOR_B2B_MEMBERS = [QUOTES_ROUTE, CARDS_ROUTE]
 
 const ROUTE_LABEL_KEYS: Record<string, keyof AccountNavigationLabels> = {
   [PROFILE_ROUTE]: 'profileLabel',
