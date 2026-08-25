@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.7.0-dev.4](https://github.com/vtex/faststore/compare/v4.7.0-dev.3...v4.7.0-dev.4) (2026-08-25)
+
+### Bug Fixes
+
+- **core:** address Sonar and session fallback timing ([c0ad09f](https://github.com/vtex/faststore/commit/c0ad09f4903627ce39b233013af40ab2505b5871))
+- **core:** make session enable flag assignment Sonar-clear ([2fdfe96](https://github.com/vtex/faststore/commit/2fdfe96d6dccb22c33fb9f7f250f5531ef6f6f47))
+- **core:** start shelf session fallback in parallel with userId lookup ([6f5afa5](https://github.com/vtex/faststore/commit/6f5afa587a554ab9a4289c01aa6c6eb57e027680))
+
+### Features
+
+- **core:** gate recommendation session by feature flag with shelf fallback ([901b345](https://github.com/vtex/faststore/commit/901b3456943de25f028d6443f5f62b9de1db6ad3))
+
 # [4.7.0-dev.3](https://github.com/vtex/faststore/compare/v4.7.0-dev.2...v4.7.0-dev.3) (2026-08-25)
 
 ### Bug Fixes
