@@ -128,9 +128,8 @@
   //   1. `[class~="section-account-order-*"]` — the live contract for the CMS render.
   //   2. `[data-fs-delivery-option-accordion]` — ALSO live: the delivery wrapper is
   //      `display: contents`, so the accordion is a direct grid item again.
-  //   3. `[data-fs-order-status-card]`, `[data-fs-order-budgets-card]`,
-  //      `[data-fs-buying-policy-alert]`, `[data-fs-pending-policies-alert]` — dead for
-  //      the CMS render; they only serve `@deprecated OrderDetails.tsx`. Removed by SFS-3345.
+  //   3. `[data-fs-order-status-card]`, `[data-fs-order-budgets-card]` — dead for the
+  //      CMS render; they only serve `@deprecated OrderDetails.tsx`. Removed by SFS-3345.
   [data-fs-order-details-content] {
     display: flex;
     flex-direction: column;
@@ -168,14 +167,6 @@
 
     // (3) Dead for the CMS render — kept for `@deprecated OrderDetails.tsx` only.
     [data-fs-order-status-card] {
-      grid-column: span 2;
-    }
-
-    [data-fs-buying-policy-alert] {
-      grid-column: span 2;
-    }
-
-    [data-fs-pending-policies-alert] {
       grid-column: span 2;
     }
 
