@@ -1,4 +1,4 @@
-@use "sass:meta";
+@use 'sass:meta';
 
 @layer components {
   // Rendered as a direct child of `[data-fs-cart-sidebar]`, which is a flex
@@ -7,11 +7,15 @@
   // Passed to `RecommendationShelf` as `className`, so page-section utilities
   // (`section-product-shelf`, `layout__section`, …) are not applied.
   .shelf {
-    padding: var(--fs-spacing-3) 0;
+    --fs-product-shelf-items-padding-top: 0;
+    --fs-product-shelf-items-padding-bottom: var(--fs-spacing-1);
+    --fs-carousel-item-margin-right: var(--fs-spacing-2);
+
+    padding: var(--fs-spacing-2) 0;
     border-top: var(--fs-border-width) solid var(--fs-border-color-light);
 
     [data-fs-recommendation-shelf-title] {
-      padding: 0 var(--fs-spacing-3) var(--fs-spacing-3);
+      padding: 0 var(--fs-spacing-3) var(--fs-spacing-2);
       margin: 0;
       font-size: var(--fs-text-size-2);
       font-weight: var(--fs-text-weight-semibold);
@@ -39,8 +43,10 @@
     [data-fs-product-card] {
       --fs-product-card-min-width: 0;
       --fs-product-card-gap: var(--fs-spacing-1);
+      --fs-product-card-padding: var(--fs-spacing-1);
       --fs-product-card-title-size: var(--fs-text-size-1);
       --fs-product-card-price-size: var(--fs-text-size-1);
+      --fs-product-card-title-max-lines: 2;
     }
 
     // Full-width add-to-cart so the action stays tappable on ~half-drawer cards.
@@ -49,42 +55,79 @@
 
       [data-fs-button] {
         width: 100%;
+        --fs-button-height: var(--fs-spacing-6);
+        --fs-button-text-size: var(--fs-text-size-1);
+        --fs-button-padding: var(--fs-spacing-0) var(--fs-spacing-1);
+        --fs-button-gap: var(--fs-spacing-1);
       }
     }
 
-    @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles");
-    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles");
-    @include meta.load-css("~@faststore/ui/src/components/atoms/SROnly/styles");
+    @include meta.load-css('~@faststore/ui/src/components/atoms/Button/styles');
+    @include meta.load-css('~@faststore/ui/src/components/atoms/Icon/styles');
+    @include meta.load-css('~@faststore/ui/src/components/atoms/SROnly/styles');
     @include meta.load-css(
-      "~@faststore/ui/src/components/atoms/Skeleton/styles"
+      '~@faststore/ui/src/components/atoms/Skeleton/styles'
     );
     @include meta.load-css(
-      "~@faststore/ui/src/components/molecules/Carousel/styles"
+      '~@faststore/ui/src/components/molecules/Carousel/styles'
     );
     @include meta.load-css(
-      "~@faststore/ui/src/components/molecules/DiscountBadge/styles"
+      '~@faststore/ui/src/components/molecules/DiscountBadge/styles'
     );
     @include meta.load-css(
-      "~@faststore/ui/src/components/molecules/ProductCard/styles"
+      '~@faststore/ui/src/components/molecules/ProductCard/styles'
     );
     @include meta.load-css(
-      "~@faststore/ui/src/components/molecules/ProductCardSkeleton/styles"
+      '~@faststore/ui/src/components/molecules/ProductCardSkeleton/styles'
     );
     @include meta.load-css(
-      "~@faststore/ui/src/components/molecules/Rating/styles"
+      '~@faststore/ui/src/components/molecules/Rating/styles'
     );
     @include meta.load-css(
-      "~@faststore/ui/src/components/organisms/ProductShelf/styles"
+      '~@faststore/ui/src/components/organisms/ProductShelf/styles'
     );
 
-    // Let navigation arrows sit just outside the padded track.
+    // Keep the product fully visible: `cover` plus a height cap was clipping
+    // photos on both the wide drawer and the narrow one. A square box with
+    // `contain` stays compact without cropping.
+    [data-fs-product-card] [data-fs-product-card-image],
+    [data-fs-product-card-skeleton-image] {
+      aspect-ratio: 1;
+      width: min(100%, 7.5rem);
+      margin-inline: auto;
+      background-color: var(--fs-color-neutral-1);
+
+      img {
+        object-fit: contain;
+      }
+    }
+
+    [data-fs-product-card-skeleton] {
+      --fs-product-card-skeleton-sectioned-min-width: 0;
+      --fs-product-card-skeleton-padding: var(--fs-spacing-1);
+    }
+
+    // The drawer (and `[data-fs-product-shelf-items]`) clips overflow, so
+    // arrows must stay inside the padded carousel — not offset outside it.
+    [data-fs-product-shelf-items] {
+      overflow: visible;
+    }
+
     [data-fs-carousel] {
-      padding: 0;
+      padding: 0 var(--fs-spacing-3);
+      overflow: visible;
+
+      [data-fs-carousel-track] {
+        padding: 0;
+      }
 
       [data-fs-carousel-controls] {
-        width: calc(100% + 2 * var(--fs-control-tap-size));
+        width: 100%;
+        pointer-events: auto;
+        opacity: 1;
 
         [data-fs-button] {
+          --fs-button-height: var(--fs-spacing-6);
           width: var(--fs-button-height);
           min-width: var(--fs-button-height);
         }
