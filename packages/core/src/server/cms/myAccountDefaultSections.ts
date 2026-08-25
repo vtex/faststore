@@ -23,8 +23,8 @@ const DEFAULT_SECTION_KEYS: Record<NativeMyAccountContentType, string[]> = {
   // Mirrors the render order of the `@deprecated OrderDetails.tsx` component,
   // which is the design reference available in the repo. The delivery option
   // accordions render inside AccountOrderDelivery, so they sit right after the
-  // compact delivery card instead of after the summary — known deviation, see
-  // specs/order-details-layout-fix.md (Decision 3).
+  // compact delivery card instead of after the summary. Known deviation: fixing
+  // it would mean splitting AccountOrderDelivery into two CMS sections.
   myAccountOrderDetails: [
     'AccountNavigation',
     'AccountOrderDetails',

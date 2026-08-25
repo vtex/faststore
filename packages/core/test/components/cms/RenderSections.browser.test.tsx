@@ -7,7 +7,7 @@ import { RenderSectionsBase } from 'src/components/cms/RenderSections'
 import { getDefaultMyAccountSections } from 'src/server/cms/myAccountDefaultSections'
 
 /**
- * SFS-3325 — first-paint behavior of the My Account pages.
+ * First-paint behavior of the My Account pages.
  *
  * Sections rendered through `RenderSectionsBase` go through `ViewportObserver`,
  * which emits an 823px-tall placeholder instead of the section content until the

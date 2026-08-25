@@ -22,7 +22,7 @@ describe('getDefaultMyAccountSections', () => {
   })
 
   /**
-   * SFS-3325 — the order-details defaults must mirror the render order of the
+   * The order-details defaults must mirror the render order of the
    * `@deprecated OrderDetails.tsx` component, which is the design reference
    * available in the repo. The delivery option accordions travel with
    * AccountOrderDelivery, which is the single known deviation.
