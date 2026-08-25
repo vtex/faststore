@@ -16,6 +16,8 @@ import type {
 } from './RecommendationShelf.types'
 import styles from './section.module.scss'
 
+const DEFAULT_SECTION_CLASS_NAME = `${styles.section} section-product-shelf layout__section section`
+
 export function RecommendationShelf<
   TCardProps extends object = ProductCardProps,
 >({
@@ -23,6 +25,9 @@ export function RecommendationShelf<
   campaignVrn,
   enableRecommendations = false,
   itemsContext = 'PDP',
+  freezeContext = false,
+  className,
+  afElement = 'recommendation-shelf',
   ProductCard,
   mapProductToProductCard,
   carouselConfiguration,
@@ -58,6 +63,7 @@ export function RecommendationShelf<
       campaignVrn,
       enableRecommendations,
       itemsContext,
+      freezeContext,
     })
 
   const campaignId = campaign?.id
@@ -84,10 +90,10 @@ export function RecommendationShelf<
 
   return (
     <section
-      className={`${styles.section} section-product-shelf layout__section section`}
+      className={className ?? DEFAULT_SECTION_CLASS_NAME}
       {...(shouldAddAFAttr
         ? {
-            'data-af-element': 'recommendation-shelf' as const,
+            'data-af-element': afElement,
             'data-af-onimpression': true,
             'data-af-onview': true,
             'data-af-correlation-id': correlationId,
@@ -96,9 +102,15 @@ export function RecommendationShelf<
           }
         : {})}
     >
-      <ProductShelfSkeleton loading={isLoading} itemsPerPage={itemsPerPage}>
+      <ProductShelfSkeleton
+        loading={isLoading}
+        itemsPerPage={Math.ceil(itemsPerPage)}
+      >
         {(title || campaign?.title) && (
-          <h2 className="text__title-section layout__content">
+          <h2
+            className="text__title-section layout__content"
+            data-fs-recommendation-shelf-title
+          >
             {title || campaign?.title}
           </h2>
         )}
@@ -120,7 +132,7 @@ export function RecommendationShelf<
                   data-fs-recommendation-shelf-item
                   {...(shouldAddAFAttr
                     ? {
-                        'data-af-element': 'recommendation-shelf-product',
+                        'data-af-element': `${afElement}-product`,
                         'data-af-correlation-id': correlationId,
                         'data-af-campaign-id': campaignId,
                         'data-af-product-id': productId,

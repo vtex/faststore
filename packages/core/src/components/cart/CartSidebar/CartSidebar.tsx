@@ -8,6 +8,7 @@ import type {
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { Icon, useFadeEffect, useUI } from '@faststore/ui'
 import { type ReactNode, useCallback, useEffect, useMemo } from 'react'
+import type { CartRecommendationShelfProps } from '../CartRecommendationShelf'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
@@ -56,6 +57,15 @@ const CartItem = dynamic(
 )
 const OrderSummary = dynamic(
   () => import(/* webpackChunkName: "OrderSummary" */ '../OrderSummary'),
+  { ssr: false }
+)
+// Kept in its own chunk so stores without a mini cart shelf never download the
+// shelf or the product card/carousel styles it pulls in.
+const CartRecommendationShelf = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "CartRecommendationShelf" */ '../CartRecommendationShelf'
+    ),
   { ssr: false }
 )
 
@@ -127,6 +137,18 @@ export interface CartSidebarProps {
     usePriceWithTaxes?: boolean
     taxesLabel?: string
   }
+  /**
+   * Optional recommendation shelf rendered inside the drawer. Absent or
+   * disabled (the default) keeps the drawer exactly as it was: no
+   * personalization session, no request, nothing rendered.
+   *
+   * Taxes are not configured here — the shelf reuses the drawer's own
+   * `taxesConfiguration` so recommended products and cart items price alike.
+   * `ProductCard` / `mapProductToProductCard` are code-level overrides (same
+   * contract as the page `RecommendationShelf`) and are omitted from the CMS
+   * schema; store customizations can still pass them when wrapping this section.
+   */
+  recommendations?: Omit<CartRecommendationShelfProps, 'taxesConfiguration'>
 }
 
 function CartSidebar({
@@ -143,6 +165,7 @@ function CartSidebar({
   },
   quantitySelector,
   taxesConfiguration,
+  recommendations,
 }: CartSidebarProps) {
   const btnProps = useCheckoutButton()
   const {
@@ -160,6 +183,17 @@ function CartSidebar({
   const { sendViewCartEvent } = useViewCartEvent()
 
   const isEmpty = useMemo(() => items.length === 0, [items])
+
+  // Context-agnostic campaigns (top items, personalized, last seen) still
+  // produce results on an empty cart, so the shelf renders in both states and
+  // suppresses itself when a context-based campaign has nothing to anchor on.
+  const recommendationShelf =
+    recommendations?.enableRecommendations && recommendations.campaignVrn ? (
+      <CartRecommendationShelf
+        {...recommendations}
+        taxesConfiguration={taxesConfiguration}
+      />
+    ) : null
 
   useEffect(() => {
     if (!displayCart) {
@@ -183,11 +217,13 @@ function CartSidebar({
           onClose={fadeOut}
         >
           {isEmpty ? (
-            <EmptyCart
-              title={emptyCart?.title}
-              buttonLabel={emptyCart?.buttonLabel}
-              onDismiss={closeCart}
-            />
+            <>
+              <EmptyCart
+                title={emptyCart?.title}
+                buttonLabel={emptyCart?.buttonLabel}
+                onDismiss={closeCart}
+              />
+            </>
           ) : (
             <>
               <UICartSidebarList>
@@ -214,6 +250,7 @@ function CartSidebar({
               </UICartSidebarList>
 
               <UICartSidebarFooter>
+                {recommendationShelf}
                 <OrderSummary
                   subTotal={
                     taxesConfiguration?.usePriceWithTaxes

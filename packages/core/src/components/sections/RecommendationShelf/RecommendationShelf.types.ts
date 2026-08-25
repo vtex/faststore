@@ -45,6 +45,26 @@ export type RecommendationShelfProps<
    */
   readonly itemsContext?: ItemContext
   /**
+   * Keeps the resolved context products stable for the lifetime of the shelf
+   * instead of tracking the live cart/PDP context. Used by the cart drawer so
+   * adding a recommended product does not reshuffle the carousel.
+   * @default false
+   */
+  readonly freezeContext?: boolean
+  /**
+   * Replaces the default page-section class list. Surfaces like the cart drawer
+   * pass their own module class so the shelf does not pick up full-page layout
+   * utilities (`section-product-shelf`, `layout__section`, …).
+   */
+  readonly className?: string
+  /**
+   * Activity Flow element name for the shelf root (product items append
+   * `-product`). Defaults to `recommendation-shelf`; the cart drawer uses
+   * `cart-recommendation-shelf` so the two surfaces can be attributed separately.
+   * @default 'recommendation-shelf'
+   */
+  readonly afElement?: string
+  /**
    * Custom card component rendered for each recommended product. Defaults to the
    * core `ProductCard`. This is a code-level override and is not exposed through
    * the CMS schema (`cms_component__recommendationshelf.jsonc`).

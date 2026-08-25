@@ -85,4 +85,83 @@ describe('hasEnabledRecommendationShelf', () => {
       })
     ).toBe(true)
   })
+
+  it('returns true when the cart sidebar enables its mini cart shelf', () => {
+    expect(
+      hasEnabledRecommendationShelf({
+        globalSections: {
+          sections: [
+            {
+              name: 'CartSidebar',
+              data: {
+                title: 'Your cart',
+                recommendations: {
+                  enableRecommendations: true,
+                  campaignVrn: 'vrn:x',
+                },
+              },
+            },
+          ],
+        },
+      })
+    ).toBe(true)
+  })
+
+  it('returns true when the cart sidebar is identified by $componentKey', () => {
+    expect(
+      hasEnabledRecommendationShelf({
+        globalSections: {
+          sections: [
+            {
+              $componentKey: 'CartSidebar',
+              data: { recommendations: { enableRecommendations: true } },
+            },
+          ],
+        },
+      })
+    ).toBe(true)
+  })
+
+  it('returns false when the cart sidebar has no recommendations configured', () => {
+    expect(
+      hasEnabledRecommendationShelf({
+        globalSections: {
+          sections: [{ name: 'CartSidebar', data: { title: 'Your cart' } }],
+        },
+      })
+    ).toBe(false)
+  })
+
+  it('returns false when the cart sidebar shelf is configured but disabled', () => {
+    expect(
+      hasEnabledRecommendationShelf({
+        globalSections: {
+          sections: [
+            {
+              name: 'CartSidebar',
+              data: {
+                recommendations: {
+                  enableRecommendations: false,
+                  campaignVrn: 'vrn:x',
+                },
+              },
+            },
+          ],
+        },
+      })
+    ).toBe(false)
+  })
+
+  it('does not opt in from a non-cart section carrying a recommendations object', () => {
+    expect(
+      hasEnabledRecommendationShelf({
+        sections: [
+          {
+            name: 'ProductShelf',
+            data: { recommendations: { enableRecommendations: true } },
+          },
+        ],
+      })
+    ).toBe(false)
+  })
 })

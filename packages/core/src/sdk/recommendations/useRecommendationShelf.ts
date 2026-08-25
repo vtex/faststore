@@ -1,5 +1,5 @@
 import { usePDP } from '@faststore/core'
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 
 import { useCart } from 'src/sdk/cart'
 
@@ -61,6 +61,18 @@ export type UseRecommendationShelfArgs = {
    * @default 'PDP'
    */
   readonly itemsContext?: ItemContext
+  /**
+   * Keeps the resolved context products stable for the lifetime of this hook
+   * instead of tracking the live cart/PDP context.
+   *
+   * Used by surfaces where the shopper interacts with the shelf while it is
+   * visible — most notably the cart drawer, where adding a recommended product
+   * would otherwise change the campaign context, refetch, and reshuffle the
+   * carousel right after the shopper tapped it. The first non-empty context
+   * wins, so a cart that is still loading does not freeze an empty context.
+   * @default false
+   */
+  readonly freezeContext?: boolean
 }
 
 export type UseRecommendationShelfResult = {
@@ -77,13 +89,14 @@ const EMPTY_ITEMS: RecommendationResponse['products'] = []
  * Headless data layer behind every recommendation shelf: resolves the campaign
  * type, the anonymous user id and the product context, then fetches the
  * campaign. It renders nothing — presentation lives in the shelf components
- * that consume it, so a new surface can reuse the campaign rules instead of
- * reimplementing them.
+ * that consume it, so a page-wide carousel and the compact cart drawer shelf
+ * share exactly one implementation of the campaign rules.
  */
 export function useRecommendationShelf({
   campaignVrn,
   enableRecommendations = false,
   itemsContext = 'PDP',
+  freezeContext = false,
 }: UseRecommendationShelfArgs): UseRecommendationShelfResult {
   const userId = useRecommendationUserId(campaignVrn)
 
@@ -92,7 +105,7 @@ export function useRecommendationShelf({
 
   // Resolve the products used as context for the request from the configured
   // source: the current PDP product, or the (deduplicated) cart items.
-  const contextProducts = useMemo(() => {
+  const liveContextProducts = useMemo(() => {
     if (itemsContext === 'CART') {
       return Array.from(
         new Set(
@@ -107,6 +120,21 @@ export function useRecommendationShelf({
 
     return pdpProduct ? [pdpProduct] : []
   }, [itemsContext, cartItems, productDetailPage])
+
+  const frozenContextProducts = useRef<string[] | null>(null)
+
+  if (
+    freezeContext &&
+    frozenContextProducts.current === null &&
+    liveContextProducts.length > 0
+  ) {
+    frozenContextProducts.current = liveContextProducts
+  }
+
+  const contextProducts =
+    freezeContext && frozenContextProducts.current !== null
+      ? frozenContextProducts.current
+      : liveContextProducts
 
   // Gate the whole feature behind the CMS opt-in: when Recommendations is
   // disabled the shelf never requests recommendations (nor renders).

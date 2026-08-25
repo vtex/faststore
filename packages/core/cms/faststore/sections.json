@@ -2985,6 +2985,79 @@
               "default": "Tax included"
             }
           }
+        },
+        "recommendations": {
+          "title": "Recommendations",
+          "description": "Optional shelf of personalized product recommendations rendered inside the cart drawer, between the cart items and the order summary. Off by default.",
+          "type": "object",
+          "required": ["campaignVrn"],
+          "properties": {
+            "enableRecommendations": {
+              "title": "Enable recommendations?",
+              "description": "When enabled, starts the VTEX Recommendations personalization session (once per browser session) and fetches recommendations when the shopper opens the cart. Off by default so stores that do not use Recommendations never hit the Recommendations API.",
+              "type": "boolean",
+              "default": false
+            },
+            "campaignVrn": {
+              "title": "Campaign VRN",
+              "description": "Recommendation campaign VRN (e.g. vrn:recommendations:my-account:rec-cross-v2:abc123). Campaigns that need product context (cross-sell, similar items, visual similarity, next interaction) are anchored on the cart contents and render nothing while the cart is empty. Context-agnostic campaigns (top sellers, personalized, last seen, search-based) also render on an empty cart.",
+              "type": "string",
+              "pattern": "^vrn:recommendations:[^:]+:(rec-cross-v2|rec-similar-v2|rec-persona-v2|rec-last-v2|rec-top-items-v2|rec-search-v2|rec-next-v2|rec-visual-v2):[^:]+$"
+            },
+            "title": {
+              "title": "Title",
+              "description": "Override the shelf title. If not set, the campaign title will be used.",
+              "type": "string"
+            },
+            "carouselConfiguration": {
+              "title": "Carousel Configuration",
+              "type": "object",
+              "properties": {
+                "itemsPerPage": {
+                  "title": "Items per page",
+                  "description": "Number of products visible at once. The cart drawer is narrow (around 340px on every breakpoint), so keep this low. Fractional values such as 1.5 hint that the carousel scrolls.",
+                  "type": "number",
+                  "default": 2
+                },
+                "variant": {
+                  "title": "Carousel track variant",
+                  "description": "How the carousel navigates between items.",
+                  "type": "string",
+                  "default": "scroll",
+                  "enum": ["slide", "scroll"],
+                  "enumNames": ["Slide", "Scroll"]
+                },
+                "controls": {
+                  "title": "Navigation controls",
+                  "description": "Which navigation elements should be visible.",
+                  "type": "string",
+                  "default": "navigationArrows",
+                  "enum": ["complete", "navigationArrows", "paginationBullets"],
+                  "enumNames": [
+                    "Arrows and bullets",
+                    "Arrows only",
+                    "Bullets only"
+                  ]
+                }
+              }
+            },
+            "productCardConfiguration": {
+              "title": "Product Card Configuration",
+              "type": "object",
+              "properties": {
+                "showDiscountBadge": {
+                  "title": "Show discount badge?",
+                  "type": "boolean",
+                  "default": true
+                },
+                "bordered": {
+                  "title": "Cards should be bordered?",
+                  "type": "boolean",
+                  "default": false
+                }
+              }
+            }
+          }
         }
       }
     }
