@@ -75,7 +75,15 @@ export async function getLocalizedProductEntry(
         categories: result.categories ?? [],
         availableLinkIds: result.availableLinkIds ?? {},
       }
-    } catch {
+    } catch (err) {
+      // Without this the fallback is silent: the breadcrumb renders the IS
+      // category names, always in the default language, and the page can be
+      // frozen in that state by `revalidate: false`.
+      console.warn(
+        `[getLocalizedProductEntry] failed to load product ${productId} for locale ${locale}:`,
+        err
+      )
+
       return null
     }
   })()
