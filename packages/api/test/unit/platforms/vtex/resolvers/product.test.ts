@@ -275,7 +275,7 @@ describe('StoreProduct', () => {
       const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
         linkId: 'blue-shirt',
         categories: [],
-        availableLinkIds: { 'pt-BR': 'camisa-azul' },
+        availableLinkIds: { 'en-US': 'blue-shirt', 'pt-BR': 'camisa-azul' },
       })
 
       const root = makeRoot()
@@ -289,20 +289,18 @@ describe('StoreProduct', () => {
 
       const result = await (StoreProduct.otherLocales as any)(root, {}, ctx)
 
-      // Default locale always uses the canonical IS linkText.
       expect(result).toContainEqual({ locale: 'en-US', slug: 'blue-shirt-100' })
-      // Non-default locale uses the translated linkId from availableLinkIds.
       expect(result).toContainEqual({
         locale: 'pt-BR',
         slug: 'camisa-azul-100',
       })
     })
 
-    it('omits non-default locales with no entry in availableLinkIds', async () => {
+    it('omits locales with no entry in availableLinkIds', async () => {
       const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
         linkId: 'blue-shirt',
         categories: [],
-        availableLinkIds: {}, // pt-BR not translated
+        availableLinkIds: { 'en-US': 'blue-shirt' }, // pt-BR not translated
       })
 
       const root = makeRoot()
@@ -318,6 +316,27 @@ describe('StoreProduct', () => {
 
       expect(result).toContainEqual({ locale: 'en-US', slug: 'blue-shirt-100' })
       expect(result?.find((e: any) => e.locale === 'pt-BR')).toBeUndefined()
+    })
+
+    it('returns no alternates when the product has no registered localized slug', async () => {
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'blue-shirt',
+        categories: [],
+        availableLinkIds: {},
+      })
+
+      const root = makeRoot()
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'en-US',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        defaultLocale: 'en-US',
+        getLocalizedProduct,
+      })
+
+      const result = await (StoreProduct.otherLocales as any)(root, {}, ctx)
+
+      expect(result).toEqual([])
     })
 
     it('resolves the default locale from availableLinkIds while browsing another locale', async () => {
@@ -375,14 +394,17 @@ describe('StoreProduct', () => {
       })
     })
 
-    it('falls back to linkText for the locale being browsed', async () => {
+    it('omits the locale being browsed when it has no registered localized slug', async () => {
+      // linkText is the untranslated slug Intelligent Search reports for an
+      // untranslated locale. Advertising it as the pt-BR alternate would make the
+      // set depend on the serving locale, since the en-US response cannot know it.
       const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
-        linkId: 'camisa-azul',
+        linkId: 'blue-shirt',
         categories: [],
         availableLinkIds: { 'en-US': 'blue-shirt' },
       })
 
-      const root = makeRoot({ linkText: 'camisa-azul' })
+      const root = makeRoot({ linkText: 'blue-shirt' })
       const ctx = makeCtx({
         localizationEnabled: true,
         locale: 'pt-BR',
@@ -393,10 +415,38 @@ describe('StoreProduct', () => {
 
       const result = await (StoreProduct.otherLocales as any)(root, {}, ctx)
 
-      expect(result).toContainEqual({
-        locale: 'pt-BR',
-        slug: 'camisa-azul-100',
-      })
+      expect(result?.find((e: any) => e.locale === 'pt-BR')).toBeUndefined()
+      expect(result).toContainEqual({ locale: 'en-US', slug: 'blue-shirt-100' })
+    })
+
+    it('advertises the same alternates whichever locale serves the product', async () => {
+      // hreflang annotations are only honoured when reciprocal: every locale
+      // variant of a product must advertise the same cluster. Intelligent Search
+      // reports linkText in the browsed locale, so the alternates may only be
+      // derived from availableLinkIds, which is locale-independent.
+      const availableLinkIds = { 'en-US': 'blue-shirt' }
+
+      const resolveFrom = (locale: string, linkText: string) =>
+        (StoreProduct.otherLocales as any)(
+          makeRoot({ linkText }),
+          {},
+          makeCtx({
+            localizationEnabled: true,
+            locale,
+            locales: { 'en-US': {}, 'pt-BR': {} },
+            defaultLocale: 'en-US',
+            getLocalizedProduct: vi.fn().mockResolvedValueOnce({
+              linkId: linkText,
+              categories: [],
+              availableLinkIds,
+            }),
+          })
+        )
+
+      const fromDefault = await resolveFrom('en-US', 'blue-shirt')
+      const fromUntranslated = await resolveFrom('pt-BR', 'blue-shirt')
+
+      expect(fromUntranslated).toEqual(fromDefault)
     })
 
     it('returns null when the Dataplane API throws', async () => {

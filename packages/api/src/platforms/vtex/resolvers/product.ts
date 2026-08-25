@@ -320,25 +320,22 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     if (!entry?.availableLinkIds) return null
 
     const { availableLinkIds } = entry
-    const { linkText } = root.isVariantOf
 
     return configuredLocales
       .map((configuredLocale) => {
-        // Intelligent Search localizes linkText to the locale being browsed, so it
-        // can only stand in for that locale. Using it for the default locale while
-        // browsing another one produces the browsed locale's slug under the default
-        // locale's prefix, which 404s.
-        const linkId =
-          availableLinkIds[configuredLocale] ??
-          (configuredLocale === locale ? linkText : undefined)
+        // availableLinkIds is identical whichever locale the Dataplane is queried
+        // with, so deriving every slug from it keeps the hreflang cluster
+        // reciprocal. The Intelligent Search linkText cannot stand in for a
+        // missing entry: it is localized to the locale being browsed, which would
+        // both point other locales at a 404 and make the advertised set depend on
+        // which locale served the request.
+        const linkId = availableLinkIds[configuredLocale]
 
         // Locales with no registered localized slug are omitted rather than
         // guessed, so an alternate is only ever advertised for a slug the catalog
-        // actually resolves. A product with no translations at all therefore
-        // advertises only the locale being browsed; emitting the untranslated slug
-        // for every locale would advertise URLs for locales that may not sell the
-        // product. The LocalizationSelector falls back to the default slug under
-        // the target prefix for omitted locales.
+        // actually resolves. A product with no translations advertises no
+        // alternates at all, from any locale. The LocalizationSelector falls back
+        // to the default slug under the target prefix for omitted locales.
         return linkId
           ? { locale: configuredLocale, slug: getSlug(linkId, itemId) }
           : null
