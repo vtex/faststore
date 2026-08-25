@@ -3,6 +3,99 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.7.0-dev.2](https://github.com/vtex/faststore/compare/v4.7.0-dev.1...v4.7.0-dev.2) (2026-08-24)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.1](https://github.com/vtex/faststore/compare/v4.7.0-dev.0...v4.7.0-dev.1) (2026-08-24)
+
+### Bug Fixes
+
+- let Sonar recognise test files ([a7b966a](https://github.com/vtex/faststore/commit/a7b966a6e3eafe51fec687169781f2f78137c9e9))
+- reference next by a path relative to .faststore ([372b66e](https://github.com/vtex/faststore/commit/372b66e328d73802f7cffcc05bae48e966eabc97))
+- resolve the next binary from @faststore/core ([5478a4d](https://github.com/vtex/faststore/commit/5478a4dd24ffa7ab5d12907b945698cd04cb2f79))
+- write the resolved next path with forward slashes ([95c07f9](https://github.com/vtex/faststore/commit/95c07f935037f419304eb792bebc6d6f4af983ac))
+
+# [4.7.0-dev.0](https://github.com/vtex/faststore/compare/v4.6.1-dev.0...v4.7.0-dev.0) (2026-08-24)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.6.1-dev.0](https://github.com/vtex/faststore/compare/v4.6.0...v4.6.1-dev.0) (2026-08-18)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0](https://github.com/vtex/faststore/compare/v4.6.0-dev.6...v4.6.0) (2026-08-18)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.6](https://github.com/vtex/faststore/compare/v4.6.0-dev.5...v4.6.0-dev.6) (2026-08-14)
+
+### Bug Fixes
+
+- resolve node_modules bins when running scripts inside .faststore ([#3440](https://github.com/vtex/faststore/issues/3440)) ([2bf174a](https://github.com/vtex/faststore/commit/2bf174a7295d106354d97d7ca2c161ed706cff9a)), closes [#3439](https://github.com/vtex/faststore/issues/3439) [#3419](https://github.com/vtex/faststore/issues/3419)
+
+# [4.6.0-dev.5](https://github.com/vtex/faststore/compare/v4.6.0-dev.4...v4.6.0-dev.5) (2026-08-13)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.4](https://github.com/vtex/faststore/compare/v4.6.0-dev.3...v4.6.0-dev.4) (2026-08-12)
+
+### Bug Fixes
+
+- custom GraphQL typeDefs silently ignored on Windows ([#3419](https://github.com/vtex/faststore/issues/3419)) ([bdeb6a7](https://github.com/vtex/faststore/commit/bdeb6a757c44dda24b96cffc73d34652de165adf))
+
+# [4.6.0-dev.3](https://github.com/vtex/faststore/compare/v4.6.0-dev.2...v4.6.0-dev.3) (2026-08-12)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.2](https://github.com/vtex/faststore/compare/v4.6.0-dev.1...v4.6.0-dev.2) (2026-08-12)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.1](https://github.com/vtex/faststore/compare/v4.6.0-dev.0...v4.6.0-dev.1) (2026-08-11)
+
+## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.5.1) (2026-08-11)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.0](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.6.0-dev.0) (2026-08-11)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.5.1-dev.4](https://github.com/vtex/faststore/compare/v4.5.1-dev.3...v4.5.1-dev.4) (2026-08-10)
+
+### Bug Fixes
+
+- restore account, path, port arg order on cli dev command ([#3439](https://github.com/vtex/faststore/issues/3439)) ([b13e834](https://github.com/vtex/faststore/commit/b13e8341539fb8108c35a63f26218c4671d308f8)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [#2491](https://github.com/vtex/faststore/issues/2491) [#2491](https://github.com/vtex/faststore/issues/2491) [#3111](https://github.com/vtex/faststore/issues/3111)
+
+## [4.5.1-dev.3](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1-dev.3) (2026-08-10)
+
+## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1) (2026-08-11)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.5.1-dev.2](https://github.com/vtex/faststore/compare/v4.5.1-dev.1...v4.5.1-dev.2) (2026-08-04)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.5.1-dev.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.0...v4.5.1-dev.1) (2026-08-04)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.5.1-dev.0](https://github.com/vtex/faststore/compare/v4.5.0...v4.5.1-dev.0) (2026-08-03)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.5.0](https://github.com/vtex/faststore/compare/v4.5.0-dev.7...v4.5.0) (2026-08-03)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.5.0-dev.7](https://github.com/vtex/faststore/compare/v4.5.0-dev.6...v4.5.0-dev.7) (2026-08-03)
+
+### Features
+
+- CMS-driven custom My Account pages ([#3411](https://github.com/vtex/faststore/issues/3411)) ([e38b278](https://github.com/vtex/faststore/commit/e38b2780bb7386a8ef7b83a9e3de5956bf6de50e))
+
 # [4.5.0-dev.6](https://github.com/vtex/faststore/compare/v4.5.0-dev.5...v4.5.0-dev.6) (2026-07-28)
 
 **Note:** Version bump only for package @faststore/cli

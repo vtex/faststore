@@ -3,6 +3,12 @@ export interface Route {
   title: string
   /* Accessible path within My Account */
   route: string
+  /**
+   * When set, the page body renders from this CMS content-type.
+   * Presence of this field is the single opt-in for a CMS-driven page.
+   * Pure CMS vs hybrid is derived by the CLI from whether a code body exists.
+   */
+  contentType?: string
 }
 
 export type AccountNavigationLabels = Partial<{
@@ -15,6 +21,7 @@ export type AccountNavigationLabels = Partial<{
   switchLabel: string
   companyLabel: string
   contractLabel: string
+  cardsLabel: string
 }>
 
 interface GetMyAccountRouteParams {
@@ -27,15 +34,17 @@ export const PROFILE_ROUTE = '/pvt/account/profile'
 export const ORDERS_ROUTE = '/pvt/account/orders'
 export const USER_DETAILS_ROUTE = '/pvt/account/user-details'
 export const SECURITY_ROUTE = '/pvt/account/security'
+export const CARDS_ROUTE = '/pvt/account/cards'
 export const QUOTES_ROUTE = '/pvt/account/quotes'
 
-export const ROUTES_ONLY_FOR_B2B_MEMBERS = [QUOTES_ROUTE]
+export const ROUTES_ONLY_FOR_B2B_MEMBERS = [QUOTES_ROUTE, CARDS_ROUTE]
 
 const ROUTE_LABEL_KEYS: Record<string, keyof AccountNavigationLabels> = {
   [PROFILE_ROUTE]: 'profileLabel',
   [ORDERS_ROUTE]: 'ordersLabel',
   [USER_DETAILS_ROUTE]: 'userDetailsLabel',
   [SECURITY_ROUTE]: 'securityLabel',
+  [CARDS_ROUTE]: 'cardsLabel',
 }
 
 // This is the default route list for My Account, we should add then as the feature is implemented
@@ -47,6 +56,10 @@ const DEFAULT_ROUTES: Route[] = [
   {
     title: 'Orders',
     route: ORDERS_ROUTE,
+  },
+  {
+    title: 'Cards',
+    route: CARDS_ROUTE,
   },
   {
     title: 'Quotes',

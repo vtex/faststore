@@ -27,7 +27,14 @@ export function parseJwt(token: string) {
   if (!token) {
     return null
   }
-  return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
+
+  try {
+    return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
+  } catch {
+    // Malformed structure/base64/JSON — treat the same as no token, instead
+    // of throwing and 500ing the caller's request.
+    return null
+  }
 }
 
 export function getJWTAutCookie({ headers, account }: Params) {

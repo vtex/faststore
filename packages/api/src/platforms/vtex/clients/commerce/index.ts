@@ -9,6 +9,7 @@ import {
   type IProcessOrderAuthorization,
   type IUserOrderCancel,
   type QueryListUserOrdersArgs,
+  type SavedCard,
   type StoreMarketingData,
   type UserOrder,
   type UserOrderCancel,
@@ -435,21 +436,36 @@ export const VtexCommerce = (
         id,
         refreshOutdatedData = true,
         channel = ctx.storage.channel,
+        preserveSalesChannel = false,
       }: {
         id?: string
         refreshOutdatedData?: boolean
         channel?: Required<Channel>
+        /**
+         * When true, omit the `sc` query param so Checkout keeps the cart's
+         * current sales channel. Use this when the session SC may be stale
+         * relative to an external flow (e.g. Quick Order) that already
+         * advanced the orderForm.
+         */
+        preserveSalesChannel?: boolean
       }): Promise<OrderForm> => {
         const { salesChannel } = channel
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
-        const params = new URLSearchParams({ sc: salesChannel })
+        const params = new URLSearchParams()
+        // New carts (no id) always need an explicit SC. Existing carts may
+        // omit it so Checkout does not recalculate under a stale session SC.
+        if (!preserveSalesChannel || !id) {
+          params.set('sc', salesChannel)
+        }
         if (id) {
           params.set('refreshOutdatedData', refreshOutdatedData.toString())
         }
-        const url = `${base}/api/checkout/pub/orderForm${id ? `/${id}` : ''}?${params.toString()}`
+        const orderFormPath = id ? `/${id}` : ''
+        // Always has at least `sc` (new cart) or `refreshOutdatedData` (existing).
+        const url = `${base}/api/checkout/pub/orderForm${orderFormPath}?${params}`
 
         return fetchAPI(
           url,
@@ -821,6 +837,23 @@ export const VtexCommerce = (
         )
       },
     },
+    savedCards: {
+      listCreditCards: (): Promise<SavedCard[]> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/saved-cards/credit-card?an=${account}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
+    },
     units: {
       getUnitByUserId: ({
         userId,
@@ -930,6 +963,30 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/license-manager/storefront/users/${userId}/roles`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+      /**
+       * Whether a License Manager resource key is granted to the user. The
+       * endpoint resolves the user's roles into the resource key server-side,
+       * so callers never have to match role names (which are account-
+       * configurable). Responds with a bare boolean.
+       */
+      isResourceGranted: ({
+        userId,
+        resourceKey,
+      }: { userId: string; resourceKey: string }): Promise<boolean> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/license-manager/storefront/bff/users/${userId}/resources/${resourceKey}/granted?an=${account}`,
           {
             method: 'GET',
             headers,

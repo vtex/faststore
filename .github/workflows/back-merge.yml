@@ -106,8 +106,15 @@ jobs:
         if: steps.prep.outputs.skip == 'false'
         run: |
           pnpm i
+          # core#generate shells out to the CLI binary, which must be compiled
+          # first (see turbo.json: @faststore/core#generate → @faststore/cli#build).
+          # api must be built before the CLI because generate-types imports
+          # GraphqlVtexSchema from @faststore/api at runtime. api's built ESM
+          # imports @faststore/diagnostics, so that package must be built too.
+          pnpm --filter @faststore/diagnostics build
           pnpm --filter @faststore/api build
           pnpm --filter @faststore/api generate
+          pnpm --filter @faststore/cli build
           pnpm --filter @faststore/core generate
           git add -A
 

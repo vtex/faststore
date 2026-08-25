@@ -132,18 +132,31 @@ async function generateSchemaFile(rootPath: string) {
   saveSchemaFile(finalSchema)
 }
 
-async function getTypeDefsFromFolder(root: string, customPath: string) {
-  const globby = await import('globby')
+type GlobbyModule = typeof import('globby')
+
+export async function getTypeDefsFromFolder(
+  root: string,
+  customPath: string | string[]
+) {
+  const globbyImport = (await import('globby')) as GlobbyModule & {
+    default?: GlobbyModule
+  }
+  const globbyModule = globbyImport.default ?? globbyImport
   const basePath = [root, 'src', 'graphql']
 
   const pathArray = Array.isArray(customPath) ? customPath : [customPath]
 
-  return ((globby as any).default ?? globby)
-    .globbySync(path.join(...[...basePath, ...pathArray]), {
-      expandDirectories: {
-        extensions: ['graphql'],
-      },
-    })
+  // globby patterns must use forward slashes — on Windows, path.join produces
+  // backslashes, which globby treats as escape characters and matches nothing
+  const pattern = globbyModule.convertPathToPattern(
+    path.join(...basePath, ...pathArray)
+  )
+
+  // spell out the glob instead of using expandDirectories: it stats the
+  // escaped pattern string, so it never expands paths that needed escaping
+  // (e.g. parentheses in a parent directory name)
+  return globbyModule
+    .globbySync(`${pattern}/**/*.graphql`)
     .map((typeDef: string) =>
       parse(fs.readFileSync(typeDef, { encoding: 'utf-8' }))
     )

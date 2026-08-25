@@ -194,6 +194,9 @@ export const validateSession = async (session: Session) => {
 const [validationStore, onValidate, hasValidatedStore] =
   createValidationStore(validateSession)
 
+/** True after at least one validateSession cycle finished (success or failure). */
+export const hasValidatedSessionStore = hasValidatedStore
+
 const urlAwareInitialSession = getInitialSession()
 const defaultStore = createSessionStore(
   urlAwareInitialSession,
@@ -213,6 +216,17 @@ export const sessionStore = {
 
     // Trigger cart revalidation when session changes
     cartStore.set(cartStore.read())
+  },
+  /**
+   * Updates session without revalidating the cart. Used when aligning
+   * `channel.salesChannel` to an orderForm SC adopted by `validateCart`.
+   * Still runs `validateSession` via the store's optimistic validator; that
+   * path keeps an explicit (non-default) client SC.
+   */
+  setSilent: (val: Session) => {
+    if (deepEqual(val, defaultStore.read()) === true) return
+
+    defaultStore.set(val)
   },
 }
 
