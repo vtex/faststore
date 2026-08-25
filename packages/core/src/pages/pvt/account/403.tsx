@@ -66,6 +66,7 @@ function Page({
         <NextSeo noindex nofollow />
 
         <RenderSectionsBase
+          skipLazyLoading
           sections={pageSections}
           components={ACCOUNT_COMPONENTS}
         />

@@ -94,6 +94,7 @@ export default function ListCardsPage({
           navigationLabels={navigationLabels}
         >
           <RenderSectionsBase
+            skipLazyLoading
             sections={pageSections}
             components={ACCOUNT_COMPONENTS}
           />
