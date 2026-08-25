@@ -141,6 +141,20 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
+    // Cards must fill their section wrapper. The wrapper is the grid item and
+    // stretches to the row height, but a block child keeps its natural height,
+    // so a short card next to a tall one stopped short and left a gap below it.
+    // Before the CMS render the card itself was the grid item and stretched, so
+    // cards sharing a row matched heights — this restores that.
+    [class~="section-account-order-ordered-by"],
+    [class~="section-account-order-payment"],
+    [class~="section-account-order-summary"],
+    [class~="section-account-order-more-info"],
+    [class~="section-account-order-status"],
+    [class~="section-account-order-budgets"] {
+      display: grid;
+    }
+
     // (1) Live — full-width section wrappers.
     [class~="section-account-order-details"] {
       grid-column: span 2;
