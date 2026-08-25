@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.7.0-dev.5](https://github.com/vtex/faststore/compare/v4.7.0-dev.4...v4.7.0-dev.5) (2026-08-25)
+
+### Bug Fixes
+
+- **core:** restore Order Details layout and first-paint rendering in My Account ([#3464](https://github.com/vtex/faststore/issues/3464)) ([3464523](https://github.com/vtex/faststore/commit/346452304b265d439184bca3f56c2ae8a9341cce)), closes [#3354](https://github.com/vtex/faststore/issues/3354) [#3354](https://github.com/vtex/faststore/issues/3354) [#3417](https://github.com/vtex/faststore/issues/3417) [/github.com/vtex/faststore/pull/3464#discussion_r3848325785](https://github.com//github.com/vtex/faststore/pull/3464/issues/discussion_r3848325785) [#3411](https://github.com/vtex/faststore/issues/3411) [#3354](https://github.com/vtex/faststore/issues/3354)
+
 # [4.7.0-dev.4](https://github.com/vtex/faststore/compare/v4.7.0-dev.3...v4.7.0-dev.4) (2026-08-25)
 
 ### Bug Fixes
