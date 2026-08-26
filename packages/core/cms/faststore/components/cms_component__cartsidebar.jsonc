@@ -142,7 +142,7 @@
       "properties": {
         "shouldDisplayRecommendationShelf": {
           "title": "Should display Recommendation Shelf?",
-          "description": "When enabled, starts the VTEX Recommendations personalization session (once per browser session) and fetches recommendations when the shopper opens the cart. Off by default so stores that do not use Recommendations never hit the Recommendations API.",
+          "description": "When enabled, fetches recommendations when the shopper opens the cart. Off by default so stores that do not use Recommendations never hit the Recommendations API. The personalization session starts via experimental.enableRecommendations, or as a fallback when this shelf mounts.",
           "type": "boolean",
           "default": false
         },

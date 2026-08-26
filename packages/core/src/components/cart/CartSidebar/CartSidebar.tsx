@@ -194,7 +194,6 @@ function CartSidebar({
     recommendations.campaignVrn ? (
       <CartRecommendationShelf
         {...recommendations}
-        enableRecommendations
         taxesConfiguration={taxesConfiguration}
       />
     ) : null

@@ -106,16 +106,10 @@ afterEach(() => {
 
 describe('CartRecommendationShelf', () => {
   it('delegates to RecommendationShelf with cart context frozen', () => {
-    render(
-      <CartRecommendationShelf
-        campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
-      />
-    )
+    render(<CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />)
 
     expect(useRecommendationShelf).toHaveBeenCalledWith({
       campaignVrn: CAMPAIGN_VRN,
-      enableRecommendations: true,
       itemsContext: 'CART',
       freezeContext: true,
     })
@@ -123,10 +117,7 @@ describe('CartRecommendationShelf', () => {
 
   it('renders a card per recommended product under the campaign title', () => {
     const { getAllByTestId, getByText } = render(
-      <CartRecommendationShelf
-        campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
-      />
+      <CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     expect(getAllByTestId('product-card')).toHaveLength(2)
@@ -137,7 +128,6 @@ describe('CartRecommendationShelf', () => {
     const { getByText, queryByText } = render(
       <CartRecommendationShelf
         campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
         title="Complete your purchase"
       />
     )
@@ -150,10 +140,7 @@ describe('CartRecommendationShelf', () => {
     useRecommendationShelf.mockReturnValue(result({ items: [] }))
 
     const { container } = render(
-      <CartRecommendationShelf
-        campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
-      />
+      <CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     expect(container).toBeEmptyDOMElement()
@@ -165,10 +152,7 @@ describe('CartRecommendationShelf', () => {
     )
 
     const { container } = render(
-      <CartRecommendationShelf
-        campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
-      />
+      <CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     expect(container).toBeEmptyDOMElement()
@@ -180,10 +164,7 @@ describe('CartRecommendationShelf', () => {
     )
 
     const { getByTestId } = render(
-      <CartRecommendationShelf
-        campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
-      />
+      <CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     expect(getByTestId('skeleton').getAttribute('data-loading')).toBe('true')
@@ -197,7 +178,6 @@ describe('CartRecommendationShelf', () => {
     const { getByTestId } = render(
       <CartRecommendationShelf
         campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
         carouselConfiguration={{ itemsPerPage: 1.5 }}
       />
     )
@@ -209,10 +189,7 @@ describe('CartRecommendationShelf', () => {
 
   it('tags impressions with a cart-specific Activity Flow element', () => {
     const { container } = render(
-      <CartRecommendationShelf
-        campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
-      />
+      <CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     const shelf = container.querySelector(
@@ -240,7 +217,6 @@ describe('CartRecommendationShelf', () => {
     render(
       <CartRecommendationShelf
         campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
         taxesConfiguration={taxesConfiguration}
       />
     )
@@ -251,12 +227,7 @@ describe('CartRecommendationShelf', () => {
   })
 
   it('renders unbordered cards by default and honours the override', () => {
-    render(
-      <CartRecommendationShelf
-        campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
-      />
-    )
+    render(<CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />)
 
     expect(productCardProps).toHaveBeenCalledWith(
       expect.objectContaining({ bordered: false })
@@ -267,7 +238,6 @@ describe('CartRecommendationShelf', () => {
     render(
       <CartRecommendationShelf
         campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
         productCardConfiguration={{ bordered: true }}
       />
     )
@@ -278,12 +248,7 @@ describe('CartRecommendationShelf', () => {
   })
 
   it('uses CartRecommendationProductCard by default so cards expose add-to-cart', () => {
-    render(
-      <CartRecommendationShelf
-        campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
-      />
-    )
+    render(<CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />)
 
     expect(productCardProps).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -302,7 +267,6 @@ describe('CartRecommendationShelf', () => {
     const { getAllByTestId, queryByTestId } = render(
       <CartRecommendationShelf
         campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
         ProductCard={CustomCard}
       />
     )

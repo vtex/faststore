@@ -16,6 +16,7 @@ import {
   attributeToPropertyValue,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
+import { normalizeReleaseDate } from '../utils/releaseDate'
 import { slugify } from '../utils/slugify'
 import type { Query } from './query'
 
@@ -298,7 +299,8 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     skuSpecifications ?? [],
   specificationGroups: ({ isVariantOf: { specificationGroups } }) =>
     specificationGroups,
-  releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? '',
+  releaseDate: ({ isVariantOf: { releaseDate } }) =>
+    normalizeReleaseDate(releaseDate),
   advertisement: ({ isVariantOf: { advertisement } }) => advertisement,
   deliveryPromiseBadges: ({ isVariantOf: { deliveryPromisesBadges } }) =>
     deliveryPromisesBadges,

@@ -28,6 +28,7 @@ import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 import { getComponentKey } from 'src/utils/cms'
 import { getChannelForLocale } from 'src/utils/localization/bindingPaths'
+import { toProductJsonLdOffer } from 'src/utils/productJsonLd'
 
 import storeConfig from 'discovery.config'
 import {
@@ -328,11 +329,13 @@ function Page({
         description={description}
         brand={product.brand.name}
         sku={product.sku}
-        gtin={product.gtin}
-        mpn={product.mpn}
-        releaseDate={product.releaseDate}
+        // Spread conditionally so an unregistered identifier is omitted rather
+        // than published as "": next-seo passes these through untouched.
+        {...(product.gtin && { gtin: product.gtin })}
+        {...(product.mpn && { mpn: product.mpn })}
+        {...(product.releaseDate && { releaseDate: product.releaseDate })}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
-        offers={offers}
+        {...(offers && { offers })}
         {...(itemListElements.length !== 0 && {
           category: itemListElements[0].name,
         })}
@@ -508,19 +511,10 @@ export const getStaticProps: GetStaticProps<
 
   const meta = { title, description, canonical }
 
-  let offer = {}
-
-  if (data.product.offers.offers.length > 0) {
-    const { listPrice, ...offerData } = data.product.offers.offers[0]
-
-    offer = offerData
-  }
-
-  const offers = {
-    ...offer,
+  const offers = toProductJsonLdOffer(data.product.offers.offers[0], {
     priceCurrency: data.product.offers.priceCurrency,
     url: canonical,
-  }
+  })
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,

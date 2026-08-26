@@ -26,13 +26,6 @@ export type RecommendationShelfProps<
   readonly title?: string
   readonly campaignVrn: string
   /**
-   * Opt-in for VTEX Recommendations on this shelf. When omitted, a present
-   * `campaignVrn` enables the shelf (same rule as `isRecommendationsEnabled`).
-   * When `false`, the shelf never fetches. When `true`, it fetches even if
-   * `campaignVrn` is empty.
-   */
-  readonly enableRecommendations?: boolean
-  /**
    * Where to read the products used as context for the recommendation request:
    * - `'PDP'`: the current product detail page product.
    * - `'CART'`: the products currently in the cart (useful for cross-sell on the

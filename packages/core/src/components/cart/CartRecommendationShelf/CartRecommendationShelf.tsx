@@ -63,7 +63,6 @@ export type CartRecommendationShelfProps<
 function CartRecommendationShelf<TCardProps extends object = ProductCardProps>({
   title,
   campaignVrn,
-  enableRecommendations = false,
   carouselConfiguration,
   productCardConfiguration,
   taxesConfiguration,
@@ -93,7 +92,6 @@ function CartRecommendationShelf<TCardProps extends object = ProductCardProps>({
     <RecommendationShelf<TCardProps>
       title={title}
       campaignVrn={campaignVrn}
-      enableRecommendations={enableRecommendations}
       itemsContext="CART"
       freezeContext
       className={styles.shelf}

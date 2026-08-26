@@ -20,16 +20,21 @@ const DEFAULT_SECTION_KEYS: Record<NativeMyAccountContentType, string[]> = {
   myAccountProfile: ['AccountNavigation', 'AccountProfile'],
   myAccountOrders: ['AccountNavigation', 'AccountOrdersList'],
   myAccountCards: ['AccountNavigation', 'AccountListCards'],
+  // Mirrors the render order of the `@deprecated OrderDetails.tsx` component,
+  // which is the design reference available in the repo. The delivery option
+  // accordions render inside AccountOrderDelivery, so they sit right after the
+  // compact delivery card instead of after the summary. Known deviation: fixing
+  // it would mean splitting AccountOrderDelivery into two CMS sections.
   myAccountOrderDetails: [
     'AccountNavigation',
     'AccountOrderDetails',
+    'AccountOrderOrderedBy',
+    'AccountOrderDelivery',
     'AccountOrderStatus',
     'AccountOrderPayment',
-    'AccountOrderDelivery',
     'AccountOrderSummary',
-    'AccountOrderOrderedBy',
-    'AccountOrderBudgets',
     'AccountOrderMoreInfo',
+    'AccountOrderBudgets',
   ],
   myAccountUserDetails: ['AccountNavigation', 'AccountUserDetails'],
   myAccountSecurity: ['AccountNavigation', 'AccountSecurity'],

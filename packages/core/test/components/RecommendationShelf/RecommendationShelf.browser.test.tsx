@@ -41,6 +41,10 @@ vi.mock('src/sdk/recommendations/useRecommendationUserId', () => ({
   useRecommendationUserId,
 }))
 
+vi.mock('src/sdk/analytics/hooks/useStartRecommendationSession', () => ({
+  useStartRecommendationSession: vi.fn(),
+}))
+
 import { RecommendationShelf } from 'src/components/sections/RecommendationShelf/RecommendationShelf'
 
 const CAMPAIGN_VRN = 'vrn:recommendations:acc:rec-top-items-v2:campaign-1'
@@ -71,7 +75,7 @@ afterEach(() => {
 })
 
 describe('RecommendationShelf', () => {
-  it('renders a product card per recommended product when enabled', async () => {
+  it('renders a product card per recommended product', async () => {
     useRecommendations.mockReturnValue({
       data: recommendationData,
       isLoading: false,
@@ -79,7 +83,7 @@ describe('RecommendationShelf', () => {
     })
 
     const { getAllByTestId, getByText } = render(
-      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} enableRecommendations />
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     await waitFor(() => {
@@ -98,9 +102,7 @@ describe('RecommendationShelf', () => {
       error: null,
     })
 
-    render(
-      <RecommendationShelf campaignVrn={CROSS_SELL_VRN} enableRecommendations />
-    )
+    render(<RecommendationShelf campaignVrn={CROSS_SELL_VRN} />)
 
     await waitFor(() => {
       const lastArgs = useRecommendations.mock.calls.at(-1)?.[0]
@@ -120,11 +122,7 @@ describe('RecommendationShelf', () => {
     })
 
     const { getByText } = render(
-      <RecommendationShelf
-        campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
-        title="Custom title"
-      />
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} title="Custom title" />
     )
 
     await waitFor(() => {
@@ -141,48 +139,7 @@ describe('RecommendationShelf', () => {
     })
 
     const { container, queryByTestId } = render(
-      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} enableRecommendations />
-    )
-
-    await waitFor(() => {
-      const lastArgs = useRecommendations.mock.calls.at(-1)?.[0]
-      expect(lastArgs).toBeNull()
-    })
-    expect(queryByTestId('product-card')).toBeNull()
-    expect(container).toBeEmptyDOMElement()
-  })
-
-  it('fetches when campaignVrn is set and enableRecommendations is omitted', async () => {
-    useRecommendations.mockReturnValue({
-      data: recommendationData,
-      isLoading: false,
-      error: null,
-    })
-
-    render(<RecommendationShelf campaignVrn={CAMPAIGN_VRN} />)
-
-    await waitFor(() => {
-      const lastArgs = useRecommendations.mock.calls.at(-1)?.[0]
-      expect(lastArgs).toEqual({
-        userId: 'user-1',
-        campaignVrn: CAMPAIGN_VRN,
-        products: [],
-      })
-    })
-  })
-
-  it('skips the fetch when enableRecommendations is explicitly false', async () => {
-    useRecommendations.mockReturnValue({
-      data: undefined,
-      isLoading: false,
-      error: null,
-    })
-
-    const { container, queryByTestId } = render(
-      <RecommendationShelf
-        campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations={false}
-      />
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     await waitFor(() => {
@@ -201,7 +158,7 @@ describe('RecommendationShelf', () => {
     })
 
     const { container } = render(
-      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} enableRecommendations />
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     expect(container).toBeEmptyDOMElement()
@@ -215,7 +172,7 @@ describe('RecommendationShelf', () => {
     })
 
     const { container, queryByTestId } = render(
-      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} enableRecommendations />
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     expect(queryByTestId('product-card')).toBeNull()
@@ -230,7 +187,7 @@ describe('RecommendationShelf', () => {
     })
 
     const { getByTestId } = render(
-      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} enableRecommendations />
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     expect(getByTestId('skeleton').getAttribute('data-loading')).toBe('true')
