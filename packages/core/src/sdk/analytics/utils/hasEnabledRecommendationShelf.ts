@@ -2,11 +2,24 @@ type CmsSection = {
   name?: string
   $componentKey?: string
   data?: {
+    campaignVrn?: string
     enableRecommendations?: boolean
     recommendations?: {
-      enableRecommendations?: boolean
+      campaignVrn?: string
+      shouldDisplayRecommendationShelf?: boolean
     }
   }
+}
+
+function isRecommendationsEnabled(
+  enableRecommendations?: boolean,
+  campaignVrn?: string
+) {
+  if (enableRecommendations === false) {
+    return false
+  }
+
+  return enableRecommendations === true || Boolean(campaignVrn)
 }
 
 function pushSections(target: CmsSection[], value: unknown) {
@@ -36,9 +49,10 @@ function isComponent(section: CmsSection, componentKey: string) {
  * surface, so the personalization session is started for it.
  *
  * Two shapes opt in:
- * - a `RecommendationShelf` section with `enableRecommendations: true`;
- * - a `CartSidebar` section whose nested mini cart shelf is enabled, at
- *   `data.recommendations.enableRecommendations`.
+ * - a `RecommendationShelf` section with `enableRecommendations: true` or a
+ *   `campaignVrn`;
+ * - a `CartSidebar` section with
+ *   `data.recommendations.shouldDisplayRecommendationShelf: true`.
  *
  * The cart drawer shape matters because the drawer only mounts once the shopper
  * opens it, long after this runs: without starting the session on page load the
@@ -60,8 +74,12 @@ export function hasEnabledRecommendationShelf(pageProps: unknown): boolean {
   return sections.some(
     (section) =>
       (isComponent(section, 'RecommendationShelf') &&
-        section.data?.enableRecommendations === true) ||
+        isRecommendationsEnabled(
+          section.data?.enableRecommendations,
+          section.data?.campaignVrn
+        )) ||
       (isComponent(section, 'CartSidebar') &&
-        section.data?.recommendations?.enableRecommendations === true)
+        section.data?.recommendations?.shouldDisplayRecommendationShelf ===
+          true)
   )
 }

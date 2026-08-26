@@ -13,6 +13,19 @@ describe('hasEnabledRecommendationShelf', () => {
     ).toBe(false)
   })
 
+  it('returns true when a RecommendationShelf has a campaign VRN', () => {
+    expect(
+      hasEnabledRecommendationShelf({
+        sections: [
+          {
+            name: 'RecommendationShelf',
+            data: { campaignVrn: 'vrn:x' },
+          },
+        ],
+      })
+    ).toBe(true)
+  })
+
   it('returns true when a page section enables recommendations', () => {
     expect(
       hasEnabledRecommendationShelf({
@@ -86,7 +99,25 @@ describe('hasEnabledRecommendationShelf', () => {
     ).toBe(true)
   })
 
-  it('returns true when the cart sidebar enables its mini cart shelf', () => {
+  it('returns false when the cart sidebar has a campaign VRN but the shelf is hidden', () => {
+    expect(
+      hasEnabledRecommendationShelf({
+        globalSections: {
+          sections: [
+            {
+              name: 'CartSidebar',
+              data: {
+                title: 'Your cart',
+                recommendations: { campaignVrn: 'vrn:x' },
+              },
+            },
+          ],
+        },
+      })
+    ).toBe(false)
+  })
+
+  it('returns true when the cart sidebar displays its mini cart shelf', () => {
     expect(
       hasEnabledRecommendationShelf({
         globalSections: {
@@ -96,7 +127,7 @@ describe('hasEnabledRecommendationShelf', () => {
               data: {
                 title: 'Your cart',
                 recommendations: {
-                  enableRecommendations: true,
+                  shouldDisplayRecommendationShelf: true,
                   campaignVrn: 'vrn:x',
                 },
               },
@@ -114,7 +145,9 @@ describe('hasEnabledRecommendationShelf', () => {
           sections: [
             {
               $componentKey: 'CartSidebar',
-              data: { recommendations: { enableRecommendations: true } },
+              data: {
+                recommendations: { shouldDisplayRecommendationShelf: true },
+              },
             },
           ],
         },
@@ -141,7 +174,7 @@ describe('hasEnabledRecommendationShelf', () => {
               name: 'CartSidebar',
               data: {
                 recommendations: {
-                  enableRecommendations: false,
+                  shouldDisplayRecommendationShelf: false,
                   campaignVrn: 'vrn:x',
                 },
               },
@@ -158,7 +191,9 @@ describe('hasEnabledRecommendationShelf', () => {
         sections: [
           {
             name: 'ProductShelf',
-            data: { recommendations: { enableRecommendations: true } },
+            data: {
+              recommendations: { shouldDisplayRecommendationShelf: true },
+            },
           },
         ],
       })

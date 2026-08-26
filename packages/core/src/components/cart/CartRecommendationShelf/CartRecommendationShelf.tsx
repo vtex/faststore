@@ -23,18 +23,20 @@ export type CartRecommendationShelfProps<
 > & {
   /**
    * Drawer-safe carousel configuration. Mapped onto
-   * `RecommendationShelf`'s desktop/mobile paging props (the drawer is ~340px
-   * on every breakpoint, so both viewports share the same count).
+   * `RecommendationShelf`'s desktop/mobile paging props (the drawer is the
+   * same width on every breakpoint, so both viewports share this count).
    */
   readonly carouselConfiguration?: {
     /**
      * Products visible at once. Fractional values (e.g. `1.5`) hint that the
      * carousel scrolls.
-     * @default 2
+     * @default 1
      */
     readonly itemsPerPage?: number
     /** @default 'scroll' */
     readonly variant?: CarouselProps['variant']
+    /** @default false */
+    readonly infiniteMode?: CarouselProps['infiniteMode']
     /** @default 'navigationArrows' */
     readonly controls?: CarouselProps['controls']
   }
@@ -69,8 +71,9 @@ function CartRecommendationShelf<TCardProps extends object = ProductCardProps>({
   mapProductToProductCard,
 }: CartRecommendationShelfProps<TCardProps>) {
   const {
-    itemsPerPage = 2,
+    itemsPerPage = 1,
     variant = 'scroll',
+    infiniteMode = false,
     controls = 'navigationArrows',
   } = carouselConfiguration ?? {}
 
@@ -105,6 +108,7 @@ function CartRecommendationShelf<TCardProps extends object = ProductCardProps>({
         itemsPerPageDesktop: itemsPerPage,
         itemsPerPageMobile: itemsPerPage,
         variant,
+        infiniteMode,
         controls,
       }}
     />

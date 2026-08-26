@@ -138,9 +138,9 @@ export interface CartSidebarProps {
     taxesLabel?: string
   }
   /**
-   * Optional recommendation shelf rendered inside the drawer. Absent or
-   * disabled (the default) keeps the drawer exactly as it was: no
-   * personalization session, no request, nothing rendered.
+   * Optional recommendation shelf rendered inside the drawer. Off by default
+   * (`shouldDisplayRecommendationShelf: false`) so the drawer stays as it was:
+   * no personalization session, no request, nothing rendered.
    *
    * Taxes are not configured here — the shelf reuses the drawer's own
    * `taxesConfiguration` so recommended products and cart items price alike.
@@ -148,7 +148,9 @@ export interface CartSidebarProps {
    * contract as the page `RecommendationShelf`) and are omitted from the CMS
    * schema; store customizations can still pass them when wrapping this section.
    */
-  recommendations?: Omit<CartRecommendationShelfProps, 'taxesConfiguration'>
+  recommendations?: Omit<CartRecommendationShelfProps, 'taxesConfiguration'> & {
+    shouldDisplayRecommendationShelf?: boolean
+  }
 }
 
 function CartSidebar({
@@ -188,9 +190,11 @@ function CartSidebar({
   // produce results on an empty cart, so the shelf renders in both states and
   // suppresses itself when a context-based campaign has nothing to anchor on.
   const recommendationShelf =
-    recommendations?.enableRecommendations && recommendations.campaignVrn ? (
+    recommendations?.shouldDisplayRecommendationShelf &&
+    recommendations.campaignVrn ? (
       <CartRecommendationShelf
         {...recommendations}
+        enableRecommendations
         taxesConfiguration={taxesConfiguration}
       />
     ) : null
