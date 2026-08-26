@@ -3,6 +3,7 @@ import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { withBasePath } from './directory'
 import { logger } from './logger'
+import { shouldCopyToStorefront } from './storefrontCopy'
 
 const { copySync, existsSync, mkdirSync, readdirSync, writeFileSync } = fsExtra
 
@@ -95,7 +96,9 @@ const copyPluginsSrc = async (basePath: string, plugins: Plugin[]) => {
       sanitizePluginName(pluginName)
     )
 
-    copySync(pluginSrcPath, pluginDestPath)
+    copySync(pluginSrcPath, pluginDestPath, {
+      filter: shouldCopyToStorefront,
+    })
     logger.log(`Copied ${pluginName} files`)
   })
 }
