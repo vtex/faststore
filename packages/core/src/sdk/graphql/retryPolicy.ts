@@ -16,6 +16,9 @@ type RetryConfig = { errorRetryCount?: number; errorRetryInterval: number }
  * default implementation entirely, so the fall-through branch mirrors
  * swr@2.4.0's default (ceiling check plus jittered exponential backoff) to keep
  * every other status behaving as it did before. Revisit on an SWR upgrade.
+ *
+ * SWR writes the truncation as `~~`; `Math.trunc` is used here instead because
+ * the values stay far below 2^31, where the two are equivalent.
  */
 export const onErrorRetry = (
   error: unknown,
@@ -34,9 +37,8 @@ export const onErrorRetry = (
   const { retryCount } = opts
 
   const timeout =
-    ~~(
-      (Math.random() + 0.5) *
-      (1 << Math.min(retryCount, MAX_BACKOFF_EXPONENT))
+    Math.trunc(
+      (Math.random() + 0.5) * (1 << Math.min(retryCount, MAX_BACKOFF_EXPONENT))
     ) * config.errorRetryInterval
 
   if (maxRetryCount !== undefined && retryCount > maxRetryCount) {
