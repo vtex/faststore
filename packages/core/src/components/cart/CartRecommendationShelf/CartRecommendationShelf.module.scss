@@ -1,4 +1,4 @@
-@use 'sass:meta';
+@use "sass:meta";
 
 @layer components {
   // Rendered as a direct child of `[data-fs-cart-sidebar]`, which is a flex
@@ -62,29 +62,29 @@
       }
     }
 
-    @include meta.load-css('~@faststore/ui/src/components/atoms/Button/styles');
-    @include meta.load-css('~@faststore/ui/src/components/atoms/Icon/styles');
-    @include meta.load-css('~@faststore/ui/src/components/atoms/SROnly/styles');
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/SROnly/styles");
     @include meta.load-css(
-      '~@faststore/ui/src/components/atoms/Skeleton/styles'
+      "~@faststore/ui/src/components/atoms/Skeleton/styles"
     );
     @include meta.load-css(
-      '~@faststore/ui/src/components/molecules/Carousel/styles'
+      "~@faststore/ui/src/components/molecules/Carousel/styles"
     );
     @include meta.load-css(
-      '~@faststore/ui/src/components/molecules/DiscountBadge/styles'
+      "~@faststore/ui/src/components/molecules/DiscountBadge/styles"
     );
     @include meta.load-css(
-      '~@faststore/ui/src/components/molecules/ProductCard/styles'
+      "~@faststore/ui/src/components/molecules/ProductCard/styles"
     );
     @include meta.load-css(
-      '~@faststore/ui/src/components/molecules/ProductCardSkeleton/styles'
+      "~@faststore/ui/src/components/molecules/ProductCardSkeleton/styles"
     );
     @include meta.load-css(
-      '~@faststore/ui/src/components/molecules/Rating/styles'
+      "~@faststore/ui/src/components/molecules/Rating/styles"
     );
     @include meta.load-css(
-      '~@faststore/ui/src/components/organisms/ProductShelf/styles'
+      "~@faststore/ui/src/components/organisms/ProductShelf/styles"
     );
 
     // Keep the product fully visible: `cover` plus a height cap was clipping
@@ -92,8 +92,8 @@
     // `contain` stays compact without cropping.
     [data-fs-product-card] [data-fs-product-card-image],
     [data-fs-product-card-skeleton-image] {
-      aspect-ratio: 1;
       width: min(100%, 7.5rem);
+      aspect-ratio: 1;
       margin-inline: auto;
       background-color: var(--fs-color-neutral-1);
 
@@ -128,6 +128,7 @@
 
         [data-fs-button] {
           --fs-button-height: var(--fs-spacing-6);
+
           width: var(--fs-button-height);
           min-width: var(--fs-button-height);
         }

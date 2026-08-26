@@ -220,13 +220,11 @@ function CartSidebar({
           onClose={fadeOut}
         >
           {isEmpty ? (
-            <>
-              <EmptyCart
-                title={emptyCart?.title}
-                buttonLabel={emptyCart?.buttonLabel}
-                onDismiss={closeCart}
-              />
-            </>
+            <EmptyCart
+              title={emptyCart?.title}
+              buttonLabel={emptyCart?.buttonLabel}
+              onDismiss={closeCart}
+            />
           ) : (
             <>
               <UICartSidebarList>
