@@ -9,7 +9,7 @@ import {
 } from 'src/components/sections/RecommendationShelf'
 
 import CartRecommendationProductCard from './CartRecommendationProductCard'
-import styles from './styles.module.scss'
+import styles from './CartRecommendationShelf.module.scss'
 
 export type CartRecommendationShelfProps<
   TCardProps extends object = ProductCardProps,

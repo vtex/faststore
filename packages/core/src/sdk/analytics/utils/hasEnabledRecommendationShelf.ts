@@ -11,7 +11,7 @@ type CmsSection = {
   }
 }
 
-function isRecommendationsEnabled(
+export function isRecommendationsEnabled(
   enableRecommendations?: boolean,
   campaignVrn?: string
 ) {

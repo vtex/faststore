@@ -168,7 +168,7 @@ function CartSidebar({
   quantitySelector,
   taxesConfiguration,
   recommendations,
-}: CartSidebarProps) {
+}: Readonly<CartSidebarProps>) {
   const btnProps = useCheckoutButton()
   const {
     items,

@@ -5,6 +5,8 @@ import ProductCard, {
 } from 'src/components/product/ProductCard'
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 
+export interface CartRecommendationProductCardProps extends ProductCardProps {}
+
 /**
  * Product card used by the cart drawer recommendation shelf. Same surface as
  * the page shelf card, plus an add-to-cart action that appends the recommended
@@ -19,7 +21,7 @@ function CartRecommendationProductCard({
   buttonLabel = 'Add to cart',
   onButtonClick,
   ...otherProps
-}: ProductCardProps) {
+}: Readonly<CartRecommendationProductCardProps>) {
   const {
     id,
     sku,

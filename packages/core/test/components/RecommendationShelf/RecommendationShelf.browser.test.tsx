@@ -152,7 +152,26 @@ describe('RecommendationShelf', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('skips the fetch when recommendations are disabled (default)', async () => {
+  it('fetches when campaignVrn is set and enableRecommendations is omitted', async () => {
+    useRecommendations.mockReturnValue({
+      data: recommendationData,
+      isLoading: false,
+      error: null,
+    })
+
+    render(<RecommendationShelf campaignVrn={CAMPAIGN_VRN} />)
+
+    await waitFor(() => {
+      const lastArgs = useRecommendations.mock.calls.at(-1)?.[0]
+      expect(lastArgs).toEqual({
+        userId: 'user-1',
+        campaignVrn: CAMPAIGN_VRN,
+        products: [],
+      })
+    })
+  })
+
+  it('skips the fetch when enableRecommendations is explicitly false', async () => {
     useRecommendations.mockReturnValue({
       data: undefined,
       isLoading: false,
@@ -160,7 +179,10 @@ describe('RecommendationShelf', () => {
     })
 
     const { container, queryByTestId } = render(
-      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} />
+      <RecommendationShelf
+        campaignVrn={CAMPAIGN_VRN}
+        enableRecommendations={false}
+      />
     )
 
     await waitFor(() => {

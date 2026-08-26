@@ -7,6 +7,7 @@ import DefaultProductCard, {
   type ProductCardProps,
 } from 'src/components/product/ProductCard'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
+import { isRecommendationsEnabled } from 'src/sdk/analytics/utils/hasEnabledRecommendationShelf'
 import { useRecommendationShelf } from 'src/sdk/recommendations'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
@@ -23,7 +24,7 @@ export function RecommendationShelf<
 >({
   title,
   campaignVrn,
-  enableRecommendations = false,
+  enableRecommendations,
   itemsContext = 'PDP',
   freezeContext = false,
   className,
@@ -58,10 +59,15 @@ export function RecommendationShelf<
   const itemsPerPage =
     isMobile || isTablet ? itemsPerPageMobile : itemsPerPageDesktop
 
+  const recommendationsEnabled = isRecommendationsEnabled(
+    enableRecommendations,
+    campaignVrn
+  )
+
   const { items, isLoading, error, campaign, correlationId } =
     useRecommendationShelf({
       campaignVrn,
-      enableRecommendations,
+      enableRecommendations: recommendationsEnabled,
       itemsContext,
       freezeContext,
     })
