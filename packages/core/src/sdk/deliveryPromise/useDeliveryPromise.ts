@@ -148,7 +148,7 @@ export function useDeliveryPromise({
 
   // Set the default selected pickup point based on pickup points list
   useEffect(() => {
-    if (pickupPoints.length === 0) return
+    if (!pickupPoints?.length) return
 
     deliveryPromiseStore.set({
       defaultPickupPoint: pickupPointByID(selectedPickupPointFacet),
@@ -182,7 +182,7 @@ export function useDeliveryPromise({
   }, [])
 
   const pickupPointByID = useCallback(
-    (pickupPointId: string) => {
+    (pickupPointId?: string) => {
       if (!pickupPoints?.length) return
 
       const preferredPickupPoint =
@@ -202,13 +202,14 @@ export function useDeliveryPromise({
   const pickupInPointFacet = useMemo(
     () => ({
       value: PICKUP_IN_POINT_FACET_VALUE,
-      label: defaultPickupPoint?.name ?? defaultPickupPoint?.address.street,
+      label:
+        defaultPickupPoint?.name ?? defaultPickupPoint?.address?.street ?? '',
       selected: selectedFacets?.some(
         ({ key, value }) =>
           value === PICKUP_IN_POINT_FACET_VALUE ||
           key === PICKUP_POINT_FACET_KEY
       ),
-      quantity: defaultPickupPoint?.totalItems,
+      quantity: defaultPickupPoint?.totalItems ?? null,
     }),
     [defaultPickupPoint, selectedFacets]
   )
@@ -236,7 +237,8 @@ export function useDeliveryPromise({
     () => [
       {
         value: ALL_DELIVERY_METHODS_FACET_VALUE,
-        label: deliveryPromiseSettings?.deliveryMethods?.allDeliveryMethods,
+        label:
+          deliveryPromiseSettings?.deliveryMethods?.allDeliveryMethods ?? '',
         selected:
           !selectedFacets.some(({ key }) => key === SHIPPING_FACET_KEY) ||
           selectedFacets?.some(
@@ -248,7 +250,8 @@ export function useDeliveryPromise({
       },
       {
         value: ALL_DELIVERY_OPTIONS_FACET_VALUE,
-        label: deliveryPromiseSettings?.deliveryOptions?.allDeliveryOptions,
+        label:
+          deliveryPromiseSettings?.deliveryOptions?.allDeliveryOptions ?? '',
         selected:
           !selectedFacets.some(
             ({ key }) => key === DELIVERY_OPTIONS_FACET_KEY
@@ -270,19 +273,19 @@ export function useDeliveryPromise({
       facets = [],
       filterDispatch,
     }: {
-      facet?: Facet
+      facet?: Facet | null
       facets?: Facet[]
       filterDispatch?: ReturnType<typeof useFilter>['dispatch']
     }) => {
       let unique = true
-      const facetsToToggle: Facet[] = facets?.length !== 0 ? facets : [facet]
+      const facetsToToggle: Facet[] = facets?.length !== 0 ? facets : [facet!]
       let currentSelectedFacets = selectedFacets
 
       // Toggle `pickup-in-point` and `pickupPoint` facets
       if (facet?.value === PICKUP_IN_POINT_FACET_VALUE) {
         facetsToToggle.push({
           key: PICKUP_POINT_FACET_KEY,
-          value: defaultPickupPoint?.id,
+          value: defaultPickupPoint?.id as string,
         })
       } else {
         // Toggle previously selected pickupPoint facet
@@ -433,7 +436,10 @@ export function useDeliveryPromise({
     ({
       simulatePickupPoints = false,
       validatedSession = null,
-    }: { simulatePickupPoints?: boolean; validatedSession?: Session } = {}) => {
+    }: {
+      simulatePickupPoints?: boolean
+      validatedSession?: Session | null
+    } = {}) => {
       const partialSession = {
         country: validatedSession?.country,
         postalCode: validatedSession?.postalCode,
@@ -568,7 +574,7 @@ export function useDeliveryPromise({
     onDeliveryFacetChange,
     labelsMap,
     isPickupAllEnabled:
-      pickupPoints?.length > 0 &&
+      (pickupPoints?.length ?? 0) > 0 &&
       (deliveryPromiseSettings?.deliveryMethods?.pickupAll?.enabled ?? false),
     shouldDisplayDeliveryButton: isDeliveryPromiseEnabled && !postalCode,
     shouldDisplayDeliveryPromiseBadges,

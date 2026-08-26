@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 import type {
   BannerTextProps as UIBannerTextProps,
   BannerTextContentProps as UIBannerTextContentProps,
@@ -26,7 +27,7 @@ export interface BannerTextProps {
 function BannerText({
   title,
   caption,
-  link: { url: linkUrl, text: linkText, linkTargetBlank },
+  link: { url: linkUrl, text: linkText, linkTargetBlank } = {},
   variant,
   colorVariant,
 }: BannerTextProps) {
@@ -46,8 +47,8 @@ function BannerText({
           {...BannerTextContent.props}
           title={title}
           caption={caption}
-          link={linkUrl ?? BannerTextContent.props.link}
-          linkText={linkText ?? BannerTextContent.props.linkText}
+          link={linkUrl ?? BannerTextContent.props.link ?? ''}
+          linkText={linkText ?? BannerTextContent.props.linkText ?? ''}
           linkTargetBlank={
             linkTargetBlank ?? BannerTextContent.props.linkTargetBlank
           }
@@ -59,10 +60,10 @@ function BannerText({
 
 BannerText.$componentKey = 'BannerText'
 
-const OverridableBannerText = getOverridableSection<typeof BannerText>(
+const OverridableBannerText = getOverridableSection<ComponentType<any>>(
   'BannerText',
   BannerText,
   BannerTextDefaultComponents
-)
+) as typeof BannerText
 
 export default OverridableBannerText

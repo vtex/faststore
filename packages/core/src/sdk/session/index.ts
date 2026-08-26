@@ -97,7 +97,7 @@ async function handleRefreshToken(session: Session): Promise<Session | null> {
     return {
       ...session,
       refreshAfter: String(
-        Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
+        Math.floor(new Date(result?.refreshAfter ?? '').getTime() / 1000)
       ),
     }
   }
@@ -175,11 +175,11 @@ export const validateSession = async (session: Session) => {
       search: window.location.search,
     })
 
-    return data.validateSession
+    return data!.validateSession as Session
   } catch (error) {
     const shouldRefreshToken =
       !isLocalHostBrowser() &&
-      error?.status === 401 &&
+      (error as { status?: number })?.status === 401 &&
       storeConfig.experimental?.refreshToken
 
     if (shouldRefreshToken) {
@@ -188,6 +188,8 @@ export const validateSession = async (session: Session) => {
         sessionStore.set(refreshed)
       }
     }
+
+    return null
   }
 }
 

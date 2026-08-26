@@ -2,7 +2,7 @@ import type {
   HeroProps as UIHeroProps,
   HeroHeaderProps as UIHeroHeaderProps,
 } from '@faststore/ui'
-import type { ReactNode } from 'react'
+import type { ComponentType, ReactNode } from 'react'
 import { Image } from '../../../components/ui/Image'
 
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
@@ -81,10 +81,10 @@ const Hero = ({
 
 Hero.$componentKey = 'Hero'
 
-const OverridableHero = getOverridableSection<typeof Hero>(
+const OverridableHero = getOverridableSection<ComponentType<any>>(
   'Hero',
   Hero,
   HeroDefaultComponents
-)
+) as typeof Hero
 
 export default OverridableHero

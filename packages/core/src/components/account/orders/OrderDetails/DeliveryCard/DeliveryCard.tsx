@@ -8,8 +8,8 @@ interface DeliveryCardProps {
   fields?: Array<{
     name: string
     value: string
-    refId?: string
-  }>
+    refId?: string | null
+  } | null> | null
 }
 
 export default function DeliveryCard({
@@ -24,8 +24,8 @@ export default function DeliveryCard({
     <Card title={title} data-fs-order-delivery-card>
       <div data-fs-delivery-methods>
         {deliveryOptions.map((option) => (
-          <p key={option.friendlyDeliveryOptionName} data-fs-delivery-method>
-            {option.friendlyDeliveryOptionName}
+          <p key={option?.friendlyDeliveryOptionName} data-fs-delivery-method>
+            {option?.friendlyDeliveryOptionName}
           </p>
         ))}
       </div>
@@ -36,9 +36,9 @@ export default function DeliveryCard({
           {contact.phone && (
             <p data-fs-delivery-contact-phone>{contact.phone}</p>
           )}
-          {fields?.length > 0 && (
+          {(fields?.length ?? 0) > 0 && (
             <p data-fs-delivery-contact-fields>
-              {`${camelCaseToTitle(fields[0]?.name)}: ${fields[0]?.value}`}
+              {`${camelCaseToTitle(fields?.[0]?.name ?? '')}: ${fields?.[0]?.value}`}
             </p>
           )}
         </div>

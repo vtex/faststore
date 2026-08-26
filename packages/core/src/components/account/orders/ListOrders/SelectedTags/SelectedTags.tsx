@@ -27,7 +27,7 @@ type SelectedTagsProps = {
  * @param locale - The locale to format the date string, e.g., 'en-US', 'pt-BR'.
  * @returns Formatted date string in the format "MM/DD/YYYY" or "DD/MM/YYYY" depending on the locale.
  */
-function formatFilterDate(date: string, locale: string) {
+function formatFilterDate(date: string, locale: string | undefined) {
   // Parse the date string manually to avoid timezone issues
   const [year, month, day] = date.split('-').map(Number)
 
@@ -70,7 +70,7 @@ function Tags({
       <button
         data-fs-list-orders-selected-tag-clear
         onClick={() => {
-          onRemoveFilter('dateInitial', dateInitial)
+          onRemoveFilter('dateInitial', dateInitial ?? '')
           // dateFinal is not needed as the date range is a single tag
         }}
       >

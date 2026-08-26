@@ -1,5 +1,5 @@
 import type { Locator, Section } from '@vtex/client-cms'
-import type { GetServerSideProps } from 'next'
+import type { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { Layout } from 'src/components/account'
@@ -326,9 +326,7 @@ const getServerSidePropsBase: GetServerSideProps<
     return { redirect }
   }
 
-  const {
-    params: { id },
-  } = context
+  const id = context.params!.id
   const contentContext = {
     previewData: context.previewData,
     locale: context.locale,
@@ -420,6 +418,7 @@ const getServerSidePropsBase: GetServerSideProps<
   }
 }
 
-export const getServerSideProps = withLocaleValidationSSR(
-  getServerSidePropsBase
-)
+export const getServerSideProps = withLocaleValidationSSR<
+  OrderDetailsPageProps,
+  GetServerSidePropsContext<Record<string, string>, Locator>
+>(getServerSidePropsBase)

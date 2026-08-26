@@ -35,7 +35,7 @@ export default function SearchWrapper({
   } = useSearch()
 
   const { data: pageProductGalleryData } = useProductGalleryQuery({
-    term,
+    term: term!,
     sort,
     itemsPerPage,
     selectedFacets,

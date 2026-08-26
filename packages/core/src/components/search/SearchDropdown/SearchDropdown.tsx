@@ -51,9 +51,8 @@ function SearchDropdown({
   onChangeCustomSearchDropdownVisible,
   ...otherProps
 }: SearchDropdownProps) {
-  const {
-    values: { onSearchSelection, products, term, terms, searchId },
-  } = useSearch()
+  const { values } = useSearch()
+  const { onSearchSelection, products, term, terms, searchId } = values!
   const formatSearchPath = useFormatSearchPath()
 
   return (

@@ -12,9 +12,9 @@ const MAX_TABLET_WIDTH = 768
 const MIN_NOTEBOOK_WIDTH = 1280
 
 function useScreenResize() {
-  const [isMobile, setIsMobile] = useState(undefined)
-  const [isTablet, setIsTablet] = useState(undefined)
-  const [isDesktop, setIsDesktop] = useState(undefined)
+  const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined)
+  const [isTablet, setIsTablet] = useState<boolean | undefined>(undefined)
+  const [isDesktop, setIsDesktop] = useState<boolean | undefined>(undefined)
 
   useIsomorphicLayoutEffect(() => {
     const handleResize = () => {

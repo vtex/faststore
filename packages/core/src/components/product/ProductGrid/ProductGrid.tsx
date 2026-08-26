@@ -108,7 +108,7 @@ function ProductGrid({
               <UIProductGridItem key={`${product.id}`}>
                 <ProductSentinel
                   product={product}
-                  title={title}
+                  title={title ?? ''}
                   page={page}
                   pageSize={pageSize}
                 >
@@ -132,7 +132,7 @@ function ProductGrid({
                     index={pageSize * page + idx + 1}
                     taxesConfiguration={taxesConfiguration}
                     sponsoredLabel={sponsoredLabel}
-                    {...buildExtraProductProps(product, idx, searchId)}
+                    {...buildExtraProductProps(product, idx, searchId ?? '')}
                   />
                 </ProductSentinel>
               </UIProductGridItem>
@@ -142,7 +142,7 @@ function ProductGrid({
                 <UIProductGridItem key={`${product.id}`}>
                   <ProductSentinel
                     product={product}
-                    title={title}
+                    title={title ?? ''}
                     page={page}
                     pageSize={pageSize}
                   >
@@ -165,7 +165,7 @@ function ProductGrid({
                       index={pageSize * page + idx + 1}
                       taxesConfiguration={taxesConfiguration}
                       sponsoredLabel={sponsoredLabel}
-                      {...buildExtraProductProps(product, idx, searchId)}
+                      {...buildExtraProductProps(product, idx, searchId ?? '')}
                     />
                   </ProductSentinel>
                 </UIProductGridItem>
@@ -178,7 +178,7 @@ function ProductGrid({
               <UIProductGridItem key={`${product.id}`}>
                 <ProductSentinel
                   product={product}
-                  title={title}
+                  title={title ?? ''}
                   page={page}
                   pageSize={pageSize}
                 >
@@ -203,7 +203,7 @@ function ProductGrid({
                     index={pageSize * page + idx + 1}
                     taxesConfiguration={taxesConfiguration}
                     sponsoredLabel={sponsoredLabel}
-                    {...buildExtraProductProps(product, idx, searchId)}
+                    {...buildExtraProductProps(product, idx, searchId ?? '')}
                   />
                 </ProductSentinel>
               </UIProductGridItem>

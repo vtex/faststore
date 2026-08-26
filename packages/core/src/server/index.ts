@@ -100,7 +100,7 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
   }
 }> => {
   const { operation, variables, query: maybeQuery, locale } = options
-  const { operationHash, operationName } = operation['__meta__']
+  const { operationHash, operationName } = operation['__meta__']!
 
   if (!persistedQueries.size) {
     const persistedQueriesLoaded = await import(
@@ -153,7 +153,8 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
     errors,
     extensions: {
       cookies: contextValue.storage.cookies,
-      cacheControl: contextValue.cacheControl,
+      cacheControl: (contextValue as { cacheControl?: CacheControl })
+        .cacheControl,
     },
   }
 }

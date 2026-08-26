@@ -8,25 +8,25 @@ import {
 // Interface for order totals (items, shipping, discounts)
 // TODO: Use type from API
 interface Total {
-  id: string
-  name: string
-  value: number
+  id: string | null
+  name: string | null
+  value: number | null
 }
 
 // Interface for payment transactions
 // TODO: Use type from API
 interface Transaction {
-  isActive: boolean
+  isActive: boolean | null
   payments: Array<{
-    value: number
-    referenceValue: number
-  }>
+    value: number | null
+    referenceValue: number | null
+  } | null> | null
 }
 
 interface SummaryCardProps {
-  totals: Total[]
+  totals?: Array<Total | null> | null
   currencyCode: string
-  transactions: Transaction[]
+  transactions?: Array<Transaction | null> | null
   labels?: OrderSummarySectionLabels
 }
 
@@ -43,14 +43,18 @@ function SummaryCard({
   const calculatePaymentSurcharge = () => {
     let surchargeAmount = 0
 
-    transactions.forEach((transaction) => {
-      if (transaction.isActive) {
-        transaction.payments.forEach((payment) => {
+    transactions?.forEach((transaction) => {
+      if (transaction?.isActive) {
+        transaction.payments?.forEach((payment) => {
+          if (!payment) {
+            return
+          }
+
           const baseAmount =
             payment.referenceValue === 0
               ? payment.value
               : payment.referenceValue
-          const additionalCharge = payment.value - baseAmount
+          const additionalCharge = (payment.value ?? 0) - (baseAmount ?? 0)
           surchargeAmount += additionalCharge
         })
       }
@@ -69,22 +73,25 @@ function SummaryCard({
         value: surchargeAmount,
       }
 
-      return [...totals, interestLineItem]
+      return [...(totals ?? []), interestLineItem]
     }
 
-    return totals
+    return totals ?? []
   }
 
   const displayTotals = getDisplayTotals()
 
-  const totalAmount = displayTotals.reduce((sum, total) => sum + total.value, 0)
+  const totalAmount = displayTotals.reduce(
+    (sum, total) => sum + (total?.value ?? 0),
+    0
+  )
 
   return (
     <Card title={labels.summaryTitle} data-fs-order-summary-card>
       {displayTotals.map((total) => (
-        <div key={total.id} data-fs-order-summary-item>
-          <span>{total.name}</span>
-          <span>{formatPrice(total.value, currencyCode)}</span>
+        <div key={total?.id} data-fs-order-summary-item>
+          <span>{total?.name}</span>
+          <span>{formatPrice(total?.value ?? 0, currencyCode)}</span>
         </div>
       ))}
       <div data-fs-order-summary-item data-fs-order-summary-total>

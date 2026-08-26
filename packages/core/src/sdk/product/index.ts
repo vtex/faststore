@@ -15,7 +15,7 @@ export const query = gql(`
 `)
 
 export const getProductCount = async (term?: string) => {
-  const { productCount } = await request<Query, Variables>(query, { term })
+  const { productCount } = (await request<Query, Variables>(query, { term }))!
 
-  return productCount.total
+  return productCount!.total
 }

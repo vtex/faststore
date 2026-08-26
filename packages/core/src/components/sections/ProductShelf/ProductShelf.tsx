@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 import { useInView } from 'react-intersection-observer'
 import Section from '../Section'
 
@@ -25,10 +26,10 @@ function ProductShelfSection({
 
 ProductShelfSection.$componentKey = 'ProductShelf'
 
-const OverridableProductShelf = getOverridableSection<typeof ProductShelf>(
+const OverridableProductShelf = getOverridableSection<ComponentType<any>>(
   'ProductShelf',
   ProductShelfSection,
   ProductShelfDefaultComponents
-)
+) as typeof ProductShelf
 
 export default OverridableProductShelf

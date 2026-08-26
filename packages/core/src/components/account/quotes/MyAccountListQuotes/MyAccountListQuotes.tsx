@@ -48,7 +48,9 @@ export default function MyAccountListQuotes({
   filters,
 }: MyAccountListQuotesProps) {
   const { isDesktop } = useScreenResize()
-  const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
+  const searchInputRef = useRef(
+    null
+  ) as unknown as MutableRefObject<SearchInputFieldRef>
 
   useEffect(() => {
     if (!searchInputRef.current?.inputRef) return
@@ -87,15 +89,15 @@ export default function MyAccountListQuotes({
             data-fs-search-input-field-list-quotes
             placeholder="Search"
             onBlur={() => {
-              handleSearchChange(searchInputRef.current.inputRef.value)
+              handleSearchChange(searchInputRef.current.inputRef?.value ?? '')
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                handleSearchChange(searchInputRef.current.inputRef.value)
+                handleSearchChange(searchInputRef.current.inputRef?.value ?? '')
               }
             }}
             onSubmit={() => {
-              handleSearchChange(searchInputRef.current.inputRef.value)
+              handleSearchChange(searchInputRef.current.inputRef?.value ?? '')
             }}
           />
           <Button

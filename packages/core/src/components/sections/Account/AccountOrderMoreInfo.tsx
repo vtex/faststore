@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react'
 import MoreInformationCard from 'src/components/account/orders/OrderDetails/MoreInformationCard'
 import {
   type OrderMoreInfoSectionLabels,
@@ -17,7 +18,7 @@ const AccountOrderMoreInfo = ({
   const { order } = useAccountPageData<AccountOrderDetailsPageData>()
 
   const moreInformationCustomFields = order?.customFields?.find(
-    (field) => field.type === 'order'
+    (field) => field?.type === 'order'
   )?.fields
 
   if (!moreInformationCustomFields?.length) {
@@ -27,7 +28,11 @@ const AccountOrderMoreInfo = ({
   return (
     <Section className="section-account-order-more-info">
       <MoreInformationCard
-        fields={moreInformationCustomFields}
+        fields={
+          moreInformationCustomFields as ComponentProps<
+            typeof MoreInformationCard
+          >['fields']
+        }
         title={moreInfoTitle}
       />
     </Section>

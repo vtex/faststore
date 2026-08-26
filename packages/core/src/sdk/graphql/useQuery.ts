@@ -44,7 +44,7 @@ export const useQuery = <Data, Variables = Record<string, unknown>>(
   useSWR<Data>(
     () => {
       if (options?.doNotRun) return null
-      const baseKey = getKey(operation['__meta__']['operationName'], variables)
+      const baseKey = getKey(operation['__meta__']!['operationName'], variables)
       const sessionSuffix = getSessionCacheKeySuffix()
       return `${baseKey}::${sessionSuffix}`
     },
@@ -53,7 +53,11 @@ export const useQuery = <Data, Variables = Record<string, unknown>>(
         return new Promise((resolve) => {
           setTimeout(async () => {
             resolve(
-              await request<Data, Variables>(operation, variables, options)
+              (await request<Data, Variables>(
+                operation,
+                variables,
+                options
+              )) as Data
             )
           })
         })

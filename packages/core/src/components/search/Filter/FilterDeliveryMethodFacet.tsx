@@ -6,7 +6,9 @@ import { textToTitleCase } from 'src/utils/utilities'
 
 interface FilterDeliveryMethodFacetProps {
   item: StoreFacetValueBoolean
-  deliveryMethods: GlobalCmsData['deliveryPromise']['deliveryMethods']
+  deliveryMethods: NonNullable<
+    GlobalCmsData['deliveryPromise']
+  >['deliveryMethods']
 }
 
 export default function FilterDeliveryMethodFacet({

@@ -11,9 +11,8 @@ interface SearchHistoryProps {
 }
 
 const SearchHistory = ({ title, ...props }: SearchHistoryProps) => {
-  const {
-    values: { onSearchSelection },
-  } = useSearch()
+  const { values } = useSearch()
+  const { onSearchSelection } = values!
   const { searchHistory, clearSearchHistory } = useSearchHistory()
 
   if (!searchHistory.length) {
@@ -21,7 +20,11 @@ const SearchHistory = ({ title, ...props }: SearchHistoryProps) => {
   }
 
   return (
-    <UISearchHistory title={title} onClear={clearSearchHistory} {...props}>
+    <UISearchHistory
+      title={title ?? ''}
+      onClear={clearSearchHistory}
+      {...props}
+    >
       {searchHistory.map((item) => (
         <UISearchHistoryTerm
           key={item.term}

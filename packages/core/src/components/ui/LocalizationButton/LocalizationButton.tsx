@@ -116,11 +116,11 @@ const LocalizationButton = ({
           onSave={save}
           isSaveEnabled={isSaveEnabled}
           error={error}
-          title={title}
-          languageLabel={languageLabel}
-          currencyLabel={currencyLabel}
-          description={description}
-          saveLabel={saveLabel}
+          title={title ?? ''}
+          languageLabel={languageLabel ?? ''}
+          currencyLabel={currencyLabel ?? ''}
+          description={description ?? ''}
+          saveLabel={saveLabel ?? ''}
           errorMessages={errorMessages}
           popoverPlacement={popoverPlacement}
         />

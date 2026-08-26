@@ -308,7 +308,7 @@ const handler: NextApiHandler = async (request, response) => {
       response.setHeader('cache-control', 'no-cache, no-store')
     }
 
-    const setCookieValues = Array.from(extensions.cookies.values())
+    const setCookieValues = Array.from(extensions.cookies?.values() ?? [])
     if (setCookieValues.length > 0 && !hasErrors) {
       response.setHeader(
         'set-cookie',

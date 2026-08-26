@@ -109,7 +109,8 @@ function buildHreflangLinks(
   const links: Array<{ rel: string; hrefLang: string; href: string }> = []
 
   for (const { locale, slug } of otherLocales) {
-    const bindingUrl = locales?.[locale]?.bindings?.[0]?.url
+    const bindingUrl =
+      locales?.[locale as keyof typeof locales]?.bindings?.[0]?.url
     if (typeof bindingUrl === 'string' && bindingUrl.length > 0) {
       links.push({
         rel: 'alternate',
@@ -238,7 +239,7 @@ function Page({
     globalSectionsProp ?? {}
   const context = {
     data: {
-      ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
+      ...deepmerge(server, client ?? {}, { arrayMerge: overwriteMerge }),
       isValidating,
     },
     globalSettings,
@@ -458,7 +459,7 @@ export const getStaticProps: GetStaticProps<
         locator: [
           { key: 'slug', value: slug },
           { key: 'channel', value: getChannelForLocale(locale) },
-          { key: 'locale', value: locale },
+          { key: 'locale', value: locale as string },
         ],
       },
       operation: query,

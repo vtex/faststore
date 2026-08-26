@@ -6,6 +6,7 @@ import type {
 
 import { deliveryPromise } from 'discovery.config'
 import { request } from 'src/sdk/graphql/request'
+import type { PickupPoint } from './useDeliveryPromise'
 
 const pickupPointsQuery = gql(`
   query ClientPickupPointsQuery(
@@ -61,7 +62,7 @@ export const getPickupPoints = async ({
   }
 
   const pickupPoints = data.pickupPoints?.pickupPointDistances
-    ?.filter((pickupPoint) => pickupPoint.isActive)
+    ?.filter((pickupPoint) => pickupPoint?.isActive)
     .map((pickupPoint) => ({
       id: pickupPoint?.pickupId,
       name: pickupPoint?.pickupName,
@@ -76,5 +77,5 @@ export const getPickupPoints = async ({
       distance: pickupPoint?.distance,
     }))
 
-  return pickupPoints
+  return (pickupPoints ?? []) as PickupPoint[]
 }

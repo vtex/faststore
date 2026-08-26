@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { getOverridableSection } from '../../..//sdk/overrides/getOverriddenSection'
 import RegionBar, {
@@ -45,10 +46,10 @@ function RegionBarSection({ ...otherProps }: RegionBarSectionProps) {
 
 RegionBarSection.$componentKey = 'RegionBar'
 
-const OverridableRegionBar = getOverridableSection<typeof RegionBarSection>(
+const OverridableRegionBar = getOverridableSection<ComponentType<any>>(
   'RegionBar',
   RegionBarSection,
   RegionBarDefaultComponents
-)
+) as typeof RegionBarSection
 
 export default OverridableRegionBar

@@ -21,7 +21,7 @@ const ASSET_FILE_REGEX = /\.(js|css|png|jpg|jpeg|svg|gif|webp|ico|json|map)$/i
 
 export async function getRedirect({
   pathname,
-}: GetRedirectArgs): Promise<GetRedirectReturn> {
+}: GetRedirectArgs): Promise<GetRedirectReturn | null> {
   const isValidPath = !ASSET_FILE_REGEX.test(pathname)
 
   if (!isValidPath) {

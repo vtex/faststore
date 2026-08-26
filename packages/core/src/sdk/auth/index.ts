@@ -7,7 +7,7 @@ export const useAuth = () => {
     channel: channelJson,
   } = useSession({ filter: false })
 
-  const channel = JSON.parse(channelJson) as {
+  const channel = JSON.parse(channelJson!) as {
     salesChannel: number
     regionId: string
     hasOnlyDefaultSalesChannel?: boolean

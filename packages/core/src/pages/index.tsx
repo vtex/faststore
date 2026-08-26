@@ -1,5 +1,6 @@
 import type { GetStaticProps } from 'next'
 import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import type { OrganizationJsonLdProps } from 'next-seo'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
@@ -12,7 +13,7 @@ import COMPONENTS from 'src/components/cms/home/Components'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { injectGlobalSections } from 'src/server/cms/global'
-import type { PreviewData } from 'src/server/content/types'
+import type { ContentParams, PreviewData } from 'src/server/content/types'
 import { contentService } from 'src/server/content/service'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../discovery.config'
@@ -86,48 +87,50 @@ function Page({
 
       {settings?.seo?.organization && (
         <OrganizationJsonLd
-          type="Organization"
-          {...(settings?.seo?.organization?.id && {
-            id: settings.seo.organization.id,
-          })}
-          {...(settings?.seo?.organization?.url && {
-            url: settings.seo.organization.url,
-          })}
-          {...(settings?.seo?.organization?.sameAs?.length && {
-            sameAs: settings.seo.organization.sameAs,
-          })}
-          {...(settings?.seo?.organization?.logo && {
-            logo: settings.seo.organization.logo,
-          })}
-          {...(settings?.seo?.organization?.name && {
-            name: settings.seo.organization.name,
-          })}
-          {...(settings?.seo?.organization?.legalName && {
-            legalName: settings.seo.organization.legalName,
-          })}
-          {...(settings?.seo?.organization?.email && {
-            email: settings.seo.organization.email,
-          })}
-          {...(settings?.seo?.organization?.telephone && {
-            telephone: settings.seo.organization.telephone,
-          })}
-          {...(settings?.seo?.organization?.image && {
-            image: {
-              type: 'ImageObject',
-              ...(settings.seo.organization.image.url && {
-                url: settings.seo.organization.image.url,
-              }),
-              ...(settings.seo.organization.image.caption && {
-                caption: settings.seo.organization.image.caption,
-              }),
-              ...(settings.seo.organization.image.id && {
-                id: settings.seo.organization.image.id,
-              }),
-            },
-          })}
-          {...(Object.keys(organizationAddress).length !== 0 && {
-            address: organizationAddress,
-          })}
+          {...({
+            type: 'Organization',
+            ...(settings?.seo?.organization?.id && {
+              id: settings.seo.organization.id,
+            }),
+            ...(settings?.seo?.organization?.url && {
+              url: settings.seo.organization.url,
+            }),
+            ...(settings?.seo?.organization?.sameAs?.length && {
+              sameAs: settings.seo.organization.sameAs,
+            }),
+            ...(settings?.seo?.organization?.logo && {
+              logo: settings.seo.organization.logo,
+            }),
+            ...(settings?.seo?.organization?.name && {
+              name: settings.seo.organization.name,
+            }),
+            ...(settings?.seo?.organization?.legalName && {
+              legalName: settings.seo.organization.legalName,
+            }),
+            ...(settings?.seo?.organization?.email && {
+              email: settings.seo.organization.email,
+            }),
+            ...(settings?.seo?.organization?.telephone && {
+              telephone: settings.seo.organization.telephone,
+            }),
+            ...(settings?.seo?.organization?.image && {
+              image: {
+                type: 'ImageObject',
+                ...(settings.seo.organization.image.url && {
+                  url: settings.seo.organization.image.url,
+                }),
+                ...(settings.seo.organization.image.caption && {
+                  caption: settings.seo.organization.image.caption,
+                }),
+                ...(settings.seo.organization.image.id && {
+                  id: settings.seo.organization.image.id,
+                }),
+              },
+            }),
+            ...(Object.keys(organizationAddress).length !== 0 && {
+              address: organizationAddress,
+            }),
+          } as unknown as OrganizationJsonLdProps)}
         />
       )}
 
@@ -166,7 +169,10 @@ export const getStaticProps: GetStaticProps<
   ] = getGlobalSectionsData(contentContext)
   const serverDataPromise = getDynamicContent({ pageType: 'home' })
 
-  let cmsPage = null
+  let cmsPage: Pick<
+    ContentParams,
+    'documentId' | 'versionId' | 'releaseId'
+  > | null = null
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
     cmsPage = cmsData['home'][0]

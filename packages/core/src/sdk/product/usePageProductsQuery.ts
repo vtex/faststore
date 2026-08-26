@@ -146,7 +146,7 @@ export const useCreateUseGalleryPage = (
     const shouldFetch = !hasSameVariables || shouldFetchFirstPage
 
     const { data } = useQuery<
-      ClientManyProductsQueryWithSearchIdQuery,
+      ClientManyProductsQueryWithSearchIdQuery | null,
       ClientManyProductsQueryWithSearchIdQueryVariables
     >(query, localizedVariablesWithRegion, {
       fallbackData: null,
@@ -162,7 +162,7 @@ export const useCreateUseGalleryPage = (
 
       // Update refs
       const newPages = [...pagesRef.current]
-      newPages[page] = data
+      newPages[page] = data!
       pagesRef.current = newPages
     }
 
@@ -172,7 +172,7 @@ export const useCreateUseGalleryPage = (
         // Update state
         setPages((oldPages) => {
           const newPages = [...oldPages]
-          newPages[page] = data
+          newPages[page] = data!
           return newPages
         })
       }

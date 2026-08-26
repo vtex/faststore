@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { type ComponentType, memo } from 'react'
 
 import Section from '../Section'
 
@@ -47,8 +47,10 @@ function BreadcrumbSection({
 
 BreadcrumbSection.$componentKey = 'Breadcrumb'
 
-const OverridableBreadcrumbSection = getOverridableSection<
-  typeof BreadcrumbSection
->('Breadcrumb', BreadcrumbSection, BreadcrumbDefaultComponents)
+const OverridableBreadcrumbSection = getOverridableSection<ComponentType<any>>(
+  'Breadcrumb',
+  BreadcrumbSection,
+  BreadcrumbDefaultComponents
+) as typeof BreadcrumbSection
 
 export default memo(OverridableBreadcrumbSection)

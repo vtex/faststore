@@ -30,6 +30,10 @@ export function OrderDetailsHeader({
   const { resolveLink } = useLink()
   const ordersHref = resolveLink(ORDERS_PATH) ?? ORDERS_PATH
 
+  if (!order) {
+    return null
+  }
+
   return (
     <>
       <header data-fs-order-details-header>
@@ -49,8 +53,8 @@ export function OrderDetailsHeader({
               {order.orderId}
             </h1>
             <StatusBadge
-              status={order.status}
-              statusFallback={order.statusDescription}
+              status={order.status ?? ''}
+              statusFallback={order.statusDescription ?? undefined}
               statusLabels={statusLabels}
             />
           </div>
@@ -59,9 +63,9 @@ export function OrderDetailsHeader({
         <div data-fs-order-details-header-actions>
           <ReorderButton order={order} label={labels.reorderLabel} />
           <OrderActions
-            allowCancellation={order.allowCancellation}
-            orderId={order.orderId}
-            customerEmail={order.clientProfileData?.email}
+            allowCancellation={order.allowCancellation ?? false}
+            orderId={order.orderId ?? ''}
+            customerEmail={order.clientProfileData?.email ?? undefined}
             order={order}
             labels={labels}
           />
