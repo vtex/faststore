@@ -6,6 +6,7 @@ import path from 'node:path'
 import ora from 'ora'
 
 import { pathToFileURL } from 'node:url'
+import { resolvePackageBin } from './binPaths'
 import { createNextJsPages } from './createNextjsPages'
 import { installDependencies } from './dependencies'
 import { withBasePath } from './directory'
@@ -64,7 +65,8 @@ function createTmpFolder(basePath: string) {
  */
 export function buildFaststorePackageJson(
   coreManifest: Record<string, unknown>,
-  voltaConfig?: Record<string, unknown>
+  voltaConfig?: Record<string, unknown>,
+  nextBin?: string
 ): Record<string, unknown> {
   const {
     exports: _exports,
@@ -75,6 +77,21 @@ export function buildFaststorePackageJson(
   const existingScripts =
     (rest.scripts as Record<string, string> | undefined) ?? {}
 
+  /**
+   * Invoking Next through the path resolved from `@faststore/core` rather than
+   * by name, so a copy that won the root `.bin` link cannot answer instead. On
+   * a monorepo where another module pins an older major, that copy is a
+   * different Next than the one core was built against, and it rejects the
+   * flags below outright. Falls back to the bare command when resolution fails,
+   * which leaves the previous PATH-based behaviour in place.
+   *
+   * `nextBin` is relative to `.faststore`, which is where these scripts run.
+   * An absolute path would carry the whole store directory into a shell string,
+   * and a quote or a `$` anywhere above the project would break it — a relative
+   * path only ever spans `node_modules` segments.
+   */
+  const next = nextBin ? `node ${nextBin}` : 'next'
+
   return {
     ...rest,
     name: 'dot-faststore',
@@ -82,14 +99,35 @@ export function buildFaststorePackageJson(
     scripts: {
       ...existingScripts,
       generate: 'faststore generate',
-      build: 'next build --webpack',
-      serve: 'next serve',
-      dev: 'next dev --webpack',
-      'dev-only': 'next dev --webpack',
+      build: `${next} build --webpack`,
+      serve: `${next} serve`,
+      dev: `${next} dev --webpack`,
+      'dev-only': `${next} dev --webpack`,
       predev: 'na run partytown',
       prebuild: 'na run partytown',
     },
   }
+}
+
+/**
+ * The Next executable `@faststore/core` resolves, expressed relative to the
+ * `.faststore` directory its scripts run from. Returns undefined when it cannot
+ * be resolved, or when no relative path exists — a different Windows drive —
+ * so the caller falls back to the bare command.
+ */
+export function relativeNextBin(
+  coreDir: string,
+  tmpDir: string
+): string | undefined {
+  const nextBin = resolvePackageBin('next/dist/bin/next', coreDir)
+
+  if (!nextBin) {
+    return undefined
+  }
+
+  const relative = path.relative(tmpDir, nextBin).replaceAll('\\', '/')
+
+  return relative && !path.isAbsolute(relative) ? relative : undefined
 }
 
 /**
@@ -131,7 +169,8 @@ function filterAndCopyPackageJson(basePath: string) {
 
   const filteredFileContent = buildFaststorePackageJson(
     coreManifest,
-    voltaConfig
+    voltaConfig,
+    relativeNextBin(coreDir, tmpDir)
   )
 
   writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {
