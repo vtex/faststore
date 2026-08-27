@@ -131,7 +131,7 @@ Differences from the page shelf:
 - **The context is always the cart.** There is no `itemsContext` property.
 - **The context is frozen while the drawer is open.** Adding a recommended product would otherwise change the campaign context, refetch, and reshuffle the carousel right after the shopper tapped it. Closing and reopening the drawer re-evaluates the context.
 - **Taxes are inherited.** The shelf reuses the drawer's own **Taxes Configuration** so recommended products and cart items price alike.
-- **It renders on an empty cart too**, which is useful for context-agnostic campaigns. Context-based campaigns have nothing to anchor on and suppress themselves automatically, so no extra configuration is needed.
+- **It does not render on an empty cart.** The drawer shows the empty-cart state instead of mounting the shelf. Context-agnostic campaigns that would work without product context are still suppressed on this surface.
 - **It only fetches when the drawer opens.** The drawer is gated by `SECTIONS_OUT_OF_VIEWPORT`, and the shelf ships in its own chunk, so stores without a mini cart shelf download neither the component nor its styles.
 
 ## Runtime behavior
@@ -214,7 +214,7 @@ Prefer enabling `experimental.enableRecommendations` so the session is ready on 
 
 6. Is **Should display Recommendation Shelf?** enabled on the **Cart Sidebar** component (under **Recommendations**), not on a separate Recommendation Shelf? Only that shape opts the drawer in.
 7. With the discovery flag off, the session starts when the shelf mounts (when the drawer opens). Confirm `vtex-rec-user-start-session` and then `vtex-rec-user-id` after opening the cart.
-8. Is the campaign context-based with an empty cart? That combination is suppressed by design — use a context-agnostic campaign if you want the shelf on an empty cart.
+8. Is the cart empty? The mini cart shelf does not mount until there is at least one item. Use a page Recommendation Shelf for empty-cart campaigns.
 
 **Skeleton never resolves.** Inspect the console and the GraphQL `recommendations` response for pending or failing requests.
 
