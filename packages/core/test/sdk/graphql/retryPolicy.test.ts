@@ -4,17 +4,20 @@ import { onErrorRetry } from '../../../src/sdk/graphql/retryPolicy'
 
 const ERROR_RETRY_INTERVAL = 5000
 
-const createConfig = (overrides: Record<string, unknown> = {}) =>
-  ({
-    errorRetryCount: 3,
-    errorRetryInterval: ERROR_RETRY_INTERVAL,
-    ...overrides,
-  }) as never
+type RetryConfig = Parameters<typeof onErrorRetry>[2]
+
+const createConfig = (overrides: Partial<RetryConfig> = {}): RetryConfig => ({
+  errorRetryCount: 3,
+  errorRetryInterval: ERROR_RETRY_INTERVAL,
+  ...overrides,
+})
 
 // The client throws the object built by `baseRequest` in `request.ts`, which
 // carries the HTTP status — not an Error instance.
-const clientError = (status?: number) =>
-  ({ status, message: 'upstream failure' }) as never
+const clientError = (status?: number) => ({
+  status,
+  message: 'upstream failure',
+})
 
 const runRetry = ({
   error,
@@ -23,11 +26,11 @@ const runRetry = ({
 }: {
   error: unknown
   retryCount?: number
-  config?: never
+  config?: RetryConfig
 }) => {
   const revalidate = vi.fn()
 
-  onErrorRetry(error as never, 'a-key', config, revalidate, {
+  onErrorRetry(error, 'a-key', config, revalidate, {
     retryCount,
     dedupe: false,
   })
@@ -45,8 +48,11 @@ describe('useQuery retry policy', () => {
   })
 
   afterEach(() => {
-    vi.useRealTimers()
+    // `restoreAllMocks` must run first: the `setTimeout` spy is installed while
+    // timers are faked, so restoring it after `useRealTimers` would put the
+    // faked timer back onto `globalThis`.
     vi.restoreAllMocks()
+    vi.useRealTimers()
   })
 
   it('never retries an upstream rate limit (429)', () => {
