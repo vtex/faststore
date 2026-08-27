@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 
+import AccountListCards from 'src/components/sections/Account/AccountListCards'
 import AccountNavigation from 'src/components/sections/Account/AccountNavigation'
 import AccountOrderBudgets from 'src/components/sections/Account/AccountOrderBudgets'
 import AccountOrderDelivery from 'src/components/sections/Account/AccountOrderDelivery'
@@ -25,6 +26,7 @@ const ACCOUNT_COMPONENTS: Record<string, ComponentType<any>> = {
   [getComponentKey(AccountNavigation, 'AccountNavigation')]: AccountNavigation,
   [getComponentKey(AccountProfile, 'AccountProfile')]: AccountProfile,
   [getComponentKey(AccountOrdersList, 'AccountOrdersList')]: AccountOrdersList,
+  [getComponentKey(AccountListCards, 'AccountListCards')]: AccountListCards,
   [getComponentKey(AccountUserDetails, 'AccountUserDetails')]:
     AccountUserDetails,
   [getComponentKey(AccountSecurity, 'AccountSecurity')]: AccountSecurity,
