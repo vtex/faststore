@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import {
   PUBLIC_FILES_ALLOWED_EXTENSIONS,
   buildFaststorePackageJson,
+  copyCoreFiles,
   copyPublicFiles,
   isPublicFileAllowed,
 } from './generate'
@@ -222,5 +223,43 @@ describe('copyPublicFiles', () => {
 
     expect(fs.existsSync(path.join(buildDir(), 'inter.woff2'))).toBe(true)
     expect(fs.existsSync(path.join(buildDir(), 'broken.woff2'))).toBe(false)
+  })
+})
+
+describe('copyCoreFiles', () => {
+  let basePath: string
+
+  beforeEach(() => {
+    basePath = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-core-copy-'))
+    fs.writeFileSync(
+      path.join(basePath, 'package.json'),
+      JSON.stringify({ name: 'store', private: true })
+    )
+  })
+
+  afterEach(() => {
+    fs.rmSync(basePath, { recursive: true, force: true })
+  })
+
+  it('copies core into .faststore without unit-test trees and strips test globs from tsconfig', () => {
+    copyCoreFiles(basePath)
+
+    const tmpDir = path.join(basePath, '.faststore')
+    const tsConfig = JSON.parse(
+      fs.readFileSync(path.join(tmpDir, 'tsconfig.json'), 'utf8')
+    )
+
+    expect(fs.existsSync(path.join(tmpDir, 'src'))).toBe(true)
+    expect(fs.existsSync(path.join(tmpDir, 'test'))).toBe(false)
+    expect(tsConfig.include).not.toContain('test/**/*.ts')
+    expect(tsConfig.include).not.toContain('test/**/*.tsx')
+    expect(tsConfig.exclude).toEqual(
+      expect.arrayContaining([
+        'test',
+        '**/*.test.ts',
+        '**/*.test.tsx',
+        '**/__tests__/**',
+      ])
+    )
   })
 })

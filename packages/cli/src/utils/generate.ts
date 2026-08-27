@@ -168,7 +168,7 @@ function disableTsConfigStrictRules(basePath: string) {
   )
 }
 
-function copyCoreFiles(basePath: string) {
+export function copyCoreFiles(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)
 
   try {

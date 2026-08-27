@@ -12,6 +12,11 @@ describe('shouldCopyToStorefront', () => {
     expect(shouldCopyToStorefront('/core/index.ts')).toBe(true)
   })
 
+  it('copies a path whose basename is empty so the filter does not drop the copy root', () => {
+    expect(shouldCopyToStorefront('')).toBe(true)
+    expect(shouldCopyToStorefront('/')).toBe(true)
+  })
+
   it('skips the core unit-test tree and plugin __tests__ folders', () => {
     expect(shouldCopyToStorefront('/core/test')).toBe(false)
     expect(shouldCopyToStorefront('/core/test/utils/retry.test.ts')).toBe(false)
@@ -28,6 +33,9 @@ describe('shouldCopyToStorefront', () => {
       shouldCopyToStorefront('/core/src/sdk/session/index.browser.test.ts')
     ).toBe(false)
     expect(shouldCopyToStorefront('/plugin/src/foo.spec.ts')).toBe(false)
+    expect(shouldCopyToStorefront('/plugin/src/foo.spec.tsx')).toBe(false)
+    expect(shouldCopyToStorefront('/plugin/src/foo.test.js')).toBe(false)
+    expect(shouldCopyToStorefront('/plugin/src/foo.test.jsx')).toBe(false)
   })
 
   it('still skips package.json, node_modules and CP base.jsonc', () => {
@@ -81,5 +89,15 @@ describe('prepareStorefrontTsConfig', () => {
     prepareStorefrontTsConfig(input)
 
     expect(input).toEqual(coreTsConfig)
+  })
+
+  it('defaults missing include and exclude arrays', () => {
+    const result = prepareStorefrontTsConfig({
+      compilerOptions: { strict: false },
+    })
+
+    expect(result.include).toEqual([])
+    expect(result.exclude).toEqual([...STOREFRONT_TEST_EXCLUDE_GLOBS])
+    expect(result.compilerOptions).toEqual({ strict: false })
   })
 })
