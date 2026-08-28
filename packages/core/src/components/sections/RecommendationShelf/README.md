@@ -22,6 +22,7 @@ Recommendations are rendered by two surfaces that share one data layer (`src/sdk
 - [Mini cart shelf](#mini-cart-shelf)
 - [Runtime behavior](#runtime-behavior)
 - [Code-level overrides](#code-level-overrides)
+- [CSS customization](#css-customization)
 - [Placement guidelines](#placement-guidelines)
 - [Privacy and cache](#privacy-and-cache)
 - [Troubleshooting](#troubleshooting)
@@ -133,6 +134,7 @@ Differences from the page shelf:
 - **Taxes are inherited.** The shelf reuses the drawer's own **Taxes Configuration** so recommended products and cart items price alike.
 - **It does not render on an empty cart.** The drawer shows the empty-cart state instead of mounting the shelf. Context-agnostic campaigns that would work without product context are still suppressed on this surface.
 - **It only fetches when the drawer opens.** The drawer is gated by `SECTIONS_OUT_OF_VIEWPORT`, and the shelf ships in its own chunk, so stores without a mini cart shelf download neither the component nor its styles.
+- **CSS hook.** The root also has `data-fs-cart-recommendation-shelf`, so store CSS can style the drawer shelf without hitting page shelves. See [CSS customization](#css-customization).
 
 ## Runtime behavior
 
@@ -182,6 +184,27 @@ import { RecommendationShelf } from 'src/components/sections/RecommendationShelf
 Campaign types and VRN validation are defined in `src/sdk/recommendations/vrn.ts` (`VRN_TYPE_TO_RECOMMENDATION`). Updates should be made there and mirrored in the `pattern` of both CMS schemas (`cms_component__recommendationshelf.jsonc` and the `recommendations` group of `cms_component__cartsidebar.jsonc`).
 
 The mini cart shelf (`CartRecommendationShelf`) reuses `RecommendationShelf`, so the same `ProductCard` / `mapProductToProductCard` overrides apply. By default it renders `CartRecommendationProductCard`, which adds an **Add to cart** action (first offer / SKU, drawer stays open). Because the drawer is rendered by `CartSidebar` from CMS props, passing a custom card from a store means customizing `CartSidebar` (or `CartRecommendationShelf`) under `src/customizations` and forwarding the override into `recommendations`.
+
+## CSS customization
+
+The shelf root (`<section>`) exposes `data-fs-*` attributes as styling hooks, so store CSS can target the shelf without depending on layout class names (`section-product-shelf`, `layout__section`, …):
+
+| Attribute | Present on | Purpose |
+| --- | --- | --- |
+| `data-fs-recommendation-shelf` | Every shelf (page and mini cart) | Root hook for the recommendation shelf. |
+| `data-fs-cart-recommendation-shelf` | Mini cart shelf only | Distinguishes the drawer instance from page shelves. |
+
+Related hooks on the same tree: `data-fs-recommendation-shelf-title` (heading) and `data-fs-recommendation-shelf-item` (each card wrapper).
+
+```scss
+[data-fs-recommendation-shelf] {
+  /* page shelf and mini cart shelf */
+}
+
+[data-fs-cart-recommendation-shelf] {
+  /* mini cart shelf only */
+}
+```
 
 ## Placement guidelines
 

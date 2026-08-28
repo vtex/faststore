@@ -186,6 +186,16 @@ describe('CartRecommendationShelf', () => {
     )
   })
 
+  it('tags the shelf root so the cart drawer can target it', () => {
+    const { container } = render(
+      <CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />
+    )
+
+    const shelf = container.querySelector('[data-fs-recommendation-shelf]')
+    expect(shelf).toBeTruthy()
+    expect(shelf?.hasAttribute('data-fs-cart-recommendation-shelf')).toBe(true)
+  })
+
   it('tags impressions with Activity Flow attributes', () => {
     const { container } = render(
       <CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />

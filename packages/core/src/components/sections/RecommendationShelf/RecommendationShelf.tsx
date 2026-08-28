@@ -29,6 +29,7 @@ export function RecommendationShelf<
   mapProductToProductCard,
   carouselConfiguration,
   productCardConfiguration,
+  ...otherProps
 }: RecommendationShelfProps<TCardProps>) {
   const {
     itemsPerPageDesktop = 4,
@@ -86,6 +87,7 @@ export function RecommendationShelf<
   return (
     <section
       className={className ?? DEFAULT_SECTION_CLASS_NAME}
+      {...otherProps}
       {...(shouldAddAFAttr
         ? {
             'data-af-element': 'recommendation-shelf' as const,
@@ -96,6 +98,7 @@ export function RecommendationShelf<
             'data-af-products': productIds,
           }
         : {})}
+      data-fs-recommendation-shelf
     >
       <ProductShelfSkeleton
         loading={isLoading}

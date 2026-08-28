@@ -102,6 +102,7 @@ function CartRecommendationShelf<TCardProps extends object = ProductCardProps>({
         infiniteMode,
         controls,
       }}
+      data-fs-cart-recommendation-shelf
     />
   )
 }

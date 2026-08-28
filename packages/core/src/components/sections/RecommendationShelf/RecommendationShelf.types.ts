@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react'
+import type { ComponentPropsWithoutRef, ComponentType } from 'react'
 
 import type { CarouselProps } from '@faststore/ui'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
@@ -22,7 +22,7 @@ export type RecommendationProductCardMapper<TCardProps = ProductCardProps> = (
 
 export type RecommendationShelfProps<
   TCardProps extends object = ProductCardProps,
-> = {
+> = Omit<ComponentPropsWithoutRef<'section'>, 'children' | 'title'> & {
   readonly title?: string
   readonly campaignVrn: string
   /**
