@@ -8,6 +8,7 @@ import {
   getCurrenciesForLocale,
   isValidUrl,
   resolveBinding,
+  resolveTargetSlug,
 } from './bindingSelector'
 import type { LocalizedProductLocale } from './LocalizedProductContext'
 import type { BindingSelectorError, Locale } from './types'
@@ -287,24 +288,12 @@ export function useBindingSelector(
       ? otherLocales
       : recoverOtherLocales()
 
-    // 1. Target locale has a specific translation → use it
-    const localizedSlug = effectiveOtherLocales?.find(
-      (e) => e.locale === localeCode
-    )?.slug
-
-    // 2. No translation for the target locale → use the default locale's slug,
-    //    to avoid carrying over a translated slug from a different locale (e.g.
-    //    an Italian slug on es-ES). otherLocales only carries locales the catalog
-    //    has a registered slug for, so it has no default-locale entry for an
-    //    untranslated product — hence `defaultLocaleSlug`, which the API resolves
-    //    best-effort for exactly this purpose. Landing on an untranslated product
-    //    page beats dropping the shopper on the locale root.
-    const slug =
-      localizedSlug ??
-      effectiveOtherLocales?.find(
-        (e) => e.locale === localizationConfig.defaultLocale
-      )?.slug ??
-      defaultLocaleSlug
+    const slug = resolveTargetSlug({
+      otherLocales: effectiveOtherLocales,
+      targetLocale: localeCode,
+      defaultLocale: localizationConfig.defaultLocale,
+      defaultLocaleSlug,
+    })
 
     if (slug) {
       const baseUrl = binding.url.replace(/\/$/, '')

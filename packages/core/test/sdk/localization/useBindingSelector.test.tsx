@@ -5,6 +5,7 @@ import {
   getCurrenciesForLocale,
   isValidUrl,
   resolveBinding,
+  resolveTargetSlug,
 } from '../../../src/sdk/localization/bindingSelector'
 import type { LocalizedProductLocale } from '../../../src/sdk/localization/LocalizedProductContext'
 import type { Locale } from '../../../src/sdk/localization/types'
@@ -216,6 +217,90 @@ describe('useBindingSelector integration scenarios', () => {
           expect(isValidUrl(binding.url)).toBe(true)
         })
       })
+    })
+  })
+
+  describe('resolveTargetSlug', () => {
+    const translated: LocalizedProductLocale[] = [
+      { locale: 'en-US', slug: 'roshe-tenis-76' },
+      { locale: 'pt-BR', slug: 'tenis-roshe-76' },
+      { locale: 'it-IT', slug: 'scarpe-roshe-76' },
+    ]
+
+    it('uses the target locale slug when the catalog registered one', () => {
+      expect(
+        resolveTargetSlug({
+          otherLocales: translated,
+          targetLocale: 'pt-BR',
+          defaultLocale: 'en-US',
+        })
+      ).toBe('tenis-roshe-76')
+    })
+
+    it('falls back to the default locale slug when the target has none', () => {
+      expect(
+        resolveTargetSlug({
+          otherLocales: translated,
+          targetLocale: 'fr-FR',
+          defaultLocale: 'en-US',
+        })
+      ).toBe('roshe-tenis-76')
+    })
+
+    it('never carries another locale slug to the target locale', () => {
+      const slug = resolveTargetSlug({
+        otherLocales: [{ locale: 'it-IT', slug: 'scarpe-roshe-76' }],
+        targetLocale: 'es-ES',
+        defaultLocale: 'en-US',
+        defaultLocaleSlug: 'roshe-tenis-76',
+      })
+
+      expect(slug).toBe('roshe-tenis-76')
+      expect(slug).not.toBe('scarpe-roshe-76')
+    })
+
+    it('uses defaultLocaleSlug for an untranslated product, whose map is empty', () => {
+      expect(
+        resolveTargetSlug({
+          otherLocales: [],
+          targetLocale: 'pt-BR',
+          defaultLocale: 'en-US',
+          defaultLocaleSlug: 'side-by-side-refrigerator-14',
+        })
+      ).toBe('side-by-side-refrigerator-14')
+    })
+
+    it('uses defaultLocaleSlug when the map is missing entirely', () => {
+      expect(
+        resolveTargetSlug({
+          otherLocales: null,
+          targetLocale: 'pt-BR',
+          defaultLocale: 'en-US',
+          defaultLocaleSlug: 'side-by-side-refrigerator-14',
+        })
+      ).toBe('side-by-side-refrigerator-14')
+    })
+
+    it('prefers a registered slug over defaultLocaleSlug', () => {
+      expect(
+        resolveTargetSlug({
+          otherLocales: translated,
+          targetLocale: 'it-IT',
+          defaultLocale: 'en-US',
+          defaultLocaleSlug: 'roshe-tenis-76',
+        })
+      ).toBe('scarpe-roshe-76')
+    })
+
+    it('returns null when no slug is available, so the caller can strip the stale one', () => {
+      expect(
+        resolveTargetSlug({
+          otherLocales: null,
+          targetLocale: 'pt-BR',
+          defaultLocale: 'en-US',
+          defaultLocaleSlug: null,
+        })
+      ).toBeNull()
     })
   })
 
