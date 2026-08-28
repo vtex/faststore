@@ -15,9 +15,7 @@ export type CartRecommendationShelfProps<
   TCardProps extends object = ProductCardProps,
 > = Omit<
   RecommendationShelfProps<TCardProps>,
-  | 'itemsContext'
-  | 'className'
-  | 'carouselConfiguration'
+  'itemsContext' | 'className' | 'carouselConfiguration'
 > & {
   /**
    * Drawer-safe carousel configuration. Mapped onto
