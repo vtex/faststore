@@ -12,7 +12,9 @@ async function loadGetRedirect(matcherExport?: unknown) {
     default: { api: { storeId: STORE_ID } },
   }))
 
-  if (matcherExport !== undefined) {
+  if (matcherExport === undefined) {
+    vi.doUnmock(MATCHER_MODULE)
+  } else {
     vi.doMock(MATCHER_MODULE, () => ({ matcher: matcherExport }))
   }
 
@@ -89,6 +91,18 @@ describe('getRedirect', () => {
 
     await getRedirect({ pathname: '/first' })
     await getRedirect({ pathname: '/second' })
+
+    expect(console.warn).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not leak a mocked matcher into a later default load', async () => {
+    mockRewriter({ ok: false })
+
+    const withInvalidMatcher = await loadGetRedirect([])
+    await expect(withInvalidMatcher({ pathname: '/first' })).resolves.toBeNull()
+
+    const withStubMatcher = await loadGetRedirect()
+    await expect(withStubMatcher({ pathname: '/second' })).resolves.toBeNull()
 
     expect(console.warn).toHaveBeenCalledTimes(1)
   })
