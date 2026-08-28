@@ -1,5 +1,5 @@
 import { usePDP } from '@faststore/core'
-import { useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 
 import { useStartRecommendationSession } from 'src/sdk/analytics/hooks/useStartRecommendationSession'
 import { useCart } from 'src/sdk/cart'
@@ -56,18 +56,6 @@ export type UseRecommendationShelfArgs = {
    * @default 'PDP'
    */
   readonly itemsContext?: ItemContext
-  /**
-   * Keeps the resolved context products stable for the lifetime of this hook
-   * instead of tracking the live cart/PDP context.
-   *
-   * Used by surfaces where the shopper interacts with the shelf while it is
-   * visible — most notably the cart drawer, where adding a recommended product
-   * would otherwise change the campaign context, refetch, and reshuffle the
-   * carousel right after the shopper tapped it. The first non-empty context
-   * wins, so a cart that is still loading does not freeze an empty context.
-   * @default false
-   */
-  readonly freezeContext?: boolean
 }
 
 export type UseRecommendationShelfResult = {
@@ -95,7 +83,6 @@ const EMPTY_ITEMS: RecommendationResponse['products'] = []
 export function useRecommendationShelf({
   campaignVrn,
   itemsContext = 'PDP',
-  freezeContext = false,
 }: UseRecommendationShelfArgs): UseRecommendationShelfResult {
   const userId = useRecommendationUserId(campaignVrn)
 
@@ -111,7 +98,7 @@ export function useRecommendationShelf({
 
   // Resolve the products used as context for the request from the configured
   // source: the current PDP product, or the (deduplicated) cart items.
-  const liveContextProducts = useMemo(() => {
+  const contextProducts = useMemo(() => {
     if (itemsContext === 'CART') {
       return Array.from(
         new Set(
@@ -126,21 +113,6 @@ export function useRecommendationShelf({
 
     return pdpProduct ? [pdpProduct] : []
   }, [itemsContext, cartItems, productDetailPage])
-
-  const frozenContextProducts = useRef<string[] | null>(null)
-
-  if (
-    freezeContext &&
-    frozenContextProducts.current === null &&
-    liveContextProducts.length > 0
-  ) {
-    frozenContextProducts.current = liveContextProducts
-  }
-
-  const contextProducts =
-    freezeContext && frozenContextProducts.current !== null
-      ? frozenContextProducts.current
-      : liveContextProducts
 
   const recommendationArgs = getRecommendationArguments(campaignVrn, {
     userId,

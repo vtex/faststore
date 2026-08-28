@@ -24,7 +24,6 @@ export function RecommendationShelf<
   title,
   campaignVrn,
   itemsContext = 'PDP',
-  freezeContext = false,
   className,
   ProductCard,
   mapProductToProductCard,
@@ -60,7 +59,6 @@ export function RecommendationShelf<
     useRecommendationShelf({
       campaignVrn,
       itemsContext,
-      freezeContext,
     })
 
   const campaignId = campaign?.id

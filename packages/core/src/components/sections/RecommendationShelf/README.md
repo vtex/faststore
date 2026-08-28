@@ -129,7 +129,7 @@ Schema: `cms/faststore/components/cms_component__cartsidebar.jsonc`, under `reco
 Differences from the page shelf:
 
 - **The context is always the cart.** There is no `itemsContext` property.
-- **The context is frozen while the drawer is open.** Adding a recommended product would otherwise change the campaign context, refetch, and reshuffle the carousel right after the shopper tapped it. Closing and reopening the drawer re-evaluates the context.
+- **The context follows the live cart.** Adding a product updates the campaign context while the drawer stays open.
 - **Taxes are inherited.** The shelf reuses the drawer's own **Taxes Configuration** so recommended products and cart items price alike.
 - **It does not render on an empty cart.** The drawer shows the empty-cart state instead of mounting the shelf. Context-agnostic campaigns that would work without product context are still suppressed on this surface.
 - **It only fetches when the drawer opens.** The drawer is gated by `SECTIONS_OUT_OF_VIEWPORT`, and the shelf ships in its own chunk, so stores without a mini cart shelf download neither the component nor its styles.
@@ -145,7 +145,7 @@ All recommendation work runs client-side after hydration:
 5. **Render** — shows `ProductShelfSkeleton` while loading; returns `null` on error or empty results; otherwise renders the carousel and optional heading.
 6. **Tracking** — when correlation and campaign identifiers are present, the shelf emits `data-af-*` attributes for Activity Flow (`recommendation-shelf` on the root, `recommendation-shelf-product` on items). PDP product views use `product:*` meta tags from `pages/[slug]/p.tsx`.
 
-Steps 1 to 4 live in `src/sdk/recommendations` behind `useRecommendationShelf()`. Step 5 is owned by `RecommendationShelf`; the mini cart shelf is a thin wrapper around it that locks cart context, freezes context while the drawer is open, and applies drawer-safe carousel/tax defaults — so `ProductCard` / `mapProductToProductCard` work the same way on both surfaces.
+Steps 1 to 4 live in `src/sdk/recommendations` behind `useRecommendationShelf()`. Step 5 is owned by `RecommendationShelf`; the mini cart shelf is a thin wrapper around it that locks cart context and applies drawer-safe carousel/tax defaults — so `ProductCard` / `mapProductToProductCard` work the same way on both surfaces.
 
 Related files:
 

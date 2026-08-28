@@ -105,13 +105,12 @@ afterEach(() => {
 })
 
 describe('CartRecommendationShelf', () => {
-  it('delegates to RecommendationShelf with cart context frozen', () => {
+  it('delegates to RecommendationShelf with cart context', () => {
     render(<CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />)
 
     expect(useRecommendationShelf).toHaveBeenCalledWith({
       campaignVrn: CAMPAIGN_VRN,
       itemsContext: 'CART',
-      freezeContext: true,
     })
   })
 

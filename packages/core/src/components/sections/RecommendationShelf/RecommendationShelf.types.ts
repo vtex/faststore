@@ -38,13 +38,6 @@ export type RecommendationShelfProps<
    */
   readonly itemsContext?: ItemContext
   /**
-   * Keeps the resolved context products stable for the lifetime of the shelf
-   * instead of tracking the live cart/PDP context. Used by the cart drawer so
-   * adding a recommended product does not reshuffle the carousel.
-   * @default false
-   */
-  readonly freezeContext?: boolean
-  /**
    * Replaces the default page-section class list. Surfaces like the cart drawer
    * pass their own module class so the shelf does not pick up full-page layout
    * utilities (`section-product-shelf`, `layout__section`, …).

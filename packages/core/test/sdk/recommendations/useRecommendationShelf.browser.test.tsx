@@ -151,7 +151,7 @@ describe('useRecommendationShelf', () => {
     })
   })
 
-  it('follows the live cart context when not frozen', () => {
+  it('follows the live cart context', () => {
     useCart.mockReturnValue({ items: [cartItem('pg-1')] })
 
     const { rerender } = renderHook(() =>
@@ -165,40 +165,6 @@ describe('useRecommendationShelf', () => {
     rerender()
 
     expect(lastArgs()?.products).toEqual(['pg-1', 'pg-2'])
-  })
-
-  it('keeps the context stable when frozen, so adding to cart does not refetch', () => {
-    useCart.mockReturnValue({ items: [cartItem('pg-1')] })
-
-    const { rerender } = renderHook(() =>
-      useRecommendationShelf({
-        campaignVrn: CROSS_SELL_VRN,
-        itemsContext: 'CART',
-        freezeContext: true,
-      })
-    )
-
-    useCart.mockReturnValue({ items: [cartItem('pg-1'), cartItem('pg-2')] })
-    rerender()
-
-    expect(lastArgs()?.products).toEqual(['pg-1'])
-  })
-
-  it('does not freeze an empty context while the cart is still loading', () => {
-    const { rerender } = renderHook(() =>
-      useRecommendationShelf({
-        campaignVrn: CROSS_SELL_VRN,
-        itemsContext: 'CART',
-        freezeContext: true,
-      })
-    )
-
-    expect(lastArgs()).toBeNull()
-
-    useCart.mockReturnValue({ items: [cartItem('pg-9')] })
-    rerender()
-
-    expect(lastArgs()?.products).toEqual(['pg-9'])
   })
 
   it('anchors PDP-context campaigns on the current product', () => {

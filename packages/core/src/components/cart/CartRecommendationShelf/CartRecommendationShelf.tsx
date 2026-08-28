@@ -16,7 +16,6 @@ export type CartRecommendationShelfProps<
 > = Omit<
   RecommendationShelfProps<TCardProps>,
   | 'itemsContext'
-  | 'freezeContext'
   | 'className'
   | 'carouselConfiguration'
 > & {
@@ -54,8 +53,7 @@ export type CartRecommendationShelfProps<
  * Presentation is owned by `RecommendationShelf` so code-level overrides
  * (`ProductCard`, `mapProductToProductCard`, …) work the same way as on the
  * page shelf. This wrapper only locks cart-specific behaviour: cart context,
- * frozen context while the drawer stays open, drawer-safe carousel defaults,
- * tax/image sizing for the narrow panel, and the
+ * drawer-safe carousel defaults, tax/image sizing for the narrow panel, and the
  * default `CartRecommendationProductCard` (add-to-cart without reopening the
  * drawer).
  */
@@ -92,7 +90,6 @@ function CartRecommendationShelf<TCardProps extends object = ProductCardProps>({
       title={title}
       campaignVrn={campaignVrn}
       itemsContext="CART"
-      freezeContext
       className={styles.shelf}
       ProductCard={
         (ProductCard ??
