@@ -187,13 +187,13 @@ describe('CartRecommendationShelf', () => {
     )
   })
 
-  it('tags impressions with a cart-specific Activity Flow element', () => {
+  it('tags impressions with Activity Flow attributes', () => {
     const { container } = render(
       <CartRecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     const shelf = container.querySelector(
-      '[data-af-element="cart-recommendation-shelf"]'
+      '[data-af-element="recommendation-shelf"]'
     )
     expect(shelf).toBeTruthy()
     expect(shelf?.getAttribute('data-af-campaign-id')).toBe('camp-1')
@@ -203,7 +203,7 @@ describe('CartRecommendationShelf', () => {
       '[data-fs-recommendation-shelf-item]'
     )
     expect(firstItem?.getAttribute('data-af-element')).toBe(
-      'cart-recommendation-shelf-product'
+      'recommendation-shelf-product'
     )
     expect(firstItem?.getAttribute('data-af-product-position')).toBe('1')
   })

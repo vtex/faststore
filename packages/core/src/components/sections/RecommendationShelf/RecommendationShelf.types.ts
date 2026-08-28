@@ -51,13 +51,6 @@ export type RecommendationShelfProps<
    */
   readonly className?: string
   /**
-   * Activity Flow element name for the shelf root (product items append
-   * `-product`). Defaults to `recommendation-shelf`; the cart drawer uses
-   * `cart-recommendation-shelf` so the two surfaces can be attributed separately.
-   * @default 'recommendation-shelf'
-   */
-  readonly afElement?: string
-  /**
    * Custom card component rendered for each recommended product. Defaults to the
    * core `ProductCard`. This is a code-level override and is not exposed through
    * the CMS schema (`cms_component__recommendationshelf.jsonc`).

@@ -143,7 +143,7 @@ All recommendation work runs client-side after hydration:
 3. **Request arguments** — `getRecommendationArguments()` builds `{ userId, campaignVrn, products }` or returns `null` when the VRN is invalid, the user id is missing, or a context-based campaign has no context products.
 4. **Fetch** — `useRecommendations()` runs `ClientRecommendationsQuery` and returns `products`, `correlationId`, and `campaign`.
 5. **Render** — shows `ProductShelfSkeleton` while loading; returns `null` on error or empty results; otherwise renders the carousel and optional heading.
-6. **Tracking** — when correlation and campaign identifiers are present, the shelf emits `data-af-*` attributes for Activity Flow, using `recommendation-shelf` on the page and `cart-recommendation-shelf` in the drawer so the two surfaces can be attributed separately. PDP product views use `product:*` meta tags from `pages/[slug]/p.tsx`.
+6. **Tracking** — when correlation and campaign identifiers are present, the shelf emits `data-af-*` attributes for Activity Flow (`recommendation-shelf` on the root, `recommendation-shelf-product` on items). PDP product views use `product:*` meta tags from `pages/[slug]/p.tsx`.
 
 Steps 1 to 4 live in `src/sdk/recommendations` behind `useRecommendationShelf()`. Step 5 is owned by `RecommendationShelf`; the mini cart shelf is a thin wrapper around it that locks cart context, freezes context while the drawer is open, and applies drawer-safe carousel/tax defaults — so `ProductCard` / `mapProductToProductCard` work the same way on both surfaces.
 

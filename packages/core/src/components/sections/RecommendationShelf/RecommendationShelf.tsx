@@ -26,7 +26,6 @@ export function RecommendationShelf<
   itemsContext = 'PDP',
   freezeContext = false,
   className,
-  afElement = 'recommendation-shelf',
   ProductCard,
   mapProductToProductCard,
   carouselConfiguration,
@@ -91,7 +90,7 @@ export function RecommendationShelf<
       className={className ?? DEFAULT_SECTION_CLASS_NAME}
       {...(shouldAddAFAttr
         ? {
-            'data-af-element': afElement,
+            'data-af-element': 'recommendation-shelf' as const,
             'data-af-onimpression': true,
             'data-af-onview': true,
             'data-af-correlation-id': correlationId,
@@ -130,7 +129,7 @@ export function RecommendationShelf<
                   data-fs-recommendation-shelf-item
                   {...(shouldAddAFAttr
                     ? {
-                        'data-af-element': `${afElement}-product`,
+                        'data-af-element': 'recommendation-shelf-product',
                         'data-af-correlation-id': correlationId,
                         'data-af-campaign-id': campaignId,
                         'data-af-product-id': productId,

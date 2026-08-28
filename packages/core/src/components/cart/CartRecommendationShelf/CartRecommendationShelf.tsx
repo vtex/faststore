@@ -18,7 +18,6 @@ export type CartRecommendationShelfProps<
   | 'itemsContext'
   | 'freezeContext'
   | 'className'
-  | 'afElement'
   | 'carouselConfiguration'
 > & {
   /**
@@ -56,7 +55,7 @@ export type CartRecommendationShelfProps<
  * (`ProductCard`, `mapProductToProductCard`, …) work the same way as on the
  * page shelf. This wrapper only locks cart-specific behaviour: cart context,
  * frozen context while the drawer stays open, drawer-safe carousel defaults,
- * Activity Flow attribution, tax/image sizing for the narrow panel, and the
+ * tax/image sizing for the narrow panel, and the
  * default `CartRecommendationProductCard` (add-to-cart without reopening the
  * drawer).
  */
@@ -95,7 +94,6 @@ function CartRecommendationShelf<TCardProps extends object = ProductCardProps>({
       itemsContext="CART"
       freezeContext
       className={styles.shelf}
-      afElement="cart-recommendation-shelf"
       ProductCard={
         (ProductCard ??
           CartRecommendationProductCard) as RecommendationShelfProps<TCardProps>['ProductCard']
