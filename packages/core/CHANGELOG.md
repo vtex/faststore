@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.4](https://github.com/vtex/faststore/compare/v3.100.3...v3.100.4) (2026-08-28)
+
+### Bug Fixes
+
+- **core:** resolve redirect matcher module explicitly ([#3468](https://github.com/vtex/faststore/issues/3468)) ([fe3a3c7](https://github.com/vtex/faststore/commit/fe3a3c7c19237d53061be7b205838b626e225786)), closes [#3467](https://github.com/vtex/faststore/issues/3467) [#1450148](https://github.com/vtex/faststore/issues/1450148)
+
 ## [3.100.3](https://github.com/vtex/faststore/compare/v3.100.2...v3.100.3) (2026-06-30)
 
 ### Bug Fixes
