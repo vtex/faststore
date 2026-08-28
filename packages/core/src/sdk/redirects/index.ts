@@ -1,5 +1,5 @@
 import storeConfig from 'discovery.config'
-import { matcher } from 'src/customizations/src/redirects'
+import { matcher } from 'src/customizations/src/redirects/index'
 
 type GetRedirectArgs = {
   pathname: string
@@ -29,7 +29,9 @@ export async function getRedirect({
   }
 
   try {
-    const redirectMatch = matcher({ pathname })
+    const redirectMatch =
+      typeof matcher === 'function' ? matcher({ pathname }) : null
+
     if (redirectMatch) {
       return {
         destination: encodeURI(redirectMatch.destination),
