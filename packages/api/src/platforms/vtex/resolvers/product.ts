@@ -7,6 +7,7 @@ import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
 import {
   getConfiguredLocales,
+  getDefaultLocale,
   isLocalizationEnabled,
 } from '../utils/localization'
 import { bestOfferFirst } from '../utils/productStock'
@@ -342,12 +343,42 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
         // Locales with no registered localized slug are omitted rather than
         // guessed, so an alternate is only ever advertised for a slug the catalog
         // actually resolves. A product with no translations advertises no
-        // alternates at all, from any locale. The LocalizationSelector falls back
-        // to the default slug under the target prefix for omitted locales.
+        // alternates at all, from any locale. Navigating to an omitted locale is
+        // served by `defaultLocaleSlug`, which is free to guess precisely because
+        // it never reaches an hreflang annotation.
         return linkId
           ? { locale: configuredLocale, slug: getSlug(linkId, itemId) }
           : null
       })
       .filter((e): e is { locale: string; slug: string } => e !== null)
+  },
+  defaultLocaleSlug: async (root, _args, ctx) => {
+    if (!isLocalizationEnabled(ctx)) return null
+
+    const defaultLocale = getDefaultLocale(ctx)
+
+    if (!defaultLocale) return null
+
+    const { productId, linkText } = root.isVariantOf
+    const itemId = root.itemId
+
+    // Reuses the request-scoped entry `otherLocales` already loads, so serving
+    // both fields costs a single Dataplane call.
+    const entry = await getLocalizedProductEntry(
+      ctx,
+      productId,
+      ctx.storage.locale
+    )
+
+    // linkText is localized to the locale being browsed, which is what makes it
+    // unusable for hreflang. It is acceptable here because an untranslated
+    // product carries the same slug in every locale, so linkText *is* the
+    // default-locale slug in the exact case where availableLinkIds is empty.
+    // A product translated for the browsed locale but not for the default one
+    // still yields a wrong guess; that URL 404s, which is the pre-existing
+    // behavior and still better than dropping the shopper on the locale root.
+    const linkId = entry?.availableLinkIds?.[defaultLocale] ?? linkText
+
+    return getSlug(linkId, itemId)
   },
 }

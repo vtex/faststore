@@ -470,6 +470,108 @@ describe('StoreProduct', () => {
 
       expect(result).toBeNull()
     })
+  })
+
+  describe('defaultLocaleSlug', () => {
+    it('returns null when localization is disabled', async () => {
+      const result = await (StoreProduct.defaultLocaleSlug as any)(
+        makeRoot(),
+        {},
+        makeCtx()
+      )
+
+      expect(result).toBeNull()
+    })
+
+    it('uses the default locale entry from availableLinkIds', async () => {
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'camisa-azul',
+        categories: [],
+        availableLinkIds: { 'en-US': 'blue-shirt', 'pt-BR': 'camisa-azul' },
+      })
+
+      const result = await (StoreProduct.defaultLocaleSlug as any)(
+        makeRoot({ linkText: 'camisa-azul' }),
+        {},
+        makeCtx({
+          localizationEnabled: true,
+          locale: 'pt-BR',
+          locales: { 'en-US': {}, 'pt-BR': {} },
+          defaultLocale: 'en-US',
+          getLocalizedProduct,
+        })
+      )
+
+      expect(result).toBe('blue-shirt-100')
+    })
+
+    it('falls back to linkText for an untranslated product', async () => {
+      // The case otherLocales deliberately gives up on: no registered slug for
+      // any locale. linkText is the same slug in every locale here, so it is the
+      // default-locale slug and the selector can still reach the product.
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'blue-shirt',
+        categories: [],
+        availableLinkIds: {},
+      })
+
+      const result = await (StoreProduct.defaultLocaleSlug as any)(
+        makeRoot({ linkText: 'blue-shirt' }),
+        {},
+        makeCtx({
+          localizationEnabled: true,
+          locale: 'pt-BR',
+          locales: { 'en-US': {}, 'pt-BR': {} },
+          defaultLocale: 'en-US',
+          getLocalizedProduct,
+        })
+      )
+
+      expect(result).toBe('blue-shirt-100')
+    })
+
+    it('still resolves a slug when the Dataplane call fails', async () => {
+      const getLocalizedProduct = vi
+        .fn()
+        .mockRejectedValueOnce(new Error('API error'))
+
+      const result = await (StoreProduct.defaultLocaleSlug as any)(
+        makeRoot({ linkText: 'blue-shirt' }),
+        {},
+        makeCtx({
+          localizationEnabled: true,
+          locale: 'pt-BR',
+          locales: { 'en-US': {}, 'pt-BR': {} },
+          defaultLocale: 'en-US',
+          getLocalizedProduct,
+        })
+      )
+
+      expect(result).toBe('blue-shirt-100')
+    })
+
+    it('shares the Dataplane call with otherLocales', async () => {
+      const getLocalizedProduct = vi.fn().mockResolvedValue({
+        linkId: 'camisa-azul',
+        categories: [],
+        availableLinkIds: { 'en-US': 'blue-shirt', 'pt-BR': 'camisa-azul' },
+      })
+
+      const root = makeRoot({ linkText: 'camisa-azul' })
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'pt-BR',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        defaultLocale: 'en-US',
+        getLocalizedProduct,
+        cache: new Map(),
+      })
+
+      await (StoreProduct.otherLocales as any)(root, {}, ctx)
+      await (StoreProduct.defaultLocaleSlug as any)(root, {}, ctx)
+
+      expect(getLocalizedProduct).toHaveBeenCalledTimes(1)
+    })
 
     it('reuses a cached entry with availableLinkIds and skips the API call', async () => {
       const cachedEntry = {
