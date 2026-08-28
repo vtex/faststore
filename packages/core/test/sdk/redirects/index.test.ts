@@ -40,6 +40,7 @@ describe('getRedirect', () => {
 
   beforeEach(() => {
     jest.spyOn(console, 'error').mockImplementation(() => undefined)
+    jest.spyOn(console, 'warn').mockImplementation(() => undefined)
   })
 
   afterEach(() => {
@@ -70,6 +71,7 @@ describe('getRedirect', () => {
       permanent: false,
     })
     expect(fetchMock).not.toHaveBeenCalled()
+    expect(console.warn).not.toHaveBeenCalled()
   })
 
   it('falls back to the rewriter when the matcher export is not a function', async () => {
@@ -86,6 +88,17 @@ describe('getRedirect', () => {
       permanent: true,
     })
     expect(fetchMock).toHaveBeenCalledWith(`${REWRITER_URL}/old-page`)
+    expect(console.warn).toHaveBeenCalledTimes(1)
+  })
+
+  it('warns only once about an invalid matcher export', async () => {
+    mockRewriter({ ok: false })
+    const getRedirect = await loadGetRedirect([])
+
+    await getRedirect({ pathname: '/first' })
+    await getRedirect({ pathname: '/second' })
+
+    expect(console.warn).toHaveBeenCalledTimes(1)
   })
 
   it('marks non-permanent rewriter redirects as temporary', async () => {
