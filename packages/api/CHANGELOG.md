@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.7.0-dev.6](https://github.com/vtex/faststore/compare/v4.7.0-dev.5...v4.7.0-dev.6) (2026-08-26)
+
+### Bug Fixes
+
+- make PDP product JSON-LD Schema.org compliant ([#3465](https://github.com/vtex/faststore/issues/3465)) ([0c09f15](https://github.com/vtex/faststore/commit/0c09f15456d3490602970ce0b4dff6b3c76a4f9c)), closes [#1449246](https://github.com/vtex/faststore/issues/1449246)
+
+# [4.7.0-dev.5](https://github.com/vtex/faststore/compare/v4.7.0-dev.4...v4.7.0-dev.5) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.7.0-dev.4](https://github.com/vtex/faststore/compare/v4.7.0-dev.3...v4.7.0-dev.4) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.7.0-dev.3](https://github.com/vtex/faststore/compare/v4.7.0-dev.2...v4.7.0-dev.3) (2026-08-25)
+
+### Bug Fixes
+
+- **api:** correct item videos field casing ([#3447](https://github.com/vtex/faststore/issues/3447)) ([80c5fd7](https://github.com/vtex/faststore/commit/80c5fd7a33571e3250190066e4dafc6c865e7f07))
+
 # [4.7.0-dev.2](https://github.com/vtex/faststore/compare/v4.7.0-dev.1...v4.7.0-dev.2) (2026-08-24)
 
 **Note:** Version bump only for package @faststore/api

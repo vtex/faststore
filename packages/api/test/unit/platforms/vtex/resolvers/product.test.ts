@@ -598,4 +598,69 @@ describe('StoreProduct', () => {
       expect(getLocalizedProduct).not.toHaveBeenCalled()
     })
   })
+
+  describe('releaseDate', () => {
+    const resolve = (releaseDate: unknown) =>
+      (StoreProduct.releaseDate as any)({ isVariantOf: { releaseDate } })
+
+    it('converts epoch milliseconds to an ISO calendar date', () => {
+      expect(resolve('1774224000000')).toBe('2026-03-23')
+    })
+
+    it('converts epoch seconds to the same date as its millisecond form', () => {
+      expect(resolve('1774224000')).toBe(resolve('1774224000000'))
+    })
+
+    it('reads a value at the millisecond threshold as milliseconds', () => {
+      expect(resolve('100000000000')).toBe('1973-03-03')
+    })
+
+    it('reads a value just below the threshold as seconds', () => {
+      expect(resolve('99999999999')).toBe('5138-11-16')
+    })
+
+    it('accepts a numeric epoch, not only its string form', () => {
+      expect(resolve(1774224000000)).toBe('2026-03-23')
+    })
+
+    it('passes an ISO date through unchanged', () => {
+      expect(resolve('2026-03-23')).toBe('2026-03-23')
+    })
+
+    it('truncates an ISO datetime to its calendar date', () => {
+      expect(resolve('2026-03-23T14:30:00Z')).toBe('2026-03-23')
+    })
+
+    // UTC is deliberate: preserving the source calendar day would make the
+    // output depend on the offset embedded in each record.
+    it('resolves an offset that crosses midnight to the UTC day', () => {
+      expect(resolve('2026-03-23T21:00:00-05:00')).toBe('2026-03-24')
+    })
+
+    // `new Date(...)` reads an ISO date-time with no timezone designator as
+    // host-local, so without explicit handling this value resolves to the day
+    // before in any zone ahead of UTC. The build machine must not change the
+    // markup.
+    it('reads an ISO date-time with no timezone as UTC, not host-local', () => {
+      expect(resolve('2026-03-23T00:30:00')).toBe('2026-03-23')
+    })
+
+    it('reads an end-of-day ISO date-time with no timezone as UTC', () => {
+      expect(resolve('2026-03-23T23:30:00')).toBe('2026-03-23')
+    })
+
+    it.each([
+      ['an empty string', ''],
+      ['whitespace', '   '],
+      ['an unparseable value', 'not-a-date'],
+      ['null', null],
+      ['undefined', undefined],
+    ])('returns an empty string for %s', (_label, input) => {
+      expect(resolve(input)).toBe('')
+    })
+
+    it('never returns "Invalid Date"', () => {
+      expect(resolve('garbage')).not.toContain('Invalid')
+    })
+  })
 })

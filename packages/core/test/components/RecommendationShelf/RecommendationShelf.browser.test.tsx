@@ -41,6 +41,10 @@ vi.mock('src/sdk/recommendations/useRecommendationUserId', () => ({
   useRecommendationUserId,
 }))
 
+vi.mock('src/sdk/analytics/hooks/useStartRecommendationSession', () => ({
+  useStartRecommendationSession: vi.fn(),
+}))
+
 import { RecommendationShelf } from 'src/components/sections/RecommendationShelf/RecommendationShelf'
 
 const CAMPAIGN_VRN = 'vrn:recommendations:acc:rec-top-items-v2:campaign-1'
@@ -71,7 +75,7 @@ afterEach(() => {
 })
 
 describe('RecommendationShelf', () => {
-  it('renders a product card per recommended product when enabled', async () => {
+  it('renders a product card per recommended product', async () => {
     useRecommendations.mockReturnValue({
       data: recommendationData,
       isLoading: false,
@@ -79,7 +83,7 @@ describe('RecommendationShelf', () => {
     })
 
     const { getAllByTestId, getByText } = render(
-      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} enableRecommendations />
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     await waitFor(() => {
@@ -98,9 +102,7 @@ describe('RecommendationShelf', () => {
       error: null,
     })
 
-    render(
-      <RecommendationShelf campaignVrn={CROSS_SELL_VRN} enableRecommendations />
-    )
+    render(<RecommendationShelf campaignVrn={CROSS_SELL_VRN} />)
 
     await waitFor(() => {
       const lastArgs = useRecommendations.mock.calls.at(-1)?.[0]
@@ -120,11 +122,7 @@ describe('RecommendationShelf', () => {
     })
 
     const { getByText } = render(
-      <RecommendationShelf
-        campaignVrn={CAMPAIGN_VRN}
-        enableRecommendations
-        title="Custom title"
-      />
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} title="Custom title" />
     )
 
     await waitFor(() => {
@@ -134,25 +132,6 @@ describe('RecommendationShelf', () => {
 
   it('skips the fetch and renders empty when there is no resolved userId', async () => {
     useRecommendationUserId.mockReturnValue(null)
-    useRecommendations.mockReturnValue({
-      data: undefined,
-      isLoading: false,
-      error: null,
-    })
-
-    const { container, queryByTestId } = render(
-      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} enableRecommendations />
-    )
-
-    await waitFor(() => {
-      const lastArgs = useRecommendations.mock.calls.at(-1)?.[0]
-      expect(lastArgs).toBeNull()
-    })
-    expect(queryByTestId('product-card')).toBeNull()
-    expect(container).toBeEmptyDOMElement()
-  })
-
-  it('skips the fetch when recommendations are disabled (default)', async () => {
     useRecommendations.mockReturnValue({
       data: undefined,
       isLoading: false,
@@ -179,7 +158,7 @@ describe('RecommendationShelf', () => {
     })
 
     const { container } = render(
-      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} enableRecommendations />
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     expect(container).toBeEmptyDOMElement()
@@ -193,7 +172,7 @@ describe('RecommendationShelf', () => {
     })
 
     const { container, queryByTestId } = render(
-      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} enableRecommendations />
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     expect(queryByTestId('product-card')).toBeNull()
@@ -208,7 +187,7 @@ describe('RecommendationShelf', () => {
     })
 
     const { getByTestId } = render(
-      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} enableRecommendations />
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} />
     )
 
     expect(getByTestId('skeleton').getAttribute('data-loading')).toBe('true')

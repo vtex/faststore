@@ -118,6 +118,19 @@
     }
   }
 
+  // Grid placement targets the CMS *section wrapper*, not the card.
+  // The CMS render wraps every section in `<section class="section section-account-order-*">`,
+  // which is the real grid item; `grid-column` on a card nested inside it is inert.
+  // Attribute selectors are required here because this is a CSS module: a plain
+  // class selector would be hashed and never match the global class emitted by
+  // `Section.tsx` (and stylelint does not support `:global()`).
+  // The rules below have three different fates — do not treat them as one group:
+  //   1. `[class~="section-account-order-*"]` — the live contract for the CMS render.
+  //   2. `[data-fs-delivery-option-accordion]` — ALSO live: the delivery wrapper is
+  //      `display: contents`, so the accordion is a direct grid item again.
+  //   3. `[data-fs-order-status-card]`, `[data-fs-order-budgets-card]` — dead for the
+  //      CMS render; they only serve `@deprecated OrderDetails.tsx`, so they can go
+  //      when that component does.
   [data-fs-order-details-content] {
     display: flex;
     flex-direction: column;
@@ -128,19 +141,47 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
-    [data-fs-order-status-card] {
+    // Cards must fill their section wrapper. The wrapper is the grid item and
+    // stretches to the row height, but a block child keeps its natural height,
+    // so a short card next to a tall one stopped short and left a gap below it.
+    // Before the CMS render the card itself was the grid item and stretched, so
+    // cards sharing a row matched heights — this restores that.
+    [class~="section-account-order-ordered-by"],
+    [class~="section-account-order-payment"],
+    [class~="section-account-order-summary"],
+    [class~="section-account-order-more-info"],
+    [class~="section-account-order-status"],
+    [class~="section-account-order-budgets"] {
+      display: grid;
+    }
+
+    // (1) Live — full-width section wrappers.
+    [class~="section-account-order-details"] {
       grid-column: span 2;
     }
 
-    [data-fs-buying-policy-alert] {
+    [class~="section-account-order-status"] {
       grid-column: span 2;
     }
 
-    [data-fs-pending-policies-alert] {
+    [class~="section-account-order-budgets"] {
       grid-column: span 2;
     }
 
+    // (1) Live — the delivery section holds two blocks the design treats as
+    // independent (compact recipient card, full-width option list). Dropping the
+    // wrapper box makes both direct grid items, so the rules below still apply.
+    [class~="section-account-order-delivery"] {
+      display: contents;
+    }
+
+    // (2) Live — direct grid item via the `display: contents` above.
     [data-fs-delivery-option-accordion] {
+      grid-column: span 2;
+    }
+
+    // (3) Dead for the CMS render — kept for `@deprecated OrderDetails.tsx` only.
+    [data-fs-order-status-card] {
       grid-column: span 2;
     }
 
