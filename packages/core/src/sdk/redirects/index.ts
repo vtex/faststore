@@ -1,5 +1,9 @@
 import storeConfig from 'discovery.config'
-import { matcher } from 'src/customizations/src/redirects'
+// The explicit `/index` is required. Stores following the file-based redirects
+// workflow keep a `src/redirects.json`, which the CLI copies next to this
+// module. Without `/index`, the bundler resolves that JSON file instead of this
+// directory, leaving `matcher` undefined.
+import { matcher } from 'src/customizations/src/redirects/index'
 
 type GetRedirectArgs = {
   pathname: string
@@ -29,7 +33,11 @@ export async function getRedirect({
   }
 
   try {
-    const redirectMatch = matcher({ pathname })
+    // Guards against a store shipping a malformed override, so a broken
+    // `matcher` degrades to the rewriter lookup instead of skipping it.
+    const redirectMatch =
+      typeof matcher === 'function' ? matcher({ pathname }) : null
+
     if (redirectMatch) {
       return {
         destination: encodeURI(redirectMatch.destination),
