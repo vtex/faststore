@@ -12,6 +12,10 @@ import { installDependencies } from './dependencies'
 import { withBasePath } from './directory'
 import { logger } from './logger'
 import { installPlugins } from './plugins'
+import {
+  prepareStorefrontTsConfig,
+  shouldCopyToStorefront,
+} from './storefrontCopy'
 
 const {
   copyFileSync,
@@ -29,14 +33,6 @@ interface GenerateOptions {
   setup?: boolean
   basePath: string
 }
-
-// package.json is copied manually after filtering its content
-const ignorePaths = [
-  'package.json',
-  'node_modules',
-  'cypress.config.ts',
-  'base.jsonc', // CP special file, it must not be copied to the merchants' temp dir
-]
 
 function createTmpFolder(basePath: string) {
   const { tmpDir, tmpFolderName } = withBasePath(basePath)
@@ -202,24 +198,23 @@ function disableTsConfigStrictRules(basePath: string) {
     tsConfig.compilerOptions[strictRule] = false
   })
 
-  writeJsonSync(path.join(tmpDir, 'tsconfig.json'), tsConfig, {
-    spaces: 2,
-  })
+  writeJsonSync(
+    path.join(tmpDir, 'tsconfig.json'),
+    prepareStorefrontTsConfig(tsConfig),
+    {
+      spaces: 2,
+    }
+  )
 }
 
-function copyCoreFiles(basePath: string) {
+export function copyCoreFiles(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)
 
   try {
     copySync(coreDir, tmpDir, {
       dereference: true,
       filter(src) {
-        const fileOrDirName = path.basename(src)
-        const shouldCopy = fileOrDirName
-          ? !ignorePaths.includes(fileOrDirName)
-          : true
-
-        return shouldCopy
+        return shouldCopyToStorefront(src)
       },
     })
 

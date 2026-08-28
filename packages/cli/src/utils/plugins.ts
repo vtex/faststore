@@ -3,6 +3,7 @@ import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { withBasePath } from './directory'
 import { logger } from './logger'
+import { shouldCopyToStorefront } from './storefrontCopy'
 
 const { copySync, existsSync, mkdirSync, readdirSync, writeFileSync } = fsExtra
 
@@ -79,12 +80,12 @@ export const getPluginsList = async (basePath: string): Promise<Plugin[]> => {
   return []
 }
 
-const copyPluginsSrc = async (basePath: string, plugins: Plugin[]) => {
+export const copyPluginsSrc = async (basePath: string, plugins: Plugin[]) => {
   const { tmpPluginsDir } = withBasePath(basePath)
 
   logger.log('Copying plugins files')
 
-  plugins.forEach(async (plugin) => {
+  for (const plugin of plugins) {
     const pluginName = getPluginName(plugin)
     const pluginSrcPath = await getPluginSrcPath(
       basePath,
@@ -95,9 +96,11 @@ const copyPluginsSrc = async (basePath: string, plugins: Plugin[]) => {
       sanitizePluginName(pluginName)
     )
 
-    copySync(pluginSrcPath, pluginDestPath)
+    copySync(pluginSrcPath, pluginDestPath, {
+      filter: shouldCopyToStorefront,
+    })
     logger.log(`Copied ${pluginName} files`)
-  })
+  }
 }
 
 const copyPluginPublicFiles = async (basePath: string, plugins: Plugin[]) => {
@@ -353,7 +356,7 @@ const generatePluginApis = async (basePath: string, plugins: Plugin[]) => {
 export const installPlugins = async (basePath: string) => {
   const plugins = await getPluginsList(basePath)
 
-  copyPluginsSrc(basePath, plugins)
+  await copyPluginsSrc(basePath, plugins)
   copyPluginPublicFiles(basePath, plugins)
   generatePluginPages(basePath, plugins)
   generatePluginApis(basePath, plugins)
