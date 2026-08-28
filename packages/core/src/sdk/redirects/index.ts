@@ -19,6 +19,23 @@ const PERMANENT_STATUS = 308
 
 const ASSET_FILE_REGEX = /\.(js|css|png|jpg|jpeg|svg|gif|webp|ico|json|map)$/i
 
+let hasWarnedInvalidMatcher = false
+
+function resolveLocalMatch(pathname: string) {
+  if (typeof matcher !== 'function') {
+    if (!hasWarnedInvalidMatcher) {
+      hasWarnedInvalidMatcher = true
+      console.warn(
+        `[redirects] Expected src/redirects to export a \`matcher\` function, got ${typeof matcher}. Falling back to the platform redirect lookup.`
+      )
+    }
+
+    return null
+  }
+
+  return matcher({ pathname })
+}
+
 export async function getRedirect({
   pathname,
 }: GetRedirectArgs): Promise<GetRedirectReturn> {
@@ -29,8 +46,7 @@ export async function getRedirect({
   }
 
   try {
-    const redirectMatch =
-      typeof matcher === 'function' ? matcher({ pathname }) : null
+    const redirectMatch = resolveLocalMatch(pathname)
 
     if (redirectMatch) {
       return {
