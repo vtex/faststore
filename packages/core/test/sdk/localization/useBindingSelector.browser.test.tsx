@@ -161,6 +161,16 @@ describe('useBindingSelector redirect', () => {
     )
   })
 
+  it('falls back to the default locale slug registered in the map when the target has none', () => {
+    const location = stubLocation('/tenis-roshe-76/p')
+
+    switchTo('it-IT', 'EUR', TRANSLATED)
+
+    expect(location.href).toBe(
+      'https://store.example.com/it-IT/roshe-tenis-76/p'
+    )
+  })
+
   it('navigates to the product page via defaultLocaleSlug when the target locale has no registered slug', () => {
     const location = stubLocation('/roshe-tenis-76/p')
 

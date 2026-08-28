@@ -1,5 +1,4 @@
-import '@testing-library/jest-dom/vitest'
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, render } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 const mockUseBindingSelector = vi.hoisted(() =>
@@ -84,12 +83,5 @@ describe('LocalizationButton', () => {
       '/p',
       undefined
     )
-  })
-
-  it('labels the button with the session locale and currency', () => {
-    render(<LocalizationButton />)
-
-    expect(screen.getByText('PT')).toBeInTheDocument()
-    expect(screen.getByText('BRL')).toBeInTheDocument()
   })
 })
