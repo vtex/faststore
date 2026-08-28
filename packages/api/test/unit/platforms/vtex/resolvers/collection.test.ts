@@ -331,10 +331,13 @@ describe('StoreCollection', () => {
       expect(result).toBeNull()
     })
 
-    it('echoes the input slug for the current locale and joins availableLinkIds for others', async () => {
+    it('uses the registered linkId for the current locale and joins availableLinkIds for others', async () => {
       const load = loaderFor({
         vestuario: makeCategoryRoot({
           slug: 'vestuario',
+          // by-linkid answers in the requested locale, so linkId is the pt-BR
+          // slug here — not the default-locale one.
+          linkId: 'vestuario',
           availableLinkIds: { 'en-US': 'apparel', 'pt-BR': 'vestuario' },
         }),
       })
@@ -353,6 +356,56 @@ describe('StoreCollection', () => {
 
       expect(result).toContainEqual({ locale: 'pt-BR', slug: 'vestuario' })
       expect(result).toContainEqual({ locale: 'en-US', slug: 'apparel' })
+    })
+
+    it('lowercases registered slugs so mixed-case linkIds yield one URL per locale', async () => {
+      const load = loaderFor({
+        vestuario: makeCategoryRoot({
+          slug: 'vestuario',
+          // Merchants register linkIds in whatever casing they typed, and
+          // by-linkid resolves any casing, so every variant would otherwise be
+          // a legitimate URL claiming to be canonical.
+          linkId: 'Vestuario',
+          availableLinkIds: { 'en-US': 'Apparel', 'pt-BR': 'Vestuario' },
+        }),
+      })
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'pt-BR',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        load,
+      })
+
+      const result = await call(
+        StoreCollection.otherLocales,
+        makeCategoryRoot({ slug: 'vestuario' }),
+        ctx
+      )
+
+      expect(result).toContainEqual({ locale: 'pt-BR', slug: 'vestuario' })
+      expect(result).toContainEqual({ locale: 'en-US', slug: 'apparel' })
+    })
+
+    it('falls back to the visited slug when the current locale has no linkId', async () => {
+      const load = loaderFor({
+        'summer-sale': makeCollectionRoot({ linkId: null }),
+      })
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'pt-BR',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        load,
+      })
+
+      const result = await call(
+        StoreCollection.otherLocales,
+        makeCollectionRoot({ linkId: 'summer-sale' }),
+        ctx
+      )
+
+      // The current locale is the page being rendered, so it is announced even
+      // when the catalog has no slug to offer for it.
+      expect(result).toContainEqual({ locale: 'pt-BR', slug: 'summer-sale' })
     })
 
     it('joins per-segment localized linkIds for multi-segment slugs', async () => {
@@ -389,10 +442,12 @@ describe('StoreCollection', () => {
       const load = loaderFor({
         vestuario: makeCategoryRoot({
           slug: 'vestuario',
+          linkId: 'vestuario',
           availableLinkIds: { 'en-US': 'apparel', 'pt-BR': 'vestuario' },
         }),
         'vestuario/camisetas': makeCategoryRoot({
           slug: 'vestuario/camisetas',
+          linkId: 'camisetas',
           // no en-US entry for the leaf → en-US must be omitted entirely
           availableLinkIds: { 'pt-BR': 'camisetas' },
         }),

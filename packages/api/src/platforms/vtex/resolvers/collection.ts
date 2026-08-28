@@ -39,6 +39,16 @@ export type LegacyStoreCollectionRoot =
  */
 export type Root = ByLinkIdRoot | LegacyStoreCollectionRoot
 
+/**
+ * Lowercases a catalog slug so one spelling is announced per locale.
+ *
+ * Merchants register linkIds in whatever casing they typed ("Elettronica",
+ * "Eletronicos"), and by-linkid resolves any casing, so without this every
+ * variant would be a legitimate URL advertising itself as canonical. Accents
+ * are preserved: they are part of the registered slug, not a casing artifact.
+ */
+const canonicalizeSlug = (slug: string): string => slug.toLowerCase()
+
 const slugifyRoot = (root: ByLinkIdRoot): string => {
   if (isCategory(root)) {
     // root.slug is the full accumulated input slug (e.g. "vestuario/camisetas"),
@@ -86,8 +96,10 @@ export const StoreCollection: Record<string, GraphqlResolver<ByLinkIdRoot>> = {
     }
 
     // For categories, IS expects the canonical (default-locale) slug in selectedFacets
-    // regardless of which locale the current request uses. The by-linkid API echoes the
-    // queried slug in `linkId`, so we resolve canonical via availableLinkIds[defaultLocale].
+    // regardless of which locale the current request uses. `linkId` carries the slug
+    // registered for the *requested* locale, so it is the wrong one here whenever the
+    // shopper is browsing anything but the default locale; availableLinkIds is keyed by
+    // locale and gives us the default-locale slug directly.
     const { defaultLocale } = getLocalizationConfig(ctx)
 
     const segments = slug.split('/').filter(Boolean)
@@ -190,8 +202,23 @@ export const StoreCollection: Record<string, GraphqlResolver<ByLinkIdRoot>> = {
     return configuredLocales
       .map((configuredLocale) => {
         if (configuredLocale === currentLocale) {
-          // The input slug is already the localized path for the current locale.
-          return { locale: configuredLocale, slug }
+          // Not the visited slug: by-linkid matches case-insensitively, so
+          // announcing what the shopper typed would make every casing variant
+          // its own canonical. `linkId` carries the slug registered for the
+          // requested locale, falling back to one that resolves when the
+          // segment has no translation — which is why it is read here instead
+          // of availableLinkIds, which holds registered translations only.
+          const parts = entities.map((entity) => entity.linkId)
+          const registered = parts.every((part): part is string =>
+            Boolean(part)
+          )
+
+          // The current locale is the page being rendered, so it is always
+          // announced; the visited slug is the last resort.
+          return {
+            locale: configuredLocale,
+            slug: canonicalizeSlug(registered ? parts.join('/') : slug),
+          }
         }
 
         // Build the full path by joining each segment's localized linkId from
@@ -210,7 +237,10 @@ export const StoreCollection: Record<string, GraphqlResolver<ByLinkIdRoot>> = {
         }
 
         return parts.length > 0
-          ? { locale: configuredLocale, slug: parts.join('/') }
+          ? {
+              locale: configuredLocale,
+              slug: canonicalizeSlug(parts.join('/')),
+            }
           : null
       })
       .filter((e): e is { locale: string; slug: string } => e !== null)
