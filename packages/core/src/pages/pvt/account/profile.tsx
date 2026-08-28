@@ -74,6 +74,7 @@ export default function Profile({
         >
           <BeforeSection />
           <RenderSectionsBase
+            skipLazyLoading
             sections={pageSections}
             components={ACCOUNT_COMPONENTS}
           />

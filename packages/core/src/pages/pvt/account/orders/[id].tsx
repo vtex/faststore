@@ -76,6 +76,7 @@ export default function OrderDetailsPage({
           <OrderDetailsPageShell>
             <main data-fs-order-details-content>
               <RenderSectionsBase
+                skipLazyLoading
                 sections={pageSections}
                 components={ACCOUNT_COMPONENTS}
               />
@@ -408,7 +409,10 @@ const getServerSidePropsBase: GetServerSideProps<
       navigationLabels: navigationData as AccountNavigationLabels,
       accountPageData: {
         order: orderDetails.data.userOrder,
-        orderStatusLabels,
+        // Yields undefined when no section carries order-status labels — the
+        // case for a store with no CMS content, since the default sections are
+        // created with empty data. getServerSideProps cannot serialize it.
+        ...(orderStatusLabels ? { orderStatusLabels } : {}),
       },
       pageSections,
       isRepresentative,
