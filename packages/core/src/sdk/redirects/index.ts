@@ -22,18 +22,18 @@ const ASSET_FILE_REGEX = /\.(js|css|png|jpg|jpeg|svg|gif|webp|ico|json|map)$/i
 let hasWarnedInvalidMatcher = false
 
 function resolveLocalMatch(pathname: string) {
-  if (typeof matcher !== 'function') {
-    if (!hasWarnedInvalidMatcher) {
-      hasWarnedInvalidMatcher = true
-      console.warn(
-        `[redirects] Expected src/redirects to export a \`matcher\` function, got ${typeof matcher}. Falling back to the platform redirect lookup.`
-      )
-    }
-
-    return null
+  if (typeof matcher === 'function') {
+    return matcher({ pathname })
   }
 
-  return matcher({ pathname })
+  if (!hasWarnedInvalidMatcher) {
+    hasWarnedInvalidMatcher = true
+    console.warn(
+      `[redirects] Expected src/redirects to export a \`matcher\` function, got ${typeof matcher}. Falling back to the platform redirect lookup.`
+    )
+  }
+
+  return null
 }
 
 export async function getRedirect({
