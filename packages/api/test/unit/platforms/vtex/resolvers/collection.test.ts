@@ -331,12 +331,10 @@ describe('StoreCollection', () => {
       expect(result).toBeNull()
     })
 
-    it('uses the registered linkId for the current locale and joins availableLinkIds for others', async () => {
+    it('reads every locale, including the current one, from availableLinkIds', async () => {
       const load = loaderFor({
         vestuario: makeCategoryRoot({
           slug: 'vestuario',
-          // by-linkid answers in the requested locale, so linkId is the pt-BR
-          // slug here — not the default-locale one.
           linkId: 'vestuario',
           availableLinkIds: { 'en-US': 'apparel', 'pt-BR': 'vestuario' },
         }),
@@ -386,9 +384,16 @@ describe('StoreCollection', () => {
       expect(result).toContainEqual({ locale: 'en-US', slug: 'apparel' })
     })
 
-    it('falls back to the visited slug when the current locale has no linkId', async () => {
+    it('omits the current locale when the catalog registered no translation for it', async () => {
       const load = loaderFor({
-        'summer-sale': makeCollectionRoot({ linkId: null }),
+        vestuario: makeCategoryRoot({
+          slug: 'vestuario',
+          // Browsing pt-BR, which has no translation registered: by-linkid
+          // answers with a slug that resolves in another locale rather than
+          // failing, so linkId here is the en-US one.
+          linkId: 'Apparel',
+          availableLinkIds: { 'en-US': 'Apparel' },
+        }),
       })
       const ctx = makeCtx({
         localizationEnabled: true,
@@ -399,13 +404,13 @@ describe('StoreCollection', () => {
 
       const result = await call(
         StoreCollection.otherLocales,
-        makeCollectionRoot({ linkId: 'summer-sale' }),
+        makeCategoryRoot({ slug: 'vestuario' }),
         ctx
       )
 
-      // The current locale is the page being rendered, so it is announced even
-      // when the catalog has no slug to offer for it.
-      expect(result).toContainEqual({ locale: 'pt-BR', slug: 'summer-sale' })
+      // Announcing the fallback as the pt-BR alternate would point search
+      // engines at a URL pt-BR never registered, breaking reciprocity.
+      expect(result).toEqual([{ locale: 'en-US', slug: 'apparel' }])
     })
 
     it('joins per-segment localized linkIds for multi-segment slugs', async () => {
@@ -488,6 +493,99 @@ describe('StoreCollection', () => {
 
       const result = await call(
         StoreCollection.otherLocales,
+        makeCategoryRoot({ slug: 'vestuario' }),
+        ctx
+      )
+
+      expect(result).toBeNull()
+      expect(warn).toHaveBeenCalled()
+    })
+  })
+
+  describe('canonicalSlug', () => {
+    it('announces the registered slug instead of the casing the shopper typed', async () => {
+      const load = loaderFor({
+        Vestuario: makeCategoryRoot({
+          slug: 'Vestuario',
+          linkId: 'Vestuario',
+        }),
+      })
+      const ctx = makeCtx({ localizationEnabled: true, locale: 'pt-BR', load })
+
+      const result = await call(
+        StoreCollection.canonicalSlug,
+        makeCategoryRoot({ slug: 'Vestuario' }),
+        ctx
+      )
+
+      expect(result).toBe('vestuario')
+    })
+
+    it('keeps a canonical for a locale that has no translation of its own', async () => {
+      const load = loaderFor({
+        vestuario: makeCategoryRoot({
+          slug: 'vestuario',
+          // Untranslated for pt-BR: by-linkid answers with the slug registered
+          // elsewhere. `otherLocales` drops this locale, so serving the
+          // canonical from it is what keeps the page self-describing.
+          linkId: 'Apparel',
+          availableLinkIds: { 'en-US': 'Apparel' },
+        }),
+      })
+      const ctx = makeCtx({ localizationEnabled: true, locale: 'pt-BR', load })
+
+      const result = await call(
+        StoreCollection.canonicalSlug,
+        makeCategoryRoot({ slug: 'vestuario' }),
+        ctx
+      )
+
+      expect(result).toBe('apparel')
+    })
+
+    it('joins the registered slug of every segment', async () => {
+      const load = loaderFor({
+        vestuario: makeCategoryRoot({ slug: 'vestuario', linkId: 'Vestuario' }),
+        'vestuario/camisetas': makeCategoryRoot({
+          slug: 'vestuario/camisetas',
+          linkId: 'Camisetas',
+        }),
+      })
+      const ctx = makeCtx({ localizationEnabled: true, locale: 'pt-BR', load })
+
+      const result = await call(
+        StoreCollection.canonicalSlug,
+        makeCategoryRoot({ slug: 'vestuario/camisetas' }),
+        ctx
+      )
+
+      expect(result).toBe('vestuario/camisetas')
+    })
+
+    it('falls back to the visited slug when a segment has no linkId', async () => {
+      const load = loaderFor({
+        'summer-sale': makeCollectionRoot({ linkId: null }),
+      })
+      const ctx = makeCtx({ localizationEnabled: true, locale: 'pt-BR', load })
+
+      const result = await call(
+        StoreCollection.canonicalSlug,
+        makeCollectionRoot({ linkId: 'summer-sale' }),
+        ctx
+      )
+
+      expect(result).toBe('summer-sale')
+    })
+
+    it('returns null and warns when the loader throws', async () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+      const load = vi.fn(() =>
+        Promise.reject(new Error('by-linkid down'))
+      ) as unknown as LoadFn
+      const ctx = makeCtx({ localizationEnabled: true, locale: 'pt-BR', load })
+
+      const result = await call(
+        StoreCollection.canonicalSlug,
         makeCategoryRoot({ slug: 'vestuario' }),
         ctx
       )

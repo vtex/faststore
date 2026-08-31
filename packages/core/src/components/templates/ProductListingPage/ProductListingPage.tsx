@@ -109,13 +109,13 @@ export default function ProductListingPage({
   const otherLocales = server.collection?.otherLocales
   const storeURL = getStoreURL(router.locale)
 
-  // The slug the catalog registered for this locale, not the one the shopper
-  // typed: by-linkid matches case-insensitively, so /Apparel and /apparel are
-  // the same page and must not each claim to be canonical. Falls back to the
-  // visited path for pages the backend does not resolve a slug for.
-  const canonicalSlug = otherLocales?.find(
-    ({ locale }) => locale === router.locale
-  )?.slug
+  // The slug the catalog resolves, not the one the shopper typed: by-linkid
+  // matches case-insensitively, so /Apparel and /apparel are the same page and
+  // must not each claim to be canonical. `otherLocales` is deliberately not
+  // used here — it only carries registered translations, so a page reached
+  // through a locale with no translation of its own would have no canonical at
+  // all. Falls back to the visited path when the backend resolves no slug.
+  const canonicalSlug = server.collection?.canonicalSlug
   const [pathname] = router.asPath.split('?')
   const canonical = canonicalSlug
     ? `${storeURL}/${canonicalSlug}`
