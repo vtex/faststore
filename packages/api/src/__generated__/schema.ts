@@ -1771,6 +1771,14 @@ export type StoreProduct = {
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /**
+   * Slug for the store's default locale, including the SKU ID suffix.
+   * Navigation fallback for the locale selector when the target locale is absent
+   * from `otherLocales`. Best-effort: it may point at a slug the catalog has not
+   * registered for the default locale, so it must never be used to build hreflang
+   * annotations. Only populated when localization is enabled.
+   */
+  defaultLocaleSlug?: Maybe<Scalars['String']['output']>;
   /** Delivery Promise product's badge. */
   deliveryPromiseBadges?: Maybe<Array<Maybe<DeliveryPromiseBadge>>>;
   /** Product description. */
