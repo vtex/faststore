@@ -352,7 +352,10 @@ function Page({
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <LocalizedProductProvider otherLocales={server.product.otherLocales}>
+      <LocalizedProductProvider
+        otherLocales={server.product.otherLocales}
+        defaultLocaleSlug={server.product.defaultLocaleSlug}
+      >
         <PageProvider context={context}>
           <RenderSections
             sections={sections}
@@ -427,6 +430,8 @@ const query = gql(`
         locale
         slug
       }
+
+      defaultLocaleSlug
 
       ...ProductDetailsFragment_product
     }
