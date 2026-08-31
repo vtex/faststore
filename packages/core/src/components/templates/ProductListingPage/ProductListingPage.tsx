@@ -121,7 +121,7 @@ export default function ProductListingPage({
     ? `${storeURL}/${canonicalSlug}`
     : `${storeURL}${pathname}`
 
-  const hreflangLinks = buildHreflangLinks(otherLocales)
+  const hreflangLinks = buildHreflangLinks(otherLocales, router.locale)
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   let itemListElements = collection?.breadcrumbList.itemListElement ?? []

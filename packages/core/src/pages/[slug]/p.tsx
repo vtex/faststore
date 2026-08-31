@@ -159,7 +159,11 @@ function Page({
     ]
 
   // hreflang alternate links for multi-locale stores
-  const hreflangLinks = buildHreflangLinks(server.product.otherLocales, '/p')
+  const hreflangLinks = buildHreflangLinks(
+    server.product.otherLocales,
+    router.locale,
+    '/p'
+  )
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
