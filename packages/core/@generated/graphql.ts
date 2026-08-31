@@ -141,6 +141,15 @@ export type BusinessHour = {
   openingTime: Maybe<Scalars['String']['output']>;
 };
 
+/**
+ * Whether a saved card is personally owned by the buyer or shared by their
+ * Organization/Contract. Resolved server-side by the Saved-cards service from
+ * the buyer's `useAdHocCard` role — never inferred client-side.
+ */
+export type CardOrigin =
+  | 'personal'
+  | 'shared';
+
 /** Commercial Authorization dimension status. */
 export type CommercialAuthorizationDimensionStatus = {
   /** Creation date. */
@@ -883,8 +892,19 @@ export type Query = {
   availableContracts: Array<StoreContract>;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /**
+   * Whether the current user holds the ad-hoc card platform permission, which
+   * gates personal card management for Unit/Contract-affiliated buyers.
+   *
+   * Resolved from the user's roles by License Manager — it is not a session token
+   * claim. Fails open (`true`) when the permission service is unreachable, so an
+   * outage never locks buyers out of their own cards.
+   */
+  hasAdHocCardAccess: Scalars['Boolean']['output'];
   /** Returns whether the current authenticated user belongs to a B2B organization unit. */
   isOrganizationMember: Scalars['Boolean']['output'];
+  /** Returns the list of saved credit cards for the current user. */
+  listCreditCards: Maybe<SavedCardListResult>;
   /** Returns the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>;
   /** Returns the list of Quotes that the authenticated Buyer can view. */
@@ -1068,6 +1088,41 @@ export type SkuSpecificationValue = {
   id: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   originalName: Maybe<Scalars['String']['output']>;
+};
+
+/** A saved payment card returned by the Saved-cards service. */
+export type SavedCard = {
+  /** Account identifier that owns the card. */
+  accountId: Maybe<Scalars['String']['output']>;
+  /** First digits of the card (BIN). */
+  bin: Maybe<Scalars['String']['output']>;
+  /**
+   * Buyer- or admin-assigned nickname for the card (e.g. "Team lunch card"), when
+   * the Saved-cards service has one on file. Absent for most cards — callers
+   * should fall back to `paymentSystemName` for display.
+   */
+  cardLabel: Maybe<Scalars['String']['output']>;
+  /** Masked card number, per PCI display rules. */
+  cardNumber: Maybe<Scalars['String']['output']>;
+  /** Whether this card is active. */
+  isActive: Maybe<Scalars['Boolean']['output']>;
+  /** Whether this card is the account default. */
+  isDefault: Maybe<Scalars['Boolean']['output']>;
+  /**
+   * Whether this card is personally owned by the buyer or shared by their
+   * Organization/Contract.
+   */
+  origin: CardOrigin;
+  /** Numeric payment system identifier. */
+  paymentSystem: Maybe<Scalars['String']['output']>;
+  /** Human-readable payment system name (e.g. Visa, Mastercard). */
+  paymentSystemName: Maybe<Scalars['String']['output']>;
+};
+
+/** Result of listing the current user's saved credit cards. */
+export type SavedCardListResult = {
+  /** The list of saved credit cards. */
+  list: Maybe<Array<SavedCard>>;
 };
 
 /** Search result. */
@@ -1626,6 +1681,14 @@ export type StoreProduct = {
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /**
+   * Slug for the store's default locale, including the SKU ID suffix.
+   * Navigation fallback for the locale selector when the target locale is absent
+   * from `otherLocales`. Best-effort: it may point at a slug the catalog has not
+   * registered for the default locale, so it must never be used to build hreflang
+   * annotations. Only populated when localization is enabled.
+   */
+  defaultLocaleSlug: Maybe<Scalars['String']['output']>;
   /** Delivery Promise product's badge. */
   deliveryPromiseBadges: Maybe<Array<Maybe<DeliveryPromiseBadge>>>;
   /** Product description. */
@@ -2727,15 +2790,6 @@ export type Filter_FacetsFragment =
 
 export type ProductDetailsFragment_ProductFragment = { sku: string, name: string, gtin: string, description: string, unitMultiplier: number | null, id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, quantity: number, priceToken: string | null, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> };
 
-export type ClientRecommendationsQueryQueryVariables = Exact<{
-  campaignVrn: Scalars['String']['input'];
-  userId: InputMaybe<Scalars['String']['input']>;
-  products: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
-}>;
-
-
-export type ClientRecommendationsQueryQuery = { recommendations: { correlationId: string, products: Array<{ slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, priceToken: string | null, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null }>, campaign: { id: string, title: string | null, type: string } } };
-
 export type ProductComparisonFragment_ProductFragment = { sku: string, slug: string, name: string, gtin: string, description: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, priceWithTaxes: number, listPrice: number, quantity: number, listPriceWithTaxes: number, priceToken: string | null, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, skuSpecifications: Array<{ field: { id: string | null, name: string, originalName: string | null }, values: Array<{ name: string, id: string | null, fieldId: string | null, originalName: string | null }> }>, specificationGroups: Array<{ name: string, originalName: string, specifications: Array<{ name: string, originalName: string, values: Array<string> }> }> };
 
 export type ProductSkuMatrixSidebarFragment_ProductFragment = { id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ sku: string, name: string, image: Array<{ url: string, alternateName: string }>, offers: { highPrice: number, lowPrice: number, lowPriceWithTaxes: number, offerCount: number, priceCurrency: string, offers: Array<{ listPrice: number, listPriceWithTaxes: number, sellingPrice: number, priceCurrency: string, price: number, priceWithTaxes: number, priceValidUntil: string, itemCondition: string, availability: string, quantity: number, priceToken: string | null }> }, additionalProperty: Array<{ propertyID: string, value: any, name: string, valueReference: any }> }> | null } | null } };
@@ -2773,7 +2827,12 @@ export type ServerProductQueryQueryVariables = Exact<{
 }>;
 
 
-export type ServerProductQueryQuery = { product: { sku: string, gtin: string, mpn: string, name: string, description: string, releaseDate: string, unitMultiplier: number | null, id: string, seo: { title: string, description: string, canonical: string }, brand: { name: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, highPrice: number, lowPriceWithTaxes: number, priceCurrency: string, offers: Array<{ availability: string, price: number, priceValidUntil: string, priceCurrency: string, itemCondition: string, priceToken: string | null, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, otherLocales: Array<{ locale: string, slug: string }> | null, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
+export type ServerProductQueryQuery = { product: { sku: string, gtin: string, mpn: string, name: string, description: string, releaseDate: string, defaultLocaleSlug: string | null, unitMultiplier: number | null, id: string, seo: { title: string, description: string, canonical: string }, brand: { name: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, highPrice: number, lowPriceWithTaxes: number, priceCurrency: string, offers: Array<{ availability: string, price: number, priceValidUntil: string, priceCurrency: string, itemCondition: string, priceToken: string | null, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, otherLocales: Array<{ locale: string, slug: string }> | null, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
+
+export type ServerListCardsQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ServerListCardsQueryQuery = { hasAdHocCardAccess: boolean, listCreditCards: { list: Array<{ accountId: string | null, bin: string | null, cardNumber: string | null, cardLabel: string | null, paymentSystem: string | null, paymentSystemName: string | null, isDefault: boolean | null, isActive: boolean | null, origin: CardOrigin }> | null } | null, accountProfile: { name: string | null } };
 
 export type UserOrderItemsFragmentFragment = { id: string | null, name: string | null, quantity: number | null, sellingPrice: number | null, unitMultiplier: number | null, measurementUnit: string | null, imageUrl: string | null, detailUrl: string | null, refId: string | null, rewardValue: number | null };
 
@@ -2993,6 +3052,15 @@ export type ClientProfileQueryQueryVariables = Exact<{
 
 
 export type ClientProfileQueryQuery = { profile: { addresses: Array<{ country: string | null, postalCode: string | null, geoCoordinate: Array<number | null> | null, city: string | null } | null> | null } | null };
+
+export type ClientRecommendationsQueryQueryVariables = Exact<{
+  campaignVrn: Scalars['String']['input'];
+  userId: InputMaybe<Scalars['String']['input']>;
+  products: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+}>;
+
+
+export type ClientRecommendationsQueryQuery = { recommendations: { correlationId: string, products: Array<{ slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, priceToken: string | null, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null }>, campaign: { id: string, title: string | null, type: string } } };
 
 export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']['input'];
@@ -3555,10 +3623,10 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
   fuzzy
 }
     `, {"fragmentName":"SearchEvent_metadata"}) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>;
-export const ClientRecommendationsQueryDocument = {"__meta__":{"operationName":"ClientRecommendationsQuery","operationHash":"b227071b0388469d7b90d04cff4cbc11f8f134d4"}} as unknown as TypedDocumentString<ClientRecommendationsQueryQuery, ClientRecommendationsQueryQueryVariables>;
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"d46841b30ae1f6350021b5cf02f253d56c848664"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
-export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"b89e93519be01aebc01c402489a0ae640d38675a"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
+export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"13fc9efa8628b91971e3a8aa985e6cdbed70adae"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
+export const ServerListCardsQueryDocument = {"__meta__":{"operationName":"ServerListCardsQuery","operationHash":"392cf85d18d66b94d6ea8d6b2a3c6ffb5c94683d"}} as unknown as TypedDocumentString<ServerListCardsQueryQuery, ServerListCardsQueryQueryVariables>;
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
 export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"672fe0f00b7b710b63fc6573c0a6b2ec54812b8f"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;
@@ -3586,6 +3654,7 @@ export const ClientProductQueryDocument = {"__meta__":{"operationName":"ClientPr
 export const ClientManyProductsQueryDocument = {"__meta__":{"operationName":"ClientManyProductsQuery","operationHash":"ee14fd92b4a04fc3751efcbfcb60b3886d912253"}} as unknown as TypedDocumentString<ClientManyProductsQueryQuery, ClientManyProductsQueryQueryVariables>;
 export const ClientManyProductsSelectedQueryDocument = {"__meta__":{"operationName":"ClientManyProductsSelectedQuery","operationHash":"7e1b06c167e411905ceac9db11c1a6a7892cfdd6"}} as unknown as TypedDocumentString<ClientManyProductsSelectedQueryQuery, ClientManyProductsSelectedQueryQueryVariables>;
 export const ClientProfileQueryDocument = {"__meta__":{"operationName":"ClientProfileQuery","operationHash":"34ea14c0d4a57ddf9bc11e4be0cd2b5a6506d3d4"}} as unknown as TypedDocumentString<ClientProfileQueryQuery, ClientProfileQueryQueryVariables>;
+export const ClientRecommendationsQueryDocument = {"__meta__":{"operationName":"ClientRecommendationsQuery","operationHash":"b227071b0388469d7b90d04cff4cbc11f8f134d4"}} as unknown as TypedDocumentString<ClientRecommendationsQueryQuery, ClientRecommendationsQueryQueryVariables>;
 export const ClientSearchSuggestionsQueryDocument = {"__meta__":{"operationName":"ClientSearchSuggestionsQuery","operationHash":"ee57cd392fdfde90620787c9954e2ecae47881f9"}} as unknown as TypedDocumentString<ClientSearchSuggestionsQueryQuery, ClientSearchSuggestionsQueryQueryVariables>;
 export const ClientTopSearchSuggestionsQueryDocument = {"__meta__":{"operationName":"ClientTopSearchSuggestionsQuery","operationHash":"e2385b0f11726d0068f96548f57a8dd441c064e3"}} as unknown as TypedDocumentString<ClientTopSearchSuggestionsQueryQuery, ClientTopSearchSuggestionsQueryQueryVariables>;
 export const ValidateSessionDocument = {"__meta__":{"operationName":"ValidateSession","operationHash":"8c3a5999496e227f167e9dc79697e6c478d48a9e"}} as unknown as TypedDocumentString<ValidateSessionMutation, ValidateSessionMutationVariables>;

@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.7.0-dev.9](https://github.com/vtex/faststore/compare/v4.7.0-dev.8...v4.7.0-dev.9) (2026-08-31)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.8](https://github.com/vtex/faststore/compare/v4.7.0-dev.7...v4.7.0-dev.8) (2026-08-28)
+
+### Bug Fixes
+
+- **deps:** keep Yarn 1 from hoisting an incompatible @inquirer/type into the CLI ([6e5cfca](https://github.com/vtex/faststore/commit/6e5cfca1a8d029390bcc3b463a328d513481d457))
+- keep core unit tests out of the storefront .faststore app ([c7fed58](https://github.com/vtex/faststore/commit/c7fed5822d24066efdd44ec86d69f61d0d309bd7))
+
+# [4.7.0-dev.7](https://github.com/vtex/faststore/compare/v4.7.0-dev.6...v4.7.0-dev.7) (2026-08-28)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.6](https://github.com/vtex/faststore/compare/v4.7.0-dev.5...v4.7.0-dev.6) (2026-08-26)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.5](https://github.com/vtex/faststore/compare/v4.7.0-dev.4...v4.7.0-dev.5) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.4](https://github.com/vtex/faststore/compare/v4.7.0-dev.3...v4.7.0-dev.4) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.3](https://github.com/vtex/faststore/compare/v4.7.0-dev.2...v4.7.0-dev.3) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.2](https://github.com/vtex/faststore/compare/v4.7.0-dev.1...v4.7.0-dev.2) (2026-08-24)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.1](https://github.com/vtex/faststore/compare/v4.7.0-dev.0...v4.7.0-dev.1) (2026-08-24)
+
+### Bug Fixes
+
+- let Sonar recognise test files ([a7b966a](https://github.com/vtex/faststore/commit/a7b966a6e3eafe51fec687169781f2f78137c9e9))
+- reference next by a path relative to .faststore ([372b66e](https://github.com/vtex/faststore/commit/372b66e328d73802f7cffcc05bae48e966eabc97))
+- resolve the next binary from @faststore/core ([5478a4d](https://github.com/vtex/faststore/commit/5478a4dd24ffa7ab5d12907b945698cd04cb2f79))
+- write the resolved next path with forward slashes ([95c07f9](https://github.com/vtex/faststore/commit/95c07f935037f419304eb792bebc6d6f4af983ac))
+
+# [4.7.0-dev.0](https://github.com/vtex/faststore/compare/v4.6.1-dev.0...v4.7.0-dev.0) (2026-08-24)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.6.1-dev.0](https://github.com/vtex/faststore/compare/v4.6.0...v4.6.1-dev.0) (2026-08-18)
+
+**Note:** Version bump only for package @faststore/cli
+
 # [4.6.0](https://github.com/vtex/faststore/compare/v4.6.0-dev.6...v4.6.0) (2026-08-18)
 
 **Note:** Version bump only for package @faststore/cli

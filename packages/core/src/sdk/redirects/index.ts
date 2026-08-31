@@ -1,5 +1,5 @@
 import storeConfig from 'discovery.config'
-import { matcher } from 'src/customizations/src/redirects'
+import { matcher } from 'src/customizations/src/redirects/index'
 
 type GetRedirectArgs = {
   pathname: string
@@ -19,6 +19,23 @@ const PERMANENT_STATUS = 308
 
 const ASSET_FILE_REGEX = /\.(js|css|png|jpg|jpeg|svg|gif|webp|ico|json|map)$/i
 
+let hasWarnedInvalidMatcher = false
+
+function resolveLocalMatch(pathname: string) {
+  if (typeof matcher === 'function') {
+    return matcher({ pathname })
+  }
+
+  if (!hasWarnedInvalidMatcher) {
+    hasWarnedInvalidMatcher = true
+    console.warn(
+      `[redirects] Expected src/redirects to export a \`matcher\` function, got ${typeof matcher}. Falling back to the platform redirect lookup.`
+    )
+  }
+
+  return null
+}
+
 export async function getRedirect({
   pathname,
 }: GetRedirectArgs): Promise<GetRedirectReturn> {
@@ -29,7 +46,8 @@ export async function getRedirect({
   }
 
   try {
-    const redirectMatch = matcher({ pathname })
+    const redirectMatch = resolveLocalMatch(pathname)
+
     if (redirectMatch) {
       return {
         destination: encodeURI(redirectMatch.destination),

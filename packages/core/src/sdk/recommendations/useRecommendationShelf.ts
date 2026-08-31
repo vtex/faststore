@@ -1,6 +1,7 @@
 import { usePDP } from '@faststore/core'
 import { useMemo } from 'react'
 
+import { useStartRecommendationSession } from 'src/sdk/analytics/hooks/useStartRecommendationSession'
 import { useCart } from 'src/sdk/cart'
 
 import type { ItemContext } from './types'
@@ -51,12 +52,6 @@ export function getRecommendationArguments(
 export type UseRecommendationShelfArgs = {
   readonly campaignVrn: string
   /**
-   * Opt-in for VTEX Recommendations. When `false` (default) the campaign is
-   * never requested. The anonymous user id is still resolved, but it goes
-   * unused and never leaves the browser.
-   */
-  readonly enableRecommendations?: boolean
-  /**
    * Where to read the products used as context for the recommendation request.
    * @default 'PDP'
    */
@@ -79,13 +74,24 @@ const EMPTY_ITEMS: RecommendationResponse['products'] = []
  * campaign. It renders nothing — presentation lives in the shelf components
  * that consume it, so a new surface can reuse the campaign rules instead of
  * reimplementing them.
+ *
+ * When `userId` is missing (`undefined` or `null`), starts the personalization
+ * session as a fallback in parallel with cookie retry (Layout already starts
+ * it when `experimental.enableRecommendations` is on). Cookie + in-memory lock
+ * keep the mutation to one attempt per browser session.
  */
 export function useRecommendationShelf({
   campaignVrn,
-  enableRecommendations = false,
   itemsContext = 'PDP',
 }: UseRecommendationShelfArgs): UseRecommendationShelfResult {
   const userId = useRecommendationUserId(campaignVrn)
+
+  // Fallback when Layout did not start the session (flag off): start in
+  // parallel with cookie lookup. `undefined` and `null` both mean no id yet;
+  // waiting for `null` exhausts the retry budget before the mutation can set
+  // `vtex-rec-user-id`, so the first page would never fetch. Cookie + lock
+  // already no-op when a session exists.
+  useStartRecommendationSession(!userId)
 
   const { data: productDetailPage } = usePDP()
   const { items: cartItems } = useCart()
@@ -108,14 +114,10 @@ export function useRecommendationShelf({
     return pdpProduct ? [pdpProduct] : []
   }, [itemsContext, cartItems, productDetailPage])
 
-  // Gate the whole feature behind the CMS opt-in: when Recommendations is
-  // disabled the shelf never requests recommendations (nor renders).
-  const recommendationArgs = enableRecommendations
-    ? getRecommendationArguments(campaignVrn, {
-        userId,
-        contextProducts,
-      })
-    : null
+  const recommendationArgs = getRecommendationArguments(campaignVrn, {
+    userId,
+    contextProducts,
+  })
 
   const { data, isLoading, error } = useRecommendations(recommendationArgs)
 
