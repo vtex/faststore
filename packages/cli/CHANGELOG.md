@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.7.0-dev.8](https://github.com/vtex/faststore/compare/v4.7.0-dev.7...v4.7.0-dev.8) (2026-08-28)
+
+### Bug Fixes
+
+- **deps:** keep Yarn 1 from hoisting an incompatible @inquirer/type into the CLI ([6e5cfca](https://github.com/vtex/faststore/commit/6e5cfca1a8d029390bcc3b463a328d513481d457))
+- keep core unit tests out of the storefront .faststore app ([c7fed58](https://github.com/vtex/faststore/commit/c7fed5822d24066efdd44ec86d69f61d0d309bd7))
+
+# [4.7.0-dev.7](https://github.com/vtex/faststore/compare/v4.7.0-dev.6...v4.7.0-dev.7) (2026-08-28)
+
+**Note:** Version bump only for package @faststore/cli
+
 # [4.7.0-dev.6](https://github.com/vtex/faststore/compare/v4.7.0-dev.5...v4.7.0-dev.6) (2026-08-26)
 
 **Note:** Version bump only for package @faststore/cli
