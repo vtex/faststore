@@ -1,4 +1,5 @@
 import storeConfig from 'discovery.config'
+import { getSettingsForLocale } from 'src/sdk/localization/settings'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 export type LocaleSlug = { locale: string; slug: string }
@@ -36,10 +37,20 @@ export function buildHreflangLinks(
 
   if (!otherLocales.some(({ locale }) => locale === renderedLocale)) return []
 
-  const links: HreflangLink[] = otherLocales.map(({ locale, slug }) => ({
-    hrefLang: locale,
-    href: `${getStoreURL(locale).replace(/\/$/, '')}/${slug}${urlSuffix}`,
-  }))
+  const links: HreflangLink[] = otherLocales
+    .filter(({ locale }) => {
+      const settings = getSettingsForLocale(locale)
+      if (!settings) {
+        console.warn(
+          `[hreflang] locale "${locale}" has no usable binding in discoveryConfig — skipped`
+        )
+      }
+      return settings !== null
+    })
+    .map(({ locale, slug }) => ({
+      hrefLang: locale,
+      href: `${getStoreURL(locale).replace(/\/$/, '')}/${slug}${urlSuffix}`,
+    }))
 
   // x-default is what a shopper gets when no advertised locale matches, so it
   // has to be a URL that is canonical in its own right. That is the default

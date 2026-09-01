@@ -479,7 +479,7 @@ export const getStaticProps: GetStaticProps<
   // Without the locale, static rendering has no request to match a binding
   // against and falls back to the default locale, so a localized PDP would
   // point its canonical at the default locale's prefix.
-  const canonical = `${getStoreURL(locale)}${seo.canonical}`
+  const canonical = `${getStoreURL(locale).replace(/\/$/, '')}${seo.canonical}`
 
   const meta = { title, description, canonical }
 

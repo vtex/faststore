@@ -107,7 +107,7 @@ export default function ProductListingPage({
     plpSeo?.descriptionTemplate?.replace(/%s/g, () => title) || // Use description template from the SEO config for PLP
     storeSeo.description // Use default description from the store SEO config
   const otherLocales = server.collection?.otherLocales
-  const storeURL = getStoreURL(router.locale)
+  const storeURL = getStoreURL(router.locale).replace(/\/$/, '')
 
   // The slug the catalog resolves, not the one the shopper typed: by-linkid
   // matches case-insensitively, so /Apparel and /apparel are the same page and
