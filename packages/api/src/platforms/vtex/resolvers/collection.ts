@@ -1,4 +1,4 @@
-import type { GraphqlResolver } from '..'
+import type { GraphqlContext, GraphqlResolver } from '..'
 import type { Brand } from '../clients/commerce/types/Brand'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { CollectionPageType } from '../clients/commerce/types/Portal'
@@ -38,6 +38,41 @@ export type LegacyStoreCollectionRoot =
  * while `ByLinkIdRoot` reflects the real runtime shape.
  */
 export type Root = ByLinkIdRoot | LegacyStoreCollectionRoot
+
+/**
+ * Lowercases a catalog slug so one spelling is announced per locale.
+ *
+ * Merchants register linkIds in whatever casing they typed ("Elettronica",
+ * "Eletronicos"), and by-linkid resolves any casing, so without this every
+ * variant would be a legitimate URL advertising itself as canonical. Accents
+ * are preserved: they are part of the registered slug, not a casing artifact.
+ */
+const canonicalizeSlug = (slug: string): string => slug.toLowerCase()
+
+/**
+ * Loads the by-linkid entity for every level of a collection slug, so
+ * "vestuario/camisetas" resolves both "vestuario" and "vestuario/camisetas".
+ * The collectionLoader cache means a segment already fetched by another
+ * resolver of the same request costs nothing here.
+ */
+const loadSegmentEntities = (
+  ctx: GraphqlContext,
+  slug: string
+): Promise<ByLinkIdRoot[]> => {
+  const segments = slug.split('/').filter(Boolean)
+  const {
+    loaders: { collectionLoader },
+  } = ctx
+
+  return Promise.all(
+    segments.map((_, index) =>
+      collectionLoader.load({
+        slug: segments.slice(0, index + 1).join('/'),
+        locale: getCatalogLocale(ctx),
+      })
+    )
+  )
+}
 
 const slugifyRoot = (root: ByLinkIdRoot): string => {
   if (isCategory(root)) {
@@ -86,24 +121,13 @@ export const StoreCollection: Record<string, GraphqlResolver<ByLinkIdRoot>> = {
     }
 
     // For categories, IS expects the canonical (default-locale) slug in selectedFacets
-    // regardless of which locale the current request uses. The by-linkid API echoes the
-    // queried slug in `linkId`, so we resolve canonical via availableLinkIds[defaultLocale].
+    // regardless of which locale the current request uses. `linkId` carries the slug
+    // registered for the *requested* locale, so it is the wrong one here whenever the
+    // shopper is browsing anything but the default locale; availableLinkIds is keyed by
+    // locale and gives us the default-locale slug directly.
     const { defaultLocale } = getLocalizationConfig(ctx)
 
-    const segments = slug.split('/').filter(Boolean)
-    const segmentSlugs = segments.map((_, i) =>
-      segments.slice(0, i + 1).join('/')
-    )
-
-    const {
-      loaders: { collectionLoader },
-    } = ctx
-
-    const entities = await Promise.all(
-      segmentSlugs.map((s) =>
-        collectionLoader.load({ slug: s, locale: getCatalogLocale(ctx) })
-      )
-    )
+    const entities = await loadSegmentEntities(ctx, slug)
 
     return {
       selectedFacets: entities.map((entity, index) => ({
@@ -115,27 +139,7 @@ export const StoreCollection: Record<string, GraphqlResolver<ByLinkIdRoot>> = {
     }
   },
   breadcrumbList: async (root, _, ctx) => {
-    const {
-      loaders: { collectionLoader },
-    } = ctx
-
-    const slug = slugifyRoot(root)
-
-    /**
-     * Split slug into segments so each breadcrumb level gets its own
-     * by-linkid result. For "vestuario/camisetas" this produces two loader
-     * calls: one for "vestuario" and one for "vestuario/camisetas".
-     */
-    const segments = slug.split('/').filter(Boolean)
-    const slugs = segments.map((_, index) =>
-      segments.slice(0, index + 1).join('/')
-    )
-
-    const collections = await Promise.all(
-      slugs.map((s) =>
-        collectionLoader.load({ slug: s, locale: getCatalogLocale(ctx) })
-      )
-    )
+    const collections = await loadSegmentEntities(ctx, slugifyRoot(root))
 
     return {
       itemListElement: collections.map((collection, index) => ({
@@ -156,31 +160,14 @@ export const StoreCollection: Record<string, GraphqlResolver<ByLinkIdRoot>> = {
 
     if (configuredLocales.length === 0) return null
 
-    const currentLocale = ctx.storage.locale
     const slug = slugifyRoot(root)
-    const segments = slug.split('/').filter(Boolean)
 
-    if (segments.length === 0) return null
-
-    const {
-      loaders: { collectionLoader },
-    } = ctx
-
-    // Build per-level slug paths: ["vestuario", "vestuario/camisetas"].
-    // The collectionLoader DataLoader cache means any segment already fetched
-    // by breadcrumbList or meta costs nothing here.
-    const segmentSlugs = segments.map((_, i) =>
-      segments.slice(0, i + 1).join('/')
-    )
+    if (slug.split('/').filter(Boolean).length === 0) return null
 
     let entities: ByLinkIdRoot[]
 
     try {
-      entities = await Promise.all(
-        segmentSlugs.map((s) =>
-          collectionLoader.load({ slug: s, locale: getCatalogLocale(ctx) })
-        )
-      )
+      entities = await loadSegmentEntities(ctx, slug)
     } catch (err) {
       console.warn('[otherLocales] failed to load collection entities:', err)
 
@@ -189,16 +176,14 @@ export const StoreCollection: Record<string, GraphqlResolver<ByLinkIdRoot>> = {
 
     return configuredLocales
       .map((configuredLocale) => {
-        if (configuredLocale === currentLocale) {
-          // The input slug is already the localized path for the current locale.
-          return { locale: configuredLocale, slug }
-        }
-
-        // Build the full path by joining each segment's localized linkId from
-        // availableLinkIds. For the default locale, the canonical slug is also
-        // present in availableLinkIds.
-        // If any segment is missing an entry for this locale, omit the whole URL
-        // to keep the hreflang cluster symmetric.
+        // Every locale, including the one being rendered, is read from
+        // availableLinkIds, which holds registered translations only. by-linkid
+        // resolves an untranslated segment by falling back to a slug that
+        // exists in another locale, so trusting its `linkId` here would
+        // advertise an alternate the target locale never registered and break
+        // the reciprocity hreflang requires. The page still declares itself
+        // canonical through `canonicalSlug`, which is free to fall back
+        // precisely because it is not an hreflang annotation.
         const parts: string[] = []
 
         for (const entity of entities) {
@@ -210,9 +195,37 @@ export const StoreCollection: Record<string, GraphqlResolver<ByLinkIdRoot>> = {
         }
 
         return parts.length > 0
-          ? { locale: configuredLocale, slug: parts.join('/') }
+          ? {
+              locale: configuredLocale,
+              slug: canonicalizeSlug(parts.join('/')),
+            }
           : null
       })
       .filter((e): e is { locale: string; slug: string } => e !== null)
+  },
+
+  canonicalSlug: async (root, _, ctx) => {
+    const slug = slugifyRoot(root)
+
+    if (slug.split('/').filter(Boolean).length === 0) return null
+
+    let entities: ByLinkIdRoot[]
+
+    try {
+      entities = await loadSegmentEntities(ctx, slug)
+    } catch (err) {
+      console.warn('[canonicalSlug] failed to load collection entities:', err)
+
+      return null
+    }
+
+    const parts = entities.map((entity) => entity.linkId)
+
+    // A segment with no linkId leaves nothing better than the visited slug to
+    // announce, so the page keeps describing itself by the path it was reached
+    // through.
+    return parts.every((part): part is string => Boolean(part))
+      ? canonicalizeSlug(parts.join('/'))
+      : canonicalizeSlug(slug)
   },
 }
