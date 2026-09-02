@@ -1447,6 +1447,8 @@ export type StoreContract = {
   id: Scalars['ID']['output'];
   /** Indicates whether this contract is the one currently active in the session. */
   isActive: Scalars['Boolean']['output'];
+  /** Indicates whether this contract is the Organization Unit's default contract. */
+  isDefault: Scalars['Boolean']['output'];
 };
 
 /** Currency information. */
