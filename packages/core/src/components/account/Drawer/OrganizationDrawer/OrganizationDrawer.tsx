@@ -23,6 +23,8 @@ type OrganizationDrawerProps = {
   isOpen: boolean
   closeDrawer: () => void
   isRepresentative: boolean
+  /** Open straight into the contract switcher (My Account "Switch" button). */
+  initialView?: OrganizationDrawerView
 }
 
 const clearBrowserStorageForCurrentDomain = async () => {
@@ -140,16 +142,17 @@ export const OrganizationDrawer = ({
   isOpen,
   closeDrawer,
   isRepresentative,
+  initialView = 'menu',
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
   const { b2b, person } = useSession()
-  const [view, setView] = useState<OrganizationDrawerView>('menu')
+  const [view, setView] = useState<OrganizationDrawerView>(initialView)
 
   useEffect(() => {
     if (!isOpen) {
-      setView('menu')
+      setView(initialView)
     }
-  }, [isOpen])
+  }, [isOpen, initialView])
 
   const contractName =
     b2b?.contractName?.trim() ||
