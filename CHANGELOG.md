@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.5](https://github.com/vtex/faststore/compare/v3.100.4...v3.100.5) (2026-09-02)
+
+### Bug Fixes
+
+- handle unspawnable na probe output in getPreferredPackageManager ([ca27204](https://github.com/vtex/faststore/commit/ca27204308a7b4627a915cc7b42336b3b3ef4ae0))
+- keep the na probe away from shell glob expansion ([053b6e8](https://github.com/vtex/faststore/commit/053b6e8f84a2ef91aa3eee7d706ea8fe59dcf298)), closes [#3423](https://github.com/vtex/faststore/issues/3423)
+- treat an unspawnable na probe as unknown in the CLI ([af951a0](https://github.com/vtex/faststore/commit/af951a0b63902f7876c34ca9cc19199ec06d262e)), closes [#3423](https://github.com/vtex/faststore/issues/3423)
+- widen the package manager fallback guard in the CLI ([251c98f](https://github.com/vtex/faststore/commit/251c98f767b96a9ebcd65ff23df6f50951ce7b86))
+
 ## [3.100.4](https://github.com/vtex/faststore/compare/v3.100.3...v3.100.4) (2026-08-28)
 
 ### Bug Fixes
