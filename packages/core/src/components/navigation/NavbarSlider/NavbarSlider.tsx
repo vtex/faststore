@@ -13,6 +13,7 @@ import type { NavbarProps } from '../Navbar'
 import { OrganizationSignInButton } from 'src/components/account/Drawer/OrganizationSignInButton'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
+import { isSignInAreaResolved } from 'src/sdk/session/isSignInAreaResolved'
 import styles from './section.module.scss'
 
 interface NavbarSliderProps {
@@ -44,7 +45,11 @@ function NavbarSlider({
 
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
-  const { b2b, isSessionReady } = useSession()
+  const { b2b, isSessionReady, hasValidated } = useSession()
+  const isSignInResolved = isSignInAreaResolved({
+    isSessionReady,
+    hasValidated,
+  })
 
   const isFaststoreMyAccountEnabled =
     storeConfig.experimental?.enableFaststoreMyAccount
@@ -84,7 +89,7 @@ function NavbarSlider({
       </NavbarSliderContent.Component>
       <NavbarSliderFooter.Component {...NavbarSliderFooter.props}>
         <Suspense fallback={<ButtonSignInFallback />}>
-          {isSessionReady ? (
+          {isSignInResolved ? (
             isOrganizationEnabled ? (
               <OrganizationSignInButton
                 icon={signInButton.icon}

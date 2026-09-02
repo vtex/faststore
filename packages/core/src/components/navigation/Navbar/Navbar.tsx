@@ -13,6 +13,7 @@ import LocalizationButton from 'src/components/ui/LocalizationButton'
 import Logo from 'src/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
+import { isSignInAreaResolved } from 'src/sdk/session/isSignInAreaResolved'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 import storeConfig from 'discovery.config'
@@ -121,7 +122,11 @@ function Navbar({
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
   const { isDesktop } = useScreenResize()
-  const { b2b, isSessionReady } = useSession()
+  const { b2b, isSessionReady, hasValidated } = useSession()
+  const isSignInResolved = isSignInAreaResolved({
+    isSessionReady,
+    hasValidated,
+  })
 
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -233,7 +238,7 @@ function Navbar({
             )}
 
             {isDesktop &&
-              (isSessionReady ? (
+              (isSignInResolved ? (
                 isOrganizationEnabled ? (
                   <OrganizationSignInButton
                     icon={signInButton.icon}
