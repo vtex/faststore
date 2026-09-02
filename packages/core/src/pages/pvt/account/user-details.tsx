@@ -73,6 +73,7 @@ export default function Page({
         >
           <BeforeSection />
           <RenderSectionsBase
+            skipLazyLoading
             sections={pageSections}
             components={ACCOUNT_COMPONENTS}
           />

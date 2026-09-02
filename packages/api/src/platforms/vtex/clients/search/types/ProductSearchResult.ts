@@ -129,7 +129,9 @@ export interface Item {
   unitMultiplier: number
   modalType: any | null
   images: Image[]
-  Videos: string[]
+  videos: string[]
+  /** @deprecated Incorrect casing, kept for backwards compatibility. Use `videos`. Will be removed in the next major version. */
+  Videos?: string[]
   variations: Array<{
     name: string
     values: string[]

@@ -28,6 +28,38 @@ export function getSettingsFromConfig(
   }
 }
 
+/**
+ * Resolves a locale's settings from configuration alone, without a request URL.
+ *
+ * Statically rendered pages have no request to match a binding against, so
+ * `getSettings` falls back to the default locale on the server and every
+ * server-rendered URL ends up describing the default locale rather than the page
+ * being built. Next resolves the locale for us during rendering, and this maps
+ * it back to a binding.
+ *
+ * The binding tie-break matches the rest of the localization layer (see
+ * `getChannelForLocale`): the one marked default, else the first declared.
+ * Returns null when the locale is unknown or has no usable binding, leaving the
+ * caller on its existing fallback.
+ */
+export function getSettingsForLocale(
+  locale?: string
+): LocalizationSettings | null {
+  if (!locale || !config.localization?.enabled) return null
+
+  const localeConfig = config.localization.locales?.[locale]
+
+  if (!localeConfig) return null
+
+  const binding =
+    localeConfig.bindings?.find((el) => el.isDefault) ??
+    localeConfig.bindings?.at(0)
+
+  if (!binding) return null
+
+  return getSettingsFromConfig(localeConfig, binding)
+}
+
 export function getSettings(params?: {
   url?: string | URL
 }): LocalizationSettings {

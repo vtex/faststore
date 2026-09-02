@@ -15,6 +15,7 @@ import type {
   QuerySellersArgs,
   QueryShippingArgs,
   QueryUserOrderArgs,
+  SavedCard,
   StoreContract,
   UserOrderFromList,
 } from '../../../__generated__/schema'
@@ -88,6 +89,13 @@ const INVALID_SKU_ID_ERROR = 'Invalid SkuId'
 const SLUG_MISMATCH_ERROR =
   'Slug was set but the fetched sku does not satisfy the slug condition.'
 
+/**
+ * License Manager resource key gating personal card management. Spelled as the
+ * platform registers it — the PRD's prose lowercases the leading `u`, but the
+ * key the API answers for is `UseAdHocCard`.
+ */
+const AD_HOC_CARD_RESOURCE_KEY = 'UseAdHocCard'
+
 const shouldFallbackToProductRoute = (error: unknown) =>
   isNotFoundError(error) ||
   (error instanceof Error &&
@@ -101,10 +109,11 @@ const shouldFallbackToProductRoute = (error: unknown) =>
  * guards that the fetched sku is the one we actually asked for, throwing
  * SLUG_MISMATCH_ERROR (caught by the caller) when it isn't.
  *
- * When localization is enabled, the slug prefix may be a localized LinkId
- * that differs from the IS linkText (always in the default locale). In that
- * case we validate against the Catalog Dataplane API before rejecting the
- * slug.
+ * When localization is enabled, the slug prefix may be a localized LinkId that
+ * differs from the IS linkText. linkText follows the locale being browsed
+ * rather than the default one, so a mismatch is not by itself evidence of a
+ * wrong sku. We validate against the Catalog Dataplane API before rejecting
+ * the slug.
  */
 async function assertSkuMatchesSlug(
   ctx: GraphqlContext,
@@ -694,6 +703,52 @@ export const Query = {
       })),
       paging: orders.paging,
     }
+  },
+  listCreditCards: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const cards = await commerce.savedCards.listCreditCards()
+
+    return {
+      list: cards?.map((card: SavedCard) => ({
+        accountId: card.accountId,
+        bin: card.bin,
+        cardNumber: card.cardNumber,
+        cardLabel: card.cardLabel,
+        paymentSystem: card.paymentSystem,
+        paymentSystemName: card.paymentSystemName,
+        isDefault: card.isDefault,
+        isActive: card.isActive,
+        origin: card.origin,
+      })),
+    }
+  },
+  hasAdHocCardAccess: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
+    const {
+      account,
+      headers,
+      clients: { commerce },
+    } = ctx
+
+    const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
+    const userId = jwt?.userId ?? ''
+
+    // No resolvable user means no organizational policy to enforce — the
+    // caller (page/menu) still applies its own `unitId` check.
+    if (!userId) {
+      return true
+    }
+
+    // The permission is a License Manager resource key resolved from the
+    // user's roles, not a token claim. Fail open on any failure, matching how
+    // the checkout BFF treats an unavailable/disabled permission service.
+    const granted = await commerce.licenseManager
+      .isResourceGranted({ userId, resourceKey: AD_HOC_CARD_RESOURCE_KEY })
+      .catch(() => null)
+
+    return typeof granted === 'boolean' ? granted : true
   },
   listUserQuotes: async (
     _: unknown,

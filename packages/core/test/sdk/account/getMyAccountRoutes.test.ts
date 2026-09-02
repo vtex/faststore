@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  CARDS_ROUTE,
   ORDERS_ROUTE,
   PROFILE_ROUTE,
   QUOTES_ROUTE,
@@ -20,11 +21,20 @@ describe('getMyAccountRoutes', () => {
     expect(result.map((r) => r.route)).toEqual([
       PROFILE_ROUTE,
       ORDERS_ROUTE,
+      CARDS_ROUTE,
       QUOTES_ROUTE,
       USER_DETAILS_ROUTE,
       SECURITY_ROUTE,
       '/pvt/custom',
     ])
+  })
+
+  it('keeps routes with /pvt prefix unchanged', () => {
+    const result = getMyAccountRoutes({
+      routes: [{ title: 'Custom', route: '/pvt/custom' }],
+    })
+
+    expect(result.find((r) => r.title === 'Custom')?.route).toBe('/pvt/custom')
   })
 
   it('prefixes routes with /pvt when missing', () => {
@@ -114,6 +124,10 @@ describe('getMyAccountRoutes', () => {
 
   it('marks Quotes as a B2B-only route', () => {
     expect(ROUTES_ONLY_FOR_B2B_MEMBERS).toContain(QUOTES_ROUTE)
+  })
+
+  it('marks Cards as a B2B-only route', () => {
+    expect(ROUTES_ONLY_FOR_B2B_MEMBERS).toContain(CARDS_ROUTE)
   })
 })
 

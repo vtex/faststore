@@ -93,4 +93,20 @@ describe('localization store url', () => {
       config.localization.locales['pt-BR'].bindings[0].url
     )
   })
+
+  // Static rendering has no window.location to match a binding against, so
+  // without a locale every page describes itself with the default locale's URL.
+  it('returns the requested locale binding instead of the default one', () => {
+    expect(getStoreURL('en-US')).toEqual('https://brandless.fast.store/en-US')
+  })
+
+  it('prefers the binding marked default over declaration order', () => {
+    expect(getStoreURL('pt-BR')).toEqual('https://brandless.myvtex.com')
+  })
+
+  it('falls back to the default locale for a locale that is not configured', () => {
+    expect(getStoreURL('fr-FR')).toEqual(
+      config.localization.locales['pt-BR'].bindings[0].url
+    )
+  })
 })
