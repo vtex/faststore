@@ -8,6 +8,7 @@ import {
   resolveActiveContractDisplayName,
   resolveActiveContractIdFromSession,
   resolveContractDisplayNameFromMd,
+  resolveDefaultContractId,
 } from '../../../../../src/platforms/vtex/utils/contract'
 
 describe('contract utils', () => {
@@ -141,8 +142,8 @@ describe('contract utils', () => {
           },
         ])
       ).toEqual([
-        { id: 'a', corporateName: 'Corp A', isActive: false },
-        { id: 'b', corporateName: 'Corp B', isActive: true },
+        { id: 'a', corporateName: 'Corp A', isActive: false, isDefault: false },
+        { id: 'b', corporateName: 'Corp B', isActive: true, isDefault: false },
       ])
     })
 
@@ -166,8 +167,8 @@ describe('contract utils', () => {
           'b'
         )
       ).toEqual([
-        { id: 'a', corporateName: 'Corp A', isActive: false },
-        { id: 'b', corporateName: 'Corp B', isActive: true },
+        { id: 'a', corporateName: 'Corp A', isActive: false, isDefault: false },
+        { id: 'b', corporateName: 'Corp B', isActive: true, isDefault: false },
       ])
     })
 
@@ -188,8 +189,8 @@ describe('contract utils', () => {
           },
         ])
       ).toEqual([
-        { id: 'a', corporateName: 'Corp A', isActive: false },
-        { id: 'b', corporateName: 'Corp B', isActive: true },
+        { id: 'a', corporateName: 'Corp A', isActive: false, isDefault: false },
+        { id: 'b', corporateName: 'Corp B', isActive: true, isDefault: false },
       ])
     })
   })
@@ -258,5 +259,44 @@ describe('contract utils', () => {
         )
       ).toBe('Jane')
     })
+  })
+})
+
+describe('resolveDefaultContractId', () => {
+  it('prefers an explicit isDefault flag', () => {
+    expect(
+      resolveDefaultContractId([{ id: 'a' }, { id: 'b', isDefault: true }])
+    ).toBe('b')
+  })
+
+  it('falls back to the first attached contract (BFF returns the default first)', () => {
+    expect(resolveDefaultContractId([{ id: ' a ' }, { id: 'b' }])).toBe('a')
+  })
+
+  it('returns an empty id when the list is missing or empty', () => {
+    expect(resolveDefaultContractId(undefined)).toBe('')
+    expect(resolveDefaultContractId([])).toBe('')
+  })
+})
+
+describe('mapSessionContractsToStoreContracts isDefault', () => {
+  const contracts = [
+    { customerId: 'a', contractName: 'A', isActive: true, isCurrent: true },
+    { customerId: 'b', contractName: 'B', isActive: true, isCurrent: false },
+  ]
+
+  it('marks the default contract', () => {
+    expect(mapSessionContractsToStoreContracts(contracts, 'a', 'b')).toEqual([
+      { id: 'a', corporateName: 'A', isActive: true, isDefault: false },
+      { id: 'b', corporateName: 'B', isActive: false, isDefault: true },
+    ])
+  })
+
+  it('marks nobody when no default is known', () => {
+    expect(
+      mapSessionContractsToStoreContracts(contracts, 'a').every(
+        (c) => c.isDefault === false
+      )
+    ).toBe(true)
   })
 })

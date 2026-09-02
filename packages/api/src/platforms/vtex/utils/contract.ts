@@ -3,6 +3,7 @@ import type {
   SessionAvailableContract,
   Shopper,
 } from '../clients/commerce/types/Session'
+import type { AttachedContract } from '../clients/commerce/types/StoreFrontContracts'
 
 type ProfileNameFields = {
   firstName?: { value?: string | null } | null
@@ -93,13 +94,33 @@ export const resolveActiveContractIdFromSession = (
 }
 
 /**
+ * Unit default = explicit `isDefault` when the BFF sends one, else the first
+ * attached contract (same rule as faststore-plugin-buyer-portal
+ * `list-attached-contracts.service.ts`).
+ */
+export const resolveDefaultContractId = (
+  attached: AttachedContract[] | null | undefined
+): string => {
+  if (!attached?.length) return ''
+  const chosen = attached.find((contract) => contract.isDefault) ?? attached[0]
+  return chosen.id?.trim() ?? ''
+}
+
+/**
  * Maps session contracts to GraphQL `StoreContract` entries.
  */
 export const mapSessionContractsToStoreContracts = (
   contracts: SessionAvailableContract[],
-  activeContractId = ''
-): Array<{ id: string; corporateName: string; isActive: boolean }> => {
+  activeContractId = '',
+  defaultContractId = ''
+): Array<{
+  id: string
+  corporateName: string
+  isActive: boolean
+  isDefault: boolean
+}> => {
   const normalizedActiveId = activeContractId.trim()
+  const normalizedDefaultId = defaultContractId.trim()
 
   return contracts.filter(isSwitchableSessionContract).map((contract) => ({
     id: contract.customerId,
@@ -107,6 +128,8 @@ export const mapSessionContractsToStoreContracts = (
     isActive: normalizedActiveId
       ? contract.customerId === normalizedActiveId
       : contract.isCurrent,
+    isDefault:
+      normalizedDefaultId !== '' && contract.customerId === normalizedDefaultId,
   }))
 }
 

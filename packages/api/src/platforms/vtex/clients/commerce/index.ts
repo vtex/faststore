@@ -46,6 +46,7 @@ import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
 import type { SalesChannel } from './types/SalesChannel'
 import type { Session } from './types/Session'
+import type { AttachedContractsResponse } from './types/StoreFrontContracts'
 import type { DeliveryMode, SelectedAddress } from './types/ShippingData'
 import type {
   Simulation,
@@ -673,6 +674,28 @@ export const VtexCommerce = (
         },
         { storeCookies }
       )
+    },
+    storeFront: {
+      /**
+       * Attached contracts of an Org Unit from the buyer-portal store-front BFF
+       * (requires the `buyer-portal-graphql` IO app). Buyer cookie forwarded;
+       * no app keys involved.
+       */
+      attachedContracts: (
+        orgUnitId: string
+      ): Promise<AttachedContractsResponse> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+        })
+
+        return fetchAPI(
+          `https://${account}.myvtex.com/_v/store-front/units/${encodeURIComponent(
+            orgUnitId
+          )}/contracts/attached`,
+          { headers },
+          { storeCookies }
+        )
+      },
     },
     subscribeToNewsletter: (data: {
       name: string
