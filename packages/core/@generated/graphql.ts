@@ -2909,7 +2909,7 @@ export type AvailableContractsQueryQueryVariables = Exact<{
 }>;
 
 
-export type AvailableContractsQueryQuery = { availableContracts: Array<{ id: string, corporateName: string, isActive: boolean }> };
+export type AvailableContractsQueryQuery = { availableContracts: Array<{ id: string, corporateName: string, isActive: boolean, isDefault: boolean }> };
 
 export type CancelOrderMutationMutationVariables = Exact<{
   data: IUserOrderCancel;
@@ -3647,7 +3647,7 @@ export const ServerListQuotesQueryDocument = {"__meta__":{"operationName":"Serve
 export const ServerQuotesOrganizationMemberQueryDocument = {"__meta__":{"operationName":"ServerQuotesOrganizationMemberQuery","operationHash":"9ba9119f2a361c83af8ecc703cb28f915df10ac8"}} as unknown as TypedDocumentString<ServerQuotesOrganizationMemberQueryQuery, ServerQuotesOrganizationMemberQueryQueryVariables>;
 export const ServerSecurityDocument = {"__meta__":{"operationName":"ServerSecurity","operationHash":"0890ba3456c40a426893b80b698df7a84cfdd6a1"}} as unknown as TypedDocumentString<ServerSecurityQuery, ServerSecurityQueryVariables>;
 export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"ServerUserDetailsQuery","operationHash":"630ec1f47f2710ce3d7895e9131482641f30c837"}} as unknown as TypedDocumentString<ServerUserDetailsQueryQuery, ServerUserDetailsQueryQueryVariables>;
-export const AvailableContractsQueryDocument = {"__meta__":{"operationName":"AvailableContractsQuery","operationHash":"011619bb1be93a21f6530fe4d193dec96a89e88a"}} as unknown as TypedDocumentString<AvailableContractsQueryQuery, AvailableContractsQueryQueryVariables>;
+export const AvailableContractsQueryDocument = {"__meta__":{"operationName":"AvailableContractsQuery","operationHash":"e9dd3c5b658d90cf6b6028837131273d3560cb32"}} as unknown as TypedDocumentString<AvailableContractsQueryQuery, AvailableContractsQueryQueryVariables>;
 export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;
 export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operationName":"ProcessOrderAuthorizationMutation","operationHash":"8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d"}} as unknown as TypedDocumentString<ProcessOrderAuthorizationMutationMutation, ProcessOrderAuthorizationMutationMutationVariables>;
 export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;

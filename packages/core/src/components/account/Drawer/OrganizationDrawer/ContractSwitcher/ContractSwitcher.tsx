@@ -12,16 +12,12 @@ export type ContractSwitcherProps = {
   onClose: () => void
 }
 
-/**
- * Contract that can be displayed by the switcher. `isDefault` is optional so the
- * component compiles against both the local mock and the real
- * `useAvailableContracts` hook (which does not expose a default yet).
- */
+/** Contract that can be displayed by the switcher. */
 type SwitcherContract = {
   id: string
   corporateName: string
   isActive: boolean
-  isDefault?: boolean
+  isDefault: boolean
 }
 
 const initialOf = (name: string) => name.trim().charAt(0).toUpperCase()
@@ -73,6 +69,7 @@ const ContractSwitcherCurrentSession = ({
             name="Star"
             width={20}
             height={20}
+            aria-label="Default contract"
           />
         )}
       </div>
@@ -159,6 +156,7 @@ const ContractSwitcherOptionList = ({
                 name="Star"
                 width={20}
                 height={20}
+                aria-label="Default contract"
               />
             )}
           </button>

@@ -13,6 +13,7 @@ export const AvailableContractsQuery = gql(`
       id
       corporateName
       isActive
+      isDefault
     }
   }
 `)
