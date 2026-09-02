@@ -1,4 +1,5 @@
 import type { GraphqlContext } from '..'
+import type { Options } from '../../../typings/globals'
 import { getCollectionLoader } from './collection'
 import { getSalesChannelLoader } from './salesChannel'
 import { getSimulationLoader } from './simulation'

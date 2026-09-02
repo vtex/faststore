@@ -3,6 +3,7 @@ import * as clients from '../../../../../../src/platforms/vtex/clients'
 // This should be imported AFTER the '../../../../../../src/platforms/vtex/clients'
 import { NotFoundError } from '../../../../../../src/platforms/errors'
 import { GraphqlVtexContextFactory } from '../../../../../../src/platforms/vtex'
+import type { Options } from '../../../../../../src/typings/globals'
 
 const apiOptions = {
   platform: 'vtex',

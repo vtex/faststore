@@ -1,3 +1,5 @@
+import type { Options } from './typings/globals'
+
 export * from './__generated__/schema'
 export * from './directives'
 export {
@@ -8,7 +10,7 @@ export { GraphqlVtexContextFactory, GraphqlVtexSchema } from './platforms/vtex'
 export { typeDefs } from './platforms/vtex/typeDefs'
 
 export * from './platforms/errors'
-export type { GraphqlResolver } from './platforms/vtex'
+export type { GraphqlContext, GraphqlResolver } from './platforms/vtex'
 export type {
   CommertialOffer,
   Item,
@@ -16,5 +18,11 @@ export type {
   Seller,
 } from './platforms/vtex/clients/search/types/ProductSearchResult'
 export * from './platforms/vtex/resolvers/root'
+export type {
+  ArrayElementType,
+  FeatureFlags,
+  PromiseType,
+  Resolver,
+} from './typings/globals'
 
 export type APIOptions = Options

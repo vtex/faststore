@@ -7,7 +7,7 @@ import { createYoga } from 'graphql-yoga'
 import { createServer } from 'node:http'
 const serverPort = process.env.PORT ?? '4000'
 
-/** @type {import("../src").Options} */
+/** @type {import("../src").APIOptions} */
 const apiOptions = {
   platform: 'vtex',
   account: 'storeframework',
