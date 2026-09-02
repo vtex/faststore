@@ -107,11 +107,11 @@ Deliver **Phase 2 — Contract Switching and Selection**: buyers and merchants c
 
 Extend the existing B2B account drawer (`OrganizationDrawer`) with a **Contract Switcher sub-view**. The drawer header gains a **Change** CTA that toggles the drawer into a list view of the Org Unit's contracts. Selecting a contract calls a new switch flow that performs `ChangeToken` + session revalidation, clears the cart, and returns to the drawer reflecting the new active contract.
 
-Data is served by `@faststore/api` (the BFF), proxying the buyer-portal store-front BFF (same path as `faststore-plugin-buyer-portal`):
+Data is served by `@faststore/api` (the BFF). The contract **list**, `corporateName`, and `isActive` are read directly from the VTEX session (`shopper.availableContracts`, with `isActive` resolved from `shopper.activeContractId` → `authentication.customerId` → `profile.id`) — no extra network call is needed for the list itself. Only the **default** flag is resolved from the buyer-portal store-front BFF (same path as `faststore-plugin-buyer-portal`):
 
-- `storeFront.getAttachedContractsByOrgUnit({ orgUnitId })` → `GET /_v/store-front/units/{orgUnitId}/contracts/attached?details=true`, authenticated with the buyer's forwarded cookie.
+- `commerce.storeFront.attachedContracts(orgUnitId)` → `GET /_v/store-front/units/{orgUnitId}/contracts/attached?details=true`, authenticated with the buyer's forwarded cookie (`withCookie`).
 
-A new GraphQL query exposes the resolved list to the storefront; a new switch operation performs the context change. No new client-side secret handling is introduced. Requires the `buyer-portal-graphql` IO app in the VTEX account.
+A new GraphQL query exposes the resolved list to the storefront; a new switch operation performs the context change. No new client-side secret handling is introduced. Requires the `buyer-portal-graphql` IO app in the VTEX account (for the default-contract lookup).
 
 ### Architecture Overview
 
@@ -168,7 +168,7 @@ sequenceDiagram
 
 - **Status**: Accepted (supersedes Scopes + MasterData)
 - **Context**: Listing contracts requires org-unit scope reads that buyer tokens cannot perform directly (`View_Organization_Unit`). The buyer-portal IO app exposes `/_v/store-front/units/{orgUnitId}/contracts/attached?details=true`, returning attached `contractIds` with human-readable summaries — the same endpoint used by `faststore-plugin-buyer-portal`.
-- **Decision**: Implement `availableContracts` via `clients.commerce.storeFront.getAttachedContractsByOrgUnit`, forwarding the buyer cookie server-side. Map BFF `name` → GraphQL `corporateName`. Resolve `isDefault` from an explicit BFF flag (when present) or fall back to the first attached contract (aligned with buyer-portal logic). Keep the resolver as a single boundary so the source can be swapped later without changing the storefront contract. On BFF failure, degrade to `isDefault: false` on all contracts.
+- **Decision**: Implement `availableContracts` by reading the contract **list** and `corporateName`/`isActive` directly from the VTEX session (`shopper.availableContracts` via `parseSessionAvailableContracts`; `isActive` resolved from `shopper.activeContractId` → `authentication.customerId` → `profile.id`, in that priority order). Only the **default** flag is resolved separately, via `clients.commerce.storeFront.attachedContracts(orgUnitId)` (`GET .../contracts/attached?details=true`, buyer cookie forwarded), taking the explicit `isDefault` flag when present or the first attached contract otherwise. Keep the resolver as a single boundary so either source can be swapped later without changing the storefront contract. On BFF failure, degrade to `isDefault: false` on all contracts and log a warning; the list itself never depends on the BFF call.
 - **Consequences**: One HTTP call per list load; no `FS_DISCOVERY_APP_KEY` required for listing. Requires `buyer-portal-graphql` installed in the VTEX account. Default flag is never a blocker — list renders even if the BFF call fails.
 
 #### Decision 2: `ChangeToken` + session revalidation as the switch mechanism
@@ -196,7 +196,7 @@ sequenceDiagram
 
 - **Status**: Accepted
 - **Context**: Org Unit scopes include multiple kinds (`contractIds`, `priceIds`, `collectionIds`, etc.). Only `contractIds` entries are commercial contracts eligible for switching.
-- **Decision**: The `availableContracts` resolver reads only the `contractIds` scope from `getScopesByOrgUnit`. Master Data lookups require both `corporateName` and `email` before a contract is listed (aligned with Suma BFF `contracts/attached` validation).
+- **Decision**: The `availableContracts` resolver reads `shopper.availableContracts` from the VTEX session, which the session derives from the unit's `contractIds` scope. Only entries with a non-empty `contractName` and `isActive: true` are surfaced to the switcher (aligned with Suma BFF `contracts/attached` validation).
 - **Consequences**: No price-table or other scope IDs surface as fake contracts; list semantics match the buyer-portal BFF.
 
 #### Decision 6: Navbar account area gating until session validation completes
@@ -215,7 +215,7 @@ sequenceDiagram
 
 ### Implementation Plan
 
-1. **BFF data layer** — add a GraphQL query that returns the Org Unit's contracts (`id`, `corporateName`, `isActive`, `isDefault`), backed by `storeFront.getAttachedContractsByOrgUnit`. Run codegen (`@faststore/api` then `@faststore/core`).
+1. **BFF data layer** — add a GraphQL query that returns the Org Unit's contracts (`id`, `corporateName`, `isActive`, `isDefault`), resolved from the VTEX session (`shopper.availableContracts`) with the default flag backed by `commerce.storeFront.attachedContracts`. Run codegen (`@faststore/api` then `@faststore/core`).
 2. **Switch operation** — `changeContractToken` client against the VTEX `switch-properties` endpoint + `useSwitchContract` flow (shipped).
 3. **SDK hook** — `useAvailableContracts()` (list) and a `switchContract()` action wiring `ChangeToken` → revalidate → cart clear → `sessionStore` update.
 4. **UI** — add the **Change** CTA to `OrganizationDrawerHeader`; build the switcher sub-view (list, active indicator, loading/empty/error states) per Figma, desktop + mobile.
@@ -240,10 +240,10 @@ interface AvailableContract {
 ```
 
 Source mapping:
-- `id` ← store-front BFF `contracts[].id` (`GET /_v/store-front/units/{orgUnitId}/contracts/attached?details=true`)
-- `corporateName` ← store-front BFF `contracts[].name`; contract skipped when `name` or `email` is missing
-- `isActive` ← compare contract ID against `sessionData.namespaces.profile.id.value` (same mapping as `validateSession` / `accountProfile`)
-- `isDefault` ← store-front BFF `contracts[].isDefault` (explicit flag) or first attached contract if no flag is present (Decision 1)
+- `id` ← VTEX session `shopper.availableContracts[].customerId`
+- `corporateName` ← VTEX session `shopper.availableContracts[].contractName`; contract skipped when `contractName` is empty or `isActive` is `false`
+- `isActive` ← `shopper.activeContractId`, else `authentication.customerId`, else `profile.id` (whichever resolves first); falls back to the session's per-contract `isCurrent` flag when none of those resolve — same mapping as `validateSession` / `accountProfile`
+- `isDefault` ← store-front BFF `contracts[].isDefault` (`GET /_v/store-front/units/{orgUnitId}/contracts/attached?details=true`, explicit flag) or the first attached contract if no flag is present (Decision 1); degrades to `false` on lookup failure
 
 ### Interfaces
 
@@ -297,7 +297,7 @@ function useSwitchContract(): {
 
 ### Integration Points
 
-- **Buyer-portal store-front BFF** (requires `buyer-portal-graphql` IO app): `GET https://{account}.myvtex.com/_v/store-front/units/{orgUnitId}/contracts/attached?details=true` via `clients.commerce.storeFront.getAttachedContractsByOrgUnit`, authenticated with the buyer cookie (`withBuyerAuthHeaders`). Mirrors `faststore-plugin-buyer-portal` `ContractsClient.listAttachedContracts`.
+- **Buyer-portal store-front BFF** (requires `buyer-portal-graphql` IO app): `GET https://{account}.myvtex.com/_v/store-front/units/{orgUnitId}/contracts/attached?details=true` via `clients.commerce.storeFront.attachedContracts(orgUnitId)`, authenticated with the buyer cookie (`withCookie`). Used only to resolve the unit's **default** contract; the contract list itself is read from the VTEX session. Mirrors `faststore-plugin-buyer-portal` `ContractsClient.listAttachedContracts`.
 - **VTEX MasterData (CL data entity)**: `GET /api/dataentities/CL/documents/{contractId}` via `clients.commerce.masterData.getContractById`, authenticated with the buyer cookie — used by `validateSession` / `accountProfile` for the active contract name, not for the switcher list.
 - **VTEX `ChangeToken`** (switch-properties endpoint): `POST` to switch the active contract token within the Org Unit; implemented via `changeContractToken(contractId)` and the auth cookie update returned in the response.
 - **FastStore session**: `validateSession` GraphQL mutation + `sessionStore` (`packages/core/src/sdk/session/index.ts`); `b2b` shape in `StoreSession`/`StoreB2B` (`packages/api/src/platforms/vtex/typeDefs/session.graphql`).
@@ -309,7 +309,8 @@ function useSwitchContract(): {
 - Contracts MUST be displayed by `corporateName`; a raw ID MUST NOT be shown to the user. Contracts without both `name` and `email` in the store-front BFF response MUST NOT appear in the list.
 - A switch MUST be atomic: the session (auth token) and cart change **only** after `changeContractToken` returns `true`; persisted client state (`fs::session`, `fs::cart` IndexedDB keys, checkout orderForm cookie) is cleared before the hard reload; on any failure the previous contract remains active and the cart is untouched.
 - The currently active contract MUST be identifiable before any action is taken (REQ-04); the account area MUST NOT render "Sign in" for a B2B buyer until `hasValidated` is true.
-- The default contract (when present) MUST be visually distinct (star icon) in both the drawer header and the switcher list (matching terminology).
+- The default contract (when present) MUST be visually distinct (star icon) in the switcher list (current-session card and the options list).
+  - Follow-up: drawer-header star (requires an eager list fetch; see B2BTEAM-3827 spec Out of Scope).
 - Private VTEX routes MUST be reached only through the BFF; no app keys or private-route credentials may reach the browser.
 - Data MUST be fetched on demand (drawer open), not during initial page render, to protect performance budgets.
 - `@generated` / `__generated__` artifacts MUST be produced via codegen, not hand-edited.
