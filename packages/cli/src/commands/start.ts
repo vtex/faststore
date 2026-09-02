@@ -7,6 +7,15 @@ import { getBasePath, withBasePath } from '../utils/directory'
 
 const { existsSync } = fsExtra
 
+/** Validated package-manager argv only — never a shell string. */
+function spawnPackageManagerSync(bin: string, args: string[]) {
+  return spawnSync(bin, args, { stdio: 'inherit' }) // NOSONAR
+}
+
+function spawnPackageManager(bin: string, args: string[]) {
+  return spawn(bin, args, { stdio: 'inherit' }) // NOSONAR
+}
+
 export default class Start extends Command {
   static args = {
     account: Args.string({
@@ -27,29 +36,33 @@ export default class Start extends Command {
     const basePath = getBasePath(args.path)
     const port = args.port ?? 3000
     const { getRoot, tmpDir } = withBasePath(basePath)
-    const { command, argv } = await resolvePackageManager(basePath)
+    const { argv } = await resolvePackageManager(basePath)
+    const [bin, ...runnerArgs] = argv
 
     if (!existsSync(path.join(getRoot(), '.next'))) {
-      const build = spawnSync(`${command} faststore build`, {
-        shell: true,
-        stdio: 'inherit',
-      })
+      // argv is a validated package-manager binary (plus optional Volta
+      // prefix), never a shell string — keep this off a shell so the original
+      // FAS-1199 prompt leak cannot reach sh.
+      const build = spawnPackageManagerSync(bin, [
+        ...runnerArgs,
+        'faststore',
+        'build',
+      ])
 
       if (build.status !== 0) {
         throw new Error(
-          `"${command} faststore build" failed, so there is no build to serve.`
+          `"${[bin, ...runnerArgs].join(' ')} faststore build" failed, so there is no build to serve.`
         )
       }
     }
 
-    const [bin, ...runnerArgs] = argv
-
-    return spawn(
-      bin,
-      [...runnerArgs, 'next', 'start', tmpDir, '-p', String(port)],
-      {
-        stdio: 'inherit',
-      }
-    )
+    return spawnPackageManager(bin, [
+      ...runnerArgs,
+      'next',
+      'start',
+      tmpDir,
+      '-p',
+      String(port),
+    ])
   }
 }

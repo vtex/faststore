@@ -88,7 +88,7 @@ describe('Start', () => {
     )
   })
 
-  it('builds first when .next is missing, through a shell', async () => {
+  it('builds first when .next is missing, without a shell', async () => {
     fs.rmSync(path.join(storeDir, '.next'), { recursive: true })
     resolvePackageManagerMock.mockResolvedValue({
       agent: 'yarn',
@@ -99,8 +99,9 @@ describe('Start', () => {
     await runStart()
 
     expect(spawnSyncMock).toHaveBeenCalledWith(
-      'volta run yarn faststore build',
-      { shell: true, stdio: 'inherit' }
+      'volta',
+      ['run', 'yarn', 'faststore', 'build'],
+      { stdio: 'inherit' }
     )
     expect(spawnMock).toHaveBeenCalled()
   })

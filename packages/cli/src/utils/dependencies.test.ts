@@ -1,9 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { NoAvailablePackageManagerError, UnknownAgentError } from './commands'
+import { logger } from './logger'
 
 const resolvePackageManagerMock = vi.hoisted(() => vi.fn())
 const runCommandSyncMock = vi.hoisted(() => vi.fn())
 
-vi.mock('./commands', () => ({
+vi.mock('./commands', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('./commands')>()),
   resolvePackageManager: (...args: unknown[]) =>
     resolvePackageManagerMock(...args),
 }))
@@ -67,5 +70,43 @@ describe('installDependencies', () => {
     expect(runCommandSyncMock).toHaveBeenCalledWith(
       expect.objectContaining({ cmd: 'volta run npm install preact@10.23.1' })
     )
+  })
+
+  it('exits when the detected agent is not installed', async () => {
+    resolvePackageManagerMock.mockRejectedValue(
+      new NoAvailablePackageManagerError('pnpm is not installed')
+    )
+    vi.spyOn(logger, 'error').mockImplementation(() => {})
+    const exitMock = vi.spyOn(process, 'exit').mockImplementation((() => {
+      throw new Error('process.exit')
+    }) as typeof process.exit)
+
+    await expect(install()).rejects.toThrow('process.exit')
+    expect(exitMock).toHaveBeenCalledWith(1)
+    expect(runCommandSyncMock).not.toHaveBeenCalled()
+
+    exitMock.mockRestore()
+  })
+
+  it('exits when the detected agent is unknown', async () => {
+    resolvePackageManagerMock.mockRejectedValue(
+      new UnknownAgentError('not-a-package-manager')
+    )
+    vi.spyOn(logger, 'error').mockImplementation(() => {})
+    const exitMock = vi.spyOn(process, 'exit').mockImplementation((() => {
+      throw new Error('process.exit')
+    }) as typeof process.exit)
+
+    await expect(install()).rejects.toThrow('process.exit')
+    expect(exitMock).toHaveBeenCalledWith(1)
+
+    exitMock.mockRestore()
+  })
+
+  it('rethrows unexpected resolve errors', async () => {
+    resolvePackageManagerMock.mockRejectedValue(new Error('disk full'))
+
+    await expect(install()).rejects.toThrow('disk full')
+    expect(runCommandSyncMock).not.toHaveBeenCalled()
   })
 })
