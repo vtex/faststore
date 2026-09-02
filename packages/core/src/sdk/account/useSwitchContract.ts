@@ -12,7 +12,9 @@ import {
  *
  * Steps:
  *  1. POST switch-properties with the target contract id and apply the returned auth cookie.
- *  2. Clear persisted session state and reload the page.
+ *  2. Clear persisted session and cart state, expire the checkout orderForm
+ *     cookie, and reload the page so validateSession/validateCart run under
+ *     the new contract.
  */
 export const useSwitchContract = () => {
   const [loading, setLoading] = useState(false)

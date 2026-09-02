@@ -38,4 +38,19 @@ describe('clearPersistedSessionState', () => {
     expect(sessionStorage.getItem(STORAGE_KEY_PERSON_ID)).toBeNull()
     expect(sessionStorage.getItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)).toBeNull()
   })
+
+  it('also clears the persisted cart (fs::cart)', async () => {
+    await clearPersistedSessionState()
+
+    expect(mockDel).toHaveBeenCalledWith('fs::cart')
+  })
+
+  it('expires the checkout orderForm cookie', async () => {
+    document.cookie = 'checkout.vtex.com=__ofid=abc123; path=/'
+    expect(document.cookie).toContain('checkout.vtex.com')
+
+    await clearPersistedSessionState()
+
+    expect(document.cookie).not.toContain('checkout.vtex.com')
+  })
 })
