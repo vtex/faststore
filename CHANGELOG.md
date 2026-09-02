@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.7.1-dev.2](https://github.com/vtex/faststore/compare/v4.7.1-dev.1...v4.7.1-dev.2) (2026-09-02)
+
+### Bug Fixes
+
+- keep package manager spawn off a shell and out of generate.ts ([4807b0a](https://github.com/vtex/faststore/commit/4807b0af08c214b58160a90246234e5242280224))
+- refuse package manager substitution when installing dependencies ([1a06a13](https://github.com/vtex/faststore/commit/1a06a13dd7feafab89f4792831a863c786c7ded8)), closes [#3422](https://github.com/vtex/faststore/issues/3422)
+- resolve the package manager against the target directory ([86f1732](https://github.com/vtex/faststore/commit/86f1732025d187d6c24899258642379872b7a8e7)), closes [#3422](https://github.com/vtex/faststore/issues/3422)
+- stop forwarding unvalidated ni output to the shell in the CLI ([84eb880](https://github.com/vtex/faststore/commit/84eb88052aec6625d9deb5d535e7d182a08e1cbb))
+
 ## [4.7.1-dev.1](https://github.com/vtex/faststore/compare/v4.7.1-dev.0...v4.7.1-dev.1) (2026-09-01)
 
 ### Bug Fixes
