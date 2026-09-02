@@ -6,7 +6,7 @@
   // and never pushes the checkout button out of reach.
   // Passed to `RecommendationShelf` as `className`, so page-section utilities
   // (`section-product-shelf`, `layout__section`, …) are not applied.
-  .shelf {
+  .section {
     --fs-product-shelf-items-padding-top: 0;
     --fs-product-shelf-items-padding-bottom: var(--fs-spacing-1);
     --fs-carousel-item-margin-right: var(--fs-spacing-2);
@@ -54,38 +54,25 @@
       width: 100%;
 
       [data-fs-button] {
-        width: 100%;
         --fs-button-height: var(--fs-spacing-6);
         --fs-button-text-size: var(--fs-text-size-1);
         --fs-button-padding: var(--fs-spacing-0) var(--fs-spacing-1);
         --fs-button-gap: var(--fs-spacing-1);
+
+        width: 100%;
       }
     }
 
-    @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles");
-    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles");
+    // Button, Icon, Badge, Link, Price and ProductPrice already load in
+    // CartSidebar; this chunk only adds styles the drawer does not have.
     @include meta.load-css("~@faststore/ui/src/components/atoms/SROnly/styles");
-    @include meta.load-css(
-      "~@faststore/ui/src/components/atoms/Skeleton/styles"
-    );
-    @include meta.load-css(
-      "~@faststore/ui/src/components/molecules/Carousel/styles"
-    );
-    @include meta.load-css(
-      "~@faststore/ui/src/components/molecules/DiscountBadge/styles"
-    );
-    @include meta.load-css(
-      "~@faststore/ui/src/components/molecules/ProductCard/styles"
-    );
-    @include meta.load-css(
-      "~@faststore/ui/src/components/molecules/ProductCardSkeleton/styles"
-    );
-    @include meta.load-css(
-      "~@faststore/ui/src/components/molecules/Rating/styles"
-    );
-    @include meta.load-css(
-      "~@faststore/ui/src/components/organisms/ProductShelf/styles"
-    );
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Skeleton/styles");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/Carousel/styles");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/DiscountBadge/styles");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/Rating/styles");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/ProductCard/styles");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/ProductCardSkeleton/styles");
+    @include meta.load-css("~@faststore/ui/src/components/organisms/ProductShelf/styles");
 
     // Keep the product fully visible: `cover` plus a height cap was clipping
     // photos on both the wide drawer and the narrow one. A square box with
@@ -114,7 +101,6 @@
     }
 
     [data-fs-carousel] {
-      padding: 0 var(--fs-spacing-3);
       overflow: visible;
 
       [data-fs-carousel-track] {

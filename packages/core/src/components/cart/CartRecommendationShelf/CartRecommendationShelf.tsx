@@ -9,7 +9,7 @@ import {
 } from 'src/components/sections/RecommendationShelf'
 
 import CartRecommendationProductCard from './CartRecommendationProductCard'
-import styles from './CartRecommendationShelf.module.scss'
+import styles from './section.module.scss'
 
 export type CartRecommendationShelfProps<
   TCardProps extends object = ProductCardProps,
@@ -88,7 +88,7 @@ function CartRecommendationShelf<TCardProps extends object = ProductCardProps>({
       title={title}
       campaignVrn={campaignVrn}
       itemsContext="CART"
-      className={styles.shelf}
+      className={styles.section}
       ProductCard={
         (ProductCard ??
           CartRecommendationProductCard) as RecommendationShelfProps<TCardProps>['ProductCard']

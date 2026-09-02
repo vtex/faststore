@@ -119,7 +119,7 @@ Schema: `cms/faststore/components/cms_component__cartsidebar.jsonc`, under `reco
 | CMS property | Key | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- | --- |
 | Should display Recommendation Shelf? | `shouldDisplayRecommendationShelf` | boolean | No | `false` | Opt-in. Off means the drawer does not mount the shelf, so there is no request and nothing rendered. |
-| Campaign VRN | `campaignVrn` | string | **Yes** (when the group is used) | — | Same VRN taxonomy and validation as the page shelf. |
+| Campaign VRN | `campaignVrn` | string | No | — | Same VRN taxonomy and validation as the page shelf. Needed at runtime when the display toggle is on; the drawer does not fetch without it. |
 | Title | `title` | string | No | — | Overrides the shelf title. Falls back to the campaign title. |
 | › Items per page | `carouselConfiguration.itemsPerPage` | number | No | `1` | The drawer is around 340px wide on every breakpoint, so keep this low. Fractional values such as `1.5` hint that the carousel scrolls. |
 | › Carousel track variant | `carouselConfiguration.variant` | `slide` \| `scroll` | No | `scroll` | Carousel navigation mode. |
@@ -235,9 +235,9 @@ Prefer enabling `experimental.enableRecommendations` so the session is ready on 
 
 **The mini cart shelf does not render.** Same checklist, plus:
 
-6. Is **Should display Recommendation Shelf?** enabled on the **Cart Sidebar** component (under **Recommendations**), not on a separate Recommendation Shelf? Only that shape opts the drawer in.
-7. With the discovery flag off, the session starts when the shelf mounts (when the drawer opens). Confirm `vtex-rec-user-start-session` and then `vtex-rec-user-id` after opening the cart.
-8. Is the cart empty? The mini cart shelf does not mount until there is at least one item. Use a page Recommendation Shelf for empty-cart campaigns.
+5. Is **Should display Recommendation Shelf?** enabled on the **Cart Sidebar** component (under **Recommendations**), not on a separate Recommendation Shelf? Only that shape opts the drawer in.
+6. With the discovery flag off, the session starts when the shelf mounts (when the drawer opens). Confirm `vtex-rec-user-start-session` and then `vtex-rec-user-id` after opening the cart.
+7. Is the cart empty? The mini cart shelf does not mount until there is at least one item. Use a page Recommendation Shelf for empty-cart campaigns.
 
 **Skeleton never resolves.** Inspect the console and the GraphQL `recommendations` response for pending or failing requests.
 

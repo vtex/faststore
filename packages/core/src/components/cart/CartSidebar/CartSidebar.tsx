@@ -186,14 +186,15 @@ function CartSidebar({
 
   const isEmpty = useMemo(() => items.length === 0, [items])
 
-  // Context-agnostic campaigns (top items, personalized, last seen) still
-  // produce results on an empty cart, so the shelf renders in both states and
-  // suppresses itself when a context-based campaign has nothing to anchor on.
+  // The mini cart shelf does not mount until the cart has at least one item,
+  // so empty carts never fetch — including context-agnostic campaigns. The
+  // element is only inserted in the non-empty footer below.
+  const { shouldDisplayRecommendationShelf, ...recommendationShelfProps } =
+    recommendations ?? {}
   const recommendationShelf =
-    recommendations?.shouldDisplayRecommendationShelf &&
-    recommendations.campaignVrn ? (
+    shouldDisplayRecommendationShelf && recommendationShelfProps.campaignVrn ? (
       <CartRecommendationShelf
-        {...recommendations}
+        {...recommendationShelfProps}
         taxesConfiguration={taxesConfiguration}
       />
     ) : null

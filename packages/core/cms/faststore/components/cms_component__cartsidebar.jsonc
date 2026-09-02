@@ -138,7 +138,6 @@
       "title": "Recommendations",
       "description": "Optional shelf of personalized product recommendations rendered inside the cart drawer, between the cart items and the order summary.",
       "type": "object",
-      "required": ["campaignVrn"],
       "properties": {
         "shouldDisplayRecommendationShelf": {
           "title": "Should display Recommendation Shelf?",
@@ -153,7 +152,7 @@
         },
         "campaignVrn": {
           "title": "Campaign VRN",
-          "description": "Recommendation campaign VRN (e.g. vrn:recommendations:my-account:rec-cross-v2:abc123). Campaigns that need product context (cross-sell, similar items, visual similarity, next interaction) are anchored on the cart contents and render nothing while the cart is empty. Context-agnostic campaigns (top sellers, personalized, last seen, search-based) also render on an empty cart.",
+          "description": "Recommendation campaign VRN (e.g. vrn:recommendations:my-account:rec-cross-v2:abc123). The mini cart shelf only mounts when the cart has items, so it never fetches or renders on an empty cart — including context-agnostic campaigns (top sellers, personalized, last seen, search-based). Use a page Recommendation Shelf for empty-cart campaigns.",
           "type": "string",
           "pattern": "^vrn:recommendations:[^:]+:(rec-cross-v2|rec-similar-v2|rec-persona-v2|rec-last-v2|rec-top-items-v2|rec-search-v2|rec-next-v2|rec-visual-v2):[^:]+$"
         },
