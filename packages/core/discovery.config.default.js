@@ -166,8 +166,7 @@ module.exports = {
   analytics: {
     // https://developers.google.com/tag-platform/tag-manager/web#standard_web_page_installation,
     gtmContainerId: 'GTM-PGHZ95N',
-    serviceName: 'faststore-proxy',
-    otelEnabled: true,
+    serviceName: 'faststore',
   },
 
   cms: {
@@ -192,6 +191,8 @@ module.exports = {
     nofollow: false,
     preact: false,
     enableRedirects: false,
+    // ISR window (seconds) for notFound PDP/PLP paths.
+    revalidate404: 60 * 5, // 5 minutes
     enableSearchSSR: false,
     enableFaststoreMyAccount: false,
     useIsGiftFromOrderForm: false,
@@ -201,6 +202,11 @@ module.exports = {
     },
     refreshToken: false,
     scrollRestoration: false,
+    // Opt-in flag for VTEX Recommendations. When enabled, Layout starts the
+    // personalization session on every page. When disabled (default), the
+    // session starts only as a RecommendationShelf fallback when userId is
+    // missing.
+    enableRecommendations: false,
     /** Package names to transpile (e.g. ['@vtex/components']). Use a non-empty list to enable Next.js transpilation. */
     transpilePackages: [],
   },

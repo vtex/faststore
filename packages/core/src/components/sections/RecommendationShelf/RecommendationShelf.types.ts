@@ -4,6 +4,9 @@ import type { CarouselProps } from '@faststore/ui'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
 import type { ProductCardProps } from 'src/components/product/ProductCard'
+import type { ItemContext } from 'src/sdk/recommendations'
+
+export type { ItemContext, RecommendationType } from 'src/sdk/recommendations'
 
 /**
  * Maps a recommendation product (a normalized `StoreProduct`, identical to the
@@ -17,26 +20,11 @@ export type RecommendationProductCardMapper<TCardProps = ProductCardProps> = (
   index: number
 ) => TCardProps
 
-/**
- * Source of the products used as context for the recommendation request:
- * - `'PDP'`: the current product detail page product.
- * - `'CART'`: the products currently in the cart (useful for cross-sell on the
- *   cart page).
- */
-export type ItemContext = 'PDP' | 'CART'
-
 export type RecommendationShelfProps<
   TCardProps extends object = ProductCardProps,
 > = {
   readonly title?: string
   readonly campaignVrn: string
-  /**
-   * Opt-in for VTEX Recommendations on this shelf. When `true`, Layout starts
-   * the personalization session (`useStartRecommendationSession`) and this
-   * shelf fetches recommendations. When `false` (default), neither happens.
-   * @default false
-   */
-  readonly enableRecommendations?: boolean
   /**
    * Where to read the products used as context for the recommendation request:
    * - `'PDP'`: the current product detail page product.
@@ -106,13 +94,3 @@ export type RecommendationShelfProps<
     readonly bordered?: boolean
   }
 }
-
-export type RecommendationType =
-  | 'CROSS_SELL'
-  | 'SIMILAR_ITEMS'
-  | 'PERSONALIZED'
-  | 'TOP_ITEMS'
-  | 'LAST_SEEN'
-  | 'SEARCH_BASED'
-  | 'VISUAL_SIMILARITY'
-  | 'NEXT_INTERACTION'

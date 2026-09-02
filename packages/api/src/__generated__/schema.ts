@@ -142,6 +142,16 @@ export type BusinessHour = {
   openingTime?: Maybe<Scalars['String']['output']>;
 };
 
+/**
+ * Whether a saved card is personally owned by the buyer or shared by their
+ * Organization/Contract. Resolved server-side by the Saved-cards service from
+ * the buyer's `useAdHocCard` role — never inferred client-side.
+ */
+export const enum CardOrigin {
+  Personal = 'personal',
+  Shared = 'shared'
+};
+
 /** Commercial Authorization dimension status. */
 export type CommercialAuthorizationDimensionStatus = {
   __typename?: 'CommercialAuthorizationDimensionStatus';
@@ -914,8 +924,19 @@ export type Query = {
   availableContracts: Array<StoreContract>;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /**
+   * Whether the current user holds the ad-hoc card platform permission, which
+   * gates personal card management for Unit/Contract-affiliated buyers.
+   *
+   * Resolved from the user's roles by License Manager — it is not a session token
+   * claim. Fails open (`true`) when the permission service is unreachable, so an
+   * outage never locks buyers out of their own cards.
+   */
+  hasAdHocCardAccess: Scalars['Boolean']['output'];
   /** Returns whether the current authenticated user belongs to a B2B organization unit. */
   isOrganizationMember: Scalars['Boolean']['output'];
+  /** Returns the list of saved credit cards for the current user. */
+  listCreditCards?: Maybe<SavedCardListResult>;
   /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
   /** Returns the list of Quotes that the authenticated Buyer can view. */
@@ -1103,6 +1124,43 @@ export type SkuSpecificationValue = {
   id?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   originalName?: Maybe<Scalars['String']['output']>;
+};
+
+/** A saved payment card returned by the Saved-cards service. */
+export type SavedCard = {
+  __typename?: 'SavedCard';
+  /** Account identifier that owns the card. */
+  accountId?: Maybe<Scalars['String']['output']>;
+  /** First digits of the card (BIN). */
+  bin?: Maybe<Scalars['String']['output']>;
+  /**
+   * Buyer- or admin-assigned nickname for the card (e.g. "Team lunch card"), when
+   * the Saved-cards service has one on file. Absent for most cards — callers
+   * should fall back to `paymentSystemName` for display.
+   */
+  cardLabel?: Maybe<Scalars['String']['output']>;
+  /** Masked card number, per PCI display rules. */
+  cardNumber?: Maybe<Scalars['String']['output']>;
+  /** Whether this card is active. */
+  isActive?: Maybe<Scalars['Boolean']['output']>;
+  /** Whether this card is the account default. */
+  isDefault?: Maybe<Scalars['Boolean']['output']>;
+  /**
+   * Whether this card is personally owned by the buyer or shared by their
+   * Organization/Contract.
+   */
+  origin: CardOrigin;
+  /** Numeric payment system identifier. */
+  paymentSystem?: Maybe<Scalars['String']['output']>;
+  /** Human-readable payment system name (e.g. Visa, Mastercard). */
+  paymentSystemName?: Maybe<Scalars['String']['output']>;
+};
+
+/** Result of listing the current user's saved credit cards. */
+export type SavedCardListResult = {
+  __typename?: 'SavedCardListResult';
+  /** The list of saved credit cards. */
+  list?: Maybe<Array<SavedCard>>;
 };
 
 /** Search result. */
@@ -1345,13 +1403,24 @@ export type StoreCollection = {
   __typename?: 'StoreCollection';
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /**
+   * Slug the catalog resolves for the requested locale, lowercased.
+   * Meant for the page's canonical URL: `slug` echoes the path the shopper
+   * visited, and by-linkid matches case-insensitively, so without this every
+   * casing variant would claim to be canonical. Unlike `otherLocales`, it may fall
+   * back to a slug registered for another locale, so it must never be used to
+   * build hreflang annotations.
+   */
+  canonicalSlug?: Maybe<Scalars['String']['output']>;
   /** Collection ID. */
   id: Scalars['ID']['output'];
   /** Collection meta information. Used for search. */
   meta: StoreCollectionMeta;
   /**
    * Localized versions of this collection for all available locales.
-   * Only populated when localization is enabled.
+   * Only announces slugs the catalog has registered for each locale, so it is safe
+   * to build hreflang annotations from. Only populated when localization is
+   * enabled.
    */
   otherLocales?: Maybe<Array<StoreCollectionLocale>>;
   /** Meta tag data. */
@@ -1616,6 +1685,12 @@ export type StoreOrder = {
   acceptedOffer: Array<StoreOffer>;
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String']['output'];
+  /**
+   * Sales channel of the underlying orderForm when FastStore adopted it because
+   * the browser session was stale (e.g. after Quick Order). Clients should align
+   * `session.channel` to this value. Null when no SC adoption happened.
+   */
+  salesChannel?: Maybe<Scalars['String']['output']>;
   /** Indicates whether or not items with attachments should be split. */
   shouldSplitItem?: Maybe<Scalars['Boolean']['output']>;
 };
@@ -1707,6 +1782,14 @@ export type StoreProduct = {
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /**
+   * Slug for the store's default locale, including the SKU ID suffix.
+   * Navigation fallback for the locale selector when the target locale is absent
+   * from `otherLocales`. Best-effort: it may point at a slug the catalog has not
+   * registered for the default locale, so it must never be used to build hreflang
+   * annotations. Only populated when localization is enabled.
+   */
+  defaultLocaleSlug?: Maybe<Scalars['String']['output']>;
   /** Delivery Promise product's badge. */
   deliveryPromiseBadges?: Maybe<Array<Maybe<DeliveryPromiseBadge>>>;
   /** Product description. */

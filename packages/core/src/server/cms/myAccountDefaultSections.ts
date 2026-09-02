@@ -1,10 +1,14 @@
-export type MyAccountContentType =
+export type NativeMyAccountContentType =
   | 'myAccountProfile'
   | 'myAccountOrders'
   | 'myAccountOrderDetails'
   | 'myAccountUserDetails'
   | 'myAccountSecurity'
   | 'myAccountUnauthorized'
+  | 'myAccountCards'
+
+/** Store content-types are opaque strings; native literals keep autocompletion. */
+export type MyAccountContentType = NativeMyAccountContentType | (string & {})
 
 export type DefaultMyAccountSection = {
   name: string
@@ -12,19 +16,25 @@ export type DefaultMyAccountSection = {
   data: Record<string, unknown>
 }
 
-const DEFAULT_SECTION_KEYS: Record<MyAccountContentType, string[]> = {
+const DEFAULT_SECTION_KEYS: Record<NativeMyAccountContentType, string[]> = {
   myAccountProfile: ['AccountNavigation', 'AccountProfile'],
   myAccountOrders: ['AccountNavigation', 'AccountOrdersList'],
+  myAccountCards: ['AccountNavigation', 'AccountListCards'],
+  // Mirrors the render order of the `@deprecated OrderDetails.tsx` component,
+  // which is the design reference available in the repo. The delivery option
+  // accordions render inside AccountOrderDelivery, so they sit right after the
+  // compact delivery card instead of after the summary. Known deviation: fixing
+  // it would mean splitting AccountOrderDelivery into two CMS sections.
   myAccountOrderDetails: [
     'AccountNavigation',
     'AccountOrderDetails',
+    'AccountOrderOrderedBy',
+    'AccountOrderDelivery',
     'AccountOrderStatus',
     'AccountOrderPayment',
-    'AccountOrderDelivery',
     'AccountOrderSummary',
-    'AccountOrderOrderedBy',
-    'AccountOrderBudgets',
     'AccountOrderMoreInfo',
+    'AccountOrderBudgets',
   ],
   myAccountUserDetails: ['AccountNavigation', 'AccountUserDetails'],
   myAccountSecurity: ['AccountNavigation', 'AccountSecurity'],
@@ -34,7 +44,9 @@ const DEFAULT_SECTION_KEYS: Record<MyAccountContentType, string[]> = {
 export function getDefaultMyAccountSections(
   contentType: MyAccountContentType
 ): DefaultMyAccountSection[] {
-  return (DEFAULT_SECTION_KEYS[contentType] ?? []).map((key) => ({
+  return (
+    DEFAULT_SECTION_KEYS[contentType as NativeMyAccountContentType] ?? []
+  ).map((key) => ({
     name: key,
     $componentKey: key,
     data: {},

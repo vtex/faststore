@@ -4,7 +4,7 @@ CMS section that renders a carousel of personalized product recommendations from
 
 - **Data source:** VTEX Recommendations BFF, exposed by `@faststore/api` through the `recommendations` GraphQL query.
 - **Registration:** global CMS component (`$componentKey: "RecommendationShelf"`), available on any page via CMS.
-- **Opt-in via CMS:** enable Recommendations with the **Enable recommendations?** toggle on the shelf (default `false`). No store code changes or feature flags are required.
+- **Session opt-in:** personalization session starts via the `experimental.enableRecommendations` discovery feature flag (Layout, every page). When the flag is off, any mounted Recommendation Shelf starts the session as a fallback if `userId` is missing.
 
 ## Contents
 
@@ -22,7 +22,7 @@ CMS section that renders a carousel of personalized product recommendations from
 
 The shelf renders products only when the following conditions are met:
 
-1. **Enable recommendations on the shelf.** Set **Enable recommendations?** to `true` on the Recommendation Shelf in the CMS. This opts the store into the personalization session (`startRecommendationSession` mutation, owned by Layout) and allows the shelf to fetch recommendations. Without it (default `false`), no session is started and the shelf does not fetch.
+1. **Personalization session.** Prefer enabling `experimental.enableRecommendations` in `discovery.config` so `Layout` starts the session on every page. If the flag is off, any mounted Recommendation Shelf starts the session as a fallback when `userId` is missing (cookie + in-memory lock still limit this to one attempt per browser session).
 
 2. **Active VTEX Recommendations campaign.** Provide a valid campaign **VRN**. Example: `vrn:recommendations:my-account:rec-persona-v2:abc123`.
 
@@ -32,7 +32,19 @@ The shelf renders products only when the following conditions are met:
 
 ## Setup
 
-### 1. Obtain the campaign VRN
+### 1. Opt into the personalization session (recommended)
+
+In the store's `discovery.config.js` (or local override), set:
+
+```js
+experimental: {
+  enableRecommendations: true,
+}
+```
+
+Default is `false`. With the flag on, `Layout` calls `startRecommendationSession` on every page without inspecting CMS data. With the flag off, placing a Recommendation Shelf on a page still starts the session when `userId` is missing.
+
+### 2. Obtain the campaign VRN
 
 In the VTEX Recommendations admin, create or select a campaign and copy its **VRN**. The expected format is:
 
@@ -42,9 +54,9 @@ vrn:recommendations:<account>:<campaign-type>:<campaign-id>
 
 Supported `<campaign-type>` values are listed under [Campaign types (VRN) and context](#campaign-types-vrn-and-context).
 
-### 2. Add Recommendation Shelf via CMS
+### 3. Add Recommendation Shelf via CMS
 
-Add **Recommendation Shelf** to the target page (home, PDP, PLP, cart, and so on), configure at least **Campaign VRN** (required), and turn **Enable recommendations?** on.
+Add **Recommendation Shelf** to the target page (home, PDP, PLP, cart, and so on) and configure at least **Campaign VRN** (required).
 
 ## CMS configuration
 
@@ -52,7 +64,6 @@ Schema: `cms/faststore/components/cms_component__recommendationshelf.jsonc`.
 
 | CMS property | Key | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- | --- |
-| Enable recommendations? | `enableRecommendations` | boolean | No | `false` | Opt-in that starts the personalization session (via Layout) and allows this shelf to fetch recommendations. |
 | Title | `title` | string | No | — | Overrides the shelf title. Falls back to the campaign title. If both are empty, the heading is not rendered. |
 | Campaign VRN | `campaignVrn` | string | **Yes** | — | Recommendation campaign VRN. Validated by regex (see campaign types below). |
 | Items context | `itemsContext` | `PDP` \| `CART` | No | `PDP` | Source of products used as request context. Applies only to context-based campaigns. |
@@ -92,18 +103,22 @@ Context-based campaigns (cross-sell, similar items, visual similarity, next inte
 
 All recommendation work runs client-side after hydration:
 
-1. **Session start (CMS opt-in)** — `Layout` calls `useStartRecommendationSession(pageProps)` once. The hook checks whether any `RecommendationShelf` in the CMS data has `enableRecommendations: true` and no-ops when none do. Multiple enabled shelves on the same page still start the session only once (in-memory lock + session cookie).
+1. **Session start (feature flag + shelf fallback)** — `Layout` calls `useStartRecommendationSession()` once. The hook starts the session when `experimental.enableRecommendations` is `true` (no CMS lookup). When the flag is `false`, `useRecommendationShelf()` (used by every RecommendationShelf) calls the same hook as a fallback while `userId` is missing (`undefined` or `null`), in parallel with cookie retry. Cookie (`vtex-rec-user-start-session`) + in-memory lock ensure at most one attempt per browser session. If `userId` is already available, the shelf does not start the session.
 2. **User id resolution** — `useRecommendationUserId()` reads the `vtex-rec-user-id` cookie, retrying until a value is available or the retry budget is exhausted.
-3. **Request arguments** — when enabled, `getRecommendationArguments()` builds `{ userId, campaignVrn, products }` or returns `null` when the VRN is invalid, the user id is missing, or a context-based campaign has no context products. When disabled, arguments stay `null`.
+3. **Request arguments** — `getRecommendationArguments()` builds `{ userId, campaignVrn, products }` or returns `null` when the VRN is invalid, the user id is missing, or a context-based campaign has no context products.
 4. **Fetch** — `useRecommendations()` runs `ClientRecommendationsQuery` and returns `products`, `correlationId`, and `campaign`.
 5. **Render** — shows `ProductShelfSkeleton` while loading; returns `null` on error or empty results; otherwise renders the carousel and optional heading.
 6. **Tracking** — when correlation and campaign identifiers are present, the shelf emits `data-af-*` attributes for Activity Flow. PDP product views use `product:*` meta tags from `pages/[slug]/p.tsx`.
 
+Steps 1 to 4 carry no presentation: they live in `src/sdk/recommendations` and are orchestrated by `useRecommendationShelf()`, which the shelf consumes.
+
 Related files:
 
+- Shared data layer: `src/sdk/recommendations/`
 - Shelf: `src/components/sections/RecommendationShelf/`
 - Hook: `src/sdk/analytics/hooks/useStartRecommendationSession.ts`
 - Layout: `src/Layout.tsx`
+- Flag: `discovery.config.default.js` → `experimental.enableRecommendations`
 
 ## Code-level overrides
 
@@ -113,7 +128,6 @@ In addition to CMS props, the component accepts code-level overrides (not expose
 import { RecommendationShelf } from 'src/components/sections/RecommendationShelf'
 
 <RecommendationShelf
-  enableRecommendations
   campaignVrn="vrn:recommendations:my-account:rec-cross-v2:abc123"
   itemsContext="PDP"
   ProductCard={MyCustomCard}
@@ -129,7 +143,7 @@ import { RecommendationShelf } from 'src/components/sections/RecommendationShelf
 - **`ProductCard`**: custom card component (defaults to the core `ProductCard`).
 - **`mapProductToProductCard`**: maps each recommended product (normalized `StoreProduct`) into card props. When provided, it fully owns the card props and the default `productCardConfiguration` merge no longer applies.
 
-Campaign types and VRN validation are defined in `vrn.ts` (`VRN_TYPE_TO_RECOMMENDATION`). Updates should be made there and mirrored in the CMS schema `pattern`.
+Campaign types and VRN validation are defined in `src/sdk/recommendations/vrn.ts` (`VRN_TYPE_TO_RECOMMENDATION`). Updates should be made there and mirrored in the CMS schema `pattern`.
 
 ## Placement guidelines
 
@@ -140,7 +154,7 @@ As a global component, the shelf can be placed on any CMS page. Suggested placem
 - **Cart:** cross-sell with `itemsContext: CART`.
 - **PLP:** context-agnostic campaigns.
 
-The personalization session runs only when at least one shelf has **Enable recommendations?** turned on.
+Prefer enabling `experimental.enableRecommendations` so the session is ready on every page. Stores without the flag and without a Recommendation Shelf never call `startRecommendationSession`.
 
 ## Privacy and cache
 
@@ -152,11 +166,10 @@ The personalization session runs only when at least one shelf has **Enable recom
 
 **The shelf does not render.** Check, in order:
 
-1. Is **Enable recommendations?** set to `true` on the shelf?
-2. Is `campaignVrn` valid and is the campaign active?
-3. Is the `vtex-rec-user-id` cookie available? Without a user id, the shelf does not fetch.
-4. For context-based campaigns, is product context available (`PDP` on a product page, or a non-empty cart for `CART`)?
-5. Did the campaign return products? An empty response renders nothing by design.
+1. Is `campaignVrn` valid and is the campaign active?
+2. Is the `vtex-rec-user-id` cookie available? Without a user id, the shelf does not fetch. With the discovery flag off, confirm the shelf fallback started the session (`vtex-rec-user-start-session`).
+3. For context-based campaigns, is product context available (`PDP` on a product page, or a non-empty cart for `CART`)?
+4. Did the campaign return products? An empty response renders nothing by design.
 
 **Skeleton never resolves.** Inspect the console and the GraphQL `recommendations` response for pending or failing requests.
 

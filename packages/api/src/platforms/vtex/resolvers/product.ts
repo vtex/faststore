@@ -16,6 +16,7 @@ import {
   attributeToPropertyValue,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
+import { normalizeReleaseDate } from '../utils/releaseDate'
 import { slugify } from '../utils/slugify'
 import type { Query } from './query'
 
@@ -76,7 +77,15 @@ export async function getLocalizedProductEntry(
         categories: result.categories ?? [],
         availableLinkIds: result.availableLinkIds ?? {},
       }
-    } catch {
+    } catch (err) {
+      // Without this the fallback is silent: the breadcrumb renders the IS
+      // category names, always in the default language, and the page can be
+      // frozen in that state by `revalidate: false`.
+      console.warn(
+        `[getLocalizedProductEntry] failed to load product ${productId} for locale ${locale}:`,
+        err
+      )
+
       return null
     }
   })()
@@ -298,7 +307,8 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     skuSpecifications ?? [],
   specificationGroups: ({ isVariantOf: { specificationGroups } }) =>
     specificationGroups,
-  releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? '',
+  releaseDate: ({ isVariantOf: { releaseDate } }) =>
+    normalizeReleaseDate(releaseDate),
   advertisement: ({ isVariantOf: { advertisement } }) => advertisement,
   deliveryPromiseBadges: ({ isVariantOf: { deliveryPromisesBadges } }) =>
     deliveryPromisesBadges,
@@ -312,7 +322,6 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     const productId = root.isVariantOf.productId
     const itemId = root.itemId
     const locale = ctx.storage.locale
-    const defaultLocale = getDefaultLocale(ctx)
 
     // availableLinkIds returns localized slug for every locale,
     // we fetch for the current locale (reusing the request-scoped cache shared with the slug and
@@ -322,29 +331,56 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     if (!entry?.availableLinkIds) return null
 
     const { availableLinkIds } = entry
-    const { linkText } = root.isVariantOf
 
     return configuredLocales
       .map((configuredLocale) => {
-        // The default locale always uses the canonical IS linkText: it is always
-        // present and matches the Query.product `slug.startsWith(linkText)` fast
-        // path, so the fallback URL resolves cleanly even when the catalog has no
-        // default-locale entry in availableLinkIds.
-        if (configuredLocale === defaultLocale) {
-          return { locale: configuredLocale, slug: getSlug(linkText, itemId) }
-        }
-
-        // Non-default locales only appear when they have a registered localized slug
-        // in availableLinkIds. Untranslated locales are omitted so they are never
-        // advertised as hreflang alternates — this keeps the hreflang cluster
-        // symmetric across all locale variants of the product (every variant emits
-        // the same set: default + translated locales). The LocalizationSelector
-        // falls back to the default slug under the target prefix for omitted locales.
+        // availableLinkIds is identical whichever locale the Dataplane is queried
+        // with, so deriving every slug from it keeps the hreflang cluster
+        // reciprocal. The Intelligent Search linkText cannot stand in for a
+        // missing entry: it is localized to the locale being browsed, which would
+        // both point other locales at a 404 and make the advertised set depend on
+        // which locale served the request.
         const linkId = availableLinkIds[configuredLocale]
+
+        // Locales with no registered localized slug are omitted rather than
+        // guessed, so an alternate is only ever advertised for a slug the catalog
+        // actually resolves. A product with no translations advertises no
+        // alternates at all, from any locale. Navigating to an omitted locale is
+        // served by `defaultLocaleSlug`, which is free to guess precisely because
+        // it never reaches an hreflang annotation.
         return linkId
           ? { locale: configuredLocale, slug: getSlug(linkId, itemId) }
           : null
       })
       .filter((e): e is { locale: string; slug: string } => e !== null)
+  },
+  defaultLocaleSlug: async (root, _args, ctx) => {
+    if (!isLocalizationEnabled(ctx)) return null
+
+    const defaultLocale = getDefaultLocale(ctx)
+
+    if (!defaultLocale) return null
+
+    const { productId, linkText } = root.isVariantOf
+    const itemId = root.itemId
+
+    // Reuses the request-scoped entry `otherLocales` already loads, so serving
+    // both fields costs a single Dataplane call.
+    const entry = await getLocalizedProductEntry(
+      ctx,
+      productId,
+      ctx.storage.locale
+    )
+
+    // linkText is localized to the locale being browsed, which is what makes it
+    // unusable for hreflang. It is acceptable here because an untranslated
+    // product carries the same slug in every locale, so linkText *is* the
+    // default-locale slug in the exact case where availableLinkIds is empty.
+    // A product translated for the browsed locale but not for the default one
+    // still yields a wrong guess; that URL 404s, which is the pre-existing
+    // behavior and still better than dropping the shopper on the locale root.
+    const linkId = entry?.availableLinkIds?.[defaultLocale] ?? linkText
+
+    return getSlug(linkId, itemId)
   },
 }
