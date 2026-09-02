@@ -1,5 +1,5 @@
 {
-  "version": "3.100.3",
+  "version": "3.100.4",
   "npmClient": "pnpm",
   "command": {
     "publish": {
