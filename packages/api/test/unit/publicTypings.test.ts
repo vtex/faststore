@@ -62,8 +62,21 @@ const consumers = {
         return vars.upper ? source.id.toUpperCase() : source.id
       }
 
-    export const firstSku: Resolver<GraphqlContext, Source, {}, string> =
-      (source) => source.skus[0]
+    // v3-compatible signature: Resolver<Root, Args, Return> with the context
+    // fixed to GraphqlContext. Both patterns below are used by real stores.
+    export const firstSku: Resolver<Source, { index: number }, string> =
+      (source, args, ctx) => {
+        const cookie: string | undefined = ctx.headers.cookie
+        void cookie
+        return source.skus[args.index]
+      }
+
+    export type Context = Parameters<Resolver>[2]
+    export const contextIsGraphqlContext: GraphqlContext extends Context
+      ? Context extends GraphqlContext
+        ? true
+        : never
+      : never = true
 
     export type Sku = ArrayElementType<Source['skus']>
     export type Resolved = PromiseType<Promise<number>>
