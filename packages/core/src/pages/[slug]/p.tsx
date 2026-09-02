@@ -3,6 +3,7 @@ import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import type { ComponentType } from 'react'
 
 import { gql } from '@generated'
@@ -28,6 +29,7 @@ import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 import { getComponentKey } from 'src/utils/cms'
 import { getChannelForLocale } from 'src/utils/localization/bindingPaths'
+import { buildHreflangLinks } from 'src/utils/localization/hreflang'
 import { toProductJsonLdOffer } from 'src/utils/productJsonLd'
 
 import storeConfig from 'discovery.config'
@@ -97,46 +99,6 @@ const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
   .enableClientOffer
 
-function buildHreflangLinks(
-  storeConfig: StoreConfig,
-  otherLocales: Array<{ locale: string; slug: string }> | null | undefined
-): Array<{ rel: string; hrefLang: string; href: string }> {
-  if (!storeConfig.localization?.enabled || !otherLocales?.length) return []
-
-  const locales = storeConfig.localization.locales
-  const baseStoreUrl = storeConfig.storeUrl.replace(/\/$/, '')
-  const defaultLocale = storeConfig.localization.defaultLocale
-  const links: Array<{ rel: string; hrefLang: string; href: string }> = []
-
-  for (const { locale, slug } of otherLocales) {
-    const bindingUrl = locales?.[locale]?.bindings?.[0]?.url
-    if (typeof bindingUrl === 'string' && bindingUrl.length > 0) {
-      links.push({
-        rel: 'alternate',
-        hrefLang: locale,
-        href: `${bindingUrl.replace(/\/$/, '')}/${slug}/p`,
-      })
-    }
-  }
-
-  // PREMISE: the default locale is served at the store root (no locale prefix),
-  // which is how Next.js i18n sub-path routing works — the `defaultLocale` has no
-  // prefix while other locales live under `/{locale}`. Hence `x-default` points to
-  // `${storeUrl}/{slug}/p`. If a store ever serves its default locale under a path
-  // prefix or a dedicated domain instead of the root, this href must be derived
-  // from that locale's binding URL instead of `storeUrl`.
-  const defaultEntry = otherLocales.find((e) => e.locale === defaultLocale)
-  if (defaultEntry) {
-    links.push({
-      rel: 'alternate',
-      hrefLang: 'x-default',
-      href: `${baseStoreUrl}/${defaultEntry.slug}/p`,
-    })
-  }
-
-  return links
-}
-
 // With client-side offer enabled, `useOffer` only refreshes price aggregates —
 // it does not rebuild the per-seller array the buy button reads. Keep that array
 // from SSG, but inject the fresh Pricing Fallback token into the best offer so the
@@ -162,6 +124,7 @@ function Page({
   meta,
 }: Props) {
   const { currency } = useSession()
+  const router = useRouter()
 
   const { product } = server
   const {
@@ -197,15 +160,16 @@ function Page({
 
   // hreflang alternate links for multi-locale stores
   const hreflangLinks = buildHreflangLinks(
-    storeConfig as StoreConfig,
-    server.product.otherLocales
+    server.product.otherLocales,
+    router.locale,
+    '/p'
   )
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
-        const pageUrl = getStoreURL() + pathname
+        const pageUrl = getStoreURL(router.locale) + pathname
 
         return { name, position, item: pageUrl }
       }
@@ -314,7 +278,7 @@ function Page({
               ]
             : []),
         ]}
-        additionalLinkTags={hreflangLinks}
+        languageAlternates={hreflangLinks}
         titleTemplate={titleTemplate}
       />
 
@@ -512,7 +476,10 @@ export const getStaticProps: GetStaticProps<
   const { seo } = data.product
   const title = seo.title
   const description = seo.description
-  const canonical = `${getStoreURL()}${seo.canonical}`
+  // Without the locale, static rendering has no request to match a binding
+  // against and falls back to the default locale, so a localized PDP would
+  // point its canonical at the default locale's prefix.
+  const canonical = `${getStoreURL(locale).replace(/\/$/, '')}${seo.canonical}`
 
   const meta = { title, description, canonical }
 
