@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import type { AttachedContract } from '../../../../../src/platforms/vtex/clients/commerce/types/StoreFrontContracts'
 import {
   isSwitchableContractSummary,
   isSwitchableSessionContract,
@@ -276,6 +277,21 @@ describe('resolveDefaultContractId', () => {
   it('returns an empty id when the list is missing or empty', () => {
     expect(resolveDefaultContractId(undefined)).toBe('')
     expect(resolveDefaultContractId([])).toBe('')
+  })
+
+  it('returns an empty id when a malformed 200 sends a non-array value', () => {
+    expect(
+      resolveDefaultContractId('not-an-array' as unknown as AttachedContract[])
+    ).toBe('')
+    expect(resolveDefaultContractId({} as unknown as AttachedContract[])).toBe(
+      ''
+    )
+  })
+
+  it('coerces a non-string id to a string', () => {
+    expect(resolveDefaultContractId([{ id: 123 as unknown as string }])).toBe(
+      '123'
+    )
   })
 })
 

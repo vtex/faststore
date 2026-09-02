@@ -368,6 +368,25 @@ describe('VTEX Commerce', () => {
     })
   })
 
+  describe('storeFront', () => {
+    describe('attachedContracts', () => {
+      it('requests the attached contracts with details=true', async () => {
+        const mockResponse = { contracts: [{ id: 'c-1', isDefault: true }] }
+        fetchAPIMocked.mockResolvedValueOnce(mockResponse)
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        const result = await commerce.storeFront.attachedContracts('unit-1')
+
+        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+        const [url] = fetchAPIMocked.mock.calls[0]
+        expect(url).toBe(
+          'https://storeframework.myvtex.com/_v/store-front/units/unit-1/contracts/attached?details=true'
+        )
+        expect(result).toEqual(mockResponse)
+      })
+    })
+  })
+
   describe('Quotes', () => {
     describe('listUserQuotes', () => {
       it('calls the quoting endpoint with pagination, status, date range and trimmed label params', async () => {

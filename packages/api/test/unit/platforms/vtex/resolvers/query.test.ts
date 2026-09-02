@@ -65,20 +65,25 @@ describe('Query.availableContracts', () => {
   })
 
   it('forbids listing contracts for a different organization unit', async () => {
+    const ctx = makeCtx()
     await expect(
-      availableContracts(null, { orgUnitId: 'other-unit' }, makeCtx())
+      availableContracts(null, { orgUnitId: 'other-unit' }, ctx)
     ).rejects.toThrow(/not allowed/i)
     expect(session).toHaveBeenCalledTimes(1)
+    // Governance check must short-circuit before the default-contract lookup.
+    expect(
+      ctx.clients.commerce.storeFront.attachedContracts
+    ).not.toHaveBeenCalled()
   })
 
   it('lists session contracts and flags the current one', async () => {
-    const result = await availableContracts(
-      null,
-      { orgUnitId: 'unit-1' },
-      makeCtx()
-    )
+    const ctx = makeCtx()
+    const result = await availableContracts(null, { orgUnitId: 'unit-1' }, ctx)
 
     expect(session).toHaveBeenCalledTimes(1)
+    expect(
+      ctx.clients.commerce.storeFront.attachedContracts
+    ).toHaveBeenCalledWith('unit-1')
     expect(result).toEqual([
       { id: 'a', corporateName: 'Corp A', isActive: false, isDefault: false },
       { id: 'b', corporateName: 'Corp B', isActive: true, isDefault: false },
@@ -301,13 +306,22 @@ describe('Query.availableContracts', () => {
     })
 
     const ctx = makeCtx()
+    const lookupError = new Error('boom')
     ctx.clients.commerce.storeFront.attachedContracts.mockRejectedValueOnce(
-      new Error('boom')
+      lookupError
     )
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
     const result = await availableContracts(null, { orgUnitId: 'unit-1' }, ctx)
+
     expect(
       result.every((c: { isDefault: boolean }) => c.isDefault === false)
     ).toBe(true)
+    expect(warnSpy).toHaveBeenCalledWith(
+      'availableContracts: default contract lookup failed',
+      lookupError
+    )
+    warnSpy.mockRestore()
   })
 })
 

@@ -101,9 +101,10 @@ export const resolveActiveContractIdFromSession = (
 export const resolveDefaultContractId = (
   attached: AttachedContract[] | null | undefined
 ): string => {
-  if (!attached?.length) return ''
-  const chosen = attached.find((contract) => contract.isDefault) ?? attached[0]
-  return chosen.id?.trim() ?? ''
+  if (!Array.isArray(attached) || attached.length === 0) return ''
+  const chosen = attached.find((contract) => contract?.isDefault) ?? attached[0]
+
+  return String(chosen?.id ?? '').trim()
 }
 
 /**

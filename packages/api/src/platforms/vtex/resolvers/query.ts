@@ -995,7 +995,13 @@ export const Query = {
     // Default flag lives only in the store-front BFF; never block the list on it.
     const attached = await commerce.storeFront
       .attachedContracts(orgUnitId)
-      .catch(() => null)
+      .catch((error) => {
+        console.warn(
+          'availableContracts: default contract lookup failed',
+          error
+        )
+        return null
+      })
     const defaultContractId = resolveDefaultContractId(attached?.contracts)
 
     return mapSessionContractsToStoreContracts(

@@ -691,7 +691,7 @@ export const VtexCommerce = (
         return fetchAPI(
           `https://${account}.myvtex.com/_v/store-front/units/${encodeURIComponent(
             orgUnitId
-          )}/contracts/attached`,
+          )}/contracts/attached?details=true`,
           { headers },
           { storeCookies }
         )
