@@ -189,15 +189,22 @@ function CartSidebar({
   // The mini cart shelf does not mount until the cart has at least one item,
   // so empty carts never fetch — including context-agnostic campaigns. The
   // element is only inserted in the non-empty footer below.
-  const { shouldDisplayRecommendationShelf, ...recommendationShelfProps } =
-    recommendations ?? {}
-  const recommendationShelf =
-    shouldDisplayRecommendationShelf && recommendationShelfProps.campaignVrn ? (
+  let recommendationShelf: ReactNode = null
+
+  if (
+    recommendations?.shouldDisplayRecommendationShelf &&
+    recommendations.campaignVrn
+  ) {
+    const { shouldDisplayRecommendationShelf: _, ...recommendationShelfProps } =
+      recommendations
+
+    recommendationShelf = (
       <CartRecommendationShelf
         {...recommendationShelfProps}
         taxesConfiguration={taxesConfiguration}
       />
-    ) : null
+    )
+  }
 
   useEffect(() => {
     if (!displayCart) {
