@@ -169,22 +169,22 @@ sequenceDiagram
 
 - **Status**: Accepted (supersedes Scopes + MasterData)
 - **Context**: Listing contracts requires org-unit scope reads that buyer tokens cannot perform directly (`View_Organization_Unit`). The buyer-portal IO app exposes `/_v/store-front/units/{orgUnitId}/contracts/attached?details=true`, returning attached `contractIds` with human-readable summaries — the same endpoint used by `faststore-plugin-buyer-portal`.
-- **Decision**: Implement `availableContracts` via `clients.commerce.storeFront.getAttachedContractsByOrgUnit`, forwarding the buyer cookie server-side. Map BFF `name` → GraphQL `corporateName`. Keep the resolver as a single boundary so the source can be swapped later without changing the storefront contract.
-- **Consequences**: One HTTP call per list load; no `FS_DISCOVERY_APP_KEY` required for listing. Requires `buyer-portal-graphql` installed in the VTEX account.
+- **Decision**: Implement `availableContracts` via `clients.commerce.storeFront.getAttachedContractsByOrgUnit`, forwarding the buyer cookie server-side. Map BFF `name` → GraphQL `corporateName`. Resolve `isDefault` from an explicit BFF flag (when present) or fall back to the first attached contract (aligned with buyer-portal logic). Keep the resolver as a single boundary so the source can be swapped later without changing the storefront contract. On BFF failure, degrade to `isDefault: false` on all contracts.
+- **Consequences**: One HTTP call per list load; no `FS_DISCOVERY_APP_KEY` required for listing. Requires `buyer-portal-graphql` installed in the VTEX account. Default flag is never a blocker — list renders even if the BFF call fails.
 
-#### Decision 2: `ChangeToken` + session revalidation as the switch mechanism — endpoint is an OPEN question
+#### Decision 2: `ChangeToken` + session revalidation as the switch mechanism
 
-- **Status**: Accepted (mechanism), Open (concrete endpoint)
-- **Context**: The PRD/RFC require that a switch be a full change of commercial context via `ChangeToken` followed by `revalidateSession`. Neither `ChangeToken` nor an explicit `revalidateSession` mutation exists in the codebase today; session refresh exists via the `validateSession` GraphQL mutation and `sessionStore`.
-- **Decision**: Model the switch as: (1) call `changeContractToken(contractId)` which returns `true` only when the VTEX B2B token/session endpoint confirms the commercial context changed, then (2) revalidate the FastStore session (re-run `validateSession` so `b2b` reflects the new contract) and update `sessionStore`. While the endpoint is unwired, `changeContractToken` returns `false`, `isContractSwitchEnabled` is `false`, and Confirm is disabled so cart/session are never mutated as a no-op.
-- **Consequences**: The flow is defined; the precise VTEX route/payload for `ChangeToken` is a documented blocker to resolve during implementation.
+- **Status**: Accepted
+- **Context**: The PRD/RFC require that a switch be a full change of commercial context via `ChangeToken` followed by session revalidation. The switch flow must guarantee that all downstream calls (pricing, cart, checkout, Org Account) run under the new contract token immediately after a successful switch.
+- **Decision**: The switch operation consists of three steps executed in order: (1) call `changeContractToken(contractId)` which returns `true` only when the VTEX B2B session endpoint confirms the token changed, (2) call `clearPersistedSessionState()` to delete IndexedDB keys (`fs::session`, `fs::cart`) and expire the checkout orderForm cookie, and (3) perform `window.location.reload()` so the hard page load re-runs `validateSession` and `validateCart` under the new auth cookie. On failure or while the endpoint is unwired, `changeContractToken` returns `false`, `isContractSwitchEnabled` is `false`, and Confirm is disabled so the cart and session are never mutated.
+- **Consequences**: A hard reload ensures session/cart revalidation happens cleanly under the new commercial context. The flow is fully defined and shipped (B2BTEAM-3827).
 
 #### Decision 3: Clear the cart on a successful switch
 
 - **Status**: Accepted
-- **Context**: A switch is a full change of commercial context; an in-flight cart was priced/validated under the previous contract.
-- **Decision**: On a successful switch, clear/reset the cart so the buyer starts a clean commercial context under the new contract. `sessionStore.set` already triggers cart revalidation; the switch flow additionally clears cart contents.
-- **Consequences**: Predictable pricing under the new contract; the buyer loses an in-progress cart on switch (acceptable given the "full change of context" requirement).
+- **Context**: A switch is a full change of commercial context; an in-flight cart was priced/validated under the previous contract and its client profile data no longer matches the new auth cookie.
+- **Decision**: On a successful switch, delete the persisted cart store (`fs::cart` from IndexedDB) and expire the checkout orderForm cookie (`checkout.vtex.com`) for all domain/path variants before the page reload. This ensures that `validateCart` creates a fresh orderForm under the new contract instead of reusing the stale one. The subsequent page reload then re-runs `validateCart` with the new auth cookie, creating a clean cart context.
+- **Consequences**: Predictable pricing and context under the new contract; the buyer loses an in-progress cart on switch (acceptable given the "full change of context" requirement). Cart clearing is atomic with the token change.
 
 #### Decision 4: UI is a sub-view inside the existing `OrganizationDrawer`
 
@@ -199,6 +199,20 @@ sequenceDiagram
 - **Context**: Org Unit scopes include multiple kinds (`contractIds`, `priceIds`, `collectionIds`, etc.). Only `contractIds` entries are commercial contracts eligible for switching.
 - **Decision**: The `availableContracts` resolver reads only the `contractIds` scope from `getScopesByOrgUnit`. Master Data lookups require both `corporateName` and `email` before a contract is listed (aligned with Suma BFF `contracts/attached` validation).
 - **Consequences**: No price-table or other scope IDs surface as fake contracts; list semantics match the buyer-portal BFF.
+
+#### Decision 6: Navbar account area gating until session validation completes
+
+- **Status**: Accepted
+- **Context**: A B2B buyer whose session has not yet been validated on initial page load should never see "Sign in" in the account area (Design QA, 2026-08-26). The `isSessionReady` check alone is insufficient since that value is pre-seeded from sessionStorage and may reflect a cached state.
+- **Decision**: Render the account area skeleton until both `isSessionReady` (session is pre-seeded or available from storage) AND `hasValidated` (at least one validation cycle has completed on this page load) are true. This is checked via `isSignInAreaResolved({ isSessionReady, hasValidated })`.
+- **Consequences**: B2B buyers always see a loading state on first page load until the session is actively validated, never a flashing "Sign in" that switches to their contract name (B2BTEAM-3827).
+
+#### Decision 7: Active contract displayed in navigation and My Account menu
+
+- **Status**: Accepted
+- **Context**: A B2B buyer must see which contract is currently active before taking action (REQ-04). The contract name should be visible in the account button and the menu area.
+- **Decision**: The `OrganizationSignInButton` label uses `b2b.contractName` (the active contract's name) with a fallback to CMS-provided company/contract labels. In the My Account menu, when `b2b.unitId` exists (B2B buyer), a "Switch" button is rendered that opens the `OrganizationDrawer` in the `'switch'` view, allowing the buyer to change the active contract.
+- **Consequences**: The active contract name is always visible in the navbar account button; B2B buyers can quickly access the contract switcher from the My Account menu (B2BTEAM-3827).
 
 ### Implementation Plan
 
@@ -222,6 +236,7 @@ interface AvailableContract {
   id: string            // contract ID from the Org Unit contractIds scope
   corporateName: string // human-readable name (from MasterData CL)
   isActive: boolean     // true if this is the currently active contract
+  isDefault: boolean    // true if this is the Organization Unit's default contract
 }
 ```
 
@@ -229,16 +244,18 @@ Source mapping:
 - `id` ← store-front BFF `contracts[].id` (`GET /_v/store-front/units/{orgUnitId}/contracts/attached?details=true`)
 - `corporateName` ← store-front BFF `contracts[].name`; contract skipped when `name` or `email` is missing
 - `isActive` ← compare contract ID against `sessionData.namespaces.profile.id.value` (same mapping as `validateSession` / `accountProfile`)
+- `isDefault` ← store-front BFF `contracts[].isDefault` (explicit flag) or first attached contract if no flag is present (Decision 1)
 
 ### Interfaces
 
-**New GraphQL query (`@faststore/api`)** — exposes the governed list (exact shape TBD during codegen):
+**New GraphQL query (`@faststore/api`)** — exposes the governed list:
 
 ```graphql
 type StoreContract {
   id: ID!
   corporateName: String!
   isActive: Boolean!
+  isDefault: Boolean!
 }
 
 extend type Query {
@@ -271,8 +288,8 @@ function useSwitchContract(): {
 
 // changeContractToken(contractId) -> boolean
 // Returns true only when the server confirms the commercial context changed.
-// While unwired, returns false; switchContract must not revalidate or empty the cart.
-// Steps when true: changeContractToken -> validateSession -> sessionStore.set -> cartStore.emptyCart()
+// While unwired, returns false; switchContract must not clear persisted state or reload.
+// Steps when true: changeContractToken -> clearPersistedSessionState (IndexedDB + cookies) -> window.location.reload()
 ```
 
 **UI**:
@@ -283,7 +300,7 @@ function useSwitchContract(): {
 
 - **Buyer-portal store-front BFF** (requires `buyer-portal-graphql` IO app): `GET https://{account}.myvtex.com/_v/store-front/units/{orgUnitId}/contracts/attached?details=true` via `clients.commerce.storeFront.getAttachedContractsByOrgUnit`, authenticated with the buyer cookie (`withBuyerAuthHeaders`). Mirrors `faststore-plugin-buyer-portal` `ContractsClient.listAttachedContracts`.
 - **VTEX MasterData (CL data entity)**: `GET /api/dataentities/CL/documents/{contractId}` via `clients.commerce.masterData.getContractById`, authenticated with the buyer cookie — used by `validateSession` / `accountProfile` for the active contract name, not for the switcher list.
-- **VTEX `ChangeToken`** (OPEN): endpoint/payload to switch the active contract token within the Org Unit. To be confirmed during implementation.
+- **VTEX `ChangeToken`** (switch-properties endpoint): `POST` to switch the active contract token within the Org Unit; implemented via `changeContractToken(contractId)` and the auth cookie update returned in the response.
 - **FastStore session**: `validateSession` GraphQL mutation + `sessionStore` (`packages/core/src/sdk/session/index.ts`); `b2b` shape in `StoreSession`/`StoreB2B` (`packages/api/src/platforms/vtex/typeDefs/session.graphql`).
 - **Cart**: `cartStore` (`packages/core/src/sdk/cart`) — cleared on a successful switch; already revalidates on `sessionStore.set`.
 
@@ -291,8 +308,9 @@ function useSwitchContract(): {
 
 - The switcher MUST only ever list contract IDs from the Org Unit's `contractIds` scope (governance; REQ-05; Suma BFF alignment).
 - Contracts MUST be displayed by `corporateName`; a raw ID MUST NOT be shown to the user. Contracts without both `name` and `email` in the store-front BFF response MUST NOT appear in the list.
-- A switch MUST be atomic: the active contract, session, and cart change **only** after `changeContractToken` returns `true` and revalidation succeeds; on any failure or while ChangeToken is unwired the previous contract remains active and the cart is untouched.
-- The currently active contract MUST be identifiable before any action is taken (REQ-04).
+- A switch MUST be atomic: the session (auth token) and cart change **only** after `changeContractToken` returns `true`; persisted client state (`fs::session`, `fs::cart` IndexedDB keys, checkout orderForm cookie) is cleared before the hard reload; on any failure or while ChangeToken is unwired the previous contract remains active and the cart is untouched.
+- The currently active contract MUST be identifiable before any action is taken (REQ-04); the account area MUST NOT render "Sign in" for a B2B buyer until `hasValidated` is true.
+- The default contract (when present) MUST be visually distinct (star icon) in both the drawer header and the switcher list (matching terminology).
 - Private VTEX routes MUST be reached only through the BFF; no app keys or private-route credentials may reach the browser.
 - Data MUST be fetched on demand (drawer open), not during initial page render, to protect performance budgets.
 - `@generated` / `__generated__` artifacts MUST be produced via codegen, not hand-edited.
