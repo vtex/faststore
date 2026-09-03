@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0-dev.1](https://github.com/vtex/faststore/compare/v4.8.0-dev.0...v4.8.0-dev.1) (2026-09-03)
+
+### Bug Fixes
+
+- **cli:** keep store stories and Jest mocks out of the .faststore type-check ([2caafc1](https://github.com/vtex/faststore/commit/2caafc1112d5870c69a6673d7fd4d6b601404e3f)), closes [#3459](https://github.com/vtex/faststore/issues/3459)
+
 # [4.8.0-dev.0](https://github.com/vtex/faststore/compare/v4.7.1-dev.2...v4.8.0-dev.0) (2026-09-03)
 
 **Note:** Version bump only for package @faststore/cli

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0-dev.1](https://github.com/vtex/faststore/compare/v4.8.0-dev.0...v4.8.0-dev.1) (2026-09-03)
+
+### Bug Fixes
+
+- **api:** export Resolver, GraphqlContext and helper types from the public entry ([0683c25](https://github.com/vtex/faststore/commit/0683c259c85ae603bf6dd23d7e0b8c64cc7b6ccf))
+- **api:** keep the public Resolver type compatible with v3 ([e580a72](https://github.com/vtex/faststore/commit/e580a720d0b2d840b386f8809b8aed1d2acf00db))
+
 # [4.8.0-dev.0](https://github.com/vtex/faststore/compare/v4.7.1-dev.2...v4.8.0-dev.0) (2026-09-03)
 
 **Note:** Version bump only for package @faststore/api
