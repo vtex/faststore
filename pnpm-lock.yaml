@@ -287,6 +287,9 @@ importers:
       "@antfu/ni":
         specifier: ^0.21.12
         version: 0.21.12
+      "@babel/plugin-transform-private-methods":
+        specifier: 7.25.9
+        version: 7.25.9(@babel/core@7.26.7)
       "@builder.io/partytown":
         specifier: ^0.6.1
         version: 0.6.4
@@ -414,8 +417,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(encoding@0.1.13)
       jose:
-        specifier: ^6.2.3
-        version: 6.2.3
+        specifier: 6.2.8
+        version: 6.2.8
       lexical:
         specifier: ^0.34.0
         version: 0.34.0
@@ -12446,10 +12449,10 @@ packages:
         integrity: sha512-IChe9AtAE79ru084ow8jzkN2lNrG3Ntfiv65Cvj9uOCE2m5LNsdHG+9EbxWxAoWRF9TgDOqLN5jm08++owDVRg==,
       }
 
-  jose@6.2.3:
+  jose@6.2.8:
     resolution:
       {
-        integrity: sha512-YYVDInQKFJfR/xa3ojUTl8c2KoTwiL1R5Wg9YCydwH0x0B9grbzlg5HC7mMjCtUJjbQ/YnGEZIhI5tCgfTb4Hw==,
+        integrity: sha512-Bsdjwm3Qsd/P0jR+BHDe3LytDfY7WBq2HmCCLIwuVRHMuEC9ae7/R474GIUdF1NgCyZjzVo/A9DOiOBtXq8ZoQ==,
       }
 
   jpeg-js@0.4.4:
@@ -28147,7 +28150,7 @@ snapshots:
 
   jose@5.3.0: {}
 
-  jose@6.2.3: {}
+  jose@6.2.8: {}
 
   jpeg-js@0.4.4: {}
 
