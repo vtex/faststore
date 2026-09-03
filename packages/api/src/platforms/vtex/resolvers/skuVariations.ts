@@ -1,4 +1,5 @@
 import type { GraphqlResolver } from '..'
+import type { PromiseType } from '../../../typings/globals'
 import { enhanceSku } from '../utils/enhanceSku'
 import {
   createSlugsMap,
