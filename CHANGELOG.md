@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0-dev.0](https://github.com/vtex/faststore/compare/v4.7.1-dev.2...v4.8.0-dev.0) (2026-09-03)
+
+### Bug Fixes
+
+- **core:** align mini cart shelf contract with review feedback ([cc8f4a4](https://github.com/vtex/faststore/commit/cc8f4a483fffc6ecdceb5f7c8d97f9568156eeba))
+- **core:** format CartRecommendationShelf Omit union for Biome ([318741d](https://github.com/vtex/faststore/commit/318741d46968426a66b45dc348732ff0a37ac231))
+- **core:** narrow cart shelf props before accessing campaignVrn ([84edae7](https://github.com/vtex/faststore/commit/84edae7a2978bfd6c7a6f5223d4eaf31602dd54a))
+- **core:** satisfy Sonar fragment and Stylelint on the cart shelf ([3423300](https://github.com/vtex/faststore/commit/3423300542f1a478fab856efc070faf333d358d3))
+- **RecommendationShelf:** update README to clarify rendering behavior on empty cart ([c1b0fa9](https://github.com/vtex/faststore/commit/c1b0fa98a5e322b151efc27307e1f34e5c468038))
+
+### Features
+
+- **cart:** add recommendations shelf to cart drawer ([879bda5](https://github.com/vtex/faststore/commit/879bda58bcae0094b868d5d8ce5a1b594ae7007f))
+- **cart:** enhance CartRecommendationShelf with new styles and props ([8bb604d](https://github.com/vtex/faststore/commit/8bb604d4cdebdeefb39e9d0a4c0475afc72aed3d))
+- **core:** opt the mini cart shelf in via a CMS display condition ([dec10d0](https://github.com/vtex/faststore/commit/dec10d0cc5b04d64eaf02c27192eeffdaf3eedc5))
+- **RecommendationShelf:** add data attributes for CSS targeting ([ddd5bec](https://github.com/vtex/faststore/commit/ddd5bec44357d85c43dfee4c2162d6e51ee8a06b))
+
 ## [4.7.1-dev.2](https://github.com/vtex/faststore/compare/v4.7.1-dev.1...v4.7.1-dev.2) (2026-09-02)
 
 ### Bug Fixes
