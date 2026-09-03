@@ -1,0 +1,57 @@
+# Runs the @faststore/cli test suite on Windows, the only platform where the
+# path-handling bugs we keep shipping to partners (#3337, #3419, #3440) can
+# actually fail. The suite is green on Windows, so the job reports failures
+# instead of swallowing them. It is not a required check yet: that is a branch
+# protection decision, taken once the job has proven stable.
+#
+# The remote Turbo cache is deliberately left out so the run reflects a real
+# Windows build instead of restoring artifacts produced on Linux.
+name: CI (Windows)
+
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - 'packages/cli/**'
+      - '.github/workflows/ci-windows.yml'
+  # The paths filter above is also a blind spot: a Windows-only break coming
+  # from outside packages/cli never triggers this job. Manual dispatch is the
+  # escape hatch for those cases.
+  workflow_dispatch:
+
+# Only the tip of a branch is worth testing: a burst of pushes should leave one
+# run standing, not one per push.
+concurrency:
+  group: ci-windows-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cli:
+    name: CLI tests (Windows)
+    timeout-minutes: 30
+    runs-on: windows-latest
+    # Steps below are single commands, so they run under the default PowerShell.
+    # Do not switch this job to bash before fixing `process.env.PWD` in the vite
+    # configs: Git Bash sets PWD to an MSYS path (/d/a/...), which is not a valid
+    # Windows path, and the builds fail on entry resolution.
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.28.0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.13.0
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Test @faststore/cli
+        run: pnpm turbo run test --filter=@faststore/cli

@@ -82,8 +82,8 @@
   },
   "scripts": {
     "build": "tsup-node",
-    "test": "vitest run src/**/*.test.ts",
-    "test:coverage": "vitest run src/**/*.test.ts --coverage",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "postpack": "shx rm -f oclif.manifest.json",
     "prepack": "na run build && oclif readme",
     "version": "oclif readme && git add README.md"
