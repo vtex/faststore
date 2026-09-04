@@ -5,6 +5,7 @@ import { getClientCacheBustingValue } from 'src/utils/cookieCacheBusting'
 
 import type { Operation, RequestOptions } from './request'
 import { request } from './request'
+import { onErrorRetry } from './retryPolicy'
 
 export type QueryOptions = SWRConfiguration &
   RequestOptions & { doNotRun?: boolean }
@@ -34,6 +35,7 @@ export const DEFAULT_OPTIONS = {
   revalidateOnFocus: false,
   revalidateOnReconnect: false,
   shouldRetryOnError: true,
+  onErrorRetry,
 }
 
 export const useQuery = <Data, Variables = Record<string, unknown>>(
