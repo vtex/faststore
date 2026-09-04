@@ -36,6 +36,8 @@ describe('OrganizationDrawerHeader', () => {
       />
     )
 
+    expect(screen.getByLabelText('Default contract')).toBeTruthy()
+
     fireEvent.click(screen.getByRole('button', { name: /change/i }))
     expect(onChangeContract).toHaveBeenCalledTimes(1)
   })

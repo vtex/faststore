@@ -310,7 +310,7 @@ function useSwitchContract(): {
 - A switch MUST be atomic: the session (auth token) and cart change **only** after `changeContractToken` returns `true`; persisted client state (`fs::session`, `fs::cart` IndexedDB keys, checkout orderForm cookie) is cleared before the hard reload; on any failure the previous contract remains active and the cart is untouched.
 - The currently active contract MUST be identifiable before any action is taken (REQ-04); the account area MUST NOT render "Sign in" for a B2B buyer until `hasValidated` is true.
 - The default contract (when present) MUST be visually distinct (star icon) in the switcher list (current-session card and the options list).
-  - Follow-up: drawer-header star (requires an eager list fetch; see B2BTEAM-3827 spec Out of Scope).
+  - The default indicator (blue star, `aria-label="Default contract"`) is shown in the drawer header next to **Change** when the active contract is the unit default; the list is fetched when the drawer opens (`useAvailableContracts(isOpen && hasUnit)`), never on page load.
 - Private VTEX routes MUST be reached only through the BFF; no app keys or private-route credentials may reach the browser.
 - Data MUST be fetched on demand (drawer open), not during initial page render, to protect performance budgets.
 - `@generated` / `__generated__` artifacts MUST be produced via codegen, not hand-edited.

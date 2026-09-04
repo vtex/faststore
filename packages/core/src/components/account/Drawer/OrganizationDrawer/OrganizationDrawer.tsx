@@ -2,6 +2,7 @@ import { SlideOver, useFadeEffect } from '@faststore/ui'
 import { useEffect, useState } from 'react'
 
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
+import { useAvailableContracts } from 'src/sdk/account/useAvailableContracts'
 import { useSession } from 'src/sdk/session'
 import {
   expireCookieClient,
@@ -171,6 +172,16 @@ export const OrganizationDrawer = ({
   const canSwitchContract = Boolean(b2b?.unitId)
   const isOrgMember = Boolean(b2b?.unitId)
 
+  // Only fetch the contract list while the drawer is open for an org member,
+  // so nothing is requested on initial page render (TTFB budget).
+  const { contracts } = useAvailableContracts(isOpen && canSwitchContract)
+  const activeContractId = b2b?.customerId?.trim() ?? ''
+  const activeContract =
+    (activeContractId
+      ? contracts.find((contract) => contract.id === activeContractId)
+      : undefined) ?? contracts.find((contract) => contract.isActive)
+  const isActiveContractDefault = Boolean(activeContract?.isDefault)
+
   return (
     <SlideOver
       data-fs-organization-drawer
@@ -193,6 +204,7 @@ export const OrganizationDrawer = ({
               onCloseDrawer={closeDrawer}
               contractName={contractName}
               contractUrl={contractUrl}
+              isDefault={isActiveContractDefault}
               onChangeContract={
                 canSwitchContract ? () => setView('switch') : undefined
               }

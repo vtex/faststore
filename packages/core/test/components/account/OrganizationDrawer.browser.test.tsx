@@ -10,6 +10,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 const mockFadeOut = vi.hoisted(() => vi.fn())
 const mockUseSession = vi.hoisted(() => vi.fn())
 const mockCloseDrawer = vi.hoisted(() => vi.fn())
+const mockUseAvailableContracts = vi.hoisted(() => vi.fn())
 
 vi.mock('@faststore/ui', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@faststore/ui')>()
@@ -38,6 +39,10 @@ vi.mock('@faststore/ui', async (importOriginal) => {
 })
 
 vi.mock('src/sdk/session', () => ({ useSession: mockUseSession }))
+
+vi.mock('src/sdk/account/useAvailableContracts', () => ({
+  useAvailableContracts: mockUseAvailableContracts,
+}))
 
 vi.mock(
   '../../../src/components/account/Drawer/OrganizationDrawer/ContractSwitcher',
@@ -82,6 +87,11 @@ describe('OrganizationDrawer', () => {
         organizationManager: true,
       },
       person: { givenName: 'Jane' },
+    })
+    mockUseAvailableContracts.mockReturnValue({
+      contracts: [],
+      loading: false,
+      error: null,
     })
   })
 
@@ -206,5 +216,130 @@ describe('OrganizationDrawer', () => {
       />
     )
     expect(screen.getByTestId('contract-switcher')).toBeInTheDocument()
+  })
+
+  it('shows the default-contract star in the header when the active contract is the unit default', () => {
+    mockUseAvailableContracts.mockReturnValue({
+      contracts: [
+        {
+          id: 'unit-1',
+          corporateName: 'Acme Contract',
+          isActive: true,
+          isDefault: true,
+        },
+        {
+          id: 'other',
+          corporateName: 'Other Contract',
+          isActive: false,
+          isDefault: false,
+        },
+      ],
+      loading: false,
+      error: null,
+    })
+    mockUseSession.mockReturnValue({
+      b2b: {
+        unitId: 'unit-1',
+        unitName: 'Stellar Global',
+        contractName: 'Acme Contract',
+        customerId: 'unit-1',
+        userName: 'Jane Buyer',
+        userEmail: 'jane@example.com',
+        organizationManager: true,
+      },
+      person: { givenName: 'Jane' },
+    })
+
+    render(
+      <OrganizationDrawer
+        isOpen
+        closeDrawer={mockCloseDrawer}
+        isRepresentative={false}
+      />
+    )
+
+    expect(screen.getByLabelText('Default contract')).toBeTruthy()
+  })
+
+  it('does not show the default-contract star when the active contract is not the unit default', () => {
+    mockUseAvailableContracts.mockReturnValue({
+      contracts: [
+        {
+          id: 'unit-1',
+          corporateName: 'Acme Contract',
+          isActive: true,
+          isDefault: false,
+        },
+        {
+          id: 'other',
+          corporateName: 'Other Contract',
+          isActive: false,
+          isDefault: true,
+        },
+      ],
+      loading: false,
+      error: null,
+    })
+    mockUseSession.mockReturnValue({
+      b2b: {
+        unitId: 'unit-1',
+        unitName: 'Stellar Global',
+        contractName: 'Acme Contract',
+        customerId: 'unit-1',
+        userName: 'Jane Buyer',
+        userEmail: 'jane@example.com',
+        organizationManager: true,
+      },
+      person: { givenName: 'Jane' },
+    })
+
+    render(
+      <OrganizationDrawer
+        isOpen
+        closeDrawer={mockCloseDrawer}
+        isRepresentative={false}
+      />
+    )
+
+    expect(screen.queryByLabelText('Default contract')).toBeNull()
+  })
+
+  it('fetches the contract list only while open for an org member', () => {
+    const { rerender } = render(
+      <OrganizationDrawer
+        isOpen={false}
+        closeDrawer={mockCloseDrawer}
+        isRepresentative={false}
+      />
+    )
+
+    expect(mockUseAvailableContracts).toHaveBeenLastCalledWith(false)
+
+    rerender(
+      <OrganizationDrawer
+        isOpen
+        closeDrawer={mockCloseDrawer}
+        isRepresentative={false}
+      />
+    )
+
+    expect(mockUseAvailableContracts).toHaveBeenLastCalledWith(true)
+  })
+
+  it('never fetches the contract list when the buyer has no organization unit', () => {
+    mockUseSession.mockReturnValue({
+      b2b: { userName: 'Jane Buyer' },
+      person: null,
+    })
+
+    render(
+      <OrganizationDrawer
+        isOpen
+        closeDrawer={mockCloseDrawer}
+        isRepresentative={false}
+      />
+    )
+
+    expect(mockUseAvailableContracts).toHaveBeenLastCalledWith(false)
   })
 })
