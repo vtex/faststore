@@ -3,8 +3,6 @@ import { useCallback, useRef, useState } from 'react'
 
 import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
-import { Skeleton as UISkeleton } from '@faststore/ui'
-import { OrganizationSignInButton } from 'src/components/account/Drawer/OrganizationSignInButton'
 import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
@@ -18,6 +16,7 @@ import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 import storeConfig from 'discovery.config'
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
+import { NavbarAccountArea } from './NavbarAccountArea'
 
 const NavbarLinks = dynamic(
   () =>
@@ -237,22 +236,16 @@ function Navbar({
               />
             )}
 
-            {isDesktop &&
-              (isSignInResolved ? (
-                isOrganizationEnabled ? (
-                  <OrganizationSignInButton
-                    icon={signInButton.icon}
-                    isRepresentative={isRepresentative}
-                  />
-                ) : (
-                  <ButtonSignIn.Component {...signInButton} />
-                )
-              ) : (
-                <UISkeleton
-                  data-fs-navbar-signin-skeleton
-                  size={{ width: '140px', height: '2.5rem' }}
-                />
-              ))}
+            {isDesktop && (
+              <NavbarAccountArea
+                isSignInResolved={isSignInResolved}
+                isOrganizationEnabled={isOrganizationEnabled}
+                isRepresentative={isRepresentative}
+                signInButton={signInButton}
+                ButtonSignIn={ButtonSignIn}
+                skeletonAttr="data-fs-navbar-signin-skeleton"
+              />
+            )}
 
             <CartToggle {...cart} />
           </NavbarButtons.Component>

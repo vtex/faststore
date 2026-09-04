@@ -51,7 +51,9 @@ export async function clearPersistedSessionState(): Promise<void> {
 
   try {
     expireCheckoutOrderFormCookie()
-  } catch {}
+  } catch {
+    /* best-effort: cookie expiry must never fail the switch */
+  }
 
   if (typeof sessionStorage === 'undefined') return
   try {
