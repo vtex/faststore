@@ -4,7 +4,7 @@ import {
   ProductCardImage as UIProductCardImage,
   ProductComparisonTrigger as UIProductComparisonTrigger,
 } from '@faststore/ui'
-import { memo, useMemo } from 'react'
+import { memo, useMemo, type MouseEventHandler } from 'react'
 
 import { gql } from '@generated'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
@@ -42,9 +42,10 @@ export interface ProductCardProps {
    */
   ratingValue?: number
   /**
-   * Callback function when button is clicked.
+   * Callback function when the card action button is clicked. When set, the
+   * button is rendered (unless the product is out of stock).
    */
-  onButtonClick?: () => void
+  onButtonClick?: MouseEventHandler<HTMLButtonElement>
   /**
    * Specifies the button's label.
    */
@@ -178,6 +179,7 @@ function ProductCard({
           }}
           ratingValue={ratingValue}
           outOfStock={outOfStock}
+          buttonLabel={buttonLabel}
           onButtonClick={onButtonClick}
           linkProps={linkProps}
           showDiscountBadge={hasDiscount && showDiscountBadge}
