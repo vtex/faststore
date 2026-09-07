@@ -9,6 +9,8 @@ export {
 } from './directives/cacheControl'
 export { GraphqlVtexContextFactory, GraphqlVtexSchema } from './platforms/vtex'
 export { typeDefs } from './platforms/vtex/typeDefs'
+export { validateUserAuthentication } from './platforms/vtex/utils/auth'
+export { getAuthCookie } from './platforms/vtex/utils/cookies'
 
 export * from './platforms/errors'
 export type { GraphqlContext, GraphqlResolver } from './platforms/vtex'
