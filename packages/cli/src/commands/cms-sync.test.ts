@@ -238,6 +238,21 @@ describe('CmsSync', () => {
       )
     })
 
+    it('forwards contentSource.project to generateAndUploadSchema', async () => {
+      writeDiscoveryConfig(tempDir, {
+        contentSource: { type: 'CP', project: 'lojabigolin-faststore' },
+      })
+      getExistingCpDirsMock.mockReturnValue(['cms/faststore/components'])
+
+      await runCmsSync({ storeDir: tempDir })
+
+      expect(generateAndUploadSchemaMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          project: 'lojabigolin-faststore',
+        })
+      )
+    })
+
     it('runs the vtex preflight with the store account before generating', async () => {
       writeDiscoveryConfig(tempDir, {
         api: { storeId: 'brandless' },
