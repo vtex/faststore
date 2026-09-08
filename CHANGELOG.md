@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0-dev.4](https://github.com/vtex/faststore/compare/v4.8.0-dev.3...v4.8.0-dev.4) (2026-09-08)
+
+### Bug Fixes
+
+- generate GraphQL types when the project path contains spaces ([#3476](https://github.com/vtex/faststore/issues/3476)) ([b20c134](https://github.com/vtex/faststore/commit/b20c134eb5618f15e7e8328d6fa8ecc588d8e149)), closes [#3454](https://github.com/vtex/faststore/issues/3454) [#3454](https://github.com/vtex/faststore/issues/3454) [#3454](https://github.com/vtex/faststore/issues/3454) [#3454](https://github.com/vtex/faststore/issues/3454) [#3474](https://github.com/vtex/faststore/issues/3474) [#3475](https://github.com/vtex/faststore/issues/3475) [#3477](https://github.com/vtex/faststore/issues/3477)
+
 # [4.8.0-dev.3](https://github.com/vtex/faststore/compare/v4.8.0-dev.2...v4.8.0-dev.3) (2026-09-08)
 
 **Note:** Version bump only for package faststore
