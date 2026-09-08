@@ -195,6 +195,21 @@ describe('isPublicFileAllowed', () => {
     expect(isPublicFileAllowed('/public/fonts/inter.eot', false)).toBe(true)
   })
 
+  it('copies image assets used for favicons and social previews', () => {
+    expect(isPublicFileAllowed('/public/favicon.png', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/apple-touch-icon.jpg', false)).toBe(
+      true
+    )
+    expect(isPublicFileAllowed('/public/og-image.jpeg', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/hero.webp', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/loading.gif', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/banner.avif', false)).toBe(true)
+  })
+
+  it('copies the PWA web app manifest', () => {
+    expect(isPublicFileAllowed('/public/site.webmanifest', false)).toBe(true)
+  })
+
   it('still copies the previously supported extensions', () => {
     expect(isPublicFileAllowed('/public/manifest.json', false)).toBe(true)
     expect(isPublicFileAllowed('/public/robots.txt', false)).toBe(true)
@@ -206,6 +221,7 @@ describe('isPublicFileAllowed', () => {
   it('matches the extension case-insensitively', () => {
     expect(isPublicFileAllowed('/public/fonts/Inter.WOFF2', false)).toBe(true)
     expect(isPublicFileAllowed('/public/LOGO.SVG', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/Favicon.PNG', false)).toBe(true)
   })
 
   it('rejects files whose extension is not allowed', () => {
