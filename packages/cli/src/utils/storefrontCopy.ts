@@ -34,13 +34,24 @@ export function shouldCopyToStorefront(src: string): boolean {
   return true
 }
 
+/**
+ * Globs `next build` must not type-check inside `.faststore`. Besides the core
+ * test trees, stores keep Storybook stories and Jest manual mocks next to
+ * their components under `src/`; those are copied into
+ * `.faststore/src/customizations/src` and would otherwise be compiled against
+ * dev-only dependencies (`@storybook/*`, `@jest/globals`) the build does not
+ * have.
+ */
 export const STOREFRONT_TEST_EXCLUDE_GLOBS = [
   'test',
   '**/*.test.ts',
   '**/*.test.tsx',
   '**/*.spec.ts',
   '**/*.spec.tsx',
+  '**/*.stories.ts',
+  '**/*.stories.tsx',
   '**/__tests__/**',
+  '**/__mocks__/**',
 ] as const
 
 type TsConfig = {

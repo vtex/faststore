@@ -1,11 +1,21 @@
-type Platform = 'vtex'
+/**
+ * Shared helper types for the API package.
+ *
+ * These used to be ambient (script-scoped) declarations. Ambient types are not
+ * reachable from the published `index.d.ts`, so consumers importing
+ * `GraphqlResolver`/`APIOptions` saw them degrade to implicit `any`. Keeping
+ * this file a real module (explicit `export`s) makes the emitted typings
+ * self-contained.
+ */
 
-type PromiseType<T> = T extends Promise<infer U> ? U : T
+export type Platform = 'vtex'
 
-type ArrayElementType<T> = T extends Array<infer U> ? U : T
+export type PromiseType<T> = T extends Promise<infer U> ? U : T
 
-interface Options {
-  platform: 'vtex'
+export type ArrayElementType<T> = T extends Array<infer U> ? U : T
+
+export interface Options {
+  platform: Platform
   account: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
   // Default sales channel to use for fetching products
@@ -23,12 +33,12 @@ interface Options {
   OTEL_ENABLED?: boolean
 }
 
-interface FeatureFlags {
+export interface FeatureFlags {
   enableOrderFormSync?: boolean
   enableUnavailableItemsOnCart?: boolean
 }
 
-type Resolver<
+export type Resolver<
   TContext extends Record<string, any>,
   TSource = any,
   TVars = any,
