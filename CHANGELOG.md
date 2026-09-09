@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0-dev.5](https://github.com/vtex/faststore/compare/v4.8.0-dev.4...v4.8.0-dev.5) (2026-09-09)
+
+### Bug Fixes
+
+- forward contentSource.project as --storeId in cms-sync CP flow ([#3482](https://github.com/vtex/faststore/issues/3482)) ([c52365e](https://github.com/vtex/faststore/commit/c52365e74e00120961702ff3301f0f0d8fbe5449))
+
 # [4.8.0-dev.4](https://github.com/vtex/faststore/compare/v4.8.0-dev.3...v4.8.0-dev.4) (2026-09-08)
 
 ### Bug Fixes
