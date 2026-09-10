@@ -109,10 +109,11 @@ const shouldFallbackToProductRoute = (error: unknown) =>
  * guards that the fetched sku is the one we actually asked for, throwing
  * SLUG_MISMATCH_ERROR (caught by the caller) when it isn't.
  *
- * When localization is enabled, the slug prefix may be a localized LinkId
- * that differs from the IS linkText (always in the default locale). In that
- * case we validate against the Catalog Dataplane API before rejecting the
- * slug.
+ * When localization is enabled, the slug prefix may be a localized LinkId that
+ * differs from the IS linkText. linkText follows the locale being browsed
+ * rather than the default one, so a mismatch is not by itself evidence of a
+ * wrong sku. We validate against the Catalog Dataplane API before rejecting
+ * the slug.
  */
 async function assertSkuMatchesSlug(
   ctx: GraphqlContext,

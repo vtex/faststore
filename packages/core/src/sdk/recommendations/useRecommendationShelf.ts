@@ -72,8 +72,8 @@ const EMPTY_ITEMS: RecommendationResponse['products'] = []
  * Headless data layer behind every recommendation shelf: resolves the campaign
  * type, the anonymous user id and the product context, then fetches the
  * campaign. It renders nothing — presentation lives in the shelf components
- * that consume it, so a new surface can reuse the campaign rules instead of
- * reimplementing them.
+ * that consume it, so a page-wide carousel and the compact cart drawer shelf
+ * share exactly one implementation of the campaign rules.
  *
  * When `userId` is missing (`undefined` or `null`), starts the personalization
  * session as a fallback in parallel with cookie retry (Layout already starts

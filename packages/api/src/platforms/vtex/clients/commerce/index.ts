@@ -1,4 +1,5 @@
 import { parse } from 'cookie'
+import type { Options } from '../../../../typings/globals'
 import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
