@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import vm from 'node:vm'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   PUBLIC_FILES_ALLOWED_EXTENSIONS,
@@ -318,6 +319,22 @@ describe('copyCoreFiles', () => {
 describe('updateNextConfig', () => {
   let basePath: string
 
+  /**
+   * Actually parses the generated next.config.js as JS, the same way
+   * Next.js loads it via require(). A malformed string literal (e.g. an
+   * unescaped apostrophe, or a raw backslash treated as an escape
+   * sequence) throws here instead of just failing a string comparison.
+   */
+  function loadNextConfig(code: string) {
+    const context: { module: { exports: Record<string, unknown> } } = {
+      module: { exports: {} },
+    }
+
+    vm.runInNewContext(code, context)
+
+    return context.module.exports
+  }
+
   beforeEach(() => {
     basePath = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-next-config-'))
     fs.mkdirSync(path.join(basePath, '.faststore'), { recursive: true })
@@ -344,10 +361,29 @@ describe('updateNextConfig', () => {
       'utf8'
     )
 
-    expect(nextConfigData).toContain(
-      "outputFileTracingRoot: 'C:/Users/dev/starter/.faststore',"
-    )
     expect(nextConfigData).not.toContain('\\')
+    expect(loadNextConfig(nextConfigData).outputFileTracingRoot).toBe(
+      'C:/Users/dev/starter/.faststore'
+    )
+  })
+
+  it('escapes an apostrophe in the cwd so the generated config stays valid JS', () => {
+    // A Windows username like O'Brien would otherwise terminate the
+    // hand-wrapped single-quoted string literal early.
+    vi.spyOn(process, 'cwd').mockReturnValue(
+      "C:\\Users\\O'Brien\\starter\\.faststore"
+    )
+
+    updateNextConfig(basePath)
+
+    const nextConfigData = fs.readFileSync(
+      path.join(basePath, '.faststore', 'next.config.js'),
+      'utf8'
+    )
+
+    expect(loadNextConfig(nextConfigData).outputFileTracingRoot).toBe(
+      "C:/Users/O'Brien/starter/.faststore"
+    )
   })
 })
 

@@ -566,9 +566,14 @@ export function updateNextConfig(basePath: string) {
   // literal is read as an escape sequence (e.g. `\f` becomes a form feed),
   // corrupting the path. Forward slashes are valid on Windows too, and
   // match the same normalization already applied to nextBin below.
+  // JSON.stringify (rather than wrapping in a template literal by hand)
+  // also escapes quotes, so a path containing an apostrophe (e.g. a
+  // Windows username like `C:\Users\O'Brien\...`) doesn't terminate the
+  // string literal early and produce invalid JS.
+  const normalizedCwd = process.cwd().replaceAll('\\', '/')
   nextConfigData = nextConfigData.replace(
     /outputFileTracingRoot\:\s+(.*),/,
-    `outputFileTracingRoot: '${process.cwd().replaceAll('\\', '/')}',`
+    `outputFileTracingRoot: ${JSON.stringify(normalizedCwd)},`
   )
 
   writeFileSync(nextConfigPath, nextConfigData)
