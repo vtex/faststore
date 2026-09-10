@@ -55,3 +55,6 @@ jobs:
 
       - name: Test @faststore/cli
         run: pnpm turbo run test --filter=@faststore/cli
+       
+      - name: Build @faststore/cli
+        run:  pnpm --filter "@faststore/cli" build
