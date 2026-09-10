@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   PUBLIC_FILES_ALLOWED_EXTENSIONS,
   buildFaststorePackageJson,
@@ -9,6 +9,7 @@ import {
   copyPublicFiles,
   isPublicFileAllowed,
   relativeNextBin,
+  updateNextConfig,
 } from './generate'
 
 describe('buildFaststorePackageJson', () => {
@@ -311,6 +312,42 @@ describe('copyCoreFiles', () => {
         '**/__tests__/**',
       ])
     )
+  })
+})
+
+describe('updateNextConfig', () => {
+  let basePath: string
+
+  beforeEach(() => {
+    basePath = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-next-config-'))
+    fs.mkdirSync(path.join(basePath, '.faststore'), { recursive: true })
+    fs.writeFileSync(
+      path.join(basePath, '.faststore', 'next.config.js'),
+      "module.exports = {\n  outputFileTracingRoot: '/placeholder',\n}\n"
+    )
+  })
+
+  afterEach(() => {
+    fs.rmSync(basePath, { recursive: true, force: true })
+    vi.restoreAllMocks()
+  })
+
+  it('normalizes a Windows cwd to forward slashes so the written config stays valid JS', () => {
+    vi.spyOn(process, 'cwd').mockReturnValue(
+      'C:\\Users\\dev\\starter\\.faststore'
+    )
+
+    updateNextConfig(basePath)
+
+    const nextConfigData = fs.readFileSync(
+      path.join(basePath, '.faststore', 'next.config.js'),
+      'utf8'
+    )
+
+    expect(nextConfigData).toContain(
+      "outputFileTracingRoot: 'C:/Users/dev/starter/.faststore',"
+    )
+    expect(nextConfigData).not.toContain('\\')
   })
 })
 

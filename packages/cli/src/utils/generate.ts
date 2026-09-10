@@ -555,15 +555,20 @@ async function checkDependencies(basePath: string, packagesToCheck: string[]) {
   })
 }
 
-function updateNextConfig(basePath: string) {
+export function updateNextConfig(basePath: string) {
   const { tmpDir } = withBasePath(basePath)
 
   const nextConfigPath = path.join(tmpDir, 'next.config.js')
 
   let nextConfigData = String(readFileSync(nextConfigPath))
+  // process.cwd() returns backslashes on Windows; next.config.js is later
+  // parsed as JS source, where an unescaped backslash inside a string
+  // literal is read as an escape sequence (e.g. `\f` becomes a form feed),
+  // corrupting the path. Forward slashes are valid on Windows too, and
+  // match the same normalization already applied to nextBin below.
   nextConfigData = nextConfigData.replace(
     /outputFileTracingRoot\:\s+(.*),/,
-    `outputFileTracingRoot: '${process.cwd()}',`
+    `outputFileTracingRoot: '${process.cwd().replaceAll('\\', '/')}',`
   )
 
   writeFileSync(nextConfigPath, nextConfigData)
