@@ -1,7 +1,37 @@
 import fsExtra from 'fs-extra'
+import { createRequire } from 'node:module'
 import path from 'node:path'
 
 const { existsSync } = fsExtra
+
+/**
+ * Resolves a package's executable through Node's module resolution, starting
+ * the lookup at `fromDir`.
+ *
+ * `withNodeModulesBins` can only order directories, so it runs whichever copy of
+ * a binary the nearest ancestor `node_modules/.bin` happens to hold. That is not
+ * necessarily the copy `@faststore/core` depends on: on a hoisted monorepo
+ * another module's older Next can win the root `.bin` link, and the build then
+ * fails on flags that version does not have. Module resolution follows the
+ * dependency graph instead, so it returns the copy core would import — and it
+ * still finds one where no ancestor `.bin` has it at all, as happens when a
+ * package manager nests rather than hoists.
+ *
+ * Returns `undefined` when the specifier cannot be resolved, so callers can fall
+ * back to the bare command name.
+ */
+export function resolvePackageBin(
+  specifier: string,
+  fromDir: string
+): string | undefined {
+  try {
+    // createRequire needs a file path to anchor the lookup. The file itself does
+    // not have to exist; only the directory it sits in is used.
+    return createRequire(path.join(fromDir, 'noop.js')).resolve(specifier)
+  } catch {
+    return undefined
+  }
+}
 
 function collectBinDirs(fromDir: string) {
   const binDirs: string[] = []

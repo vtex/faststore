@@ -275,7 +275,7 @@ describe('StoreProduct', () => {
       const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
         linkId: 'blue-shirt',
         categories: [],
-        availableLinkIds: { 'pt-BR': 'camisa-azul' },
+        availableLinkIds: { 'en-US': 'blue-shirt', 'pt-BR': 'camisa-azul' },
       })
 
       const root = makeRoot()
@@ -289,20 +289,18 @@ describe('StoreProduct', () => {
 
       const result = await (StoreProduct.otherLocales as any)(root, {}, ctx)
 
-      // Default locale always uses the canonical IS linkText.
       expect(result).toContainEqual({ locale: 'en-US', slug: 'blue-shirt-100' })
-      // Non-default locale uses the translated linkId from availableLinkIds.
       expect(result).toContainEqual({
         locale: 'pt-BR',
         slug: 'camisa-azul-100',
       })
     })
 
-    it('omits non-default locales with no entry in availableLinkIds', async () => {
+    it('omits locales with no entry in availableLinkIds', async () => {
       const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
         linkId: 'blue-shirt',
         categories: [],
-        availableLinkIds: {}, // pt-BR not translated
+        availableLinkIds: { 'en-US': 'blue-shirt' }, // pt-BR not translated
       })
 
       const root = makeRoot()
@@ -318,6 +316,137 @@ describe('StoreProduct', () => {
 
       expect(result).toContainEqual({ locale: 'en-US', slug: 'blue-shirt-100' })
       expect(result?.find((e: any) => e.locale === 'pt-BR')).toBeUndefined()
+    })
+
+    it('returns no alternates when the product has no registered localized slug', async () => {
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'blue-shirt',
+        categories: [],
+        availableLinkIds: {},
+      })
+
+      const root = makeRoot()
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'en-US',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        defaultLocale: 'en-US',
+        getLocalizedProduct,
+      })
+
+      const result = await (StoreProduct.otherLocales as any)(root, {}, ctx)
+
+      expect(result).toEqual([])
+    })
+
+    it('resolves the default locale from availableLinkIds while browsing another locale', async () => {
+      // Intelligent Search localizes linkText to the locale being browsed, so a
+      // pt-BR request reports the pt-BR slug as linkText. The en-US alternate must
+      // come from availableLinkIds, otherwise it points at a URL that 404s.
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'camisa-azul',
+        categories: [],
+        availableLinkIds: { 'en-US': 'blue-shirt', 'pt-BR': 'camisa-azul' },
+      })
+
+      const root = makeRoot({ linkText: 'camisa-azul' })
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'pt-BR',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        defaultLocale: 'en-US',
+        getLocalizedProduct,
+      })
+
+      const result = await (StoreProduct.otherLocales as any)(root, {}, ctx)
+
+      expect(result).toContainEqual({ locale: 'en-US', slug: 'blue-shirt-100' })
+      expect(result).toContainEqual({
+        locale: 'pt-BR',
+        slug: 'camisa-azul-100',
+      })
+      // The whole map comes from a single response — no per-locale fan-out.
+      expect(getLocalizedProduct).toHaveBeenCalledTimes(1)
+    })
+
+    it('omits the default locale rather than guessing when it is absent from availableLinkIds', async () => {
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'camisa-azul',
+        categories: [],
+        availableLinkIds: { 'pt-BR': 'camisa-azul' },
+      })
+
+      const root = makeRoot({ linkText: 'camisa-azul' })
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'pt-BR',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        defaultLocale: 'en-US',
+        getLocalizedProduct,
+      })
+
+      const result = await (StoreProduct.otherLocales as any)(root, {}, ctx)
+
+      expect(result?.find((e: any) => e.locale === 'en-US')).toBeUndefined()
+      expect(result).toContainEqual({
+        locale: 'pt-BR',
+        slug: 'camisa-azul-100',
+      })
+    })
+
+    it('omits the locale being browsed when it has no registered localized slug', async () => {
+      // linkText is the untranslated slug Intelligent Search reports for an
+      // untranslated locale. Advertising it as the pt-BR alternate would make the
+      // set depend on the serving locale, since the en-US response cannot know it.
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'blue-shirt',
+        categories: [],
+        availableLinkIds: { 'en-US': 'blue-shirt' },
+      })
+
+      const root = makeRoot({ linkText: 'blue-shirt' })
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'pt-BR',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        defaultLocale: 'en-US',
+        getLocalizedProduct,
+      })
+
+      const result = await (StoreProduct.otherLocales as any)(root, {}, ctx)
+
+      expect(result?.find((e: any) => e.locale === 'pt-BR')).toBeUndefined()
+      expect(result).toContainEqual({ locale: 'en-US', slug: 'blue-shirt-100' })
+    })
+
+    it('advertises the same alternates whichever locale serves the product', async () => {
+      // hreflang annotations are only honoured when reciprocal: every locale
+      // variant of a product must advertise the same cluster. Intelligent Search
+      // reports linkText in the browsed locale, so the alternates may only be
+      // derived from availableLinkIds, which is locale-independent.
+      const availableLinkIds = { 'en-US': 'blue-shirt' }
+
+      const resolveFrom = (locale: string, linkText: string) =>
+        (StoreProduct.otherLocales as any)(
+          makeRoot({ linkText }),
+          {},
+          makeCtx({
+            localizationEnabled: true,
+            locale,
+            locales: { 'en-US': {}, 'pt-BR': {} },
+            defaultLocale: 'en-US',
+            getLocalizedProduct: vi.fn().mockResolvedValueOnce({
+              linkId: linkText,
+              categories: [],
+              availableLinkIds,
+            }),
+          })
+        )
+
+      const fromDefault = await resolveFrom('en-US', 'blue-shirt')
+      const fromUntranslated = await resolveFrom('pt-BR', 'blue-shirt')
+
+      expect(fromUntranslated).toEqual(fromDefault)
     })
 
     it('returns null when the Dataplane API throws', async () => {
@@ -340,6 +469,108 @@ describe('StoreProduct', () => {
       )
 
       expect(result).toBeNull()
+    })
+  })
+
+  describe('defaultLocaleSlug', () => {
+    it('returns null when localization is disabled', async () => {
+      const result = await (StoreProduct.defaultLocaleSlug as any)(
+        makeRoot(),
+        {},
+        makeCtx()
+      )
+
+      expect(result).toBeNull()
+    })
+
+    it('uses the default locale entry from availableLinkIds', async () => {
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'camisa-azul',
+        categories: [],
+        availableLinkIds: { 'en-US': 'blue-shirt', 'pt-BR': 'camisa-azul' },
+      })
+
+      const result = await (StoreProduct.defaultLocaleSlug as any)(
+        makeRoot({ linkText: 'camisa-azul' }),
+        {},
+        makeCtx({
+          localizationEnabled: true,
+          locale: 'pt-BR',
+          locales: { 'en-US': {}, 'pt-BR': {} },
+          defaultLocale: 'en-US',
+          getLocalizedProduct,
+        })
+      )
+
+      expect(result).toBe('blue-shirt-100')
+    })
+
+    it('falls back to linkText for an untranslated product', async () => {
+      // The case otherLocales deliberately gives up on: no registered slug for
+      // any locale. linkText is the same slug in every locale here, so it is the
+      // default-locale slug and the selector can still reach the product.
+      const getLocalizedProduct = vi.fn().mockResolvedValueOnce({
+        linkId: 'blue-shirt',
+        categories: [],
+        availableLinkIds: {},
+      })
+
+      const result = await (StoreProduct.defaultLocaleSlug as any)(
+        makeRoot({ linkText: 'blue-shirt' }),
+        {},
+        makeCtx({
+          localizationEnabled: true,
+          locale: 'pt-BR',
+          locales: { 'en-US': {}, 'pt-BR': {} },
+          defaultLocale: 'en-US',
+          getLocalizedProduct,
+        })
+      )
+
+      expect(result).toBe('blue-shirt-100')
+    })
+
+    it('still resolves a slug when the Dataplane call fails', async () => {
+      const getLocalizedProduct = vi
+        .fn()
+        .mockRejectedValueOnce(new Error('API error'))
+
+      const result = await (StoreProduct.defaultLocaleSlug as any)(
+        makeRoot({ linkText: 'blue-shirt' }),
+        {},
+        makeCtx({
+          localizationEnabled: true,
+          locale: 'pt-BR',
+          locales: { 'en-US': {}, 'pt-BR': {} },
+          defaultLocale: 'en-US',
+          getLocalizedProduct,
+        })
+      )
+
+      expect(result).toBe('blue-shirt-100')
+    })
+
+    it('shares the Dataplane call with otherLocales', async () => {
+      const getLocalizedProduct = vi.fn().mockResolvedValue({
+        linkId: 'camisa-azul',
+        categories: [],
+        availableLinkIds: { 'en-US': 'blue-shirt', 'pt-BR': 'camisa-azul' },
+      })
+
+      const root = makeRoot({ linkText: 'camisa-azul' })
+      const ctx = makeCtx({
+        localizationEnabled: true,
+        locale: 'pt-BR',
+        locales: { 'en-US': {}, 'pt-BR': {} },
+        defaultLocale: 'en-US',
+        getLocalizedProduct,
+        cache: new Map(),
+      })
+
+      await (StoreProduct.otherLocales as any)(root, {}, ctx)
+      await (StoreProduct.defaultLocaleSlug as any)(root, {}, ctx)
+
+      expect(getLocalizedProduct).toHaveBeenCalledTimes(1)
     })
 
     it('reuses a cached entry with availableLinkIds and skips the API call', async () => {
@@ -365,6 +596,71 @@ describe('StoreProduct', () => {
       await (StoreProduct.otherLocales as any)(root, {}, ctx)
 
       expect(getLocalizedProduct).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('releaseDate', () => {
+    const resolve = (releaseDate: unknown) =>
+      (StoreProduct.releaseDate as any)({ isVariantOf: { releaseDate } })
+
+    it('converts epoch milliseconds to an ISO calendar date', () => {
+      expect(resolve('1774224000000')).toBe('2026-03-23')
+    })
+
+    it('converts epoch seconds to the same date as its millisecond form', () => {
+      expect(resolve('1774224000')).toBe(resolve('1774224000000'))
+    })
+
+    it('reads a value at the millisecond threshold as milliseconds', () => {
+      expect(resolve('100000000000')).toBe('1973-03-03')
+    })
+
+    it('reads a value just below the threshold as seconds', () => {
+      expect(resolve('99999999999')).toBe('5138-11-16')
+    })
+
+    it('accepts a numeric epoch, not only its string form', () => {
+      expect(resolve(1774224000000)).toBe('2026-03-23')
+    })
+
+    it('passes an ISO date through unchanged', () => {
+      expect(resolve('2026-03-23')).toBe('2026-03-23')
+    })
+
+    it('truncates an ISO datetime to its calendar date', () => {
+      expect(resolve('2026-03-23T14:30:00Z')).toBe('2026-03-23')
+    })
+
+    // UTC is deliberate: preserving the source calendar day would make the
+    // output depend on the offset embedded in each record.
+    it('resolves an offset that crosses midnight to the UTC day', () => {
+      expect(resolve('2026-03-23T21:00:00-05:00')).toBe('2026-03-24')
+    })
+
+    // `new Date(...)` reads an ISO date-time with no timezone designator as
+    // host-local, so without explicit handling this value resolves to the day
+    // before in any zone ahead of UTC. The build machine must not change the
+    // markup.
+    it('reads an ISO date-time with no timezone as UTC, not host-local', () => {
+      expect(resolve('2026-03-23T00:30:00')).toBe('2026-03-23')
+    })
+
+    it('reads an end-of-day ISO date-time with no timezone as UTC', () => {
+      expect(resolve('2026-03-23T23:30:00')).toBe('2026-03-23')
+    })
+
+    it.each([
+      ['an empty string', ''],
+      ['whitespace', '   '],
+      ['an unparseable value', 'not-a-date'],
+      ['null', null],
+      ['undefined', undefined],
+    ])('returns an empty string for %s', (_label, input) => {
+      expect(resolve(input)).toBe('')
+    })
+
+    it('never returns "Invalid Date"', () => {
+      expect(resolve('garbage')).not.toContain('Invalid')
     })
   })
 })

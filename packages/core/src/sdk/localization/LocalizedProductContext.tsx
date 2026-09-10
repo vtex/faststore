@@ -13,6 +13,12 @@ interface LocalizedProductData {
    */
   otherLocales: LocalizedProductLocale[] | null
   /**
+   * Slug for the store's default locale, used to navigate to a locale that is
+   * absent from `otherLocales`. Null outside PDPs, where the API does not
+   * provide one.
+   */
+  defaultLocaleSlug: string | null
+  /**
    * Suffix appended after the localized slug when building the redirect URL.
    * Use '/p' for product pages (PDP), '' for collection/PLP pages.
    */
@@ -24,6 +30,7 @@ const LocalizedProductContext = createContext<LocalizedProductData | null>(null)
 type LocalizedProductProviderProps = Readonly<
   PropsWithChildren<{
     otherLocales: LocalizedProductLocale[] | null | undefined
+    defaultLocaleSlug?: string | null
     /**
      * Suffix to append to the localized slug when building the redirect URL.
      * Defaults to '/p' (product pages). Pass '' for collection/PLP pages.
@@ -41,12 +48,17 @@ type LocalizedProductProviderProps = Readonly<
  */
 export function LocalizedProductProvider({
   otherLocales,
+  defaultLocaleSlug,
   urlSuffix = '/p',
   children,
 }: LocalizedProductProviderProps) {
   const value = useMemo(
-    () => ({ otherLocales: otherLocales ?? null, urlSuffix }),
-    [otherLocales, urlSuffix]
+    () => ({
+      otherLocales: otherLocales ?? null,
+      defaultLocaleSlug: defaultLocaleSlug ?? null,
+      urlSuffix,
+    }),
+    [otherLocales, defaultLocaleSlug, urlSuffix]
   )
 
   return (

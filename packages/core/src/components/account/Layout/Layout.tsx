@@ -35,6 +35,11 @@ const Layout = ({
       })
     : menuRoutes
 
+  // Cards is org-gated like Quotes: without a unit/contract association there
+  // is no card list to show (the Saved-cards service has no customer record
+  // for such a buyer), so the entry is hidden rather than leading to an empty
+  // page. `useAdHocCard` is a separate, finer gate that only affects the
+  // Personal-tab rendering inside the page itself — it never hides the entry.
   const routes = (
     isRepresentative
       ? menuItems

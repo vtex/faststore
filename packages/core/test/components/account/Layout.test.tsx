@@ -39,6 +39,23 @@ describe('Layout', () => {
     expect(screen.getByText('Quotes')).toBeTruthy()
   })
 
+  it('hides the Cards route when the user is not an org member', () => {
+    mockUseSession.mockReturnValue({ b2b: null })
+
+    render(<Layout accountName="Jane Doe">content</Layout>)
+
+    expect(screen.queryByText('Cards')).toBeNull()
+    expect(screen.getByText('Profile')).toBeTruthy()
+  })
+
+  it('shows the Cards route when the user belongs to an org unit', () => {
+    mockUseSession.mockReturnValue({ b2b: { unitId: 'unit-1' } })
+
+    render(<Layout accountName="Jane Doe">content</Layout>)
+
+    expect(screen.getByText('Cards')).toBeTruthy()
+  })
+
   it('hides User Details when not a representative, regardless of org membership', () => {
     mockUseSession.mockReturnValue({ b2b: { unitId: 'unit-1' } })
 

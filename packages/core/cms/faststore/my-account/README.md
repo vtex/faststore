@@ -32,5 +32,5 @@ breaking change to the rendered storefront.
 
 ## Contents
 
-- `components/` — 14 `cms_component__account*.jsonc` section schemas.
-- `pages/` — 6 `cms_content_type__myaccount*.jsonc` content-types.
+- `components/` — 15 `cms_component__account*.jsonc` section schemas.
+- `pages/` — 7 `cms_content_type__myaccount*.jsonc` content-types.

@@ -391,6 +391,25 @@ type Query {
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
+  Returns the list of saved credit cards for the current user.
+  """
+  listCreditCards: SavedCardListResult
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Whether the current user holds the ad-hoc card platform permission, which
+  gates personal card management for Unit/Contract-affiliated buyers.
+
+  Resolved from the user's roles by License Manager — it is not a session token
+  claim. Fails open (`true`) when the permission service is unreachable, so an
+  outage never locks buyers out of their own cards.
+  """
+  hasAdHocCardAccess: Boolean!
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 60, staleWhileRevalidate: 300)
+
+  """
   Returns the list of Orders that the User can view.
   """
   listUserOrders(

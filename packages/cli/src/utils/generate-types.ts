@@ -14,18 +14,86 @@ const schemaFileName = 'schema.graphql'
 
 export default async function genTsTypes(at: string) {
   await generateSchemaFile(at)
-  generateSchemaTSTypes(at)
+  await generateSchemaTSTypes(at)
 }
 
-function generateSchemaTSTypes(root: string) {
+/**
+ * Codegen pointers (documents glob, schema and output dir) for a project root.
+ *
+ * They are expressed relative to `cwd` — the directory graphql-codegen resolves
+ * pointers from — instead of as absolute paths. `@graphql-tools/load` treats a
+ * pointer that contains whitespace and is not a parseable SDL as a broken
+ * inline document and throws, so an absolute glob under e.g.
+ * `/Users/me/My Store/.faststore` made `faststore build` fail with
+ * "Failed to parse the GraphQL document". The relative form never includes the
+ * parent directories, so it is unaffected by their names.
+ */
+export async function getCodegenPointers(
+  root: string,
+  cwd: string = process.cwd()
+) {
+  const globbyImport = (await import('globby')) as GlobbyModule & {
+    default?: GlobbyModule
+  }
+  const globbyModule = globbyImport.default ?? globbyImport
+
   let finalRootPath = path.resolve(root)
 
   if (existsSync(path.resolve(root, '.faststore'))) {
     finalRootPath = path.resolve(root, '.faststore')
   }
 
-  // glob to include all ts/tsx files
-  const documents = [`${finalRootPath}/src/**/*.{ts,tsx}`]
+  // resolve symlinks on both sides (e.g. /var -> /private/var on macOS) so the
+  // relative path does not climb back through the parent directories
+  const realCwd = realpathIfExists(cwd)
+  const relativeTo = (target: string) =>
+    path.relative(realCwd, realpathIfExists(target)) || '.'
+
+  // globs must use forward slashes on every platform, and glob-special
+  // characters in the relative segments (e.g. parentheses) must be escaped
+  const toPattern = (target: string) =>
+    globbyModule.convertPathToPattern(relativeTo(target))
+
+  // plain relative path (no glob escaping): this one is used as a file path
+  const toRelativePath = (target: string) =>
+    relativeTo(target).split(path.sep).join('/')
+
+  return {
+    // glob to include all ts/tsx files
+    documents: [`${toPattern(path.join(finalRootPath, 'src'))}/**/*.{ts,tsx}`],
+    schema: toRelativePath(
+      path.join(finalRootPath, '@generated', schemaFileName)
+    ),
+    // trailing slash: tells the client preset the output is a folder
+    outputDir: `${toRelativePath(path.join(finalRootPath, '@generated'))}/`,
+  }
+}
+
+/**
+ * `fs.realpathSync` for paths that may not exist yet (e.g. `@generated` before
+ * the first run): resolves the closest existing ancestor and re-appends the
+ * missing tail.
+ */
+function realpathIfExists(target: string): string {
+  const missing: string[] = []
+  let current = path.resolve(target)
+
+  while (!existsSync(current)) {
+    const parent = path.dirname(current)
+
+    if (parent === current) {
+      return path.resolve(target)
+    }
+
+    missing.unshift(path.basename(current))
+    current = parent
+  }
+
+  return path.join(fs.realpathSync.native(current), ...missing)
+}
+
+async function generateSchemaTSTypes(root: string) {
+  const { documents, schema, outputDir } = await getCodegenPointers(root)
 
   const config: CodegenConfig = {
     documents,
@@ -33,9 +101,9 @@ function generateSchemaTSTypes(root: string) {
     errorsOnly: false,
     debug: false,
     verbose: true,
-    schema: path.resolve(finalRootPath, '@generated', schemaFileName),
+    schema,
     generates: {
-      [`${finalRootPath}/@generated/`]: {
+      [outputDir]: {
         preset: 'client',
         config: {
           /** Not all of these properties are supported by the preset, but it reflects our previous config when we used typescript plugins directly */

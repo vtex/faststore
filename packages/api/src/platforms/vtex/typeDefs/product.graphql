@@ -99,6 +99,14 @@ type StoreProduct {
   Only populated when localization is enabled.
   """
   otherLocales: [StoreProductLocale!]
+  """
+  Slug for the store's default locale, including the SKU ID suffix.
+  Navigation fallback for the locale selector when the target locale is absent
+  from `otherLocales`. Best-effort: it may point at a slug the catalog has not
+  registered for the default locale, so it must never be used to build hreflang
+  annotations. Only populated when localization is enabled.
+  """
+  defaultLocaleSlug: String
 }
 
 """

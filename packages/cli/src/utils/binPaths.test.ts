@@ -4,7 +4,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
-import { withNodeModulesBins } from './binPaths'
+import { resolvePackageBin, withNodeModulesBins } from './binPaths'
 
 // mimics a hoisted monorepo: bins live at the workspace root, the store has its
 // own node_modules, and `.faststore` has none
@@ -145,4 +145,48 @@ describe('withNodeModulesBins', () => {
       expect(resolved.stdout.trim()).toBe('resolved')
     }
   )
+})
+
+describe('resolvePackageBin', () => {
+  // A store whose core depends on next@16, with an older next@14 sitting at the
+  // workspace root — the shape that made `next build --webpack` fail.
+  let coreDir: string
+
+  beforeAll(() => {
+    coreDir = path.join(storeDir, 'node_modules', '@faststore', 'core')
+
+    const write = (dir: string, version: string) => {
+      fs.mkdirSync(path.join(dir, 'dist', 'bin'), { recursive: true })
+      fs.writeFileSync(
+        path.join(dir, 'package.json'),
+        JSON.stringify({ name: 'next', version, main: 'dist/bin/next.js' })
+      )
+      fs.writeFileSync(
+        path.join(dir, 'dist', 'bin', 'next'),
+        '#!/usr/bin/env node\n'
+      )
+    }
+
+    fs.mkdirSync(coreDir, { recursive: true })
+    write(path.join(coreDir, 'node_modules', 'next'), '16.3.1')
+    write(path.join(workspaceRoot, 'node_modules', 'next'), '14.2.35')
+  })
+
+  it('resolves the copy the dependent package would import', () => {
+    expect(resolvePackageBin('next/dist/bin/next', coreDir)).toBe(
+      path.join(coreDir, 'node_modules', 'next', 'dist', 'bin', 'next')
+    )
+  })
+
+  it('does not settle for a different major sitting closer to the root', () => {
+    const resolved = resolvePackageBin('next/dist/bin/next', coreDir)
+
+    expect(resolved).not.toBe(
+      path.join(workspaceRoot, 'node_modules', 'next', 'dist', 'bin', 'next')
+    )
+  })
+
+  it('returns undefined when the package is not installed', () => {
+    expect(resolvePackageBin('not-a-package/bin/cli', coreDir)).toBeUndefined()
+  })
 })
