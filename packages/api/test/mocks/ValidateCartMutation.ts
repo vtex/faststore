@@ -1,4 +1,5 @@
 import { expect } from 'vitest'
+import { md5 } from '../../src/platforms/vtex/utils/md5'
 export const ValidateCartMutation = `mutation ValidateCartMutation($cart: IStoreCart!) {
   validateCart(cart: $cart) {
     messages {
@@ -538,4 +539,105 @@ export const checkoutOrderFormCustomDataStaleFetch = {
   result: JSON.parse(
     '{"orderFormId":"edbe3b03c8c94827a37ec5a6a4648fd2","salesChannel":"1","loggedIn":false,"isCheckedIn":false,"storeId":null,"checkedInPickupPointId":null,"allowManualPrice":false,"canEditData":true,"userProfileId":null,"userType":null,"ignoreProfileData":false,"value":69824,"messages":[],"items":[{"uniqueId":"90276D2ADB274F12B61A4ADE11874A0A","id":"2737806","productId":"43559243","productRefId":"6327601885574","refId":"6464716212392","ean":null,"name":"Fantastic Soft Cheese plum","skuName":"plum","modalType":null,"parentItemIndex":null,"parentAssemblyBinding":null,"assemblies":[],"priceValidUntil":"2023-03-29T14:32:10Z","tax":0,"price":34912,"listPrice":55757,"manualPrice":null,"manualPriceAppliedBy":null,"sellingPrice":34912,"rewardValue":0,"isGift":false,"additionalInfo":{"dimension":null,"brandName":"Acer","brandId":"2000002","offeringInfo":null,"offeringType":null,"offeringTypeId":null},"preSaleDate":null,"productCategoryIds":"/9285/9294/","productCategories":{"9285":"Kitchen and Home Appliances","9294":"Appliances"},"quantity":2,"seller":"1","sellerChain":["1"],"imageUrl":"http://storeframework.vteximg.com.br/arquivos/ids/168396-55-55/nihil.jpg?v=637753027573130000","detailUrl":"/fantastic-soft-cheese/p","components":[],"bundleItems":[],"attachments":[],"attachmentOfferings":[],"offerings":[],"priceTags":[],"availability":"available","measurementUnit":"un","unitMultiplier":1,"manufacturerCode":null,"priceDefinition":{"calculatedSellingPrice":34912,"total":69824,"sellingPrices":[{"value":34912,"quantity":2}]}}],"selectableGifts":[],"totalizers":[{"id":"Items","name":"Items Total","value":69824}],"shippingData":{"address":null,"logisticsInfo":[{"itemIndex":0,"selectedSla":null,"selectedDeliveryChannel":null,"addressId":null,"slas":[],"shipsTo":["BRA","USA"],"itemId":"2737806","deliveryChannels":[{"id":"delivery"}]}],"selectedAddresses":[],"availableAddresses":[],"pickupPoints":[]},"clientProfileData":null,"paymentData":{"updateStatus":"updated","installmentOptions":[{"paymentSystem":"6","bin":null,"paymentName":null,"paymentGroupName":null,"value":69824,"installments":[{"count":1,"hasInterestRate":false,"interestRate":0,"value":69824,"total":69824,"sellerMerchantInstallments":[{"id":"STOREFRAMEWORK","count":1,"hasInterestRate":false,"interestRate":0,"value":69824,"total":69824}]}]},{"paymentSystem":"201","bin":null,"paymentName":null,"paymentGroupName":null,"value":69824,"installments":[{"count":1,"hasInterestRate":false,"interestRate":0,"value":69824,"total":69824,"sellerMerchantInstallments":[{"id":"STOREFRAMEWORK","count":1,"hasInterestRate":false,"interestRate":0,"value":69824,"total":69824}]}]}],"paymentSystems":[{"id":6,"name":"Boleto Bancário","groupName":"bankInvoicePaymentGroup","validator":{"regex":null,"mask":null,"cardCodeRegex":null,"cardCodeMask":null,"weights":null,"useCvv":false,"useExpirationDate":false,"useCardHolderName":false,"useBillingAddress":false},"stringId":"6","template":"bankInvoicePaymentGroup-template","requiresDocument":false,"isCustom":false,"description":null,"requiresAuthentication":false,"dueDate":"2022-04-05T14:18:23.1569301Z","availablePayments":null},{"id":201,"name":"Free","groupName":"custom201PaymentGroupPaymentGroup","validator":{"regex":null,"mask":null,"cardCodeRegex":null,"cardCodeMask":null,"weights":null,"useCvv":false,"useExpirationDate":false,"useCardHolderName":false,"useBillingAddress":false},"stringId":"201","template":"custom201PaymentGroupPaymentGroup-template","requiresDocument":false,"isCustom":true,"description":"Free pay to test checkout payments","requiresAuthentication":false,"dueDate":"2022-04-05T14:18:23.1569301Z","availablePayments":null}],"payments":[],"giftCards":[],"giftCardMessages":[],"availableAccounts":[],"availableTokens":[],"availableAssociations":{}},"marketingData":null,"sellers":[{"id":"1","name":"VTEX","logo":""}],"clientPreferencesData":{"locale":"en-US","optinNewsLetter":null},"commercialConditionData":null,"storePreferencesData":{"countryCode":"USA","saveUserData":true,"timeZone":"Central Standard Time","currencyCode":"USD","currencyLocale":1033,"currencySymbol":"$","currencyFormatInfo":{"currencyDecimalDigits":2,"currencyDecimalSeparator":".","currencyGroupSeparator":",","currencyGroupSize":3,"startsWithCurrencySymbol":true}},"giftRegistryData":null,"openTextField":null,"invoiceData":null,"customData":{"customApps":[{"fields":{"cartEtag":"78044bf587821bce78ee7e51947b1246"},"id":"faststore","major":1}]},"itemMetadata":{"items":[{"id":"2737806","seller":"1","name":"Fantastic Soft Cheese plum","skuName":"plum","productId":"43559243","refId":"6464716212392","ean":null,"imageUrl":"http://storeframework.vteximg.com.br/arquivos/ids/168396-55-55/nihil.jpg?v=637753027573130000","detailUrl":"/fantastic-soft-cheese/p","assemblyOptions":[]}]},"hooksData":null,"ratesAndBenefitsData":{"rateAndBenefitsIdentifiers":[],"teaser":[]},"subscriptionData":null,"itemsOrdination":null}'
   ),
+}
+
+// --- Services (offerings) attached to only some units of a SKU -------------
+//
+// Checkout splits an item when a service is attached to it, so the orderForm
+// ends up with two lines of the same SKU that differ only by `bundleItems`.
+// The browser cart cannot express that difference: both units share one cart
+// line, and `getId` groups them together.
+
+const SERVICED_SKU = '18643698'
+
+const [baseUnit] = checkoutOrderFormValidFetch.result.items
+
+const plainUnit = {
+  ...baseUnit,
+  uniqueId: 'PLAINUNIT0000000000000000000000A',
+  quantity: 1,
+}
+
+const servicedUnit = {
+  ...baseUnit,
+  uniqueId: 'SERVICEDUNIT00000000000000000000',
+  quantity: 1,
+  bundleItems: [
+    {
+      id: 'installation',
+      name: 'Installation',
+      price: 10000,
+      sellingPrice: 10000,
+      quantity: 1,
+    },
+  ],
+}
+
+const unitsWithService = [plainUnit, servicedUnit]
+
+// Same shape as getOrderFormEtag, so the orderForm is not treated as stale and
+// the delta path — the one under test — actually runs.
+const etagFor = (items: Array<Record<string, any>>) =>
+  md5(
+    JSON.stringify({
+      sessionId: '',
+      items: items.map(({ id, quantity, seller, attachments }) => ({
+        id,
+        quantity,
+        seller,
+        attachments,
+      })),
+    })
+  )
+
+/** Browser cart: one line, quantity 2 — it cannot say that only one unit has the service. */
+export const CartWithServiceOnOneUnit = {
+  order: {
+    orderNumber: 'edbe3b03c8c94827a37ec5a6a4648fd2',
+    acceptedOffer: [
+      {
+        price: 44.24,
+        listPrice: 69.14,
+        seller: { identifier: '1' },
+        quantity: 2,
+        itemOffered: {
+          sku: SERVICED_SKU,
+          image: [
+            {
+              url: 'http://storeframework.vtexassets.com/arquivos/ids/182417/aut.jpg?v=637755531474870000',
+              alternateName: 'ab',
+            },
+          ],
+          name: 'silver',
+        },
+      },
+    ],
+  },
+}
+
+export const checkoutOrderFormWithServiceFetch = {
+  ...checkoutOrderFormValidFetch,
+  result: {
+    ...checkoutOrderFormValidFetch.result,
+    items: unitsWithService,
+    customData: {
+      customApps: [
+        {
+          fields: { cartEtag: etagFor(unitsWithService) },
+          id: 'faststore',
+          major: 1,
+        },
+      ],
+    },
+  },
+}
+
+export const checkoutOrderFormItemsWithServiceFetch = {
+  ...checkoutOrderFormItemsInvalidFetch,
+  result: checkoutOrderFormWithServiceFetch.result,
+}
+
+export const checkoutOrderFormCustomDataWithServiceFetch = {
+  ...checkoutOrderFormCustomDataValidFetch,
+  result: checkoutOrderFormWithServiceFetch.result,
 }

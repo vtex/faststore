@@ -60,6 +60,16 @@ export interface OrderFormItem {
     total: number
   }
   attachments: Attachment[]
+  /** Services (offerings) attached to this item. Priced separately from the item. */
+  bundleItems?: BundleItem[]
+}
+
+export interface BundleItem {
+  id: string
+  name: string
+  price: number
+  sellingPrice: number
+  quantity: number
 }
 
 export interface SKUSpecification {

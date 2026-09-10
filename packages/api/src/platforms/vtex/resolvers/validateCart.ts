@@ -132,6 +132,12 @@ function hasParentItem(items: OrderFormItem[], itemId: string) {
   )
 }
 
+function hasBundleItems(items: OrderFormItem[], itemId: string) {
+  return items?.some(
+    (item) => item.id === itemId && (item.bundleItems?.length ?? 0) > 0
+  )
+}
+
 const joinItems = (form: OrderForm) => {
   const itemsById = form.items.reduce(
     (acc, item, idx) => {
@@ -491,9 +497,14 @@ export const validateCart = async (
       // Update existing items
       const [head, ...tail] = maybeOriginItem
 
+      // Items carrying services (offerings) are not interchangeable: two lines of
+      // the same SKU can differ by an attached service, and that difference is
+      // not expressible in the browser cart. Collapsing them onto `head` would
+      // replicate that service onto every unit or drop it entirely.
       if (
         hasParentItem(orderForm.items, head.itemOffered.sku) ||
-        hasChildItem(orderForm.items, head.itemOffered.sku)
+        hasChildItem(orderForm.items, head.itemOffered.sku) ||
+        hasBundleItems(orderForm.items, head.itemOffered.sku)
       ) {
         acc.itemsToUpdate.push(head)
 
