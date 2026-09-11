@@ -298,4 +298,42 @@ describe('MyAccountListCards', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
     expect(mockReload).toHaveBeenCalledTimes(1)
   })
+
+  // Regression guard for the search/list spacing fix. The stylesheet hangs the
+  // column gap off this attribute because .page's own gap stops at this
+  // wrapper and never separates the controls row from the list below it.
+  // Dropping the attribute collapses that gap back to zero, silently.
+  it('marks the panel wrapper that carries the spacing between controls and list', () => {
+    const { container } = render(
+      <MyAccountListCards
+        personalCards={[VISA_PERSONAL]}
+        sharedCards={[AMEX_SHARED]}
+        hasOrgAssociation
+        canViewPersonalCards
+      />
+    )
+
+    const panel = container.querySelector('[data-fs-list-cards-panel]')
+
+    expect(panel).not.toBeNull()
+    expect(panel).toHaveAttribute('role', 'tabpanel')
+    expect(panel?.querySelector('[data-fs-list-cards-controls]')).not.toBeNull()
+    expect(panel?.querySelector('[data-fs-list-cards-grid]')).not.toBeNull()
+  })
+
+  it('keeps the panel marker in the shared-only rendering, which has no tabpanel role', () => {
+    const { container } = render(
+      <MyAccountListCards
+        personalCards={[]}
+        sharedCards={[AMEX_SHARED]}
+        hasOrgAssociation
+        canViewPersonalCards={false}
+      />
+    )
+
+    const panel = container.querySelector('[data-fs-list-cards-panel]')
+
+    expect(panel).not.toBeNull()
+    expect(panel).not.toHaveAttribute('role')
+  })
 })
