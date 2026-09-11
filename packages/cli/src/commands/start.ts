@@ -2,10 +2,19 @@ import { Args, Command } from '@oclif/core'
 import { spawn, spawnSync } from 'node:child_process'
 import fsExtra from 'fs-extra'
 import path from 'node:path'
-import { getPreferredPackageManager } from '../utils/commands'
+import { resolvePackageManager } from '../utils/commands'
 import { getBasePath, withBasePath } from '../utils/directory'
 
 const { existsSync } = fsExtra
+
+/** Validated package-manager argv only — never a shell string. */
+function spawnPackageManagerSync(bin: string, args: string[]) {
+  return spawnSync(bin, args, { stdio: 'inherit' }) // NOSONAR
+}
+
+function spawnPackageManager(bin: string, args: string[]) {
+  return spawn(bin, args, { stdio: 'inherit' }) // NOSONAR
+}
 
 export default class Start extends Command {
   static args = {
@@ -27,21 +36,33 @@ export default class Start extends Command {
     const basePath = getBasePath(args.path)
     const port = args.port ?? 3000
     const { getRoot, tmpDir } = withBasePath(basePath)
-    const packageManager = await getPreferredPackageManager()
+    const { argv } = await resolvePackageManager(basePath)
+    const [bin, ...runnerArgs] = argv
 
     if (!existsSync(path.join(getRoot(), '.next'))) {
-      spawnSync(`${packageManager} faststore build`, {
-        shell: true,
-        stdio: 'inherit',
-      })
+      // argv is a validated package-manager binary (plus optional Volta
+      // prefix), never a shell string — keep this off a shell so the original
+      // FAS-1199 prompt leak cannot reach sh.
+      const build = spawnPackageManagerSync(bin, [
+        ...runnerArgs,
+        'faststore',
+        'build',
+      ])
+
+      if (build.status !== 0) {
+        throw new Error(
+          `"${[bin, ...runnerArgs].join(' ')} faststore build" failed, so there is no build to serve.`
+        )
+      }
     }
 
-    return spawn(
-      packageManager,
-      ['next', 'start', tmpDir, '-p', String(port)],
-      {
-        stdio: 'inherit',
-      }
-    )
+    return spawnPackageManager(bin, [
+      ...runnerArgs,
+      'next',
+      'start',
+      tmpDir,
+      '-p',
+      String(port),
+    ])
   }
 }

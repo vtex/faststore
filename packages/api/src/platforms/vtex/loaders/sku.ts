@@ -1,4 +1,5 @@
 import DataLoader from 'dataloader'
+import type { Options } from '../../../typings/globals'
 
 import { NotFoundError } from '../../errors'
 import type { Clients } from '../clients'

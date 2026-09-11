@@ -1,6 +1,7 @@
 import { execute, parse } from 'graphql'
 import { beforeEach, expect, test, vi } from 'vitest'
 import { GraphqlVtexContextFactory, GraphqlVtexSchema } from '../../src'
+import type { Options } from '../../src/typings/globals'
 import {
   InvalidCart,
   ValidCart,

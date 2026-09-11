@@ -151,7 +151,7 @@ describe('useRecommendationShelf', () => {
     })
   })
 
-  it('follows the live cart context when not frozen', () => {
+  it('follows the live cart context', () => {
     useCart.mockReturnValue({ items: [cartItem('pg-1')] })
 
     const { rerender } = renderHook(() =>
