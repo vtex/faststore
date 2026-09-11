@@ -664,7 +664,7 @@ async function enableSearchSSR(basePath: string) {
   }
 
   const { tmpDir } = withBasePath(basePath)
-  const searchPagePath = path.join(tmpDir, 'src', 'pages', 's.tsx')
+  const searchPagePath = path.join(tmpDir, 'src', 'pages', 's', 'index.tsx')
   const searchPageData = String(readFileSync(searchPagePath))
 
   const searchPageWithSSR = searchPageData.replaceAll(
