@@ -120,9 +120,23 @@ jobs:
         run: |
           Set-Location starter
           $pkgPagesDir = "node_modules\@faststore\core\src\pages"
-          Write-Host "--- $pkgPagesDir listing ---"
+          Write-Host "--- $pkgPagesDir listing (via yarn install) ---"
           Get-ChildItem $pkgPagesDir -ErrorAction SilentlyContinue | Select-Object Name, Length
-          Write-Host "Test-Path s.tsx : $(Test-Path (Join-Path $pkgPagesDir 's.tsx'))"
+          Write-Host "Test-Path s.tsx (yarn) : $(Test-Path (Join-Path $pkgPagesDir 's.tsx'))"
+
+      # Isolate: is this Yarn Classic's own tar implementation, or a Windows
+      # filesystem/path issue that would affect any extractor? Extract the
+      # exact same tarball with Windows' native tar.exe for comparison.
+      - name: Diagnose extraction with native tar.exe
+        run: |
+          $coreTgz = Get-ChildItem packed-packages\faststore-core-*.tgz | Select-Object -First 1
+          Write-Host "Using tarball: $($coreTgz.FullName)"
+          New-Item -ItemType Directory -Force -Path native-tar-test | Out-Null
+          tar -xzf $coreTgz.FullName -C native-tar-test
+          $nativePagesDir = "native-tar-test\package\src\pages"
+          Write-Host "--- $nativePagesDir listing (via native tar.exe) ---"
+          Get-ChildItem $nativePagesDir -ErrorAction SilentlyContinue | Select-Object Name, Length
+          Write-Host "Test-Path s.tsx (native tar) : $(Test-Path (Join-Path $nativePagesDir 's.tsx'))"
 
       - name: Build starter
         run: |
