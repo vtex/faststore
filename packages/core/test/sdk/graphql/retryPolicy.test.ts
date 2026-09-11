@@ -43,8 +43,10 @@ describe('useQuery retry policy', () => {
   })
 
   afterEach(() => {
-    jest.useRealTimers()
+    // Restore mocks before reinstating real timers, so the `setTimeout` spy
+    // is not put back onto `globalThis` while timers are still faked.
     jest.restoreAllMocks()
+    jest.useRealTimers()
   })
 
   it('never retries an upstream rate limit (429)', () => {
