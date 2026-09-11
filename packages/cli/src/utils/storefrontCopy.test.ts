@@ -83,6 +83,18 @@ describe('prepareStorefrontTsConfig', () => {
     ])
   })
 
+  it('excludes store stories and Jest manual mocks copied under src/customizations', () => {
+    const { exclude = [] } = prepareStorefrontTsConfig(coreTsConfig)
+
+    expect(exclude).toEqual(
+      expect.arrayContaining([
+        '**/*.stories.ts',
+        '**/*.stories.tsx',
+        '**/__mocks__/**',
+      ])
+    )
+  })
+
   it('does not mutate the input tsconfig', () => {
     const input = structuredClone(coreTsConfig)
 

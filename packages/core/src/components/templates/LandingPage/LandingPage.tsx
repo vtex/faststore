@@ -1,4 +1,5 @@
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import { useRouter } from 'next/router'
 import type { ComponentType } from 'react'
 
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
@@ -53,6 +54,7 @@ export default function LandingPage({
   globalSections,
   globalSettings,
 }: LandingPageProps) {
+  const router = useRouter()
   const context = {
     data: serverData,
     globalSettings,
@@ -63,7 +65,7 @@ export default function LandingPage({
     storeConfig.seo.titleTemplate ??
     storeConfig.seo.title
 
-  const storeURL = getStoreURL()
+  const storeURL = getStoreURL(router.locale)
 
   return (
     <>

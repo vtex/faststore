@@ -1345,13 +1345,24 @@ export type StoreCartMessage = {
 export type StoreCollection = {
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /**
+   * Slug the catalog resolves for the requested locale, lowercased.
+   * Meant for the page's canonical URL: `slug` echoes the path the shopper
+   * visited, and by-linkid matches case-insensitively, so without this every
+   * casing variant would claim to be canonical. Unlike `otherLocales`, it may fall
+   * back to a slug registered for another locale, so it must never be used to
+   * build hreflang annotations.
+   */
+  canonicalSlug: Maybe<Scalars['String']['output']>;
   /** Collection ID. */
   id: Scalars['ID']['output'];
   /** Collection meta information. Used for search. */
   meta: StoreCollectionMeta;
   /**
    * Localized versions of this collection for all available locales.
-   * Only populated when localization is enabled.
+   * Only announces slugs the catalog has registered for each locale, so it is safe
+   * to build hreflang annotations from. Only populated when localization is
+   * enabled.
    */
   otherLocales: Maybe<Array<StoreCollectionLocale>>;
   /** Meta tag data. */
@@ -2820,7 +2831,7 @@ export type ServerCollectionPageQueryQueryVariables = Exact<{
 }>;
 
 
-export type ServerCollectionPageQueryQuery = { collection: { id: string, seo: { title: string, description: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, meta: { selectedFacets: Array<{ key: string, value: string }> }, otherLocales: Array<{ locale: string, slug: string }> | null } };
+export type ServerCollectionPageQueryQuery = { collection: { canonicalSlug: string | null, id: string, seo: { title: string, description: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, meta: { selectedFacets: Array<{ key: string, value: string }> }, otherLocales: Array<{ locale: string, slug: string }> | null } };
 
 export type ServerProductQueryQueryVariables = Exact<{
   locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet;
@@ -3624,7 +3635,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
 }
     `, {"fragmentName":"SearchEvent_metadata"}) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>;
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
-export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"d46841b30ae1f6350021b5cf02f253d56c848664"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
+export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"fa5f52d2e0c1c7905c1d8572b81ce48d62265a14"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
 export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"13fc9efa8628b91971e3a8aa985e6cdbed70adae"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
 export const ServerListCardsQueryDocument = {"__meta__":{"operationName":"ServerListCardsQuery","operationHash":"392cf85d18d66b94d6ea8d6b2a3c6ffb5c94683d"}} as unknown as TypedDocumentString<ServerListCardsQueryQuery, ServerListCardsQueryQueryVariables>;
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;

@@ -3,6 +3,59 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0-dev.6](https://github.com/vtex/faststore/compare/v4.8.0-dev.5...v4.8.0-dev.6) (2026-09-11)
+
+### Bug Fixes
+
+- normalize outputFileTracingRoot to forward slashes on Windows ([#3484](https://github.com/vtex/faststore/issues/3484)) ([5c24f4a](https://github.com/vtex/faststore/commit/5c24f4a551853b1e93c898f4fa7d9729ceca44cc)), closes [#3483](https://github.com/vtex/faststore/issues/3483) [#3450](https://github.com/vtex/faststore/issues/3450) [#3483](https://github.com/vtex/faststore/issues/3483) [#3450](https://github.com/vtex/faststore/issues/3450) [#3450](https://github.com/vtex/faststore/issues/3450)
+
+# [4.8.0-dev.5](https://github.com/vtex/faststore/compare/v4.8.0-dev.4...v4.8.0-dev.5) (2026-09-09)
+
+### Bug Fixes
+
+- forward contentSource.project as --storeId in cms-sync CP flow ([#3482](https://github.com/vtex/faststore/issues/3482)) ([c52365e](https://github.com/vtex/faststore/commit/c52365e74e00120961702ff3301f0f0d8fbe5449))
+
+# [4.8.0-dev.4](https://github.com/vtex/faststore/compare/v4.8.0-dev.3...v4.8.0-dev.4) (2026-09-08)
+
+### Bug Fixes
+
+- generate GraphQL types when the project path contains spaces ([#3476](https://github.com/vtex/faststore/issues/3476)) ([b20c134](https://github.com/vtex/faststore/commit/b20c134eb5618f15e7e8328d6fa8ecc588d8e149)), closes [#3454](https://github.com/vtex/faststore/issues/3454) [#3454](https://github.com/vtex/faststore/issues/3454) [#3454](https://github.com/vtex/faststore/issues/3454) [#3454](https://github.com/vtex/faststore/issues/3454) [#3474](https://github.com/vtex/faststore/issues/3474) [#3475](https://github.com/vtex/faststore/issues/3475) [#3477](https://github.com/vtex/faststore/issues/3477)
+
+# [4.8.0-dev.3](https://github.com/vtex/faststore/compare/v4.8.0-dev.2...v4.8.0-dev.3) (2026-09-08)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.8.0-dev.2](https://github.com/vtex/faststore/compare/v4.8.0-dev.1...v4.8.0-dev.2) (2026-09-07)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.8.0-dev.1](https://github.com/vtex/faststore/compare/v4.8.0-dev.0...v4.8.0-dev.1) (2026-09-03)
+
+### Bug Fixes
+
+- **cli:** keep store stories and Jest mocks out of the .faststore type-check ([2caafc1](https://github.com/vtex/faststore/commit/2caafc1112d5870c69a6673d7fd4d6b601404e3f)), closes [#3459](https://github.com/vtex/faststore/issues/3459)
+
+# [4.8.0-dev.0](https://github.com/vtex/faststore/compare/v4.7.1-dev.2...v4.8.0-dev.0) (2026-09-03)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.7.1-dev.2](https://github.com/vtex/faststore/compare/v4.7.1-dev.1...v4.7.1-dev.2) (2026-09-02)
+
+### Bug Fixes
+
+- keep package manager spawn off a shell and out of generate.ts ([4807b0a](https://github.com/vtex/faststore/commit/4807b0af08c214b58160a90246234e5242280224))
+- refuse package manager substitution when installing dependencies ([1a06a13](https://github.com/vtex/faststore/commit/1a06a13dd7feafab89f4792831a863c786c7ded8)), closes [#3422](https://github.com/vtex/faststore/issues/3422)
+- resolve the package manager against the target directory ([86f1732](https://github.com/vtex/faststore/commit/86f1732025d187d6c24899258642379872b7a8e7)), closes [#3422](https://github.com/vtex/faststore/issues/3422)
+- stop forwarding unvalidated ni output to the shell in the CLI ([84eb880](https://github.com/vtex/faststore/commit/84eb88052aec6625d9deb5d535e7d182a08e1cbb))
+
+## [4.7.1-dev.1](https://github.com/vtex/faststore/compare/v4.7.1-dev.0...v4.7.1-dev.1) (2026-09-01)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.7.1-dev.0](https://github.com/vtex/faststore/compare/v4.7.0...v4.7.1-dev.0) (2026-08-31)
+
+**Note:** Version bump only for package @faststore/cli
+
 # [4.7.0](https://github.com/vtex/faststore/compare/v4.7.0-dev.9...v4.7.0) (2026-08-31)
 
 **Note:** Version bump only for package @faststore/cli
