@@ -174,6 +174,15 @@ describe('/api/graphql error status propagation', () => {
     expect(res.status).toHaveBeenCalledWith(404)
   })
 
+  it('sets cache-control: no-store on error responses so a bare 404/410 is not cached by intermediaries', async () => {
+    mockExecuteWithErrors([maskedError(new NotFoundError('missing'))])
+
+    const res = createResponse()
+    await handler(createRequest(), res)
+
+    expect(res.setHeader).toHaveBeenCalledWith('cache-control', 'no-store')
+  })
+
   it('treats an empty errors array as success instead of a 500', async () => {
     mockedExecute.mockResolvedValue({
       data: { product: { id: '1' } },

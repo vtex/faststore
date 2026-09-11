@@ -244,6 +244,11 @@ const handler: NextApiHandler = async (request, response) => {
 
       const status = fastStoreError?.extensions.status ?? 500
 
+      // Error responses are never cacheable: some upstream statuses (404,
+      // 410, ...) are heuristically cacheable by intermediaries per RFC 9111
+      // §4.2.2, which would let a CDN cache an error for this operation.
+      response.setHeader('cache-control', 'no-store')
+
       // No recoverable FastStoreError: keep the masked, body-less 500.
       if (!fastStoreError) {
         response.status(status).end()
