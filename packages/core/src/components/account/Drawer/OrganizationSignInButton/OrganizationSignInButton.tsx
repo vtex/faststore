@@ -13,21 +13,19 @@ export const OrganizationSignInButton = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const { person } = useSession()
+  const { person, b2b } = useSession()
   const navigationLabels = useAccountNavigationLabels()
   const companyLabel = navigationLabels?.companyLabel ?? 'Company'
   const contractLabel = navigationLabels?.contractLabel ?? 'Contract'
+  const activeContractName = b2b?.contractName?.trim()
+  const label =
+    activeContractName || (person?.id ? companyLabel : contractLabel)
 
   const openDrawer = (
     event: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLButtonElement>
   ) => {
-    // if (session.person) {
-    // biome-ignore lint/correctness/noConstantCondition: <explanation>
-    if (true) {
-      event.preventDefault()
-
-      setIsOpen(true)
-    }
+    event.preventDefault()
+    setIsOpen(true)
   }
 
   const closeDrawer = () => {
@@ -45,7 +43,7 @@ export const OrganizationSignInButton = ({
         icon={<Icon name={icon} width={18} height={18} weight="bold" />}
         iconPosition="left"
       >
-        {person?.id ? companyLabel : contractLabel}
+        {label}
       </Button>
 
       {isOpen && (

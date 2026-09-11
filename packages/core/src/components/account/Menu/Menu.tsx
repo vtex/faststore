@@ -1,10 +1,13 @@
 import { Button } from '@faststore/ui'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 import Link from 'src/components/ui/Link'
 import styles from '../section.module.scss'
 
+import { OrganizationDrawer } from '../Drawer/OrganizationDrawer/OrganizationDrawer'
 import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
+import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 interface NavItem {
@@ -43,6 +46,9 @@ const Menu = ({ avatarImageUrl, accountName, items }: MenuProps) => {
   const { isDesktop } = useScreenResize()
   const navigationLabels = useAccountNavigationLabels()
   const switchLabel = navigationLabels?.switchLabel ?? 'Switch'
+  const { b2b } = useSession()
+  const [isSwitcherOpen, setIsSwitcherOpen] = useState(false)
+  const canSwitchContract = Boolean(b2b?.unitId)
 
   return (
     <div className={styles.menu}>
@@ -56,16 +62,27 @@ const Menu = ({ avatarImageUrl, accountName, items }: MenuProps) => {
             )}
             <h2>{accountName}</h2>
           </div>
-          <Button
-            className={styles.switchButton}
-            variant="secondary"
-            size="small"
-          >
-            {switchLabel}
-          </Button>
+          {canSwitchContract && (
+            <Button
+              className={styles.switchButton}
+              variant="secondary"
+              size="small"
+              onClick={() => setIsSwitcherOpen(true)}
+            >
+              {switchLabel}
+            </Button>
+          )}
         </div>
       ) : null}
       <Nav items={items} />
+      {isSwitcherOpen && (
+        <OrganizationDrawer
+          isOpen
+          closeDrawer={() => setIsSwitcherOpen(false)}
+          isRepresentative={Boolean(b2b?.isRepresentative)}
+          initialView="switch"
+        />
+      )}
     </div>
   )
 }

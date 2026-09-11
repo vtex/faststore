@@ -42,6 +42,7 @@ import {
   parseSessionAvailableContracts,
   resolveActiveContractDisplayName,
   resolveActiveContractIdFromSession,
+  resolveDefaultContractId,
 } from '../utils/contract'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
@@ -991,7 +992,23 @@ export const Query = {
       jwt?.customerId?.trim() ||
       ''
 
-    return mapSessionContractsToStoreContracts(contracts, activeContractId)
+    // Default flag lives only in the store-front BFF; never block the list on it.
+    const attached = await commerce.storeFront
+      .attachedContracts(orgUnitId)
+      .catch((error) => {
+        console.warn(
+          'availableContracts: default contract lookup failed',
+          error
+        )
+        return null
+      })
+    const defaultContractId = resolveDefaultContractId(attached?.contracts)
+
+    return mapSessionContractsToStoreContracts(
+      contracts,
+      activeContractId,
+      defaultContractId
+    )
   },
   pickupPoints: async (
     _: unknown,

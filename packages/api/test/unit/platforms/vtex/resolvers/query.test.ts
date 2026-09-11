@@ -12,6 +12,11 @@ const makeCtx = () =>
     clients: {
       commerce: {
         session,
+        storeFront: {
+          attachedContracts: vi.fn().mockResolvedValue({
+            contracts: [{ id: 'contract-2' }, { id: 'contract-1' }],
+          }),
+        },
       },
     },
   }) as any
@@ -60,24 +65,29 @@ describe('Query.availableContracts', () => {
   })
 
   it('forbids listing contracts for a different organization unit', async () => {
+    const ctx = makeCtx()
     await expect(
-      availableContracts(null, { orgUnitId: 'other-unit' }, makeCtx())
+      availableContracts(null, { orgUnitId: 'other-unit' }, ctx)
     ).rejects.toThrow(/not allowed/i)
     expect(session).toHaveBeenCalledTimes(1)
+    // Governance check must short-circuit before the default-contract lookup.
+    expect(
+      ctx.clients.commerce.storeFront.attachedContracts
+    ).not.toHaveBeenCalled()
   })
 
   it('lists session contracts and flags the current one', async () => {
-    const result = await availableContracts(
-      null,
-      { orgUnitId: 'unit-1' },
-      makeCtx()
-    )
+    const ctx = makeCtx()
+    const result = await availableContracts(null, { orgUnitId: 'unit-1' }, ctx)
 
     expect(session).toHaveBeenCalledTimes(1)
+    expect(
+      ctx.clients.commerce.storeFront.attachedContracts
+    ).toHaveBeenCalledWith('unit-1')
     expect(result).toEqual([
-      { id: 'a', corporateName: 'Corp A', isActive: false },
-      { id: 'b', corporateName: 'Corp B', isActive: true },
-      { id: 'c', corporateName: 'Corp C', isActive: false },
+      { id: 'a', corporateName: 'Corp A', isActive: false, isDefault: false },
+      { id: 'b', corporateName: 'Corp B', isActive: true, isDefault: false },
+      { id: 'c', corporateName: 'Corp C', isActive: false, isDefault: false },
     ])
   })
 
@@ -119,7 +129,7 @@ describe('Query.availableContracts', () => {
     )
 
     expect(result).toEqual([
-      { id: 'a', corporateName: 'Corp A', isActive: true },
+      { id: 'a', corporateName: 'Corp A', isActive: true, isDefault: false },
     ])
   })
 
@@ -159,8 +169,8 @@ describe('Query.availableContracts', () => {
     )
 
     expect(result).toEqual([
-      { id: 'a', corporateName: 'Corp A', isActive: false },
-      { id: 'c', corporateName: 'Corp C', isActive: true },
+      { id: 'a', corporateName: 'Corp A', isActive: false, isDefault: false },
+      { id: 'c', corporateName: 'Corp C', isActive: true, isDefault: false },
     ])
   })
 
@@ -223,8 +233,95 @@ describe('Query.availableContracts', () => {
     const result = await availableContracts(null, { orgUnitId: 'unit-1' }, ctx)
 
     expect(result).toEqual([
-      { id: 'jwt-contract', corporateName: 'JWT Corp', isActive: true },
+      {
+        id: 'jwt-contract',
+        corporateName: 'JWT Corp',
+        isActive: true,
+        isDefault: false,
+      },
     ])
+  })
+
+  it('flags the unit default from the store-front attached list', async () => {
+    session.mockResolvedValueOnce({
+      namespaces: {
+        authentication: { unitId: { value: 'unit-1' } },
+        shopper: {
+          availableContracts: {
+            value: [
+              {
+                customerId: 'contract-1',
+                contractName: 'Corp One',
+                isActive: true,
+                isCurrent: false,
+              },
+              {
+                customerId: 'contract-2',
+                contractName: 'Corp Two',
+                isActive: true,
+                isCurrent: false,
+              },
+            ],
+          },
+        },
+      },
+    })
+
+    const result = await availableContracts(
+      null,
+      { orgUnitId: 'unit-1' },
+      makeCtx()
+    )
+    expect(
+      result.find((c: { id: string }) => c.id === 'contract-2')?.isDefault
+    ).toBe(true)
+    expect(
+      result.find((c: { id: string }) => c.id === 'contract-1')?.isDefault
+    ).toBe(false)
+  })
+
+  it('degrades to isDefault=false when the attached list fails', async () => {
+    session.mockResolvedValueOnce({
+      namespaces: {
+        authentication: { unitId: { value: 'unit-1' } },
+        shopper: {
+          availableContracts: {
+            value: [
+              {
+                customerId: 'contract-1',
+                contractName: 'Corp One',
+                isActive: true,
+                isCurrent: false,
+              },
+              {
+                customerId: 'contract-2',
+                contractName: 'Corp Two',
+                isActive: true,
+                isCurrent: false,
+              },
+            ],
+          },
+        },
+      },
+    })
+
+    const ctx = makeCtx()
+    const lookupError = new Error('boom')
+    ctx.clients.commerce.storeFront.attachedContracts.mockRejectedValueOnce(
+      lookupError
+    )
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    const result = await availableContracts(null, { orgUnitId: 'unit-1' }, ctx)
+
+    expect(
+      result.every((c: { isDefault: boolean }) => c.isDefault === false)
+    ).toBe(true)
+    expect(warnSpy).toHaveBeenCalledWith(
+      'availableContracts: default contract lookup failed',
+      lookupError
+    )
+    warnSpy.mockRestore()
   })
 })
 
