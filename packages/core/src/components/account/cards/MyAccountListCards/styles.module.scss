@@ -101,7 +101,6 @@
     // overflowing it, since `min-height` stays `auto`.
     flex-direction: column;
     gap: var(--fs-spacing-1, 0.5rem);
-    justify-content: space-between;
     aspect-ratio: 1;
     padding: var(--fs-spacing-2, 1rem);
     border: 1px solid var(--fs-border-color, #d9d9d9);
@@ -109,6 +108,11 @@
   }
 
   [data-fs-list-cards-item-brand] {
+    // Pins the brand mark to the top edge and lets the label and number stay
+    // grouped at the bottom, as the design reference has them. `space-between`
+    // on the parent cannot express this: with three children it spreads all
+    // three evenly and strands the label in the middle of the tile.
+    margin-bottom: auto;
     font-size: 0.875rem;
     font-weight: 700;
   }
