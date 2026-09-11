@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0-dev.6](https://github.com/vtex/faststore/compare/v4.8.0-dev.5...v4.8.0-dev.6) (2026-09-11)
+
+### Bug Fixes
+
+- normalize outputFileTracingRoot to forward slashes on Windows ([#3484](https://github.com/vtex/faststore/issues/3484)) ([5c24f4a](https://github.com/vtex/faststore/commit/5c24f4a551853b1e93c898f4fa7d9729ceca44cc)), closes [#3483](https://github.com/vtex/faststore/issues/3483) [#3450](https://github.com/vtex/faststore/issues/3450) [#3483](https://github.com/vtex/faststore/issues/3483) [#3450](https://github.com/vtex/faststore/issues/3450) [#3450](https://github.com/vtex/faststore/issues/3450)
+
 # [4.8.0-dev.5](https://github.com/vtex/faststore/compare/v4.8.0-dev.4...v4.8.0-dev.5) (2026-09-09)
 
 ### Bug Fixes
