@@ -120,6 +120,11 @@ jobs:
 
       # A Windows-only failure is hard to reproduce on the team's machines, and
       # the runner state is gone once the job ends.
+      #
+      # include-hidden-files is required: actions/upload-artifact excludes
+      # dotfiles/dot-directories by default, so .faststore (the whole
+      # generated app) was silently dropped from every artifact, leaving
+      # only package.json — regardless of what actually failed.
       - name: Upload starter diagnostics
         if: failure()
         uses: actions/upload-artifact@v4
@@ -130,3 +135,4 @@ jobs:
             starter/.faststore/
           retention-days: 7
           if-no-files-found: ignore
+          include-hidden-files: true
