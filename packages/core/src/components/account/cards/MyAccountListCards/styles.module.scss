@@ -94,8 +94,15 @@
 
   [data-fs-list-cards-item] {
     display: flex;
+
+    // Square tile, per the design reference: brand mark at the top, label and
+    // number at the bottom, with the slack between them. `aspect-ratio` sets
+    // the preferred box only — a long label still grows the card rather than
+    // overflowing it, since `min-height` stays `auto`.
     flex-direction: column;
     gap: var(--fs-spacing-1, 0.5rem);
+    justify-content: space-between;
+    aspect-ratio: 1;
     padding: var(--fs-spacing-2, 1rem);
     border: 1px solid var(--fs-border-color, #d9d9d9);
     border-radius: var(--fs-border-radius, 0.25rem);
