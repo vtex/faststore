@@ -113,6 +113,29 @@ jobs:
           Set-Location starter
           yarn install
 
+      # TEMPORARY: diagnosing "Cannot find module 'src/pages/s'" during
+      # `next build`'s TypeScript check on Windows. Remove once root-caused.
+      - name: Diagnose src/pages/s.tsx resolution
+        run: |
+          Set-Location starter
+          Write-Host "--- cwd ---"
+          Get-Location
+          Write-Host "--- .faststore/src/pages listing ---"
+          Get-ChildItem .faststore\src\pages -ErrorAction SilentlyContinue | Select-Object Name, FullName, Length
+          Write-Host "--- Exists checks (relative from starter/.faststore) ---"
+          Set-Location .faststore
+          Write-Host "Test-Path src\pages\s.tsx : $(Test-Path 'src\pages\s.tsx')"
+          Write-Host "Test-Path src/pages/s.tsx : $(Test-Path 'src/pages/s.tsx')"
+          Write-Host "Resolve-Path src\pages\s.tsx :"
+          Resolve-Path 'src\pages\s.tsx' -ErrorAction SilentlyContinue
+          Write-Host "--- tsconfig.json baseUrl/rootDir/paths ---"
+          Get-Content tsconfig.json | Select-String -Pattern "baseUrl|rootDir|\`"paths\`"|src/\*" -Context 0,1
+          Write-Host "--- next.config.js outputFileTracingRoot ---"
+          Get-Content next.config.js | Select-String -Pattern "outputFileTracingRoot|turbopack"
+          Write-Host "--- node resolves it? ---"
+          node -e "console.log(require('path').resolve(process.cwd(), 'src/pages/s.tsx')); console.log(require('fs').existsSync('src/pages/s.tsx'))"
+          Set-Location ..
+
       - name: Build starter
         run: |
           Set-Location starter
