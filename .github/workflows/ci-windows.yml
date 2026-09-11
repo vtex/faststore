@@ -113,6 +113,17 @@ jobs:
           Set-Location starter
           yarn install
 
+      # TEMPORARY: narrowing down where `src/pages/s.tsx` is dropped on
+      # Windows — extraction (yarn/tar) vs. the CLI's own copySync step.
+      # Remove once root-caused.
+      - name: Diagnose extracted @faststore/core package
+        run: |
+          Set-Location starter
+          $pkgPagesDir = "node_modules\@faststore\core\src\pages"
+          Write-Host "--- $pkgPagesDir listing ---"
+          Get-ChildItem $pkgPagesDir -ErrorAction SilentlyContinue | Select-Object Name, Length
+          Write-Host "Test-Path s.tsx : $(Test-Path (Join-Path $pkgPagesDir 's.tsx'))"
+
       - name: Build starter
         run: |
           Set-Location starter
