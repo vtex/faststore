@@ -113,29 +113,6 @@ jobs:
           Set-Location starter
           yarn install
 
-      # TEMPORARY: diagnosing "Cannot find module 'src/pages/s'" during
-      # `next build`'s TypeScript check on Windows. Remove once root-caused.
-      - name: Diagnose src/pages/s.tsx resolution
-        run: |
-          Set-Location starter
-          Write-Host "--- cwd ---"
-          Get-Location
-          Write-Host "--- .faststore/src/pages listing ---"
-          Get-ChildItem .faststore\src\pages -ErrorAction SilentlyContinue | Select-Object Name, FullName, Length
-          Write-Host "--- Exists checks (relative from starter/.faststore) ---"
-          Set-Location .faststore
-          Write-Host "Test-Path src\pages\s.tsx : $(Test-Path 'src\pages\s.tsx')"
-          Write-Host "Test-Path src/pages/s.tsx : $(Test-Path 'src/pages/s.tsx')"
-          Write-Host "Resolve-Path src\pages\s.tsx :"
-          Resolve-Path 'src\pages\s.tsx' -ErrorAction SilentlyContinue
-          Write-Host "--- tsconfig.json baseUrl/rootDir/paths ---"
-          Get-Content tsconfig.json | Select-String -Pattern "baseUrl|rootDir|\`"paths\`"|src/\*" -Context 0,1
-          Write-Host "--- next.config.js outputFileTracingRoot ---"
-          Get-Content next.config.js | Select-String -Pattern "outputFileTracingRoot|turbopack"
-          Write-Host "--- node resolves it? ---"
-          node -e "console.log(require('path').resolve(process.cwd(), 'src/pages/s.tsx')); console.log(require('fs').existsSync('src/pages/s.tsx'))"
-          Set-Location ..
-
       - name: Build starter
         run: |
           Set-Location starter
@@ -143,6 +120,11 @@ jobs:
 
       # A Windows-only failure is hard to reproduce on the team's machines, and
       # the runner state is gone once the job ends.
+      #
+      # include-hidden-files is required: actions/upload-artifact excludes
+      # dotfiles/dot-directories by default, so .faststore (the whole
+      # generated app) was silently dropped from every artifact, leaving
+      # only package.json — regardless of what actually failed.
       - name: Upload starter diagnostics
         if: failure()
         uses: actions/upload-artifact@v4
@@ -153,3 +135,4 @@ jobs:
             starter/.faststore/
           retention-days: 7
           if-no-files-found: ignore
+          include-hidden-files: true
