@@ -307,9 +307,7 @@ describe('copyCoreFiles', () => {
     // (not a bare `src/pages/s.tsx`) because Yarn Classic 1.x silently drops
     // that specific tar entry when extracting on Windows — see
     // `enableSearchSSR` and the note on the `s/` folder.
-    expect(fs.existsSync(path.join(tmpDir, 'src/pages/s/index.tsx'))).toBe(
-      true
-    )
+    expect(fs.existsSync(path.join(tmpDir, 'src/pages/s/index.tsx'))).toBe(true)
     expect(fs.existsSync(path.join(tmpDir, 'src/pages/s.tsx'))).toBe(false)
     expect(tsConfig.include).not.toContain('test/**/*.ts')
     expect(tsConfig.include).not.toContain('test/**/*.tsx')
