@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0-dev.7](https://github.com/vtex/faststore/compare/v4.8.0-dev.6...v4.8.0-dev.7) (2026-09-14)
+
+### Bug Fixes
+
+- stop retrying upstream 429 responses ([#3453](https://github.com/vtex/faststore/issues/3453)) ([a142258](https://github.com/vtex/faststore/commit/a14225863578965609aa5012cc1ca9f0132959b2)), closes [#3379](https://github.com/vtex/faststore/issues/3379) [#3420](https://github.com/vtex/faststore/issues/3420) [#1629](https://github.com/vtex/faststore/issues/1629) [/github.com/vtex/faststore/pull/3453#issuecomment-5433632179](https://github.com//github.com/vtex/faststore/pull/3453/issues/issuecomment-5433632179)
+
 # [4.8.0-dev.6](https://github.com/vtex/faststore/compare/v4.8.0-dev.5...v4.8.0-dev.6) (2026-09-11)
 
 **Note:** Version bump only for package @faststore/core
