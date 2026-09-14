@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0-dev.8](https://github.com/vtex/faststore/compare/v4.8.0-dev.7...v4.8.0-dev.8) (2026-09-14)
+
+### Bug Fixes
+
+- **core:** align the saved-cards list with the design reference ([#3487](https://github.com/vtex/faststore/issues/3487)) ([0e0d3ea](https://github.com/vtex/faststore/commit/0e0d3eacc23f5d2027ef5f933b03cd8a0338885c))
+
 # [4.8.0-dev.7](https://github.com/vtex/faststore/compare/v4.8.0-dev.6...v4.8.0-dev.7) (2026-09-14)
 
 ### Bug Fixes
