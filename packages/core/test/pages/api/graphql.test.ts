@@ -18,12 +18,13 @@ vi.mock('../../../src/server', () => ({
 
 const mockedExecute = vi.mocked(execute)
 
-const createResponse = () => {
+const createResponse = ({ headersSent = false } = {}) => {
   const res = {
     status: vi.fn().mockReturnThis(),
     setHeader: vi.fn().mockReturnThis(),
     send: vi.fn().mockReturnThis(),
     end: vi.fn().mockReturnThis(),
+    headersSent,
   }
 
   return res as unknown as NextApiResponse & typeof res
@@ -213,4 +214,18 @@ describe('/api/graphql request handling', () => {
       expect(res.setHeader).toHaveBeenCalledWith('cache-control', 'no-store')
     }
   )
+
+  it('skips the cache-control header when headers were already sent', async () => {
+    mockedExecute.mockRejectedValue(new Error('boom after flush'))
+
+    const res = createResponse({ headersSent: true })
+    await handler(createRequest(), res)
+
+    expect(res.setHeader).not.toHaveBeenCalledWith(
+      'cache-control',
+      expect.anything()
+    )
+    expect(res.status).toHaveBeenCalledWith(500)
+    expect(res.end).toHaveBeenCalled()
+  })
 })
