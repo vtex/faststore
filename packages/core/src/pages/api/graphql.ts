@@ -203,9 +203,9 @@ const respondWithGraphqlErrors = (
       type: fastStoreError.extensions.type,
       status: fastStoreError.extensions.status,
     },
-    ...(process.env.NODE_ENV !== 'production'
-      ? { message: fastStoreError.message }
-      : {}),
+    ...(process.env.NODE_ENV === 'production'
+      ? {}
+      : { message: fastStoreError.message }),
   }
 
   response.status(status)
