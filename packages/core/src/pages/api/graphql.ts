@@ -326,6 +326,13 @@ const handler: NextApiHandler = async (request, response) => {
     response.setHeader('content-type', 'application/json')
     response.send(JSON.stringify({ data, errors }))
   } catch (err) {
+    // Same rationale as the recovered-error branch above: a 400/401/500 here
+    // must never be cached. This path can run after the success branch has
+    // already set a cacheable cache-control (e.g. `setHeader('set-cookie',
+    // ...)` rejecting a malformed upstream cookie, or `JSON.stringify`
+    // throwing after cache-control was set but before `send` completed).
+    response.setHeader('cache-control', 'no-store')
+
     console.error(
       'Something unexpected occurred querying Graphql endpoint: \n',
       err

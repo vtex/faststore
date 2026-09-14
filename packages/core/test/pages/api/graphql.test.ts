@@ -122,6 +122,7 @@ describe('/api/graphql error status propagation', () => {
     expect(res.status).toHaveBeenCalledWith(500)
     expect(res.end).toHaveBeenCalled()
     expect(res.send).not.toHaveBeenCalled()
+    expect(res.setHeader).toHaveBeenCalledWith('cache-control', 'no-store')
   })
 
   it('exposes type, status and message in the body outside production', async () => {
@@ -209,6 +210,7 @@ describe('/api/graphql request handling', () => {
 
       expect(res.status).toHaveBeenCalledWith(status)
       expect(res.end).toHaveBeenCalled()
+      expect(res.setHeader).toHaveBeenCalledWith('cache-control', 'no-store')
     }
   )
 })
