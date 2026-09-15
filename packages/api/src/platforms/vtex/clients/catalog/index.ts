@@ -1,3 +1,4 @@
+import type { Options } from '../../../../typings/globals'
 import { fetchAPI } from '../fetch'
 
 export interface LocalizedCategoryEntry {

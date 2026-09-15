@@ -124,11 +124,21 @@ export function generateAndUploadSchema({
   dirs,
   schemaOut,
   dryRun,
+  project,
 }: {
   basePath: string
   dirs: string[]
   schemaOut: string
   dryRun: boolean
+  /**
+   * The store's `contentSource.project`, forwarded as `--storeId` to
+   * `vtex content upload-schema` so the published schema's `$id`
+   * (`${account}.${storeId}`) matches the project declared in
+   * `discovery.config.js`, mirroring the legacy CMS flow's use of `project`
+   * in `vtex cms sync ${project}`. Falls back to `'faststore'`, the same
+   * default already used there.
+   */
+  project?: string
 }): void {
   // Interactive: generate-schema prompts to confirm overriding base
   // definitions (no --yes flag), and upload-schema prompts for the schema
@@ -145,8 +155,10 @@ export function generateAndUploadSchema({
     return
   }
 
+  const storeId = project ?? 'faststore'
+
   runCommandSync({
-    cmd: `vtex content upload-schema ${schemaOut}`,
+    cmd: `vtex content upload-schema ${schemaOut} --storeId ${storeId}`,
     cwd: basePath,
     throws: 'error',
     errorMessage: 'Failed to upload CMS schema',

@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'react'
+import type { HTMLAttributes, MouseEventHandler } from 'react'
 import React, { forwardRef } from 'react'
 
 import type { PriceDefinition } from '../../typings/PriceDefinition'
@@ -60,7 +60,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
    * Callback function when the button is clicked.
    */
-  onButtonClick?: () => void
+  onButtonClick?: MouseEventHandler<HTMLButtonElement>
   /**
    * Specifies whether the displayed price should include taxes.
    */

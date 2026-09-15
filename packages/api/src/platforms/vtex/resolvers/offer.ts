@@ -1,4 +1,5 @@
 import type { GraphqlResolver } from '..'
+import type { ArrayElementType } from '../../../typings/globals'
 import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
 import type { EnhancedSku } from '../utils/enhanceSku'
 import {

@@ -16,16 +16,20 @@ import type {
 } from './RecommendationShelf.types'
 import styles from './section.module.scss'
 
+const DEFAULT_SECTION_CLASS_NAME = `${styles.section} section-product-shelf layout__section section`
+
 export function RecommendationShelf<
   TCardProps extends object = ProductCardProps,
 >({
   title,
   campaignVrn,
   itemsContext = 'PDP',
+  className,
   ProductCard,
   mapProductToProductCard,
   carouselConfiguration,
   productCardConfiguration,
+  ...otherProps
 }: RecommendationShelfProps<TCardProps>) {
   const {
     itemsPerPageDesktop = 4,
@@ -82,7 +86,8 @@ export function RecommendationShelf<
 
   return (
     <section
-      className={`${styles.section} section-product-shelf layout__section section`}
+      className={className ?? DEFAULT_SECTION_CLASS_NAME}
+      {...otherProps}
       {...(shouldAddAFAttr
         ? {
             'data-af-element': 'recommendation-shelf' as const,
@@ -93,10 +98,17 @@ export function RecommendationShelf<
             'data-af-products': productIds,
           }
         : {})}
+      data-fs-recommendation-shelf
     >
-      <ProductShelfSkeleton loading={isLoading} itemsPerPage={itemsPerPage}>
+      <ProductShelfSkeleton
+        loading={isLoading}
+        itemsPerPage={Math.ceil(itemsPerPage)}
+      >
         {(title || campaign?.title) && (
-          <h2 className="text__title-section layout__content">
+          <h2
+            className="text__title-section layout__content"
+            data-fs-recommendation-shelf-title
+          >
             {title || campaign?.title}
           </h2>
         )}

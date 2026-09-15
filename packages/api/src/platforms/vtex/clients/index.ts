@@ -1,4 +1,5 @@
 import type { GraphqlContext } from '..'
+import type { Options } from '../../../typings/globals'
 import { CatalogDataplane } from './catalog'
 import { VtexCommerce } from './commerce'
 import { IntelligentSearch } from './search'

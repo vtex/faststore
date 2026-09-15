@@ -1,71 +1,129 @@
-import fsExtra from 'fs-extra'
-import { spawnSync } from 'node:child_process'
+import {
+  LOCKS,
+  agents,
+  cmdExists,
+  detect,
+  getCommand,
+  getVoltaPrefix,
+} from '@antfu/ni'
+import type { Agent } from '@antfu/ni'
+import chalk from 'chalk'
+import { existsSync } from 'node:fs'
 import { join } from 'node:path'
-import { pathToFileURL } from 'node:url'
-import resolvePackage from 'resolve-pkg'
+import { logger } from './logger'
 
-const { existsSync } = fsExtra
-
-// Retrieves the package manager based on the developer lockfile, using `ni`.
-export async function getPreferredPackageManager() {
-  let agent = 'yarn' // Default to Yarn
-  const binNA = join(
-    await getPackageRootDir('@antfu/ni'),
-    (await getDepPackageJSON('@antfu/ni'))?.bin?.['na'] ?? ''
-  )
-
-  if (!binNA || fsExtra.existsSync(binNA) == false) return agent
-
-  agent = spawnSync('node', [binNA, '?'], { encoding: 'utf-8' })?.stdout.trim()
-
-  return agent
+export interface ResolvedPackageManager {
+  /** Agent id, validated against `ni`'s known agents. For comparisons, never for execution. */
+  agent: Agent
+  /** Executable form for `spawn`/`spawnSync` with `shell: true`. May carry a Volta prefix. */
+  command: string
+  /** Executable form for `spawn` without a shell. */
+  argv: [string, ...string[]]
 }
 
-export async function getPackageRootDir(
-  pkg: string,
-  cwd: string | undefined = process.cwd(),
-  depth = 30
-) {
-  let pkgPath = resolvePackage(pkg, { cwd })
+export class UnknownAgentError extends Error {}
 
-  if (!pkgPath) throw new Error(`Couldn't resolve package ${pkg}`)
+export class NoAvailablePackageManagerError extends Error {}
 
-  let pkgJson = await loadPackageJsonAt(pkgPath)
-  while (pkgJson?.name !== pkg && --depth > 0) {
-    pkgPath = join(pkgPath, '..')
-    pkgJson = await loadPackageJsonAt(join(pkgPath, '..'))
+export interface ResolvePackageManagerOptions {
+  /**
+   * Whether a detected-but-not-installed agent may be substituted with an
+   * available fallback. Callers that write to the project (dependency
+   * installation) must pass `false`: installing with a substitute agent would
+   * leave a second, conflicting lockfile next to the project's own.
+   */
+  substitute?: boolean
+}
+
+const DEFAULT_AGENT: Agent = 'yarn'
+// yarn and npm first — they are what the store build images ship. The
+// remaining known agents are last resorts so an environment that only has
+// pnpm or bun still resolves instead of failing.
+const FALLBACK_AGENTS: Agent[] = ['yarn', 'npm', 'pnpm', 'bun']
+
+/**
+ * Resolves the package manager to use for `cwd`.
+ *
+ * `programmatic: true` is what keeps `ni` from going interactive. Without it, an
+ * agent that is not installed makes `ni` render a confirm prompt to stdout, and
+ * callers interpolate this value straight into shell commands.
+ */
+export async function resolvePackageManager(
+  cwd: string = process.cwd(),
+  { substitute = true }: ResolvePackageManagerOptions = {}
+): Promise<ResolvedPackageManager> {
+  const detected = (await detect({ programmatic: true, cwd })) ?? DEFAULT_AGENT
+
+  if (!agents.includes(detected)) {
+    throw new UnknownAgentError(
+      `"${detected}" is not a known package manager. Expected one of: ${agents.join(
+        ', '
+      )}.`
+    )
   }
 
-  if (pkgJson?.name !== pkg)
-    throw new Error(`Maximum depth search for package ${pkg} root exceed`)
+  let agent = detected
 
-  return pkgPath
+  if (!cmdExists(binOf(detected))) {
+    if (!substitute) {
+      throw new NoAvailablePackageManagerError(
+        `Detected "${detected}", which is not installed in this environment. This operation writes a lockfile, so no other package manager can stand in for it. Install "${detected}", or remove the lockfile or "packageManager" field that selects it.`
+      )
+    }
+
+    agent = substituteAgent(detected, cwd)
+  }
+
+  const argv: [string, ...string[]] = [binOf(agent)]
+  const voltaPrefix = getVoltaPrefix()
+
+  if (voltaPrefix) {
+    argv.unshift(...voltaPrefix.split(' '))
+  }
+
+  return { agent, command: argv.join(' '), argv }
 }
 
-async function loadPackageJsonAt(at?: string): Promise<
-  | undefined
-  | (Record<string, unknown> & {
-      name: string
-      dependencies?: Record<string, string>
-      peerDependencies?: Record<string, string>
-      bin?: Record<string, string>
-    })
-> {
-  const file = 'package.json',
-    location = (at?.endsWith(file) && at) || (at && join(at, file)) || false
+/** Shell-ready form of {@link resolvePackageManager}, for callers that only run a command. */
+export async function getPreferredPackageManager(
+  cwd?: string
+): Promise<string> {
+  const { command } = await resolvePackageManager(cwd)
 
-  if (location === false)
-    throw new Error(`Invalid searching of ${file} at ${at}`)
-
-  if (!existsSync(location)) return
-
-  const content = await import(pathToFileURL(location).href, {
-    with: { type: 'json' },
-  })
-
-  return content.default ?? content ?? {}
+  return command
 }
 
-export async function getDepPackageJSON(pkg: string) {
-  return await loadPackageJsonAt(await getPackageRootDir(pkg))
+function binOf(agent: Agent): string {
+  return getCommand(agent, 'agent')
+}
+
+function substituteAgent(detected: Agent, cwd: string): Agent {
+  const available = FALLBACK_AGENTS.find((candidate) =>
+    cmdExists(binOf(candidate))
+  )
+
+  if (!available) {
+    throw new NoAvailablePackageManagerError(
+      `Detected "${detected}", which is not installed, and none of ${FALLBACK_AGENTS.join(
+        ', '
+      )} is available either.`
+    )
+  }
+
+  const lockfiles = Object.keys(LOCKS).filter((lockfile) =>
+    existsSync(join(cwd, lockfile))
+  )
+
+  logger.warn(
+    `${chalk.yellow(
+      'warning'
+    )} - Detected "${detected}" but it is not installed in this environment. Using "${available}" instead.` +
+      (lockfiles.length > 1
+        ? `\nMore than one lockfile is committed (${lockfiles.join(
+            ', '
+          )}). Keep a single one so the package manager is unambiguous.`
+        : '')
+  )
+
+  return available
 }

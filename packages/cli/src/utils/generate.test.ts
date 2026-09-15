@@ -1,7 +1,8 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import vm from 'node:vm'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   PUBLIC_FILES_ALLOWED_EXTENSIONS,
   buildFaststorePackageJson,
@@ -9,6 +10,7 @@ import {
   copyPublicFiles,
   isPublicFileAllowed,
   relativeNextBin,
+  updateNextConfig,
 } from './generate'
 
 describe('buildFaststorePackageJson', () => {
@@ -310,6 +312,77 @@ describe('copyCoreFiles', () => {
         '**/*.test.tsx',
         '**/__tests__/**',
       ])
+    )
+  })
+})
+
+describe('updateNextConfig', () => {
+  let basePath: string
+
+  /**
+   * Actually parses the generated next.config.js as JS, the same way
+   * Next.js loads it via require(). A malformed string literal (e.g. an
+   * unescaped apostrophe, or a raw backslash treated as an escape
+   * sequence) throws here instead of just failing a string comparison.
+   */
+  function loadNextConfig(code: string) {
+    const context: { module: { exports: Record<string, unknown> } } = {
+      module: { exports: {} },
+    }
+
+    vm.runInNewContext(code, context)
+
+    return context.module.exports
+  }
+
+  beforeEach(() => {
+    basePath = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-next-config-'))
+    fs.mkdirSync(path.join(basePath, '.faststore'), { recursive: true })
+    fs.writeFileSync(
+      path.join(basePath, '.faststore', 'next.config.js'),
+      "module.exports = {\n  outputFileTracingRoot: '/placeholder',\n}\n"
+    )
+  })
+
+  afterEach(() => {
+    fs.rmSync(basePath, { recursive: true, force: true })
+    vi.restoreAllMocks()
+  })
+
+  it('normalizes a Windows cwd to forward slashes so the written config stays valid JS', () => {
+    vi.spyOn(process, 'cwd').mockReturnValue(
+      'C:\\Users\\dev\\starter\\.faststore'
+    )
+
+    updateNextConfig(basePath)
+
+    const nextConfigData = fs.readFileSync(
+      path.join(basePath, '.faststore', 'next.config.js'),
+      'utf8'
+    )
+
+    expect(nextConfigData).not.toContain('\\')
+    expect(loadNextConfig(nextConfigData).outputFileTracingRoot).toBe(
+      'C:/Users/dev/starter/.faststore'
+    )
+  })
+
+  it('escapes an apostrophe in the cwd so the generated config stays valid JS', () => {
+    // A Windows username like O'Brien would otherwise terminate the
+    // hand-wrapped single-quoted string literal early.
+    vi.spyOn(process, 'cwd').mockReturnValue(
+      "C:\\Users\\O'Brien\\starter\\.faststore"
+    )
+
+    updateNextConfig(basePath)
+
+    const nextConfigData = fs.readFileSync(
+      path.join(basePath, '.faststore', 'next.config.js'),
+      'utf8'
+    )
+
+    expect(loadNextConfig(nextConfigData).outputFileTracingRoot).toBe(
+      "C:/Users/O'Brien/starter/.faststore"
     )
   })
 })

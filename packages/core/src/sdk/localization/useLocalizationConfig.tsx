@@ -2,7 +2,11 @@ import config from 'discovery.config'
 import deepEqual from 'fast-deep-equal'
 import React, { useEffect, useRef, useState } from 'react'
 import { sessionStore } from '../session'
-import { type LocalizationSettings, getSettings } from './settings'
+import {
+  type LocalizationSettings,
+  getSettings,
+  getSettingsForLocale,
+} from './settings'
 
 export const useLocalizationConfig = (params?: { url?: string | URL }) => {
   const defaultConfig = config.localization.locales[
@@ -66,13 +70,22 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
 type ConfigType =
   (typeof config)['localization']['locales'][keyof (typeof config)['localization']['locales']]
 
-export const getStoreURL = () => {
+/**
+ * Base URL of the storefront the current page belongs to.
+ *
+ * @param locale - Locale being rendered, as resolved by Next. Required for
+ *   anything a crawler reads (canonical, hreflang, JSON-LD): without it, server
+ *   rendering has no `window.location` to match a binding against and silently
+ *   falls back to the default locale's binding, so a localized page would
+ *   advertise URLs under the default locale's prefix.
+ */
+export const getStoreURL = (locale?: string) => {
   // If localization is not enabled, use storeUrl from config
   if (!config.localization?.enabled === true) {
     return config.storeUrl
   }
 
-  return getSettings().storeURL
+  return getSettingsForLocale(locale)?.storeURL ?? getSettings().storeURL
 }
 
 /** @description receives an react component and returns a new component with the storeURL as optional */

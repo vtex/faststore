@@ -1,4 +1,5 @@
 import type { GraphqlResolver } from '..'
+import type { PromiseType } from '../../../typings/globals'
 import { enhanceSku } from '../utils/enhanceSku'
 import { VALUE_REFERENCES } from '../utils/propertyValue'
 import type { StoreProduct } from './product'

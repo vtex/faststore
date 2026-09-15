@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react'
+import type { ComponentPropsWithoutRef, ComponentType } from 'react'
 
 import type { CarouselProps } from '@faststore/ui'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
@@ -22,7 +22,7 @@ export type RecommendationProductCardMapper<TCardProps = ProductCardProps> = (
 
 export type RecommendationShelfProps<
   TCardProps extends object = ProductCardProps,
-> = {
+> = Omit<ComponentPropsWithoutRef<'section'>, 'children' | 'title'> & {
   readonly title?: string
   readonly campaignVrn: string
   /**
@@ -37,6 +37,12 @@ export type RecommendationShelfProps<
    * @default 'PDP'
    */
   readonly itemsContext?: ItemContext
+  /**
+   * Replaces the default page-section class list. Surfaces like the cart drawer
+   * pass their own module class so the shelf does not pick up full-page layout
+   * utilities (`section-product-shelf`, `layout__section`, …).
+   */
+  readonly className?: string
   /**
    * Custom card component rendered for each recommended product. Defaults to the
    * core `ProductCard`. This is a code-level override and is not exposed through

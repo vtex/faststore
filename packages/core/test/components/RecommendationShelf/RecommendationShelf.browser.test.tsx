@@ -75,6 +75,25 @@ afterEach(() => {
 })
 
 describe('RecommendationShelf', () => {
+  it('forwards extra props onto the root section', async () => {
+    useRecommendations.mockReturnValue({
+      data: recommendationData,
+      isLoading: false,
+      error: null,
+    })
+
+    const { getByTestId } = render(
+      <RecommendationShelf
+        campaignVrn={CAMPAIGN_VRN}
+        data-testid="recommendation-shelf"
+      />
+    )
+
+    await waitFor(() => {
+      expect(getByTestId('recommendation-shelf').tagName).toBe('SECTION')
+    })
+  })
+
   it('renders a product card per recommended product', async () => {
     useRecommendations.mockReturnValue({
       data: recommendationData,

@@ -24,6 +24,7 @@ import { faststoreLoader } from 'src/components/ui/Image/loader'
 import { LocalizedProductProvider } from 'src/sdk/localization/LocalizedProductContext'
 import ProductListing from './ProductListing'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
+import { buildHreflangLinks } from 'src/utils/localization/hreflang'
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
@@ -105,10 +106,22 @@ export default function ProductListingPage({
     collection?.seo.description || // Use description that comes from the Checkout API
     plpSeo?.descriptionTemplate?.replace(/%s/g, () => title) || // Use description template from the SEO config for PLP
     storeSeo.description // Use default description from the store SEO config
-  const storeURL = getStoreURL()
+  const otherLocales = server.collection?.otherLocales
+  const storeURL = getStoreURL(router.locale).replace(/\/$/, '')
 
+  // The slug the catalog resolves, not the one the shopper typed: by-linkid
+  // matches case-insensitively, so /Apparel and /apparel are the same page and
+  // must not each claim to be canonical. `otherLocales` is deliberately not
+  // used here — it only carries registered translations, so a page reached
+  // through a locale with no translation of its own would have no canonical at
+  // all. Falls back to the visited path when the backend resolves no slug.
+  const canonicalSlug = server.collection?.canonicalSlug
   const [pathname] = router.asPath.split('?')
-  const canonical = `${storeURL}${pathname}`
+  const canonical = canonicalSlug
+    ? `${storeURL}/${canonicalSlug}`
+    : `${storeURL}${pathname}`
+
+  const hreflangLinks = buildHreflangLinks(otherLocales, router.locale)
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   let itemListElements = collection?.breadcrumbList.itemListElement ?? []
@@ -143,10 +156,7 @@ export default function ProductListingPage({
     : undefined
 
   return (
-    <LocalizedProductProvider
-      otherLocales={server.collection?.otherLocales}
-      urlSuffix=""
-    >
+    <LocalizedProductProvider otherLocales={otherLocales} urlSuffix="">
       <SearchProvider
         onChange={applySearchState}
         itemsPerPage={itemsPerPage}
@@ -169,6 +179,7 @@ export default function ProductListingPage({
           description={description}
           titleTemplate={titleTemplate}
           canonical={canonical}
+          languageAlternates={hreflangLinks}
           openGraph={{
             type: 'website',
             title,

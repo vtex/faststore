@@ -1403,13 +1403,24 @@ export type StoreCollection = {
   __typename?: 'StoreCollection';
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /**
+   * Slug the catalog resolves for the requested locale, lowercased.
+   * Meant for the page's canonical URL: `slug` echoes the path the shopper
+   * visited, and by-linkid matches case-insensitively, so without this every
+   * casing variant would claim to be canonical. Unlike `otherLocales`, it may fall
+   * back to a slug registered for another locale, so it must never be used to
+   * build hreflang annotations.
+   */
+  canonicalSlug?: Maybe<Scalars['String']['output']>;
   /** Collection ID. */
   id: Scalars['ID']['output'];
   /** Collection meta information. Used for search. */
   meta: StoreCollectionMeta;
   /**
    * Localized versions of this collection for all available locales.
-   * Only populated when localization is enabled.
+   * Only announces slugs the catalog has registered for each locale, so it is safe
+   * to build hreflang annotations from. Only populated when localization is
+   * enabled.
    */
   otherLocales?: Maybe<Array<StoreCollectionLocale>>;
   /** Meta tag data. */

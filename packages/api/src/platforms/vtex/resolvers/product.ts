@@ -1,4 +1,5 @@
 import type { GraphqlContext, GraphqlResolver } from '..'
+import type { PromiseType } from '../../../typings/globals'
 import type { StoreImage, StoreProductImageArgs } from '../../..'
 import type { LocalizedProductEntry } from '../clients/catalog'
 import type { Attachment } from '../clients/commerce/types/OrderForm'
