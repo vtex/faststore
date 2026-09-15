@@ -60,7 +60,9 @@ describe('cp-schema', () => {
         recursive: true,
       })
 
-      expect(getExistingCpDirs(tempDir)).toEqual(['cms/faststore/components'])
+      expect(getExistingCpDirs(tempDir)).toEqual([
+        path.join('cms', 'faststore', 'components'),
+      ])
     })
 
     it('returns both dirs when both exist', () => {
@@ -72,8 +74,8 @@ describe('cp-schema', () => {
       })
 
       expect(getExistingCpDirs(tempDir)).toEqual([
-        'cms/faststore/components',
-        'cms/faststore/pages',
+        path.join('cms', 'faststore', 'components'),
+        path.join('cms', 'faststore', 'pages'),
       ])
     })
 

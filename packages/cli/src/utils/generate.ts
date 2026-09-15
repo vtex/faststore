@@ -90,7 +90,9 @@ export function buildFaststorePackageJson(
    * and a quote or a `$` anywhere above the project would break it — a relative
    * path only ever spans `node_modules` segments.
    */
-  const next = nextBin ? `node ${nextBin}` : 'next'
+  // path.relative() returns backslashes on Windows; normalize to forward slashes
+  // so the script string is valid on all platforms (Node accepts / on Windows too).
+  const next = nextBin ? `node ${nextBin.replaceAll('\\', '/')}` : 'next'
 
   return {
     ...rest,
