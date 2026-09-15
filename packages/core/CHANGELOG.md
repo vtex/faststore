@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.8.1-dev.0](https://github.com/vtex/faststore/compare/v4.8.0...v4.8.1-dev.0) (2026-09-15)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.8.0](https://github.com/vtex/faststore/compare/v4.7.0...v4.8.0) (2026-09-15)
+
+### Features
+
+- release 4.8.0 (graduate dev → main) ([#3488](https://github.com/vtex/faststore/issues/3488)) ([09ff84a](https://github.com/vtex/faststore/commit/09ff84aabe1f5a5a74fe52c191f37e5521dd8e9b)), closes [#3466](https://github.com/vtex/faststore/issues/3466) [#3481](https://github.com/vtex/faststore/issues/3481) [#3487](https://github.com/vtex/faststore/issues/3487) [#3453](https://github.com/vtex/faststore/issues/3453) [#3484](https://github.com/vtex/faststore/issues/3484) [#3482](https://github.com/vtex/faststore/issues/3482) [#3476](https://github.com/vtex/faststore/issues/3476) [#3477](https://github.com/vtex/faststore/issues/3477) [#3474](https://github.com/vtex/faststore/issues/3474) [#3422](https://github.com/vtex/faststore/issues/3422) [#3470](https://github.com/vtex/faststore/issues/3470)
+
+# [4.8.0-dev.8](https://github.com/vtex/faststore/compare/v4.8.0-dev.7...v4.8.0-dev.8) (2026-09-14)
+
+### Bug Fixes
+
+- **core:** align the saved-cards list with the design reference ([#3487](https://github.com/vtex/faststore/issues/3487)) ([0e0d3ea](https://github.com/vtex/faststore/commit/0e0d3eacc23f5d2027ef5f933b03cd8a0338885c))
+
 # [4.8.0-dev.7](https://github.com/vtex/faststore/compare/v4.8.0-dev.6...v4.8.0-dev.7) (2026-09-14)
 
 ### Bug Fixes
