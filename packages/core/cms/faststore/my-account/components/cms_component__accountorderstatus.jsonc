@@ -16,15 +16,55 @@
       "title": "Order Placed Step",
       "default": "Order placed"
     },
+    "approvedStep": {
+      "type": "string",
+      "title": "Approved Step",
+      "default": "Approved"
+    },
+    "pendingApprovalStep": {
+      "type": "string",
+      "title": "Pending Approval Step",
+      "default": "Pending approval"
+    },
+    "deniedStep": {
+      "type": "string",
+      "title": "Denied Step",
+      "default": "Denied"
+    },
+    "paymentApprovedStep": {
+      "type": "string",
+      "title": "Payment Approved Step",
+      "default": "Payment Approved"
+    },
     "paymentPendingStep": {
       "type": "string",
       "title": "Payment Pending Step",
       "default": "Payment Pending"
     },
+    "paymentAuthorizationStep": {
+      "type": "string",
+      "title": "Payment Authorization Step",
+      "default": "Payment authorization"
+    },
+    "paymentDeniedStep": {
+      "type": "string",
+      "title": "Payment Denied Step",
+      "default": "Payment Denied"
+    },
+    "readyForDeliveryStep": {
+      "type": "string",
+      "title": "Ready For Delivery Step",
+      "default": "Ready for Delivery"
+    },
     "handlingStep": {
       "type": "string",
       "title": "Handling Step",
       "default": "Handling order"
+    },
+    "canceledStep": {
+      "type": "string",
+      "title": "Canceled Step",
+      "default": "Canceled"
     },
     "invoicedStep": {
       "type": "string",
@@ -35,6 +75,56 @@
       "type": "string",
       "title": "Delivered Step",
       "default": "Delivered"
+    },
+    "shipOrderStep": {
+      "type": "string",
+      "title": "Ship Order Step",
+      "default": "Ship order"
+    },
+    "orderPlacedStatus": {
+      "type": "string",
+      "title": "Order Placed Status",
+      "default": "Order Placed"
+    },
+    "pendingApprovalStatus": {
+      "type": "string",
+      "title": "Pending Approval Status",
+      "default": "Pending approval"
+    },
+    "paymentPendingStatus": {
+      "type": "string",
+      "title": "Payment Pending Status",
+      "default": "Payment Pending"
+    },
+    "paymentApprovedStatus": {
+      "type": "string",
+      "title": "Payment Approved Status",
+      "default": "Payment Approved"
+    },
+    "paymentDeniedStatus": {
+      "type": "string",
+      "title": "Payment Denied Status",
+      "default": "Payment Denied"
+    },
+    "readyForDeliveryStatus": {
+      "type": "string",
+      "title": "Ready For Delivery Status",
+      "default": "Ready for Delivery"
+    },
+    "invoicedStatus": {
+      "type": "string",
+      "title": "Invoiced Status",
+      "default": "Invoiced"
+    },
+    "cancellationRequestedStatus": {
+      "type": "string",
+      "title": "Cancellation Requested Status",
+      "default": "Cancellation Requested"
+    },
+    "canceledStatus": {
+      "type": "string",
+      "title": "Canceled Status",
+      "default": "Canceled"
     }
   },
   "readOnly": false,

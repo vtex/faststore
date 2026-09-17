@@ -1,21 +1,25 @@
 import { Icon as UIIcon, Skeleton as UISkeleton } from '@faststore/ui'
 import { useRef, type ReactNode } from 'react'
 import Card from 'src/components/account/components/Card'
-import { orderStatusMap, type OrderStatusKey } from 'src/utils/userOrderStatus'
+import { useSession } from 'src/sdk/session'
+import {
+  getOrderStatusLabel,
+  orderStatusMap,
+  type OrderStatusCmsLabels,
+  type OrderStatusKey,
+} from 'src/utils/userOrderStatus'
 import { useConnectorPositioning } from './useConnectorPositioning'
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import {
   type OrderStatusSectionLabels,
   resolveOrderStatusLabels,
 } from '../orderDetailsLabels'
-
-export type StepStatus = 'completed' | 'loading' | 'not-started' | 'failed'
-export type StepKey =
-  | 'order'
-  | 'approval'
-  | 'payment'
-  | 'processing'
-  | 'shipping'
+import {
+  formatDate,
+  getStepLabel,
+  type StepKey,
+  type StepStatus,
+} from './statusCardLocalization'
 
 interface Step {
   label: ReactNode
@@ -27,63 +31,24 @@ interface StatusCardProps {
   status: OrderStatusKey
   creationDate: ServerOrderDetailsQueryQuery['userOrder']['creationDate']
   labels?: OrderStatusSectionLabels
-}
-
-// Define custom labels for each step based on their status
-// This allows us to show different text for the same step depending on its current state
-const STEP_LABELS: Record<StepKey, Record<StepStatus, string>> = {
-  order: {
-    completed: 'Order Placed',
-    loading: 'Order Placed',
-    'not-started': 'Order Placed',
-    failed: 'Order Placed',
-  },
-  approval: {
-    completed: 'Approved', // Custom
-    loading: 'Pending approval', // Use from orderStatusMap
-    'not-started': 'Pending approval',
-    failed: 'Denied', // Custom
-  },
-  payment: {
-    completed: 'Payment Approved', // Use from orderStatusMap
-    loading: 'Payment Pending', // Use from orderStatusMap
-    'not-started': 'Payment authorization', // Custom
-    failed: 'Payment Denied', // Use from orderStatusMap
-  },
-  processing: {
-    completed: 'Ready for Delivery', // Use from orderStatusMap
-    loading: 'Handling order', // Custom
-    'not-started': 'Handling order', // Custom
-    failed: 'Canceled', // Use from orderStatusMap
-  },
-  shipping: {
-    completed: 'Invoiced', // Use from orderStatusMap
-    loading: 'Shipping order', // Custom
-    'not-started': 'Ship order', // Custom
-    failed: 'Canceled', // Use from orderStatusMap
-  },
+  statusLabels?: OrderStatusCmsLabels
 }
 
 // Define the visual progression of order steps from start to finish
 const VISUAL_STEPS = [
   {
-    label: (stepStatus: StepStatus) => STEP_LABELS.order[stepStatus],
     key: 'order',
   },
   {
-    label: (stepStatus: StepStatus) => STEP_LABELS.approval[stepStatus],
     key: 'approval',
   },
   {
-    label: (stepStatus: StepStatus) => STEP_LABELS.payment[stepStatus],
     key: 'payment',
   },
   {
-    label: (stepStatus: StepStatus) => STEP_LABELS.processing[stepStatus],
     key: 'processing',
   },
   {
-    label: (stepStatus: StepStatus) => STEP_LABELS.shipping[stepStatus],
     key: 'shipping',
   },
 ] as const
@@ -104,24 +69,6 @@ const CANCELED_LABELS = ['Cancellation Requested', 'Canceled']
 
 // Define which order status labels indicate a failed state
 const FAILED_LABELS = ['Payment Denied']
-
-const formatDate = (date: string) => {
-  const dateObj = new Date(date)
-
-  const dateString = new Intl.DateTimeFormat('en-US', {
-    month: '2-digit',
-    day: '2-digit',
-    year: 'numeric',
-  }).format(dateObj)
-
-  const timeString = new Intl.DateTimeFormat('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  }).format(dateObj)
-
-  return { date: dateString, time: timeString }
-}
 
 const StepIcon = ({
   status,
@@ -221,8 +168,10 @@ function StatusCard({
   status,
   creationDate,
   labels: labelsProp,
+  statusLabels,
 }: StatusCardProps) {
   const labels = resolveOrderStatusLabels(labelsProp)
+  const { locale } = useSession()
   const containerRef = useRef<HTMLDivElement>(null)
 
   useConnectorPositioning(containerRef)
@@ -244,25 +193,11 @@ function StatusCard({
       isFailed,
     })
 
-    let stepLabel = isCanceled
+    const stepLabel = isCanceled
       ? step.key === 'payment'
-        ? currentStatusLabel
+        ? getOrderStatusLabel({ status, cmsLabels: statusLabels })
         : '—' // prevent hydration mismatch
-      : step.label(stepStatus)
-
-    if (!isCanceled) {
-      if (step.key === 'order') {
-        stepLabel = labels.orderPlacedStep
-      } else if (step.key === 'payment' && stepStatus === 'loading') {
-        stepLabel = labels.paymentPendingStep
-      } else if (step.key === 'processing' && stepStatus === 'loading') {
-        stepLabel = labels.handlingStep
-      } else if (step.key === 'shipping' && stepStatus === 'completed') {
-        stepLabel = labels.invoicedStep
-      } else if (step.key === 'shipping' && stepStatus === 'loading') {
-        stepLabel = labels.deliveredStep
-      }
-    }
+      : getStepLabel(step.key, stepStatus, labels)
 
     // Add creation date to the order step when it's completed or failed
     let completedAt: string | undefined
@@ -304,10 +239,10 @@ function StatusCard({
               {step.completedAt && (
                 <div data-fs-shipping-step-details>
                   <span data-fs-shipping-step-date>
-                    {formatDate(step.completedAt).date}
+                    {formatDate(step.completedAt, locale).date}
                   </span>
                   <span data-fs-shipping-step-time>
-                    {formatDate(step.completedAt).time}
+                    {formatDate(step.completedAt, locale).time}
                   </span>
                 </div>
               )}

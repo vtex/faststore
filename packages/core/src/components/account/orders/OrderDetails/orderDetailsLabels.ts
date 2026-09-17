@@ -18,10 +18,19 @@ export type OrderDetailsHeaderLabels = {
 export type OrderStatusSectionLabels = {
   statusTitle?: string
   orderPlacedStep?: string
+  approvedStep?: string
+  pendingApprovalStep?: string
+  deniedStep?: string
+  paymentApprovedStep?: string
   paymentPendingStep?: string
+  paymentAuthorizationStep?: string
+  paymentDeniedStep?: string
+  readyForDeliveryStep?: string
   handlingStep?: string
+  canceledStep?: string
   invoicedStep?: string
   deliveredStep?: string
+  shipOrderStep?: string
 }
 
 export type OrderPaymentSectionLabels = {
@@ -96,10 +105,19 @@ export const defaultOrderDetailsHeaderLabels: Required<OrderDetailsHeaderLabels>
 export const defaultOrderStatusLabels: Required<OrderStatusSectionLabels> = {
   statusTitle: 'Status',
   orderPlacedStep: 'Order placed',
+  approvedStep: 'Approved',
+  pendingApprovalStep: 'Pending approval',
+  deniedStep: 'Denied',
+  paymentApprovedStep: 'Payment Approved',
   paymentPendingStep: 'Payment Pending',
+  paymentAuthorizationStep: 'Payment authorization',
+  paymentDeniedStep: 'Payment Denied',
+  readyForDeliveryStep: 'Ready for Delivery',
   handlingStep: 'Handling order',
+  canceledStep: 'Canceled',
   invoicedStep: 'Invoiced',
   deliveredStep: 'Delivered',
+  shipOrderStep: 'Ship order',
 }
 
 export const defaultOrderPaymentLabels: Required<OrderPaymentSectionLabels> = {
