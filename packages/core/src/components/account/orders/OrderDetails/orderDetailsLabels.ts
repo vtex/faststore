@@ -65,6 +65,11 @@ export type OrderSummarySectionLabels = {
   summaryTitle?: string
   totalLabel?: string
   interestLabel?: string
+  itemsTotalLabel?: string
+  discountsTotalLabel?: string
+  shippingTotalLabel?: string
+  taxTotalLabel?: string
+  changeTotalLabel?: string
 }
 
 export type OrderOrderedBySectionLabels = {
@@ -153,6 +158,11 @@ export const defaultOrderSummaryLabels: Required<OrderSummarySectionLabels> = {
   summaryTitle: 'Summary',
   totalLabel: 'Total',
   interestLabel: 'Interest',
+  itemsTotalLabel: 'Items Total',
+  discountsTotalLabel: 'Discounts Total',
+  shippingTotalLabel: 'Shipping Total',
+  taxTotalLabel: 'Tax Total',
+  changeTotalLabel: 'Change Total',
 }
 
 export const defaultOrderOrderedByLabels: Required<OrderOrderedBySectionLabels> =

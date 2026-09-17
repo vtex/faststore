@@ -20,6 +20,31 @@
       "type": "string",
       "title": "Interest Label",
       "default": "Interest"
+    },
+    "itemsTotalLabel": {
+      "type": "string",
+      "title": "Items Total Label",
+      "default": "Items Total"
+    },
+    "discountsTotalLabel": {
+      "type": "string",
+      "title": "Discounts Total Label",
+      "default": "Discounts Total"
+    },
+    "shippingTotalLabel": {
+      "type": "string",
+      "title": "Shipping Total Label",
+      "default": "Shipping Total"
+    },
+    "taxTotalLabel": {
+      "type": "string",
+      "title": "Tax Total Label",
+      "default": "Tax Total"
+    },
+    "changeTotalLabel": {
+      "type": "string",
+      "title": "Change Total Label",
+      "default": "Change Total"
     }
   },
   "readOnly": false,
