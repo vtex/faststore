@@ -11,10 +11,11 @@ import {
  * Orchestrates a full change of commercial context (REQ-06).
  *
  * Steps:
- *  1. POST switch-properties with the target contract id and apply the returned auth cookie.
- *  2. Clear persisted session and cart state, expire the checkout orderForm
- *     cookie, and reload the page so validateSession/validateCart run under
- *     the new contract.
+ *  1. POST `/api/fs/switch-contract`, which swaps the auth cookie and expires
+ *     the previous contract's checkout orderForm in one response. A failure
+ *     here changes nothing, so the previous contract stays active.
+ *  2. Clear persisted session and cart state and reload the page so
+ *     validateSession/validateCart run under the new contract.
  */
 export const useSwitchContract = () => {
   const [loading, setLoading] = useState(false)
@@ -33,7 +34,12 @@ export const useSwitchContract = () => {
         return false
       }
 
-      await clearPersistedSessionState()
+      // The cookies were already swapped, so the reload has to happen even if
+      // clearing the local stores fails: from here on the server session is
+      // the authoritative source and validateCart rebuilds the cart.
+      try {
+        await clearPersistedSessionState()
+      } catch {}
 
       if (globalThis.window !== undefined) {
         globalThis.window.location.reload()

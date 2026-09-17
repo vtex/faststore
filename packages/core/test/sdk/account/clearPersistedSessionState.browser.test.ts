@@ -45,50 +45,21 @@ describe('clearPersistedSessionState', () => {
     expect(mockDel).toHaveBeenCalledWith('fs::cart')
   })
 
-  it('expires the checkout orderForm cookie', async () => {
+  it('leaves cookies alone: the HttpOnly orderForm cookies are the route\u2019s job', async () => {
     document.cookie = 'checkout.vtex.com=__ofid=abc123; path=/'
-    expect(document.cookie).toContain('checkout.vtex.com')
 
     await clearPersistedSessionState()
 
-    expect(document.cookie).not.toContain('checkout.vtex.com')
+    expect(document.cookie).toContain('checkout.vtex.com')
   })
 
-  describe('when the cookie expiry throws (e.g. blocked storage)', () => {
-    let originalDescriptor: PropertyDescriptor | undefined
+  it('still clears sessionStorage when IndexedDB deletion rejects', async () => {
+    mockDel.mockRejectedValue(new Error('blocked'))
 
-    beforeEach(() => {
-      originalDescriptor = Object.getOwnPropertyDescriptor(document, 'cookie')
-      Object.defineProperty(document, 'cookie', {
-        configurable: true,
-        set() {
-          throw new Error('blocked')
-        },
-        get() {
-          return ''
-        },
-      })
-    })
+    await expect(clearPersistedSessionState()).resolves.toBeUndefined()
 
-    afterEach(() => {
-      if (originalDescriptor) {
-        Object.defineProperty(document, 'cookie', originalDescriptor)
-        return
-      }
-
-      // `document.cookie` is inherited from Document.prototype, so the stub
-      // above created an own property that has to be removed instead.
-      delete (document as unknown as { cookie?: unknown }).cookie
-    })
-
-    it('still resolves and clears the sessionStorage keys', async () => {
-      await expect(clearPersistedSessionState()).resolves.toBeUndefined()
-
-      expect(sessionStorage.getItem(SESSION_READY_KEY)).toBeNull()
-      expect(sessionStorage.getItem(STORAGE_KEY_PERSON_ID)).toBeNull()
-      expect(
-        sessionStorage.getItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)
-      ).toBeNull()
-    })
+    expect(sessionStorage.getItem(SESSION_READY_KEY)).toBeNull()
+    expect(sessionStorage.getItem(STORAGE_KEY_PERSON_ID)).toBeNull()
+    expect(sessionStorage.getItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)).toBeNull()
   })
 })
