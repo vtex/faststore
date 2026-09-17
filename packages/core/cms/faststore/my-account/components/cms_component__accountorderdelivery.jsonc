@@ -60,6 +60,86 @@
       "type": "string",
       "title": "Total Label",
       "default": "Total"
+    },
+    "deliveryChannelLabel": {
+      "type": "string",
+      "title": "Delivery Channel Label",
+      "default": "Delivery"
+    },
+    "pickupChannelLabel": {
+      "type": "string",
+      "title": "Pickup Channel Label",
+      "default": "Pickup"
+    },
+    "takeAwayChannelLabel": {
+      "type": "string",
+      "title": "Take Away Channel Label",
+      "default": "Take away"
+    },
+    "businessDaysZeroTemplate": {
+      "type": "string",
+      "title": "Business Days Zero Template",
+      "default": "Today"
+    },
+    "businessDaysOneTemplate": {
+      "type": "string",
+      "title": "Business Days One Template",
+      "default": "In 1 business day"
+    },
+    "businessDaysOtherTemplate": {
+      "type": "string",
+      "title": "Business Days Other Template",
+      "default": "Up to {count} business days"
+    },
+    "daysZeroTemplate": {
+      "type": "string",
+      "title": "Days Zero Template",
+      "default": "Today"
+    },
+    "daysOneTemplate": {
+      "type": "string",
+      "title": "Days One Template",
+      "default": "In 1 day"
+    },
+    "daysOtherTemplate": {
+      "type": "string",
+      "title": "Days Other Template",
+      "default": "Up to {count} days"
+    },
+    "hoursZeroTemplate": {
+      "type": "string",
+      "title": "Hours Zero Template",
+      "default": "Now"
+    },
+    "hoursOneTemplate": {
+      "type": "string",
+      "title": "Hours One Template",
+      "default": "In 1 hour"
+    },
+    "hoursOtherTemplate": {
+      "type": "string",
+      "title": "Hours Other Template",
+      "default": "Up to {count} hours"
+    },
+    "minutesZeroTemplate": {
+      "type": "string",
+      "title": "Minutes Zero Template",
+      "default": "Now"
+    },
+    "minutesOneTemplate": {
+      "type": "string",
+      "title": "Minutes One Template",
+      "default": "In 1 minute"
+    },
+    "minutesOtherTemplate": {
+      "type": "string",
+      "title": "Minutes Other Template",
+      "default": "Up to {count} minutes"
+    },
+    "toNeighborhoodTemplate": {
+      "type": "string",
+      "title": "To Neighborhood Template",
+      "default": "to {neighborhood}"
     }
   },
   "readOnly": false,

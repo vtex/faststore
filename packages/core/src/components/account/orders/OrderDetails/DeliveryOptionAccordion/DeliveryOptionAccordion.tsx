@@ -20,6 +20,7 @@ import {
   type OrderDeliverySectionLabels,
   resolveOrderDeliveryLabels,
 } from '../orderDetailsLabels'
+import { getDeliveryOptionLabel } from '../getDeliveryOptionLabel'
 
 interface DeliveryOptionAccordionProps {
   deliveryOption: UserOrderDeliveryOption
@@ -50,7 +51,7 @@ function DeliveryOptionAccordion({
   )
   const formatPrice = useFormatPrice()
 
-  const title = deliveryOption.friendlyDeliveryOptionName
+  const title = getDeliveryOptionLabel(deliveryOption, labels)
 
   const itemCount = labels.itemCountTemplate.replace(
     '{count}',

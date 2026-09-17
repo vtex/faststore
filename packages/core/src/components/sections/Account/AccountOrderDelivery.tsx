@@ -35,10 +35,11 @@ const AccountOrderDelivery = (props: AccountOrderDeliveryProps) => {
             ?.fields || []
         }
         title={labels.deliveryTitle}
+        labels={labels}
       />
       {order.deliveryOptionsData.deliveryOptions.map((option) => (
         <DeliveryOptionAccordion
-          key={option.friendlyDeliveryOptionName}
+          key={`${option.selectedSla}|${option.deliveryChannel}|${option.deliveryCompany}|${option.seller}|${option.shippingEstimate}|${option.address?.addressId}`}
           deliveryOption={option as UserOrderDeliveryOption}
           contact={order.deliveryOptionsData.contact}
           currencyCode={order.storePreferencesData.currencyCode}

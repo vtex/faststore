@@ -59,6 +59,22 @@ export type OrderDeliverySectionLabels = {
   eachLabel?: string
   taxesLabel?: string
   totalLabel?: string
+  deliveryChannelLabel?: string
+  pickupChannelLabel?: string
+  takeAwayChannelLabel?: string
+  businessDaysZeroTemplate?: string
+  businessDaysOneTemplate?: string
+  businessDaysOtherTemplate?: string
+  daysZeroTemplate?: string
+  daysOneTemplate?: string
+  daysOtherTemplate?: string
+  hoursZeroTemplate?: string
+  hoursOneTemplate?: string
+  hoursOtherTemplate?: string
+  minutesZeroTemplate?: string
+  minutesOneTemplate?: string
+  minutesOtherTemplate?: string
+  toNeighborhoodTemplate?: string
 }
 
 export type OrderSummarySectionLabels = {
@@ -152,6 +168,22 @@ export const defaultOrderDeliveryLabels: Required<OrderDeliverySectionLabels> =
     eachLabel: 'Each',
     taxesLabel: 'Taxes',
     totalLabel: 'Total',
+    deliveryChannelLabel: 'Delivery',
+    pickupChannelLabel: 'Pickup',
+    takeAwayChannelLabel: 'Take away',
+    businessDaysZeroTemplate: 'Today',
+    businessDaysOneTemplate: 'In 1 business day',
+    businessDaysOtherTemplate: 'Up to {count} business days',
+    daysZeroTemplate: 'Today',
+    daysOneTemplate: 'In 1 day',
+    daysOtherTemplate: 'Up to {count} days',
+    hoursZeroTemplate: 'Now',
+    hoursOneTemplate: 'In 1 hour',
+    hoursOtherTemplate: 'Up to {count} hours',
+    minutesZeroTemplate: 'Now',
+    minutesOneTemplate: 'In 1 minute',
+    minutesOtherTemplate: 'Up to {count} minutes',
+    toNeighborhoodTemplate: 'to {neighborhood}',
   }
 
 export const defaultOrderSummaryLabels: Required<OrderSummarySectionLabels> = {
