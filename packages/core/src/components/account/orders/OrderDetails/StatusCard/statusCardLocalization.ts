@@ -1,3 +1,8 @@
+import {
+  getOrderStatusLabel,
+  type OrderStatusCmsLabels,
+  type OrderStatusKey,
+} from 'src/utils/userOrderStatus'
 import type { OrderStatusSectionLabels } from '../orderDetailsLabels'
 
 export type StepStatus = 'completed' | 'loading' | 'not-started' | 'failed'
@@ -47,6 +52,49 @@ export function getStepLabel(
   }
 
   return stepLabels[stepKey][stepStatus]
+}
+
+export function getDisplayStepLabel({
+  stepKey,
+  stepStatus,
+  labels,
+  status,
+  statusLabels,
+  isCanceled,
+}: {
+  stepKey: StepKey
+  stepStatus: StepStatus
+  labels: Required<OrderStatusSectionLabels>
+  status: OrderStatusKey
+  statusLabels?: OrderStatusCmsLabels
+  isCanceled: boolean
+}): string {
+  if (isCanceled) {
+    return stepKey === 'payment'
+      ? getOrderStatusLabel({ status, cmsLabels: statusLabels })
+      : '—'
+  }
+
+  if (
+    stepStatus === 'failed' &&
+    (stepKey === 'processing' || stepKey === 'shipping')
+  ) {
+    return getOrderStatusLabel({
+      status: 'canceled',
+      cmsLabels: statusLabels,
+      statusFallback: labels.canceledStep,
+    })
+  }
+
+  if (stepStatus === 'failed' && stepKey === 'payment') {
+    return getOrderStatusLabel({
+      status,
+      cmsLabels: statusLabels,
+      statusFallback: labels.paymentDeniedStep,
+    })
+  }
+
+  return getStepLabel(stepKey, stepStatus, labels)
 }
 
 export function formatDate(date: string, locale: string) {

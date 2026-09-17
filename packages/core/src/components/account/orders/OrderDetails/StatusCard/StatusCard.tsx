@@ -1,9 +1,8 @@
 import { Icon as UIIcon, Skeleton as UISkeleton } from '@faststore/ui'
+import { useRouter } from 'next/router'
 import { useRef, type ReactNode } from 'react'
 import Card from 'src/components/account/components/Card'
-import { useSession } from 'src/sdk/session'
 import {
-  getOrderStatusLabel,
   orderStatusMap,
   type OrderStatusCmsLabels,
   type OrderStatusKey,
@@ -16,7 +15,7 @@ import {
 } from '../orderDetailsLabels'
 import {
   formatDate,
-  getStepLabel,
+  getDisplayStepLabel,
   type StepKey,
   type StepStatus,
 } from './statusCardLocalization'
@@ -171,7 +170,7 @@ function StatusCard({
   statusLabels,
 }: StatusCardProps) {
   const labels = resolveOrderStatusLabels(labelsProp)
-  const { locale } = useSession()
+  const { locale = 'en-US' } = useRouter()
   const containerRef = useRef<HTMLDivElement>(null)
 
   useConnectorPositioning(containerRef)
@@ -193,11 +192,14 @@ function StatusCard({
       isFailed,
     })
 
-    const stepLabel = isCanceled
-      ? step.key === 'payment'
-        ? getOrderStatusLabel({ status, cmsLabels: statusLabels })
-        : '—' // prevent hydration mismatch
-      : getStepLabel(step.key, stepStatus, labels)
+    const stepLabel = getDisplayStepLabel({
+      stepKey: step.key,
+      stepStatus,
+      labels,
+      status,
+      statusLabels,
+      isCanceled,
+    })
 
     // Add creation date to the order step when it's completed or failed
     let completedAt: string | undefined

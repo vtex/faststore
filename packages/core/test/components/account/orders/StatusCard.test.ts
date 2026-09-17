@@ -1,7 +1,3 @@
-/**
- * @vitest-environment jsdom
- */
-
 import { describe, expect, it } from 'vitest'
 
 import {
@@ -10,6 +6,7 @@ import {
 } from '../../../../src/components/account/orders/OrderDetails/orderDetailsLabels'
 import {
   formatDate,
+  getDisplayStepLabel,
   getStepLabel,
   type StepKey,
   type StepStatus,
@@ -43,6 +40,47 @@ describe('StatusCard localization', () => {
     for (const [step, status, labelKey] of combinations) {
       expect(getStepLabel(step, status, labels)).toBe(`i18n:${labelKey}`)
     }
+  })
+
+  it('uses CMS status labels for canceled and failed timeline copy', () => {
+    const labels = resolveOrderStatusLabels()
+    const statusLabels = {
+      canceledStatus: 'Cancelado',
+      paymentDeniedStatus: 'Pagamento recusado',
+    }
+
+    expect(
+      getDisplayStepLabel({
+        stepKey: 'payment',
+        stepStatus: 'failed',
+        labels,
+        status: 'canceled',
+        statusLabels,
+        isCanceled: true,
+      })
+    ).toBe('Cancelado')
+
+    expect(
+      getDisplayStepLabel({
+        stepKey: 'shipping',
+        stepStatus: 'failed',
+        labels,
+        status: 'canceled',
+        statusLabels,
+        isCanceled: false,
+      })
+    ).toBe('Cancelado')
+
+    expect(
+      getDisplayStepLabel({
+        stepKey: 'payment',
+        stepStatus: 'failed',
+        labels,
+        status: 'payment-denied',
+        statusLabels,
+        isCanceled: false,
+      })
+    ).toBe('Pagamento recusado')
   })
 
   it('formats timeline dates and times using the active locale', () => {

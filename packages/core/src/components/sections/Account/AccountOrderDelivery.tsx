@@ -4,6 +4,7 @@ import {
   type OrderDeliverySectionLabels,
   defaultOrderDeliveryLabels,
 } from 'src/components/account/orders/OrderDetails/orderDetailsLabels'
+import { getDeliveryOptionKey } from 'src/components/account/orders/OrderDetails/getDeliveryOptionLabel'
 import type {
   UserOrderDeliveryOption,
   UserOrderDeliveryOptionsData,
@@ -39,7 +40,7 @@ const AccountOrderDelivery = (props: AccountOrderDeliveryProps) => {
       />
       {order.deliveryOptionsData.deliveryOptions.map((option) => (
         <DeliveryOptionAccordion
-          key={`${option.selectedSla}|${option.deliveryChannel}|${option.deliveryCompany}|${option.seller}|${option.shippingEstimate}|${option.address?.addressId}`}
+          key={getDeliveryOptionKey(option)}
           deliveryOption={option as UserOrderDeliveryOption}
           contact={order.deliveryOptionsData.contact}
           currencyCode={order.storePreferencesData.currencyCode}

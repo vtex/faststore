@@ -1,7 +1,10 @@
 import type { UserOrderDeliveryOptionsData } from '@generated/graphql'
 import { camelCaseToTitle } from 'src/utils/utilities'
 import Card from '../../../components/Card'
-import { getDeliveryOptionLabel } from '../getDeliveryOptionLabel'
+import {
+  getDeliveryOptionKey,
+  getDeliveryOptionLabel,
+} from '../getDeliveryOptionLabel'
 import {
   type OrderDeliverySectionLabels,
   resolveOrderDeliveryLabels,
@@ -32,10 +35,7 @@ export default function DeliveryCard({
     <Card title={title} data-fs-order-delivery-card>
       <div data-fs-delivery-methods>
         {deliveryOptions.map((option) => (
-          <p
-            key={`${option.selectedSla}|${option.deliveryChannel}|${option.shippingEstimate}|${option.address?.addressId}`}
-            data-fs-delivery-method
-          >
+          <p key={getDeliveryOptionKey(option)} data-fs-delivery-method>
             {getDeliveryOptionLabel(option, labels)}
           </p>
         ))}

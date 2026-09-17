@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
-import { getDeliveryOptionLabel } from '../../../../src/components/account/orders/OrderDetails/getDeliveryOptionLabel'
+import {
+  getDeliveryOptionKey,
+  getDeliveryOptionLabel,
+} from '../../../../src/components/account/orders/OrderDetails/getDeliveryOptionLabel'
 import { resolveOrderDeliveryLabels } from '../../../../src/components/account/orders/OrderDetails/orderDetailsLabels'
 
 const labels = resolveOrderDeliveryLabels({
@@ -67,6 +70,35 @@ describe('getDeliveryOptionLabel', () => {
         labels
       )
     ).toBe('Entrega bd-5 para Botafogo')
+  })
+
+  it('treats padded one-unit estimates the same way as the API parser', () => {
+    expect(
+      getDeliveryOptionLabel(
+        { deliveryChannel: '', shippingEstimate: '01bd' },
+        labels
+      )
+    ).toBe('bd-1')
+  })
+
+  it('builds a stable key from the same grouping fields as the API', () => {
+    expect(
+      getDeliveryOptionKey({
+        selectedSla: 'Normal',
+        deliveryChannel: 'delivery',
+        deliveryCompany: 'Correios',
+        seller: '1',
+        shippingEstimate: '5bd',
+        shippingEstimateDate: '2026-08-05T00:00:00Z',
+        address: { addressId: 'addr-1' },
+        deliveryWindow: {
+          startDateUtc: '2026-08-05T10:00:00Z',
+          endDateUtc: '2026-08-05T18:00:00Z',
+        },
+      })
+    ).toBe(
+      'Normal|delivery|Correios|1|5bd|2026-08-05T00:00:00Z|addr-1|2026-08-05T10:00:00Z|2026-08-05T18:00:00Z'
+    )
   })
 
   it('preserves the API fallback for unsupported raw values', () => {

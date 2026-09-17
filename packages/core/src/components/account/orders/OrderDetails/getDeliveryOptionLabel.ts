@@ -1,12 +1,23 @@
 import type { OrderDeliverySectionLabels } from './orderDetailsLabels'
 
 type DeliveryOptionLabelData = {
+  selectedSla?: string | null
   deliveryChannel?: string | null
+  deliveryCompany?: string | null
+  seller?: string | null
   shippingEstimate?: string | null
+  shippingEstimateDate?: string | null
   friendlyDeliveryOptionName?: string | null
-  address?: { neighborhood?: string | null } | null
+  address?: {
+    neighborhood?: string | null
+    addressId?: string | null
+  } | null
   pickupStoreInfo?: {
     address?: { neighborhood?: string | null } | null
+  } | null
+  deliveryWindow?: {
+    startDateUtc?: string | null
+    endDateUtc?: string | null
   } | null
 }
 
@@ -50,21 +61,40 @@ const CHANNEL_LABEL_KEYS: Record<
   '': undefined,
 }
 
+function isEstimateUnit(unit: string): unit is EstimateUnit {
+  return unit === 'bd' || unit === 'd' || unit === 'h' || unit === 'm'
+}
+
 function getLocalizedEstimate(
   estimate: string,
   labels: Required<OrderDeliverySectionLabels>
 ): string | undefined {
-  const match = estimate.match(/^(\d+)(bd|d|h|m)$/)
-  if (!match) {
+  const count = estimate.split(/\D+/)[0]
+  const unit = estimate.split(/[0-9]+/)[1]
+
+  if (count === '' || Number.isNaN(Number(count)) || !isEstimateUnit(unit)) {
     return undefined
   }
 
-  const [, count, unit] = match as [string, string, EstimateUnit]
   const quantity: EstimateQuantity =
-    count === '0' ? 'zero' : count === '1' ? 'one' : 'other'
+    Number(count) === 0 ? 'zero' : Number(count) < 2 ? 'one' : 'other'
   const template = labels[ESTIMATE_LABEL_KEYS[unit][quantity]]
 
   return template.replace('{count}', count)
+}
+
+export function getDeliveryOptionKey(option: DeliveryOptionLabelData): string {
+  return [
+    option.selectedSla,
+    option.deliveryChannel,
+    option.deliveryCompany,
+    option.seller,
+    option.shippingEstimate,
+    option.shippingEstimateDate,
+    option.address?.addressId,
+    option.deliveryWindow?.startDateUtc,
+    option.deliveryWindow?.endDateUtc,
+  ].join('|')
 }
 
 export function getDeliveryOptionLabel(
