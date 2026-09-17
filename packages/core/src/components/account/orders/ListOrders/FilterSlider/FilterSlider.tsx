@@ -220,6 +220,7 @@ function FilterSlider({
               )}
               {type === 'StoreFacetPendingApproval' && isExpanded && (
                 <FilterFacetPendingApproval
+                  label={label}
                   selected={selected}
                   dispatch={dispatch}
                 />

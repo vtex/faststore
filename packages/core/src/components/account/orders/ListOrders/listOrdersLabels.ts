@@ -13,6 +13,8 @@ export type ListOrdersSectionLabels = {
   placedOnLabel?: string
   deliveryByLabel?: string
   pendingApprovalLabel?: string
+  statusFilterLabel?: string
+  orderDateFilterLabel?: string
   paginationOfLabel?: string
   previousPageLabel?: string
   nextPageLabel?: string
@@ -44,6 +46,8 @@ export const defaultListOrdersLabels: Required<ListOrdersSectionLabels> = {
   placedOnLabel: 'Placed on',
   deliveryByLabel: 'Delivery by',
   pendingApprovalLabel: 'Pending my approval',
+  statusFilterLabel: 'Status',
+  orderDateFilterLabel: 'Order Date',
   paginationOfLabel: 'of',
   previousPageLabel: 'Previous Page',
   nextPageLabel: 'Next Page',
