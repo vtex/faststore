@@ -10,7 +10,7 @@ interface InfoContainerProps {
   children: ReactNode
 }
 
-function InfoContainer({ title, children }: InfoContainerProps) {
+function InfoContainer({ title, children }: Readonly<InfoContainerProps>) {
   return (
     <div data-fs-delivery-option-accordion-info-container>
       <span data-fs-delivery-option-accordion-info-title>{title}</span>
@@ -29,7 +29,7 @@ function DeliveryOptionAccordionDeliveryInfo({
   deliveryOption,
   contact,
   labels,
-}: DeliveryOptionAccordionDeliveryInfoProps) {
+}: Readonly<DeliveryOptionAccordionDeliveryInfoProps>) {
   const isPickup = deliveryOption.deliveryChannel === 'pickup-in-point'
   const address = isPickup
     ? deliveryOption.pickupStoreInfo?.address

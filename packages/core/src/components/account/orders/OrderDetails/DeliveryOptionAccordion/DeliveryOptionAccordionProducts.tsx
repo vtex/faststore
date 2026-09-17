@@ -26,7 +26,7 @@ function DeliveryOptionAccordionProduct({
   tax,
   total,
   labels,
-}: DeliveryOptionAccordionProductProps) {
+}: Readonly<DeliveryOptionAccordionProductProps>) {
   return (
     <div data-fs-delivery-option-accordion-product>
       <div data-fs-delivery-option-accordion-product-top>
@@ -67,7 +67,7 @@ interface DeliveryOptionAccordionProductsProps {
 
 function DeliveryOptionAccordionProducts({
   children,
-}: DeliveryOptionAccordionProductsProps) {
+}: Readonly<DeliveryOptionAccordionProductsProps>) {
   return <div data-fs-delivery-option-accordion-products>{children}</div>
 }
 

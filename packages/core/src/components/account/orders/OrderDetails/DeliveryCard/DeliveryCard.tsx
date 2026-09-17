@@ -26,7 +26,7 @@ export default function DeliveryCard({
   deliveryOptionsData,
   labels: labelsProp,
   fields,
-}: DeliveryCardProps) {
+}: Readonly<DeliveryCardProps>) {
   const labels = resolveOrderDeliveryLabels(labelsProp)
   const deliveryOptions = deliveryOptionsData?.deliveryOptions ?? []
   const contact = deliveryOptionsData?.contact

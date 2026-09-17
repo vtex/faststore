@@ -168,7 +168,7 @@ function StatusCard({
   creationDate,
   labels: labelsProp,
   statusLabels,
-}: StatusCardProps) {
+}: Readonly<StatusCardProps>) {
   const labels = resolveOrderStatusLabels(labelsProp)
   const { locale = 'en-US' } = useRouter()
   const containerRef = useRef<HTMLDivElement>(null)

@@ -70,14 +70,19 @@ function getLocalizedEstimate(
   labels: Required<OrderDeliverySectionLabels>
 ): string | undefined {
   const count = estimate.split(/\D+/)[0]
-  const unit = estimate.split(/[0-9]+/)[1]
+  const unit = estimate.split(/\d+/)[1]
 
   if (count === '' || Number.isNaN(Number(count)) || !isEstimateUnit(unit)) {
     return undefined
   }
 
-  const quantity: EstimateQuantity =
-    Number(count) === 0 ? 'zero' : Number(count) < 2 ? 'one' : 'other'
+  let quantity: EstimateQuantity = 'other'
+  if (Number(count) === 0) {
+    quantity = 'zero'
+  } else if (Number(count) < 2) {
+    quantity = 'one'
+  }
+
   const template = labels[ESTIMATE_LABEL_KEYS[unit][quantity]]
 
   return template.replace('{count}', count)
@@ -112,7 +117,9 @@ export function getDeliveryOptionLabel(
   }
 
   if (!estimate) {
-    return option.friendlyDeliveryOptionName ?? ''
+    return channelLabelKey
+      ? labels[channelLabelKey]
+      : (option.friendlyDeliveryOptionName ?? '')
   }
 
   const neighborhood =

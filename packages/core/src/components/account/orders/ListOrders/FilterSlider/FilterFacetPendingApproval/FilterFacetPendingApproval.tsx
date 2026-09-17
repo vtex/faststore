@@ -21,7 +21,7 @@ function FilterFacetPendingApproval({
   label,
   selected,
   dispatch,
-}: FilterFacetPendingApprovalProps) {
+}: Readonly<FilterFacetPendingApprovalProps>) {
   const isSelected = useMemo(
     () =>
       selected.some((f) => f.key === 'pendingMyApproval' && f.value === 'true'),

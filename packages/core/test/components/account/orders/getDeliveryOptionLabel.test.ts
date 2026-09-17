@@ -101,6 +101,19 @@ describe('getDeliveryOptionLabel', () => {
     )
   })
 
+  it('keeps a recognized channel localized when the estimate is unavailable', () => {
+    expect(
+      getDeliveryOptionLabel(
+        {
+          deliveryChannel: 'delivery',
+          shippingEstimate: 'someday',
+          friendlyDeliveryOptionName: 'Delivery someday',
+        },
+        labels
+      )
+    ).toBe('Entrega')
+  })
+
   it('preserves the API fallback for unsupported raw values', () => {
     expect(
       getDeliveryOptionLabel(
