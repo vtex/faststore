@@ -3,6 +3,7 @@ import type {
   UserOrderDeliveryOption,
   UserOrderDeliveryOptionsContact,
 } from '@generated/graphql'
+import type { OrderDeliverySectionLabels } from '../orderDetailsLabels'
 
 interface InfoContainerProps {
   title: string
@@ -21,11 +22,13 @@ function InfoContainer({ title, children }: InfoContainerProps) {
 interface DeliveryOptionAccordionDeliveryInfoProps {
   deliveryOption: UserOrderDeliveryOption
   contact?: UserOrderDeliveryOptionsContact | null
+  labels: Required<OrderDeliverySectionLabels>
 }
 
 function DeliveryOptionAccordionDeliveryInfo({
   deliveryOption,
   contact,
+  labels,
 }: DeliveryOptionAccordionDeliveryInfoProps) {
   const isPickup = deliveryOption.deliveryChannel === 'pickup-in-point'
   const address = isPickup
@@ -39,7 +42,7 @@ function DeliveryOptionAccordionDeliveryInfo({
   return (
     <div data-fs-delivery-option-accordion-delivery-info>
       {!isPickup && contact && (
-        <InfoContainer title="Recipient">
+        <InfoContainer title={labels.recipientLabel}>
           <span data-fs-delivery-option-accordion-info>
             <strong>{contact.name}</strong>
           </span>
@@ -52,7 +55,11 @@ function DeliveryOptionAccordionDeliveryInfo({
         </InfoContainer>
       )}
 
-      <InfoContainer title={isPickup ? 'Store address' : 'Delivery address'}>
+      <InfoContainer
+        title={
+          isPickup ? labels.storeAddressLabel : labels.deliveryAddressLabel
+        }
+      >
         <span data-fs-delivery-option-accordion-info>
           <strong>{address.city}</strong>
         </span>
@@ -64,15 +71,15 @@ function DeliveryOptionAccordionDeliveryInfo({
 
       {/* TODO: Validate this after we check the return from api  */}
       {isPickup && deliveryOption.deliveryWindow && (
-        <InfoContainer title="Store Hours">
+        <InfoContainer title={labels.storeHoursLabel}>
           <span data-fs-delivery-option-accordion-info>
-            From:{' '}
+            {labels.fromLabel}{' '}
             {new Date(
               deliveryOption.deliveryWindow.startDateUtc
             ).toLocaleString()}
           </span>
           <span data-fs-delivery-option-accordion-info>
-            To:{' '}
+            {labels.toLabel}{' '}
             {new Date(
               deliveryOption.deliveryWindow.endDateUtc
             ).toLocaleString()}

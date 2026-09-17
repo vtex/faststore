@@ -80,6 +80,7 @@ function DeliveryOptionAccordion({
           <DeliveryOptionAccordionDeliveryInfo
             deliveryOption={deliveryOption}
             contact={contact}
+            labels={labels}
           />
           <DeliveryOptionAccordionProducts>
             {deliveryOption.items?.map((item, index) => {
@@ -97,6 +98,7 @@ function DeliveryOptionAccordion({
                   price={formatPrice(item.sellingPrice ?? 0, currencyCode)}
                   tax={formatPrice(tax, currencyCode)}
                   total={formatPrice(item.total ?? 0, currencyCode)}
+                  labels={labels}
                 />
               )
             })}
