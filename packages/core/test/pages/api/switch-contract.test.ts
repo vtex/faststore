@@ -146,6 +146,17 @@ describe('/api/fs/switch-contract', () => {
     })
   })
 
+  it('refuses to follow redirects so the cookie cannot leak cross-origin', async () => {
+    const handler = await getHandler()
+    const { req, res } = createReqRes()
+
+    await handler(req, res)
+
+    const [, init] = (global.fetch as Mock).mock.calls[0]
+
+    expect(init.redirect).toBe('error')
+  })
+
   it('emits the new auth cookie and the orderForm expiry in one batch', async () => {
     const handler = await getHandler()
     const { req, res } = createReqRes()
@@ -189,6 +200,36 @@ describe('/api/fs/switch-contract', () => {
     expect(authCookie).toContain('SameSite=Lax')
     expect(authCookie).toContain('Secure')
   })
+
+  it.each([
+    ['zero', 0],
+    ['negative', -1],
+    ['fractional', 1.5],
+    ['a numeric string', '3600'],
+    ['not a number', 'soon'],
+    ['missing', undefined],
+  ])(
+    'falls back to the default Max-Age when expiresIn is %s',
+    async (_label, expiresIn) => {
+      ;(global.fetch as Mock).mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => ({ ...successPayload, expiresIn }),
+      })
+      const handler = await getHandler()
+      const { req, res } = createReqRes()
+
+      await handler(req, res)
+
+      const authCookie = setCookiesFrom(res).find((cookie) =>
+        cookie.startsWith('VtexIdclientAutCookie_test-store=')
+      )
+
+      // Max-Age=0 would delete the very credential this response installs.
+      expect(authCookie).toContain('Max-Age=86400')
+      expect(res.status).toHaveBeenCalledWith(200)
+    }
+  )
 
   it('omits Secure on plain http', async () => {
     const handler = await getHandler()

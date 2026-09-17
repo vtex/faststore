@@ -23,9 +23,10 @@ type VtexAuthCookie = {
   Value: string
 }
 
+/** Untrusted upstream payload: every field is validated before use. */
 type SwitchPropertiesResponse = {
   authStatus?: string
-  expiresIn?: number
+  expiresIn?: unknown
   authCookie?: VtexAuthCookie | null
   accountAuthCookie?: VtexAuthCookie | null
 }
@@ -55,6 +56,17 @@ const isSecureRequest = (request: NextApiRequest): boolean => {
 }
 
 /**
+ * A non-positive `expiresIn` would turn into `Max-Age=0`, which expires the
+ * credential the response is supposed to install — logging the buyer out while
+ * the route reports success. Anything that is not a positive integer falls back
+ * to the default.
+ */
+const resolveMaxAge = (expiresIn: unknown): number =>
+  typeof expiresIn === 'number' && Number.isInteger(expiresIn) && expiresIn > 0
+    ? expiresIn
+    : DEFAULT_AUTH_COOKIE_MAX_AGE
+
+/**
  * Mirrors the attributes the storefront used to write via `document.cookie`.
  * `HttpOnly` is deliberately left out: the cookie lives on a domain shared
  * with VTEX's own checkout, so hardening it is a separate, explicitly tested
@@ -64,7 +76,7 @@ const buildAuthCookies = (
   payload: SwitchPropertiesResponse,
   secure: boolean
 ): string[] => {
-  const maxAge = payload.expiresIn ?? DEFAULT_AUTH_COOKIE_MAX_AGE
+  const maxAge = resolveMaxAge(payload.expiresIn)
   const secureAttr = secure ? '; Secure' : ''
 
   return [payload.authCookie, payload.accountAuthCookie]
@@ -127,6 +139,10 @@ const handler: NextApiHandler<SwitchContractResponse> = async (
       },
       body: JSON.stringify({ properties: { customerId: contractId } }),
       signal: AbortSignal.timeout(SWITCH_PROPERTIES_TIMEOUT_MS),
+      // A redirect is never a successful switch, and following one would carry
+      // the buyer's cookie to whatever target the upstream names (CVE-2023-45143
+      // on Node < 20.8.1). Fail closed instead.
+      redirect: 'error',
     })
 
     if (!switchResponse.ok) {
