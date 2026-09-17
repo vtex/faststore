@@ -2,8 +2,12 @@ import '@testing-library/jest-dom/vitest'
 import { cleanup, render } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+import type { ListOrdersProps } from 'src/components/account/orders/ListOrders/ListOrders'
+
 const mockUseAccountPageData = vi.hoisted(() => vi.fn())
-const mockListOrders = vi.hoisted(() => vi.fn(() => null))
+const mockListOrders = vi.hoisted(() =>
+  vi.fn((_props: ListOrdersProps) => null)
+)
 
 vi.mock('src/sdk/account/accountPageContext', () => ({
   useAccountPageData: mockUseAccountPageData,
