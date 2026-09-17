@@ -21,8 +21,14 @@ export const PERSISTED_STORE_KEYS = ['fs::session', 'fs::cart'] as const
  * the auth cookie — B2BTEAM-3827).
  */
 export function expireCheckoutOrderFormCookie(): void {
-  if (typeof document === 'undefined' || typeof window === 'undefined') return
-  const { hostname, pathname, protocol } = window.location
+  if (
+    typeof document === 'undefined' ||
+    typeof globalThis.window === 'undefined'
+  ) {
+    return
+  }
+
+  const { hostname, pathname, protocol } = globalThis.location
   const secure = protocol === 'https:'
   for (const domain of getCookieDomains(hostname)) {
     for (const path of getCookiePaths(pathname)) {

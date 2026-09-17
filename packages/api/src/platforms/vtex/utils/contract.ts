@@ -97,12 +97,17 @@ export const resolveActiveContractIdFromSession = (
  * Unit default = explicit `isDefault` when the BFF sends one, else the first
  * attached contract (same rule as faststore-plugin-buyer-portal
  * `list-attached-contracts.service.ts`).
+ *
+ * `fetchAPI` returns unvalidated JSON, so only a real boolean `true` counts as
+ * an explicit default — a truthy `'false'` string must fall through to the
+ * BFF's ordering instead of hijacking the flag.
  */
 export const resolveDefaultContractId = (
   attached: AttachedContract[] | null | undefined
 ): string => {
   if (!Array.isArray(attached) || attached.length === 0) return ''
-  const chosen = attached.find((contract) => contract?.isDefault) ?? attached[0]
+  const chosen =
+    attached.find((contract) => contract?.isDefault === true) ?? attached[0]
 
   return String(chosen?.id ?? '').trim()
 }

@@ -293,6 +293,22 @@ describe('resolveDefaultContractId', () => {
       '123'
     )
   })
+
+  it('ignores truthy non-boolean isDefault flags', () => {
+    const malformed = [
+      { id: 'a' },
+      { id: 'b', isDefault: 'false' as unknown as boolean },
+    ]
+
+    expect(resolveDefaultContractId(malformed)).toBe('a')
+
+    expect(
+      resolveDefaultContractId([
+        { id: 'a' },
+        { id: 'b', isDefault: 'true' as unknown as boolean },
+      ])
+    ).toBe('a')
+  })
 })
 
 describe('mapSessionContractsToStoreContracts isDefault', () => {

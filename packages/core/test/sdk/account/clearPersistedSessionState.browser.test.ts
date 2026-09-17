@@ -73,7 +73,12 @@ describe('clearPersistedSessionState', () => {
     afterEach(() => {
       if (originalDescriptor) {
         Object.defineProperty(document, 'cookie', originalDescriptor)
+        return
       }
+
+      // `document.cookie` is inherited from Document.prototype, so the stub
+      // above created an own property that has to be removed instead.
+      delete (document as unknown as { cookie?: unknown }).cookie
     })
 
     it('still resolves and clears the sessionStorage keys', async () => {
