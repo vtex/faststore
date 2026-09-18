@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.8.1-dev.1](https://github.com/vtex/faststore/compare/v4.8.1-dev.0...v4.8.1-dev.1) (2026-09-18)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
 ## [4.8.1-dev.0](https://github.com/vtex/faststore/compare/v4.8.0...v4.8.1-dev.0) (2026-09-15)
 
 **Note:** Version bump only for package @faststore/lighthouse

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.8.1-dev.1](https://github.com/vtex/faststore/compare/v4.8.1-dev.0...v4.8.1-dev.1) (2026-09-18)
+
+### Bug Fixes
+
+- **core:** avoid negated ternary condition flagged by Sonar ([c3fa734](https://github.com/vtex/faststore/commit/c3fa73440d9b98286b4ea1f7dfa737a44b06446b))
+- **core:** guard the catch-path no-store header with headersSent ([48c21b8](https://github.com/vtex/faststore/commit/48c21b89d345e1a376c578f3171a0d10461f1689)), closes [#3485](https://github.com/vtex/faststore/issues/3485)
+- **core:** localize My Account order copy ([#3490](https://github.com/vtex/faststore/issues/3490)) ([f77d3cf](https://github.com/vtex/faststore/commit/f77d3cfd1ca5b160ff003d090cb7c4413e2b0c56))
+- **core:** set cache-control: no-store on GraphQL error responses ([dbb7d26](https://github.com/vtex/faststore/commit/dbb7d26078a04ebf9eee5a16e8cc3b6774acee73))
+- **core:** set cache-control: no-store on the catch-path error responses ([5eec369](https://github.com/vtex/faststore/commit/5eec369bebc3b930e45078914e3e1d57bd22208d)), closes [#3485](https://github.com/vtex/faststore/issues/3485)
+
 ## [4.8.1-dev.0](https://github.com/vtex/faststore/compare/v4.8.0...v4.8.1-dev.0) (2026-09-15)
 
 # [4.8.0-dev.8](https://github.com/vtex/faststore/compare/v4.8.0-dev.7...v4.8.0-dev.8) (2026-09-14)
