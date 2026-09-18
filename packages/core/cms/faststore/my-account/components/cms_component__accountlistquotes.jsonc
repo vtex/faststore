@@ -61,6 +61,12 @@
       "title": "Expires At Facet Label",
       "default": "Expiry Date"
     },
+    "removeStatusAriaLabel": {
+      "type": "string",
+      "title": "Remove Status Chip Aria Label",
+      "description": "Supports a \"{status}\" placeholder, e.g. \"Remove {status}\".",
+      "default": "Remove {status}"
+    },
     "fromLabel": {
       "type": "string",
       "title": "From Label",

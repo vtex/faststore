@@ -78,7 +78,7 @@ export function pickQuoteStatusCmsLabels(
 
   for (const key of QUOTE_STATUS_CMS_LABEL_KEYS) {
     const value = data[key]
-    if (typeof value === 'string' && value.length > 0) {
+    if (typeof value === 'string' && value.trim().length > 0) {
       labels[key] = value
       hasAny = true
     }
@@ -98,7 +98,7 @@ export function getLocalizedQuoteStatusMap(
 
   for (const key of QUOTE_STATUS_CMS_LABEL_KEYS) {
     const label = cmsLabels[key]
-    if (label) {
+    if (typeof label === 'string' && label.trim().length > 0) {
       const statusKey = CMS_LABEL_TO_STATUS_KEY[key]
       localizedMap[statusKey] = { ...localizedMap[statusKey], label }
     }

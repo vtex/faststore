@@ -156,6 +156,7 @@ export default function MyAccountListQuotes({
           clearButtonLabel={labels.clearAllLabel}
           applyButtonLabel={labels.viewResultsLabel}
           statusLabel={labels.statusFacetLabel}
+          removeStatusAriaLabel={labels.removeStatusAriaLabel}
           fromLabel={labels.fromLabel}
           toLabel={labels.toLabel}
           invalidDateRangeLabel={labels.invalidDateRangeLabel}

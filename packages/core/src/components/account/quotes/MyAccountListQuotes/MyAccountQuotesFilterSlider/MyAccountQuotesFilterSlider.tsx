@@ -17,6 +17,8 @@ export interface MyAccountQuotesFilterSliderProps {
   clearButtonLabel?: string
   applyButtonLabel?: string
   statusLabel?: string
+  /** Supports a "{status}" placeholder, e.g. "Remove {status}". */
+  removeStatusAriaLabel?: string
   fromLabel?: string
   toLabel?: string
   invalidDateRangeLabel?: string
@@ -33,6 +35,7 @@ function MyAccountQuotesFilterSlider({
   clearButtonLabel,
   applyButtonLabel,
   statusLabel,
+  removeStatusAriaLabel,
   fromLabel,
   toLabel,
   invalidDateRangeLabel,
@@ -127,6 +130,7 @@ function MyAccountQuotesFilterSlider({
         <MyAccountQuotesStatusSelector
           value={selectedStatusValues}
           statusLabel={statusLabel}
+          removeStatusAriaLabel={removeStatusAriaLabel}
           statusCmsLabels={statusCmsLabels}
           onChange={(newSelected) => {
             const added = newSelected.filter(
