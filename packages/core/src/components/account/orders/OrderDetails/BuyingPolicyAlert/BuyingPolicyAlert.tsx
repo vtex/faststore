@@ -24,6 +24,7 @@ interface BuyingPolicyAlertProps {
     /** Supports the `{policy}` placeholder, replaced with the policy name. */
     rejectSuccessToast?: string
     rejectErrorToast?: string
+    pendingFurtherApprovalsAlert?: string
   }
 }
 
@@ -41,6 +42,8 @@ const DEFAULT_REJECT_SUCCESS_TOAST =
   '{policy} policy rejected successfully. Order denied.'
 const DEFAULT_REJECT_ERROR_TOAST =
   "Policy couldn't be rejected due to a technical issue."
+const DEFAULT_PENDING_FURTHER_APPROVALS_ALERT =
+  'Your approval is recorded. This order is still pending further approvals.'
 
 function interpolatePolicyName(template: string, policyName: string): string {
   return template.split('{policy}').join(policyName)
@@ -78,6 +81,9 @@ export default function BuyingPolicyAlert({
     labels?.rejectSuccessToast ?? DEFAULT_REJECT_SUCCESS_TOAST
   const rejectErrorToast =
     labels?.rejectErrorToast ?? DEFAULT_REJECT_ERROR_TOAST
+  const pendingFurtherApprovalsAlert =
+    labels?.pendingFurtherApprovalsAlert ??
+    DEFAULT_PENDING_FURTHER_APPROVALS_ALERT
   const { pushToast } = useUI()
   const [isAuthorizationOpen, setIsAuthorizationOpen] = useState<boolean>(false)
   const { data, error, processOrderAuthorization, loading } =
@@ -190,8 +196,7 @@ export default function BuyingPolicyAlert({
           data-fs-pending-policies-alert
           icon={<UIIcon name="Info" width={20} height={20} />}
         >
-          Your approval is recorded. This order is still pending further
-          approvals.
+          {pendingFurtherApprovalsAlert}
         </UIAlert>
       )}
 

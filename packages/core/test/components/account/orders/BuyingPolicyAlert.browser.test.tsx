@@ -9,11 +9,14 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { ProcessOrderAuthorizationRule } from '@generated/graphql'
 
 const mockProcessOrderAuthorization = vi.hoisted(() => vi.fn())
+const mockOrderAuthorizationData = vi.hoisted(() => ({
+  current: null as { isPendingForOtherAuthorizer?: boolean } | null,
+}))
 
 vi.mock('src/sdk/account/useOrderAuthorization', () => ({
   useOrderAuthorization: () => ({
     processOrderAuthorization: mockProcessOrderAuthorization,
-    data: null,
+    data: mockOrderAuthorizationData.current,
     error: null,
     loading: false,
   }),
@@ -60,6 +63,7 @@ function getModalMessage() {
 describe('BuyingPolicyAlert', () => {
   beforeEach(() => {
     mockProcessOrderAuthorization.mockReset()
+    mockOrderAuthorizationData.current = null
   })
 
   it('opens the reject confirmation modal with the default English copy', () => {
@@ -295,6 +299,44 @@ describe('BuyingPolicyAlert', () => {
 
     expect(
       await screen.findByText('Não foi possível rejeitar a política.')
+    ).toBeTruthy()
+  })
+
+  it('shows the default English pending-approvals alert', () => {
+    mockOrderAuthorizationData.current = { isPendingForOtherAuthorizer: true }
+
+    render(
+      <UIProvider>
+        <BuyingPolicyAlert ruleForAuthorization={ruleForAuthorization} />
+      </UIProvider>
+    )
+
+    expect(
+      screen.getByText(
+        'Your approval is recorded. This order is still pending further approvals.'
+      )
+    ).toBeTruthy()
+  })
+
+  it('shows the CMS-provided pending-approvals alert', () => {
+    mockOrderAuthorizationData.current = { isPendingForOtherAuthorizer: true }
+
+    render(
+      <UIProvider>
+        <BuyingPolicyAlert
+          ruleForAuthorization={ruleForAuthorization}
+          labels={{
+            pendingFurtherApprovalsAlert:
+              'Sua aprovação foi registrada. O pedido ainda aguarda outras aprovações.',
+          }}
+        />
+      </UIProvider>
+    )
+
+    expect(
+      screen.getByText(
+        'Sua aprovação foi registrada. O pedido ainda aguarda outras aprovações.'
+      )
     ).toBeTruthy()
   })
 })

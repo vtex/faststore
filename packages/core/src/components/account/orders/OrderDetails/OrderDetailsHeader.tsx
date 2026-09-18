@@ -82,6 +82,7 @@ export function OrderDetailsHeader({
             approveErrorToast: labels.approveErrorToast,
             rejectSuccessToast: labels.rejectSuccessToast,
             rejectErrorToast: labels.rejectErrorToast,
+            pendingFurtherApprovalsAlert: labels.pendingFurtherApprovalsAlert,
           }}
         />
       )}

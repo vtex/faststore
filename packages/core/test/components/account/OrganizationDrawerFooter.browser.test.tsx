@@ -49,7 +49,7 @@ describe('OrganizationDrawerFooter', () => {
       />
     )
 
-    fireEvent.click(screen.getByRole('button', { name: /log out/i }))
+    fireEvent.click(screen.getByRole('button', { name: /logout/i }))
     expect(onLogoutClick).toHaveBeenCalledTimes(1)
   })
 
@@ -64,7 +64,7 @@ describe('OrganizationDrawerFooter', () => {
     )
 
     expect(screen.getByText('Manage')).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'Log out' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Logout' })).toBeTruthy()
   })
 
   it('uses the default labels inside a non-account page context', () => {
@@ -80,7 +80,7 @@ describe('OrganizationDrawerFooter', () => {
     )
 
     expect(screen.getByText('Manage')).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'Log out' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Logout' })).toBeTruthy()
   })
 
   it('uses the CMS-provided navigation labels when rendered inside a My Account page', () => {

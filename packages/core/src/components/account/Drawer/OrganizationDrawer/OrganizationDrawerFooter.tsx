@@ -26,7 +26,7 @@ export const OrganizationDrawerFooter = ({
   const manageLabel =
     manageLabelProp ?? navigationLabels?.manageLabel ?? 'Manage'
   const logoutLabel =
-    logoutLabelProp ?? navigationLabels?.logoutLabel ?? 'Log out'
+    logoutLabelProp ?? navigationLabels?.logoutLabel ?? 'Logout'
 
   return (
     <div data-fs-organization-drawer-footer>

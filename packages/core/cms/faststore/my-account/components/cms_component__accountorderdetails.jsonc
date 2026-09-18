@@ -90,6 +90,11 @@
       "type": "string",
       "title": "Reject Error Toast",
       "default": "Policy couldn't be rejected due to a technical issue."
+    },
+    "pendingFurtherApprovalsAlert": {
+      "type": "string",
+      "title": "Pending Further Approvals Alert",
+      "default": "Your approval is recorded. This order is still pending further approvals."
     }
   },
   "readOnly": false,

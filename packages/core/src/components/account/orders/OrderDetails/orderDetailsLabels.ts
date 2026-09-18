@@ -19,6 +19,7 @@ export type OrderDetailsHeaderLabels = {
   /** Supports the `{policy}` placeholder, replaced with the policy name. */
   rejectSuccessToast?: string
   rejectErrorToast?: string
+  pendingFurtherApprovalsAlert?: string
 }
 
 export type OrderStatusSectionLabels = {
@@ -131,6 +132,8 @@ export const defaultOrderDetailsHeaderLabels: Required<OrderDetailsHeaderLabels>
     approveErrorToast: "Policy couldn't be approved due to a technical issue.",
     rejectSuccessToast: '{policy} policy rejected successfully. Order denied.',
     rejectErrorToast: "Policy couldn't be rejected due to a technical issue.",
+    pendingFurtherApprovalsAlert:
+      'Your approval is recorded. This order is still pending further approvals.',
   }
 
 export const defaultOrderStatusLabels: Required<OrderStatusSectionLabels> = {

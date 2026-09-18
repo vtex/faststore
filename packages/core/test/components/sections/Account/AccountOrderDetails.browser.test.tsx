@@ -38,6 +38,9 @@ vi.mock(
           {labels.rejectSuccessToast}
         </span>
         <span data-testid="reject-error-toast">{labels.rejectErrorToast}</span>
+        <span data-testid="pending-further-approvals-alert">
+          {labels.pendingFurtherApprovalsAlert}
+        </span>
       </div>
     ),
   })
@@ -77,6 +80,11 @@ describe('AccountOrderDetails', () => {
     expect(screen.getByTestId('reject-error-toast')).toHaveTextContent(
       defaultOrderDetailsHeaderLabels.rejectErrorToast
     )
+    expect(
+      screen.getByTestId('pending-further-approvals-alert')
+    ).toHaveTextContent(
+      defaultOrderDetailsHeaderLabels.pendingFurtherApprovalsAlert
+    )
   })
 
   it('forwards CMS-provided reject modal labels to the order details header', () => {
@@ -110,6 +118,7 @@ describe('AccountOrderDetails', () => {
         approveErrorToast="Não foi possível aprovar a política."
         rejectSuccessToast="Política {policy} rejeitada. Pedido negado."
         rejectErrorToast="Não foi possível rejeitar a política."
+        pendingFurtherApprovalsAlert="Sua aprovação foi registrada. O pedido ainda aguarda outras aprovações."
       />
     )
 
@@ -124,6 +133,11 @@ describe('AccountOrderDetails', () => {
     )
     expect(screen.getByTestId('reject-error-toast')).toHaveTextContent(
       'Não foi possível rejeitar a política.'
+    )
+    expect(
+      screen.getByTestId('pending-further-approvals-alert')
+    ).toHaveTextContent(
+      'Sua aprovação foi registrada. O pedido ainda aguarda outras aprovações.'
     )
   })
 
