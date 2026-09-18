@@ -1,0 +1,234 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountListQuotes",
+  "$componentTitle": "Account List Quotes",
+  "title": "Account List Quotes",
+  "description": "Quotes list section for My Account",
+  "type": "object",
+  "properties": {
+    "pageTitle": {
+      "type": "string",
+      "title": "Page Title",
+      "default": "Quotes"
+    },
+    "searchPlaceholder": {
+      "type": "string",
+      "title": "Search Placeholder",
+      "default": "Search"
+    },
+    "openFiltersAriaLabel": {
+      "type": "string",
+      "title": "Open Filters Aria Label",
+      "default": "Open Filters"
+    },
+    "filtersLabel": {
+      "type": "string",
+      "title": "Filters Label",
+      "default": "Filters"
+    },
+    "clearAllLabel": {
+      "type": "string",
+      "title": "Clear All Label",
+      "default": "Clear All"
+    },
+    "viewResultsLabel": {
+      "type": "string",
+      "title": "View Results Label",
+      "default": "View Results"
+    },
+    "noResultsLabel": {
+      "type": "string",
+      "title": "No Results Label",
+      "default": "No results found"
+    },
+    "noQuotesLabel": {
+      "type": "string",
+      "title": "No Quotes Label",
+      "default": "You don't have any quotes"
+    },
+    "statusFacetLabel": {
+      "type": "string",
+      "title": "Status Facet Label",
+      "default": "Status"
+    },
+    "createdAtFacetLabel": {
+      "type": "string",
+      "title": "Created At Facet Label",
+      "default": "Created Date"
+    },
+    "expiresAtFacetLabel": {
+      "type": "string",
+      "title": "Expires At Facet Label",
+      "default": "Expiry Date"
+    },
+    "fromLabel": {
+      "type": "string",
+      "title": "From Label",
+      "default": "From"
+    },
+    "toLabel": {
+      "type": "string",
+      "title": "To Label",
+      "default": "To"
+    },
+    "invalidDateRangeLabel": {
+      "type": "string",
+      "title": "Invalid Date Range Label",
+      "default": "Invalid date range"
+    },
+    "paginationOfLabel": {
+      "type": "string",
+      "title": "Pagination Of Label",
+      "default": "of"
+    },
+    "previousPageLabel": {
+      "type": "string",
+      "title": "Previous Page Label",
+      "default": "Previous Page"
+    },
+    "nextPageLabel": {
+      "type": "string",
+      "title": "Next Page Label",
+      "default": "Next Page"
+    },
+    "createdTagLabel": {
+      "type": "string",
+      "title": "Created Tag Label",
+      "default": "Created"
+    },
+    "expiresTagLabel": {
+      "type": "string",
+      "title": "Expires Tag Label",
+      "default": "Expires"
+    },
+    "dateRangeFromLabel": {
+      "type": "string",
+      "title": "Date Range From Label",
+      "default": "from"
+    },
+    "dateRangeToLabel": {
+      "type": "string",
+      "title": "Date Range To Label",
+      "default": "to"
+    },
+    "dateRangeSeparatorLabel": {
+      "type": "string",
+      "title": "Date Range Separator Label",
+      "default": "to"
+    },
+    "createdByLabel": {
+      "type": "string",
+      "title": "Created By Label",
+      "default": "Created by"
+    },
+    "creationDateLabel": {
+      "type": "string",
+      "title": "Creation Date Label",
+      "default": "Creation date"
+    },
+    "expiresOnLabel": {
+      "type": "string",
+      "title": "Expires On Label",
+      "default": "Expires on"
+    },
+    "totalLabel": {
+      "type": "string",
+      "title": "Total Label",
+      "default": "Total"
+    },
+    "hourLabel": {
+      "type": "string",
+      "title": "Hour Label (singular)",
+      "default": "hour"
+    },
+    "hoursLabel": {
+      "type": "string",
+      "title": "Hours Label (plural)",
+      "default": "hours"
+    },
+    "dayLabel": {
+      "type": "string",
+      "title": "Day Label (singular)",
+      "default": "day"
+    },
+    "daysLabel": {
+      "type": "string",
+      "title": "Days Label (plural)",
+      "default": "days"
+    },
+    "weekLabel": {
+      "type": "string",
+      "title": "Week Label (singular)",
+      "default": "week"
+    },
+    "weeksLabel": {
+      "type": "string",
+      "title": "Weeks Label (plural)",
+      "default": "weeks"
+    },
+    "monthLabel": {
+      "type": "string",
+      "title": "Month Label (singular)",
+      "default": "month"
+    },
+    "monthsLabel": {
+      "type": "string",
+      "title": "Months Label (plural)",
+      "default": "months"
+    },
+    "leftSuffixLabel": {
+      "type": "string",
+      "title": "Left Suffix Label",
+      "default": "left"
+    },
+    "draftStatus": {
+      "type": "string",
+      "title": "Draft Status",
+      "default": "Draft"
+    },
+    "requestedStatus": {
+      "type": "string",
+      "title": "Requested Status",
+      "default": "Requested"
+    },
+    "inReviewStatus": {
+      "type": "string",
+      "title": "In Review Status",
+      "default": "In Review"
+    },
+    "revisedStatus": {
+      "type": "string",
+      "title": "Revised Status",
+      "default": "Revised"
+    },
+    "approvedStatus": {
+      "type": "string",
+      "title": "Approved Status",
+      "default": "Approved"
+    },
+    "declinedStatus": {
+      "type": "string",
+      "title": "Declined Status",
+      "default": "Declined"
+    },
+    "expiredStatus": {
+      "type": "string",
+      "title": "Expired Status",
+      "default": "Expired"
+    },
+    "convertedStatus": {
+      "type": "string",
+      "title": "Converted Status",
+      "default": "Converted"
+    },
+    "convertedToOrderStatus": {
+      "type": "string",
+      "title": "Converted To Order Status",
+      "default": "Converted to Order"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}
