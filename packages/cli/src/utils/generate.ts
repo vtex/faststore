@@ -90,7 +90,11 @@ export function buildFaststorePackageJson(
    * and a quote or a `$` anywhere above the project would break it — a relative
    * path only ever spans `node_modules` segments.
    */
-  const next = nextBin ? `node ${nextBin}` : 'next'
+  let next = 'next'
+
+  if (nextBin) {
+    next = nextBin.includes(' ') ? `node "${nextBin}"` : `node ${nextBin}`
+  }
 
   return {
     ...rest,
