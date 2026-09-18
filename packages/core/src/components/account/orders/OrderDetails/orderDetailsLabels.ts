@@ -13,6 +13,12 @@ export type OrderDetailsHeaderLabels = {
   /** Supports the `{policy}` placeholder, replaced with the policy name. */
   rejectModalMessage?: string
   rejectModalConfirmText?: string
+  /** Supports the `{policy}` placeholder, replaced with the policy name. */
+  approveSuccessToast?: string
+  approveErrorToast?: string
+  /** Supports the `{policy}` placeholder, replaced with the policy name. */
+  rejectSuccessToast?: string
+  rejectErrorToast?: string
 }
 
 export type OrderStatusSectionLabels = {
@@ -121,6 +127,10 @@ export const defaultOrderDetailsHeaderLabels: Required<OrderDetailsHeaderLabels>
     rejectModalMessage:
       "You're about to reject this approval request, triggered by the {policy} policy. Rejecting any approval request will deny the entire order.\n\nThis action is permanent and cannot be undone.",
     rejectModalConfirmText: 'Reject',
+    approveSuccessToast: '{policy} policy approved successfully.',
+    approveErrorToast: "Policy couldn't be approved due to a technical issue.",
+    rejectSuccessToast: '{policy} policy rejected successfully. Order denied.',
+    rejectErrorToast: "Policy couldn't be rejected due to a technical issue.",
   }
 
 export const defaultOrderStatusLabels: Required<OrderStatusSectionLabels> = {

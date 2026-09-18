@@ -28,6 +28,16 @@ vi.mock(
         <span data-testid="reject-modal-confirm">
           {labels.rejectModalConfirmText}
         </span>
+        <span data-testid="approve-success-toast">
+          {labels.approveSuccessToast}
+        </span>
+        <span data-testid="approve-error-toast">
+          {labels.approveErrorToast}
+        </span>
+        <span data-testid="reject-success-toast">
+          {labels.rejectSuccessToast}
+        </span>
+        <span data-testid="reject-error-toast">{labels.rejectErrorToast}</span>
       </div>
     ),
   })
@@ -55,6 +65,18 @@ describe('AccountOrderDetails', () => {
     expect(screen.getByTestId('reject-modal-confirm')).toHaveTextContent(
       defaultOrderDetailsHeaderLabels.rejectModalConfirmText
     )
+    expect(screen.getByTestId('approve-success-toast')).toHaveTextContent(
+      defaultOrderDetailsHeaderLabels.approveSuccessToast
+    )
+    expect(screen.getByTestId('approve-error-toast')).toHaveTextContent(
+      defaultOrderDetailsHeaderLabels.approveErrorToast
+    )
+    expect(screen.getByTestId('reject-success-toast')).toHaveTextContent(
+      defaultOrderDetailsHeaderLabels.rejectSuccessToast
+    )
+    expect(screen.getByTestId('reject-error-toast')).toHaveTextContent(
+      defaultOrderDetailsHeaderLabels.rejectErrorToast
+    )
   })
 
   it('forwards CMS-provided reject modal labels to the order details header', () => {
@@ -76,6 +98,32 @@ describe('AccountOrderDetails', () => {
     )
     expect(screen.getByTestId('reject-modal-confirm')).toHaveTextContent(
       'Confirmar rejeição'
+    )
+  })
+
+  it('forwards CMS-provided buying policy toast labels to the order details header', () => {
+    mockUseAccountPageData.mockReturnValueOnce({ order })
+
+    render(
+      <AccountOrderDetails
+        approveSuccessToast="Política {policy} aprovada com sucesso."
+        approveErrorToast="Não foi possível aprovar a política."
+        rejectSuccessToast="Política {policy} rejeitada. Pedido negado."
+        rejectErrorToast="Não foi possível rejeitar a política."
+      />
+    )
+
+    expect(screen.getByTestId('approve-success-toast')).toHaveTextContent(
+      'Política {policy} aprovada com sucesso.'
+    )
+    expect(screen.getByTestId('approve-error-toast')).toHaveTextContent(
+      'Não foi possível aprovar a política.'
+    )
+    expect(screen.getByTestId('reject-success-toast')).toHaveTextContent(
+      'Política {policy} rejeitada. Pedido negado.'
+    )
+    expect(screen.getByTestId('reject-error-toast')).toHaveTextContent(
+      'Não foi possível rejeitar a política.'
     )
   })
 

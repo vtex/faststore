@@ -70,6 +70,26 @@
       "type": "string",
       "title": "Reject Modal Confirm Text",
       "default": "Reject"
+    },
+    "approveSuccessToast": {
+      "type": "string",
+      "title": "Approve Success Toast",
+      "default": "{policy} policy approved successfully."
+    },
+    "approveErrorToast": {
+      "type": "string",
+      "title": "Approve Error Toast",
+      "default": "Policy couldn't be approved due to a technical issue."
+    },
+    "rejectSuccessToast": {
+      "type": "string",
+      "title": "Reject Success Toast",
+      "default": "{policy} policy rejected successfully. Order denied."
+    },
+    "rejectErrorToast": {
+      "type": "string",
+      "title": "Reject Error Toast",
+      "default": "Policy couldn't be rejected due to a technical issue."
     }
   },
   "readOnly": false,

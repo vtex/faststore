@@ -78,6 +78,10 @@ export function OrderDetailsHeader({
             rejectModalTitle: labels.rejectModalTitle,
             rejectModalMessage: labels.rejectModalMessage,
             rejectModalConfirmText: labels.rejectModalConfirmText,
+            approveSuccessToast: labels.approveSuccessToast,
+            approveErrorToast: labels.approveErrorToast,
+            rejectSuccessToast: labels.rejectSuccessToast,
+            rejectErrorToast: labels.rejectErrorToast,
           }}
         />
       )}

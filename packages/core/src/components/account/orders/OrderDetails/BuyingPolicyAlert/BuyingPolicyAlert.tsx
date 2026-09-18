@@ -18,6 +18,12 @@ interface BuyingPolicyAlertProps {
     rejectModalTitle?: string
     rejectModalMessage?: string
     rejectModalConfirmText?: string
+    /** Supports the `{policy}` placeholder, replaced with the policy name. */
+    approveSuccessToast?: string
+    approveErrorToast?: string
+    /** Supports the `{policy}` placeholder, replaced with the policy name. */
+    rejectSuccessToast?: string
+    rejectErrorToast?: string
   }
 }
 
@@ -28,9 +34,20 @@ const DEFAULT_REJECT_MODAL_TITLE = 'Reject approval request'
 const DEFAULT_REJECT_MODAL_MESSAGE =
   "You're about to reject this approval request, triggered by the {policy} policy. Rejecting any approval request will deny the entire order.\n\nThis action is permanent and cannot be undone."
 const DEFAULT_REJECT_MODAL_CONFIRM_TEXT = 'Reject'
+const DEFAULT_APPROVE_SUCCESS_TOAST = '{policy} policy approved successfully.'
+const DEFAULT_APPROVE_ERROR_TOAST =
+  "Policy couldn't be approved due to a technical issue."
+const DEFAULT_REJECT_SUCCESS_TOAST =
+  '{policy} policy rejected successfully. Order denied.'
+const DEFAULT_REJECT_ERROR_TOAST =
+  "Policy couldn't be rejected due to a technical issue."
+
+function interpolatePolicyName(template: string, policyName: string): string {
+  return template.replace('{policy}', policyName)
+}
 
 function renderRejectMessage(template: string, policyName: string): ReactNode {
-  const lines = template.replace('{policy}', policyName).split('\n')
+  const lines = interpolatePolicyName(template, policyName).split('\n')
 
   return lines.map((line, index) => (
     <Fragment key={`${index}-${line}`}>
@@ -53,6 +70,14 @@ export default function BuyingPolicyAlert({
     labels?.rejectModalMessage ?? DEFAULT_REJECT_MODAL_MESSAGE
   const rejectModalConfirmText =
     labels?.rejectModalConfirmText ?? DEFAULT_REJECT_MODAL_CONFIRM_TEXT
+  const approveSuccessToast =
+    labels?.approveSuccessToast ?? DEFAULT_APPROVE_SUCCESS_TOAST
+  const approveErrorToast =
+    labels?.approveErrorToast ?? DEFAULT_APPROVE_ERROR_TOAST
+  const rejectSuccessToast =
+    labels?.rejectSuccessToast ?? DEFAULT_REJECT_SUCCESS_TOAST
+  const rejectErrorToast =
+    labels?.rejectErrorToast ?? DEFAULT_REJECT_ERROR_TOAST
   const { pushToast } = useUI()
   const [isAuthorizationOpen, setIsAuthorizationOpen] = useState<boolean>(false)
   const { data, error, processOrderAuthorization, loading } =
@@ -72,7 +97,10 @@ export default function BuyingPolicyAlert({
       // Success toast
       pushToast({
         status: 'INFO',
-        message: `${ruleForAuthorization.rule.name} policy approved successfully.`,
+        message: interpolatePolicyName(
+          approveSuccessToast,
+          ruleForAuthorization.rule.name
+        ),
         icon: <UIIcon width={30} height={30} name="CircleWavyCheck" />,
       })
 
@@ -80,7 +108,7 @@ export default function BuyingPolicyAlert({
     } catch (error) {
       pushToast({
         status: 'ERROR',
-        message: "Policy couldn't be approved due to a technical issue.",
+        message: approveErrorToast,
         icon: <UIIcon width={30} height={30} name="CircleWavyWarning" />,
       })
     }
@@ -99,7 +127,10 @@ export default function BuyingPolicyAlert({
 
       pushToast({
         status: 'INFO',
-        message: `${ruleForAuthorization.rule.name} policy rejected successfully. Order denied.`,
+        message: interpolatePolicyName(
+          rejectSuccessToast,
+          ruleForAuthorization.rule.name
+        ),
         icon: <UIIcon width={30} height={30} name="XCircle" />,
       })
 
@@ -108,7 +139,7 @@ export default function BuyingPolicyAlert({
     } catch (error) {
       pushToast({
         status: 'ERROR',
-        message: "Policy couldn't be rejected due to a technical issue.",
+        message: rejectErrorToast,
         icon: <UIIcon width={30} height={30} name="CircleWavyWarning" />,
       })
     }

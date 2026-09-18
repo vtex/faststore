@@ -25,6 +25,10 @@ const AccountOrderDetails = ({
   rejectModalTitle = defaultOrderDetailsHeaderLabels.rejectModalTitle,
   rejectModalMessage = defaultOrderDetailsHeaderLabels.rejectModalMessage,
   rejectModalConfirmText = defaultOrderDetailsHeaderLabels.rejectModalConfirmText,
+  approveSuccessToast = defaultOrderDetailsHeaderLabels.approveSuccessToast,
+  approveErrorToast = defaultOrderDetailsHeaderLabels.approveErrorToast,
+  rejectSuccessToast = defaultOrderDetailsHeaderLabels.rejectSuccessToast,
+  rejectErrorToast = defaultOrderDetailsHeaderLabels.rejectErrorToast,
 }: AccountOrderDetailsProps) => {
   const { order, orderStatusLabels } =
     useAccountPageData<AccountOrderDetailsPageData>()
@@ -52,6 +56,10 @@ const AccountOrderDetails = ({
           rejectModalTitle,
           rejectModalMessage,
           rejectModalConfirmText,
+          approveSuccessToast,
+          approveErrorToast,
+          rejectSuccessToast,
+          rejectErrorToast,
         }}
       />
     </Section>
