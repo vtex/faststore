@@ -103,6 +103,38 @@ describe('getAllFacets', () => {
     expect(createdAt.from).toBe('2024-01-01')
     expect(createdAt.to).toBe('2024-12-31')
   })
+
+  it('uses default English labels when no CMS labels are provided', () => {
+    const facets = getAllFacets(emptyFilters)
+    expect(facets[0].label).toBe('Status')
+    expect(facets[1].label).toBe('Created Date')
+    expect(facets[2].label).toBe('Expiry Date')
+  })
+
+  it('honors CMS-provided facet labels', () => {
+    const facets = getAllFacets(emptyFilters, {
+      statusFacetLabel: 'Estado',
+      createdAtFacetLabel: 'Data de criação',
+      expiresAtFacetLabel: 'Data de validade',
+    })
+    expect(facets[0].label).toBe('Estado')
+    expect(facets[1].label).toBe('Data de criação')
+    expect(facets[2].label).toBe('Data de validade')
+  })
+
+  it('honors CMS-provided status option labels', () => {
+    const facets = getAllFacets(emptyFilters, {
+      statusCmsLabels: { draftStatus: 'Rascunho', approvedStatus: 'Aprovado' },
+    })
+    if (facets[0].__typename !== 'StoreFacetBoolean') throw new Error()
+    const draftValue = facets[0].values.find((v) => v.value === 'Draft')
+    const approvedValue = facets[0].values.find((v) => v.value === 'Approved')
+    const declinedValue = facets[0].values.find((v) => v.value === 'Declined')
+    expect(draftValue?.label).toBe('Rascunho')
+    expect(approvedValue?.label).toBe('Aprovado')
+    // Statuses without a CMS override keep their default English label.
+    expect(declinedValue?.label).toBe('Declined')
+  })
 })
 
 describe('hasActiveFilters', () => {

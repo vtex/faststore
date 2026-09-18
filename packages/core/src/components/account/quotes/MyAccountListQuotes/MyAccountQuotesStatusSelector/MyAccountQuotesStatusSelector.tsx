@@ -1,23 +1,30 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useMemo, useRef, useState } from 'react'
 
-import { quoteStatusMap } from 'src/utils/quoteStatus'
+import type { QuoteStatusCmsLabels } from 'src/utils/quoteStatus'
+import { getLocalizedQuoteStatusMap } from 'src/utils/quoteStatus'
 import styles from './styles.module.scss'
 
 type MyAccountQuotesStatusSelectorProps = Readonly<{
   value: string[]
   onChange: (selected: string[]) => void
+  statusLabel?: string
+  statusCmsLabels?: QuoteStatusCmsLabels
 }>
-
-const statusEntries = Object.entries(quoteStatusMap).map(([key, entry]) => ({
-  key,
-  label: entry.label,
-  variant: entry.variant,
-}))
 
 export default function MyAccountQuotesStatusSelector({
   value,
   onChange,
+  statusLabel = 'Status',
+  statusCmsLabels,
 }: MyAccountQuotesStatusSelectorProps) {
+  const statusEntries = useMemo(() => {
+    const statusMap = getLocalizedQuoteStatusMap(statusCmsLabels)
+    return Object.entries(statusMap).map(([key, entry]) => ({
+      key,
+      label: entry.label,
+      variant: entry.variant,
+    }))
+  }, [statusCmsLabels])
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const labelId = useId()
@@ -47,7 +54,7 @@ export default function MyAccountQuotesStatusSelector({
   return (
     <div className={styles.wrapper} ref={ref} data-fs-quotes-status-selector>
       <span id={labelId} className={styles.label}>
-        Status
+        {statusLabel}
       </span>
       <div data-fs-quotes-status-input-wrapper>
         <div className={styles.input} data-open={open || undefined}>

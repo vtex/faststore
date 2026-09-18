@@ -4,6 +4,12 @@ import MyAccountQuoteStatusBadge from './MyAccountQuoteStatusBadge'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import type { ServerListQuotesQueryQuery } from '@generated/graphql'
+import type { MyAccountListQuotesSectionLabels } from '../quotesLabels'
+import {
+  formatRelativeExpiryLabel,
+  pickQuoteStatusCmsLabels,
+  resolveMyAccountListQuotesLabels,
+} from '../quotesLabels'
 
 function formatDateTime(isoString: string, locale: string) {
   if (!isoString) return ''
@@ -29,7 +35,10 @@ function formatDateShort(isoString: string, locale: string) {
   })
 }
 
-function getRelativeExpiry(isoString: string): string | null {
+function getRelativeExpiry(
+  isoString: string,
+  labels: Required<MyAccountListQuotesSectionLabels>
+): string | null {
   const diffMs = new Date(isoString).getTime() - Date.now()
   if (diffMs <= 0) return null
 
@@ -38,10 +47,10 @@ function getRelativeExpiry(isoString: string): string | null {
   const weeks = Math.floor(days / 7)
   const months = Math.floor(days / 30)
 
-  if (hours < 24) return `${hours} ${hours === 1 ? 'hour' : 'hours'} left`
-  if (days < 14) return `${days} ${days === 1 ? 'day' : 'days'} left`
-  if (weeks < 8) return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} left`
-  return `${months} ${months === 1 ? 'month' : 'months'} left`
+  if (hours < 24) return formatRelativeExpiryLabel(hours, 'hour', labels)
+  if (days < 14) return formatRelativeExpiryLabel(days, 'day', labels)
+  if (weeks < 8) return formatRelativeExpiryLabel(weeks, 'week', labels)
+  return formatRelativeExpiryLabel(months, 'month', labels)
 }
 
 function formatAmount(amount: number, locale: string, currencyCode: string) {
@@ -65,17 +74,21 @@ type MyAccountListQuotesTableProps = Readonly<{
     expiresAtTo: string
     label: string
   }
+  labels?: MyAccountListQuotesSectionLabels
 }>
 
 export function Pagination({
   page,
   total,
   perPage,
+  labels: labelsProp,
 }: Readonly<{
   page: number
   total: number
   perPage: number
+  labels?: MyAccountListQuotesSectionLabels
 }>) {
+  const labels = resolveMyAccountListQuotesLabels(labelsProp)
   const totalPages = Math.ceil(total / perPage)
   const firstIndexLabel = page === 1 ? 1 : (page - 1) * perPage + 1
   const lastIndexLabel = Math.min(firstIndexLabel + perPage - 1, total)
@@ -95,14 +108,14 @@ export function Pagination({
 
   return (
     <div data-fs-list-orders-table-pagination>
-      <p>{`${firstIndexLabel} — ${lastIndexLabel} of ${total}`}</p>
+      <p>{`${firstIndexLabel} — ${lastIndexLabel} ${labels.paginationOfLabel} ${total}`}</p>
       <IconButton
         size="small"
         variant="tertiary"
         disabled={page === 1}
         onClick={() => handlePageChange(page - 1)}
         icon={<Icon name="CaretLeft" />}
-        aria-label="Previous Page"
+        aria-label={labels.previousPageLabel}
       />
       <IconButton
         size="small"
@@ -110,7 +123,7 @@ export function Pagination({
         disabled={page === totalPages}
         onClick={() => handlePageChange(page + 1)}
         icon={<Icon name="CaretRight" />}
-        aria-label="Next Page"
+        aria-label={labels.nextPageLabel}
       />
     </div>
   )
@@ -121,7 +134,10 @@ export default function MyAccountListQuotesTable({
   total,
   perPage,
   filters,
+  labels: labelsProp,
 }: MyAccountListQuotesTableProps) {
+  const labels = resolveMyAccountListQuotesLabels(labelsProp)
+  const statusCmsLabels = pickQuoteStatusCmsLabels(labels)
   const { isDesktop } = useScreenResize()
   const { locale, currency } = useSession()
   const currencyCode = currency.code
@@ -130,7 +146,7 @@ export default function MyAccountListQuotesTable({
     <>
       <div data-fs-quotes-list>
         {listQuotes.list.map((item) => {
-          const relativeExpiry = getRelativeExpiry(item.expiresAt)
+          const relativeExpiry = getRelativeExpiry(item.expiresAt, labels)
           const formattedAmount = formatAmount(
             item.amount,
             locale,
@@ -150,20 +166,26 @@ export default function MyAccountListQuotesTable({
                 <div data-fs-quotes-list-col-dates>
                   {item.createdBy && (
                     <div data-fs-quotes-list-date-group>
-                      <span data-fs-quotes-list-date-label>Created by</span>
+                      <span data-fs-quotes-list-date-label>
+                        {labels.createdByLabel}
+                      </span>
                       <span data-fs-quotes-list-date-value>
                         {item.createdBy}
                       </span>
                     </div>
                   )}
                   <div data-fs-quotes-list-date-group>
-                    <span data-fs-quotes-list-date-label>Creation date</span>
+                    <span data-fs-quotes-list-date-label>
+                      {labels.creationDateLabel}
+                    </span>
                     <span data-fs-quotes-list-date-value>
                       {formatDateTime(item.createdAt, locale)}
                     </span>
                   </div>
                   <div data-fs-quotes-list-date-group>
-                    <span data-fs-quotes-list-date-label>Expires on</span>
+                    <span data-fs-quotes-list-date-label>
+                      {labels.expiresOnLabel}
+                    </span>
                     <span data-fs-quotes-list-date-value>
                       {formatDateShort(item.expiresAt, locale)}
                       {relativeExpiry && (
@@ -179,16 +201,24 @@ export default function MyAccountListQuotesTable({
 
               {/* Right: badge + total */}
               <div data-fs-quotes-list-col-status>
-                <MyAccountQuoteStatusBadge status={item.status} />
+                <MyAccountQuoteStatusBadge
+                  status={item.status}
+                  statusCmsLabels={statusCmsLabels}
+                />
                 <p data-fs-quotes-list-total>
-                  Total <strong>{formattedAmount}</strong>
+                  {labels.totalLabel} <strong>{formattedAmount}</strong>
                 </p>
               </div>
             </div>
           )
         })}
       </div>
-      <Pagination page={filters.page} total={total} perPage={perPage} />
+      <Pagination
+        page={filters.page}
+        total={total}
+        perPage={perPage}
+        labels={labels}
+      />
     </>
   )
 }

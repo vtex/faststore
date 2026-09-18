@@ -149,4 +149,29 @@ describe('MyAccountQuotesFilterSlider', () => {
       payload: [],
     })
   })
+
+  it('honors CMS-provided date range labels', () => {
+    render(
+      <MyAccountQuotesFilterSlider
+        {...(baseProps({
+          fromLabel: 'De',
+          toLabel: 'Até',
+          invalidDateRangeLabel: 'Intervalo inválido',
+        }) as any)}
+      />
+    )
+
+    expect(screen.getAllByLabelText('De').length).toBeGreaterThan(0)
+    expect(screen.getAllByLabelText('Até').length).toBeGreaterThan(0)
+  })
+
+  it('honors a CMS-provided status field label', () => {
+    render(
+      <MyAccountQuotesFilterSlider
+        {...(baseProps({ statusLabel: 'Estado' }) as any)}
+      />
+    )
+
+    expect(screen.getByText('Estado')).toBeTruthy()
+  })
 })
