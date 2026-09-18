@@ -18,12 +18,13 @@ vi.mock('../../../src/server', () => ({
 
 const mockedExecute = vi.mocked(execute)
 
-const createResponse = () => {
+const createResponse = ({ headersSent = false } = {}) => {
   const res = {
     status: vi.fn().mockReturnThis(),
     setHeader: vi.fn().mockReturnThis(),
     send: vi.fn().mockReturnThis(),
     end: vi.fn().mockReturnThis(),
+    headersSent,
   }
 
   return res as unknown as NextApiResponse & typeof res
@@ -122,6 +123,7 @@ describe('/api/graphql error status propagation', () => {
     expect(res.status).toHaveBeenCalledWith(500)
     expect(res.end).toHaveBeenCalled()
     expect(res.send).not.toHaveBeenCalled()
+    expect(res.setHeader).toHaveBeenCalledWith('cache-control', 'no-store')
   })
 
   it('exposes type, status and message in the body outside production', async () => {
@@ -168,6 +170,15 @@ describe('/api/graphql error status propagation', () => {
 
     expect(res.status).toHaveBeenCalledWith(404)
   })
+
+  it('sets cache-control: no-store on error responses so a bare 404/410 is not cached by intermediaries', async () => {
+    mockExecuteWithErrors([maskedError(new NotFoundError('missing'))])
+
+    const res = createResponse()
+    await handler(createRequest(), res)
+
+    expect(res.setHeader).toHaveBeenCalledWith('cache-control', 'no-store')
+  })
 })
 
 describe('/api/graphql request handling', () => {
@@ -200,6 +211,21 @@ describe('/api/graphql request handling', () => {
 
       expect(res.status).toHaveBeenCalledWith(status)
       expect(res.end).toHaveBeenCalled()
+      expect(res.setHeader).toHaveBeenCalledWith('cache-control', 'no-store')
     }
   )
+
+  it('skips the cache-control header when headers were already sent', async () => {
+    mockedExecute.mockRejectedValue(new Error('boom after flush'))
+
+    const res = createResponse({ headersSent: true })
+    await handler(createRequest(), res)
+
+    expect(res.setHeader).not.toHaveBeenCalledWith(
+      'cache-control',
+      expect.anything()
+    )
+    expect(res.status).toHaveBeenCalledWith(500)
+    expect(res.end).toHaveBeenCalled()
+  })
 })
