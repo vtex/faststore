@@ -82,4 +82,41 @@ describe('MyAccountQuotesStatusSelector', () => {
 
     expect(screen.getByText('NotAStatus')).toBeTruthy()
   })
+
+  it('renders the default "Status" label when no override is given', () => {
+    render(<MyAccountQuotesStatusSelector value={[]} onChange={vi.fn()} />)
+
+    expect(screen.getByText('Status')).toBeTruthy()
+  })
+
+  it('honors a CMS-provided field label', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={[]}
+        onChange={vi.fn()}
+        statusLabel="Estado"
+      />
+    )
+
+    expect(screen.getByText('Estado')).toBeTruthy()
+    expect(screen.queryByText('Status')).toBeNull()
+  })
+
+  it('honors CMS-provided status option labels for chips and the dropdown', () => {
+    const { container } = render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        statusCmsLabels={{ draftStatus: 'Rascunho' }}
+      />
+    )
+
+    expect(screen.getByText('Rascunho')).toBeTruthy()
+
+    fireEvent.click(
+      container.querySelector('[aria-controls="status-listbox"]')!
+    )
+
+    expect(screen.getByLabelText('Rascunho')).toBeTruthy()
+  })
 })
