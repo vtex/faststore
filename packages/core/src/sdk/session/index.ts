@@ -282,8 +282,9 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
       channel,
       isValidating,
       isSessionReady,
+      hasValidated,
     }),
-    [isValidating, session, channel, isSessionReady]
+    [isValidating, session, channel, isSessionReady, hasValidated]
   )
 }
 
