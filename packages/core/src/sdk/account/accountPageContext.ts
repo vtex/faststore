@@ -4,8 +4,9 @@ import type {
   ServerOrderDetailsQueryQuery,
   ServerProfileQueryQuery,
 } from '@generated/graphql'
+import { useContext } from 'react'
 import type { PageGlobalContext } from 'src/sdk/overrides/PageProvider'
-import { usePage } from 'src/sdk/overrides/PageProvider'
+import { PageContext, usePage } from 'src/sdk/overrides/PageProvider'
 import type { OrderStatusCmsLabels } from 'src/utils/userOrderStatus'
 import type { AccountNavigationLabels } from './getMyAccountRoutes'
 
@@ -76,9 +77,16 @@ export interface AccountPageContext extends PageGlobalContext {
   navigationLabels?: AccountNavigationLabels
 }
 
+/**
+ * Same data as `usePage<AccountPageContext>().navigationLabels`, but safe to
+ * call from components (e.g. the B2B organization drawer) that render both
+ * inside and outside a My Account `PageProvider` tree — returns `undefined`
+ * instead of throwing when there is no provider, so callers fall back to
+ * their hardcoded default label.
+ */
 export function useAccountNavigationLabels() {
-  const ctx = usePage<AccountPageContext>()
-  return ctx.navigationLabels
+  const value = useContext(PageContext)
+  return (value?.context as AccountPageContext | undefined)?.navigationLabels
 }
 
 export function useAccountPageData<
