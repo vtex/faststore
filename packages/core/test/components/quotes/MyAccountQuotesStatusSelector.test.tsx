@@ -119,4 +119,30 @@ describe('MyAccountQuotesStatusSelector', () => {
 
     expect(screen.getByLabelText('Rascunho')).toBeTruthy()
   })
+
+  it('honors a CMS-provided remove-chip aria-label template', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        removeStatusAriaLabel="Remover {status}"
+      />
+    )
+
+    expect(screen.getByLabelText('Remover Draft')).toBeTruthy()
+    expect(screen.queryByLabelText('Remove Draft')).toBeNull()
+  })
+
+  it('substitutes the localized status label into the remove-chip aria-label', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        removeStatusAriaLabel="Remover {status}"
+        statusCmsLabels={{ draftStatus: 'Rascunho' }}
+      />
+    )
+
+    expect(screen.getByLabelText('Remover Rascunho')).toBeTruthy()
+  })
 })

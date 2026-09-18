@@ -1,5 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 
+import { formatRemoveStatusAriaLabel } from '../quotesLabels'
 import type { QuoteStatusCmsLabels } from 'src/utils/quoteStatus'
 import { getLocalizedQuoteStatusMap } from 'src/utils/quoteStatus'
 import styles from './styles.module.scss'
@@ -8,6 +9,8 @@ type MyAccountQuotesStatusSelectorProps = Readonly<{
   value: string[]
   onChange: (selected: string[]) => void
   statusLabel?: string
+  /** Supports a "{status}" placeholder, e.g. "Remove {status}". */
+  removeStatusAriaLabel?: string
   statusCmsLabels?: QuoteStatusCmsLabels
 }>
 
@@ -15,6 +18,7 @@ export default function MyAccountQuotesStatusSelector({
   value,
   onChange,
   statusLabel = 'Status',
+  removeStatusAriaLabel = 'Remove {status}',
   statusCmsLabels,
 }: MyAccountQuotesStatusSelectorProps) {
   const statusEntries = useMemo(() => {
@@ -71,7 +75,10 @@ export default function MyAccountQuotesStatusSelector({
                   type="button"
                   className={styles.chipRemove}
                   onClick={(e) => remove(key, e)}
-                  aria-label={`Remove ${entry?.label ?? key}`}
+                  aria-label={formatRemoveStatusAriaLabel(
+                    removeStatusAriaLabel,
+                    entry?.label ?? key
+                  )}
                 >
                   &times;
                 </button>

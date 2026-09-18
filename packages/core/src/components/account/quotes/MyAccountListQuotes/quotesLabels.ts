@@ -13,6 +13,8 @@ export type MyAccountListQuotesSectionLabels = {
   statusFacetLabel?: string
   createdAtFacetLabel?: string
   expiresAtFacetLabel?: string
+  /** Accessible name for a status chip's remove button. Supports a "{status}" placeholder, e.g. "Remove {status}". */
+  removeStatusAriaLabel?: string
   fromLabel?: string
   toLabel?: string
   invalidDateRangeLabel?: string
@@ -65,6 +67,7 @@ export const defaultMyAccountListQuotesLabels: Required<MyAccountListQuotesSecti
     statusFacetLabel: 'Status',
     createdAtFacetLabel: 'Created Date',
     expiresAtFacetLabel: 'Expiry Date',
+    removeStatusAriaLabel: 'Remove {status}',
     fromLabel: 'From',
     toLabel: 'To',
     invalidDateRangeLabel: 'Invalid date range',
@@ -112,10 +115,30 @@ const STATUS_LABEL_KEYS = [
   'convertedToOrderStatus',
 ] as const satisfies readonly (keyof MyAccountListQuotesSectionLabels)[]
 
+/** Guards against blank/whitespace-only CMS overrides, which would otherwise wipe out accessible names (e.g. IconButton `aria-label`s). */
+function isNonBlank(value: unknown): value is string {
+  return typeof value === 'string' && value.trim().length > 0
+}
+
 export function resolveMyAccountListQuotesLabels(
   labels?: MyAccountListQuotesSectionLabels
 ): Required<MyAccountListQuotesSectionLabels> {
-  return { ...defaultMyAccountListQuotesLabels, ...labels }
+  const resolved = { ...defaultMyAccountListQuotesLabels }
+
+  if (!labels) {
+    return resolved
+  }
+
+  for (const key of Object.keys(
+    defaultMyAccountListQuotesLabels
+  ) as (keyof MyAccountListQuotesSectionLabels)[]) {
+    const value = labels[key]
+    if (isNonBlank(value)) {
+      resolved[key] = value
+    }
+  }
+
+  return resolved
 }
 
 export function pickQuoteStatusCmsLabels(
@@ -131,6 +154,14 @@ export function getStatusFacetLabels(
   labels: Required<MyAccountListQuotesSectionLabels>
 ): string[] {
   return STATUS_LABEL_KEYS.map((key) => labels[key])
+}
+
+/** Formats the status chip's remove-button accessible name, substituting the "{status}" placeholder. */
+export function formatRemoveStatusAriaLabel(
+  template: string,
+  status: string
+): string {
+  return template.replace('{status}', status)
 }
 
 /**
