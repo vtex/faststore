@@ -3,11 +3,20 @@
  */
 
 import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+const mockUseAccountNavigationLabels = vi.hoisted(() => vi.fn())
+vi.mock('src/sdk/account/accountPageContext', () => ({
+  useAccountNavigationLabels: mockUseAccountNavigationLabels,
+}))
 
 import { OrganizationDrawerHeader } from '../../../src/components/account/Drawer/OrganizationDrawer/OrganizationDrawerHeader'
 
 describe('OrganizationDrawerHeader', () => {
+  beforeEach(() => {
+    mockUseAccountNavigationLabels.mockReturnValue(undefined)
+  })
+
   it('renders contract name fallback initial and links when contractUrl is set', () => {
     render(
       <OrganizationDrawerHeader
@@ -51,5 +60,23 @@ describe('OrganizationDrawerHeader', () => {
 
     expect(screen.getByAltText('Logo')).toBeTruthy()
     expect(screen.queryByRole('link', { name: /acme corp/i })).toBeNull()
+  })
+
+  it('honors the CMS-provided change contract label', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      changeContractLabel: 'Trocar',
+    })
+    const onChangeContract = vi.fn()
+
+    render(
+      <OrganizationDrawerHeader
+        contractName="Acme Corp"
+        contractUrl={null}
+        onChangeContract={onChangeContract}
+      />
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'Trocar' }))
+    expect(onChangeContract).toHaveBeenCalledTimes(1)
   })
 })

@@ -50,6 +50,82 @@
       "type": "string",
       "title": "Contract Label",
       "default": "Contract"
+    },
+    "changeContractLabel": {
+      "type": "string",
+      "title": "Change Contract Label",
+      "default": "Change"
+    },
+    "contractSwitcherTitleLabel": {
+      "type": "string",
+      "title": "Contract Switcher Title Label",
+      "default": "Change contract"
+    },
+    "contractSwitcherBackLabel": {
+      "type": "string",
+      "title": "Contract Switcher Back Aria Label",
+      "default": "Back to account menu"
+    },
+    "contractSwitcherCloseLabel": {
+      "type": "string",
+      "title": "Contract Switcher Close Aria Label",
+      "default": "Close"
+    },
+    "contractSwitcherCurrentSessionLabel": {
+      "type": "string",
+      "title": "Contract Switcher Current Session Label",
+      "default": "Current session"
+    },
+    "contractSwitcherSearchPlaceholder": {
+      "type": "string",
+      "title": "Contract Switcher Search Placeholder",
+      "default": "Search"
+    },
+    "contractSwitcherSearchAriaLabel": {
+      "type": "string",
+      "title": "Contract Switcher Search Aria Label",
+      "default": "Search contracts"
+    },
+    "contractSwitcherClearSearchLabel": {
+      "type": "string",
+      "title": "Contract Switcher Clear Search Aria Label",
+      "default": "Clear search"
+    },
+    "contractSwitcherAvailableCountLabel": {
+      "type": "string",
+      "title": "Contract Switcher Available Count Label",
+      "description": "Supports a \"{count}\" placeholder, e.g. \"Select one of {count} available contracts:\".",
+      "default": "Select one of {count} available contracts:"
+    },
+    "contractSwitcherNoMatchLabel": {
+      "type": "string",
+      "title": "Contract Switcher No Match Label",
+      "default": "No contracts match your search."
+    },
+    "contractSwitcherEmptyLabel": {
+      "type": "string",
+      "title": "Contract Switcher Empty Label",
+      "default": "No other contracts are available for your organization."
+    },
+    "contractSwitcherLoadErrorLabel": {
+      "type": "string",
+      "title": "Contract Switcher Load Error Label",
+      "default": "We couldn't load your contracts. Please try again."
+    },
+    "contractSwitcherSwitchErrorLabel": {
+      "type": "string",
+      "title": "Contract Switcher Switch Error Label",
+      "default": "We couldn't switch your contract. The previous contract is still active."
+    },
+    "contractSwitcherCancelLabel": {
+      "type": "string",
+      "title": "Contract Switcher Cancel Label",
+      "default": "Cancel"
+    },
+    "contractSwitcherConfirmLabel": {
+      "type": "string",
+      "title": "Contract Switcher Confirm Label",
+      "default": "Confirm"
     }
   },
   "readOnly": false,

@@ -1,6 +1,8 @@
 import { Button, Icon, Link, SlideOverHeader } from '@faststore/ui'
 import type { ReactNode } from 'react'
 
+import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
+
 export type OrganizationDrawerHeaderProps = {
   onCloseDrawer?: () => void
   contractImage?: ReactNode
@@ -25,6 +27,9 @@ export const OrganizationDrawerHeader = ({
   onCloseDrawer,
   onChangeContract,
 }: OrganizationDrawerHeaderProps) => {
+  const navigationLabels = useAccountNavigationLabels()
+  const changeContractLabel = navigationLabels?.changeContractLabel ?? 'Change'
+
   return (
     <>
       <SlideOverHeader onClose={() => onCloseDrawer?.()} />
@@ -67,7 +72,7 @@ export const OrganizationDrawerHeader = ({
                   variant="secondary"
                   onClick={onChangeContract}
                 >
-                  Change
+                  {changeContractLabel}
                 </Button>
               )}
             </div>
