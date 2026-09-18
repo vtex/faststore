@@ -110,6 +110,25 @@ describe('buildFaststorePackageJson', () => {
     }
   })
 
+  /**
+   * An unquoted path is split by the shell on every space, so `node` receives
+   * the first segment as its argument and treats the rest as extra, unrelated
+   * arguments — wrapping the whole path in quotes keeps it as one argument.
+   */
+  it('quotes the resolved Next path when it contains a space', () => {
+    const nextBin =
+      '../../../../../../../../../../../../Users/john doe/Area de trabalho'
+
+    const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
+
+    expect(result.scripts).toMatchObject({
+      build: `node \"${nextBin}\" build --webpack`,
+      serve: `node \"${nextBin}\" serve`,
+      dev: `node \"${nextBin}\" dev --webpack`,
+      'dev-only': `node \"${nextBin}\" dev --webpack`,
+    })
+  })
+
   it('leaves the partytown steps alone', () => {
     const result = buildFaststorePackageJson(
       coreManifest,
