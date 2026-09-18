@@ -141,6 +141,34 @@ describe('BuyingPolicyAlert', () => {
     ).toBeTruthy()
   })
 
+  it('replaces every policy placeholder without interpreting replacement patterns', async () => {
+    mockProcessOrderAuthorization.mockResolvedValueOnce({})
+    const policyName = '$& Policy'
+
+    render(
+      <UIProvider>
+        <BuyingPolicyAlert
+          ruleForAuthorization={
+            {
+              ...ruleForAuthorization,
+              rule: { ...ruleForAuthorization.rule, name: policyName },
+            } as ProcessOrderAuthorizationRule
+          }
+          labels={{
+            approveSuccessToast: '{policy} approved by {policy}.',
+          }}
+        />
+        <ToastPreview />
+      </UIProvider>
+    )
+
+    fireEvent.click(screen.getByText('Approve'))
+
+    expect(
+      await screen.findByText('$& Policy approved by $& Policy.')
+    ).toBeTruthy()
+  })
+
   it('shows the default English error toast when approving a policy fails', async () => {
     mockProcessOrderAuthorization.mockRejectedValueOnce(new Error('failure'))
 

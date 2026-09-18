@@ -67,6 +67,22 @@ describe('OrganizationDrawerFooter', () => {
     expect(screen.getByRole('button', { name: 'Log out' })).toBeTruthy()
   })
 
+  it('uses the default labels inside a non-account page context', () => {
+    render(
+      <PageProvider context={{ globalSettings: {} }}>
+        <OrganizationDrawerFooter
+          orgName="Stellar Global"
+          userName="Jane Buyer"
+          showManageLink
+          manageUrl="/pvt/organization-account/org-unit/unit-1"
+        />
+      </PageProvider>
+    )
+
+    expect(screen.getByText('Manage')).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Log out' })).toBeTruthy()
+  })
+
   it('uses the CMS-provided navigation labels when rendered inside a My Account page', () => {
     render(
       <PageProvider

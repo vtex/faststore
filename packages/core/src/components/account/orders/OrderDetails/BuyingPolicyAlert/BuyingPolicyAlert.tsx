@@ -43,7 +43,7 @@ const DEFAULT_REJECT_ERROR_TOAST =
   "Policy couldn't be rejected due to a technical issue."
 
 function interpolatePolicyName(template: string, policyName: string): string {
-  return template.replace('{policy}', policyName)
+  return template.split('{policy}').join(policyName)
 }
 
 function renderRejectMessage(template: string, policyName: string): ReactNode {
@@ -105,7 +105,7 @@ export default function BuyingPolicyAlert({
       })
 
       onAuthorizationComplete?.()
-    } catch (error) {
+    } catch {
       pushToast({
         status: 'ERROR',
         message: approveErrorToast,
@@ -136,7 +136,7 @@ export default function BuyingPolicyAlert({
 
       setIsAuthorizationOpen(false)
       onAuthorizationComplete?.()
-    } catch (error) {
+    } catch {
       pushToast({
         status: 'ERROR',
         message: rejectErrorToast,

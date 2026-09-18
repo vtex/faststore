@@ -85,8 +85,11 @@ export interface AccountPageContext extends PageGlobalContext {
  * their hardcoded default label.
  */
 export function useAccountNavigationLabels() {
-  const value = useContext(PageContext)
-  return (value?.context as AccountPageContext | undefined)?.navigationLabels
+  const context = useContext(PageContext)?.context
+
+  return context && 'navigationLabels' in context
+    ? context.navigationLabels
+    : undefined
 }
 
 export function useAccountPageData<
