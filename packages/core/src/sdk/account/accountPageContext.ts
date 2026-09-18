@@ -1,6 +1,7 @@
 import type {
   ServerListCardsQueryQuery,
   ServerListOrdersQueryQuery,
+  ServerListQuotesQueryQuery,
   ServerOrderDetailsQueryQuery,
   ServerProfileQueryQuery,
 } from '@generated/graphql'
@@ -25,6 +26,21 @@ export type AccountOrdersListPageData = {
     text: string
     clientEmail: string
     pendingMyApproval?: boolean
+  }
+}
+
+export type AccountQuotesPageData = {
+  listQuotes: ServerListQuotesQueryQuery['listUserQuotes']
+  total: number
+  perPage: number
+  filters: {
+    page: number
+    status: string[]
+    createdAtFrom: string
+    createdAtTo: string
+    expiresAtFrom: string
+    expiresAtTo: string
+    label: string
   }
 }
 
@@ -69,6 +85,7 @@ export type AccountPageData =
   | AccountSecurityPageData
   | AccountUserDetailsPageData
   | AccountCardsPageData
+  | AccountQuotesPageData
   | Record<string, never>
 
 export interface AccountPageContext extends PageGlobalContext {

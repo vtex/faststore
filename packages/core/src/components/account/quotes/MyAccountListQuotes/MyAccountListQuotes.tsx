@@ -24,6 +24,11 @@ import {
   hasActiveFilters,
   countActiveFilters,
 } from './quoteFilters'
+import type { MyAccountListQuotesSectionLabels } from './quotesLabels'
+import {
+  pickQuoteStatusCmsLabels,
+  resolveMyAccountListQuotesLabels,
+} from './quotesLabels'
 import styles from './styles.module.scss'
 
 export type MyAccountListQuotesProps = Readonly<{
@@ -39,6 +44,7 @@ export type MyAccountListQuotesProps = Readonly<{
     expiresAtTo: string
     label: string
   }
+  labels?: MyAccountListQuotesSectionLabels
 }>
 
 export default function MyAccountListQuotes({
@@ -46,7 +52,10 @@ export default function MyAccountListQuotes({
   total,
   perPage,
   filters,
+  labels: labelsProp,
 }: MyAccountListQuotesProps) {
+  const labels = resolveMyAccountListQuotesLabels(labelsProp)
+  const statusCmsLabels = pickQuoteStatusCmsLabels(labels)
   const { isDesktop } = useScreenResize()
   const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
 
@@ -68,7 +77,12 @@ export default function MyAccountListQuotes({
   )
 
   const selectedFacets = getSelectedFacets(filters)
-  const allFacets = getAllFacets(filters)
+  const allFacets = getAllFacets(filters, {
+    statusFacetLabel: labels.statusFacetLabel,
+    createdAtFacetLabel: labels.createdAtFacetLabel,
+    expiresAtFacetLabel: labels.expiresAtFacetLabel,
+    statusCmsLabels,
+  })
 
   const filter = useMyAccountFilter({ allFacets, selectedFacets })
   const { openFilter, filter: displayFilter } = useUI()
@@ -79,13 +93,13 @@ export default function MyAccountListQuotes({
 
   return (
     <div className={styles.page}>
-      <AccountHeader pageTitle="Quotes" />
+      <AccountHeader pageTitle={labels.pageTitle} />
       <div data-fs-list-quotes-controls>
         <div data-fs-list-quotes-search-filters>
           <SearchInputField
             ref={searchInputRef}
             data-fs-search-input-field-list-quotes
-            placeholder="Search"
+            placeholder={labels.searchPlaceholder}
             onBlur={() => {
               handleSearchChange(searchInputRef.current.inputRef.value)
             }}
@@ -107,7 +121,7 @@ export default function MyAccountListQuotes({
                 name="FadersHorizontal"
                 width={24}
                 height={24}
-                aria-label="Open Filters"
+                aria-label={labels.openFiltersAriaLabel}
               />
             }
             iconPosition="left"
@@ -119,23 +133,34 @@ export default function MyAccountListQuotes({
               openFilter()
             }}
           >
-            Filters
+            {labels.filtersLabel}
             {activeFilterCount > 0 && (
               <span data-fs-filter-count>{activeFilterCount}</span>
             )}
           </Button>
         </div>
         {isDesktop && total > 0 && (
-          <Pagination page={filters.page} total={total} perPage={perPage} />
+          <Pagination
+            page={filters.page}
+            total={total}
+            perPage={perPage}
+            labels={labels}
+          />
         )}
       </div>
 
       {displayFilter && (
         <MyAccountQuotesFilterSlider
           {...filter}
-          title="Filters"
-          clearButtonLabel="Clear All"
-          applyButtonLabel="View Results"
+          title={labels.filtersLabel}
+          clearButtonLabel={labels.clearAllLabel}
+          applyButtonLabel={labels.viewResultsLabel}
+          statusLabel={labels.statusFacetLabel}
+          removeStatusAriaLabel={labels.removeStatusAriaLabel}
+          fromLabel={labels.fromLabel}
+          toLabel={labels.toLabel}
+          invalidDateRangeLabel={labels.invalidDateRangeLabel}
+          statusCmsLabels={statusCmsLabels}
           testId="my-account-quotes-filter-slider"
         />
       )}
@@ -150,7 +175,7 @@ export default function MyAccountListQuotes({
               weight="thin"
             />
           }
-          title={hasFilters ? 'No results found' : "You don't have any quotes"}
+          title={hasFilters ? labels.noResultsLabel : labels.noQuotesLabel}
           bkgColor="light"
         />
       ) : (
@@ -159,11 +184,17 @@ export default function MyAccountListQuotes({
           total={total}
           perPage={perPage}
           filters={filters}
+          labels={labels}
         />
       )}
 
       {!isDesktop && total > 0 && (
-        <Pagination page={filters.page} total={total} perPage={perPage} />
+        <Pagination
+          page={filters.page}
+          total={total}
+          perPage={perPage}
+          labels={labels}
+        />
       )}
     </div>
   )

@@ -6,6 +6,7 @@ export type NativeMyAccountContentType =
   | 'myAccountSecurity'
   | 'myAccountUnauthorized'
   | 'myAccountCards'
+  | 'myAccountQuotes'
 
 /** Store content-types are opaque strings; native literals keep autocompletion. */
 export type MyAccountContentType = NativeMyAccountContentType | (string & {})
@@ -20,6 +21,7 @@ const DEFAULT_SECTION_KEYS: Record<NativeMyAccountContentType, string[]> = {
   myAccountProfile: ['AccountNavigation', 'AccountProfile'],
   myAccountOrders: ['AccountNavigation', 'AccountOrdersList'],
   myAccountCards: ['AccountNavigation', 'AccountListCards'],
+  myAccountQuotes: ['AccountNavigation', 'AccountListQuotes'],
   // Mirrors the render order of the `@deprecated OrderDetails.tsx` component,
   // which is the design reference available in the repo. The delivery option
   // accordions render inside AccountOrderDelivery, so they sit right after the

@@ -25,4 +25,29 @@ describe('MyAccountQuoteStatusBadge', () => {
       'neutral'
     )
   })
+
+  it('honors a CMS-provided label override, keeping the mapped variant', () => {
+    render(
+      <MyAccountQuoteStatusBadge
+        status="Approved"
+        statusCmsLabels={{ approvedStatus: 'Aprovado' }}
+      />
+    )
+
+    const badge = screen.getByText('Aprovado')
+    expect(badge.getAttribute('data-fs-my-account-badge-variant')).toBe(
+      'success'
+    )
+  })
+
+  it('leaves statuses without a CMS override on their default label', () => {
+    render(
+      <MyAccountQuoteStatusBadge
+        status="Declined"
+        statusCmsLabels={{ approvedStatus: 'Aprovado' }}
+      />
+    )
+
+    expect(screen.getByText('Declined')).toBeTruthy()
+  })
 })

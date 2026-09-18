@@ -22,6 +22,23 @@ export type AccountNavigationLabels = Partial<{
   companyLabel: string
   contractLabel: string
   cardsLabel: string
+  /** "Change" CTA next to the active contract in the drawer header (opens the switcher). */
+  changeContractLabel: string
+  contractSwitcherTitleLabel: string
+  contractSwitcherBackLabel: string
+  contractSwitcherCloseLabel: string
+  contractSwitcherCurrentSessionLabel: string
+  contractSwitcherSearchPlaceholder: string
+  contractSwitcherSearchAriaLabel: string
+  contractSwitcherClearSearchLabel: string
+  /** Supports a "{count}" placeholder, e.g. "Select one of {count} available contracts:". */
+  contractSwitcherAvailableCountLabel: string
+  contractSwitcherNoMatchLabel: string
+  contractSwitcherEmptyLabel: string
+  contractSwitcherLoadErrorLabel: string
+  contractSwitcherSwitchErrorLabel: string
+  contractSwitcherCancelLabel: string
+  contractSwitcherConfirmLabel: string
 }>
 
 interface GetMyAccountRouteParams {

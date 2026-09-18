@@ -38,6 +38,10 @@ vi.mock('@faststore/ui', async (importOriginal) => {
 
 vi.mock('src/sdk/session', () => ({ useSession: mockUseSession }))
 
+vi.mock('src/sdk/account/accountPageContext', () => ({
+  useAccountNavigationLabels: () => undefined,
+}))
+
 vi.mock(
   '../../../src/components/account/Drawer/OrganizationDrawer/ContractSwitcher',
   () => ({

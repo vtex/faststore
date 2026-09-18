@@ -21,6 +21,21 @@ describe('getDefaultMyAccountSections', () => {
     expect(getDefaultMyAccountSections('myAccountWishlist')).toEqual([])
   })
 
+  it('returns AccountNavigation and AccountListQuotes for myAccountQuotes', () => {
+    expect(getDefaultMyAccountSections('myAccountQuotes')).toEqual([
+      {
+        name: 'AccountNavigation',
+        $componentKey: 'AccountNavigation',
+        data: {},
+      },
+      {
+        name: 'AccountListQuotes',
+        $componentKey: 'AccountListQuotes',
+        data: {},
+      },
+    ])
+  })
+
   /**
    * The order-details defaults must mirror the render order of the
    * `@deprecated OrderDetails.tsx` component, which is the design reference
@@ -84,6 +99,12 @@ describe('withDefaultMyAccountSections', () => {
   it('falls back to defaults for native types when sections are empty', () => {
     expect(withDefaultMyAccountSections('myAccountSecurity', [])).toEqual(
       getDefaultMyAccountSections('myAccountSecurity')
+    )
+  })
+
+  it('falls back to AccountNavigation + AccountListQuotes when myAccountQuotes has no CMS content yet', () => {
+    expect(withDefaultMyAccountSections('myAccountQuotes', [])).toEqual(
+      getDefaultMyAccountSections('myAccountQuotes')
     )
   })
 
