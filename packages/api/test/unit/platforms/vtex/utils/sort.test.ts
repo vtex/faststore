@@ -26,4 +26,10 @@ describe('resolveSort', () => {
   it('throws instead of silently falling back to the default sort for an unresolved value', () => {
     expect(() => resolveSort('rating_desc', {})).toThrow(/rating_desc/)
   })
+
+  it('does not resolve inherited Object.prototype properties as a sort value', () => {
+    expect(() => resolveSort('constructor', {})).toThrow(/constructor/)
+    expect(() => resolveSort('toString', {})).toThrow(/toString/)
+    expect(() => resolveSort('hasOwnProperty', {})).toThrow(/hasOwnProperty/)
+  })
 })

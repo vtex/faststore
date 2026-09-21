@@ -28,8 +28,17 @@ export function resolveSort(
   sort: string,
   customSortMap: Record<string, string>
 ): Sort {
-  const resolved =
-    customSortMap[sort] ?? (SORT_MAP as Record<string, string>)[sort]
+  // Own-property checks, not plain bracket access: `customSortMap[sort]` for
+  // a `sort` like 'constructor' or 'toString' resolves the inherited
+  // Object.prototype member instead of `undefined`, silently defeating the
+  // BadRequestError guard below.
+  let resolved: string | undefined
+
+  if (Object.prototype.hasOwnProperty.call(customSortMap, sort)) {
+    resolved = customSortMap[sort]
+  } else if (Object.prototype.hasOwnProperty.call(SORT_MAP, sort)) {
+    resolved = (SORT_MAP as Record<string, string>)[sort]
+  }
 
   if (resolved === undefined) {
     throw new BadRequestError(`Unknown sort value: ${sort}`)
