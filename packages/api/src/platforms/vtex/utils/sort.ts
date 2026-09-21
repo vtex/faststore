@@ -34,9 +34,9 @@ export function resolveSort(
   // BadRequestError guard below.
   let resolved: string | undefined
 
-  if (Object.prototype.hasOwnProperty.call(customSortMap, sort)) {
+  if (Object.hasOwn(customSortMap, sort)) {
     resolved = customSortMap[sort]
-  } else if (Object.prototype.hasOwnProperty.call(SORT_MAP, sort)) {
+  } else if (Object.hasOwn(SORT_MAP, sort)) {
     resolved = (SORT_MAP as Record<string, string>)[sort]
   }
 
