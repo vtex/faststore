@@ -7,11 +7,6 @@ export type SearchSort =
   | 'release_desc'
   | 'discount_desc'
   | 'score_desc'
-  // Also accepts a custom sort key registered via `registerCustomSortKeys`,
-  // matching a `StoreSort` enum value added by a project's schema extension.
-  // The `string & {}` intersection keeps literal autocomplete for the values
-  // above while still allowing any other string.
-  | (string & {})
 
 export interface Facet {
   key: string
