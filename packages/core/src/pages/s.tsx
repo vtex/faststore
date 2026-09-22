@@ -88,7 +88,10 @@ function generateSEOData(
   }
 
   const canonical = searchTerm
-    ? `${getStoreURL()}/s?q=${searchTerm.replaceAll(' ', '+')}`
+    ? `${getStoreURL().replace(/\/$/, '')}/s?q=${searchTerm.replaceAll(
+        ' ',
+        '+'
+      )}`
     : undefined
 
   return {
