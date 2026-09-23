@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.8.1-dev.3](https://github.com/vtex/faststore/compare/v4.8.1-dev.2...v4.8.1-dev.3) (2026-09-22)
+
+### Bug Fixes
+
+- **core:** also normalize search-path concatenations in index/s pages ([519fb88](https://github.com/vtex/faststore/commit/519fb8885e483a8b00b292d342cce34cb4dd2cd6)), closes [#3498](https://github.com/vtex/faststore/issues/3498)
+- **core:** normalize trailing slash on locale-aware store URLs (SFS-3390) ([07ff320](https://github.com/vtex/faststore/commit/07ff320232df8ba75e48902e4fb93f22fc33505c))
+- **core:** pass rendered locale to getStoreURL in search canonical URL ([4ead8b8](https://github.com/vtex/faststore/commit/4ead8b86c1c53645db3afcd6cef41b085ffd5130))
+
+## [4.8.1-dev.2](https://github.com/vtex/faststore/compare/v4.8.1-dev.1...v4.8.1-dev.2) (2026-09-21)
+
+### Bug Fixes
+
+- **core:** SUMA review fixes — reset cart/orderForm on contract switch, default contract in switcher, no Sign-in flash (B2BTEAM-3827) ([#3479](https://github.com/vtex/faststore/issues/3479)) ([d015186](https://github.com/vtex/faststore/commit/d015186f66bc5cdfce55d3da1c21b2d4dbb3d39e))
+
 ## [4.8.1-dev.1](https://github.com/vtex/faststore/compare/v4.8.1-dev.0...v4.8.1-dev.1) (2026-09-18)
 
 ### Bug Fixes

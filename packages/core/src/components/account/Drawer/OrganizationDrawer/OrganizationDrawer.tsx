@@ -2,6 +2,7 @@ import { SlideOver, useFadeEffect } from '@faststore/ui'
 import { useEffect, useState } from 'react'
 
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
+import { useAvailableContracts } from 'src/sdk/account/useAvailableContracts'
 import { useSession } from 'src/sdk/session'
 import {
   expireCookieClient,
@@ -23,6 +24,8 @@ type OrganizationDrawerProps = {
   isOpen: boolean
   closeDrawer: () => void
   isRepresentative: boolean
+  /** Open straight into the contract switcher (My Account "Switch" button). */
+  initialView?: OrganizationDrawerView
 }
 
 const clearBrowserStorageForCurrentDomain = async () => {
@@ -140,16 +143,17 @@ export const OrganizationDrawer = ({
   isOpen,
   closeDrawer,
   isRepresentative,
+  initialView = 'menu',
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
   const { b2b, person } = useSession()
-  const [view, setView] = useState<OrganizationDrawerView>('menu')
+  const [view, setView] = useState<OrganizationDrawerView>(initialView)
 
   useEffect(() => {
     if (!isOpen) {
-      setView('menu')
+      setView(initialView)
     }
-  }, [isOpen])
+  }, [isOpen, initialView])
 
   const contractName =
     b2b?.contractName?.trim() ||
@@ -167,6 +171,16 @@ export const OrganizationDrawer = ({
   // the switcher; we don't fetch the contract count eagerly to protect TTFB.
   const canSwitchContract = Boolean(b2b?.unitId)
   const isOrgMember = Boolean(b2b?.unitId)
+
+  // Only fetch the contract list while the drawer is open for an org member,
+  // so nothing is requested on initial page render (TTFB budget).
+  const { contracts } = useAvailableContracts(isOpen && canSwitchContract)
+  const activeContractId = b2b?.customerId?.trim() ?? ''
+  const activeContract =
+    (activeContractId
+      ? contracts.find((contract) => contract.id === activeContractId)
+      : undefined) ?? contracts.find((contract) => contract.isActive)
+  const isActiveContractDefault = Boolean(activeContract?.isDefault)
 
   return (
     <SlideOver
@@ -190,6 +204,7 @@ export const OrganizationDrawer = ({
               onCloseDrawer={closeDrawer}
               contractName={contractName}
               contractUrl={contractUrl}
+              isDefault={isActiveContractDefault}
               onChangeContract={
                 canSwitchContract ? () => setView('switch') : undefined
               }

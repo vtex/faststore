@@ -56,6 +56,7 @@ function Page({
   )
 
   const storeUrl = getStoreURL(router.locale)
+  const searchStoreUrl = storeUrl.replace(/\/$/, '')
 
   return (
     <>
@@ -79,7 +80,7 @@ function Page({
         url={storeUrl}
         potentialActions={[
           {
-            target: `${storeUrl}/s/?q`,
+            target: `${searchStoreUrl}/s/?q`,
             queryInput: 'search_term_string',
           },
         ]}
