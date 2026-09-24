@@ -293,6 +293,7 @@ describe('copyCoreFiles', () => {
     fs.rmSync(basePath, { recursive: true, force: true })
   })
 
+  // Real file I/O against the full core package — slower on Windows runners.
   it('copies core into .faststore without unit-test trees and strips test globs from tsconfig', () => {
     copyCoreFiles(basePath)
 
@@ -313,7 +314,7 @@ describe('copyCoreFiles', () => {
         '**/__tests__/**',
       ])
     )
-  })
+  }, 30_000)
 })
 
 describe('updateNextConfig', () => {
