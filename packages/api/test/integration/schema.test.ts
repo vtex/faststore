@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 
 import type { GraphQLSchema } from 'graphql'
-import { assertValidSchema } from 'graphql'
+import { assertValidSchema, isObjectType } from 'graphql'
 
 import { GraphqlVtexSchema } from '../../src'
 
@@ -36,6 +36,7 @@ const TYPES = [
   'StoreProduct',
   'IStoreProduct',
   'StoreProductGroup',
+  'StoreProductCluster',
   'StorePropertyValue',
   'StoreProductEdge',
   'StoreProductConnection',
@@ -116,6 +117,18 @@ describe('Schema', () => {
     TYPES.forEach((typeName) => {
       expect(schema.getType(typeName)).toBeDefined()
     })
+  })
+
+  it('should expose Intelligent Search product clusters on product groups', () => {
+    const productGroup = schema.getType('StoreProductGroup')
+
+    expect(isObjectType(productGroup)).toBe(true)
+
+    if (!isObjectType(productGroup)) {
+      return
+    }
+
+    expect(productGroup.getFields().productClusters).toBeDefined()
   })
 
   it('should contain all default queries', async () => {

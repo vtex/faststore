@@ -1752,6 +1752,14 @@ export type StoreProductImageArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
+/** A product cluster (collection) associated with a product group. */
+export type StoreProductCluster = {
+  /** Product cluster ID. */
+  id: Scalars['String']['output'];
+  /** Product cluster name. */
+  name: Scalars['String']['output'];
+};
+
 /** Product connections, including pagination information and products returned by the query. */
 export type StoreProductConnection = {
   /** Array with product connection edges, each containing a product and a corresponding cursor. */
@@ -1776,6 +1784,8 @@ export type StoreProductGroup = {
   hasVariant: Array<StoreProduct>;
   /** Product group name. */
   name: Scalars['String']['output'];
+  /** Product clusters (collections) the product group belongs to. */
+  productClusters: Array<StoreProductCluster>;
   /** Product group ID. */
   productGroupID: Scalars['String']['output'];
   /**
