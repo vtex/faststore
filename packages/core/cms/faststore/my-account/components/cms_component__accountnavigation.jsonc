@@ -26,6 +26,16 @@
       "title": "Security Menu Label",
       "default": "Security"
     },
+    "cardsLabel": {
+      "type": "string",
+      "title": "Cards Menu Label",
+      "default": "Cards"
+    },
+    "quotesLabel": {
+      "type": "string",
+      "title": "Quotes Menu Label",
+      "default": "Quotes"
+    },
     "manageLabel": {
       "type": "string",
       "title": "Manage Button Label",

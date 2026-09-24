@@ -62,7 +62,7 @@ export const isSearchPage = (x: any): x is SearchPageContext =>
   x?.data?.title != undefined ||
   x?.data?.searchTerm != undefined
 
-const PageContext = createContext<PageProviderContextValue | null>(null)
+export const PageContext = createContext<PageProviderContextValue | null>(null)
 
 function PageProvider({
   context,

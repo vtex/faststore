@@ -1,10 +1,19 @@
 import type { UserOrderDeliveryOptionsData } from '@generated/graphql'
 import { camelCaseToTitle } from 'src/utils/utilities'
 import Card from '../../../components/Card'
+import {
+  getDeliveryOptionKey,
+  getDeliveryOptionLabel,
+} from '../getDeliveryOptionLabel'
+import {
+  type OrderDeliverySectionLabels,
+  resolveOrderDeliveryLabels,
+} from '../orderDetailsLabels'
 
 interface DeliveryCardProps {
   title?: string
   deliveryOptionsData?: UserOrderDeliveryOptionsData
+  labels?: OrderDeliverySectionLabels
   fields?: Array<{
     name: string
     value: string
@@ -15,8 +24,10 @@ interface DeliveryCardProps {
 export default function DeliveryCard({
   title = 'Delivery',
   deliveryOptionsData,
+  labels: labelsProp,
   fields,
-}: DeliveryCardProps) {
+}: Readonly<DeliveryCardProps>) {
+  const labels = resolveOrderDeliveryLabels(labelsProp)
   const deliveryOptions = deliveryOptionsData?.deliveryOptions ?? []
   const contact = deliveryOptionsData?.contact
 
@@ -24,8 +35,8 @@ export default function DeliveryCard({
     <Card title={title} data-fs-order-delivery-card>
       <div data-fs-delivery-methods>
         {deliveryOptions.map((option) => (
-          <p key={option.friendlyDeliveryOptionName} data-fs-delivery-method>
-            {option.friendlyDeliveryOptionName}
+          <p key={getDeliveryOptionKey(option)} data-fs-delivery-method>
+            {getDeliveryOptionLabel(option, labels)}
           </p>
         ))}
       </div>

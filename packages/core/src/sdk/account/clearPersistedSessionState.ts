@@ -4,20 +4,26 @@ import {
   STORAGE_KEY_PERSON_ID,
 } from 'src/utils/cookieCacheBusting'
 
+/** Persisted `@faststore/sdk` stores that belong to the previous commercial context. */
+export const PERSISTED_STORE_KEYS = ['fs::session', 'fs::cart'] as const
+
 /**
- * Clears client-side session persistence so a hard reload rehydrates from
- * validateSession instead of stale IndexedDB / sessionStorage values.
+ * Clears client-side persistence of the previous commercial context so a hard
+ * reload rehydrates from validateSession / validateCart under the new
+ * contract.
+ *
+ * The checkout orderForm cookies are `HttpOnly` and are expired by
+ * `/api/fs/switch-contract` instead (B2BTEAM-3827).
  */
 export async function clearPersistedSessionState(): Promise<void> {
   try {
     const { del } = await import('idb-keyval')
-    await del('fs::session').catch(() => {})
+    await Promise.all(
+      PERSISTED_STORE_KEYS.map((key) => del(key).catch(() => {}))
+    )
   } catch {}
 
-  if (typeof sessionStorage === 'undefined') {
-    return
-  }
-
+  if (typeof sessionStorage === 'undefined') return
   try {
     sessionStorage.removeItem(SESSION_READY_KEY)
     sessionStorage.removeItem(STORAGE_KEY_PERSON_ID)

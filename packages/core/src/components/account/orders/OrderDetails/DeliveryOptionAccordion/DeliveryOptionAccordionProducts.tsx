@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { camelCaseToTitle } from 'src/utils/utilities'
+import type { OrderDeliverySectionLabels } from '../orderDetailsLabels'
 
 interface DeliveryOptionAccordionProductProps {
   image: string
@@ -13,6 +14,7 @@ interface DeliveryOptionAccordionProductProps {
   price: string
   tax: string
   total: string
+  labels: Required<OrderDeliverySectionLabels>
 }
 
 function DeliveryOptionAccordionProduct({
@@ -23,7 +25,8 @@ function DeliveryOptionAccordionProduct({
   price,
   tax,
   total,
-}: DeliveryOptionAccordionProductProps) {
+  labels,
+}: Readonly<DeliveryOptionAccordionProductProps>) {
   return (
     <div data-fs-delivery-option-accordion-product>
       <div data-fs-delivery-option-accordion-product-top>
@@ -43,15 +46,15 @@ function DeliveryOptionAccordionProduct({
       <div data-fs-delivery-option-accordion-product-bottom>
         <div data-fs-delivery-option-accordion-product-price>
           <p>{price}</p>
-          <span>Each</span>
+          <span>{labels.eachLabel}</span>
         </div>
         <div data-fs-delivery-option-accordion-product-tax>
           <p>{tax}</p>
-          <span>Taxes</span>
+          <span>{labels.taxesLabel}</span>
         </div>
         <div data-fs-delivery-option-accordion-product-total>
           <p>{total}</p>
-          <span>Total</span>
+          <span>{labels.totalLabel}</span>
         </div>
       </div>
     </div>
@@ -64,7 +67,7 @@ interface DeliveryOptionAccordionProductsProps {
 
 function DeliveryOptionAccordionProducts({
   children,
-}: DeliveryOptionAccordionProductsProps) {
+}: Readonly<DeliveryOptionAccordionProductsProps>) {
   return <div data-fs-delivery-option-accordion-products>{children}</div>
 }
 

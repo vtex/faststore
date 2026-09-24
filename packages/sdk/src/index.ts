@@ -89,6 +89,7 @@ export { default as formatSearchState } from './utils/format'
 export { initialize as initSearchState } from './search/globalState/useSearchState'
 export {
   isSearchSort,
+  registerCustomSortKeys,
   removeFacet,
   setFacet,
   toggleFacet,

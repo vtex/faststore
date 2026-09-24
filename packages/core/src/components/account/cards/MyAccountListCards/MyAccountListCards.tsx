@@ -350,6 +350,7 @@ export default function MyAccountListCards({
       />
 
       <div
+        data-fs-list-cards-panel
         role={sharedOnly ? undefined : 'tabpanel'}
         id={sharedOnly ? undefined : PANEL_ID}
         aria-labelledby={sharedOnly ? undefined : activeTabId}
