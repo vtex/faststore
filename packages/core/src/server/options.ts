@@ -13,6 +13,7 @@ export const apiOptions: APIOptions = {
   showSponsored: storeConfig.api.showSponsored,
   simulationBehavior: (storeConfig.api as Record<string, any>)
     .simulationBehavior,
+  customSortMap: (storeConfig.api as Record<string, any>).customSortMap,
   incrementAddress: storeConfig.api.incrementAddress,
   channel: storeConfig.session.channel,
   locale: storeConfig.session.locale,

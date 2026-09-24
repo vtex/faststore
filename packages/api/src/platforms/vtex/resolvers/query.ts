@@ -42,6 +42,7 @@ import {
   parseSessionAvailableContracts,
   resolveActiveContractDisplayName,
   resolveActiveContractIdFromSession,
+  resolveDefaultContractId,
 } from '../utils/contract'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
@@ -57,7 +58,7 @@ import {
 import { getCatalogLocale, isLocalizationEnabled } from '../utils/localization'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { slugify } from '../utils/slugify'
-import { SORT_MAP } from '../utils/sort'
+import { resolveSort } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
 import { getOrderEntryOperation } from './getOrderEntryOperation'
@@ -269,7 +270,7 @@ export const Query = {
       page: Math.ceil(after / first) || 0,
       count: first,
       query: term ?? undefined,
-      sort: SORT_MAP[sort ?? 'score_desc'] ?? SORT_MAP.score_desc,
+      sort: resolveSort(sort ?? 'score_desc', ctx.storage.customSortMap),
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
       sponsoredCount: sponsoredCount ?? undefined,
     }
@@ -991,7 +992,23 @@ export const Query = {
       jwt?.customerId?.trim() ||
       ''
 
-    return mapSessionContractsToStoreContracts(contracts, activeContractId)
+    // Default flag lives only in the store-front BFF; never block the list on it.
+    const attached = await commerce.storeFront
+      .attachedContracts(orgUnitId)
+      .catch((error) => {
+        console.warn(
+          'availableContracts: default contract lookup failed',
+          error
+        )
+        return null
+      })
+    const defaultContractId = resolveDefaultContractId(attached?.contracts)
+
+    return mapSessionContractsToStoreContracts(
+      contracts,
+      activeContractId,
+      defaultContractId
+    )
   },
   pickupPoints: async (
     _: unknown,

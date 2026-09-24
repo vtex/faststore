@@ -167,9 +167,11 @@ function Page({
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
+    const storeURL = getStoreURL(router.locale).replace(/\/$/, '')
+
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
-        const pageUrl = getStoreURL(router.locale) + pathname
+        const pageUrl = storeURL + pathname
 
         return { name, position, item: pageUrl }
       }

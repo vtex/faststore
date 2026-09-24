@@ -63,7 +63,8 @@ type StoreConfig = typeof storeConfig
 function generateSEOData(
   storeConfig: StoreConfig,
   searchTerm?: string,
-  pageSeoSettings?: SearchSettings['settings']['seo']
+  pageSeoSettings?: SearchSettings['settings']['seo'],
+  locale?: string
 ) {
   const { search: searchSeo, ...seo } = storeConfig.seo
 
@@ -97,7 +98,10 @@ function generateSEOData(
   }
 
   const canonical = searchTerm
-    ? `${getStoreURL()}/s?q=${searchTerm.replaceAll(' ', '+')}`
+    ? `${getStoreURL(locale).replace(/\/$/, '')}/s?q=${searchTerm.replaceAll(
+        ' ',
+        '+'
+      )}`
     : undefined
 
   return {
@@ -123,6 +127,7 @@ function Page({
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
   const { settings } = searchContentType
+  const { locale } = useRouter()
   const applySearchState = useApplySearchState()
   const searchParams = useSearchParams({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
@@ -147,7 +152,8 @@ function Page({
   const { noindex, nofollow, ...seoData } = generateSEOData(
     storeConfig,
     effectiveSearchTerm,
-    settings?.seo
+    settings?.seo,
+    locale
   )
 
   return (
