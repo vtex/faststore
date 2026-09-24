@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0-dev.0](https://github.com/vtex/faststore/compare/v4.8.1-dev.3...v4.9.0-dev.0) (2026-09-24)
+
+### Features
+
+- **api,sdk:** support custom StoreSort values via customSortMap ([#3496](https://github.com/vtex/faststore/issues/3496)) ([8613faa](https://github.com/vtex/faststore/commit/8613faa046449801d17a2f0076e3a9b9d5a8c00f)), closes [/github.com/vtex/faststore/pull/3496#discussion_r4063084635](https://github.com//github.com/vtex/faststore/pull/3496/issues/discussion_r4063084635) [vtex-sites/playground.store#238](https://github.com/vtex-sites/playground.store/issues/238) [#3495](https://github.com/vtex/faststore/issues/3495)
+
 ## [4.8.1-dev.3](https://github.com/vtex/faststore/compare/v4.8.1-dev.2...v4.8.1-dev.3) (2026-09-22)
 
 **Note:** Version bump only for package @faststore/api
