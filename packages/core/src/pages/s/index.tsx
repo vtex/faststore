@@ -1,3 +1,12 @@
+// This file intentionally lives at `s/index.tsx` instead of a bare `s.tsx`
+// (both compile to the same `/s` route). Yarn Classic 1.x silently drops the
+// `s.tsx` tar entry when extracting @faststore/core on Windows — every other
+// page in this folder survives, only that one file vanishes before `next
+// build` even starts type-checking. Windows' own `tar.exe` extracts the
+// identical tarball fine, so the bug is in Yarn's own extraction code, not
+// ours; nesting the file under a folder changes the tar-entry shape enough
+// to avoid it. Confirmed via the Windows CI job in @faststore/cli. Do not
+// rename this back to a bare `s.tsx`.
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useState } from 'react'
