@@ -27,6 +27,10 @@ const defaultContractSwitcherLabels = {
 
 type ContractSwitcherLabels = typeof defaultContractSwitcherLabels
 
+type ContractSwitcherLabelsProps = {
+  labels: ContractSwitcherLabels
+}
+
 /**
  * Splits `availableCountLabel` on the `{count}` placeholder so the count can be
  * wrapped in a `<strong>`, keeping the CMS convention of plain string labels
@@ -75,11 +79,7 @@ const ContractSwitcherLoading = () => (
   </div>
 )
 
-const ContractSwitcherLoadError = ({
-  labels,
-}: {
-  labels: ContractSwitcherLabels
-}) => (
+const ContractSwitcherLoadError = ({ labels }: ContractSwitcherLabelsProps) => (
   <div data-fs-contract-switcher-message role="alert">
     <p>{labels.loadErrorLabel}</p>
   </div>
@@ -88,8 +88,7 @@ const ContractSwitcherLoadError = ({
 const ContractSwitcherCurrentSession = ({
   labels,
   currentContract,
-}: {
-  labels: ContractSwitcherLabels
+}: ContractSwitcherLabelsProps & {
   currentContract: SwitcherContract | null
 }) => (
   <div data-fs-contract-switcher-current>
@@ -118,9 +117,7 @@ const ContractSwitcherCurrentSession = ({
 
 const ContractSwitcherEmptyAlternatives = ({
   labels,
-}: {
-  labels: ContractSwitcherLabels
-}) => (
+}: ContractSwitcherLabelsProps) => (
   <div data-fs-contract-switcher-message data-fs-contract-switcher-empty>
     <p>{labels.emptyLabel}</p>
   </div>
@@ -266,9 +263,7 @@ const ContractSwitcherAlternatives = ({
 
 const ContractSwitcherSwitchError = ({
   labels,
-}: {
-  labels: ContractSwitcherLabels
-}) => (
+}: ContractSwitcherLabelsProps) => (
   <div data-fs-contract-switcher-message role="alert">
     <p>{labels.switchErrorLabel}</p>
   </div>
