@@ -19,12 +19,12 @@ export const ORDER_FORM_URL = `${CHECKOUT_BASE}?refreshOutdatedData=true`
 export const ITEMS_URL = `${CHECKOUT_BASE}/items?allowOutdatedData=paymentData&sc=1`
 export const CART_ETAG_URL = `${CHECKOUT_BASE}/customData/faststore/cartEtag`
 
-export const SKU = '3'
+export const SKU = '10'
 export const SKU_NAME = 'Sample product'
-export const SELLING_PRICE = 699000
-export const SERVICE_ID = '3'
-export const SERVICE_NAME = 'Installation'
-export const SERVICE_PRICE = 16999000
+export const SELLING_PRICE = 1000
+export const SERVICE_ID = '20'
+export const SERVICE_NAME = 'Sample service'
+export const SERVICE_PRICE = 2500
 
 export const ValidateCartServicesMutation = `mutation ValidateCartServicesMutation($cart: IStoreCart!) {
   validateCart(cart: $cart) {

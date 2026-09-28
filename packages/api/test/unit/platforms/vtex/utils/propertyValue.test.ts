@@ -10,10 +10,10 @@ import {
 const installation = (
   overrides: Partial<OrderFormBundleItem> = {}
 ): OrderFormBundleItem => ({
-  id: '3',
-  name: 'Instalación',
+  id: '10',
+  name: 'Sample service',
   quantity: 1,
-  sellingPrice: 16999000,
+  sellingPrice: 2500,
   attachments: [],
   ...overrides,
 })
@@ -21,9 +21,9 @@ const installation = (
 describe('serviceToPropertyValue', () => {
   it('maps a bundle item to a SERVICE property with a stable key', () => {
     expect(serviceToPropertyValue(installation())).toEqual({
-      propertyID: md5('SERVICE:3:[]'),
-      name: 'Instalación',
-      value: { id: '3', price: 169990, attachments: [] },
+      propertyID: md5('SERVICE:10:[]'),
+      name: 'Sample service',
+      value: { id: '10', price: 25, attachments: [] },
       valueReference: VALUE_REFERENCES.service,
     })
   })
@@ -34,7 +34,7 @@ describe('serviceToPropertyValue', () => {
       installation({ attachments: undefined })
     )
 
-    expect(withNull.propertyID).toBe(md5('SERVICE:3:[]'))
+    expect(withNull.propertyID).toBe(md5('SERVICE:10:[]'))
     expect(withUndefined.propertyID).toBe(withNull.propertyID)
     expect(withNull.value.attachments).toEqual([])
   })
@@ -93,7 +93,7 @@ describe('getServiceKey', () => {
   })
 
   it('accepts a numeric id', () => {
-    expect(getServiceKey({ ...property, value: { id: 3 } })).toBe(
+    expect(getServiceKey({ ...property, value: { id: 10 } })).toBe(
       property.propertyID
     )
   })
@@ -119,7 +119,7 @@ describe('getServiceKey', () => {
     expect(
       getServiceKey({
         ...property,
-        value: { id: '3', attachments: [null, 'x', { content: {} }] },
+        value: { id: '10', attachments: [null, 'x', { content: {} }] },
       })
     ).toBe(property.propertyID)
   })
