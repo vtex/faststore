@@ -119,4 +119,36 @@ describe('MyAccountQuotesSelectedTags', () => {
 
     expect(onClearAll).toHaveBeenCalledTimes(1)
   })
+
+  it('honors CMS-provided labels for the clear-all button, tag prefixes and date connectors', () => {
+    render(
+      <MyAccountQuotesSelectedTags
+        filters={{ createdAtFrom: '2026-01-01', createdAtTo: '2026-01-31' }}
+        onClearAll={vi.fn()}
+        onRemoveFilter={vi.fn()}
+        labels={{
+          clearAllLabel: 'Limpar tudo',
+          createdTagLabel: 'Criado em',
+          dateRangeSeparatorLabel: 'até',
+        }}
+      />
+    )
+
+    const expected = `Criado em: ${formatFilterDate('2026-01-01', 'en-US')} até ${formatFilterDate('2026-01-31', 'en-US')}`
+    expect(screen.getByText(expected)).toBeTruthy()
+    expect(screen.getByText('Limpar tudo')).toBeTruthy()
+  })
+
+  it('honors a CMS-provided status option label in the tag', () => {
+    render(
+      <MyAccountQuotesSelectedTags
+        filters={{ status: ['Draft'] }}
+        onClearAll={vi.fn()}
+        onRemoveFilter={vi.fn()}
+        labels={{ draftStatus: 'Rascunho' }}
+      />
+    )
+
+    expect(screen.getByText('Rascunho')).toBeTruthy()
+  })
 })

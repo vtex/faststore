@@ -33,7 +33,9 @@ vi.mock('@faststore/ui', async () => {
 })
 
 import MyAccountQuotesFilterSlider from '../../../src/components/account/quotes/MyAccountListQuotes/MyAccountQuotesFilterSlider/MyAccountQuotesFilterSlider'
+import type { MyAccountQuotesFilterSliderProps } from '../../../src/components/account/quotes/MyAccountListQuotes/MyAccountQuotesFilterSlider/MyAccountQuotesFilterSlider'
 import { getAllFacets } from '../../../src/components/account/quotes/MyAccountListQuotes/quoteFilters'
+import type { useMyAccountFilter } from '../../../src/sdk/search/useMyAccountFilter'
 
 const originalLocation = window.location
 
@@ -44,7 +46,12 @@ function stubLocation(search = '') {
   })
 }
 
-function baseProps(overrides: Record<string, unknown> = {}) {
+type FilterSliderTestProps = MyAccountQuotesFilterSliderProps &
+  ReturnType<typeof useMyAccountFilter>
+
+function baseProps(
+  overrides: Partial<FilterSliderTestProps> = {}
+): FilterSliderTestProps {
   return {
     facets: getAllFacets({
       page: 1,
@@ -57,7 +64,7 @@ function baseProps(overrides: Record<string, unknown> = {}) {
     }),
     testId: 'test-filter-slider',
     dispatch: vi.fn(),
-    expanded: false,
+    expanded: new Set<number>(),
     selected: [],
     title: 'Filters',
     clearButtonLabel: 'Clear All',
@@ -82,9 +89,9 @@ describe('MyAccountQuotesFilterSlider', () => {
   it('navigates with the selected status params on apply', () => {
     render(
       <MyAccountQuotesFilterSlider
-        {...(baseProps({
+        {...baseProps({
           selected: [{ key: 'status', value: 'Draft' }],
-        }) as any)}
+        })}
       />
     )
 
@@ -94,7 +101,7 @@ describe('MyAccountQuotesFilterSlider', () => {
   })
 
   it('navigates with the created date range params on apply', () => {
-    render(<MyAccountQuotesFilterSlider {...(baseProps() as any)} />)
+    render(<MyAccountQuotesFilterSlider {...baseProps()} />)
 
     fireEvent.change(screen.getAllByLabelText('From')[0], {
       target: { value: '2026-01-01' },
@@ -115,9 +122,9 @@ describe('MyAccountQuotesFilterSlider', () => {
 
     render(
       <MyAccountQuotesFilterSlider
-        {...(baseProps({
+        {...baseProps({
           selected: [{ key: 'status', value: 'Draft' }],
-        }) as any)}
+        })}
       />
     )
 
@@ -129,7 +136,7 @@ describe('MyAccountQuotesFilterSlider', () => {
   })
 
   it('navigates with no query string when no filters are applied', () => {
-    render(<MyAccountQuotesFilterSlider {...(baseProps() as any)} />)
+    render(<MyAccountQuotesFilterSlider {...baseProps()} />)
 
     fireEvent.click(screen.getByText('View Results'))
 
@@ -138,9 +145,7 @@ describe('MyAccountQuotesFilterSlider', () => {
 
   it('clears the created/expiry date refs and dispatches an empty facet selection on clear', () => {
     const dispatch = vi.fn()
-    render(
-      <MyAccountQuotesFilterSlider {...(baseProps({ dispatch }) as any)} />
-    )
+    render(<MyAccountQuotesFilterSlider {...baseProps({ dispatch })} />)
 
     fireEvent.click(screen.getByText('Clear All'))
 
@@ -148,5 +153,41 @@ describe('MyAccountQuotesFilterSlider', () => {
       type: 'selectFacets',
       payload: [],
     })
+  })
+
+  it('honors CMS-provided date range labels', () => {
+    render(
+      <MyAccountQuotesFilterSlider
+        {...baseProps({
+          fromLabel: 'De',
+          toLabel: 'Até',
+          invalidDateRangeLabel: 'Intervalo inválido',
+        })}
+      />
+    )
+
+    expect(screen.getAllByLabelText('De').length).toBeGreaterThan(0)
+    expect(screen.getAllByLabelText('Até').length).toBeGreaterThan(0)
+  })
+
+  it('honors a CMS-provided status field label', () => {
+    render(
+      <MyAccountQuotesFilterSlider {...baseProps({ statusLabel: 'Estado' })} />
+    )
+
+    expect(screen.getByText('Estado')).toBeTruthy()
+  })
+
+  it('forwards a CMS-provided remove-status aria-label template to the status chip', () => {
+    render(
+      <MyAccountQuotesFilterSlider
+        {...baseProps({
+          selected: [{ key: 'status', value: 'Draft' }],
+          removeStatusAriaLabel: 'Remover {status}',
+        })}
+      />
+    )
+
+    expect(screen.getByLabelText('Remover Draft')).toBeTruthy()
   })
 })
