@@ -145,4 +145,17 @@ describe('MyAccountQuotesStatusSelector', () => {
 
     expect(screen.getByLabelText('Remover Rascunho')).toBeTruthy()
   })
+
+  it('inserts a status label that contains $ verbatim into the remove aria-label', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        removeStatusAriaLabel="Remove {status}"
+        statusCmsLabels={{ draftStatus: 'Ready $& soon' }}
+      />
+    )
+
+    expect(screen.getByLabelText('Remove Ready $& soon')).toBeTruthy()
+  })
 })

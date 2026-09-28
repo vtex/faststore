@@ -103,18 +103,6 @@ export const defaultMyAccountListQuotesLabels: Required<MyAccountListQuotesSecti
     convertedToOrderStatus: 'Converted to Order',
   }
 
-const STATUS_LABEL_KEYS = [
-  'draftStatus',
-  'requestedStatus',
-  'inReviewStatus',
-  'revisedStatus',
-  'approvedStatus',
-  'declinedStatus',
-  'expiredStatus',
-  'convertedStatus',
-  'convertedToOrderStatus',
-] as const satisfies readonly (keyof MyAccountListQuotesSectionLabels)[]
-
 /** Guards against blank/whitespace-only CMS overrides, which would otherwise wipe out accessible names (e.g. IconButton `aria-label`s). */
 function isNonBlank(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0
@@ -149,19 +137,13 @@ export function pickQuoteStatusCmsLabels(
   )
 }
 
-/** Ordered list of status keys, matching `quoteStatusMap`'s iteration order, for building CMS-aware facet values. */
-export function getStatusFacetLabels(
-  labels: Required<MyAccountListQuotesSectionLabels>
-): string[] {
-  return STATUS_LABEL_KEYS.map((key) => labels[key])
-}
-
 /** Formats the status chip's remove-button accessible name, substituting the "{status}" placeholder. */
 export function formatRemoveStatusAriaLabel(
   template: string,
   status: string
 ): string {
-  return template.replace('{status}', status)
+  const [prefix, suffix = ''] = template.split('{status}')
+  return `${prefix}${status}${suffix}`
 }
 
 /**

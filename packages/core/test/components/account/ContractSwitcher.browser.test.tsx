@@ -386,4 +386,28 @@ describe('ContractSwitcher', () => {
       screen.getByText('Não foi possível trocar de contrato.')
     ).toBeTruthy()
   })
+
+  it('falls back to English defaults when CMS labels are blank', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      contractSwitcherTitleLabel: ' ',
+      contractSwitcherBackLabel: '',
+      contractSwitcherCloseLabel: '   ',
+      contractSwitcherSearchAriaLabel: '',
+      contractSwitcherClearSearchLabel: ' ',
+      contractSwitcherConfirmLabel: '',
+    })
+
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    expect(screen.getByText('Change contract')).toBeTruthy()
+    expect(screen.getByLabelText('Back to account menu')).toBeTruthy()
+    expect(screen.getByLabelText('Close')).toBeTruthy()
+    expect(screen.getByLabelText('Search contracts')).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Confirm' })).toBeTruthy()
+
+    fireEvent.change(screen.getByLabelText('Search contracts'), {
+      target: { value: 'acme' },
+    })
+    expect(screen.getByLabelText('Clear search')).toBeTruthy()
+  })
 })

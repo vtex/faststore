@@ -27,6 +27,10 @@ const defaultContractSwitcherLabels = {
 
 type ContractSwitcherLabels = typeof defaultContractSwitcherLabels
 
+function nonBlankLabel(value: string | undefined, fallback: string): string {
+  return value && value.trim() ? value : fallback
+}
+
 type ContractSwitcherLabelsProps = {
   labels: ContractSwitcherLabels
 }
@@ -324,48 +328,62 @@ export const ContractSwitcher = ({
 }: ContractSwitcherProps) => {
   const navigationLabels = useAccountNavigationLabels()
   const labels: ContractSwitcherLabels = {
-    titleLabel:
-      navigationLabels?.contractSwitcherTitleLabel ??
-      defaultContractSwitcherLabels.titleLabel,
-    backLabel:
-      navigationLabels?.contractSwitcherBackLabel ??
-      defaultContractSwitcherLabels.backLabel,
-    closeLabel:
-      navigationLabels?.contractSwitcherCloseLabel ??
-      defaultContractSwitcherLabels.closeLabel,
-    currentSessionLabel:
-      navigationLabels?.contractSwitcherCurrentSessionLabel ??
-      defaultContractSwitcherLabels.currentSessionLabel,
-    searchPlaceholder:
-      navigationLabels?.contractSwitcherSearchPlaceholder ??
-      defaultContractSwitcherLabels.searchPlaceholder,
-    searchAriaLabel:
-      navigationLabels?.contractSwitcherSearchAriaLabel ??
-      defaultContractSwitcherLabels.searchAriaLabel,
-    clearSearchLabel:
-      navigationLabels?.contractSwitcherClearSearchLabel ??
-      defaultContractSwitcherLabels.clearSearchLabel,
-    availableCountLabel:
-      navigationLabels?.contractSwitcherAvailableCountLabel ??
-      defaultContractSwitcherLabels.availableCountLabel,
-    noMatchLabel:
-      navigationLabels?.contractSwitcherNoMatchLabel ??
-      defaultContractSwitcherLabels.noMatchLabel,
-    emptyLabel:
-      navigationLabels?.contractSwitcherEmptyLabel ??
-      defaultContractSwitcherLabels.emptyLabel,
-    loadErrorLabel:
-      navigationLabels?.contractSwitcherLoadErrorLabel ??
-      defaultContractSwitcherLabels.loadErrorLabel,
-    switchErrorLabel:
-      navigationLabels?.contractSwitcherSwitchErrorLabel ??
-      defaultContractSwitcherLabels.switchErrorLabel,
-    cancelLabel:
-      navigationLabels?.contractSwitcherCancelLabel ??
-      defaultContractSwitcherLabels.cancelLabel,
-    confirmLabel:
-      navigationLabels?.contractSwitcherConfirmLabel ??
-      defaultContractSwitcherLabels.confirmLabel,
+    titleLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherTitleLabel,
+      defaultContractSwitcherLabels.titleLabel
+    ),
+    backLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherBackLabel,
+      defaultContractSwitcherLabels.backLabel
+    ),
+    closeLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherCloseLabel,
+      defaultContractSwitcherLabels.closeLabel
+    ),
+    currentSessionLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherCurrentSessionLabel,
+      defaultContractSwitcherLabels.currentSessionLabel
+    ),
+    searchPlaceholder: nonBlankLabel(
+      navigationLabels?.contractSwitcherSearchPlaceholder,
+      defaultContractSwitcherLabels.searchPlaceholder
+    ),
+    searchAriaLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherSearchAriaLabel,
+      defaultContractSwitcherLabels.searchAriaLabel
+    ),
+    clearSearchLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherClearSearchLabel,
+      defaultContractSwitcherLabels.clearSearchLabel
+    ),
+    availableCountLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherAvailableCountLabel,
+      defaultContractSwitcherLabels.availableCountLabel
+    ),
+    noMatchLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherNoMatchLabel,
+      defaultContractSwitcherLabels.noMatchLabel
+    ),
+    emptyLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherEmptyLabel,
+      defaultContractSwitcherLabels.emptyLabel
+    ),
+    loadErrorLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherLoadErrorLabel,
+      defaultContractSwitcherLabels.loadErrorLabel
+    ),
+    switchErrorLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherSwitchErrorLabel,
+      defaultContractSwitcherLabels.switchErrorLabel
+    ),
+    cancelLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherCancelLabel,
+      defaultContractSwitcherLabels.cancelLabel
+    ),
+    confirmLabel: nonBlankLabel(
+      navigationLabels?.contractSwitcherConfirmLabel,
+      defaultContractSwitcherLabels.confirmLabel
+    ),
   }
 
   const { contracts, loading, error } = useAvailableContracts(true)

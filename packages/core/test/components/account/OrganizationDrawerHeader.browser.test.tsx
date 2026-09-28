@@ -81,4 +81,20 @@ describe('OrganizationDrawerHeader', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Trocar' }))
     expect(onChangeContract).toHaveBeenCalledTimes(1)
   })
+
+  it('falls back to Change when the CMS label is blank', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      changeContractLabel: '   ',
+    })
+
+    render(
+      <OrganizationDrawerHeader
+        contractName="Acme Corp"
+        contractUrl={null}
+        onChangeContract={vi.fn()}
+      />
+    )
+
+    expect(screen.getByRole('button', { name: 'Change' })).toBeTruthy()
+  })
 })

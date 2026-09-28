@@ -28,7 +28,11 @@ export const OrganizationDrawerHeader = ({
   onChangeContract,
 }: OrganizationDrawerHeaderProps) => {
   const navigationLabels = useAccountNavigationLabels()
-  const changeContractLabel = navigationLabels?.changeContractLabel ?? 'Change'
+  const changeContractLabel =
+    navigationLabels?.changeContractLabel &&
+    navigationLabels.changeContractLabel.trim()
+      ? navigationLabels.changeContractLabel
+      : 'Change'
 
   return (
     <>
