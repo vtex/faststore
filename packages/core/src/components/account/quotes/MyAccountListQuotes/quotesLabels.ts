@@ -1,3 +1,7 @@
+import {
+  resolveNonBlankLabels,
+  splitOnFirstToken,
+} from 'src/sdk/account/resolveNonBlankLabels'
 import type { QuoteStatusCmsLabels } from 'src/utils/quoteStatus'
 import {
   pickQuoteStatusCmsLabels as pickQuoteStatusCmsLabelsFromData,
@@ -106,30 +110,10 @@ export const defaultMyAccountListQuotesLabels: Required<MyAccountListQuotesSecti
     convertedToOrderStatus: quoteStatusMap.ConvertedToOrder.label,
   }
 
-/** Guards against blank/whitespace-only CMS overrides, which would otherwise wipe out accessible names (e.g. IconButton `aria-label`s). */
-function isNonBlank(value: unknown): value is string {
-  return typeof value === 'string' && value.trim().length > 0
-}
-
 export function resolveMyAccountListQuotesLabels(
   labels?: MyAccountListQuotesSectionLabels
 ): Required<MyAccountListQuotesSectionLabels> {
-  const resolved = { ...defaultMyAccountListQuotesLabels }
-
-  if (!labels) {
-    return resolved
-  }
-
-  for (const key of Object.keys(
-    defaultMyAccountListQuotesLabels
-  ) as (keyof MyAccountListQuotesSectionLabels)[]) {
-    const value = labels[key]
-    if (isNonBlank(value)) {
-      resolved[key] = value
-    }
-  }
-
-  return resolved
+  return resolveNonBlankLabels(defaultMyAccountListQuotesLabels, labels)
 }
 
 export function pickQuoteStatusCmsLabels(
@@ -145,16 +129,13 @@ export function formatRemoveStatusAriaLabel(
   template: string,
   status: string
 ): string {
-  const token = '{status}'
-  const index = template.indexOf(token)
+  const { found, prefix, suffix } = splitOnFirstToken(template, '{status}')
 
-  if (index === -1) {
+  if (!found) {
     return template
   }
 
-  return (
-    template.slice(0, index) + status + template.slice(index + token.length)
-  )
+  return prefix + status + suffix
 }
 
 /**

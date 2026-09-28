@@ -106,14 +106,3 @@ export function getLocalizedQuoteStatusMap(
 
   return localizedMap
 }
-
-export function getQuoteStatusLabel({
-  status,
-  cmsLabels,
-}: {
-  status: string
-  cmsLabels?: QuoteStatusCmsLabels
-}): string | undefined {
-  const localizedMap = getLocalizedQuoteStatusMap(cmsLabels)
-  return localizedMap[status as QuoteStatusKey]?.label
-}

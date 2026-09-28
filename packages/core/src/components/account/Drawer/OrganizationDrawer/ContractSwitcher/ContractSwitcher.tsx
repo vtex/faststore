@@ -2,6 +2,11 @@ import { Button, Icon, IconButton, Loader } from '@faststore/ui'
 import { useState, type ReactNode } from 'react'
 
 import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
+import type { AccountNavigationLabels } from 'src/sdk/account/getMyAccountRoutes'
+import {
+  resolveNonBlankLabels,
+  splitOnFirstToken,
+} from 'src/sdk/account/resolveNonBlankLabels'
 import { useAvailableContracts } from 'src/sdk/account/useAvailableContracts'
 import { useSwitchContract } from 'src/sdk/account/useSwitchContract'
 import { useSession } from 'src/sdk/session'
@@ -27,8 +32,40 @@ const defaultContractSwitcherLabels = {
 
 type ContractSwitcherLabels = typeof defaultContractSwitcherLabels
 
-function nonBlankLabel(value: string | undefined, fallback: string): string {
-  return value?.trim() || fallback
+const SWITCHER_CMS_KEYS = {
+  titleLabel: 'contractSwitcherTitleLabel',
+  backLabel: 'contractSwitcherBackLabel',
+  closeLabel: 'contractSwitcherCloseLabel',
+  currentSessionLabel: 'contractSwitcherCurrentSessionLabel',
+  searchPlaceholder: 'contractSwitcherSearchPlaceholder',
+  searchAriaLabel: 'contractSwitcherSearchAriaLabel',
+  clearSearchLabel: 'contractSwitcherClearSearchLabel',
+  availableCountLabel: 'contractSwitcherAvailableCountLabel',
+  noMatchLabel: 'contractSwitcherNoMatchLabel',
+  emptyLabel: 'contractSwitcherEmptyLabel',
+  loadErrorLabel: 'contractSwitcherLoadErrorLabel',
+  switchErrorLabel: 'contractSwitcherSwitchErrorLabel',
+  cancelLabel: 'contractSwitcherCancelLabel',
+  confirmLabel: 'contractSwitcherConfirmLabel',
+} as const satisfies Record<
+  keyof ContractSwitcherLabels,
+  keyof AccountNavigationLabels
+>
+
+function resolveContractSwitcherLabels(
+  navigationLabels?: AccountNavigationLabels
+): ContractSwitcherLabels {
+  const overrides: Partial<ContractSwitcherLabels> = {}
+
+  if (navigationLabels) {
+    for (const key of Object.keys(
+      SWITCHER_CMS_KEYS
+    ) as (keyof ContractSwitcherLabels)[]) {
+      overrides[key] = navigationLabels[SWITCHER_CMS_KEYS[key]]
+    }
+  }
+
+  return resolveNonBlankLabels(defaultContractSwitcherLabels, overrides)
 }
 
 type ContractSwitcherLabelsProps = {
@@ -41,17 +78,9 @@ type ContractSwitcherLabelsProps = {
  * (no templating engine) while still allowing surrounding text to be localized.
  */
 const splitAvailableCountLabel = (template: string) => {
-  const token = '{count}'
-  const index = template.indexOf(token)
+  const { prefix, suffix } = splitOnFirstToken(template, '{count}')
 
-  if (index === -1) {
-    return { prefix: template, suffix: '' }
-  }
-
-  return {
-    prefix: template.slice(0, index),
-    suffix: template.slice(index + token.length),
-  }
+  return { prefix, suffix }
 }
 
 export type ContractSwitcherProps = {
@@ -336,64 +365,7 @@ export const ContractSwitcher = ({
   onClose,
 }: ContractSwitcherProps) => {
   const navigationLabels = useAccountNavigationLabels()
-  const labels: ContractSwitcherLabels = {
-    titleLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherTitleLabel,
-      defaultContractSwitcherLabels.titleLabel
-    ),
-    backLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherBackLabel,
-      defaultContractSwitcherLabels.backLabel
-    ),
-    closeLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherCloseLabel,
-      defaultContractSwitcherLabels.closeLabel
-    ),
-    currentSessionLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherCurrentSessionLabel,
-      defaultContractSwitcherLabels.currentSessionLabel
-    ),
-    searchPlaceholder: nonBlankLabel(
-      navigationLabels?.contractSwitcherSearchPlaceholder,
-      defaultContractSwitcherLabels.searchPlaceholder
-    ),
-    searchAriaLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherSearchAriaLabel,
-      defaultContractSwitcherLabels.searchAriaLabel
-    ),
-    clearSearchLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherClearSearchLabel,
-      defaultContractSwitcherLabels.clearSearchLabel
-    ),
-    availableCountLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherAvailableCountLabel,
-      defaultContractSwitcherLabels.availableCountLabel
-    ),
-    noMatchLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherNoMatchLabel,
-      defaultContractSwitcherLabels.noMatchLabel
-    ),
-    emptyLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherEmptyLabel,
-      defaultContractSwitcherLabels.emptyLabel
-    ),
-    loadErrorLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherLoadErrorLabel,
-      defaultContractSwitcherLabels.loadErrorLabel
-    ),
-    switchErrorLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherSwitchErrorLabel,
-      defaultContractSwitcherLabels.switchErrorLabel
-    ),
-    cancelLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherCancelLabel,
-      defaultContractSwitcherLabels.cancelLabel
-    ),
-    confirmLabel: nonBlankLabel(
-      navigationLabels?.contractSwitcherConfirmLabel,
-      defaultContractSwitcherLabels.confirmLabel
-    ),
-  }
+  const labels = resolveContractSwitcherLabels(navigationLabels)
 
   const { contracts, loading, error } = useAvailableContracts(true)
   const { b2b } = useSession()

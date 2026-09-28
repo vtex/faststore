@@ -1,6 +1,9 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 
-import { formatRemoveStatusAriaLabel } from '../quotesLabels'
+import {
+  defaultMyAccountListQuotesLabels,
+  formatRemoveStatusAriaLabel,
+} from '../quotesLabels'
 import type { QuoteStatusCmsLabels } from 'src/utils/quoteStatus'
 import { getLocalizedQuoteStatusMap } from 'src/utils/quoteStatus'
 import styles from './styles.module.scss'
@@ -17,8 +20,8 @@ type MyAccountQuotesStatusSelectorProps = Readonly<{
 export default function MyAccountQuotesStatusSelector({
   value,
   onChange,
-  statusLabel = 'Status',
-  removeStatusAriaLabel = 'Remove {status}',
+  statusLabel = defaultMyAccountListQuotesLabels.statusFacetLabel,
+  removeStatusAriaLabel = defaultMyAccountListQuotesLabels.removeStatusAriaLabel,
   statusCmsLabels,
 }: MyAccountQuotesStatusSelectorProps) {
   const statusEntries = useMemo(() => {
