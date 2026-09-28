@@ -128,6 +128,10 @@
       [data-fs-organization-drawer-header-default] {
         flex-shrink: 0;
         color: var(--fs-color-link);
+
+        // The Star symbol only declares stroke="currentColor", so without this
+        // the fill falls back to the SVG default (black).
+        fill: currentColor;
       }
 
       [data-fs-organization-drawer-header-change] {
@@ -331,6 +335,9 @@
         [data-fs-contract-switcher-default] {
           flex-shrink: 0;
           color: var(--fs-color-link);
+
+          // See the drawer header star: the symbol carries no fill of its own.
+          fill: currentColor;
         }
 
         // Footer: Cancel / Confirm

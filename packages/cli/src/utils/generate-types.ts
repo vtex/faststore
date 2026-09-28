@@ -156,13 +156,28 @@ function getOperationName(document: DocumentNode) {
   return 'UnknownOperation'
 }
 
+/**
+ * The store root, where the custom typeDefs live (`src/graphql`), for a
+ * `rootPath` that is either the store root or its `.faststore` directory.
+ *
+ * Compares the last path segment instead of the string suffix: a suffix check
+ * also matches store folders named like `acme.faststore`, which then resolved
+ * to their parent and silently dropped every custom typeDef, and missed
+ * `.faststore` paths with a trailing separator.
+ */
+export function resolveStoreRoot(rootPath: string) {
+  const resolved = path.resolve(rootPath)
+
+  return path.basename(resolved) === '.faststore'
+    ? path.dirname(resolved)
+    : resolved
+}
+
 async function generateSchemaFile(rootPath: string) {
   const faststoreSchema = printSchemaWithDirectives(GraphqlVtexSchema())
 
   const getMergedSchema = async () => {
-    const root = path.join(
-      rootPath.endsWith('.faststore') ? [rootPath, '..'].join('/') : rootPath
-    )
+    const root = resolveStoreRoot(rootPath)
 
     const customizations = [
       ...(await getTypeDefsFromFolder(root, 'vtex')),

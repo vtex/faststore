@@ -74,13 +74,23 @@ describe('getMyAccountRoutes', () => {
     expect(result.find((r) => r.route === PROFILE_ROUTE)?.title).toBe('Profile')
   })
 
-  it('does not relabel routes with no matching label key (e.g. Quotes)', () => {
+  it('does not relabel routes when their label key has no CMS value (e.g. Quotes)', () => {
     const result = getMyAccountRoutes({
       routes: [],
       labels: { profileLabel: 'Meu Perfil' },
     })
 
     expect(result.find((r) => r.route === QUOTES_ROUTE)?.title).toBe('Quotes')
+  })
+
+  it('overrides the Cards and Quotes menu titles with matching CMS labels', () => {
+    const result = getMyAccountRoutes({
+      routes: [],
+      labels: { cardsLabel: 'Cartões', quotesLabel: 'Cotações' },
+    })
+
+    expect(result.find((r) => r.route === CARDS_ROUTE)?.title).toBe('Cartões')
+    expect(result.find((r) => r.route === QUOTES_ROUTE)?.title).toBe('Cotações')
   })
 
   it('preserves contentType through getMyAccountRoutes', () => {

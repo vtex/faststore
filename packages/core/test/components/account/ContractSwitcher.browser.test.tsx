@@ -2,6 +2,7 @@
  * @vitest-environment jsdom
  */
 
+import '@testing-library/jest-dom/vitest'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -115,6 +116,47 @@ describe('ContractSwitcher', () => {
       '[data-fs-contract-switcher-option]'
     )
     expect(options.length).toBe(2)
+  })
+
+  it('marks the default contract with a star and lists it first (Design QA 00:02:00)', async () => {
+    // Note: id 'a' is pinned to the current session (this file mocks
+    // useSession with b2b.customerId: 'a'), so it must stay on the active
+    // contract for it to resolve as the current one; Alpha (the default)
+    // and Aardvark get other ids and land in the alternatives list, which
+    // is what this test exercises.
+    mockUseAvailableContracts.mockReturnValue({
+      contracts: [
+        { id: 'a', corporateName: 'Beta', isActive: true, isDefault: false },
+        { id: 'b', corporateName: 'Alpha', isActive: false, isDefault: true },
+        {
+          id: 'c',
+          corporateName: 'Aardvark',
+          isActive: false,
+          isDefault: false,
+        },
+      ],
+      loading: false,
+      error: null,
+    })
+
+    const { container } = render(
+      <ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />
+    )
+
+    await screen.findByText('Alpha')
+    expect(
+      container.querySelectorAll('[data-fs-contract-switcher-default]')
+    ).toHaveLength(1)
+    expect(
+      container.querySelector('[data-fs-contract-switcher-default]')
+    ).toHaveAttribute('aria-label', 'Default contract')
+
+    const names = Array.from(
+      container.querySelectorAll(
+        '[data-fs-contract-switcher-option] [data-fs-contract-switcher-option-name]'
+      )
+    ).map((el) => el.textContent)
+    expect(names[0]).toBe('Alpha') // default first, then alphabetical ('Aardvark')
   })
 
   it('requires selecting a contract before Confirm is enabled, then switches (REQ-03)', async () => {

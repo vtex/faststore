@@ -59,6 +59,7 @@ export const OrganizationDrawerHeader = ({
                   name="Star"
                   width={20}
                   height={20}
+                  aria-label="Default contract"
                 />
               )}
               {onChangeContract && (

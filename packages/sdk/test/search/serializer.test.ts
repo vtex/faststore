@@ -1,5 +1,10 @@
 import { expect, test } from 'vitest'
-import { formatSearchState, initSearchState, parseSearchState } from '../../src'
+import {
+  formatSearchState,
+  initSearchState,
+  parseSearchState,
+  registerCustomSortKeys,
+} from '../../src'
 
 test('Search State Serializer: Basic serialization', async () => {
   let state = initSearchState()
@@ -170,5 +175,26 @@ test('Search State Serializer: Passthrough param parsing', async () => {
     term: 'Hello World',
     page: 10,
     passThrough: new URLSearchParams({ foo: 'bar' }),
+  })
+})
+
+test('Search State Serializer: throws on unknown sort value', async () => {
+  expect(() =>
+    parseSearchState(new URL('http://localhost?sort=rating_desc&page=0'))
+  ).toThrow(/rating_desc/)
+})
+
+test('Search State Serializer: accepts a registered custom sort key', async () => {
+  registerCustomSortKeys(['rating_desc'])
+
+  expect(
+    parseSearchState(new URL('http://localhost?sort=rating_desc&page=0'))
+  ).toEqual({
+    base: '/',
+    selectedFacets: [],
+    sort: 'rating_desc',
+    term: null,
+    page: 0,
+    passThrough: new URLSearchParams(),
   })
 })

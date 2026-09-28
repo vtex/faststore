@@ -22,6 +22,7 @@ export type AccountNavigationLabels = Partial<{
   companyLabel: string
   contractLabel: string
   cardsLabel: string
+  quotesLabel: string
 }>
 
 interface GetMyAccountRouteParams {
@@ -45,6 +46,7 @@ const ROUTE_LABEL_KEYS: Record<string, keyof AccountNavigationLabels> = {
   [USER_DETAILS_ROUTE]: 'userDetailsLabel',
   [SECURITY_ROUTE]: 'securityLabel',
   [CARDS_ROUTE]: 'cardsLabel',
+  [QUOTES_ROUTE]: 'quotesLabel',
 }
 
 // This is the default route list for My Account, we should add then as the feature is implemented
