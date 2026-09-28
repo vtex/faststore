@@ -126,7 +126,9 @@ describe('getAllFacets', () => {
     const facets = getAllFacets(emptyFilters, {
       statusCmsLabels: { draftStatus: 'Rascunho', approvedStatus: 'Aprovado' },
     })
-    if (facets[0].__typename !== 'StoreFacetBoolean') throw new Error()
+    if (facets[0].__typename !== 'StoreFacetBoolean') {
+      throw new Error('expected facets[0] to be StoreFacetBoolean')
+    }
     const draftValue = facets[0].values.find((v) => v.value === 'Draft')
     const approvedValue = facets[0].values.find((v) => v.value === 'Approved')
     const declinedValue = facets[0].values.find((v) => v.value === 'Declined')

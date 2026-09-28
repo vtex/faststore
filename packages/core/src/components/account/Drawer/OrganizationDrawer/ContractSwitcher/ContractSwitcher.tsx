@@ -77,11 +77,8 @@ type ContractSwitcherLabelsProps = {
  * wrapped in a `<strong>`, keeping the CMS convention of plain string labels
  * (no templating engine) while still allowing surrounding text to be localized.
  */
-const splitAvailableCountLabel = (template: string) => {
-  const { prefix, suffix } = splitOnFirstToken(template, '{count}')
-
-  return { prefix, suffix }
-}
+const splitAvailableCountLabel = (template: string) =>
+  splitOnFirstToken(template, '{count}')
 
 export type ContractSwitcherProps = {
   /** Returns to the drawer menu view (also used by Cancel). */
@@ -281,16 +278,22 @@ const ContractSwitcherAlternatives = ({
     )
   }
 
-  const { prefix, suffix } = splitAvailableCountLabel(
+  const { found, prefix, suffix } = splitAvailableCountLabel(
     labels.availableCountLabel
   )
 
   return (
     <>
       <p data-fs-contract-switcher-count>
-        {prefix}
-        <strong>{alternatives.length}</strong>
-        {suffix}
+        {found ? (
+          <>
+            {prefix}
+            <strong>{alternatives.length}</strong>
+            {suffix}
+          </>
+        ) : (
+          labels.availableCountLabel
+        )}
       </p>
       <ContractSwitcherSearch
         labels={labels}

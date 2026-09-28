@@ -327,6 +327,20 @@ describe('ContractSwitcher', () => {
     ).toBe('2 of {count} contracts')
   })
 
+  it('renders a count template without {count} unchanged', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      contractSwitcherAvailableCountLabel: 'Contratos disponíveis',
+    })
+
+    const { container } = render(
+      <ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />
+    )
+
+    expect(
+      container.querySelector('[data-fs-contract-switcher-count]')?.textContent
+    ).toBe('Contratos disponíveis')
+  })
+
   it('honors CMS-provided labels for the empty, no-match, load-error, and switch-error states', () => {
     mockUseAccountNavigationLabels.mockReturnValue({
       contractSwitcherEmptyLabel: 'Nenhum outro contrato disponível.',
