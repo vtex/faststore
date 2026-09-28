@@ -9,6 +9,17 @@ import Section from '../Section'
 
 export type AccountListQuotesProps = MyAccountListQuotesSectionLabels
 
+function hasQuotePageData(
+  data: AccountQuotesPageData | Record<string, never>
+): data is AccountQuotesPageData {
+  return (
+    'listQuotes' in data &&
+    'total' in data &&
+    'perPage' in data &&
+    'filters' in data
+  )
+}
+
 const AccountListQuotes = ({
   pageTitle = defaultMyAccountListQuotesLabels.pageTitle,
   searchPlaceholder = defaultMyAccountListQuotesLabels.searchPlaceholder,
@@ -56,14 +67,11 @@ const AccountListQuotes = ({
   convertedStatus = defaultMyAccountListQuotesLabels.convertedStatus,
   convertedToOrderStatus = defaultMyAccountListQuotesLabels.convertedToOrderStatus,
 }: AccountListQuotesProps) => {
-  const accountPageData = useAccountPageData<Partial<AccountQuotesPageData>>()
+  const accountPageData = useAccountPageData<
+    AccountQuotesPageData | Record<string, never>
+  >()
 
-  if (
-    !accountPageData.listQuotes ||
-    accountPageData.total == null ||
-    accountPageData.perPage == null ||
-    !accountPageData.filters
-  ) {
+  if (!hasQuotePageData(accountPageData)) {
     return null
   }
 
