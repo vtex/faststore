@@ -44,8 +44,17 @@ export function getPropertyId(item: IStorePropertyValue) {
   )
 }
 
-const byName = (a: Attachment, b: Attachment) =>
-  a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+const byName = (a: Attachment, b: Attachment) => {
+  if (a.name < b.name) {
+    return -1
+  }
+
+  if (a.name > b.name) {
+    return 1
+  }
+
+  return 0
+}
 
 const sortAttachments = (attachments?: Attachment[] | null): Attachment[] =>
   [...(attachments ?? [])].sort(byName)

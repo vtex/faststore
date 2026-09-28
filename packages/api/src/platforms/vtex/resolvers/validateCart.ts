@@ -46,7 +46,7 @@ const getServiceKeys = (item: IStoreOffer) =>
   (item.itemOffered.additionalProperty ?? [])
     .filter(isService)
     .map(getServiceKey)
-    .sort()
+    .sort((a, b) => a.localeCompare(b))
 
 /**
  * Identity segment for services. Checkout treats a unit with a service as a
@@ -243,7 +243,7 @@ const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) => {
     const services = (item.bundleItems ?? [])
       .map(serviceToPropertyValue)
       .map(({ propertyID }) => propertyID)
-      .sort()
+      .sort((a, b) => a.localeCompare(b))
 
     return {
       id: item.id,

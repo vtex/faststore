@@ -180,7 +180,7 @@ export const serviceAwareEtag = (items: OrderFormItem[]) =>
       items: items.map(({ id, quantity, seller, attachments, bundleItems }) => {
         const services = (bundleItems ?? [])
           .map((service) => serviceKey(service.id, service.attachments ?? []))
-          .sort()
+          .sort((a, b) => a.localeCompare(b))
 
         return {
           id,
