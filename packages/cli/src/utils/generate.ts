@@ -112,9 +112,16 @@ export function buildFaststorePackageJson(
 }
 
 /**
+ * Characters that a double quotes do not neutralise: `sh` still expands `$` and
+ * backticks, a `"` ends the quoting, and `cmd.exe` expands `%VAR%`.
+ */
+const UNQUOTABLE_CHARS = /["$`%]/
+
+/**
  * The Next executable `@faststore/core` resolves, expressed relative to the
  * `.faststore` directory its scripts run from. Returns undefined when it cannot
- * be resolved, or when no relative path exists — a different Windows drive —
+ * be resolved, when no relative path exists — a different Windows drive — or
+ * when the path holds a character the script's double quotes cannot protect,
  * so the caller falls back to the bare command.
  */
 export function relativeNextBin(
@@ -129,7 +136,11 @@ export function relativeNextBin(
 
   const relative = path.relative(tmpDir, nextBin).replaceAll('\\', '/')
 
-  return relative && !path.isAbsolute(relative) ? relative : undefined
+  return relative &&
+    !path.isAbsolute(relative) &&
+    !UNQUOTABLE_CHARS.test(relative)
+    ? relative
+    : undefined
 }
 
 /**

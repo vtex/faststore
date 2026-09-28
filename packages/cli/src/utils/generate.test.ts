@@ -487,4 +487,19 @@ describe('relativeNextBin', () => {
       '../node_modules/next/dist/bin/next'
     )
   })
+
+  /**
+   * Double quotes do not stop a shell from expanding `$` or a backtick, so a
+   * path that picks one up outside the store falls back to the bare command.
+   */
+  it('falls back when the path outside the store has a shell metacharacter', () => {
+    const { coreDir, tmpDir } = tree()
+    const outside = path.join(root, 'elsewhere $(x) `y`', 'next')
+
+    installNext(outside)
+    fs.mkdirSync(path.join(coreDir, 'node_modules'), { recursive: true })
+    fs.symlinkSync(outside, path.join(coreDir, 'node_modules', 'next'), 'dir')
+
+    expect(relativeNextBin(coreDir, tmpDir)).toBeUndefined()
+  })
 })
