@@ -489,12 +489,21 @@ describe('relativeNextBin', () => {
   })
 
   /**
-   * Double quotes do not stop a shell from expanding `$` or a backtick, so a
-   * path that picks one up outside the store falls back to the bare command.
+   * Double quotes do not neutralise these: `sh` expands `$` and a backtick, a
+   * `"` ends the quoting, and `cmd.exe` expands `%VAR%`. Each one is checked on
+   * its own, so dropping any of them from the guard fails its own case.
+   *
+   * Skipped on Windows: it rejects `"` in a directory name, and creating the
+   * symlink needs elevated privileges there.
    */
-  it('falls back when the path outside the store has a shell metacharacter', () => {
+  it.skipIf(process.platform === 'win32').each([
+    ['a double quote', 'elsewhere "x"'],
+    ['a dollar sign', 'elsewhere $x'],
+    ['a backtick', 'elsewhere `x`'],
+    ['a percent sign', 'elsewhere %x%'],
+  ])('falls back when the path outside the store has %s', (_, dirName) => {
     const { coreDir, tmpDir } = tree()
-    const outside = path.join(root, 'elsewhere $(x) `y`', 'next')
+    const outside = path.join(root, dirName, 'next')
 
     installNext(outside)
     fs.mkdirSync(path.join(coreDir, 'node_modules'), { recursive: true })
