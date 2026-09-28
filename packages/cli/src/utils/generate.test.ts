@@ -137,6 +137,30 @@ describe('buildFaststorePackageJson', () => {
     })
   })
 
+  /**
+   * This function writes the shell string, so the guard lives here too.
+   * `relativeNextBin` already refuses these paths; a caller that skips it
+   * gets the same fallback.
+   */
+  it.each([
+    ['a double quote', '../node_modules/my "next"/dist/bin/next'],
+    ['a dollar sign', '../node_modules/$next/dist/bin/next'],
+    ['a backtick', '../node_modules/`next`/dist/bin/next'],
+    ['a percent sign', '../node_modules/%next%/dist/bin/next'],
+  ])(
+    'falls back to the bare next command when the given path has %s',
+    (_, nextBin) => {
+      const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
+
+      expect(result.scripts).toMatchObject({
+        build: 'next build --webpack',
+        serve: 'next serve',
+        dev: 'next dev --webpack',
+        'dev-only': 'next dev --webpack',
+      })
+    }
+  )
+
   it('leaves the partytown steps alone', () => {
     const result = buildFaststorePackageJson(
       coreManifest,

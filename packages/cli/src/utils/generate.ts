@@ -54,6 +54,12 @@ function createTmpFolder(basePath: string) {
 }
 
 /**
+ * Characters double quotes do not neutralise: `sh` still expands `$` and
+ * backticks, a `"` ends the quoting, and `cmd.exe` expands `%VAR%`.
+ */
+const UNQUOTABLE_CHARS = /["$`%]/
+
+/**
  * Builds the `.faststore/package.json` from `@faststore/core`'s manifest.
  * Strips `exports` and `packageManager` (the latter is pinned to pnpm and
  * breaks Yarn/Corepack on consumer stores).
@@ -89,10 +95,13 @@ export function buildFaststorePackageJson(
    * It can still leave the project: the binary is resolved through its
    * realpath, so when `next` is a symlink target elsewhere on disk the relative
    * path climbs out of `.faststore` and keeps every directory it does not share
-   * with it — spaces included. The path is always wrapped in double quotes for
-   * that reason, since they are the quoting both `sh` and `cmd.exe` understand.
+   * with it — spaces included. The path is wrapped in double quotes, since they
+   * are the quoting both `sh` and `cmd.exe` understand. A character those quotes
+   * cannot protect drops the path and uses the bare command, including when a
+   * caller passes `nextBin` without going through `relativeNextBin`.
    */
-  const next = nextBin ? `node "${nextBin}"` : 'next'
+  const next =
+    nextBin && !UNQUOTABLE_CHARS.test(nextBin) ? `node "${nextBin}"` : 'next'
 
   return {
     ...rest,
@@ -110,12 +119,6 @@ export function buildFaststorePackageJson(
     },
   }
 }
-
-/**
- * Characters that a double quotes do not neutralise: `sh` still expands `$` and
- * backticks, a `"` ends the quoting, and `cmd.exe` expands `%VAR%`.
- */
-const UNQUOTABLE_CHARS = /["$`%]/
 
 /**
  * The Next executable `@faststore/core` resolves, expressed relative to the
