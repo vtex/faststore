@@ -28,7 +28,7 @@ const defaultContractSwitcherLabels = {
 type ContractSwitcherLabels = typeof defaultContractSwitcherLabels
 
 function nonBlankLabel(value: string | undefined, fallback: string): string {
-  return value && value.trim() ? value : fallback
+  return value?.trim() || fallback
 }
 
 type ContractSwitcherLabelsProps = {

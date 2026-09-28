@@ -158,4 +158,28 @@ describe('MyAccountQuotesStatusSelector', () => {
 
     expect(screen.getByLabelText('Remove Ready $& soon')).toBeTruthy()
   })
+
+  it('keeps a remove-chip template that has no status token', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        removeStatusAriaLabel="Remove selected status"
+      />
+    )
+
+    expect(screen.getByLabelText('Remove selected status')).toBeTruthy()
+  })
+
+  it('replaces only the first status token and keeps the rest of the template', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        removeStatusAriaLabel="Remove {status} ({status})"
+      />
+    )
+
+    expect(screen.getByLabelText('Remove Draft ({status})')).toBeTruthy()
+  })
 })

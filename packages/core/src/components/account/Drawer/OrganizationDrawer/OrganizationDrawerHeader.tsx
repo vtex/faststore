@@ -29,10 +29,7 @@ export const OrganizationDrawerHeader = ({
 }: OrganizationDrawerHeaderProps) => {
   const navigationLabels = useAccountNavigationLabels()
   const changeContractLabel =
-    navigationLabels?.changeContractLabel &&
-    navigationLabels.changeContractLabel.trim()
-      ? navigationLabels.changeContractLabel
-      : 'Change'
+    navigationLabels?.changeContractLabel?.trim() || 'Change'
 
   return (
     <>

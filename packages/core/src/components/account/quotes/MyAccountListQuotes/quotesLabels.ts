@@ -142,8 +142,16 @@ export function formatRemoveStatusAriaLabel(
   template: string,
   status: string
 ): string {
-  const [prefix, suffix = ''] = template.split('{status}')
-  return `${prefix}${status}${suffix}`
+  const token = '{status}'
+  const index = template.indexOf(token)
+
+  if (index === -1) {
+    return template
+  }
+
+  return (
+    template.slice(0, index) + status + template.slice(index + token.length)
+  )
 }
 
 /**
