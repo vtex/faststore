@@ -54,6 +54,14 @@ describe('AccountListQuotes', () => {
     mockUseUI.mockReturnValue({ openFilter: vi.fn(), filter: false })
   })
 
+  it('renders nothing when the page has no quote data', () => {
+    mockUseAccountPageData.mockReturnValueOnce({})
+
+    const { container } = render(<AccountListQuotes />)
+
+    expect(container.firstChild).toBeNull()
+  })
+
   it('reads accountPageData and renders the default English page title', () => {
     mockUseAccountPageData.mockReturnValueOnce({
       listQuotes: { list: [] },

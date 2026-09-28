@@ -56,8 +56,18 @@ const AccountListQuotes = ({
   convertedStatus = defaultMyAccountListQuotesLabels.convertedStatus,
   convertedToOrderStatus = defaultMyAccountListQuotesLabels.convertedToOrderStatus,
 }: AccountListQuotesProps) => {
-  const { listQuotes, total, perPage, filters } =
-    useAccountPageData<AccountQuotesPageData>()
+  const accountPageData = useAccountPageData<Partial<AccountQuotesPageData>>()
+
+  if (
+    !accountPageData.listQuotes ||
+    accountPageData.total == null ||
+    accountPageData.perPage == null ||
+    !accountPageData.filters
+  ) {
+    return null
+  }
+
+  const { listQuotes, total, perPage, filters } = accountPageData
 
   return (
     <Section className="section-account-list-quotes">
