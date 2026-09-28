@@ -80,17 +80,17 @@ describe('buildFaststorePackageJson', () => {
     const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
 
     expect(result.scripts).toMatchObject({
-      build: `node ${nextBin} build --webpack`,
-      serve: `node ${nextBin} serve`,
-      dev: `node ${nextBin} dev --webpack`,
-      'dev-only': `node ${nextBin} dev --webpack`,
+      build: `node "${nextBin}" build --webpack`,
+      serve: `node "${nextBin}" serve`,
+      dev: `node "${nextBin}" dev --webpack`,
+      'dev-only': `node "${nextBin}" dev --webpack`,
     })
   })
 
   /**
-   * The path is relative to `.faststore`, so it only ever spans node_modules
-   * segments — a store directory containing a quote, a `$` or a backtick never
-   * reaches the script at all.
+   * When the store and the Next binary share a directory, `path.relative`
+   * cancels it out — a store directory containing a quote, a `$` or a backtick
+   * never reaches the script at all.
    */
   it('keeps a store path with shell metacharacters out of the script', () => {
     const tmpDir = '/Users/dev/my "store" $(x)`y`/.faststore'
@@ -103,11 +103,38 @@ describe('buildFaststorePackageJson', () => {
     const build = (result.scripts as Record<string, string>).build
 
     expect(build).toBe(
-      'node ../node_modules/next/dist/bin/next build --webpack'
+      'node "../node_modules/next/dist/bin/next" build --webpack'
     )
-    for (const char of ['"', '$', '`', "'"]) {
+    for (const char of ['$', '`', "'"]) {
       expect(build).not.toContain(char)
     }
+  })
+
+  /**
+   * The binary is resolved through its realpath, so when `next` is a symlink
+   * target outside the store the relative path climbs out of `.faststore` and
+   * keeps every segment it does not share with it. Unquoted, the shell would
+   * split that path on each space and hand `node` only the first piece.
+   */
+  it('quotes a resolved Next path that leaves the store through a spaced directory', () => {
+    const tmpDir = '/tmp/fs-isolation/packages/brand/.faststore'
+    const nextBin = path
+      .relative(
+        tmpDir,
+        '/Users/john doe/Area de trabalho/repo/node_modules/next/dist/bin/next'
+      )
+      .replaceAll('\\', '/')
+
+    expect(nextBin).toContain('john doe/Area de trabalho')
+
+    const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
+
+    expect(result.scripts).toMatchObject({
+      build: `node "${nextBin}" build --webpack`,
+      serve: `node "${nextBin}" serve`,
+      dev: `node "${nextBin}" dev --webpack`,
+      'dev-only': `node "${nextBin}" dev --webpack`,
+    })
   })
 
   it('leaves the partytown steps alone', () => {
@@ -459,5 +486,29 @@ describe('relativeNextBin', () => {
     expect(relativeNextBin(coreDir, tmpDir)).toBe(
       '../node_modules/next/dist/bin/next'
     )
+  })
+
+  /**
+   * Double quotes do not neutralise these: `sh` expands `$` and a backtick, a
+   * `"` ends the quoting, and `cmd.exe` expands `%VAR%`. Each one is checked on
+   * its own, so dropping any of them from the guard fails its own case.
+   *
+   * Skipped on Windows: it rejects `"` in a directory name, and creating the
+   * symlink needs elevated privileges there.
+   */
+  it.skipIf(process.platform === 'win32').each([
+    ['a double quote', 'elsewhere "x"'],
+    ['a dollar sign', 'elsewhere $x'],
+    ['a backtick', 'elsewhere `x`'],
+    ['a percent sign', 'elsewhere %x%'],
+  ])('falls back when the path outside the store has %s', (_, dirName) => {
+    const { coreDir, tmpDir } = tree()
+    const outside = path.join(root, dirName, 'next')
+
+    installNext(outside)
+    fs.mkdirSync(path.join(coreDir, 'node_modules'), { recursive: true })
+    fs.symlinkSync(outside, path.join(coreDir, 'node_modules', 'next'), 'dir')
+
+    expect(relativeNextBin(coreDir, tmpDir)).toBeUndefined()
   })
 })

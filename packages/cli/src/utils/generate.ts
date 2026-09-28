@@ -86,11 +86,13 @@ export function buildFaststorePackageJson(
    * which leaves the previous PATH-based behaviour in place.
    *
    * `nextBin` is relative to `.faststore`, which is where these scripts run.
-   * An absolute path would carry the whole store directory into a shell string,
-   * and a quote or a `$` anywhere above the project would break it — a relative
-   * path only ever spans `node_modules` segments.
+   * It can still leave the project: the binary is resolved through its
+   * realpath, so when `next` is a symlink target elsewhere on disk the relative
+   * path climbs out of `.faststore` and keeps every directory it does not share
+   * with it — spaces included. The path is always wrapped in double quotes for
+   * that reason, since they are the quoting both `sh` and `cmd.exe` understand.
    */
-  const next = nextBin ? `node ${nextBin}` : 'next'
+  const next = nextBin ? `node "${nextBin}"` : 'next'
 
   return {
     ...rest,
@@ -110,9 +112,16 @@ export function buildFaststorePackageJson(
 }
 
 /**
+ * Characters that a double quotes do not neutralise: `sh` still expands `$` and
+ * backticks, a `"` ends the quoting, and `cmd.exe` expands `%VAR%`.
+ */
+const UNQUOTABLE_CHARS = /["$`%]/
+
+/**
  * The Next executable `@faststore/core` resolves, expressed relative to the
  * `.faststore` directory its scripts run from. Returns undefined when it cannot
- * be resolved, or when no relative path exists — a different Windows drive —
+ * be resolved, when no relative path exists — a different Windows drive — or
+ * when the path holds a character the script's double quotes cannot protect,
  * so the caller falls back to the bare command.
  */
 export function relativeNextBin(
@@ -127,7 +136,11 @@ export function relativeNextBin(
 
   const relative = path.relative(tmpDir, nextBin).replaceAll('\\', '/')
 
-  return relative && !path.isAbsolute(relative) ? relative : undefined
+  return relative &&
+    !path.isAbsolute(relative) &&
+    !UNQUOTABLE_CHARS.test(relative)
+    ? relative
+    : undefined
 }
 
 /**
