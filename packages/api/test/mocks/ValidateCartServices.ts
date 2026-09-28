@@ -61,11 +61,36 @@ export const ValidateCartServicesMutation = `mutation ValidateCartServicesMutati
 // verify it independently of the implementation.
 // ---------------------------------------------------------------------------
 
-const byName = (a: Attachment, b: Attachment) =>
-  a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+const compareStrings = (a: string, b: string) => {
+  if (a < b) {
+    return -1
+  }
+
+  if (a > b) {
+    return 1
+  }
+
+  return 0
+}
+
+const byName = (a: Attachment, b: Attachment) => compareStrings(a.name, b.name)
+
+const hashedAttachment = (attachment: Attachment) => {
+  const content: Record<string, string> = {}
+
+  for (const key of Object.keys(attachment.content).sort(compareStrings)) {
+    content[key] = attachment.content[key]
+  }
+
+  return { name: attachment.name, content }
+}
 
 export const serviceKey = (id: string, attachments: Attachment[] = []) =>
-  md5(`SERVICE:${id}:${JSON.stringify([...attachments].sort(byName))}`)
+  md5(
+    `SERVICE:${id}:${JSON.stringify(
+      [...attachments].sort(byName).map(hashedAttachment)
+    )}`
+  )
 
 export const installationService = (
   overrides: Partial<OrderFormBundleItem> = {}

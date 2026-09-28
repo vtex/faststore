@@ -44,17 +44,19 @@ export function getPropertyId(item: IStorePropertyValue) {
   )
 }
 
-const byName = (a: Attachment, b: Attachment) => {
-  if (a.name < b.name) {
+const compareStrings = (a: string, b: string) => {
+  if (a < b) {
     return -1
   }
 
-  if (a.name > b.name) {
+  if (a > b) {
     return 1
   }
 
   return 0
 }
+
+const byName = (a: Attachment, b: Attachment) => compareStrings(a.name, b.name)
 
 const sortAttachments = (attachments?: Attachment[] | null): Attachment[] =>
   [...(attachments ?? [])].sort(byName)
@@ -71,12 +73,26 @@ const isAttachment = (value: unknown): value is Attachment =>
 /**
  * Key of a service. Depends only on the service `id` and its own attachments
  * (e.g. a gift message), never on name, price or locale, so the browser and the
- * server derive the same key for the same service.
+ * server derive the same key for the same service. Content fields are sorted
+ * so the key does not depend on the order Checkout or the browser enumerated
+ * them.
  */
+const hashedAttachment = (attachment: Attachment) => {
+  const content: Record<string, string> = {}
+
+  for (const key of Object.keys(attachment.content).sort(compareStrings)) {
+    content[key] = attachment.content[key]
+  }
+
+  return { name: attachment.name, content }
+}
+
 const serviceKey = (id: string, attachments?: readonly unknown[] | null) =>
   md5(
     `SERVICE:${id}:${JSON.stringify(
-      sortAttachments((attachments ?? []).filter(isAttachment))
+      sortAttachments((attachments ?? []).filter(isAttachment)).map(
+        hashedAttachment
+      )
     )}`
   )
 

@@ -754,6 +754,22 @@ describe('`validateCart` with VTEX Services (orderForm `bundleItems`)', () => {
       expect(serviceKey('gift')).not.toBe(serviceKey('other'))
       expect(serviceKey('gift', [a, b])).toBe(productionKey('gift', [a, b]))
       expect(serviceKey('gift', [b, a])).toBe(productionKey('gift', [b, a]))
+
+      const textFirst = {
+        name: 'message',
+        content: { text: 'hi', from: 'a' },
+      }
+      const fromFirst = {
+        name: 'message',
+        content: { from: 'a', text: 'hi' },
+      }
+
+      expect(serviceKey('gift', [textFirst])).toBe(
+        serviceKey('gift', [fromFirst])
+      )
+      expect(serviceKey('gift', [textFirst])).toBe(
+        productionKey('gift', [fromFirst])
+      )
     })
 
     test('browser line with a SERVICE property Checkout does not have is added without it', async () => {

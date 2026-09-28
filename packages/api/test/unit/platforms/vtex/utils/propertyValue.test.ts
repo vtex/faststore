@@ -124,6 +124,32 @@ describe('getServiceKey', () => {
     ).toBe(property.propertyID)
   })
 
+  it('sorts attachment content fields so field order does not change the key', () => {
+    const textFirst = serviceToPropertyValue(
+      installation({
+        attachments: [{ name: 'message', content: { text: 'hi', from: 'a' } }],
+      })
+    )
+    const fromFirst = serviceToPropertyValue(
+      installation({
+        attachments: [{ name: 'message', content: { from: 'a', text: 'hi' } }],
+      })
+    )
+
+    expect(fromFirst.propertyID).toBe(textFirst.propertyID)
+    expect(
+      getServiceKey({
+        ...textFirst,
+        value: {
+          id: '10',
+          attachments: [
+            { name: 'message', content: { from: 'a', text: 'hi' } },
+          ],
+        },
+      })
+    ).toBe(textFirst.propertyID)
+  })
+
   it('ignores an attachment whose content is not an object', () => {
     const malformed = [
       { name: 'message' },
