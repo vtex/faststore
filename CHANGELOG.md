@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0-dev.2](https://github.com/vtex/faststore/compare/v4.9.0-dev.1...v4.9.0-dev.2) (2026-09-28)
+
+### Bug Fixes
+
+- always quote the resolved next bin path ([#3494](https://github.com/vtex/faststore/issues/3494)) ([407a05a](https://github.com/vtex/faststore/commit/407a05aa7c1fe946c701d7c70097a13ed9bf5f68))
+
 # [4.9.0-dev.1](https://github.com/vtex/faststore/compare/v4.9.0-dev.0...v4.9.0-dev.1) (2026-09-28)
 
 ### Bug Fixes
