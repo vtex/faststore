@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0-dev.3](https://github.com/vtex/faststore/compare/v4.9.0-dev.2...v4.9.0-dev.3) (2026-09-28)
+
+### Bug Fixes
+
+- refuse an unquotable next path inside the package.json builder ([#3503](https://github.com/vtex/faststore/issues/3503)) ([da85b46](https://github.com/vtex/faststore/commit/da85b4626e127c268a87c2e6533e012d4787670a)), closes [#3494](https://github.com/vtex/faststore/issues/3494)
+
 # [4.9.0-dev.2](https://github.com/vtex/faststore/compare/v4.9.0-dev.1...v4.9.0-dev.2) (2026-09-28)
 
 ### Bug Fixes
