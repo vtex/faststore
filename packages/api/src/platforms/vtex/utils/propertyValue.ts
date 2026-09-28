@@ -59,13 +59,26 @@ const byName = (a: Attachment, b: Attachment) => {
 const sortAttachments = (attachments?: Attachment[] | null): Attachment[] =>
   [...(attachments ?? [])].sort(byName)
 
+const isPlainRecord = (value: unknown): value is Record<string, unknown> =>
+  value !== null && typeof value === 'object' && !Array.isArray(value)
+
+/** A hashable attachment has a name and a content object. Anything else is ignored. */
+const isAttachment = (value: unknown): value is Attachment =>
+  isPlainRecord(value) &&
+  typeof value.name === 'string' &&
+  isPlainRecord(value.content)
+
 /**
  * Key of a service. Depends only on the service `id` and its own attachments
  * (e.g. a gift message), never on name, price or locale, so the browser and the
  * server derive the same key for the same service.
  */
-const serviceKey = (id: string, attachments?: Attachment[] | null) =>
-  md5(`SERVICE:${id}:${JSON.stringify(sortAttachments(attachments))}`)
+const serviceKey = (id: string, attachments?: readonly unknown[] | null) =>
+  md5(
+    `SERVICE:${id}:${JSON.stringify(
+      sortAttachments((attachments ?? []).filter(isAttachment))
+    )}`
+  )
 
 /** Never matches a real service key (md5 output is hex only). */
 const UNREADABLE_SERVICE_KEY = 'SERVICE:unreadable'
@@ -117,11 +130,6 @@ const readServiceValue = (
   return { id: String(id), attachments }
 }
 
-const isAttachment = (value: unknown): value is Attachment =>
-  value !== null &&
-  typeof value === 'object' &&
-  typeof (value as Attachment).name === 'string'
-
 /**
  * Stable key of a SERVICE property; depends only on the service id and its
  * attachments. The property `value` may arrive as an object or as a JSON
@@ -135,9 +143,8 @@ export function getServiceKey(property: IStorePropertyValue): string {
     return UNREADABLE_SERVICE_KEY
   }
 
-  const attachments = Array.isArray(service.attachments)
-    ? service.attachments.filter(isAttachment)
-    : []
-
-  return serviceKey(service.id, attachments)
+  return serviceKey(
+    service.id,
+    Array.isArray(service.attachments) ? service.attachments : []
+  )
 }

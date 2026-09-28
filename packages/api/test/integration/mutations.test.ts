@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { GraphqlVtexContextFactory, GraphqlVtexSchema } from '../../src'
 import type { Options } from '../../src/typings/globals'
 import type { OrderFormItem } from '../../src/platforms/vtex/clients/commerce/types/OrderForm'
+import { serviceToPropertyValue } from '../../src/platforms/vtex/utils/propertyValue'
 import {
   browserCart,
   browserLine,
@@ -736,10 +737,23 @@ describe('`validateCart` with VTEX Services (orderForm `bundleItems`)', () => {
     test('service key ignores the order of service attachments', () => {
       const a = { name: 'a', content: { v: '1' } }
       const b = { name: 'b', content: { v: '2' } }
+      const productionKey = (
+        id: string,
+        attachments: Array<{ name: string; content: Record<string, string> }>
+      ) =>
+        serviceToPropertyValue({
+          id,
+          name: 'Sample service',
+          quantity: 1,
+          sellingPrice: 1,
+          attachments,
+        }).propertyID
 
       expect(serviceKey('gift', [a, b])).toBe(serviceKey('gift', [b, a]))
       expect(serviceKey('gift', [a])).not.toBe(serviceKey('gift', [b]))
       expect(serviceKey('gift')).not.toBe(serviceKey('other'))
+      expect(serviceKey('gift', [a, b])).toBe(productionKey('gift', [a, b]))
+      expect(serviceKey('gift', [b, a])).toBe(productionKey('gift', [b, a]))
     })
 
     test('browser line with a SERVICE property Checkout does not have is added without it', async () => {

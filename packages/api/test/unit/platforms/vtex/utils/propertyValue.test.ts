@@ -123,4 +123,26 @@ describe('getServiceKey', () => {
       })
     ).toBe(property.propertyID)
   })
+
+  it('ignores an attachment whose content is not an object', () => {
+    const malformed = [
+      { name: 'message' },
+      { name: 'note', content: 'text' },
+      { name: 'tags', content: ['a'] },
+    ]
+
+    expect(
+      serviceToPropertyValue(
+        installation({
+          attachments: malformed as OrderFormBundleItem['attachments'],
+        })
+      ).propertyID
+    ).toBe(property.propertyID)
+    expect(
+      getServiceKey({
+        ...property,
+        value: { id: '10', attachments: malformed },
+      })
+    ).toBe(property.propertyID)
+  })
 })
