@@ -145,6 +145,7 @@ export const StoreOffer: Record<string, GraphqlResolver<Root>> = {
       return {
         ...root.product,
         attachmentsValues: root.attachments,
+        servicesValues: root.bundleItems ?? [],
       }
     }
 

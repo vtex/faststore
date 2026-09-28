@@ -2,7 +2,10 @@ import type { GraphqlContext, GraphqlResolver } from '..'
 import type { PromiseType } from '../../../typings/globals'
 import type { StoreImage, StoreProductImageArgs } from '../../..'
 import type { LocalizedProductEntry } from '../clients/catalog'
-import type { Attachment } from '../clients/commerce/types/OrderForm'
+import type {
+  Attachment,
+  OrderFormBundleItem,
+} from '../clients/commerce/types/OrderForm'
 import { canonicalFromProduct } from '../utils/canonical'
 import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
@@ -15,6 +18,7 @@ import { bestOfferFirst } from '../utils/productStock'
 import {
   attachmentToPropertyValue,
   attributeToPropertyValue,
+  serviceToPropertyValue,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
 import { normalizeReleaseDate } from '../utils/releaseDate'
@@ -25,6 +29,8 @@ type QueryProduct = PromiseType<ReturnType<typeof Query.product>>
 
 export type Root = QueryProduct & {
   attachmentsValues?: Attachment[]
+  /** Services (Checkout `bundleItems`) applied to the cart line; cart context only. */
+  servicesValues?: OrderFormBundleItem[]
   unitMultiplier: number
 }
 
@@ -280,6 +286,7 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     variations: specifications = [],
     attachmentsValues = [],
     attributes = [],
+    servicesValues = [],
   }) => {
     const propertyValueSpecifications = specifications.flatMap(
       ({ name, values }) =>
@@ -296,10 +303,13 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
 
     const propertyValueAttributes = attributes.map(attributeToPropertyValue)
 
+    const propertyValueServices = servicesValues.map(serviceToPropertyValue)
+
     return [
       ...propertyValueSpecifications,
       ...propertyValueAttachments,
       ...propertyValueAttributes,
+      ...propertyValueServices,
     ]
   },
   hasSpecifications: ({ isVariantOf }) =>
