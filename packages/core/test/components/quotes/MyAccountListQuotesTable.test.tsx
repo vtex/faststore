@@ -182,6 +182,55 @@ describe('MyAccountListQuotesTable', () => {
 
     expect(screen.queryByText(/left/)).toBeNull()
   })
+
+  it('honors CMS-provided labels for column headers, total and status', () => {
+    mockUseScreenResize.mockReturnValue({ isDesktop: true })
+
+    render(
+      <MyAccountListQuotesTable
+        listQuotes={{
+          list: [baseQuote({ createdBy: 'Ada Lovelace', status: 'Approved' })],
+          paging: {} as any,
+        }}
+        total={1}
+        perPage={25}
+        filters={baseFilters()}
+        labels={{
+          createdByLabel: 'Criado por',
+          creationDateLabel: 'Data de criação',
+          expiresOnLabel: 'Expira em',
+          totalLabel: 'Valor total',
+          approvedStatus: 'Aprovado',
+        }}
+      />
+    )
+
+    expect(screen.getByText('Criado por')).toBeTruthy()
+    expect(screen.getByText('Data de criação')).toBeTruthy()
+    expect(screen.getByText('Expira em')).toBeTruthy()
+    expect(screen.getByText('Valor total')).toBeTruthy()
+    expect(screen.getByText('Aprovado')).toBeTruthy()
+  })
+
+  it('honors a CMS-provided relative expiry unit and suffix', () => {
+    mockUseScreenResize.mockReturnValue({ isDesktop: true })
+    const soon = new Date(Date.now() + 3 * 3_600_000).toISOString()
+
+    render(
+      <MyAccountListQuotesTable
+        listQuotes={{
+          list: [baseQuote({ expiresAt: soon })],
+          paging: {} as any,
+        }}
+        total={1}
+        perPage={25}
+        filters={baseFilters()}
+        labels={{ hoursLabel: 'horas', leftSuffixLabel: 'restantes' }}
+      />
+    )
+
+    expect(screen.getByText(/horas restantes/)).toBeTruthy()
+  })
 })
 
 describe('Pagination', () => {
@@ -236,5 +285,24 @@ describe('Pagination', () => {
     screen.getByRole('button', { name: 'Next Page' }).click()
 
     expect(window.location.href).toBe('/pvt/account/quotes?page=2')
+  })
+
+  it('honors CMS-provided pagination labels', () => {
+    render(
+      <Pagination
+        page={2}
+        total={60}
+        perPage={25}
+        labels={{
+          paginationOfLabel: 'de',
+          previousPageLabel: 'Página anterior',
+          nextPageLabel: 'Próxima página',
+        }}
+      />
+    )
+
+    expect(screen.getByText('26 — 50 de 60')).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Página anterior' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Próxima página' })).toBeTruthy()
   })
 })

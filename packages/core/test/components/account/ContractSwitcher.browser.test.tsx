@@ -9,6 +9,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 const mockUseAvailableContracts = vi.hoisted(() => vi.fn())
 const mockSwitchContract = vi.hoisted(() => vi.fn())
 const mockUseSwitchContract = vi.hoisted(() => vi.fn())
+const mockUseAccountNavigationLabels = vi.hoisted(() => vi.fn())
 
 vi.mock('src/sdk/account/useAvailableContracts', () => ({
   useAvailableContracts: mockUseAvailableContracts,
@@ -16,6 +17,10 @@ vi.mock('src/sdk/account/useAvailableContracts', () => ({
 
 vi.mock('src/sdk/account/useSwitchContract', () => ({
   useSwitchContract: mockUseSwitchContract,
+}))
+
+vi.mock('src/sdk/account/accountPageContext', () => ({
+  useAccountNavigationLabels: mockUseAccountNavigationLabels,
 }))
 
 vi.mock('src/sdk/session', () => ({
@@ -46,6 +51,7 @@ describe('ContractSwitcher', () => {
       loading: false,
       error: null,
     })
+    mockUseAccountNavigationLabels.mockReturnValue(undefined)
   })
 
   afterEach(() => {
@@ -274,5 +280,162 @@ describe('ContractSwitcher', () => {
     fireEvent.click(screen.getByRole('button', { name: /confirm/i }))
 
     await waitFor(() => expect(mockSwitchContract).toHaveBeenCalledWith('b'))
+  })
+
+  it('honors CMS-provided labels for the header, current session, search, footer, and available count', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      contractSwitcherTitleLabel: 'Trocar contrato',
+      contractSwitcherBackLabel: 'Voltar ao menu da conta',
+      contractSwitcherCloseLabel: 'Fechar',
+      contractSwitcherCurrentSessionLabel: 'Sessão atual',
+      contractSwitcherSearchPlaceholder: 'Buscar',
+      contractSwitcherSearchAriaLabel: 'Buscar contratos',
+      contractSwitcherAvailableCountLabel:
+        'Selecione um dos {count} contratos disponíveis:',
+      contractSwitcherCancelLabel: 'Cancelar',
+      contractSwitcherConfirmLabel: 'Confirmar',
+    })
+
+    const { container } = render(
+      <ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />
+    )
+
+    expect(screen.getByText('Trocar contrato')).toBeTruthy()
+    expect(screen.getByLabelText('Voltar ao menu da conta')).toBeTruthy()
+    expect(screen.getByLabelText('Fechar')).toBeTruthy()
+    expect(screen.getByText('Sessão atual')).toBeTruthy()
+    expect(screen.getByPlaceholderText('Buscar')).toBeTruthy()
+    expect(screen.getByLabelText('Buscar contratos')).toBeTruthy()
+    expect(
+      container.querySelector('[data-fs-contract-switcher-count]')?.textContent
+    ).toBe('Selecione um dos 2 contratos disponíveis:')
+    expect(screen.getByRole('button', { name: 'Cancelar' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Confirmar' })).toBeTruthy()
+  })
+
+  it('keeps text after a repeated {count} token', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      contractSwitcherAvailableCountLabel: '{count} of {count} contracts',
+    })
+
+    const { container } = render(
+      <ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />
+    )
+
+    expect(
+      container.querySelector('[data-fs-contract-switcher-count]')?.textContent
+    ).toBe('2 of {count} contracts')
+  })
+
+  it('renders a count template without {count} unchanged', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      contractSwitcherAvailableCountLabel: 'Contratos disponíveis',
+    })
+
+    const { container } = render(
+      <ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />
+    )
+
+    expect(
+      container.querySelector('[data-fs-contract-switcher-count]')?.textContent
+    ).toBe('Contratos disponíveis')
+  })
+
+  it('honors CMS-provided labels for the empty, no-match, load-error, and switch-error states', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      contractSwitcherEmptyLabel: 'Nenhum outro contrato disponível.',
+      contractSwitcherNoMatchLabel: 'Nenhum contrato encontrado.',
+      contractSwitcherLoadErrorLabel: 'Não foi possível carregar contratos.',
+      contractSwitcherSwitchErrorLabel: 'Não foi possível trocar de contrato.',
+      contractSwitcherClearSearchLabel: 'Limpar busca',
+    })
+
+    mockUseAvailableContracts.mockReturnValue({
+      contracts: [{ id: 'a', corporateName: 'Stellar Global', isActive: true }],
+      loading: false,
+      error: null,
+    })
+
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    expect(screen.getByText('Nenhum outro contrato disponível.')).toBeTruthy()
+  })
+
+  it('honors the CMS-provided load error label', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      contractSwitcherLoadErrorLabel: 'Não foi possível carregar contratos.',
+    })
+    mockUseAvailableContracts.mockReturnValue({
+      contracts: [],
+      loading: false,
+      error: new Error('boom'),
+    })
+
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    expect(
+      screen.getByText('Não foi possível carregar contratos.')
+    ).toBeTruthy()
+  })
+
+  it('honors the CMS-provided no-match and clear-search labels', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      contractSwitcherNoMatchLabel: 'Nenhum contrato encontrado.',
+      contractSwitcherClearSearchLabel: 'Limpar busca',
+    })
+
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    fireEvent.change(screen.getByLabelText('Search contracts'), {
+      target: { value: 'zzzz-no-match' },
+    })
+    expect(screen.getByText('Nenhum contrato encontrado.')).toBeTruthy()
+
+    fireEvent.change(screen.getByLabelText('Search contracts'), {
+      target: { value: 'acme' },
+    })
+    expect(screen.getByLabelText('Limpar busca')).toBeTruthy()
+  })
+
+  it('honors the CMS-provided switch-error label', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      contractSwitcherSwitchErrorLabel: 'Não foi possível trocar de contrato.',
+    })
+    mockUseSwitchContract.mockReturnValue({
+      switchContract: mockSwitchContract,
+      loading: false,
+      error: new Error('switch failed'),
+      enabled: true,
+    })
+
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    expect(
+      screen.getByText('Não foi possível trocar de contrato.')
+    ).toBeTruthy()
+  })
+
+  it('falls back to English defaults when CMS labels are blank', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      contractSwitcherTitleLabel: ' ',
+      contractSwitcherBackLabel: '',
+      contractSwitcherCloseLabel: '   ',
+      contractSwitcherSearchAriaLabel: '',
+      contractSwitcherClearSearchLabel: ' ',
+      contractSwitcherConfirmLabel: '',
+    })
+
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    expect(screen.getByText('Change contract')).toBeTruthy()
+    expect(screen.getByLabelText('Back to account menu')).toBeTruthy()
+    expect(screen.getByLabelText('Close')).toBeTruthy()
+    expect(screen.getByLabelText('Search contracts')).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Confirm' })).toBeTruthy()
+
+    fireEvent.change(screen.getByLabelText('Search contracts'), {
+      target: { value: 'acme' },
+    })
+    expect(screen.getByLabelText('Clear search')).toBeTruthy()
   })
 })
