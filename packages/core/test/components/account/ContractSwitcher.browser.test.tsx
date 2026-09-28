@@ -313,6 +313,20 @@ describe('ContractSwitcher', () => {
     expect(screen.getByRole('button', { name: 'Confirmar' })).toBeTruthy()
   })
 
+  it('keeps text after a repeated {count} token', () => {
+    mockUseAccountNavigationLabels.mockReturnValue({
+      contractSwitcherAvailableCountLabel: '{count} of {count} contracts',
+    })
+
+    const { container } = render(
+      <ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />
+    )
+
+    expect(
+      container.querySelector('[data-fs-contract-switcher-count]')?.textContent
+    ).toBe('2 of {count} contracts')
+  })
+
   it('honors CMS-provided labels for the empty, no-match, load-error, and switch-error states', () => {
     mockUseAccountNavigationLabels.mockReturnValue({
       contractSwitcherEmptyLabel: 'Nenhum outro contrato disponível.',

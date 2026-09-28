@@ -1,6 +1,9 @@
 import { Button } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
-import { getLocalizedQuoteStatusMap } from 'src/utils/quoteStatus'
+import {
+  getLocalizedQuoteStatusMap,
+  type QuoteStatusCmsLabels,
+} from 'src/utils/quoteStatus'
 import type { MyAccountListQuotesSectionLabels } from '../quotesLabels'
 import {
   pickQuoteStatusCmsLabels,
@@ -48,13 +51,15 @@ function Tags({
   filters,
   onRemoveFilter,
   labels,
+  statusCmsLabels,
 }: Pick<MyAccountQuotesSelectedTagsProps, 'filters' | 'onRemoveFilter'> & {
   labels: Required<MyAccountListQuotesSectionLabels>
+  statusCmsLabels?: QuoteStatusCmsLabels
 }) {
   const { locale } = useSession()
   const { createdAtFrom, createdAtTo, expiresAtFrom, expiresAtTo, status } =
     filters
-  const statusMap = getLocalizedQuoteStatusMap(pickQuoteStatusCmsLabels(labels))
+  const statusMap = getLocalizedQuoteStatusMap(statusCmsLabels)
 
   const createdTag = (createdAtFrom || createdAtTo) && (
     <div key="created-date-range" data-fs-list-orders-selected-tag>
@@ -112,6 +117,7 @@ function MyAccountQuotesSelectedTags({
   labels: labelsProp,
 }: MyAccountQuotesSelectedTagsProps) {
   const labels = resolveMyAccountListQuotesLabels(labelsProp)
+  const statusCmsLabels = pickQuoteStatusCmsLabels(labelsProp)
   const hasFilters = Object.entries(filters).some(([, values]) =>
     Array.isArray(values) ? values.length > 0 : Boolean(values)
   )
@@ -124,6 +130,7 @@ function MyAccountQuotesSelectedTags({
             filters={filters}
             onRemoveFilter={onRemoveFilter}
             labels={labels}
+            statusCmsLabels={statusCmsLabels}
           />
           <Button
             variant="tertiary"

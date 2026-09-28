@@ -1,5 +1,8 @@
 import type { QuoteStatusCmsLabels } from 'src/utils/quoteStatus'
-import { pickQuoteStatusCmsLabels as pickQuoteStatusCmsLabelsFromData } from 'src/utils/quoteStatus'
+import {
+  pickQuoteStatusCmsLabels as pickQuoteStatusCmsLabelsFromData,
+  quoteStatusMap,
+} from 'src/utils/quoteStatus'
 
 export type MyAccountListQuotesSectionLabels = {
   pageTitle?: string
@@ -92,15 +95,15 @@ export const defaultMyAccountListQuotesLabels: Required<MyAccountListQuotesSecti
     monthLabel: 'month',
     monthsLabel: 'months',
     leftSuffixLabel: 'left',
-    draftStatus: 'Draft',
-    requestedStatus: 'Requested',
-    inReviewStatus: 'In Review',
-    revisedStatus: 'Revised',
-    approvedStatus: 'Approved',
-    declinedStatus: 'Declined',
-    expiredStatus: 'Expired',
-    convertedStatus: 'Converted',
-    convertedToOrderStatus: 'Converted to Order',
+    draftStatus: quoteStatusMap.Draft.label,
+    requestedStatus: quoteStatusMap.Requested.label,
+    inReviewStatus: quoteStatusMap.InReview.label,
+    revisedStatus: quoteStatusMap.Reviewed.label,
+    approvedStatus: quoteStatusMap.Approved.label,
+    declinedStatus: quoteStatusMap.Declined.label,
+    expiredStatus: quoteStatusMap.Expired.label,
+    convertedStatus: quoteStatusMap.ConvertedToCart.label,
+    convertedToOrderStatus: quoteStatusMap.ConvertedToOrder.label,
   }
 
 /** Guards against blank/whitespace-only CMS overrides, which would otherwise wipe out accessible names (e.g. IconButton `aria-label`s). */

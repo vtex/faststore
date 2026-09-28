@@ -137,7 +137,7 @@ export default function MyAccountListQuotesTable({
   labels: labelsProp,
 }: MyAccountListQuotesTableProps) {
   const labels = resolveMyAccountListQuotesLabels(labelsProp)
-  const statusCmsLabels = pickQuoteStatusCmsLabels(labels)
+  const statusCmsLabels = pickQuoteStatusCmsLabels(labelsProp)
   const { isDesktop } = useScreenResize()
   const { locale, currency } = useSession()
   const currencyCode = currency.code

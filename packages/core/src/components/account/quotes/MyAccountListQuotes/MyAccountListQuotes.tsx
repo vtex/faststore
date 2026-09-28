@@ -55,7 +55,7 @@ export default function MyAccountListQuotes({
   labels: labelsProp,
 }: MyAccountListQuotesProps) {
   const labels = resolveMyAccountListQuotesLabels(labelsProp)
-  const statusCmsLabels = pickQuoteStatusCmsLabels(labels)
+  const statusCmsLabels = pickQuoteStatusCmsLabels(labelsProp)
   const { isDesktop } = useScreenResize()
   const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
 

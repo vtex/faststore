@@ -41,8 +41,17 @@ type ContractSwitcherLabelsProps = {
  * (no templating engine) while still allowing surrounding text to be localized.
  */
 const splitAvailableCountLabel = (template: string) => {
-  const [prefix, suffix] = template.split('{count}')
-  return { prefix: prefix ?? '', suffix: suffix ?? '' }
+  const token = '{count}'
+  const index = template.indexOf(token)
+
+  if (index === -1) {
+    return { prefix: template, suffix: '' }
+  }
+
+  return {
+    prefix: template.slice(0, index),
+    suffix: template.slice(index + token.length),
+  }
 }
 
 export type ContractSwitcherProps = {
