@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0-dev.1](https://github.com/vtex/faststore/compare/v4.9.0-dev.0...v4.9.0-dev.1) (2026-09-28)
+
+### Bug Fixes
+
+- resolve the store root by folder name when merging custom typeDefs ([#3502](https://github.com/vtex/faststore/issues/3502)) ([756baef](https://github.com/vtex/faststore/commit/756baefb20eccc97d35f9c40635dc757d7c73961))
+
 # [4.9.0-dev.0](https://github.com/vtex/faststore/compare/v4.8.1-dev.3...v4.9.0-dev.0) (2026-09-24)
 
 **Note:** Version bump only for package @faststore/cli
