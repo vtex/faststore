@@ -6,6 +6,7 @@ import type {
   MyAccountFilter_FacetsFragment,
   useMyAccountFilter,
 } from 'src/sdk/search/useMyAccountFilter'
+import type { QuoteStatusCmsLabels } from 'src/utils/quoteStatus'
 import MyAccountQuotesStatusSelector from '../MyAccountQuotesStatusSelector/MyAccountQuotesStatusSelector'
 import styles from './section.module.scss'
 
@@ -15,6 +16,13 @@ export interface MyAccountQuotesFilterSliderProps {
   title?: string
   clearButtonLabel?: string
   applyButtonLabel?: string
+  statusLabel?: string
+  /** Supports a "{status}" placeholder, e.g. "Remove {status}". */
+  removeStatusAriaLabel?: string
+  fromLabel?: string
+  toLabel?: string
+  invalidDateRangeLabel?: string
+  statusCmsLabels?: QuoteStatusCmsLabels
 }
 
 function MyAccountQuotesFilterSlider({
@@ -26,6 +34,12 @@ function MyAccountQuotesFilterSlider({
   title,
   clearButtonLabel,
   applyButtonLabel,
+  statusLabel,
+  removeStatusAriaLabel,
+  fromLabel,
+  toLabel,
+  invalidDateRangeLabel,
+  statusCmsLabels,
 }: MyAccountQuotesFilterSliderProps & ReturnType<typeof useMyAccountFilter>) {
   const createdDateRangeRef = useRef<{
     clear: () => void
@@ -115,6 +129,9 @@ function MyAccountQuotesFilterSlider({
       {statusFacet && (
         <MyAccountQuotesStatusSelector
           value={selectedStatusValues}
+          statusLabel={statusLabel}
+          removeStatusAriaLabel={removeStatusAriaLabel}
+          statusCmsLabels={statusCmsLabels}
           onChange={(newSelected) => {
             const added = newSelected.filter(
               (v) => !selectedStatusValues.includes(v)
@@ -143,6 +160,9 @@ function MyAccountQuotesFilterSlider({
               from={facet.from}
               to={facet.to}
               setDisabled={setDisabled}
+              fromLabel={fromLabel}
+              toLabel={toLabel}
+              invalidDateRangeLabel={invalidDateRangeLabel}
             />
           )}
           {facet.key === 'expiresAt' && (
@@ -151,6 +171,9 @@ function MyAccountQuotesFilterSlider({
               from={facet.from}
               to={facet.to}
               setDisabled={setDisabled}
+              fromLabel={fromLabel}
+              toLabel={toLabel}
+              invalidDateRangeLabel={invalidDateRangeLabel}
             />
           )}
         </div>
