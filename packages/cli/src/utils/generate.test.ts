@@ -354,6 +354,11 @@ describe('copyCoreFiles', () => {
 
     expect(fs.existsSync(path.join(tmpDir, 'src'))).toBe(true)
     expect(fs.existsSync(path.join(tmpDir, 'test'))).toBe(false)
+    // Regression guard: the search page must ship at `src/pages/s/index.tsx`,
+    // never as a bare `src/pages/s.tsx`, or Windows installs break. The note
+    // at the top of `packages/core/src/pages/s/index.tsx` explains why.
+    expect(fs.existsSync(path.join(tmpDir, 'src/pages/s/index.tsx'))).toBe(true)
+    expect(fs.existsSync(path.join(tmpDir, 'src/pages/s.tsx'))).toBe(false)
     expect(tsConfig.include).not.toContain('test/**/*.ts')
     expect(tsConfig.include).not.toContain('test/**/*.tsx')
     expect(tsConfig.exclude).toEqual(
