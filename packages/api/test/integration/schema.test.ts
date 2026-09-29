@@ -128,7 +128,24 @@ describe('Schema', () => {
       return
     }
 
-    expect(productGroup.getFields().productClusters).toBeDefined()
+    // `toString()` prints the field the way it appears in the SDL.
+    // This fails if the field becomes nullable, a single object, or a different type.
+    expect(productGroup.getFields().productClusters.type.toString()).toBe(
+      '[StoreProductCluster!]!'
+    )
+
+    const cluster = schema.getType('StoreProductCluster')
+
+    expect(isObjectType(cluster)).toBe(true)
+
+    if (!isObjectType(cluster)) {
+      return
+    }
+
+    const clusterFields = cluster.getFields()
+
+    expect(clusterFields.id.type.toString()).toBe('String!')
+    expect(clusterFields.name.type.toString()).toBe('String!')
   })
 
   it('should contain all default queries', async () => {
