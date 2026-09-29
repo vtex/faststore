@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0-dev.6](https://github.com/vtex/faststore/compare/v4.9.0-dev.5...v4.9.0-dev.6) (2026-09-29)
+
+### Bug Fixes
+
+- **cli:** include .faststore in Windows diagnostics artifact ([630bf4f](https://github.com/vtex/faststore/commit/630bf4f29eca50ee727dae060aa2a1f91adf4611))
+- normalize next bin path to forward slashes on Windows ([a1231d0](https://github.com/vtex/faststore/commit/a1231d0e9687ddf1324ad46f158412f0af7231bb))
+- run the CLI test suite on Windows ([2182bdf](https://github.com/vtex/faststore/commit/2182bdf9690fd81713d268faeb17349ba2480a37))
+
 # [4.9.0-dev.5](https://github.com/vtex/faststore/compare/v4.9.0-dev.4...v4.9.0-dev.5) (2026-09-29)
 
 ### Bug Fixes
