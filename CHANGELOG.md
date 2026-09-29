@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0-dev.6](https://github.com/vtex/faststore/compare/v4.9.0-dev.5...v4.9.0-dev.6) (2026-09-29)
+
+### Bug Fixes
+
+- **cli:** include .faststore in Windows diagnostics artifact ([630bf4f](https://github.com/vtex/faststore/commit/630bf4f29eca50ee727dae060aa2a1f91adf4611))
+- normalize next bin path to forward slashes on Windows ([a1231d0](https://github.com/vtex/faststore/commit/a1231d0e9687ddf1324ad46f158412f0af7231bb))
+- run the CLI test suite on Windows ([2182bdf](https://github.com/vtex/faststore/commit/2182bdf9690fd81713d268faeb17349ba2480a37))
+
+# [4.9.0-dev.5](https://github.com/vtex/faststore/compare/v4.9.0-dev.4...v4.9.0-dev.5) (2026-09-29)
+
+### Bug Fixes
+
+- **cli:** satisfy biome formatting in generate.test.ts ([5fbfb69](https://github.com/vtex/faststore/commit/5fbfb6931d449734901c0240faa28452a73012ef)), closes [#3486](https://github.com/vtex/faststore/issues/3486)
+- **core:** avoid Yarn Classic Windows tar-extraction bug dropping src/pages/s.tsx ([1d9cec9](https://github.com/vtex/faststore/commit/1d9cec97a7b1eee249ed4521fe8c103eee81921a))
+
+# [4.9.0-dev.4](https://github.com/vtex/faststore/compare/v4.9.0-dev.3...v4.9.0-dev.4) (2026-09-28)
+
+### Bug Fixes
+
+- **core:** localize My Account Quotes and Contract Switcher ([#3492](https://github.com/vtex/faststore/issues/3492)) ([d389c78](https://github.com/vtex/faststore/commit/d389c785ee831befadc937c4332261b1c6cab64e))
+
+# [4.9.0-dev.3](https://github.com/vtex/faststore/compare/v4.9.0-dev.2...v4.9.0-dev.3) (2026-09-28)
+
+### Bug Fixes
+
+- refuse an unquotable next path inside the package.json builder ([#3503](https://github.com/vtex/faststore/issues/3503)) ([da85b46](https://github.com/vtex/faststore/commit/da85b4626e127c268a87c2e6533e012d4787670a)), closes [#3494](https://github.com/vtex/faststore/issues/3494)
+
+# [4.9.0-dev.2](https://github.com/vtex/faststore/compare/v4.9.0-dev.1...v4.9.0-dev.2) (2026-09-28)
+
+### Bug Fixes
+
+- always quote the resolved next bin path ([#3494](https://github.com/vtex/faststore/issues/3494)) ([407a05a](https://github.com/vtex/faststore/commit/407a05aa7c1fe946c701d7c70097a13ed9bf5f68))
+
+# [4.9.0-dev.1](https://github.com/vtex/faststore/compare/v4.9.0-dev.0...v4.9.0-dev.1) (2026-09-28)
+
+### Bug Fixes
+
+- resolve the store root by folder name when merging custom typeDefs ([#3502](https://github.com/vtex/faststore/issues/3502)) ([756baef](https://github.com/vtex/faststore/commit/756baefb20eccc97d35f9c40635dc757d7c73961))
+
+# [4.9.0-dev.0](https://github.com/vtex/faststore/compare/v4.8.1-dev.3...v4.9.0-dev.0) (2026-09-24)
+
+### Features
+
+- **api,sdk:** support custom StoreSort values via customSortMap ([#3496](https://github.com/vtex/faststore/issues/3496)) ([8613faa](https://github.com/vtex/faststore/commit/8613faa046449801d17a2f0076e3a9b9d5a8c00f)), closes [/github.com/vtex/faststore/pull/3496#discussion_r4063084635](https://github.com//github.com/vtex/faststore/pull/3496/issues/discussion_r4063084635) [vtex-sites/playground.store#238](https://github.com/vtex-sites/playground.store/issues/238) [#3495](https://github.com/vtex/faststore/issues/3495)
+
 ## [4.8.1-dev.3](https://github.com/vtex/faststore/compare/v4.8.1-dev.2...v4.8.1-dev.3) (2026-09-22)
 
 ### Bug Fixes

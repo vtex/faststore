@@ -58,7 +58,7 @@ import {
 import { getCatalogLocale, isLocalizationEnabled } from '../utils/localization'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { slugify } from '../utils/slugify'
-import { SORT_MAP } from '../utils/sort'
+import { resolveSort } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
 import { getOrderEntryOperation } from './getOrderEntryOperation'
@@ -270,7 +270,7 @@ export const Query = {
       page: Math.ceil(after / first) || 0,
       count: first,
       query: term ?? undefined,
-      sort: SORT_MAP[sort ?? 'score_desc'] ?? SORT_MAP.score_desc,
+      sort: resolveSort(sort ?? 'score_desc', ctx.storage.customSortMap),
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
       sponsoredCount: sponsoredCount ?? undefined,
     }

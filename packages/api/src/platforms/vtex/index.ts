@@ -30,6 +30,8 @@ export interface GraphqlContext {
     channel: Required<Channel>
     locale: string
     flags: FeatureFlags
+    /** Project-supplied extension of the sort map. See `Options.customSortMap`. */
+    customSortMap: Record<string, string>
     searchArgs?: Omit<SearchArgs, 'type'>
     cookies: Map<string, Record<string, string>>
     /**
@@ -56,6 +58,7 @@ export const GraphqlVtexContextFactory = async (options: Options) => {
       channel: ChannelMarshal.parse(options.channel),
       flags: options.flags ?? {},
       locale: options.locale,
+      customSortMap: options.customSortMap ?? {},
       cookies: new Map<string, Record<string, string>>(),
     }
     ctx.account = options.account
