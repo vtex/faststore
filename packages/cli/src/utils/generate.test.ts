@@ -94,10 +94,12 @@ describe('buildFaststorePackageJson', () => {
    */
   it('keeps a store path with shell metacharacters out of the script', () => {
     const tmpDir = '/Users/dev/my "store" $(x)`y`/.faststore'
-    const nextBin = path.relative(
-      tmpDir,
-      '/Users/dev/my "store" $(x)`y`/node_modules/next/dist/bin/next'
-    )
+    const nextBin = path
+      .relative(
+        tmpDir,
+        '/Users/dev/my "store" $(x)`y`/node_modules/next/dist/bin/next'
+      )
+      .replaceAll('\\', '/')
 
     const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
     const build = (result.scripts as Record<string, string>).build
@@ -344,6 +346,7 @@ describe('copyCoreFiles', () => {
     fs.rmSync(basePath, { recursive: true, force: true })
   })
 
+  // Real file I/O against the full core package — slower on Windows runners.
   it('copies core into .faststore without unit-test trees and strips test globs from tsconfig', () => {
     copyCoreFiles(basePath)
 
@@ -354,6 +357,11 @@ describe('copyCoreFiles', () => {
 
     expect(fs.existsSync(path.join(tmpDir, 'src'))).toBe(true)
     expect(fs.existsSync(path.join(tmpDir, 'test'))).toBe(false)
+    // Regression guard: the search page must ship at `src/pages/s/index.tsx`,
+    // never as a bare `src/pages/s.tsx`, or Windows installs break. The note
+    // at the top of `packages/core/src/pages/s/index.tsx` explains why.
+    expect(fs.existsSync(path.join(tmpDir, 'src/pages/s/index.tsx'))).toBe(true)
+    expect(fs.existsSync(path.join(tmpDir, 'src/pages/s.tsx'))).toBe(false)
     expect(tsConfig.include).not.toContain('test/**/*.ts')
     expect(tsConfig.include).not.toContain('test/**/*.tsx')
     expect(tsConfig.exclude).toEqual(
@@ -364,7 +372,7 @@ describe('copyCoreFiles', () => {
         '**/__tests__/**',
       ])
     )
-  })
+  }, 30_000)
 })
 
 describe('updateNextConfig', () => {
