@@ -1,12 +1,14 @@
-// This file intentionally lives at `s/index.tsx` instead of a bare `s.tsx`
-// (both compile to the same `/s` route). Yarn Classic 1.x silently drops the
-// `s.tsx` tar entry when extracting @faststore/core on Windows — every other
-// page in this folder survives, only that one file vanishes before `next
-// build` even starts type-checking. Windows' own `tar.exe` extracts the
-// identical tarball fine, so the bug is in Yarn's own extraction code, not
-// ours; nesting the file under a folder changes the tar-entry shape enough
-// to avoid it. Confirmed via the Windows CI job in @faststore/cli. Do not
-// rename this back to a bare `s.tsx`.
+// Keep this page at `s/index.tsx`; do not rename it back to a bare `s.tsx`.
+// Next.js maps both to the same `/s` route, but Yarn Classic 1.x loses the
+// bare `s.tsx` while extracting @faststore/core on Windows: right after
+// `yarn install` the file is already absent from node_modules, while every
+// sibling page survives, and `next build` then fails type-checking with a
+// misleading "Cannot find module 'src/pages/s'". Extracting the same tarball
+// with Windows' own `tar.exe` keeps the file, so the loss happens inside
+// Yarn's extractor rather than in how we pack or copy. Why Yarn drops this
+// particular entry is not pinned down, but nesting the page under a folder
+// avoids it. Investigation and the before/after Windows CI runs that verified
+// this layout: https://github.com/vtex/faststore/pull/3486
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useState } from 'react'
