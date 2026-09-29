@@ -94,10 +94,12 @@ describe('buildFaststorePackageJson', () => {
    */
   it('keeps a store path with shell metacharacters out of the script', () => {
     const tmpDir = '/Users/dev/my "store" $(x)`y`/.faststore'
-    const nextBin = path.relative(
-      tmpDir,
-      '/Users/dev/my "store" $(x)`y`/node_modules/next/dist/bin/next'
-    )
+    const nextBin = path
+      .relative(
+        tmpDir,
+        '/Users/dev/my "store" $(x)`y`/node_modules/next/dist/bin/next'
+      )
+      .replaceAll('\\', '/')
 
     const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
     const build = (result.scripts as Record<string, string>).build
