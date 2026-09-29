@@ -150,6 +150,26 @@ describe('getServiceKey', () => {
     ).toBe(textFirst.propertyID)
   })
 
+  it('keeps an own __proto__ content field in the key', () => {
+    const plain = serviceToPropertyValue(
+      installation({
+        attachments: [{ name: 'message', content: { text: 'hi' } }],
+      })
+    )
+    const withProtoField = serviceToPropertyValue(
+      installation({
+        attachments: [
+          {
+            name: 'message',
+            content: JSON.parse('{"text":"hi","__proto__":"x"}'),
+          },
+        ],
+      })
+    )
+
+    expect(withProtoField.propertyID).not.toBe(plain.propertyID)
+  })
+
   it('ignores an attachment whose content is not an object', () => {
     const malformed = [
       { name: 'message' },

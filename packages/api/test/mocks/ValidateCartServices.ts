@@ -75,15 +75,14 @@ const compareStrings = (a: string, b: string) => {
 
 const byName = (a: Attachment, b: Attachment) => compareStrings(a.name, b.name)
 
-const hashedAttachment = (attachment: Attachment) => {
-  const content: Record<string, string> = {}
-
-  for (const key of Object.keys(attachment.content).sort(compareStrings)) {
-    content[key] = attachment.content[key]
-  }
-
-  return { name: attachment.name, content }
-}
+const hashedAttachment = (attachment: Attachment) => ({
+  name: attachment.name,
+  content: Object.fromEntries(
+    Object.keys(attachment.content)
+      .sort(compareStrings)
+      .map((key) => [key, attachment.content[key]])
+  ),
+})
 
 export const serviceKey = (id: string, attachments: Attachment[] = []) =>
   md5(

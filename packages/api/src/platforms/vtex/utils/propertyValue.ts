@@ -77,15 +77,14 @@ const isAttachment = (value: unknown): value is Attachment =>
  * so the key does not depend on the order Checkout or the browser enumerated
  * them.
  */
-const hashedAttachment = (attachment: Attachment) => {
-  const content: Record<string, string> = {}
-
-  for (const key of Object.keys(attachment.content).sort(compareStrings)) {
-    content[key] = attachment.content[key]
-  }
-
-  return { name: attachment.name, content }
-}
+const hashedAttachment = (attachment: Attachment) => ({
+  name: attachment.name,
+  content: Object.fromEntries(
+    Object.keys(attachment.content)
+      .sort(compareStrings)
+      .map((key) => [key, attachment.content[key]])
+  ),
+})
 
 const serviceKey = (id: string, attachments?: readonly unknown[] | null) =>
   md5(
