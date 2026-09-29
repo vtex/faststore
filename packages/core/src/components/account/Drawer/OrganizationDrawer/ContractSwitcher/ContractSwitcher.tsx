@@ -1,9 +1,84 @@
 import { Button, Icon, IconButton, Loader } from '@faststore/ui'
 import { useState, type ReactNode } from 'react'
 
+import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
+import type { AccountNavigationLabels } from 'src/sdk/account/getMyAccountRoutes'
+import {
+  resolveNonBlankLabels,
+  splitOnFirstToken,
+} from 'src/sdk/account/resolveNonBlankLabels'
 import { useAvailableContracts } from 'src/sdk/account/useAvailableContracts'
 import { useSwitchContract } from 'src/sdk/account/useSwitchContract'
 import { useSession } from 'src/sdk/session'
+
+/** English fallbacks used when the CMS doesn't provide a `navigationLabels` override. */
+const defaultContractSwitcherLabels = {
+  titleLabel: 'Change contract',
+  backLabel: 'Back to account menu',
+  closeLabel: 'Close',
+  currentSessionLabel: 'Current session',
+  searchPlaceholder: 'Search',
+  searchAriaLabel: 'Search contracts',
+  clearSearchLabel: 'Clear search',
+  availableCountLabel: 'Select one of {count} available contracts:',
+  noMatchLabel: 'No contracts match your search.',
+  emptyLabel: 'No other contracts are available for your organization.',
+  loadErrorLabel: "We couldn't load your contracts. Please try again.",
+  switchErrorLabel:
+    "We couldn't switch your contract. The previous contract is still active.",
+  cancelLabel: 'Cancel',
+  confirmLabel: 'Confirm',
+}
+
+type ContractSwitcherLabels = typeof defaultContractSwitcherLabels
+
+const SWITCHER_CMS_KEYS = {
+  titleLabel: 'contractSwitcherTitleLabel',
+  backLabel: 'contractSwitcherBackLabel',
+  closeLabel: 'contractSwitcherCloseLabel',
+  currentSessionLabel: 'contractSwitcherCurrentSessionLabel',
+  searchPlaceholder: 'contractSwitcherSearchPlaceholder',
+  searchAriaLabel: 'contractSwitcherSearchAriaLabel',
+  clearSearchLabel: 'contractSwitcherClearSearchLabel',
+  availableCountLabel: 'contractSwitcherAvailableCountLabel',
+  noMatchLabel: 'contractSwitcherNoMatchLabel',
+  emptyLabel: 'contractSwitcherEmptyLabel',
+  loadErrorLabel: 'contractSwitcherLoadErrorLabel',
+  switchErrorLabel: 'contractSwitcherSwitchErrorLabel',
+  cancelLabel: 'contractSwitcherCancelLabel',
+  confirmLabel: 'contractSwitcherConfirmLabel',
+} as const satisfies Record<
+  keyof ContractSwitcherLabels,
+  keyof AccountNavigationLabels
+>
+
+function resolveContractSwitcherLabels(
+  navigationLabels?: AccountNavigationLabels
+): ContractSwitcherLabels {
+  const overrides: Partial<ContractSwitcherLabels> = {}
+
+  if (navigationLabels) {
+    for (const key of Object.keys(
+      SWITCHER_CMS_KEYS
+    ) as (keyof ContractSwitcherLabels)[]) {
+      overrides[key] = navigationLabels[SWITCHER_CMS_KEYS[key]]
+    }
+  }
+
+  return resolveNonBlankLabels(defaultContractSwitcherLabels, overrides)
+}
+
+type ContractSwitcherLabelsProps = {
+  labels: ContractSwitcherLabels
+}
+
+/**
+ * Splits `availableCountLabel` on the `{count}` placeholder so the count can be
+ * wrapped in a `<strong>`, keeping the CMS convention of plain string labels
+ * (no templating engine) while still allowing surrounding text to be localized.
+ */
+const splitAvailableCountLabel = (template: string) =>
+  splitOnFirstToken(template, '{count}')
 
 export type ContractSwitcherProps = {
   /** Returns to the drawer menu view (also used by Cancel). */
@@ -23,6 +98,7 @@ type SwitcherContract = {
 const initialOf = (name: string) => name.trim().charAt(0).toUpperCase()
 
 type ContractSwitcherContentProps = {
+  labels: ContractSwitcherLabels
   loading: boolean
   error: Error | null
   currentContract: SwitcherContract | null
@@ -42,19 +118,20 @@ const ContractSwitcherLoading = () => (
   </div>
 )
 
-const ContractSwitcherLoadError = () => (
+const ContractSwitcherLoadError = ({ labels }: ContractSwitcherLabelsProps) => (
   <div data-fs-contract-switcher-message role="alert">
-    <p>We couldn't load your contracts. Please try again.</p>
+    <p>{labels.loadErrorLabel}</p>
   </div>
 )
 
 const ContractSwitcherCurrentSession = ({
+  labels,
   currentContract,
-}: {
+}: ContractSwitcherLabelsProps & {
   currentContract: SwitcherContract | null
 }) => (
   <div data-fs-contract-switcher-current>
-    <span data-fs-contract-switcher-label>Current session</span>
+    <span data-fs-contract-switcher-label>{labels.currentSessionLabel}</span>
     {currentContract && (
       <div data-fs-contract-switcher-current-card>
         <span data-fs-contract-switcher-avatar aria-hidden="true">
@@ -77,13 +154,16 @@ const ContractSwitcherCurrentSession = ({
   </div>
 )
 
-const ContractSwitcherEmptyAlternatives = () => (
+const ContractSwitcherEmptyAlternatives = ({
+  labels,
+}: ContractSwitcherLabelsProps) => (
   <div data-fs-contract-switcher-message data-fs-contract-switcher-empty>
-    <p>No other contracts are available for your organization.</p>
+    <p>{labels.emptyLabel}</p>
   </div>
 )
 
 type ContractSwitcherAlternativesProps = {
+  labels: ContractSwitcherLabels
   alternatives: SwitcherContract[]
   ordered: SwitcherContract[]
   search: string
@@ -94,27 +174,28 @@ type ContractSwitcherAlternativesProps = {
 }
 
 const ContractSwitcherSearch = ({
+  labels,
   search,
   onSearchChange,
   onSearchClear,
 }: Pick<
   ContractSwitcherAlternativesProps,
-  'search' | 'onSearchChange' | 'onSearchClear'
+  'labels' | 'search' | 'onSearchChange' | 'onSearchClear'
 >) => (
   <div data-fs-contract-switcher-search>
     <Icon name="MagnifyingGlass" width={20} height={20} />
     <input
       type="text"
       value={search}
-      placeholder="Search"
-      aria-label="Search contracts"
+      placeholder={labels.searchPlaceholder}
+      aria-label={labels.searchAriaLabel}
       onChange={(event) => onSearchChange(event.target.value)}
     />
     {search && (
       <button
         type="button"
         data-fs-contract-switcher-search-clear
-        aria-label="Clear search"
+        aria-label={labels.clearSearchLabel}
         onClick={onSearchClear}
       >
         <Icon name="X" width={18} height={18} />
@@ -167,6 +248,7 @@ const ContractSwitcherOptionList = ({
 )
 
 const ContractSwitcherAlternatives = ({
+  labels,
   alternatives,
   ordered,
   search,
@@ -176,14 +258,14 @@ const ContractSwitcherAlternatives = ({
   onSelectContract,
 }: ContractSwitcherAlternativesProps) => {
   if (alternatives.length === 0) {
-    return <ContractSwitcherEmptyAlternatives />
+    return <ContractSwitcherEmptyAlternatives labels={labels} />
   }
 
   let listContent: ReactNode
   if (ordered.length === 0) {
     listContent = (
       <div data-fs-contract-switcher-message>
-        <p>No contracts match your search.</p>
+        <p>{labels.noMatchLabel}</p>
       </div>
     )
   } else {
@@ -196,13 +278,25 @@ const ContractSwitcherAlternatives = ({
     )
   }
 
+  const { found, prefix, suffix } = splitAvailableCountLabel(
+    labels.availableCountLabel
+  )
+
   return (
     <>
       <p data-fs-contract-switcher-count>
-        Select one of <strong>{alternatives.length}</strong> available
-        contracts:
+        {found ? (
+          <>
+            {prefix}
+            <strong>{alternatives.length}</strong>
+            {suffix}
+          </>
+        ) : (
+          labels.availableCountLabel
+        )}
       </p>
       <ContractSwitcherSearch
+        labels={labels}
         search={search}
         onSearchChange={onSearchChange}
         onSearchClear={onSearchClear}
@@ -212,15 +306,16 @@ const ContractSwitcherAlternatives = ({
   )
 }
 
-const ContractSwitcherSwitchError = () => (
+const ContractSwitcherSwitchError = ({
+  labels,
+}: ContractSwitcherLabelsProps) => (
   <div data-fs-contract-switcher-message role="alert">
-    <p>
-      We couldn't switch your contract. The previous contract is still active.
-    </p>
+    <p>{labels.switchErrorLabel}</p>
   </div>
 )
 
 const ContractSwitcherContent = ({
+  labels,
   loading,
   error,
   currentContract,
@@ -238,13 +333,17 @@ const ContractSwitcherContent = ({
   }
 
   if (error) {
-    return <ContractSwitcherLoadError />
+    return <ContractSwitcherLoadError labels={labels} />
   }
 
   return (
     <>
-      <ContractSwitcherCurrentSession currentContract={currentContract} />
+      <ContractSwitcherCurrentSession
+        labels={labels}
+        currentContract={currentContract}
+      />
       <ContractSwitcherAlternatives
+        labels={labels}
         alternatives={alternatives}
         ordered={ordered}
         search={search}
@@ -253,7 +352,7 @@ const ContractSwitcherContent = ({
         onSearchClear={onSearchClear}
         onSelectContract={onSelectContract}
       />
-      {switchError && <ContractSwitcherSwitchError />}
+      {switchError && <ContractSwitcherSwitchError labels={labels} />}
     </>
   )
 }
@@ -268,6 +367,9 @@ export const ContractSwitcher = ({
   onBack,
   onClose,
 }: ContractSwitcherProps) => {
+  const navigationLabels = useAccountNavigationLabels()
+  const labels = resolveContractSwitcherLabels(navigationLabels)
+
   const { contracts, loading, error } = useAvailableContracts(true)
   const { b2b } = useSession()
   const {
@@ -327,14 +429,14 @@ export const ContractSwitcher = ({
       <header data-fs-contract-switcher-header>
         <IconButton
           data-fs-contract-switcher-back
-          aria-label="Back to account menu"
+          aria-label={labels.backLabel}
           icon={<Icon name="ArrowLeft" width={20} height={20} />}
           onClick={onBack}
         />
-        <h2 data-fs-contract-switcher-title>Change contract</h2>
+        <h2 data-fs-contract-switcher-title>{labels.titleLabel}</h2>
         <IconButton
           data-fs-contract-switcher-close
-          aria-label="Close"
+          aria-label={labels.closeLabel}
           icon={<Icon name="X" width={20} height={20} />}
           onClick={onClose}
         />
@@ -342,6 +444,7 @@ export const ContractSwitcher = ({
 
       <div data-fs-contract-switcher-content>
         <ContractSwitcherContent
+          labels={labels}
           loading={loading}
           error={error}
           currentContract={currentContract}
@@ -358,7 +461,7 @@ export const ContractSwitcher = ({
 
       <footer data-fs-contract-switcher-footer>
         <Button variant="tertiary" onClick={onBack}>
-          Cancel
+          {labels.cancelLabel}
         </Button>
         <Button
           variant="primary"
@@ -366,7 +469,7 @@ export const ContractSwitcher = ({
           loading={switching}
           onClick={handleConfirm}
         >
-          Confirm
+          {labels.confirmLabel}
         </Button>
       </footer>
     </section>

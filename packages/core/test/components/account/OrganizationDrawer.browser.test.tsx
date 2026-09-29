@@ -44,6 +44,10 @@ vi.mock('src/sdk/account/useAvailableContracts', () => ({
   useAvailableContracts: mockUseAvailableContracts,
 }))
 
+vi.mock('src/sdk/account/accountPageContext', () => ({
+  useAccountNavigationLabels: () => undefined,
+}))
+
 vi.mock(
   '../../../src/components/account/Drawer/OrganizationDrawer/ContractSwitcher',
   () => ({
