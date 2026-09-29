@@ -175,10 +175,13 @@ describe('GenerateI18n', () => {
   })
 
   afterEach(() => {
+    // Leave the temp dir before removing it: Windows refuses to delete the
+    // directory a process is currently sitting in, with EPERM.
+    process.chdir(originalCwd)
+
     if (fs.existsSync(tempDir)) {
       fs.rmSync(tempDir, { recursive: true, force: true })
     }
-    process.chdir(originalCwd)
     process.env = originalEnv
   })
 
