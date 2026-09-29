@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0-dev.5](https://github.com/vtex/faststore/compare/v4.9.0-dev.4...v4.9.0-dev.5) (2026-09-29)
+
+### Bug Fixes
+
+- **core:** avoid Yarn Classic Windows tar-extraction bug dropping src/pages/s.tsx ([1d9cec9](https://github.com/vtex/faststore/commit/1d9cec97a7b1eee249ed4521fe8c103eee81921a))
+
 # [4.9.0-dev.4](https://github.com/vtex/faststore/compare/v4.9.0-dev.3...v4.9.0-dev.4) (2026-09-28)
 
 ### Bug Fixes
