@@ -54,6 +54,12 @@ function createTmpFolder(basePath: string) {
 }
 
 /**
+ * Characters double quotes do not neutralise: `sh` still expands `$` and
+ * backticks, a `"` ends the quoting, and `cmd.exe` expands `%VAR%`.
+ */
+const UNQUOTABLE_CHARS = /["$`%]/
+
+/**
  * Builds the `.faststore/package.json` from `@faststore/core`'s manifest.
  * Strips `exports` and `packageManager` (the latter is pinned to pnpm and
  * breaks Yarn/Corepack on consumer stores).
@@ -86,13 +92,16 @@ export function buildFaststorePackageJson(
    * which leaves the previous PATH-based behaviour in place.
    *
    * `nextBin` is relative to `.faststore`, which is where these scripts run.
-   * An absolute path would carry the whole store directory into a shell string,
-   * and a quote or a `$` anywhere above the project would break it — a relative
-   * path only ever spans `node_modules` segments.
+   * It can still leave the project: the binary is resolved through its
+   * realpath, so when `next` is a symlink target elsewhere on disk the relative
+   * path climbs out of `.faststore` and keeps every directory it does not share
+   * with it — spaces included. The path is wrapped in double quotes, since they
+   * are the quoting both `sh` and `cmd.exe` understand. A character those quotes
+   * cannot protect drops the path and uses the bare command, including when a
+   * caller passes `nextBin` without going through `relativeNextBin`.
    */
-  // path.relative() returns backslashes on Windows; normalize to forward slashes
-  // so the script string is valid on all platforms (Node accepts / on Windows too).
-  const next = nextBin ? `node ${nextBin.replaceAll('\\', '/')}` : 'next'
+  const next =
+    nextBin && !UNQUOTABLE_CHARS.test(nextBin) ? `node "${nextBin}"` : 'next'
 
   return {
     ...rest,
@@ -114,7 +123,8 @@ export function buildFaststorePackageJson(
 /**
  * The Next executable `@faststore/core` resolves, expressed relative to the
  * `.faststore` directory its scripts run from. Returns undefined when it cannot
- * be resolved, or when no relative path exists — a different Windows drive —
+ * be resolved, when no relative path exists — a different Windows drive — or
+ * when the path holds a character the script's double quotes cannot protect,
  * so the caller falls back to the bare command.
  */
 export function relativeNextBin(
@@ -129,7 +139,11 @@ export function relativeNextBin(
 
   const relative = path.relative(tmpDir, nextBin).replaceAll('\\', '/')
 
-  return relative && !path.isAbsolute(relative) ? relative : undefined
+  return relative &&
+    !path.isAbsolute(relative) &&
+    !UNQUOTABLE_CHARS.test(relative)
+    ? relative
+    : undefined
 }
 
 /**
@@ -664,7 +678,7 @@ async function enableSearchSSR(basePath: string) {
   }
 
   const { tmpDir } = withBasePath(basePath)
-  const searchPagePath = path.join(tmpDir, 'src', 'pages', 's.tsx')
+  const searchPagePath = path.join(tmpDir, 'src', 'pages', 's', 'index.tsx')
   const searchPageData = String(readFileSync(searchPagePath))
 
   const searchPageWithSSR = searchPageData.replaceAll(
