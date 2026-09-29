@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 
 import type { GraphQLSchema } from 'graphql'
-import { assertValidSchema } from 'graphql'
+import { assertValidSchema, isObjectType } from 'graphql'
 
 import { GraphqlVtexSchema } from '../../src'
 
@@ -36,6 +36,7 @@ const TYPES = [
   'StoreProduct',
   'IStoreProduct',
   'StoreProductGroup',
+  'StoreProductCluster',
   'StorePropertyValue',
   'StoreProductEdge',
   'StoreProductConnection',
@@ -116,6 +117,35 @@ describe('Schema', () => {
     TYPES.forEach((typeName) => {
       expect(schema.getType(typeName)).toBeDefined()
     })
+  })
+
+  it('should expose Intelligent Search product clusters on product groups', () => {
+    const productGroup = schema.getType('StoreProductGroup')
+
+    expect(isObjectType(productGroup)).toBe(true)
+
+    if (!isObjectType(productGroup)) {
+      return
+    }
+
+    // `toString()` prints the field the way it appears in the SDL.
+    // This fails if the field becomes nullable, a single object, or a different type.
+    expect(productGroup.getFields().productClusters.type.toString()).toBe(
+      '[StoreProductCluster!]!'
+    )
+
+    const cluster = schema.getType('StoreProductCluster')
+
+    expect(isObjectType(cluster)).toBe(true)
+
+    if (!isObjectType(cluster)) {
+      return
+    }
+
+    const clusterFields = cluster.getFields()
+
+    expect(clusterFields.id.type.toString()).toBe('String!')
+    expect(clusterFields.name.type.toString()).toBe('String!')
   })
 
   it('should contain all default queries', async () => {

@@ -12,6 +12,7 @@ export const StoreProductGroup: Record<string, GraphqlResolver<Root>> = {
   hasVariant: (root) =>
     root.isVariantOf.items.map((item) => enhanceSku(item, root.isVariantOf)),
   productGroupID: ({ isVariantOf }) => isVariantOf.productId,
+  productClusters: ({ isVariantOf }) => isVariantOf.productClusters ?? [],
   name: (root) => root.isVariantOf.productName,
   skuVariants: (root) => root,
   additionalProperty: ({ isVariantOf: { specificationGroups } }) =>
