@@ -69,6 +69,27 @@ describe('useSwitchContract', () => {
     expect(result.current.error).toBeNull()
   })
 
+  it('still reloads when clearing the persisted state fails', async () => {
+    vi.spyOn(
+      changeContractTokenModule,
+      'changeContractToken'
+    ).mockResolvedValueOnce(true)
+    mockClearPersistedSessionState.mockRejectedValueOnce(new Error('blocked'))
+
+    const { result } = renderHook(() => useSwitchContract())
+
+    let ok: boolean | undefined
+    await act(async () => {
+      ok = await result.current.switchContract('contract-2')
+    })
+
+    // The route already swapped the cookies, so stopping here would leave the
+    // UI on the previous contract while the browser is on the new one.
+    expect(ok).toBe(true)
+    expect(mockReload).toHaveBeenCalledTimes(1)
+    expect(result.current.error).toBeNull()
+  })
+
   it('surfaces an error when switch-properties fails', async () => {
     vi.spyOn(
       changeContractTokenModule,

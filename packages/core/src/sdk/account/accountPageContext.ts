@@ -1,11 +1,13 @@
 import type {
   ServerListCardsQueryQuery,
   ServerListOrdersQueryQuery,
+  ServerListQuotesQueryQuery,
   ServerOrderDetailsQueryQuery,
   ServerProfileQueryQuery,
 } from '@generated/graphql'
+import { useContext } from 'react'
 import type { PageGlobalContext } from 'src/sdk/overrides/PageProvider'
-import { usePage } from 'src/sdk/overrides/PageProvider'
+import { PageContext, usePage } from 'src/sdk/overrides/PageProvider'
 import type { OrderStatusCmsLabels } from 'src/utils/userOrderStatus'
 import type { AccountNavigationLabels } from './getMyAccountRoutes'
 
@@ -25,6 +27,21 @@ export type AccountOrdersListPageData = {
     text: string
     clientEmail: string
     pendingMyApproval?: boolean
+  }
+}
+
+export type AccountQuotesPageData = {
+  listQuotes: ServerListQuotesQueryQuery['listUserQuotes']
+  total: number
+  perPage: number
+  filters: {
+    page: number
+    status: string[]
+    createdAtFrom: string
+    createdAtTo: string
+    expiresAtFrom: string
+    expiresAtTo: string
+    label: string
   }
 }
 
@@ -69,6 +86,7 @@ export type AccountPageData =
   | AccountSecurityPageData
   | AccountUserDetailsPageData
   | AccountCardsPageData
+  | AccountQuotesPageData
   | Record<string, never>
 
 export interface AccountPageContext extends PageGlobalContext {
@@ -76,9 +94,19 @@ export interface AccountPageContext extends PageGlobalContext {
   navigationLabels?: AccountNavigationLabels
 }
 
+/**
+ * Same data as `usePage<AccountPageContext>().navigationLabels`, but safe to
+ * call from components (e.g. the B2B organization drawer) that render both
+ * inside and outside a My Account `PageProvider` tree — returns `undefined`
+ * instead of throwing when there is no provider, so callers fall back to
+ * their hardcoded default label.
+ */
 export function useAccountNavigationLabels() {
-  const ctx = usePage<AccountPageContext>()
-  return ctx.navigationLabels
+  const context = useContext(PageContext)?.context
+
+  return context && 'navigationLabels' in context
+    ? context.navigationLabels
+    : undefined
 }
 
 export function useAccountPageData<

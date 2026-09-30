@@ -3,6 +3,78 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0-dev.8](https://github.com/vtex/faststore/compare/v4.9.0-dev.7...v4.9.0-dev.8) (2026-09-30)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.9.0-dev.7](https://github.com/vtex/faststore/compare/v4.9.0-dev.6...v4.9.0-dev.7) (2026-09-29)
+
+### Features
+
+- **api:** expose product clusters on product groups ([#3499](https://github.com/vtex/faststore/issues/3499)) ([d82c21b](https://github.com/vtex/faststore/commit/d82c21b66884ae61479179fd72d211decf9bd283)), closes [20v1.json#L1926-L1942](https://github.com/20v1.json/issues/L1926-L1942) [/github.com/vtex/faststore/blob/dev/packages/api/src/platforms/vtex/clients/search/types/ProductSearchResult.ts#L71-L83](https://github.com//github.com/vtex/faststore/blob/dev/packages/api/src/platforms/vtex/clients/search/types/ProductSearchResult.ts/issues/L71-L83)
+
+# [4.9.0-dev.6](https://github.com/vtex/faststore/compare/v4.9.0-dev.5...v4.9.0-dev.6) (2026-09-29)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.9.0-dev.5](https://github.com/vtex/faststore/compare/v4.9.0-dev.4...v4.9.0-dev.5) (2026-09-29)
+
+### Bug Fixes
+
+- **core:** avoid Yarn Classic Windows tar-extraction bug dropping src/pages/s.tsx ([1d9cec9](https://github.com/vtex/faststore/commit/1d9cec97a7b1eee249ed4521fe8c103eee81921a))
+
+# [4.9.0-dev.4](https://github.com/vtex/faststore/compare/v4.9.0-dev.3...v4.9.0-dev.4) (2026-09-28)
+
+### Bug Fixes
+
+- **core:** localize My Account Quotes and Contract Switcher ([#3492](https://github.com/vtex/faststore/issues/3492)) ([d389c78](https://github.com/vtex/faststore/commit/d389c785ee831befadc937c4332261b1c6cab64e))
+
+# [4.9.0-dev.3](https://github.com/vtex/faststore/compare/v4.9.0-dev.2...v4.9.0-dev.3) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.9.0-dev.2](https://github.com/vtex/faststore/compare/v4.9.0-dev.1...v4.9.0-dev.2) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.9.0-dev.1](https://github.com/vtex/faststore/compare/v4.9.0-dev.0...v4.9.0-dev.1) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.9.0-dev.0](https://github.com/vtex/faststore/compare/v4.8.1-dev.3...v4.9.0-dev.0) (2026-09-24)
+
+### Features
+
+- **api,sdk:** support custom StoreSort values via customSortMap ([#3496](https://github.com/vtex/faststore/issues/3496)) ([8613faa](https://github.com/vtex/faststore/commit/8613faa046449801d17a2f0076e3a9b9d5a8c00f)), closes [/github.com/vtex/faststore/pull/3496#discussion_r4063084635](https://github.com//github.com/vtex/faststore/pull/3496/issues/discussion_r4063084635) [vtex-sites/playground.store#238](https://github.com/vtex-sites/playground.store/issues/238) [#3495](https://github.com/vtex/faststore/issues/3495)
+
+## [4.8.1-dev.3](https://github.com/vtex/faststore/compare/v4.8.1-dev.2...v4.8.1-dev.3) (2026-09-22)
+
+### Bug Fixes
+
+- **core:** also normalize search-path concatenations in index/s pages ([519fb88](https://github.com/vtex/faststore/commit/519fb8885e483a8b00b292d342cce34cb4dd2cd6)), closes [#3498](https://github.com/vtex/faststore/issues/3498)
+- **core:** normalize trailing slash on locale-aware store URLs (SFS-3390) ([07ff320](https://github.com/vtex/faststore/commit/07ff320232df8ba75e48902e4fb93f22fc33505c))
+- **core:** pass rendered locale to getStoreURL in search canonical URL ([4ead8b8](https://github.com/vtex/faststore/commit/4ead8b86c1c53645db3afcd6cef41b085ffd5130))
+
+## [4.8.1-dev.2](https://github.com/vtex/faststore/compare/v4.8.1-dev.1...v4.8.1-dev.2) (2026-09-21)
+
+### Bug Fixes
+
+- **core:** SUMA review fixes — reset cart/orderForm on contract switch, default contract in switcher, no Sign-in flash (B2BTEAM-3827) ([#3479](https://github.com/vtex/faststore/issues/3479)) ([d015186](https://github.com/vtex/faststore/commit/d015186f66bc5cdfce55d3da1c21b2d4dbb3d39e))
+
+## [4.8.1-dev.1](https://github.com/vtex/faststore/compare/v4.8.1-dev.0...v4.8.1-dev.1) (2026-09-18)
+
+### Bug Fixes
+
+- **core:** avoid negated ternary condition flagged by Sonar ([c3fa734](https://github.com/vtex/faststore/commit/c3fa73440d9b98286b4ea1f7dfa737a44b06446b))
+- **core:** guard the catch-path no-store header with headersSent ([48c21b8](https://github.com/vtex/faststore/commit/48c21b89d345e1a376c578f3171a0d10461f1689)), closes [#3485](https://github.com/vtex/faststore/issues/3485)
+- **core:** localize My Account order copy ([#3490](https://github.com/vtex/faststore/issues/3490)) ([f77d3cf](https://github.com/vtex/faststore/commit/f77d3cfd1ca5b160ff003d090cb7c4413e2b0c56))
+- **core:** set cache-control: no-store on GraphQL error responses ([dbb7d26](https://github.com/vtex/faststore/commit/dbb7d26078a04ebf9eee5a16e8cc3b6774acee73))
+- **core:** set cache-control: no-store on the catch-path error responses ([5eec369](https://github.com/vtex/faststore/commit/5eec369bebc3b930e45078914e3e1d57bd22208d)), closes [#3485](https://github.com/vtex/faststore/issues/3485)
+
+## [4.8.1-dev.0](https://github.com/vtex/faststore/compare/v4.8.0...v4.8.1-dev.0) (2026-09-15)
+
+**Note:** Version bump only for package @faststore/core
+
 # [4.8.0](https://github.com/vtex/faststore/compare/v4.7.0...v4.8.0) (2026-09-15)
 
 ### Features

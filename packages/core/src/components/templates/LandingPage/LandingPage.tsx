@@ -65,7 +65,7 @@ export default function LandingPage({
     storeConfig.seo.titleTemplate ??
     storeConfig.seo.title
 
-  const storeURL = getStoreURL(router.locale)
+  const storeURL = getStoreURL(router.locale).replace(/\/$/, '')
 
   return (
     <>

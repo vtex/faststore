@@ -7,6 +7,8 @@ import { md5 } from '../utils/md5'
 import {
   attachmentToPropertyValue,
   getPropertyId,
+  getServiceKey,
+  serviceToPropertyValue,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
 
@@ -36,6 +38,28 @@ type Indexed<T> = T & { index?: number }
 const isAttachment = (value: IStorePropertyValue) =>
   value.valueReference === VALUE_REFERENCES.attachment
 
+const isService = (value: IStorePropertyValue) =>
+  value.valueReference === VALUE_REFERENCES.service
+
+/** Sorted keys of the services applied to a line; independent of their order. */
+const getServiceKeys = (item: IStoreOffer) =>
+  (item.itemOffered.additionalProperty ?? [])
+    .filter(isService)
+    .map(getServiceKey)
+    .sort((a, b) => a.localeCompare(b))
+
+/**
+ * Identity segment for services. Checkout treats a unit with a service as a
+ * different line from one without, so FastStore must too: otherwise the delta
+ * merges them and either replicates or drops the service. Empty when the line
+ * has no services, so ids of unserviced lines are unchanged.
+ */
+const getServiceSegment = (item: IStoreOffer) => {
+  const keys = getServiceKeys(item)
+
+  return keys.length > 0 ? `services:${keys.join('-')}` : undefined
+}
+
 const getId = (item: IStoreOffer) =>
   [
     item.itemOffered.sku,
@@ -45,6 +69,7 @@ const getId = (item: IStoreOffer) =>
       ?.filter(isAttachment)
       .map(getPropertyId)
       .join('-'),
+    getServiceSegment(item),
   ]
     .filter(Boolean)
     .join('::')
@@ -61,7 +86,10 @@ const orderFormItemToOffer = (
     sku: item.id,
     image: [],
     name: item.name,
-    additionalProperty: item.attachments.map(attachmentToPropertyValue),
+    additionalProperty: [
+      ...item.attachments.map(attachmentToPropertyValue),
+      ...(item.bundleItems ?? []).map(serviceToPropertyValue),
+    ],
   },
   index,
 })
@@ -97,6 +125,8 @@ const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer[]> =>
 
 const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
   // Omit priceToken: it exists on the browser payload but not on orderForm items.
+  // Compare the service segment explicitly: a browser line claiming a service
+  // Checkout does not have must not be reported as "in sync".
   const pick = (
     { priceToken: _, ...item }: Indexed<IStoreOffer>,
     index: number
@@ -105,6 +135,7 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
     itemOffered: {
       sku: item.itemOffered.sku,
     },
+    services: getServiceSegment(item),
     index,
   })
 
@@ -205,12 +236,23 @@ const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) => {
   // - quantity: to detect quantity changes
   // - seller: to detect seller changes
   // - attachments: to detect customizations/personalizations changes
-  const criticalItems = items.map((item) => ({
-    id: item.id,
-    quantity: item.quantity,
-    seller: item.seller,
-    attachments: item.attachments, // customizations
-  }))
+  // - services: to detect services attached/removed outside FastStore. Added
+  //   only when the line has services so the etag of every other line (and of
+  //   carts without services) stays byte-identical to the previous algorithm.
+  const criticalItems = items.map((item) => {
+    const services = (item.bundleItems ?? [])
+      .map(serviceToPropertyValue)
+      .map(({ propertyID }) => propertyID)
+      .sort((a, b) => a.localeCompare(b))
+
+    return {
+      id: item.id,
+      quantity: item.quantity,
+      seller: item.seller,
+      attachments: item.attachments, // customizations
+      ...(services.length > 0 ? { services } : {}),
+    }
+  })
 
   return md5(
     JSON.stringify({ sessionId: sessionJwt?.id ?? '', items: criticalItems })

@@ -1,3 +1,14 @@
+// Keep this page at `s/index.tsx`; do not rename it back to a bare `s.tsx`.
+// Next.js maps both to the same `/s` route, but Yarn Classic 1.x loses the
+// bare `s.tsx` while extracting @faststore/core on Windows: right after
+// `yarn install` the file is already absent from node_modules, while every
+// sibling page survives, and `next build` then fails type-checking with a
+// misleading "Cannot find module 'src/pages/s'". Extracting the same tarball
+// with Windows' own `tar.exe` keeps the file, so the loss happens inside
+// Yarn's extractor rather than in how we pack or copy. Why Yarn drops this
+// particular entry is not pinned down, but nesting the page under a folder
+// avoids it. Investigation and the before/after Windows CI runs that verified
+// this layout: https://github.com/vtex/faststore/pull/3486
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useState } from 'react'
@@ -54,7 +65,8 @@ type StoreConfig = typeof storeConfig
 function generateSEOData(
   storeConfig: StoreConfig,
   searchTerm?: string,
-  pageSeoSettings?: SearchSettings['settings']['seo']
+  pageSeoSettings?: SearchSettings['settings']['seo'],
+  locale?: string
 ) {
   const { search: searchSeo, ...seo } = storeConfig.seo
 
@@ -88,7 +100,10 @@ function generateSEOData(
   }
 
   const canonical = searchTerm
-    ? `${getStoreURL()}/s?q=${searchTerm.replaceAll(' ', '+')}`
+    ? `${getStoreURL(locale).replace(/\/$/, '')}/s?q=${searchTerm.replaceAll(
+        ' ',
+        '+'
+      )}`
     : undefined
 
   return {
@@ -114,6 +129,7 @@ function Page({
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
   const { settings } = searchContentType
+  const { locale } = useRouter()
   const applySearchState = useApplySearchState()
   const searchParams = useSearchParams({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
@@ -138,7 +154,8 @@ function Page({
   const { noindex, nofollow, ...seoData } = generateSEOData(
     storeConfig,
     effectiveSearchTerm,
-    settings?.seo
+    settings?.seo,
+    locale
   )
 
   return (

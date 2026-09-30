@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0-dev.8](https://github.com/vtex/faststore/compare/v4.9.0-dev.7...v4.9.0-dev.8) (2026-09-30)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.9.0-dev.7](https://github.com/vtex/faststore/compare/v4.9.0-dev.6...v4.9.0-dev.7) (2026-09-29)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.9.0-dev.6](https://github.com/vtex/faststore/compare/v4.9.0-dev.5...v4.9.0-dev.6) (2026-09-29)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.9.0-dev.5](https://github.com/vtex/faststore/compare/v4.9.0-dev.4...v4.9.0-dev.5) (2026-09-29)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.9.0-dev.4](https://github.com/vtex/faststore/compare/v4.9.0-dev.3...v4.9.0-dev.4) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.9.0-dev.3](https://github.com/vtex/faststore/compare/v4.9.0-dev.2...v4.9.0-dev.3) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.9.0-dev.2](https://github.com/vtex/faststore/compare/v4.9.0-dev.1...v4.9.0-dev.2) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.9.0-dev.1](https://github.com/vtex/faststore/compare/v4.9.0-dev.0...v4.9.0-dev.1) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/components
+
+# [4.9.0-dev.0](https://github.com/vtex/faststore/compare/v4.8.1-dev.3...v4.9.0-dev.0) (2026-09-24)
+
+**Note:** Version bump only for package @faststore/components
+
+## [4.8.1-dev.3](https://github.com/vtex/faststore/compare/v4.8.1-dev.2...v4.8.1-dev.3) (2026-09-22)
+
+**Note:** Version bump only for package @faststore/components
+
+## [4.8.1-dev.2](https://github.com/vtex/faststore/compare/v4.8.1-dev.1...v4.8.1-dev.2) (2026-09-21)
+
+**Note:** Version bump only for package @faststore/components
+
+## [4.8.1-dev.1](https://github.com/vtex/faststore/compare/v4.8.1-dev.0...v4.8.1-dev.1) (2026-09-18)
+
+**Note:** Version bump only for package @faststore/components
+
+## [4.8.1-dev.0](https://github.com/vtex/faststore/compare/v4.8.0...v4.8.1-dev.0) (2026-09-15)
+
+**Note:** Version bump only for package @faststore/components
+
 # [4.8.0](https://github.com/vtex/faststore/compare/v4.7.0...v4.8.0) (2026-09-15)
 
 ### Features

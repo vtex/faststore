@@ -22,6 +22,24 @@ export type AccountNavigationLabels = Partial<{
   companyLabel: string
   contractLabel: string
   cardsLabel: string
+  quotesLabel: string
+  /** "Change" CTA next to the active contract in the drawer header (opens the switcher). */
+  changeContractLabel: string
+  contractSwitcherTitleLabel: string
+  contractSwitcherBackLabel: string
+  contractSwitcherCloseLabel: string
+  contractSwitcherCurrentSessionLabel: string
+  contractSwitcherSearchPlaceholder: string
+  contractSwitcherSearchAriaLabel: string
+  contractSwitcherClearSearchLabel: string
+  /** Supports a "{count}" placeholder, e.g. "Select one of {count} available contracts:". */
+  contractSwitcherAvailableCountLabel: string
+  contractSwitcherNoMatchLabel: string
+  contractSwitcherEmptyLabel: string
+  contractSwitcherLoadErrorLabel: string
+  contractSwitcherSwitchErrorLabel: string
+  contractSwitcherCancelLabel: string
+  contractSwitcherConfirmLabel: string
 }>
 
 interface GetMyAccountRouteParams {
@@ -45,6 +63,7 @@ const ROUTE_LABEL_KEYS: Record<string, keyof AccountNavigationLabels> = {
   [USER_DETAILS_ROUTE]: 'userDetailsLabel',
   [SECURITY_ROUTE]: 'securityLabel',
   [CARDS_ROUTE]: 'cardsLabel',
+  [QUOTES_ROUTE]: 'quotesLabel',
 }
 
 // This is the default route list for My Account, we should add then as the feature is implemented

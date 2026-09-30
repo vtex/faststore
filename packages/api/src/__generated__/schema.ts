@@ -1514,6 +1514,8 @@ export type StoreContract = {
   id: Scalars['ID']['output'];
   /** Indicates whether this contract is the one currently active in the session. */
   isActive: Scalars['Boolean']['output'];
+  /** Indicates whether this contract is the Organization Unit's default contract. */
+  isDefault: Scalars['Boolean']['output'];
 };
 
 /** Currency information. */
@@ -1840,6 +1842,15 @@ export type StoreProductImageArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
+/** A product cluster (collection) associated with a product group. */
+export type StoreProductCluster = {
+  __typename?: 'StoreProductCluster';
+  /** Product cluster ID. */
+  id: Scalars['String']['output'];
+  /** Product cluster name. */
+  name: Scalars['String']['output'];
+};
+
 /** Product connections, including pagination information and products returned by the query. */
 export type StoreProductConnection = {
   __typename?: 'StoreProductConnection';
@@ -1867,6 +1878,8 @@ export type StoreProductGroup = {
   hasVariant: Array<StoreProduct>;
   /** Product group name. */
   name: Scalars['String']['output'];
+  /** Product clusters (collections) the product group belongs to. */
+  productClusters: Array<StoreProductCluster>;
   /** Product group ID. */
   productGroupID: Scalars['String']['output'];
   /**

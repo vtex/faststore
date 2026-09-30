@@ -41,6 +41,10 @@ export type Sort =
   | 'release:desc'
   | 'discount:desc'
   | ''
+  // Also accepts an Intelligent Search sort string resolved from a
+  // project-registered `customSortMap` entry (see `resolveSort`), e.g.
+  // 'Rating:desc' for sorting by a product specification.
+  | `${string}:${'asc' | 'desc'}`
 
 export type ProductIdentifierField = 'id' | 'slug' | 'ean' | 'reference' | 'sku'
 

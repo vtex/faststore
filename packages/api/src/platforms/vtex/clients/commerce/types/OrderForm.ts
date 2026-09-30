@@ -16,6 +16,19 @@ export interface Attachment {
   content: Record<string, string>
 }
 
+/**
+ * A VTEX Service (Checkout "offering") applied to a cart line. Lives in the
+ * orderForm item's `bundleItems`. Only the fields FastStore reads are typed;
+ * prices are in cents, like the parent item.
+ */
+export interface OrderFormBundleItem {
+  id: string
+  name: string
+  quantity: number
+  sellingPrice: number
+  attachments?: Attachment[] | null
+}
+
 export interface OrderFormItem {
   id: string
   name: string
@@ -60,6 +73,8 @@ export interface OrderFormItem {
     total: number
   }
   attachments: Attachment[]
+  /** Services applied to this line. `null`, `undefined` and `[]` all mean none. */
+  bundleItems?: OrderFormBundleItem[] | null
 }
 
 export interface SKUSpecification {

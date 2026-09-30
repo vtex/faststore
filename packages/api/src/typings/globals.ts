@@ -27,6 +27,13 @@ export interface Options {
   showSponsored: boolean
   incrementAddress: boolean
   flags?: FeatureFlags
+  /**
+   * Maps additional `StoreSort` enum values (added to the schema via a
+   * project-level `extend enum StoreSort { ... }`) to the Intelligent Search
+   * `sort=` query string, e.g. `{ rating_desc: 'Rating:desc' }`. Merged ahead
+   * of the built-in sort map, so a key here can also override a default sort.
+   */
+  customSortMap?: Record<string, string>
   version?: string
   discoveryConfig?: Record<string, unknown>
   /** Emit OpenTelemetry spans from resolvers. Defaults to disabled. */

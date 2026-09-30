@@ -4,6 +4,7 @@ import {
   type OrderSummarySectionLabels,
   resolveOrderSummaryLabels,
 } from '../orderDetailsLabels'
+import { getOrderTotalLabel } from './getOrderTotalLabel'
 
 // Interface for order totals (items, shipping, discounts)
 // TODO: Use type from API
@@ -83,7 +84,7 @@ function SummaryCard({
     <Card title={labels.summaryTitle} data-fs-order-summary-card>
       {displayTotals.map((total) => (
         <div key={total.id} data-fs-order-summary-item>
-          <span>{total.name}</span>
+          <span>{getOrderTotalLabel(total, labels)}</span>
           <span>{formatPrice(total.value, currencyCode)}</span>
         </div>
       ))}
