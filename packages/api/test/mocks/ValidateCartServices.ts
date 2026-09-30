@@ -57,8 +57,8 @@ export const ValidateCartServicesMutation = `mutation ValidateCartServicesMutati
 `
 
 // ---------------------------------------------------------------------------
-// Service key — re-derived here from the contract in the spec so the tests
-// verify it independently of the implementation.
+// Service key — re-derived from the private helpers in propertyValue.ts so
+// these tests compare an independent key with serviceToPropertyValue().propertyID.
 // ---------------------------------------------------------------------------
 
 const compareStrings = (a: string, b: string) => {

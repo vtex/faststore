@@ -57,7 +57,7 @@ const getServiceKeys = (item: IStoreOffer) =>
 const getServiceSegment = (item: IStoreOffer) => {
   const keys = getServiceKeys(item)
 
-  return keys.length > 0 ? `svc:${keys.join('-')}` : undefined
+  return keys.length > 0 ? `services:${keys.join('-')}` : undefined
 }
 
 const getId = (item: IStoreOffer) =>
