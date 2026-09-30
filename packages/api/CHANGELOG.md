@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0-dev.8](https://github.com/vtex/faststore/compare/v4.9.0-dev.7...v4.9.0-dev.8) (2026-09-30)
+
+### Bug Fixes
+
+- **api:** keep VTEX services out of validateCart line merging ([#3504](https://github.com/vtex/faststore/issues/3504)) ([2885fc6](https://github.com/vtex/faststore/commit/2885fc670860b671b587a63904c1a0393baf03db)), closes [#3460](https://github.com/vtex/faststore/issues/3460)
+
 # [4.9.0-dev.7](https://github.com/vtex/faststore/compare/v4.9.0-dev.6...v4.9.0-dev.7) (2026-09-29)
 
 ### Features
