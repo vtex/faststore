@@ -619,5 +619,15 @@ describe('StoreProduct', () => {
     ])('returns an empty string for %s', (_label, input) => {
       expect(resolve(input)).toBe('')
     })
+
+    // Malformed values are passed through as well: validating or rewriting them
+    // is the consumer's call, not the resolver's.
+    it.each([
+      ['an empty string', ''],
+      ['whitespace', '   '],
+      ['an unparseable value', 'not-a-date'],
+    ])('passes %s through unchanged', (_label, input) => {
+      expect(resolve(input)).toBe(input)
+    })
   })
 })
