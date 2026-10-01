@@ -1,3 +1,4 @@
+import type { OrderForm } from '../clients/commerce/types/OrderForm'
 import type { Channel } from './channel'
 import ChannelMarshal from './channel'
 
@@ -28,4 +29,25 @@ export function channelWhenSessionDivergesFromOrderForm(
     salesChannel: String(orderFormSalesChannel),
     hasOnlyDefaultSalesChannel: false,
   })
+}
+
+/**
+ * Checkout stores an SC on the orderForm only after an items mutation sent
+ * with `sc`. An SC-less request on an orderForm that never had items falls
+ * back to the platform default (SC 1), so its SC is meaningful only when the
+ * orderForm has items or already matches the session.
+ */
+export function shouldTrustOrderFormSalesChannel(
+  orderForm: Pick<OrderForm, 'items' | 'salesChannel'>,
+  sessionSalesChannel: string
+): boolean {
+  if (orderForm.items.length > 0) {
+    return true
+  }
+
+  if (orderForm.salesChannel == null || orderForm.salesChannel === '') {
+    return false
+  }
+
+  return String(orderForm.salesChannel) === String(sessionSalesChannel ?? '')
 }
