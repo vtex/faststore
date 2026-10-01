@@ -46,6 +46,8 @@ export function getInitialSession(
     const settings = getSettings()
     const channel = JSON.parse(defaults.channel ?? '{}') ?? {}
     channel.salesChannel = settings.salesChannel
+    // The URL is the SC intent: validateCart never adopts over it.
+    channel.salesChannelSource = 'url'
 
     return {
       ...defaults,
@@ -81,6 +83,8 @@ export function reconcileSessionLocale(fromIDB: Session): Session {
     const settings = getSettings()
     const channel = safeParseChannel(fromIDB.channel)
     channel.salesChannel = settings.salesChannel
+    // The URL is the SC intent: validateCart never adopts over it.
+    channel.salesChannelSource = 'url'
 
     return {
       ...fromIDB,

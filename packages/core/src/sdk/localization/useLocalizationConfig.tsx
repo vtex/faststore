@@ -47,6 +47,8 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
     const session = sessionRef.current
     const channel = JSON.parse(session.channel ?? '{}') ?? {}
     channel.salesChannel = settings.salesChannel
+    // The URL is the SC intent: validateCart never adopts over it.
+    channel.salesChannelSource = 'url'
 
     const newSession = {
       ...session,
