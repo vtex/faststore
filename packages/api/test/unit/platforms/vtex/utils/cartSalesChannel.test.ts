@@ -81,12 +81,9 @@ describe('shouldTrustOrderFormSalesChannel', () => {
     ).toBe(false)
   })
 
-  it('compares SCs as strings', () => {
+  it('compares SCs as strings (persisted sessions may carry a numeric SC)', () => {
     expect(
-      shouldTrustOrderFormSalesChannel(
-        { items: [], salesChannel: '4' },
-        4 as never
-      )
+      shouldTrustOrderFormSalesChannel({ items: [], salesChannel: '4' }, 4)
     ).toBe(true)
   })
 })

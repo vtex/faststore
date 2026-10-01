@@ -39,7 +39,8 @@ export function channelWhenSessionDivergesFromOrderForm(
  */
 export function shouldTrustOrderFormSalesChannel(
   orderForm: Pick<OrderForm, 'items' | 'salesChannel'>,
-  sessionSalesChannel: string
+  // Persisted sessions may carry a numeric SC (e.g. `{"salesChannel":2}`).
+  sessionSalesChannel: string | number
 ): boolean {
   if (orderForm.items.length > 0) {
     return true
