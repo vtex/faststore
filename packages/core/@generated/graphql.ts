@@ -1727,7 +1727,7 @@ export type StoreProduct = {
   otherLocales: Maybe<Array<StoreProductLocale>>;
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String']['output'];
-  /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
+  /** The product's release date, as returned by the catalog. Usually epoch milliseconds (e.g. "1774224000000"), but some accounts store an ISO 8601 string. */
   releaseDate: Scalars['String']['output'];
   /** Array with review information. */
   review: Array<StoreReview>;

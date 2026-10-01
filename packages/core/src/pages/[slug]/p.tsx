@@ -30,7 +30,10 @@ import { execute } from 'src/server'
 import { getComponentKey } from 'src/utils/cms'
 import { getChannelForLocale } from 'src/utils/localization/bindingPaths'
 import { buildHreflangLinks } from 'src/utils/localization/hreflang'
-import { toProductJsonLdOffer } from 'src/utils/productJsonLd'
+import {
+  toProductJsonLdOffer,
+  toProductJsonLdReleaseDate,
+} from 'src/utils/productJsonLd'
 
 import storeConfig from 'discovery.config'
 import {
@@ -152,6 +155,8 @@ function Page({
       .toFixed(pdpSeo.minPriceAmountFractionDigits)
       .toString()
   }
+
+  const releaseDate = toProductJsonLdReleaseDate(product.releaseDate)
 
   const productCondition =
     OG_PRODUCT_CONDITION_BY_SCHEMA[
@@ -299,7 +304,7 @@ function Page({
         // than published as "": next-seo passes these through untouched.
         {...(product.gtin && { gtin: product.gtin })}
         {...(product.mpn && { mpn: product.mpn })}
-        {...(product.releaseDate && { releaseDate: product.releaseDate })}
+        {...(releaseDate && { releaseDate })}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
         {...(offers && { offers })}
         {...(itemListElements.length !== 0 && {
