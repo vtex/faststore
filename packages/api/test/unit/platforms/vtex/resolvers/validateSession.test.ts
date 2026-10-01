@@ -178,6 +178,91 @@ describe('validateSession', () => {
     expect(JSON.parse(result!.channel!).salesChannel).toBe('4')
   })
 
+  describe('seller resolution sales channel', () => {
+    const regionalizedSession = {
+      ...baseSession,
+      postalCode: '01310-100',
+      channel: ChannelMarshal.stringify({
+        salesChannel: '1',
+        regionId: '',
+        seller: 'seller-a',
+        hasOnlyDefaultSalesChannel: false,
+      }),
+    }
+
+    const regionalizedContext = () => {
+      const ctx = makeContext({
+        store: {
+          channel: { value: '4' },
+          currencyCode: { value: 'BRL' },
+          currencySymbol: { value: 'R$' },
+          countryCode: { value: 'BRA' },
+        },
+      })
+      ctx.clients.commerce.checkout.region.mockResolvedValue([
+        { sellers: [{ id: 'seller-a' }] },
+      ])
+
+      return ctx
+    }
+
+    it('uses the requested `sc` when Session Manager accepts it', async () => {
+      const ctx = regionalizedContext()
+
+      await validateSession(
+        null,
+        { session: regionalizedSession, search: '' },
+        ctx
+      )
+
+      expect(ctx.clients.commerce.checkout.region).toHaveBeenCalledWith(
+        expect.objectContaining({ salesChannel: '1' })
+      )
+    })
+
+    it('uses the SC resolved by Session Manager after a rejected `sc`', async () => {
+      const ctx = regionalizedContext()
+      const sessionResponse =
+        await ctx.clients.commerce.session.getMockImplementation()!()
+      ctx.clients.commerce.session
+        .mockReset()
+        .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+        .mockResolvedValueOnce(sessionResponse)
+
+      const result = await validateSession(
+        null,
+        { session: regionalizedSession, search: '' },
+        ctx
+      )
+
+      expect(ctx.clients.commerce.checkout.region).toHaveBeenCalledWith(
+        expect.objectContaining({ salesChannel: '4' })
+      )
+      expect(JSON.parse(result!.channel!)).toMatchObject({
+        salesChannel: '4',
+        seller: 'seller-a',
+      })
+    })
+
+    it('falls back to the client SC when the retry also fails', async () => {
+      const ctx = regionalizedContext()
+      ctx.clients.commerce.session
+        .mockReset()
+        .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+        .mockRejectedValueOnce(new Error('session down'))
+
+      await validateSession(
+        null,
+        { session: regionalizedSession, search: '' },
+        ctx
+      )
+
+      expect(ctx.clients.commerce.checkout.region).toHaveBeenCalledWith(
+        expect.objectContaining({ salesChannel: '1' })
+      )
+    })
+  })
+
   it('does not retry a rejected SC while the orderForm marker is set', async () => {
     const ctx = makeContext()
     ctx.clients.commerce.session.mockRejectedValue(
