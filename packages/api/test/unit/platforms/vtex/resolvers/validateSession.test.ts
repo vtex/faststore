@@ -2,6 +2,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { validateSession } from '../../../../../src/platforms/vtex/resolvers/validateSession'
 import ChannelMarshal from '../../../../../src/platforms/vtex/utils/channel'
+import {
+  ForbiddenError,
+  UnauthorizedError,
+} from '../../../../../src/platforms/errors'
 
 const baseSession = {
   locale: 'pt-BR',
@@ -71,10 +75,10 @@ describe('validateSession', () => {
     vi.restoreAllMocks()
   })
 
-  it('keeps an explicit client sales channel when Session Manager diverges', async () => {
+  it('follows Session Manager for a legacy pinned channel without marker', async () => {
     const ctx = makeContext({
       store: {
-        channel: { value: '1' },
+        channel: { value: '4' },
         currencyCode: { value: 'BRL' },
         currencySymbol: { value: 'R$' },
         countryCode: { value: 'BRA' },
@@ -83,7 +87,7 @@ describe('validateSession', () => {
     const oldSession = {
       ...baseSession,
       channel: ChannelMarshal.stringify({
-        salesChannel: '2',
+        salesChannel: '1',
         regionId: '',
         seller: '',
         hasOnlyDefaultSalesChannel: false,
@@ -96,11 +100,120 @@ describe('validateSession', () => {
       ctx
     )
 
+    expect(JSON.parse(result!.channel!)).toMatchObject({
+      salesChannel: '4',
+      hasOnlyDefaultSalesChannel: false,
+    })
+  })
+
+  it('keeps an orderForm-adopted sales channel and its marker', async () => {
+    const ctx = makeContext()
+    const oldSession = {
+      ...baseSession,
+      channel: JSON.stringify({
+        salesChannel: '2',
+        regionId: '',
+        seller: '',
+        hasOnlyDefaultSalesChannel: false,
+        salesChannelSource: 'orderForm',
+      }),
+    }
+
+    const result = await validateSession(
+      null,
+      { session: oldSession, search: '' },
+      ctx
+    )
+
+    expect(ctx.clients.commerce.session).toHaveBeenCalledTimes(1)
+    expect(
+      new URLSearchParams(ctx.clients.commerce.session.mock.calls[0][0]).get(
+        'sc'
+      )
+    ).toBe('2')
     expect(result).not.toBeNull()
     expect(JSON.parse(result!.channel!)).toMatchObject({
       salesChannel: '2',
-      hasOnlyDefaultSalesChannel: false,
+      salesChannelSource: 'orderForm',
     })
+  })
+
+  it('retries without `sc` when Session Manager rejects the requested SC', async () => {
+    const ctx = makeContext({
+      store: {
+        channel: { value: '4' },
+        currencyCode: { value: 'BRL' },
+        currencySymbol: { value: 'R$' },
+        countryCode: { value: 'BRA' },
+      },
+    })
+    const sessionResponse =
+      await ctx.clients.commerce.session.getMockImplementation()!()
+    ctx.clients.commerce.session
+      .mockReset()
+      .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+      .mockResolvedValueOnce(sessionResponse)
+    const oldSession = {
+      ...baseSession,
+      channel: ChannelMarshal.stringify({
+        salesChannel: '1',
+        regionId: '',
+        seller: '',
+        hasOnlyDefaultSalesChannel: false,
+      }),
+    }
+
+    const result = await validateSession(
+      null,
+      { session: oldSession, search: '' },
+      ctx
+    )
+
+    const [first, retry] = ctx.clients.commerce.session.mock.calls.map(
+      ([search]: [string]) => new URLSearchParams(search)
+    )
+
+    expect(first.get('sc')).toBe('1')
+    expect(retry.has('sc')).toBe(false)
+    expect(JSON.parse(result!.channel!).salesChannel).toBe('4')
+  })
+
+  it('does not retry a rejected SC while the orderForm marker is set', async () => {
+    const ctx = makeContext()
+    ctx.clients.commerce.session.mockRejectedValue(
+      new ForbiddenError('restricted SC')
+    )
+    const oldSession = {
+      ...baseSession,
+      channel: JSON.stringify({
+        salesChannel: '1',
+        regionId: '',
+        seller: '',
+        hasOnlyDefaultSalesChannel: false,
+        salesChannelSource: 'orderForm',
+      }),
+    }
+
+    const result = await validateSession(
+      null,
+      { session: oldSession, search: '' },
+      ctx
+    )
+
+    expect(ctx.clients.commerce.session).toHaveBeenCalledTimes(1)
+    expect(JSON.parse(result!.channel!)).toMatchObject({
+      salesChannel: '1',
+      salesChannelSource: 'orderForm',
+    })
+  })
+
+  it('does not retry on non-authorization failures', async () => {
+    const ctx = makeContext()
+    ctx.clients.commerce.session.mockRejectedValue(new Error('session down'))
+
+    await validateSession(null, { session: baseSession, search: '' }, ctx)
+
+    expect(ctx.clients.commerce.session).toHaveBeenCalledTimes(1)
   })
 
   it('adopts Session Manager sales channel for the default client channel', async () => {

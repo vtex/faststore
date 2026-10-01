@@ -6,7 +6,11 @@ import type {
   StoreSession,
 } from '../../../__generated__/schema'
 import ChannelMarshal from '../utils/channel'
-import { channelAfterSessionManager } from '../utils/sessionChannel'
+import { FastStoreError } from '../../errors'
+import {
+  channelAfterSessionManager,
+  salesChannelSourceOf,
+} from '../utils/sessionChannel'
 import {
   buildB2bSession,
   buildMarketingData,
@@ -28,12 +32,17 @@ type SessionCheckoutNamespace = {
   regionId?: { value?: string | null } | null
 }
 
+const isSalesChannelRejected = (error: unknown) =>
+  error instanceof FastStoreError &&
+  (error.extensions.status === 401 || error.extensions.status === 403)
+
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
   { clients, headers, account }: GraphqlContext
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
+  const salesChannelSource = salesChannelSourceOf(oldSession.channel)
   const postalCode = String(oldSession.postalCode ?? '')
   const country = oldSession.country ?? ''
   let city = oldSession.city ?? null
@@ -71,7 +80,18 @@ export const validateSession = async (
 
   const sessionData = await clients.commerce
     .session(params.toString())
-    .catch(() => null)
+    .catch((error) => {
+      // A rejected `sc` (e.g. a restricted SC left in the session by an older
+      // version) would otherwise stick forever. Let Session Manager resolve
+      // the SC, unless the client SC is intentional (marker).
+      if (salesChannelSource || !isSalesChannelRejected(error)) {
+        return null
+      }
+
+      params.delete('sc')
+
+      return clients.commerce.session(params.toString()).catch(() => null)
+    })
 
   const profile = sessionData?.namespaces.profile ?? null
   const shopper = sessionData?.namespaces.shopper ?? null
@@ -101,7 +121,7 @@ export const validateSession = async (
     postalCode,
     geoCoordinates,
     country,
-    params.get('sc') ?? channel.salesChannel
+    params.get('sc') ?? store?.channel?.value ?? channel.salesChannel
   )
 
   const newSession = {
@@ -115,7 +135,8 @@ export const validateSession = async (
       channel,
       store?.channel?.value,
       checkout?.regionId?.value,
-      sellerId
+      sellerId,
+      salesChannelSource
     ),
     /**
      * B2B data structure in Session:
