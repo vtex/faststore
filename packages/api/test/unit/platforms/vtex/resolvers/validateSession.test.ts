@@ -286,9 +286,12 @@ describe('validateSession', () => {
     )
 
     expect(ctx.clients.commerce.session).toHaveBeenCalledTimes(1)
+    // The marker (not this flag) keeps the SC; the flag keeps its pre-4.6
+    // meaning: Session Manager returned no `store.channel`.
     expect(JSON.parse(result!.channel!)).toMatchObject({
       salesChannel: '1',
       salesChannelSource: 'orderForm',
+      hasOnlyDefaultSalesChannel: true,
     })
   })
 
