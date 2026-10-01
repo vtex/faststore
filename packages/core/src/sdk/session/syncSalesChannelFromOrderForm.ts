@@ -70,8 +70,10 @@ export function syncSalesChannelFromOrderForm(
 }
 
 /**
- * Drops the orderForm adoption marker once the cart has no items, so the next
- * `validateSession` lets Session Manager decide the sales channel again.
+ * Drops the orderForm adoption marker once the cart has no items, so Session
+ * Manager can again reject or replace the sales channel on the next
+ * `validateSession`. The SC itself is kept: an empty `salesChannel` would
+ * reach Checkout and catalog queries.
  */
 export function releaseAdoptedSalesChannel(
   readSession: () => Session,
