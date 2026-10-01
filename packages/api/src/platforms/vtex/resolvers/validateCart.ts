@@ -386,6 +386,42 @@ const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
 }
 
 /**
+ * Fetches the orderForm, omitting `sc` for existing carts so Checkout keeps the
+ * SC stored on the cart (unless the session SC comes from the URL).
+ *
+ * Checkout only stores an SC after an items mutation with `sc`. An empty
+ * orderForm fetched without `sc` may report the platform default (SC 1):
+ * refetch it with the session SC instead of trusting (and adopting) it.
+ */
+const getOrderForm = async (
+  ctx: GraphqlContext,
+  orderFormId: string | undefined,
+  isUrlSalesChannel: boolean
+) => {
+  const { commerce } = ctx.clients
+  const orderForm = await commerce.checkout.orderForm({
+    id: orderFormId,
+    channel: ctx.storage.channel,
+    preserveSalesChannel: Boolean(orderFormId) && !isUrlSalesChannel,
+  })
+
+  if (
+    !orderFormId ||
+    shouldTrustOrderFormSalesChannel(
+      orderForm,
+      ctx.storage.channel.salesChannel
+    )
+  ) {
+    return orderForm
+  }
+
+  return commerce.checkout.orderForm({
+    id: orderFormId,
+    channel: ctx.storage.channel,
+  })
+}
+
+/**
  * Keep Checkout on the orderForm SC when the browser session lags behind it.
  * Only orderForms with items have a stored SC worth protecting, and a
  * URL-derived (localization) session SC always wins.
@@ -472,28 +508,11 @@ export const validateCart = async (
   // session SC (e.g. after Quick Order) would recalculate the cart and drop
   // items only available in the orderForm's trade policy. New carts still
   // send `sc` from the session (see commerce.checkout.orderForm).
-  const orderFormId = orderFormIdFromCookie || undefined
-  let orderForm = await commerce.checkout.orderForm({
-    id: orderFormId,
-    channel: ctx.storage.channel,
-    preserveSalesChannel: Boolean(orderFormId) && !isUrlSalesChannel,
-  })
-
-  // Checkout only stores an SC after an items mutation with `sc`. An empty
-  // orderForm fetched without `sc` may report the platform default (SC 1):
-  // refetch it with the session SC instead of trusting (and adopting) it.
-  if (
-    orderFormId &&
-    !shouldTrustOrderFormSalesChannel(
-      orderForm,
-      ctx.storage.channel.salesChannel
-    )
-  ) {
-    orderForm = await commerce.checkout.orderForm({
-      id: orderFormId,
-      channel: ctx.storage.channel,
-    })
-  }
+  const orderForm = await getOrderForm(
+    ctx,
+    orderFormIdFromCookie || undefined,
+    isUrlSalesChannel
+  )
   const orderNumber = orderForm.orderFormId
 
   // Clear messages so it doesn't keep populating toasts on a loop
