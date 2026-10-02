@@ -170,13 +170,15 @@ describe('reconcileSessionLocale (browser, localization enabled)', () => {
 
     const payload: Session = {
       ...STALE,
-      channel: '{"salesChannel":"4","salesChannelSource":"orderForm"}',
+      channel:
+        '{"salesChannel":"4","salesChannelSource":"orderForm","rejectedSalesChannel":"6"}',
     }
 
     const channel = JSON.parse(reconcileSessionLocale(payload).channel ?? '{}')
 
     expect(channel.salesChannel).toBe('1')
     expect(channel.salesChannelSource).toBe('url')
+    expect(channel).not.toHaveProperty('rejectedSalesChannel')
   })
 
   it('survives a malformed channel JSON in the payload (does not throw, still reconciles)', () => {

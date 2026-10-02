@@ -48,6 +48,8 @@ export function getInitialSession(
     channel.salesChannel = settings.salesChannel
     // The URL is the SC intent: validateCart never adopts over it.
     channel.salesChannelSource = 'url'
+    // Adoption never applies on the URL SC, so a recorded rejection is moot.
+    delete channel.rejectedSalesChannel
 
     return {
       ...defaults,
@@ -85,6 +87,8 @@ export function reconcileSessionLocale(fromIDB: Session): Session {
     channel.salesChannel = settings.salesChannel
     // The URL is the SC intent: validateCart never adopts over it.
     channel.salesChannelSource = 'url'
+    // Adoption never applies on the URL SC, so a recorded rejection is moot.
+    delete channel.rejectedSalesChannel
 
     return {
       ...fromIDB,
