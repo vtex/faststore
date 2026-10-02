@@ -1,8 +1,10 @@
 import type { Session } from '@faststore/sdk'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+const mockRequest = vi.hoisted(() => vi.fn())
 
 vi.mock('../../../src/sdk/graphql/request', () => ({
-  request: vi.fn().mockResolvedValue({ validateSession: null }),
+  request: mockRequest,
 }))
 
 import { sessionStore } from '../../../src/sdk/session'
@@ -30,6 +32,13 @@ const withUIState = {
 }
 
 describe('sessionStore', () => {
+  beforeEach(async () => {
+    mockRequest.mockResolvedValue({ validateSession: null })
+    // The store validates its initial session on load; let it settle first
+    await vi.waitFor(() => expect(mockRequest).toHaveBeenCalled())
+    mockRequest.mockClear()
+  })
+
   it('does not store the UI state from useSession()', () => {
     sessionStore.set({ ...session, ...withUIState } as Session)
 
