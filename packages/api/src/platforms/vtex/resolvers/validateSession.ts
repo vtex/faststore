@@ -6,7 +6,16 @@ import type {
   StoreSession,
 } from '../../../__generated__/schema'
 import ChannelMarshal from '../utils/channel'
-import { channelAfterSessionManager } from '../utils/sessionChannel'
+import { OTELLogger } from '../../../observability/telemetry'
+import { FastStoreError } from '../../errors'
+import {
+  channelAfterSessionManager,
+  isLocalizationEnabled,
+  rejectedSalesChannelOf,
+  type SalesChannelSource,
+  salesChannelSourceOf,
+  salesChannelToRequest,
+} from '../utils/sessionChannel'
 import {
   buildB2bSession,
   buildMarketingData,
@@ -28,12 +37,127 @@ type SessionCheckoutNamespace = {
   regionId?: { value?: string | null } | null
 }
 
+const isSalesChannelRejected = (error: unknown) =>
+  error instanceof FastStoreError &&
+  (error.extensions.status === 401 || error.extensions.status === 403)
+
+/**
+ * Whether the rejection is about the requested SC (e.g. "You must be logged
+ * in to access the requested SalesChannel"), not an unrelated auth failure.
+ * Only then is an adopted SC recorded as rejected.
+ */
+const isAboutSalesChannel = (error: unknown) =>
+  error instanceof Error && /sales\s*channel/i.test(error.message)
+
+/**
+ * Whether a Session Manager rejection drops the `orderForm` adoption: only
+ * when the rejected `sc` is the adopted SC itself and the error is about the
+ * sales channel. A rejected `?sc=` from the page URL or an unrelated 401/403
+ * keeps the adoption.
+ */
+const rejectsAdoption = (
+  error: unknown,
+  salesChannelSource: SalesChannelSource | undefined,
+  requestedSalesChannel: string | undefined,
+  clientSalesChannel: string
+) => {
+  if (
+    salesChannelSource !== 'orderForm' ||
+    requestedSalesChannel !== clientSalesChannel
+  ) {
+    return false
+  }
+
+  if (isAboutSalesChannel(error)) {
+    return true
+  }
+
+  // Session Manager has no structured code for this; make a wording change
+  // observable (stdout and OpenTelemetry logs) instead of silently keeping
+  // the adoption.
+  const message = `[validateSession] Session Manager rejected adopted sales channel ${requestedSalesChannel} with an unrecognized error; keeping the adoption.`
+  const detail = error instanceof Error ? error.message : error
+
+  console.warn(message, detail)
+  OTELLogger('warn', '%s %o', message, detail)
+
+  return false
+}
+
+/**
+ * Calls Session Manager. When it rejects the requested `sc` (401/403), retries
+ * once without it so Session Manager resolves an SC the shopper can use:
+ * - no marker: a stale SC (e.g. left by an older version) would stick forever;
+ * - `orderForm` marker: if the adopted SC itself is not available to this
+ *   shopper, the adoption is dropped and the SC is recorded as rejected
+ *   (see `rejectsAdoption`);
+ * - `url` marker: the URL SC is intentional, so no retry.
+ * If the retry also fails, the current channel is kept as is.
+ */
+const fetchSessionData = async (
+  clients: GraphqlContext['clients'],
+  params: URLSearchParams,
+  salesChannelSource: SalesChannelSource | undefined,
+  clientSalesChannel: string
+) => {
+  const unchanged = { salesChannelSource, rejectedSalesChannel: undefined }
+
+  try {
+    return {
+      ...unchanged,
+      sessionData: await clients.commerce.session(params.toString()),
+    }
+  } catch (error) {
+    if (salesChannelSource === 'url' || !isSalesChannelRejected(error)) {
+      return { ...unchanged, sessionData: null }
+    }
+
+    const requestedSalesChannel = params.get('sc') ?? undefined
+    const dropsAdoption = rejectsAdoption(
+      error,
+      salesChannelSource,
+      requestedSalesChannel,
+      clientSalesChannel
+    )
+
+    params.delete('sc')
+
+    const sessionData = await clients.commerce
+      .session(params.toString())
+      .catch(() => null)
+
+    if (!sessionData || !dropsAdoption) {
+      return { ...unchanged, sessionData }
+    }
+
+    return {
+      sessionData,
+      salesChannelSource: undefined,
+      rejectedSalesChannel: requestedSalesChannel,
+    }
+  }
+}
+
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients, headers, account }: GraphqlContext
+  { clients, headers, account, storage, discoveryConfig }: GraphqlContext
 ): Promise<StoreSession | null> => {
-  const channel = ChannelMarshal.parse(oldSession.channel ?? '')
+  const clientChannel = ChannelMarshal.parse(oldSession.channel ?? '')
+  const incomingSalesChannelSource = salesChannelSourceOf(oldSession.channel, {
+    localizationEnabled: isLocalizationEnabled(discoveryConfig),
+  })
+  const channel = {
+    ...clientChannel,
+    salesChannel: salesChannelToRequest(
+      clientChannel,
+      incomingSalesChannelSource,
+      storage?.channel?.salesChannel
+        ? String(storage.channel.salesChannel)
+        : undefined,
+      search
+    ),
+  }
   const postalCode = String(oldSession.postalCode ?? '')
   const country = oldSession.country ?? ''
   let city = oldSession.city ?? null
@@ -69,9 +193,13 @@ export const validateSession = async (
     account
   )
 
-  const sessionData = await clients.commerce
-    .session(params.toString())
-    .catch(() => null)
+  const { sessionData, salesChannelSource, rejectedSalesChannel } =
+    await fetchSessionData(
+      clients,
+      params,
+      incomingSalesChannelSource,
+      String(channel.salesChannel ?? '')
+    )
 
   const profile = sessionData?.namespaces.profile ?? null
   const shopper = sessionData?.namespaces.shopper ?? null
@@ -101,8 +229,16 @@ export const validateSession = async (
     postalCode,
     geoCoordinates,
     country,
-    params.get('sc') ?? channel.salesChannel
+    params.get('sc') ?? store?.channel?.value ?? channel.salesChannel
   )
+
+  const person = buildPersonFromProfile(profile)
+  // A rejection belongs to the shopper it was recorded for: forget it when
+  // they log in or out, so a new identity can have the SC adopted again.
+  const previousRejection =
+    (oldSession.person?.id ?? null) === (person?.id ?? null)
+      ? rejectedSalesChannelOf(oldSession.channel)
+      : undefined
 
   const newSession = {
     ...oldSession,
@@ -115,7 +251,9 @@ export const validateSession = async (
       channel,
       store?.channel?.value,
       checkout?.regionId?.value,
-      sellerId
+      sellerId,
+      salesChannelSource,
+      rejectedSalesChannel ?? previousRejection
     ),
     /**
      * B2B data structure in Session:
@@ -134,7 +272,7 @@ export const validateSession = async (
       unitId,
     }),
     marketingData,
-    person: buildPersonFromProfile(profile),
+    person,
     geoCoordinates:
       (geoCoordinates?.latitude &&
         geoCoordinates?.longitude &&

@@ -1,7 +1,15 @@
 import deepEquals from 'fast-deep-equal'
 
 import { parse } from 'cookie'
-import { channelWhenSessionDivergesFromOrderForm } from '../utils/cartSalesChannel'
+import {
+  channelWhenSessionDivergesFromOrderForm,
+  shouldTrustOrderFormSalesChannel,
+} from '../utils/cartSalesChannel'
+import {
+  isLocalizationEnabled,
+  rejectedSalesChannelOf,
+  salesChannelSourceOf,
+} from '../utils/sessionChannel'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
 import {
@@ -381,11 +389,59 @@ const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
   return cookieValue ? cookieValue.split('=')[1] : ''
 }
 
-/** Keep Checkout on the orderForm SC when the browser session lags behind it. */
+/**
+ * Fetches the orderForm, omitting `sc` for existing carts so Checkout keeps the
+ * SC stored on the cart (unless the session SC comes from the URL).
+ *
+ * Checkout only stores an SC after an items mutation with `sc`. An empty
+ * orderForm fetched without `sc` may report the platform default (SC 1):
+ * refetch it with the session SC instead of trusting (and adopting) it. Same
+ * for an orderForm on an SC Session Manager rejected for this shopper.
+ */
+const getOrderForm = async (
+  ctx: GraphqlContext,
+  orderFormId: string | undefined,
+  isUrlSalesChannel: boolean,
+  rejectedSalesChannel: string | undefined
+) => {
+  const { commerce } = ctx.clients
+  const orderForm = await commerce.checkout.orderForm({
+    id: orderFormId,
+    channel: ctx.storage.channel,
+    preserveSalesChannel: Boolean(orderFormId) && !isUrlSalesChannel,
+  })
+
+  if (
+    !orderFormId ||
+    shouldTrustOrderFormSalesChannel(
+      orderForm,
+      ctx.storage.channel.salesChannel,
+      rejectedSalesChannel
+    )
+  ) {
+    return orderForm
+  }
+
+  return commerce.checkout.orderForm({
+    id: orderFormId,
+    channel: ctx.storage.channel,
+  })
+}
+
+/**
+ * Keep Checkout on the orderForm SC when the browser session lags behind it.
+ * Only orderForms with items have a stored SC worth protecting, and a
+ * URL-derived (localization) session SC always wins.
+ */
 const adoptOrderFormSalesChannelWhenSessionDiverges = (
   ctx: GraphqlContext,
-  orderForm: OrderForm
+  orderForm: OrderForm,
+  canAdopt: boolean
 ): string | null => {
+  if (!canAdopt || orderForm.items.length === 0) {
+    return null
+  }
+
   const adoptedChannel = channelWhenSessionDivergesFromOrderForm(
     ctx.storage.channel,
     orderForm.salesChannel
@@ -442,6 +498,12 @@ export const validateCart = async (
 
   const channel = session?.channel
   const locale = session?.locale
+  // Localization derives the SC from the URL: never omit `sc` nor adopt.
+  const isUrlSalesChannel =
+    salesChannelSourceOf(channel, {
+      localizationEnabled: isLocalizationEnabled(ctx.discoveryConfig),
+    }) === 'url'
+  const rejectedSalesChannel = rejectedSalesChannelOf(channel)
 
   if (channel) {
     mutateChannelContext(ctx, channel)
@@ -457,12 +519,12 @@ export const validateCart = async (
   // session SC (e.g. after Quick Order) would recalculate the cart and drop
   // items only available in the orderForm's trade policy. New carts still
   // send `sc` from the session (see commerce.checkout.orderForm).
-  const orderFormId = orderFormIdFromCookie || undefined
-  const orderForm = await commerce.checkout.orderForm({
-    id: orderFormId,
-    channel: ctx.storage.channel,
-    preserveSalesChannel: Boolean(orderFormId),
-  })
+  const orderForm = await getOrderForm(
+    ctx,
+    orderFormIdFromCookie || undefined,
+    isUrlSalesChannel,
+    rejectedSalesChannel
+  )
   const orderNumber = orderForm.orderFormId
 
   // Clear messages so it doesn't keep populating toasts on a loop
@@ -486,7 +548,8 @@ export const validateCart = async (
     // on the trade policy that actually owns the items.
     const adoptedSalesChannel = adoptOrderFormSalesChannelWhenSessionDiverges(
       ctx,
-      orderForm
+      orderForm,
+      !isUrlSalesChannel
     )
 
     const newOrderForm = await setOrderFormEtag(
@@ -509,7 +572,8 @@ export const validateCart = async (
   // items that exist only on the orderForm's sales channel.
   const adoptedSalesChannel = adoptOrderFormSalesChannelWhenSessionDiverges(
     ctx,
-    orderForm
+    orderForm,
+    !isUrlSalesChannel
   )
 
   // Step2: Process items from both browser and checkout so they have the same shape
