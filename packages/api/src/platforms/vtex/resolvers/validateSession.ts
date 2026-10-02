@@ -9,6 +9,8 @@ import ChannelMarshal from '../utils/channel'
 import { FastStoreError } from '../../errors'
 import {
   channelAfterSessionManager,
+  rejectedSalesChannelOf,
+  type SalesChannelSource,
   salesChannelSourceOf,
 } from '../utils/sessionChannel'
 import {
@@ -36,13 +38,66 @@ const isSalesChannelRejected = (error: unknown) =>
   error instanceof FastStoreError &&
   (error.extensions.status === 401 || error.extensions.status === 403)
 
+/**
+ * Calls Session Manager. When it rejects the requested `sc` (401/403), retries
+ * once without it so Session Manager resolves an SC the shopper can use:
+ * - no marker: a stale SC (e.g. left by an older version) would stick forever;
+ * - `orderForm` marker: the adopted SC is not available to this shopper, so
+ *   the adoption is dropped and the SC is recorded as rejected;
+ * - `url` marker: the URL SC is intentional, so no retry.
+ * If the retry also fails, the current channel is kept as is.
+ */
+const fetchSessionData = async (
+  clients: GraphqlContext['clients'],
+  params: URLSearchParams,
+  salesChannelSource: SalesChannelSource | undefined
+) => {
+  try {
+    return {
+      sessionData: await clients.commerce.session(params.toString()),
+      salesChannelSource,
+      rejectedSalesChannel: undefined,
+    }
+  } catch (error) {
+    if (salesChannelSource === 'url' || !isSalesChannelRejected(error)) {
+      return {
+        sessionData: null,
+        salesChannelSource,
+        rejectedSalesChannel: undefined,
+      }
+    }
+
+    const requestedSalesChannel = params.get('sc') ?? undefined
+    params.delete('sc')
+
+    const sessionData = await clients.commerce
+      .session(params.toString())
+      .catch(() => null)
+
+    if (!sessionData) {
+      return {
+        sessionData: null,
+        salesChannelSource,
+        rejectedSalesChannel: undefined,
+      }
+    }
+
+    return {
+      sessionData,
+      salesChannelSource: undefined,
+      rejectedSalesChannel:
+        salesChannelSource === 'orderForm' ? requestedSalesChannel : undefined,
+    }
+  }
+}
+
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
   { clients, headers, account }: GraphqlContext
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
-  const salesChannelSource = salesChannelSourceOf(oldSession.channel)
+  const incomingSalesChannelSource = salesChannelSourceOf(oldSession.channel)
   const postalCode = String(oldSession.postalCode ?? '')
   const country = oldSession.country ?? ''
   let city = oldSession.city ?? null
@@ -78,20 +133,8 @@ export const validateSession = async (
     account
   )
 
-  const sessionData = await clients.commerce
-    .session(params.toString())
-    .catch((error) => {
-      // A rejected `sc` (e.g. a restricted SC left in the session by an older
-      // version) would otherwise stick forever. Let Session Manager resolve
-      // the SC, unless the client SC is intentional (marker).
-      if (salesChannelSource || !isSalesChannelRejected(error)) {
-        return null
-      }
-
-      params.delete('sc')
-
-      return clients.commerce.session(params.toString()).catch(() => null)
-    })
+  const { sessionData, salesChannelSource, rejectedSalesChannel } =
+    await fetchSessionData(clients, params, incomingSalesChannelSource)
 
   const profile = sessionData?.namespaces.profile ?? null
   const shopper = sessionData?.namespaces.shopper ?? null
@@ -136,7 +179,8 @@ export const validateSession = async (
       store?.channel?.value,
       checkout?.regionId?.value,
       sellerId,
-      salesChannelSource
+      salesChannelSource,
+      rejectedSalesChannel ?? rejectedSalesChannelOf(oldSession.channel)
     ),
     /**
      * B2B data structure in Session:

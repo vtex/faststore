@@ -86,4 +86,24 @@ describe('shouldTrustOrderFormSalesChannel', () => {
       shouldTrustOrderFormSalesChannel({ items: [], salesChannel: '4' }, 4)
     ).toBe(true)
   })
+
+  it('does not trust an orderForm on the SC Session Manager rejected', () => {
+    expect(
+      shouldTrustOrderFormSalesChannel(
+        { items: [item], salesChannel: '6' },
+        '4',
+        '6'
+      )
+    ).toBe(false)
+  })
+
+  it('keeps trusting when the rejected SC is also the session SC', () => {
+    expect(
+      shouldTrustOrderFormSalesChannel(
+        { items: [item], salesChannel: '6' },
+        '6',
+        '6'
+      )
+    ).toBe(true)
+  })
 })

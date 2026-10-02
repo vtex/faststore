@@ -263,35 +263,127 @@ describe('validateSession', () => {
     })
   })
 
-  it('does not retry a rejected SC while the orderForm marker is set', async () => {
-    const ctx = makeContext()
-    ctx.clients.commerce.session.mockRejectedValue(
-      new ForbiddenError('restricted SC')
-    )
-    const oldSession = {
+  describe('rejected orderForm-adopted sales channel', () => {
+    const adoptedSession = (extra: Record<string, unknown> = {}) => ({
       ...baseSession,
       channel: JSON.stringify({
-        salesChannel: '1',
+        salesChannel: '6',
         regionId: '',
         seller: '',
         hasOnlyDefaultSalesChannel: false,
         salesChannelSource: 'orderForm',
+        ...extra,
       }),
+    })
+
+    const contextResolving = (salesChannel: string) => {
+      const ctx = makeContext({
+        store: {
+          channel: { value: salesChannel },
+          currencyCode: { value: 'BRL' },
+          currencySymbol: { value: 'R$' },
+          countryCode: { value: 'BRA' },
+        },
+      })
+
+      return ctx
     }
 
-    const result = await validateSession(
-      null,
-      { session: oldSession, search: '' },
-      ctx
-    )
+    it('drops the marker, retries without `sc` and records the rejected SC', async () => {
+      const ctx = contextResolving('4')
+      const sessionResponse =
+        await ctx.clients.commerce.session.getMockImplementation()!()
+      ctx.clients.commerce.session
+        .mockReset()
+        .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+        .mockResolvedValueOnce(sessionResponse)
 
-    expect(ctx.clients.commerce.session).toHaveBeenCalledTimes(1)
-    // The marker (not this flag) keeps the SC; the flag keeps its pre-4.6
-    // meaning: Session Manager returned no `store.channel`.
-    expect(JSON.parse(result!.channel!)).toMatchObject({
-      salesChannel: '1',
-      salesChannelSource: 'orderForm',
-      hasOnlyDefaultSalesChannel: true,
+      const result = await validateSession(
+        null,
+        { session: adoptedSession(), search: '' },
+        ctx
+      )
+
+      const [first, retry] = ctx.clients.commerce.session.mock.calls.map(
+        ([search]: [string]) => new URLSearchParams(search)
+      )
+      const channel = JSON.parse(result!.channel!)
+
+      expect(first.get('sc')).toBe('6')
+      expect(retry.has('sc')).toBe(false)
+      expect(channel).toMatchObject({
+        salesChannel: '4',
+        rejectedSalesChannel: '6',
+      })
+      expect(channel).not.toHaveProperty('salesChannelSource')
+    })
+
+    it('keeps the adoption when the retry also fails', async () => {
+      const ctx = makeContext()
+      ctx.clients.commerce.session
+        .mockReset()
+        .mockRejectedValueOnce(new ForbiddenError('restricted SC'))
+        .mockRejectedValueOnce(new Error('session down'))
+
+      const result = await validateSession(
+        null,
+        { session: adoptedSession(), search: '' },
+        ctx
+      )
+
+      const channel = JSON.parse(result!.channel!)
+
+      expect(ctx.clients.commerce.session).toHaveBeenCalledTimes(2)
+      // The marker (not this flag) keeps the SC; the flag keeps its pre-4.6
+      // meaning: Session Manager returned no `store.channel`.
+      expect(channel).toMatchObject({
+        salesChannel: '6',
+        salesChannelSource: 'orderForm',
+        hasOnlyDefaultSalesChannel: true,
+      })
+      expect(channel).not.toHaveProperty('rejectedSalesChannel')
+    })
+
+    it('does not retry a rejected URL-derived SC', async () => {
+      const ctx = makeContext()
+      ctx.clients.commerce.session.mockRejectedValue(
+        new ForbiddenError('restricted SC')
+      )
+
+      const result = await validateSession(
+        null,
+        { session: adoptedSession({ salesChannelSource: 'url' }), search: '' },
+        ctx
+      )
+
+      expect(ctx.clients.commerce.session).toHaveBeenCalledTimes(1)
+      expect(JSON.parse(result!.channel!)).toMatchObject({
+        salesChannel: '6',
+        salesChannelSource: 'url',
+      })
+    })
+
+    it('keeps a recorded rejection on later validations', async () => {
+      const ctx = contextResolving('4')
+
+      const session = {
+        ...baseSession,
+        channel: JSON.stringify({
+          salesChannel: '4',
+          regionId: '',
+          seller: '',
+          hasOnlyDefaultSalesChannel: false,
+          rejectedSalesChannel: '6',
+        }),
+      }
+
+      const result = await validateSession(null, { session, search: '' }, ctx)
+
+      // `null` means the session is unchanged, rejection included.
+      expect(JSON.parse((result ?? session).channel!)).toMatchObject({
+        salesChannel: '4',
+        rejectedSalesChannel: '6',
+      })
     })
   })
 

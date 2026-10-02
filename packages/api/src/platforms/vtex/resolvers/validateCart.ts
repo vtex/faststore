@@ -5,7 +5,10 @@ import {
   channelWhenSessionDivergesFromOrderForm,
   shouldTrustOrderFormSalesChannel,
 } from '../utils/cartSalesChannel'
-import { salesChannelSourceOf } from '../utils/sessionChannel'
+import {
+  rejectedSalesChannelOf,
+  salesChannelSourceOf,
+} from '../utils/sessionChannel'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
 import {
@@ -391,12 +394,14 @@ const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
  *
  * Checkout only stores an SC after an items mutation with `sc`. An empty
  * orderForm fetched without `sc` may report the platform default (SC 1):
- * refetch it with the session SC instead of trusting (and adopting) it.
+ * refetch it with the session SC instead of trusting (and adopting) it. Same
+ * for an orderForm on an SC Session Manager rejected for this shopper.
  */
 const getOrderForm = async (
   ctx: GraphqlContext,
   orderFormId: string | undefined,
-  isUrlSalesChannel: boolean
+  isUrlSalesChannel: boolean,
+  rejectedSalesChannel: string | undefined
 ) => {
   const { commerce } = ctx.clients
   const orderForm = await commerce.checkout.orderForm({
@@ -409,7 +414,8 @@ const getOrderForm = async (
     !orderFormId ||
     shouldTrustOrderFormSalesChannel(
       orderForm,
-      ctx.storage.channel.salesChannel
+      ctx.storage.channel.salesChannel,
+      rejectedSalesChannel
     )
   ) {
     return orderForm
@@ -493,6 +499,7 @@ export const validateCart = async (
   const locale = session?.locale
   // Localization derives the SC from the URL: never omit `sc` nor adopt.
   const isUrlSalesChannel = salesChannelSourceOf(channel) === 'url'
+  const rejectedSalesChannel = rejectedSalesChannelOf(channel)
 
   if (channel) {
     mutateChannelContext(ctx, channel)
@@ -511,7 +518,8 @@ export const validateCart = async (
   const orderForm = await getOrderForm(
     ctx,
     orderFormIdFromCookie || undefined,
-    isUrlSalesChannel
+    isUrlSalesChannel,
+    rejectedSalesChannel
   )
   const orderNumber = orderForm.orderFormId
 

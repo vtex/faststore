@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   channelAfterSessionManager,
+  rejectedSalesChannelOf,
   salesChannelSourceOf,
 } from '../../../../../src/platforms/vtex/utils/sessionChannel'
 import type { Channel } from '../../../../../src/platforms/vtex/utils/channel'
@@ -92,6 +93,58 @@ describe('channelAfterSessionManager', () => {
       salesChannel: '1',
       hasOnlyDefaultSalesChannel: true,
     })
+  })
+})
+
+describe('channelAfterSessionManager rejected sales channel', () => {
+  it('re-emits a recorded rejection', () => {
+    expect(
+      JSON.parse(
+        channelAfterSessionManager(
+          baseChannel('4', false),
+          '4',
+          null,
+          undefined,
+          undefined,
+          '6'
+        )
+      )
+    ).toMatchObject({ salesChannel: '4', rejectedSalesChannel: '6' })
+  })
+
+  it('drops the rejection once Session Manager resolves that SC', () => {
+    expect(
+      JSON.parse(
+        channelAfterSessionManager(
+          baseChannel('4', false),
+          '6',
+          null,
+          undefined,
+          undefined,
+          '6'
+        )
+      )
+    ).not.toHaveProperty('rejectedSalesChannel')
+  })
+})
+
+describe('rejectedSalesChannelOf', () => {
+  it('reads the rejected SC from the raw channel string', () => {
+    expect(
+      rejectedSalesChannelOf('{"salesChannel":"4","rejectedSalesChannel":"6"}')
+    ).toBe('6')
+    expect(
+      rejectedSalesChannelOf('{"salesChannel":"4","rejectedSalesChannel":6}')
+    ).toBe('6')
+  })
+
+  it('ignores missing or malformed values', () => {
+    expect(rejectedSalesChannelOf('{"salesChannel":"4"}')).toBeUndefined()
+    expect(
+      rejectedSalesChannelOf('{"rejectedSalesChannel":""}')
+    ).toBeUndefined()
+    expect(rejectedSalesChannelOf('not json')).toBeUndefined()
+    expect(rejectedSalesChannelOf(null)).toBeUndefined()
   })
 })
 
