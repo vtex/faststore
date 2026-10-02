@@ -6,6 +6,7 @@ import type {
   StoreSession,
 } from '../../../__generated__/schema'
 import ChannelMarshal from '../utils/channel'
+import { OTELLogger } from '../../../observability/telemetry'
 import { FastStoreError } from '../../errors'
 import {
   channelAfterSessionManager,
@@ -71,11 +72,13 @@ const rejectsAdoption = (
   }
 
   // Session Manager has no structured code for this; make a wording change
-  // observable instead of silently keeping the adoption.
-  console.warn(
-    `[validateSession] Session Manager rejected adopted sales channel ${requestedSalesChannel} with an unrecognized error; keeping the adoption.`,
-    error instanceof Error ? error.message : error
-  )
+  // observable (stdout and OpenTelemetry logs) instead of silently keeping
+  // the adoption.
+  const message = `[validateSession] Session Manager rejected adopted sales channel ${requestedSalesChannel} with an unrecognized error; keeping the adoption.`
+  const detail = error instanceof Error ? error.message : error
+
+  console.warn(message, detail)
+  OTELLogger('warn', '%s %o', message, detail)
 
   return false
 }
