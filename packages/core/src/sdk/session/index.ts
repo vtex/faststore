@@ -20,7 +20,7 @@ import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
 import { getInitialSession, reconcileSessionLocale } from './initialSession'
-import { toSessionInput, type WithSessionInput } from './toSessionInput'
+import { toSessionInput } from './toSessionInput'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
 
 const isReloadAfterLogoutPending = (): boolean => {
@@ -163,7 +163,7 @@ export const validateSession = async (session: Session) => {
 
     const data = await request<
       ValidateSessionMutation,
-      WithSessionInput<ValidateSessionMutationVariables>
+      ValidateSessionMutationVariables
     >(mutation, {
       session: toSessionInput(session),
       search: window.location.search,
@@ -204,9 +204,11 @@ const defaultStore = createSessionStore(
 export const sessionStore = {
   ...defaultStore,
   set: (val: Session) => {
-    if (deepEqual(val, defaultStore.read()) === true) return
+    // Also drops UI state already persisted, since `session` then differs
+    const session = toSessionInput(val)
+    if (deepEqual(session, defaultStore.read()) === true) return
 
-    defaultStore.set(val)
+    defaultStore.set(session)
 
     // Trigger cart revalidation when session changes
     cartStore.set(cartStore.read())
@@ -218,9 +220,10 @@ export const sessionStore = {
    * path keeps an explicit (non-default) client SC.
    */
   setSilent: (val: Session) => {
-    if (deepEqual(val, defaultStore.read()) === true) return
+    const session = toSessionInput(val)
+    if (deepEqual(session, defaultStore.read()) === true) return
 
-    defaultStore.set(val)
+    defaultStore.set(session)
   },
 }
 

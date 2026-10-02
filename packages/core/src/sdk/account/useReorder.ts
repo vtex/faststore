@@ -11,10 +11,7 @@ import type {
 import ReorderError from '../error/ReorderError/ReorderError'
 import { request } from '../graphql/request'
 import { sessionStore } from '../session'
-import {
-  toSessionInput,
-  type WithSessionInput,
-} from '../session/toSessionInput'
+import { toSessionInput } from '../session/toSessionInput'
 import { useLink } from '../ui/useLink'
 
 import storeConfig from '../../../discovery.config'
@@ -118,7 +115,7 @@ export const useReorder = () => {
 
       const result = await request<
         ValidateCartMutationMutation,
-        WithSessionInput<ValidateCartMutationMutationVariables>
+        ValidateCartMutationMutationVariables
       >(ValidateCartMutation, {
         session: toSessionInput(sessionStore.read()),
         cart: {
