@@ -10,6 +10,7 @@ import { OTELLogger } from '../../../observability/telemetry'
 import { FastStoreError } from '../../errors'
 import {
   channelAfterSessionManager,
+  isLocalizationEnabled,
   rejectedSalesChannelOf,
   type SalesChannelSource,
   salesChannelSourceOf,
@@ -140,10 +141,12 @@ const fetchSessionData = async (
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients, headers, account, storage }: GraphqlContext
+  { clients, headers, account, storage, discoveryConfig }: GraphqlContext
 ): Promise<StoreSession | null> => {
   const clientChannel = ChannelMarshal.parse(oldSession.channel ?? '')
-  const incomingSalesChannelSource = salesChannelSourceOf(oldSession.channel)
+  const incomingSalesChannelSource = salesChannelSourceOf(oldSession.channel, {
+    localizationEnabled: isLocalizationEnabled(discoveryConfig),
+  })
   const channel = {
     ...clientChannel,
     salesChannel: salesChannelToRequest(

@@ -6,6 +6,7 @@ import {
   shouldTrustOrderFormSalesChannel,
 } from '../utils/cartSalesChannel'
 import {
+  isLocalizationEnabled,
   rejectedSalesChannelOf,
   salesChannelSourceOf,
 } from '../utils/sessionChannel'
@@ -498,7 +499,10 @@ export const validateCart = async (
   const channel = session?.channel
   const locale = session?.locale
   // Localization derives the SC from the URL: never omit `sc` nor adopt.
-  const isUrlSalesChannel = salesChannelSourceOf(channel) === 'url'
+  const isUrlSalesChannel =
+    salesChannelSourceOf(channel, {
+      localizationEnabled: isLocalizationEnabled(ctx.discoveryConfig),
+    }) === 'url'
   const rejectedSalesChannel = rejectedSalesChannelOf(channel)
 
   if (channel) {

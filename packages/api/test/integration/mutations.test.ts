@@ -62,9 +62,12 @@ const apiOptions = {
 vi.useFakeTimers({ shouldAdvanceTime: true })
 const mockedFetch = vi.fn()
 
-const createRunner = async () => {
+const createRunner = async (overrides: Partial<Options> = {}) => {
   const schemaPromise = GraphqlVtexSchema()
-  const contextFactory = await GraphqlVtexContextFactory(apiOptions)
+  const contextFactory = await GraphqlVtexContextFactory({
+    ...apiOptions,
+    ...overrides,
+  })
 
   return async (query: string, variables?: any) => {
     const schema = await schemaPromise
@@ -1053,7 +1056,9 @@ describe('`validateCart` sales channel of empty orderForms (SO-685)', () => {
   })
 
   test('sends the URL SC on the first fetch and never adopts (localization)', async () => {
-    const run = await createRunner()
+    const run = await createRunner({
+      discoveryConfig: { localization: { enabled: true } },
+    })
     mockedFetch.mockImplementation((info, init) => {
       const url = String(info)
 
@@ -1093,5 +1098,21 @@ describe('`validateCart` sales channel of empty orderForms (SO-685)', () => {
     expect(new URL(gets[0]).searchParams.get('sc')).toBe('3')
     expect(checkoutUrls().some((url) => url.includes('sc=2'))).toBe(false)
     expect(response.data?.validateCart?.order?.salesChannel ?? null).toBeNull()
+  })
+
+  test('ignores a leftover URL marker when localization is disabled', async () => {
+    const run = await createRunner()
+    mockCheckout()
+
+    const response = await run(ValidateCartWithSessionMutation, {
+      cart: emptyCart,
+      session: sessionOn({ salesChannel: '4', salesChannelSource: 'url' }),
+    })
+
+    const gets = checkoutUrls().filter(isOrderFormGet)
+
+    // Same as an unmarked session: SC-less fetch first, then the refetch.
+    expect(response.errors).toBeUndefined()
+    expect(new URL(gets[0]).searchParams.has('sc')).toBe(false)
   })
 })

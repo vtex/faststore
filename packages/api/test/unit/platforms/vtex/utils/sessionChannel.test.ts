@@ -160,6 +160,20 @@ describe('salesChannelSourceOf', () => {
     ).toBe('url')
   })
 
+  it('ignores the URL marker when localization is disabled', () => {
+    const urlChannel = '{"salesChannel":"4","salesChannelSource":"url"}'
+
+    expect(
+      salesChannelSourceOf(urlChannel, { localizationEnabled: false })
+    ).toBeUndefined()
+    expect(
+      salesChannelSourceOf(
+        '{"salesChannel":"4","salesChannelSource":"orderForm"}',
+        { localizationEnabled: false }
+      )
+    ).toBe('orderForm')
+  })
+
   it('ignores missing, unknown or malformed markers', () => {
     expect(salesChannelSourceOf('{"salesChannel":"4"}')).toBeUndefined()
     expect(
