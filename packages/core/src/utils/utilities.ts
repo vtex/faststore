@@ -110,7 +110,7 @@ export const toArray = <T>(x: T[] | T | undefined) =>
   Array.isArray(x) ? x : x ? [x] : []
 
 /**
- * Filters the channel object by removing the hasOnlyDefaultSalesChannel and salesChannelSource keys.
+ * Filters the channel object by removing the hasOnlyDefaultSalesChannel, salesChannelSource and rejectedSalesChannel keys.
  * These keys are session-only (useAuth and the ValidateSession/ValidateCart mutations),
  * so we remove them from the session's channel object to avoid unnecessary cache invalidations and query executions
  *
@@ -125,6 +125,7 @@ export function filterChannel(channel: string): string {
     const {
       hasOnlyDefaultSalesChannel,
       salesChannelSource,
+      rejectedSalesChannel,
       ...filteredChannel
     } = JSON.parse(channel)
     return JSON.stringify(filteredChannel)

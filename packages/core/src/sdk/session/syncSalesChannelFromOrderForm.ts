@@ -70,23 +70,32 @@ export function syncSalesChannelFromOrderForm(
 }
 
 /**
- * Drops the orderForm adoption marker once the cart has no items, so Session
- * Manager can again reject or replace the sales channel on the next
- * `validateSession`. The SC itself is kept: an empty `salesChannel` would
- * reach Checkout and catalog queries.
+ * Drops the orderForm adoption marker and any rejected SC once the cart has no
+ * items, so Session Manager can again reject or replace the sales channel on
+ * the next `validateSession`. The SC itself is kept: an empty `salesChannel`
+ * would reach Checkout and catalog queries.
  */
 export function releaseAdoptedSalesChannel(
   readSession: () => Session,
   setSilent: (session: Session) => void
 ): boolean {
   const session = readSession()
-  const { salesChannelSource, ...channel } = parseChannelRecord(session.channel)
+  const { salesChannelSource, rejectedSalesChannel, ...channel } =
+    parseChannelRecord(session.channel)
+  const isAdopted = salesChannelSource === 'orderForm'
 
-  if (salesChannelSource !== 'orderForm') {
+  if (!isAdopted && rejectedSalesChannel === undefined) {
     return false
   }
 
-  setSilent({ ...session, channel: JSON.stringify(channel) })
+  setSilent({
+    ...session,
+    channel: JSON.stringify(
+      isAdopted || salesChannelSource === undefined
+        ? channel
+        : { ...channel, salesChannelSource }
+    ),
+  })
 
   return true
 }
