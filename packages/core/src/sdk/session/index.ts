@@ -21,7 +21,7 @@ import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
 import { getInitialSession, reconcileSessionLocale } from './initialSession'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
-import { toSessionInput } from './toSessionInput'
+import { type SessionUIKey, toSessionInput } from './toSessionInput'
 
 export { toSessionInput } from './toSessionInput'
 
@@ -275,18 +275,17 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
     channel = filterChannel(channel ?? '')
   }
 
-  // UI-only fields below must also be listed in `toSessionInput`, which
-  // strips them before the session is stored or sent to the API
-  return useMemo(
-    () => ({
-      ...session,
-      channel,
+  return useMemo(() => {
+    // Must match `SESSION_UI_KEYS`, which `toSessionInput` strips before the
+    // session is stored or sent to the API
+    const uiState = {
       isValidating,
       isSessionReady,
       hasValidated,
-    }),
-    [isValidating, session, channel, isSessionReady, hasValidated]
-  )
+    } satisfies Record<SessionUIKey, boolean>
+
+    return { ...session, channel, ...uiState }
+  }, [isValidating, session, channel, isSessionReady, hasValidated])
 }
 
 /**
