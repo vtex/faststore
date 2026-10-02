@@ -1,5 +1,5 @@
 import type { Session } from '@faststore/sdk'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const mockRequest = vi.hoisted(() => vi.fn())
 
@@ -32,10 +32,13 @@ const withUIState = {
 }
 
 describe('sessionStore', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     mockRequest.mockResolvedValue({ validateSession: null })
     // The store validates its initial session on load; let it settle first
     await vi.waitFor(() => expect(mockRequest).toHaveBeenCalled())
+  })
+
+  beforeEach(() => {
     mockRequest.mockClear()
   })
 

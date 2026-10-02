@@ -127,6 +127,8 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
     ValidateCartMutationMutation,
     ValidateCartMutationMutationVariables
   >(ValidateCartMutation, {
+    // The session loaded from IndexedDB skips `sessionStore.set`, so it may
+    // still carry UI state persisted by an older version
     session: toSessionInput(sessionStore.read()),
     cart: {
       order: {
