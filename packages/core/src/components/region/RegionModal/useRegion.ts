@@ -3,7 +3,7 @@ import { useState } from 'react'
 import type { Session } from '@faststore/sdk'
 import { deliveryPromise } from 'discovery.config'
 import { getProductCount } from 'src/sdk/product'
-import { sessionStore, validateSession } from 'src/sdk/session'
+import { sessionStore, toSessionInput, validateSession } from 'src/sdk/session'
 
 type SetRegionProps = {
   session: Session
@@ -40,8 +40,9 @@ export default function useRegion(): UseRegionValues {
     setLoading(true)
 
     try {
+      // `session` usually comes from `useSession()`, which also carries UI state
       const newSession = {
-        ...session,
+        ...toSessionInput(session),
         postalCode,
         geoCoordinates: null, // Revalidate geo coordinates in API when users set a new postal code
       } as Session
