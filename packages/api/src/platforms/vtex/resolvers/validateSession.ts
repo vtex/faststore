@@ -42,15 +42,17 @@ const isSalesChannelRejected = (error: unknown) =>
  * Calls Session Manager. When it rejects the requested `sc` (401/403), retries
  * once without it so Session Manager resolves an SC the shopper can use:
  * - no marker: a stale SC (e.g. left by an older version) would stick forever;
- * - `orderForm` marker: the adopted SC is not available to this shopper, so
- *   the adoption is dropped and the SC is recorded as rejected;
+ * - `orderForm` marker: when the rejected `sc` is the adopted SC, it is not
+ *   available to this shopper, so the adoption is dropped and the SC is
+ *   recorded as rejected. A rejected `?sc=` from the page URL keeps it;
  * - `url` marker: the URL SC is intentional, so no retry.
  * If the retry also fails, the current channel is kept as is.
  */
 const fetchSessionData = async (
   clients: GraphqlContext['clients'],
   params: URLSearchParams,
-  salesChannelSource: SalesChannelSource | undefined
+  salesChannelSource: SalesChannelSource | undefined,
+  clientSalesChannel: string
 ) => {
   try {
     return {
@@ -68,6 +70,9 @@ const fetchSessionData = async (
     }
 
     const requestedSalesChannel = params.get('sc') ?? undefined
+    const rejectsAdoption =
+      salesChannelSource === 'orderForm' &&
+      requestedSalesChannel === clientSalesChannel
     params.delete('sc')
 
     const sessionData = await clients.commerce
@@ -84,9 +89,8 @@ const fetchSessionData = async (
 
     return {
       sessionData,
-      salesChannelSource: undefined,
-      rejectedSalesChannel:
-        salesChannelSource === 'orderForm' ? requestedSalesChannel : undefined,
+      salesChannelSource: rejectsAdoption ? undefined : salesChannelSource,
+      rejectedSalesChannel: rejectsAdoption ? requestedSalesChannel : undefined,
     }
   }
 }
@@ -134,7 +138,12 @@ export const validateSession = async (
   )
 
   const { sessionData, salesChannelSource, rejectedSalesChannel } =
-    await fetchSessionData(clients, params, incomingSalesChannelSource)
+    await fetchSessionData(
+      clients,
+      params,
+      incomingSalesChannelSource,
+      String(channel.salesChannel ?? '')
+    )
 
   const profile = sessionData?.namespaces.profile ?? null
   const shopper = sessionData?.namespaces.shopper ?? null
@@ -167,6 +176,14 @@ export const validateSession = async (
     params.get('sc') ?? store?.channel?.value ?? channel.salesChannel
   )
 
+  const person = buildPersonFromProfile(profile)
+  // A rejection belongs to the shopper it was recorded for: forget it when
+  // they log in or out, so a new identity can have the SC adopted again.
+  const previousRejection =
+    (oldSession.person?.id ?? null) === (person?.id ?? null)
+      ? rejectedSalesChannelOf(oldSession.channel)
+      : undefined
+
   const newSession = {
     ...oldSession,
     currency: {
@@ -180,7 +197,7 @@ export const validateSession = async (
       checkout?.regionId?.value,
       sellerId,
       salesChannelSource,
-      rejectedSalesChannel ?? rejectedSalesChannelOf(oldSession.channel)
+      rejectedSalesChannel ?? previousRejection
     ),
     /**
      * B2B data structure in Session:
@@ -199,7 +216,7 @@ export const validateSession = async (
       unitId,
     }),
     marketingData,
-    person: buildPersonFromProfile(profile),
+    person,
     geoCoordinates:
       (geoCoordinates?.latitude &&
         geoCoordinates?.longitude &&

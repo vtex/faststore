@@ -318,6 +318,101 @@ describe('validateSession', () => {
       expect(channel).not.toHaveProperty('salesChannelSource')
     })
 
+    it('keeps the adoption when the rejected `sc` came from the page URL', async () => {
+      const ctx = contextResolving('4')
+      const sessionResponse =
+        await ctx.clients.commerce.session.getMockImplementation()!()
+      ctx.clients.commerce.session
+        .mockReset()
+        .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+        .mockResolvedValueOnce(sessionResponse)
+
+      const result = await validateSession(
+        null,
+        { session: adoptedSession(), search: '?sc=9' },
+        ctx
+      )
+
+      const [first, retry] = ctx.clients.commerce.session.mock.calls.map(
+        ([search]: [string]) => new URLSearchParams(search)
+      )
+      const channel = JSON.parse(result!.channel!)
+
+      expect(first.get('sc')).toBe('9')
+      expect(retry.has('sc')).toBe(false)
+      expect(channel).toMatchObject({
+        salesChannel: '6',
+        salesChannelSource: 'orderForm',
+      })
+      expect(channel).not.toHaveProperty('rejectedSalesChannel')
+    })
+
+    it('forgets a recorded rejection when the shopper changes (login/logout)', async () => {
+      const ctx = makeContext({
+        profile: {
+          id: { value: 'shopper-2' },
+          email: { value: 'b@c.com' },
+          firstName: { value: 'B' },
+          lastName: { value: 'C' },
+        },
+      })
+
+      const result = await validateSession(
+        null,
+        {
+          session: {
+            ...baseSession,
+            person: null,
+            channel: JSON.stringify({
+              salesChannel: '1',
+              regionId: '',
+              seller: '',
+              hasOnlyDefaultSalesChannel: false,
+              rejectedSalesChannel: '6',
+            }),
+          },
+          search: '',
+        },
+        ctx
+      )
+
+      expect(JSON.parse(result!.channel!)).not.toHaveProperty(
+        'rejectedSalesChannel'
+      )
+    })
+
+    it('records a fresh rejection even when the shopper changed in the same validation', async () => {
+      const ctx = contextResolving('4')
+      const sessionResponse =
+        await ctx.clients.commerce.session.getMockImplementation()!()
+      ctx.clients.commerce.session
+        .mockReset()
+        .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+        .mockResolvedValueOnce(sessionResponse)
+
+      const result = await validateSession(
+        null,
+        {
+          session: {
+            ...adoptedSession(),
+            person: {
+              id: 'shopper-1',
+              email: 'a@b.com',
+              givenName: 'A',
+              familyName: 'B',
+            },
+          },
+          search: '',
+        },
+        ctx
+      )
+
+      expect(JSON.parse(result!.channel!)).toMatchObject({
+        salesChannel: '4',
+        rejectedSalesChannel: '6',
+      })
+    })
+
     it('keeps the adoption when the retry also fails', async () => {
       const ctx = makeContext()
       ctx.clients.commerce.session
