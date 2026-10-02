@@ -48,13 +48,45 @@ const isAboutSalesChannel = (error: unknown) =>
   error instanceof Error && /sales\s*channel/i.test(error.message)
 
 /**
+ * Whether a Session Manager rejection drops the `orderForm` adoption: only
+ * when the rejected `sc` is the adopted SC itself and the error is about the
+ * sales channel. A rejected `?sc=` from the page URL or an unrelated 401/403
+ * keeps the adoption.
+ */
+const rejectsAdoption = (
+  error: unknown,
+  salesChannelSource: SalesChannelSource | undefined,
+  requestedSalesChannel: string | undefined,
+  clientSalesChannel: string
+) => {
+  if (
+    salesChannelSource !== 'orderForm' ||
+    requestedSalesChannel !== clientSalesChannel
+  ) {
+    return false
+  }
+
+  if (isAboutSalesChannel(error)) {
+    return true
+  }
+
+  // Session Manager has no structured code for this; make a wording change
+  // observable instead of silently keeping the adoption.
+  console.warn(
+    `[validateSession] Session Manager rejected adopted sales channel ${requestedSalesChannel} with an unrecognized error; keeping the adoption.`,
+    error instanceof Error ? error.message : error
+  )
+
+  return false
+}
+
+/**
  * Calls Session Manager. When it rejects the requested `sc` (401/403), retries
  * once without it so Session Manager resolves an SC the shopper can use:
  * - no marker: a stale SC (e.g. left by an older version) would stick forever;
- * - `orderForm` marker: when Session Manager rejects the adopted SC itself
- *   (the error is about the sales channel), it is not available to this
- *   shopper, so the adoption is dropped and the SC is recorded as rejected.
- *   A rejected `?sc=` from the page URL or an unrelated 401/403 keeps it;
+ * - `orderForm` marker: if the adopted SC itself is not available to this
+ *   shopper, the adoption is dropped and the SC is recorded as rejected
+ *   (see `rejectsAdoption`);
  * - `url` marker: the URL SC is intentional, so no retry.
  * If the retry also fails, the current channel is kept as is.
  */
@@ -64,36 +96,25 @@ const fetchSessionData = async (
   salesChannelSource: SalesChannelSource | undefined,
   clientSalesChannel: string
 ) => {
+  const unchanged = { salesChannelSource, rejectedSalesChannel: undefined }
+
   try {
     return {
+      ...unchanged,
       sessionData: await clients.commerce.session(params.toString()),
-      salesChannelSource,
-      rejectedSalesChannel: undefined,
     }
   } catch (error) {
     if (salesChannelSource === 'url' || !isSalesChannelRejected(error)) {
-      return {
-        sessionData: null,
-        salesChannelSource,
-        rejectedSalesChannel: undefined,
-      }
+      return { ...unchanged, sessionData: null }
     }
 
     const requestedSalesChannel = params.get('sc') ?? undefined
-    const rejectsAdoptedSalesChannel =
-      salesChannelSource === 'orderForm' &&
-      requestedSalesChannel === clientSalesChannel
-    const rejectsAdoption =
-      rejectsAdoptedSalesChannel && isAboutSalesChannel(error)
-
-    if (rejectsAdoptedSalesChannel && !rejectsAdoption) {
-      // Session Manager has no structured code for this; make a wording
-      // change observable instead of silently keeping the adoption.
-      console.warn(
-        `[validateSession] Session Manager rejected adopted sales channel ${requestedSalesChannel} with an unrecognized error; keeping the adoption.`,
-        error instanceof Error ? error.message : error
-      )
-    }
+    const dropsAdoption = rejectsAdoption(
+      error,
+      salesChannelSource,
+      requestedSalesChannel,
+      clientSalesChannel
+    )
 
     params.delete('sc')
 
@@ -101,18 +122,14 @@ const fetchSessionData = async (
       .session(params.toString())
       .catch(() => null)
 
-    if (!sessionData) {
-      return {
-        sessionData: null,
-        salesChannelSource,
-        rejectedSalesChannel: undefined,
-      }
+    if (!sessionData || !dropsAdoption) {
+      return { ...unchanged, sessionData }
     }
 
     return {
       sessionData,
-      salesChannelSource: rejectsAdoption ? undefined : salesChannelSource,
-      rejectedSalesChannel: rejectsAdoption ? requestedSalesChannel : undefined,
+      salesChannelSource: undefined,
+      rejectedSalesChannel: requestedSalesChannel,
     }
   }
 }
