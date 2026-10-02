@@ -45,7 +45,8 @@ function RegionSlider() {
     regionSlider: { type: regionSliderType, isOpen },
     closeRegionSlider,
   } = useUI()
-  const { isValidating, isSessionReady, ...session } = useSession()
+  const { isValidating, isSessionReady, hasValidated, ...session } =
+    useSession()
   const { state: searchState, setState: setSearchState } = useSearch()
   const {
     loading: loadingRegion,

@@ -14,6 +14,7 @@ import type {
 import storeConfig from '../../../discovery.config'
 import { request } from '../graphql/request'
 import { hasValidatedSessionStore, sessionStore } from '../session'
+import { toSessionInput } from '../session/toSessionInput'
 import { syncSalesChannelFromOrderForm } from '../session/syncSalesChannelFromOrderForm'
 import { createValidationStore, useStore } from '../useStore'
 import { waitForSessionValidated } from './waitForSessionValidated'
@@ -123,7 +124,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
     ValidateCartMutationMutation,
     ValidateCartMutationMutationVariables
   >(ValidateCartMutation, {
-    session: sessionStore.read(),
+    session: toSessionInput(sessionStore.read()),
     cart: {
       order: {
         orderNumber: cart.id,

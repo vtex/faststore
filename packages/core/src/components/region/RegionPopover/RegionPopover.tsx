@@ -78,7 +78,8 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
   } = cmsData?.regionalization ?? {}
 
   const inputRef = useRef<HTMLInputElement>(null)
-  const { isValidating, isSessionReady, ...session } = useSession()
+  const { isValidating, isSessionReady, hasValidated, ...session } =
+    useSession()
   const { popover: displayPopover, closePopover } = useUI()
   const { onPostalCodeChange } = useDeliveryPromise()
   const { city, postalCode } = sessionStore.read()

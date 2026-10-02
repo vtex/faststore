@@ -65,7 +65,8 @@ function RegionModal(regionModalProps: RegionModalProps) {
   } = cmsData?.regionalization ?? {}
 
   const inputRef = useRef<HTMLInputElement>(null)
-  const { isValidating, isSessionReady, ...session } = useSession()
+  const { isValidating, isSessionReady, hasValidated, ...session } =
+    useSession()
   const { modal: displayModal, closeModal } = useUI()
 
   const [input, setInput] = useState<string>('')
