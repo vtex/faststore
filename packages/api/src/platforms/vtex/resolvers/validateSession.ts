@@ -40,12 +40,21 @@ const isSalesChannelRejected = (error: unknown) =>
   (error.extensions.status === 401 || error.extensions.status === 403)
 
 /**
+ * Whether the rejection is about the requested SC (e.g. "You must be logged
+ * in to access the requested SalesChannel"), not an unrelated auth failure.
+ * Only then is an adopted SC recorded as rejected.
+ */
+const isAboutSalesChannel = (error: unknown) =>
+  error instanceof Error && /sales\s*channel/i.test(error.message)
+
+/**
  * Calls Session Manager. When it rejects the requested `sc` (401/403), retries
  * once without it so Session Manager resolves an SC the shopper can use:
  * - no marker: a stale SC (e.g. left by an older version) would stick forever;
- * - `orderForm` marker: when the rejected `sc` is the adopted SC, it is not
- *   available to this shopper, so the adoption is dropped and the SC is
- *   recorded as rejected. A rejected `?sc=` from the page URL keeps it;
+ * - `orderForm` marker: when Session Manager rejects the adopted SC itself
+ *   (the error is about the sales channel), it is not available to this
+ *   shopper, so the adoption is dropped and the SC is recorded as rejected.
+ *   A rejected `?sc=` from the page URL or an unrelated 401/403 keeps it;
  * - `url` marker: the URL SC is intentional, so no retry.
  * If the retry also fails, the current channel is kept as is.
  */
@@ -73,7 +82,8 @@ const fetchSessionData = async (
     const requestedSalesChannel = params.get('sc') ?? undefined
     const rejectsAdoption =
       salesChannelSource === 'orderForm' &&
-      requestedSalesChannel === clientSalesChannel
+      requestedSalesChannel === clientSalesChannel &&
+      isAboutSalesChannel(error)
     params.delete('sc')
 
     const sessionData = await clients.commerce
