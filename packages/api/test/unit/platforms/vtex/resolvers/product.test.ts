@@ -603,13 +603,19 @@ describe('StoreProduct', () => {
     const resolve = (releaseDate: unknown) =>
       (StoreProduct.releaseDate as any)({ isVariantOf: { releaseDate } })
 
-    // Stores read this field directly, so its format is a public contract. The
-    // JSON-LD normalization lives in `@faststore/core` and must not leak here.
+    // Raw passthrough has been this field's behavior since it was introduced
+    // (#1438). 4.7.0 briefly normalized it to ISO here, which broke stores
+    // parsing the epoch; these tests pin the original behavior back in place.
+    // Schema.org formatting belongs to the PDP JSON-LD in `@faststore/core`.
     it('passes epoch milliseconds through unchanged', () => {
       expect(resolve('1774224000000')).toBe('1774224000000')
     })
 
     it('passes an ISO date through unchanged', () => {
+      expect(resolve('2026-03-23')).toBe('2026-03-23')
+    })
+
+    it('passes an ISO date-time through unchanged', () => {
       expect(resolve('2026-03-23T14:30:00Z')).toBe('2026-03-23T14:30:00Z')
     })
 
