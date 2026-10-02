@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.9.2](https://github.com/vtex/faststore/compare/v4.9.1...v4.9.2) (2026-10-02)
+
+### Bug Fixes
+
+- **core:** keep UI session state out of session and cart mutations ([#3511](https://github.com/vtex/faststore/issues/3511)) ([3c58a21](https://github.com/vtex/faststore/commit/3c58a213d237f8d5f7919ab12f63015fbfe3ef73)), closes [#3479](https://github.com/vtex/faststore/issues/3479) [#3479](https://github.com/vtex/faststore/issues/3479) [#3509](https://github.com/vtex/faststore/issues/3509)
+
 ## [4.9.1](https://github.com/vtex/faststore/compare/v4.9.0...v4.9.1) (2026-10-02)
 
 ### Bug Fixes
