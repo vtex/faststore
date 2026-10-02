@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  toProductJsonLdIdentifiers,
   toProductJsonLdOffer,
   toProductJsonLdReleaseDate,
 } from '../../src/utils/productJsonLd'
@@ -189,5 +190,37 @@ describe('toProductJsonLdReleaseDate', () => {
 
   it('never returns "Invalid Date"', () => {
     expect(resolve('garbage')).not.toContain('Invalid')
+  })
+})
+
+describe('toProductJsonLdIdentifiers', () => {
+  it('normalizes an epoch releaseDate to an ISO calendar date', () => {
+    expect(
+      toProductJsonLdIdentifiers({
+        gtin: '0012345678905',
+        mpn: 'MPN-1',
+        releaseDate: '1774224000000',
+      })
+    ).toEqual({
+      gtin: '0012345678905',
+      mpn: 'MPN-1',
+      releaseDate: '2026-03-23',
+    })
+  })
+
+  it('omits every identifier that is empty', () => {
+    expect(
+      toProductJsonLdIdentifiers({ gtin: '', mpn: '', releaseDate: '' })
+    ).toEqual({})
+  })
+
+  it('omits a releaseDate that cannot be parsed', () => {
+    expect(
+      toProductJsonLdIdentifiers({
+        gtin: '',
+        mpn: '',
+        releaseDate: 'not-a-date',
+      })
+    ).toEqual({})
   })
 })

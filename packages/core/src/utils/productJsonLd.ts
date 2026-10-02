@@ -1,6 +1,7 @@
 import type { ServerProductQueryQuery } from '@generated/graphql'
 
-type ServerOffers = ServerProductQueryQuery['product']['offers']
+type ServerProduct = ServerProductQueryQuery['product']
+type ServerOffers = ServerProduct['offers']
 type ServerOffer = ServerOffers['offers'][number]
 
 /**
@@ -138,4 +139,32 @@ export const toProductJsonLdReleaseDate = (
   }
 
   return date.toISOString().slice(0, 10)
+}
+
+/**
+ * Builds the identifier props (`gtin`, `mpn`, `releaseDate`) for the PDP's
+ * `ProductJsonLd`, ready to spread.
+ *
+ * Every key is omitted when its value is empty, because next-seo publishes
+ * props untouched and an empty string is invalid Schema.org. `releaseDate` is
+ * normalized here because `StoreProduct.releaseDate` is the raw upstream value
+ * (usually epoch milliseconds), which Schema.org consumers reject.
+ *
+ * This lives here rather than inline in `p.tsx` so the rendering tests exercise
+ * the same code the page runs: passing `product.releaseDate` straight through
+ * would publish `"1774224000000"` and still leave a unit test of the
+ * normalizer green.
+ */
+export const toProductJsonLdIdentifiers = ({
+  gtin,
+  mpn,
+  releaseDate,
+}: Pick<ServerProduct, 'gtin' | 'mpn' | 'releaseDate'>) => {
+  const normalizedReleaseDate = toProductJsonLdReleaseDate(releaseDate)
+
+  return {
+    ...(gtin && { gtin }),
+    ...(mpn && { mpn }),
+    ...(normalizedReleaseDate && { releaseDate: normalizedReleaseDate }),
+  }
 }
