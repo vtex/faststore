@@ -12,6 +12,7 @@ describe('filterChannel', () => {
             regionId: 'r1',
             hasOnlyDefaultSalesChannel: false,
             salesChannelSource: 'orderForm',
+            rejectedSalesChannel: '6',
           })
         )
       )

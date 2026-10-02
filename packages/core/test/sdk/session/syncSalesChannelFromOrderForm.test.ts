@@ -154,6 +154,57 @@ describe('releaseAdoptedSalesChannel', () => {
     })
   })
 
+  it('drops a rejected SC together with the adoption marker', () => {
+    const setSilent = vi.fn()
+
+    releaseAdoptedSalesChannel(
+      () =>
+        withChannel({
+          salesChannel: '4',
+          salesChannelSource: 'orderForm',
+          rejectedSalesChannel: '6',
+        }),
+      setSilent
+    )
+
+    expect(JSON.parse(setSilent.mock.calls[0][0].channel)).toEqual({
+      salesChannel: '4',
+    })
+  })
+
+  it('drops a rejected SC left after the adoption was dropped', () => {
+    const setSilent = vi.fn()
+
+    expect(
+      releaseAdoptedSalesChannel(
+        () => withChannel({ salesChannel: '4', rejectedSalesChannel: '6' }),
+        setSilent
+      )
+    ).toBe(true)
+    expect(JSON.parse(setSilent.mock.calls[0][0].channel)).toEqual({
+      salesChannel: '4',
+    })
+  })
+
+  it('keeps the URL marker when dropping a rejected SC', () => {
+    const setSilent = vi.fn()
+
+    releaseAdoptedSalesChannel(
+      () =>
+        withChannel({
+          salesChannel: '3',
+          salesChannelSource: 'url',
+          rejectedSalesChannel: '6',
+        }),
+      setSilent
+    )
+
+    expect(JSON.parse(setSilent.mock.calls[0][0].channel)).toEqual({
+      salesChannel: '3',
+      salesChannelSource: 'url',
+    })
+  })
+
   it('is a no-op without the orderForm marker', () => {
     const setSilent = vi.fn()
 
