@@ -20,7 +20,7 @@ import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
 import { getInitialSession, reconcileSessionLocale } from './initialSession'
-import { toSessionInput } from './toSessionInput'
+import { toSessionInput, type WithSessionInput } from './toSessionInput'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
 
 const isReloadAfterLogoutPending = (): boolean => {
@@ -163,7 +163,7 @@ export const validateSession = async (session: Session) => {
 
     const data = await request<
       ValidateSessionMutation,
-      ValidateSessionMutationVariables
+      WithSessionInput<ValidateSessionMutationVariables>
     >(mutation, {
       session: toSessionInput(session),
       search: window.location.search,
