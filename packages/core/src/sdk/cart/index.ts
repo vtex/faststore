@@ -13,8 +13,11 @@ import type {
 
 import storeConfig from '../../../discovery.config'
 import { request } from '../graphql/request'
-import { hasValidatedSessionStore, sessionStore } from '../session'
-import { toSessionInput } from '../session/toSessionInput'
+import {
+  hasValidatedSessionStore,
+  sessionStore,
+  toSessionInput,
+} from '../session'
 import { syncSalesChannelFromOrderForm } from '../session/syncSalesChannelFromOrderForm'
 import { createValidationStore, useStore } from '../useStore'
 import { waitForSessionValidated } from './waitForSessionValidated'

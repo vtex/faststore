@@ -5,9 +5,11 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 const mockValidateSession = vi.hoisted(() => vi.fn())
 const mockSessionSet = vi.hoisted(() => vi.fn())
 
-vi.mock('src/sdk/session', () => ({
+vi.mock('src/sdk/session', async () => ({
   validateSession: mockValidateSession,
   sessionStore: { set: mockSessionSet },
+  toSessionInput: (await import('src/sdk/session/toSessionInput'))
+    .toSessionInput,
 }))
 
 vi.mock('src/sdk/product', () => ({

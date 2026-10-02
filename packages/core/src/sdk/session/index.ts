@@ -23,6 +23,8 @@ import { getInitialSession, reconcileSessionLocale } from './initialSession'
 import { toSessionInput } from './toSessionInput'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
 
+export { toSessionInput }
+
 const isReloadAfterLogoutPending = (): boolean => {
   try {
     return (

@@ -10,8 +10,7 @@ import type {
 } from '@generated/graphql'
 import ReorderError from '../error/ReorderError/ReorderError'
 import { request } from '../graphql/request'
-import { sessionStore } from '../session'
-import { toSessionInput } from '../session/toSessionInput'
+import { sessionStore, toSessionInput } from '../session'
 import { useLink } from '../ui/useLink'
 
 import storeConfig from '../../../discovery.config'
