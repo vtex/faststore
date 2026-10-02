@@ -77,3 +77,30 @@ export function channelAfterSessionManager(
     ...(keepRejection ? { rejectedSalesChannel } : {}),
   })
 }
+
+/** Checkout answers with this SC when an orderForm request carries no `sc`. */
+const PLATFORM_DEFAULT_SALES_CHANNEL = '1'
+
+/**
+ * SC to request from Session Manager. FastStore 4.6–4.9 could move a session
+ * to the SC 1 fallback of an empty orderForm and pin it there. When an
+ * unmarked session is on SC 1 but the store runs on another SC, ask for the
+ * store SC instead: if Session Manager assigns SC 1 on purpose (e.g. by
+ * profile), it still answers SC 1.
+ */
+export function salesChannelToRequest(
+  channel: Required<Channel>,
+  salesChannelSource: SalesChannelSource | undefined,
+  storeSalesChannel: string | undefined,
+  search: string
+): string {
+  const salesChannel = String(channel.salesChannel ?? '')
+  const isStuckOnFallback =
+    salesChannelSource === undefined &&
+    salesChannel === PLATFORM_DEFAULT_SALES_CHANNEL &&
+    !!storeSalesChannel &&
+    storeSalesChannel !== PLATFORM_DEFAULT_SALES_CHANNEL &&
+    !new URLSearchParams(search).has('sc')
+
+  return isStuckOnFallback ? storeSalesChannel : salesChannel
+}
