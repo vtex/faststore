@@ -20,10 +20,10 @@ import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
 import { getInitialSession, reconcileSessionLocale } from './initialSession'
-import { toSessionInput } from './toSessionInput'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
+import { toSessionInput } from './toSessionInput'
 
-export { toSessionInput }
+export { toSessionInput } from './toSessionInput'
 
 const isReloadAfterLogoutPending = (): boolean => {
   try {
@@ -275,6 +275,8 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
     channel = filterChannel(channel ?? '')
   }
 
+  // UI-only fields below must also be listed in `toSessionInput`, which
+  // strips them before the session is stored or sent to the API
   return useMemo(
     () => ({
       ...session,
