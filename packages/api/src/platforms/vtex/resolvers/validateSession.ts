@@ -12,6 +12,7 @@ import {
   rejectedSalesChannelOf,
   type SalesChannelSource,
   salesChannelSourceOf,
+  salesChannelToRequest,
 } from '../utils/sessionChannel'
 import {
   buildB2bSession,
@@ -98,10 +99,21 @@ const fetchSessionData = async (
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients, headers, account }: GraphqlContext
+  { clients, headers, account, storage }: GraphqlContext
 ): Promise<StoreSession | null> => {
-  const channel = ChannelMarshal.parse(oldSession.channel ?? '')
+  const clientChannel = ChannelMarshal.parse(oldSession.channel ?? '')
   const incomingSalesChannelSource = salesChannelSourceOf(oldSession.channel)
+  const channel = {
+    ...clientChannel,
+    salesChannel: salesChannelToRequest(
+      clientChannel,
+      incomingSalesChannelSource,
+      storage?.channel?.salesChannel
+        ? String(storage.channel.salesChannel)
+        : undefined,
+      search
+    ),
+  }
   const postalCode = String(oldSession.postalCode ?? '')
   const country = oldSession.country ?? ''
   let city = oldSession.city ?? null

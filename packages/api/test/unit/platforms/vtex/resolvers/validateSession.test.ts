@@ -608,3 +608,96 @@ describe('validateSession', () => {
     expect(JSON.parse(result!.channel!).seller).toBe('seller-a')
   })
 })
+
+describe('validateSession: session stuck on the SC 1 fallback (SO-685)', () => {
+  const storeOnSc4 = (ctx: any) => ({
+    ...ctx,
+    storage: {
+      channel: ChannelMarshal.parse('{"salesChannel":"4","regionId":""}'),
+    },
+  })
+
+  const stuckSession = (extra: Record<string, unknown> = {}) => ({
+    ...baseSession,
+    channel: JSON.stringify({
+      salesChannel: '1',
+      regionId: '',
+      seller: '',
+      hasOnlyDefaultSalesChannel: false,
+      ...extra,
+    }),
+  })
+
+  const requestedSc = (ctx: any) =>
+    new URLSearchParams(ctx.clients.commerce.session.mock.calls[0][0]).get('sc')
+
+  it('asks Session Manager for the store SC instead of SC 1', async () => {
+    const ctx = storeOnSc4(
+      makeContext({
+        store: {
+          channel: { value: '4' },
+          currencyCode: { value: 'BRL' },
+          currencySymbol: { value: 'R$' },
+          countryCode: { value: 'BRA' },
+        },
+      })
+    )
+
+    const result = await validateSession(
+      null,
+      { session: stuckSession(), search: '' },
+      ctx
+    )
+
+    expect(requestedSc(ctx)).toBe('4')
+    expect(JSON.parse(result!.channel!).salesChannel).toBe('4')
+  })
+
+  it('keeps SC 1 when Session Manager assigns it on purpose', async () => {
+    const ctx = storeOnSc4(makeContext())
+
+    const result = await validateSession(
+      null,
+      { session: stuckSession(), search: '' },
+      ctx
+    )
+
+    expect(requestedSc(ctx)).toBe('4')
+    expect(JSON.parse((result ?? stuckSession()).channel!).salesChannel).toBe(
+      '1'
+    )
+  })
+
+  it('does not touch SC 1 when the store itself runs on SC 1', async () => {
+    const ctx = {
+      ...makeContext(),
+      storage: { channel: ChannelMarshal.parse('{"salesChannel":"1"}') },
+    }
+
+    await validateSession(null, { session: stuckSession(), search: '' }, ctx)
+
+    expect(requestedSc(ctx)).toBe('1')
+  })
+
+  it('does not touch an explicit SC 1 (marker or ?sc= in the URL)', async () => {
+    const withMarker = storeOnSc4(makeContext())
+    await validateSession(
+      null,
+      {
+        session: stuckSession({ salesChannelSource: 'orderForm' }),
+        search: '',
+      },
+      withMarker
+    )
+
+    const withUrl = storeOnSc4(makeContext())
+    await validateSession(
+      null,
+      { session: stuckSession(), search: '?sc=1' },
+      withUrl
+    )
+
+    expect(requestedSc(withMarker)).toBe('1')
+    expect(requestedSc(withUrl)).toBe('1')
+  })
+})
