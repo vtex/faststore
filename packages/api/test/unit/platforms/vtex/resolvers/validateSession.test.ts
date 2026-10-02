@@ -323,6 +323,7 @@ describe('validateSession', () => {
     })
 
     it('retries but keeps the adoption on a 401 not about the sales channel', async () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
       const ctx = contextResolving('4')
       const sessionResponse =
         await ctx.clients.commerce.session.getMockImplementation()!()
@@ -347,6 +348,10 @@ describe('validateSession', () => {
         salesChannelSource: 'orderForm',
       })
       expect(channel).not.toHaveProperty('rejectedSalesChannel')
+      expect(warn).toHaveBeenCalledWith(
+        expect.stringContaining('unrecognized error'),
+        expect.stringContaining('Invalid token')
+      )
     })
 
     it('keeps the adoption when the rejected `sc` came from the page URL', async () => {

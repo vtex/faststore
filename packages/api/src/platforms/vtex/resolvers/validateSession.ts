@@ -80,10 +80,21 @@ const fetchSessionData = async (
     }
 
     const requestedSalesChannel = params.get('sc') ?? undefined
-    const rejectsAdoption =
+    const rejectsAdoptedSalesChannel =
       salesChannelSource === 'orderForm' &&
-      requestedSalesChannel === clientSalesChannel &&
-      isAboutSalesChannel(error)
+      requestedSalesChannel === clientSalesChannel
+    const rejectsAdoption =
+      rejectsAdoptedSalesChannel && isAboutSalesChannel(error)
+
+    if (rejectsAdoptedSalesChannel && !rejectsAdoption) {
+      // Session Manager has no structured code for this; make a wording
+      // change observable instead of silently keeping the adoption.
+      console.warn(
+        `[validateSession] Session Manager rejected adopted sales channel ${requestedSalesChannel} with an unrecognized error; keeping the adoption.`,
+        error instanceof Error ? error.message : error
+      )
+    }
+
     params.delete('sc')
 
     const sessionData = await clients.commerce
