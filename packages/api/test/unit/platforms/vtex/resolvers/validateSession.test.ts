@@ -7,6 +7,10 @@ import {
   UnauthorizedError,
 } from '../../../../../src/platforms/errors'
 
+// Body Session Manager returns for an SC the shopper cannot use.
+const SC_RESTRICTED =
+  '{"type":"Unauthorized","message":"App store returned with status code 401 (Unauthorized). Message: You must be logged in to access the requested SalesChannel"}'
+
 const baseSession = {
   locale: 'pt-BR',
   currency: { code: 'BRL', symbol: 'R$' },
@@ -151,7 +155,7 @@ describe('validateSession', () => {
       await ctx.clients.commerce.session.getMockImplementation()!()
     ctx.clients.commerce.session
       .mockReset()
-      .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+      .mockRejectedValueOnce(new UnauthorizedError(SC_RESTRICTED))
       .mockResolvedValueOnce(sessionResponse)
     const oldSession = {
       ...baseSession,
@@ -226,7 +230,7 @@ describe('validateSession', () => {
         await ctx.clients.commerce.session.getMockImplementation()!()
       ctx.clients.commerce.session
         .mockReset()
-        .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+        .mockRejectedValueOnce(new UnauthorizedError(SC_RESTRICTED))
         .mockResolvedValueOnce(sessionResponse)
 
       const result = await validateSession(
@@ -248,7 +252,7 @@ describe('validateSession', () => {
       const ctx = regionalizedContext()
       ctx.clients.commerce.session
         .mockReset()
-        .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+        .mockRejectedValueOnce(new UnauthorizedError(SC_RESTRICTED))
         .mockRejectedValueOnce(new Error('session down'))
 
       await validateSession(
@@ -295,7 +299,7 @@ describe('validateSession', () => {
         await ctx.clients.commerce.session.getMockImplementation()!()
       ctx.clients.commerce.session
         .mockReset()
-        .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+        .mockRejectedValueOnce(new UnauthorizedError(SC_RESTRICTED))
         .mockResolvedValueOnce(sessionResponse)
 
       const result = await validateSession(
@@ -318,13 +322,40 @@ describe('validateSession', () => {
       expect(channel).not.toHaveProperty('salesChannelSource')
     })
 
+    it('retries but keeps the adoption on a 401 not about the sales channel', async () => {
+      const ctx = contextResolving('4')
+      const sessionResponse =
+        await ctx.clients.commerce.session.getMockImplementation()!()
+      ctx.clients.commerce.session
+        .mockReset()
+        .mockRejectedValueOnce(
+          new UnauthorizedError('{"message":"Invalid token"}')
+        )
+        .mockResolvedValueOnce(sessionResponse)
+
+      const result = await validateSession(
+        null,
+        { session: adoptedSession(), search: '' },
+        ctx
+      )
+
+      const channel = JSON.parse(result!.channel!)
+
+      expect(ctx.clients.commerce.session).toHaveBeenCalledTimes(2)
+      expect(channel).toMatchObject({
+        salesChannel: '6',
+        salesChannelSource: 'orderForm',
+      })
+      expect(channel).not.toHaveProperty('rejectedSalesChannel')
+    })
+
     it('keeps the adoption when the rejected `sc` came from the page URL', async () => {
       const ctx = contextResolving('4')
       const sessionResponse =
         await ctx.clients.commerce.session.getMockImplementation()!()
       ctx.clients.commerce.session
         .mockReset()
-        .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+        .mockRejectedValueOnce(new UnauthorizedError(SC_RESTRICTED))
         .mockResolvedValueOnce(sessionResponse)
 
       const result = await validateSession(
@@ -387,7 +418,7 @@ describe('validateSession', () => {
         await ctx.clients.commerce.session.getMockImplementation()!()
       ctx.clients.commerce.session
         .mockReset()
-        .mockRejectedValueOnce(new UnauthorizedError('restricted SC'))
+        .mockRejectedValueOnce(new UnauthorizedError(SC_RESTRICTED))
         .mockResolvedValueOnce(sessionResponse)
 
       const result = await validateSession(
@@ -417,7 +448,7 @@ describe('validateSession', () => {
       const ctx = makeContext()
       ctx.clients.commerce.session
         .mockReset()
-        .mockRejectedValueOnce(new ForbiddenError('restricted SC'))
+        .mockRejectedValueOnce(new ForbiddenError(SC_RESTRICTED))
         .mockRejectedValueOnce(new Error('session down'))
 
       const result = await validateSession(
@@ -442,7 +473,7 @@ describe('validateSession', () => {
     it('does not retry a rejected URL-derived SC', async () => {
       const ctx = makeContext()
       ctx.clients.commerce.session.mockRejectedValue(
-        new ForbiddenError('restricted SC')
+        new ForbiddenError(SC_RESTRICTED)
       )
 
       const result = await validateSession(
