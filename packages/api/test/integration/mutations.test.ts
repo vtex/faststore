@@ -1002,6 +1002,56 @@ describe('`validateCart` sales channel of empty orderForms (SO-685)', () => {
     expect(response.data?.validateCart?.order?.salesChannel ?? null).toBeNull()
   })
 
+  test('does not adopt an orderForm SC that Session Manager rejected', async () => {
+    const run = await createRunner()
+    mockedFetch.mockImplementation((info, init) => {
+      const url = String(info)
+      const sc = new URL(url).searchParams.get('sc')
+
+      if (url.includes('/catalog_system/pub/saleschannel/')) {
+        return salesChannelFetch(url.split('/').pop() ?? '1').result
+      }
+
+      if (url.includes('/items?')) {
+        return withOrderFormSalesChannel(checkoutOrderFormValidFetch, sc ?? '6')
+          .result
+      }
+
+      if (url.includes('/customData/faststore/cartEtag')) {
+        return withOrderFormSalesChannel(
+          checkoutOrderFormCustomDataValidFetch,
+          '4'
+        ).result
+      }
+
+      if (isOrderFormGet(url)) {
+        // Items were added under SC 6, so the SC-less fetch reports SC 6.
+        return withOrderFormSalesChannel(checkoutOrderFormValidFetch, sc ?? '6')
+          .result
+      }
+
+      return pickFetchAPICallResult(info, init, [])
+    })
+
+    const response = await run(ValidateCartWithSessionMutation, {
+      cart: ValidCart,
+      session: sessionOn({ salesChannel: '4', rejectedSalesChannel: '6' }),
+    })
+
+    const gets = checkoutUrls().filter(isOrderFormGet)
+
+    expect(response.errors).toBeUndefined()
+    expect(gets).toHaveLength(2)
+    expect(new URL(gets[0]).searchParams.has('sc')).toBe(false)
+    expect(new URL(gets[1]).searchParams.get('sc')).toBe('4')
+    expect(
+      checkoutUrls()
+        .slice(2)
+        .every((url) => !url.includes('sc=6'))
+    ).toBe(true)
+    expect(response.data?.validateCart?.order?.salesChannel ?? null).toBeNull()
+  })
+
   test('sends the URL SC on the first fetch and never adopts (localization)', async () => {
     const run = await createRunner()
     mockedFetch.mockImplementation((info, init) => {

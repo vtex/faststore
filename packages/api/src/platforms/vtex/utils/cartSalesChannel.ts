@@ -40,8 +40,18 @@ export function channelWhenSessionDivergesFromOrderForm(
 export function shouldTrustOrderFormSalesChannel(
   orderForm: Pick<OrderForm, 'items' | 'salesChannel'>,
   // Persisted sessions may carry a numeric SC (e.g. `{"salesChannel":2}`).
-  sessionSalesChannel: string | number
+  sessionSalesChannel: string | number,
+  // SC that Session Manager rejected for this shopper (see validateSession).
+  rejectedSalesChannel?: string
 ): boolean {
+  if (
+    rejectedSalesChannel != null &&
+    String(orderForm.salesChannel ?? '') === rejectedSalesChannel &&
+    String(sessionSalesChannel ?? '') !== rejectedSalesChannel
+  ) {
+    return false
+  }
+
   if (orderForm.items.length > 0) {
     return true
   }
