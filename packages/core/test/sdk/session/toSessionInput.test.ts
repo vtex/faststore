@@ -31,10 +31,10 @@ describe('toSessionInput', () => {
     ).toEqual(session)
   })
 
-  it('heals a session persisted with the UI state', () => {
+  it('strips the UI state from a session persisted with it', () => {
     const persisted = { ...session, hasValidated: true } as Session
 
-    expect(toSessionInput(persisted)).not.toHaveProperty('hasValidated')
+    expect(toSessionInput(persisted)).toEqual(session)
   })
 
   it('keeps a clean session as is', () => {

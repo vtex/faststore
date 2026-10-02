@@ -1,5 +1,5 @@
 import type { Session } from '@faststore/sdk'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const mockRequest = vi.hoisted(() => vi.fn())
 
@@ -26,13 +26,14 @@ const session: Session = {
 }
 
 describe('validateSession', () => {
-  afterEach(() => {
-    mockRequest.mockReset()
+  beforeEach(async () => {
+    mockRequest.mockResolvedValue({ validateSession: null })
+    // The store validates its initial session on load; let it settle first
+    await vi.waitFor(() => expect(mockRequest).toHaveBeenCalled())
+    mockRequest.mockClear()
   })
 
   it('does not send the UI state persisted with the session', async () => {
-    mockRequest.mockResolvedValue({ validateSession: null })
-
     await validateSession({
       ...session,
       isValidating: false,
@@ -40,13 +41,7 @@ describe('validateSession', () => {
       hasValidated: true,
     } as Session)
 
-    // The store also validates its initial session on load, possibly after
-    // this call, so pick the request by the postal code under test
-    const sent = mockRequest.mock.calls
-      .map(([, variables]) => variables.session)
-      .filter((sentSession) => sentSession.postalCode === session.postalCode)
-
-    expect(sent).toHaveLength(1)
-    expect(sent[0]).toStrictEqual(session)
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest.mock.calls[0][1].session).toStrictEqual(session)
   })
 })
