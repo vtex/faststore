@@ -7,7 +7,7 @@ const mockSessionSet = vi.hoisted(() => vi.fn())
 
 vi.mock('src/sdk/session', async () => ({
   validateSession: mockValidateSession,
-  sessionStore: { set: mockSessionSet },
+  sessionStore: { set: mockSessionSet, read: vi.fn() },
   toSessionInput: (await import('src/sdk/session/toSessionInput'))
     .toSessionInput,
 }))
