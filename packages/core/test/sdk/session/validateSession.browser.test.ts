@@ -40,13 +40,13 @@ describe('validateSession', () => {
       hasValidated: true,
     } as Session)
 
-    // The store also validates its initial session on load
-    expect(mockRequest).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({ session })
-    )
-    for (const [, variables] of mockRequest.mock.calls) {
-      expect(variables.session).not.toHaveProperty('hasValidated')
-    }
+    // The store also validates its initial session on load, possibly after
+    // this call, so pick the request by the postal code under test
+    const sent = mockRequest.mock.calls
+      .map(([, variables]) => variables.session)
+      .filter((sentSession) => sentSession.postalCode === session.postalCode)
+
+    expect(sent).toHaveLength(1)
+    expect(sent[0]).toStrictEqual(session)
   })
 })
