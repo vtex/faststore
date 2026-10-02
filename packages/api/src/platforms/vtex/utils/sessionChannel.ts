@@ -20,13 +20,32 @@ const parseRawChannel = (channel: string | null | undefined) => {
   }
 }
 
+/**
+ * Reads the marker from the raw channel string. A `url` marker only means
+ * something while localization is enabled; a leftover one (e.g. after a store
+ * turns localization off) is ignored so Session Manager decides again.
+ */
 export function salesChannelSourceOf(
-  channel: string | null | undefined
+  channel: string | null | undefined,
+  { localizationEnabled = true }: { localizationEnabled?: boolean } = {}
 ): SalesChannelSource | undefined {
   const source = parseRawChannel(channel).salesChannelSource
 
-  return source === 'orderForm' || source === 'url' ? source : undefined
+  if (source === 'url') {
+    return localizationEnabled ? source : undefined
+  }
+
+  return source === 'orderForm' ? source : undefined
 }
+
+/** Whether the store config enables localization (URL-derived SC). */
+export const isLocalizationEnabled = (
+  discoveryConfig: Record<string, unknown> | undefined
+) =>
+  Boolean(
+    (discoveryConfig?.localization as { enabled?: boolean } | undefined)
+      ?.enabled
+  )
 
 /**
  * SC that Session Manager rejected (401/403) for this shopper after it was

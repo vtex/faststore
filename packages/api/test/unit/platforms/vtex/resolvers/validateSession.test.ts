@@ -476,7 +476,10 @@ describe('validateSession', () => {
     })
 
     it('does not retry a rejected URL-derived SC', async () => {
-      const ctx = makeContext()
+      const ctx = {
+        ...makeContext(),
+        discoveryConfig: { localization: { enabled: true } },
+      }
       ctx.clients.commerce.session.mockRejectedValue(
         new ForbiddenError(SC_RESTRICTED)
       )
@@ -735,5 +738,41 @@ describe('validateSession: session stuck on the SC 1 fallback (SO-685)', () => {
 
     expect(requestedSc(withMarker)).toBe('1')
     expect(requestedSc(withUrl)).toBe('1')
+  })
+})
+
+describe('validateSession: URL marker without localization', () => {
+  it('drops a leftover URL marker and follows Session Manager', async () => {
+    const ctx = makeContext({
+      store: {
+        channel: { value: '4' },
+        currencyCode: { value: 'BRL' },
+        currencySymbol: { value: 'R$' },
+        countryCode: { value: 'BRA' },
+      },
+    })
+
+    const result = await validateSession(
+      null,
+      {
+        session: {
+          ...baseSession,
+          channel: JSON.stringify({
+            salesChannel: '2',
+            regionId: '',
+            seller: '',
+            hasOnlyDefaultSalesChannel: false,
+            salesChannelSource: 'url',
+          }),
+        },
+        search: '',
+      },
+      ctx
+    )
+
+    const channel = JSON.parse(result!.channel!)
+
+    expect(channel.salesChannel).toBe('4')
+    expect(channel).not.toHaveProperty('salesChannelSource')
   })
 })
