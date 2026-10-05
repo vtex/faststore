@@ -1,14 +1,17 @@
 import { ProductJsonLd } from 'next-seo'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
-import { toProductJsonLdOffer } from '../../src/utils/productJsonLd'
+import {
+  toProductJsonLdIdentifiers,
+  toProductJsonLdOffer,
+} from '../../src/utils/productJsonLd'
 
 /**
  * Pins the next-seo behaviour the PDP's JSON-LD depends on.
  *
- * `p.tsx` omits `mpn`, `gtin` and `releaseDate` by conditional spread rather
- * than passing empty strings, and drops `seller` from the offer allowlist. Both
- * choices only work because of how next-seo builds the script — it forwards
+ * `p.tsx` omits empty `mpn`, `gtin` and `releaseDate` (via
+ * `toProductJsonLdIdentifiers`) rather than passing empty strings, and drops
+ * `seller` from the offer allowlist. Both choices only work because of how next-seo builds the script — it forwards
  * unknown props untouched (so `""` would be published) and turns any truthy
  * `seller` into an `Organization`, even when it has no name. A next-seo upgrade
  * that changed either would silently reintroduce the defects from ticket
@@ -70,5 +73,22 @@ describe('next-seo ProductJsonLd contract', () => {
       priceValidUntil: '2027-08-24T19:48:25Z',
       url: 'https://store.example/p',
     })
+  })
+
+  // `p.tsx` spreads `toProductJsonLdIdentifiers(product)` into ProductJsonLd,
+  // and `StoreProduct.releaseDate` is the raw upstream epoch. This pins what
+  // actually lands in the published script for that input.
+  it('publishes an epoch releaseDate as an ISO calendar date', () => {
+    const jsonLd = renderJsonLd(
+      toProductJsonLdIdentifiers({
+        gtin: '',
+        mpn: '',
+        releaseDate: '1774224000000',
+      })
+    )
+
+    expect(jsonLd.releaseDate).toBe('2026-03-23')
+    expect(jsonLd).not.toHaveProperty('gtin')
+    expect(jsonLd).not.toHaveProperty('mpn')
   })
 })

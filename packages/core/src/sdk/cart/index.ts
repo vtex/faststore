@@ -13,7 +13,11 @@ import type {
 
 import storeConfig from '../../../discovery.config'
 import { request } from '../graphql/request'
-import { hasValidatedSessionStore, sessionStore } from '../session'
+import {
+  hasValidatedSessionStore,
+  sessionStore,
+  toSessionInput,
+} from '../session'
 import { syncSalesChannelFromOrderForm } from '../session/syncSalesChannelFromOrderForm'
 import { createValidationStore, useStore } from '../useStore'
 import { waitForSessionValidated } from './waitForSessionValidated'
@@ -123,7 +127,9 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
     ValidateCartMutationMutation,
     ValidateCartMutationMutationVariables
   >(ValidateCartMutation, {
-    session: sessionStore.read(),
+    // The session loaded from IndexedDB skips `sessionStore.set`, so it may
+    // still carry UI state persisted by an older version
+    session: toSessionInput(sessionStore.read()),
     cart: {
       order: {
         orderNumber: cart.id,
