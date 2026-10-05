@@ -28,7 +28,8 @@ const getRequestHostname = ({
 }: {
   request: NextApiRequest
 }): string | null => {
-  const hostHeader = request.headers.host?.trim()
+  const forwardedHost = (request.headers['x-forwarded-host'] as string)?.trim()
+  const hostHeader = (forwardedHost || request.headers.host)?.trim()
   if (!hostHeader) {
     return null
   }

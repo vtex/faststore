@@ -371,7 +371,7 @@ export const validateCart = async (
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await commerce.checkout.orderForm({
-    id: orderFormIdFromCookie || undefined,
+    id: orderFormIdFromCookie || order?.orderNumber || undefined,
     channel: ctx.storage.channel,
   })
   const orderNumber = orderForm.orderFormId
