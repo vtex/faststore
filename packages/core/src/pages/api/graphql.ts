@@ -85,7 +85,9 @@ const normalizeSetCookieDomain = ({
     return setCookie
   }
 
-  const host = getRequestHostname(request.headers.host)
+  const forwardedHost =
+    (request.headers['x-forwarded-host'] as string) ?? request.headers.host
+  const host = getRequestHostname(forwardedHost)
   if (!host) {
     return setCookie
   }

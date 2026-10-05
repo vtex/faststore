@@ -457,7 +457,7 @@ export const validateCart = async (
   // session SC (e.g. after Quick Order) would recalculate the cart and drop
   // items only available in the orderForm's trade policy. New carts still
   // send `sc` from the session (see commerce.checkout.orderForm).
-  const orderFormId = orderFormIdFromCookie || undefined
+  const orderFormId = orderFormIdFromCookie || order?.orderNumber || undefined
   const orderForm = await commerce.checkout.orderForm({
     id: orderFormId,
     channel: ctx.storage.channel,
