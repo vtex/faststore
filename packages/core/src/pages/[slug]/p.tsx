@@ -30,7 +30,10 @@ import { execute } from 'src/server'
 import { getComponentKey } from 'src/utils/cms'
 import { getChannelForLocale } from 'src/utils/localization/bindingPaths'
 import { buildHreflangLinks } from 'src/utils/localization/hreflang'
-import { toProductJsonLdOffer } from 'src/utils/productJsonLd'
+import {
+  toProductJsonLdIdentifiers,
+  toProductJsonLdOffer,
+} from 'src/utils/productJsonLd'
 
 import storeConfig from 'discovery.config'
 import {
@@ -295,11 +298,9 @@ function Page({
         description={description}
         brand={product.brand.name}
         sku={product.sku}
-        // Spread conditionally so an unregistered identifier is omitted rather
-        // than published as "": next-seo passes these through untouched.
-        {...(product.gtin && { gtin: product.gtin })}
-        {...(product.mpn && { mpn: product.mpn })}
-        {...(product.releaseDate && { releaseDate: product.releaseDate })}
+        // Omits empty identifiers and normalizes releaseDate to ISO 8601; see
+        // toProductJsonLdIdentifiers.
+        {...toProductJsonLdIdentifiers(product)}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
         {...(offers && { offers })}
         {...(itemListElements.length !== 0 && {
