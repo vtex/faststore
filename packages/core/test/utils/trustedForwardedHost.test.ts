@@ -40,6 +40,9 @@ describe('isHostAllowed normalization', () => {
     'x"y.vtex.app',
     'x=y.vtex.app',
     'x,y.vtex.app',
+    'x\r\nSet-Cookie: evil=1.vtex.app',
+    'x\ny.vtex.app',
+    'x\ry.vtex.app',
   ])('rejects %s, which would inject cookie attributes', (host) => {
     expect(isHostAllowed(host, ALLOW_LIST)).toBe(false)
   })

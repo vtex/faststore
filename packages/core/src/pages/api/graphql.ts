@@ -47,9 +47,12 @@ const getRequestHostname = ({
 }: {
   request: NextApiRequest
 }): string | null => {
-  const forwardedHostname = toHostname(
-    singleForwardedHost(request.headers['x-forwarded-host'])
-  )
+  const forwardedHeader = request.headers['x-forwarded-host']
+  const forwardedHostname = toHostname(singleForwardedHost(forwardedHeader))
+  if (forwardedHeader && !forwardedHostname) {
+    // The value is client-controllable, so it is not logged.
+    console.warn('Ignoring multi-value or malformed x-forwarded-host')
+  }
 
   if (
     forwardedHostname &&
