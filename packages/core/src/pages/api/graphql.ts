@@ -85,9 +85,19 @@ const normalizeSetCookieDomain = ({
     return setCookie
   }
 
-  const forwardedHost =
-    (request.headers['x-forwarded-host'] as string) ?? request.headers.host
-  const host = getRequestHostname(forwardedHost)
+  // Only trust x-forwarded-host if it matches an allowed suffix (trusted proxy environment).
+  // This prevents attackers from injecting arbitrary domains via x-forwarded-host.
+  const forwardedHost = request.headers['x-forwarded-host'] as string
+  const forwardedHostname = forwardedHost
+    ? getRequestHostname(forwardedHost)
+    : null
+  const isTrustedForwardedHost =
+    forwardedHostname &&
+    isAllowedHost({ host: forwardedHostname, allowList: ALLOWED_HOST_SUFFIXES })
+  const hostToUse = isTrustedForwardedHost
+    ? forwardedHostname
+    : request.headers.host
+  const host = getRequestHostname(hostToUse)
   if (!host) {
     return setCookie
   }

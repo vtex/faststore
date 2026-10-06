@@ -457,6 +457,8 @@ export const validateCart = async (
   // session SC (e.g. after Quick Order) would recalculate the cart and drop
   // items only available in the orderForm's trade policy. New carts still
   // send `sc` from the session (see commerce.checkout.orderForm).
+  // Fallback to order?.orderNumber when cookie is absent: order.orderNumber === orderForm.orderFormId
+  // (same identifier; see equals() function comparing storeOrder.orderNumber === orderForm.orderFormId).
   const orderFormId = orderFormIdFromCookie || order?.orderNumber || undefined
   const orderForm = await commerce.checkout.orderForm({
     id: orderFormId,
