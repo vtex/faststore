@@ -11,6 +11,10 @@ import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie } from 'src/utils/getCookie'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
 import { isLocalHost } from 'src/utils/isLocalHost'
+import {
+  firstForwardedHost,
+  isHostAllowed,
+} from 'src/utils/trustedForwardedHost'
 import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
 import { execute } from '../../server'
 import { logger } from '@faststore/diagnostics'
@@ -56,21 +60,6 @@ const shouldReplaceCookieDomain = ({
 }
 
 /**
- * Determines if host is eligible for domain normalization.
- */
-const isAllowedHost = ({
-  host,
-  allowList,
-}: {
-  host: string
-  allowList: string[]
-}) => {
-  const normalizedHost = host.toLowerCase()
-
-  return allowList.some((suffix) => normalizedHost.endsWith(suffix))
-}
-
-/**
  * Ensure the cookie domain matches the current host so the browser can store it.
  */
 const normalizeSetCookieDomain = ({
@@ -85,26 +74,21 @@ const normalizeSetCookieDomain = ({
     return setCookie
   }
 
-  // Only trust x-forwarded-host if it matches an allowed suffix (trusted proxy environment).
-  // This prevents attackers from injecting arbitrary domains via x-forwarded-host.
-  const forwardedHost = request.headers['x-forwarded-host'] as string
-  const forwardedHostname = forwardedHost
-    ? getRequestHostname(forwardedHost)
-    : null
-  const isTrustedForwardedHost =
-    forwardedHostname &&
-    isAllowedHost({ host: forwardedHostname, allowList: ALLOWED_HOST_SUFFIXES })
-  const hostToUse = isTrustedForwardedHost
-    ? forwardedHostname
-    : request.headers.host
-  const host = getRequestHostname(hostToUse)
+  // x-forwarded-host is only honored when its first value is on the allowlist.
+  const forwardedHost = getRequestHostname(
+    firstForwardedHost(request.headers['x-forwarded-host'])
+  )
+  const host =
+    forwardedHost && isHostAllowed(forwardedHost, ALLOWED_HOST_SUFFIXES)
+      ? forwardedHost
+      : getRequestHostname(request.headers.host)
   if (!host) {
     return setCookie
   }
   const cookieDomain = domainMatch[1]
 
   if (
-    !isAllowedHost({ host, allowList: ALLOWED_HOST_SUFFIXES }) ||
+    !isHostAllowed(host, ALLOWED_HOST_SUFFIXES) ||
     !shouldReplaceCookieDomain({ cookieDomain, host })
   ) {
     return setCookie
