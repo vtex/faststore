@@ -11,7 +11,7 @@ import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie } from 'src/utils/getCookie'
 import { isLocalHost } from 'src/utils/isLocalHost'
 import {
-  firstForwardedHost,
+  singleForwardedHost,
   isHostAllowed,
 } from 'src/utils/trustedForwardedHost'
 import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
@@ -38,8 +38,9 @@ const toHostname = (hostHeader: string | undefined) => {
 }
 
 /**
- * Extracts hostname from the incoming request. `x-forwarded-host` is only
- * honored when its first value is on the allowlist; otherwise `host` is used.
+ * Extracts hostname from the incoming request. Assumes the ingress overwrites
+ * x-forwarded-host (unverified). A multi-value header is ignored; a single
+ * value is used only if it is on the allowlist, otherwise `host` is used.
  */
 const getRequestHostname = ({
   request,
@@ -47,7 +48,7 @@ const getRequestHostname = ({
   request: NextApiRequest
 }): string | null => {
   const forwardedHostname = toHostname(
-    firstForwardedHost(request.headers['x-forwarded-host'])
+    singleForwardedHost(request.headers['x-forwarded-host'])
   )
 
   if (

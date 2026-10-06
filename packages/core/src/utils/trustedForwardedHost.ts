@@ -14,14 +14,21 @@ export function isHostAllowed(host: string, allowList: string[]) {
 }
 
 /**
- * Node joins repeated headers with ", " (or exposes an array). Only the first
- * value is considered, the one set by the outermost proxy.
+ * Returns the `x-forwarded-host` value only when exactly one is present.
+ *
+ * Which hop of a proxy chain is trustworthy is not known here: with several
+ * values the leftmost one is whatever the client sent. So a multi-value header
+ * (comma-joined by Node, or an array) is ignored and the caller falls back to
+ * `host`. A single value still assumes the ingress overwrites the header.
  */
-export function firstForwardedHost(
+export function singleForwardedHost(
   header: string | string[] | undefined
 ): string | undefined {
-  const raw = Array.isArray(header) ? header[0] : header
-  const first = raw?.split(',')[0]?.trim()
+  if (Array.isArray(header)) {
+    return header.length === 1 ? singleForwardedHost(header[0]) : undefined
+  }
 
-  return first || undefined
+  const value = header?.trim()
+
+  return value && !value.includes(',') ? value : undefined
 }
