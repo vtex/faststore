@@ -370,6 +370,8 @@ export const validateCart = async (
   }
 
   // Step1: Get OrderForm from VTEX Commerce
+  // Fallback to order?.orderNumber when cookie is absent: order.orderNumber === orderForm.orderFormId
+  // (same identifier; see equals() function comparing storeOrder.orderNumber === orderForm.orderFormId).
   const orderForm = await commerce.checkout.orderForm({
     id: orderFormIdFromCookie || order?.orderNumber || undefined,
     channel: ctx.storage.channel,

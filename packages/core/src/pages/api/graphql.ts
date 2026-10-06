@@ -28,8 +28,28 @@ const getRequestHostname = ({
 }: {
   request: NextApiRequest
 }): string | null => {
+  // Only trust x-forwarded-host if it matches an allowed suffix (trusted proxy environment).
+  // This prevents attackers from injecting arbitrary domains via x-forwarded-host.
   const forwardedHost = (request.headers['x-forwarded-host'] as string)?.trim()
-  const hostHeader = (forwardedHost || request.headers.host)?.trim()
+  let hostHeader: string | undefined
+
+  if (forwardedHost) {
+    try {
+      const forwardedHostname = new URL(`https://${forwardedHost}`).hostname
+      const isTrustedForwardedHost =
+        forwardedHostname &&
+        ALLOWED_HOST_SUFFIXES.some((suffix) =>
+          forwardedHostname.toLowerCase().endsWith(suffix)
+        )
+      hostHeader = isTrustedForwardedHost ? forwardedHost : request.headers.host
+    } catch {
+      hostHeader = request.headers.host
+    }
+  } else {
+    hostHeader = request.headers.host
+  }
+
+  hostHeader = hostHeader?.trim()
   if (!hostHeader) {
     return null
   }
