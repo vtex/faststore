@@ -12,7 +12,7 @@ import { getJWTAutCookie } from 'src/utils/getCookie'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
 import { isLocalHost } from 'src/utils/isLocalHost'
 import {
-  firstForwardedHost,
+  singleForwardedHost,
   isHostAllowed,
 } from 'src/utils/trustedForwardedHost'
 import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
@@ -74,9 +74,10 @@ const normalizeSetCookieDomain = ({
     return setCookie
   }
 
-  // x-forwarded-host is only honored when its first value is on the allowlist.
+  // Assumes the ingress overwrites x-forwarded-host (unverified). A multi-value
+  // header is ignored; a single value is used only if it is on the allowlist.
   const forwardedHost = getRequestHostname(
-    firstForwardedHost(request.headers['x-forwarded-host'])
+    singleForwardedHost(request.headers['x-forwarded-host'])
   )
   const host =
     forwardedHost && isHostAllowed(forwardedHost, ALLOWED_HOST_SUFFIXES)
