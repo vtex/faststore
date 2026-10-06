@@ -34,6 +34,20 @@ describe('isHostAllowed normalization', () => {
     expect(isHostAllowed('LOCALHOST', ALLOW_LIST)).toBe(true)
   })
 
+  it.each([
+    'x;max-age=0;y.vtex.app',
+    'a b.vtex.app',
+    'x"y.vtex.app',
+    'x=y.vtex.app',
+    'x,y.vtex.app',
+  ])('rejects %s, which would inject cookie attributes', (host) => {
+    expect(isHostAllowed(host, ALLOW_LIST)).toBe(false)
+  })
+
+  it('accepts punycode hostnames', () => {
+    expect(isHostAllowed('xn--lja-bma.vtex.app', ALLOW_LIST)).toBe(true)
+  })
+
   it('expects a hostname: a port is not stripped here', () => {
     expect(isHostAllowed('store.vtex.app:8080', ALLOW_LIST)).toBe(false)
     expect(isHostAllowed('evil.com:vtex.app', ALLOW_LIST)).toBe(false)

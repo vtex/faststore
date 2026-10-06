@@ -1,3 +1,7 @@
+// The result is written verbatim into a Set-Cookie Domain attribute, so
+// characters such as ";" or spaces would inject cookie attributes.
+const HOSTNAME_PATTERN = /^[a-z0-9.-]+$/
+
 /**
  * An entry starting with "." matches subdomains only; any other entry matches
  * the host itself and its subdomains. Matching is anchored on a label boundary,
@@ -5,6 +9,10 @@
  */
 export function isHostAllowed(host: string, allowList: string[]) {
   const normalizedHost = host.toLowerCase()
+
+  if (!HOSTNAME_PATTERN.test(normalizedHost)) {
+    return false
+  }
 
   return allowList.some((entry) =>
     entry.startsWith('.')
