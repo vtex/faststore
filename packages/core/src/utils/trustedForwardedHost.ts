@@ -46,5 +46,5 @@ export function singleForwardedHost(
  * scopes it to the exact host it requested, whatever header picked this path.
  */
 export function removeCookieDomain(setCookie: string): string {
-  return setCookie.replace(/;\s*domain=[^;]*/gi, '')
+  return setCookie.replaceAll(/;\s*domain=[^;]*/gi, '')
 }
