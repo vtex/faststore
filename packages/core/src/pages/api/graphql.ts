@@ -76,9 +76,12 @@ const normalizeSetCookieDomain = ({
 
   // Assumes the ingress overwrites x-forwarded-host (unverified). A multi-value
   // header is ignored; a single value is used only if it is on the allowlist.
-  const forwardedHost = getRequestHostname(
-    singleForwardedHost(request.headers['x-forwarded-host'])
-  )
+  const forwardedHeader = request.headers['x-forwarded-host']
+  const forwardedHost = getRequestHostname(singleForwardedHost(forwardedHeader))
+  if (forwardedHeader && !forwardedHost) {
+    // The value is client-controllable, so it is not logged.
+    OTELLogger('warn', 'Ignoring multi-value or malformed x-forwarded-host')
+  }
   const host =
     forwardedHost && isHostAllowed(forwardedHost, ALLOWED_HOST_SUFFIXES)
       ? forwardedHost
