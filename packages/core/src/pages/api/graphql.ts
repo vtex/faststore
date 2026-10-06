@@ -10,6 +10,10 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie } from 'src/utils/getCookie'
 import { isLocalHost } from 'src/utils/isLocalHost'
+import {
+  firstForwardedHost,
+  isHostAllowed,
+} from 'src/utils/trustedForwardedHost'
 import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
 import { execute } from '../../server'
 
@@ -20,45 +24,40 @@ const ALLOWED_HOST_SUFFIXES = ['localhost', '.vtex.app', '.localhost']
 // Example: "Set-Cookie: key=value; Domain=example.com; Path=/"
 const MATCH_DOMAIN_REGEXP = /(?:^|;\s*)(?:domain=)([^;]+)/i
 
+const toHostname = (hostHeader: string | undefined) => {
+  const trimmed = hostHeader?.trim()
+  if (!trimmed) {
+    return null
+  }
+
+  try {
+    return new URL(`https://${trimmed}`).hostname
+  } catch {
+    return null
+  }
+}
+
 /**
- * Extracts hostname from the incoming request.
+ * Extracts hostname from the incoming request. `x-forwarded-host` is only
+ * honored when its first value is on the allowlist; otherwise `host` is used.
  */
 const getRequestHostname = ({
   request,
 }: {
   request: NextApiRequest
 }): string | null => {
-  // Only trust x-forwarded-host if it matches an allowed suffix (trusted proxy environment).
-  // This prevents attackers from injecting arbitrary domains via x-forwarded-host.
-  const forwardedHost = (request.headers['x-forwarded-host'] as string)?.trim()
-  let hostHeader: string | undefined
+  const forwardedHostname = toHostname(
+    firstForwardedHost(request.headers['x-forwarded-host'])
+  )
 
-  if (forwardedHost) {
-    try {
-      const forwardedHostname = new URL(`https://${forwardedHost}`).hostname
-      const isTrustedForwardedHost =
-        forwardedHostname &&
-        ALLOWED_HOST_SUFFIXES.some((suffix) =>
-          forwardedHostname.toLowerCase().endsWith(suffix)
-        )
-      hostHeader = isTrustedForwardedHost ? forwardedHost : request.headers.host
-    } catch {
-      hostHeader = request.headers.host
-    }
-  } else {
-    hostHeader = request.headers.host
+  if (
+    forwardedHostname &&
+    isHostAllowed(forwardedHostname, ALLOWED_HOST_SUFFIXES)
+  ) {
+    return forwardedHostname
   }
 
-  hostHeader = hostHeader?.trim()
-  if (!hostHeader) {
-    return null
-  }
-
-  try {
-    return new URL(`https://${hostHeader}`).hostname
-  } catch {
-    return null
-  }
+  return toHostname(request.headers.host)
 }
 
 /**
@@ -75,21 +74,6 @@ const shouldReplaceCookieDomain = ({
   const normalizedHost = host.toLowerCase()
 
   return normalizedDomain !== normalizedHost
-}
-
-/**
- * Determines if host is eligible for domain normalization.
- */
-const isAllowedHost = ({
-  host,
-  allowList,
-}: {
-  host: string
-  allowList: string[]
-}) => {
-  const normalizedHost = host.toLowerCase()
-
-  return allowList.some((suffix) => normalizedHost.endsWith(suffix))
 }
 
 /**
@@ -114,7 +98,7 @@ const normalizeSetCookieDomain = ({
   const cookieDomain = domainMatch[1]
 
   if (
-    !isAllowedHost({ host, allowList: ALLOWED_HOST_SUFFIXES }) ||
+    !isHostAllowed(host, ALLOWED_HOST_SUFFIXES) ||
     !shouldReplaceCookieDomain({ cookieDomain, host })
   ) {
     return setCookie
