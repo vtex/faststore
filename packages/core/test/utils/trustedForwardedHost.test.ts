@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   singleForwardedHost,
   isHostAllowed,
+  removeCookieDomain,
 } from '../../src/utils/trustedForwardedHost'
 
 const ALLOW_LIST = ['localhost', '.vtex.app', '.localhost']
@@ -74,5 +75,31 @@ describe('singleForwardedHost', () => {
     expect(singleForwardedHost('a.vtex.app, evil.com')).toBeUndefined()
     expect(singleForwardedHost('evil.com, a.vtex.app')).toBeUndefined()
     expect(singleForwardedHost(['a.vtex.app', 'evil.com'])).toBeUndefined()
+  })
+})
+
+describe('removeCookieDomain', () => {
+  it('drops the Domain attribute and keeps the rest', () => {
+    expect(
+      removeCookieDomain(
+        'checkout.vtex.com=__ofid=abc; expires=Sun, 04 Apr 2027 18:31:26 GMT; domain=acc.vtexcommercestable.com.br; path=/; secure; samesite=lax; httponly'
+      )
+    ).toBe(
+      'checkout.vtex.com=__ofid=abc; expires=Sun, 04 Apr 2027 18:31:26 GMT; path=/; secure; samesite=lax; httponly'
+    )
+  })
+
+  it('is case-insensitive and removes repeated Domain attributes', () => {
+    expect(removeCookieDomain('a=1; Domain=x.com; DOMAIN=y.com; Path=/')).toBe(
+      'a=1; Path=/'
+    )
+  })
+
+  it('does not touch a cookie whose name is domain', () => {
+    expect(removeCookieDomain('domain=1; path=/')).toBe('domain=1; path=/')
+  })
+
+  it('keeps cookies without a Domain attribute unchanged', () => {
+    expect(removeCookieDomain('a=1; path=/')).toBe('a=1; path=/')
   })
 })
