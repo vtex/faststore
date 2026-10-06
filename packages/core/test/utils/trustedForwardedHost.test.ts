@@ -1,5 +1,3 @@
-import { describe, expect, it } from 'vitest'
-
 import {
   singleForwardedHost,
   isHostAllowed,
@@ -14,7 +12,7 @@ describe('isHostAllowed', () => {
     'store.vtex.app',
     'sfj-1--acc.preview.vtex.app',
     'a.localhost',
-  ])('allows %s', (host) => {
+  ])('allows %s', (host: string) => {
     expect(isHostAllowed(host, ALLOW_LIST)).toBe(true)
   })
 
@@ -24,7 +22,7 @@ describe('isHostAllowed', () => {
     'evil-vtex.app',
     'vtex.app.evil.com',
     'evil.com',
-  ])('rejects %s', (host) => {
+  ])('rejects %s', (host: string) => {
     expect(isHostAllowed(host, ALLOW_LIST)).toBe(false)
   })
 })
@@ -44,7 +42,7 @@ describe('isHostAllowed normalization', () => {
     'x\r\nSet-Cookie: evil=1.vtex.app',
     'x\ny.vtex.app',
     'x\ry.vtex.app',
-  ])('rejects %s, which would inject cookie attributes', (host) => {
+  ])('rejects %s, which would inject cookie attributes', (host: string) => {
     expect(isHostAllowed(host, ALLOW_LIST)).toBe(false)
   })
 
