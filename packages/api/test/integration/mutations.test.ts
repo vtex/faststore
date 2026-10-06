@@ -4,6 +4,7 @@ import { GraphqlVtexContextFactory, GraphqlVtexSchema } from '../../src'
 import type { Options } from '../../src/typings/globals'
 import type { OrderFormItem } from '../../src/platforms/vtex/clients/commerce/types/OrderForm'
 import { serviceToPropertyValue } from '../../src/platforms/vtex/utils/propertyValue'
+import { md5 } from '../../src/platforms/vtex/utils/md5'
 import {
   browserCart,
   browserLine,
@@ -61,9 +62,12 @@ const apiOptions = {
 vi.useFakeTimers({ shouldAdvanceTime: true })
 const mockedFetch = vi.fn()
 
-const createRunner = async () => {
+const createRunner = async (overrides: Partial<Options> = {}) => {
   const schemaPromise = GraphqlVtexSchema()
-  const contextFactory = await GraphqlVtexContextFactory(apiOptions)
+  const contextFactory = await GraphqlVtexContextFactory({
+    ...apiOptions,
+    ...overrides,
+  })
 
   return async (query: string, variables?: any) => {
     const schema = await schemaPromise
@@ -855,5 +859,260 @@ describe('`validateCart` with VTEX Services (orderForm `bundleItems`)', () => {
       expect(etags).toEqual([legacyEtag(items)])
       expect(response.data?.validateCart).toBeNull()
     })
+  })
+})
+
+describe('`validateCart` sales channel of empty orderForms (SO-685)', () => {
+  const ValidateCartWithSessionMutation = `mutation ValidateCartWithSession($cart: IStoreCart!, $session: IStoreSession!) {
+    validateCart(cart: $cart, session: $session) {
+      order {
+        orderNumber
+        salesChannel
+        acceptedOffer {
+          quantity
+        }
+      }
+    }
+  }`
+
+  const sessionOn = (channel: Record<string, unknown>) => ({
+    locale: 'en-US',
+    currency: { code: 'USD', symbol: '$' },
+    country: 'USA',
+    channel: JSON.stringify(channel),
+  })
+
+  const emptyCart = {
+    order: {
+      orderNumber: 'edbe3b03c8c94827a37ec5a6a4648fd2',
+      acceptedOffer: [],
+    },
+  }
+
+  // Etag FastStore writes for an orderForm without items (sessionId '').
+  const emptyCartEtag = md5(JSON.stringify({ sessionId: '', items: [] }))
+
+  const emptyOrderForm = (salesChannel: string, cartEtag?: string) => ({
+    ...checkoutOrderFormValidFetch.result,
+    salesChannel,
+    items: [],
+    customData: cartEtag
+      ? {
+          customApps: [{ fields: { cartEtag }, id: 'faststore', major: 1 }],
+        }
+      : null,
+  })
+
+  const isOrderFormGet = (url: string) =>
+    /\/orderForm\/[^/?]+(\?|$)/.test(url) &&
+    !url.includes('/items') &&
+    !url.includes('/customData')
+
+  const checkoutUrls = () =>
+    mockedFetch.mock.calls
+      .map(([info]) => String(info))
+      .filter((url) => url.includes('/api/checkout/pub/orderForm'))
+
+  /**
+   * Simulates Checkout: an SC-less request on an orderForm without a stored SC
+   * falls back to SC 1; an explicit `sc` is honored.
+   */
+  const mockCheckout = ({
+    sclessSalesChannel = '1',
+    cartEtag,
+    itemsResult,
+  }: {
+    sclessSalesChannel?: string
+    cartEtag?: string
+    itemsResult?: unknown
+  } = {}) =>
+    mockedFetch.mockImplementation((info, init) => {
+      const url = String(info)
+      const sc = new URL(url).searchParams.get('sc')
+
+      if (url.includes('/catalog_system/pub/saleschannel/')) {
+        return salesChannelFetch(url.split('/').pop() ?? '1').result
+      }
+
+      if (url.includes('/customData/faststore/cartEtag')) {
+        return emptyOrderForm(sc ?? sclessSalesChannel, cartEtag)
+      }
+
+      if (url.includes('/items?')) {
+        return itemsResult
+      }
+
+      if (isOrderFormGet(url)) {
+        return emptyOrderForm(sc ?? sclessSalesChannel, cartEtag)
+      }
+
+      return pickFetchAPICallResult(info, init, [])
+    })
+
+  test('refetches with the session SC instead of adopting the SC 1 fallback', async () => {
+    const run = await createRunner()
+    mockCheckout()
+
+    const response = await run(ValidateCartWithSessionMutation, {
+      cart: emptyCart,
+      session: sessionOn({ salesChannel: '4' }),
+    })
+
+    const gets = checkoutUrls().filter(isOrderFormGet)
+
+    expect(response.errors).toBeUndefined()
+    expect(gets).toHaveLength(2)
+    expect(new URL(gets[0]).searchParams.has('sc')).toBe(false)
+    expect(new URL(gets[1]).searchParams.get('sc')).toBe('4')
+    expect(response.data?.validateCart?.order?.salesChannel ?? null).toBeNull()
+  })
+
+  test('does not refetch an empty orderForm already on the session SC', async () => {
+    const run = await createRunner()
+    mockCheckout({ sclessSalesChannel: '4', cartEtag: emptyCartEtag })
+
+    const response = await run(ValidateCartWithSessionMutation, {
+      cart: emptyCart,
+      session: sessionOn({ salesChannel: '4' }),
+    })
+
+    expect(response.errors).toBeUndefined()
+    expect(checkoutUrls().filter(isOrderFormGet)).toHaveLength(1)
+    expect(response.data?.validateCart).toBeNull()
+  })
+
+  test('adds browser items under the session SC when the orderForm is empty', async () => {
+    const run = await createRunner()
+    mockCheckout({
+      cartEtag: emptyCartEtag,
+      itemsResult: {
+        ...checkoutOrderFormItemsInvalidFetch.result,
+        salesChannel: '4',
+      },
+    })
+
+    const response = await run(ValidateCartWithSessionMutation, {
+      cart: ValidCart,
+      session: sessionOn({ salesChannel: '4' }),
+    })
+
+    const itemsUrl = checkoutUrls().find((url) => url.includes('/items?'))
+
+    expect(response.errors).toBeUndefined()
+    expect(itemsUrl).toBeDefined()
+    expect(new URL(itemsUrl!).searchParams.get('sc')).toBe('4')
+    expect(checkoutUrls().some((url) => url.includes('sc=1'))).toBe(false)
+    expect(response.data?.validateCart?.order?.salesChannel ?? null).toBeNull()
+  })
+
+  test('does not adopt an orderForm SC that Session Manager rejected', async () => {
+    const run = await createRunner()
+    mockedFetch.mockImplementation((info, init) => {
+      const url = String(info)
+      const sc = new URL(url).searchParams.get('sc')
+
+      if (url.includes('/catalog_system/pub/saleschannel/')) {
+        return salesChannelFetch(url.split('/').pop() ?? '1').result
+      }
+
+      if (url.includes('/items?')) {
+        return withOrderFormSalesChannel(checkoutOrderFormValidFetch, sc ?? '6')
+          .result
+      }
+
+      if (url.includes('/customData/faststore/cartEtag')) {
+        return withOrderFormSalesChannel(
+          checkoutOrderFormCustomDataValidFetch,
+          '4'
+        ).result
+      }
+
+      if (isOrderFormGet(url)) {
+        // Items were added under SC 6, so the SC-less fetch reports SC 6.
+        return withOrderFormSalesChannel(checkoutOrderFormValidFetch, sc ?? '6')
+          .result
+      }
+
+      return pickFetchAPICallResult(info, init, [])
+    })
+
+    const response = await run(ValidateCartWithSessionMutation, {
+      cart: ValidCart,
+      session: sessionOn({ salesChannel: '4', rejectedSalesChannel: '6' }),
+    })
+
+    const gets = checkoutUrls().filter(isOrderFormGet)
+
+    expect(response.errors).toBeUndefined()
+    expect(gets).toHaveLength(2)
+    expect(new URL(gets[0]).searchParams.has('sc')).toBe(false)
+    expect(new URL(gets[1]).searchParams.get('sc')).toBe('4')
+    expect(
+      checkoutUrls()
+        .slice(2)
+        .every((url) => !url.includes('sc=6'))
+    ).toBe(true)
+    expect(response.data?.validateCart?.order?.salesChannel ?? null).toBeNull()
+  })
+
+  test('sends the URL SC on the first fetch and never adopts (localization)', async () => {
+    const run = await createRunner({
+      discoveryConfig: { localization: { enabled: true } },
+    })
+    mockedFetch.mockImplementation((info, init) => {
+      const url = String(info)
+
+      if (url.includes('/catalog_system/pub/saleschannel/')) {
+        return salesChannelFetch(url.split('/').pop() ?? '1').result
+      }
+
+      if (url.includes('/items?')) {
+        return withOrderFormSalesChannel(checkoutOrderFormValidFetch, '3')
+          .result
+      }
+
+      if (url.includes('/customData/faststore/cartEtag')) {
+        return withOrderFormSalesChannel(
+          checkoutOrderFormCustomDataValidFetch,
+          '3'
+        ).result
+      }
+
+      if (isOrderFormGet(url)) {
+        // Checkout honors the explicit `sc`; without it the stored SC 2 wins.
+        const sc = new URL(url).searchParams.get('sc') ?? '2'
+        return withOrderFormSalesChannel(checkoutOrderFormValidFetch, sc).result
+      }
+
+      return pickFetchAPICallResult(info, init, [])
+    })
+
+    const response = await run(ValidateCartWithSessionMutation, {
+      cart: ValidCart,
+      session: sessionOn({ salesChannel: '3', salesChannelSource: 'url' }),
+    })
+
+    const gets = checkoutUrls().filter(isOrderFormGet)
+
+    expect(response.errors).toBeUndefined()
+    expect(new URL(gets[0]).searchParams.get('sc')).toBe('3')
+    expect(checkoutUrls().some((url) => url.includes('sc=2'))).toBe(false)
+    expect(response.data?.validateCart?.order?.salesChannel ?? null).toBeNull()
+  })
+
+  test('ignores a leftover URL marker when localization is disabled', async () => {
+    const run = await createRunner()
+    mockCheckout()
+
+    const response = await run(ValidateCartWithSessionMutation, {
+      cart: emptyCart,
+      session: sessionOn({ salesChannel: '4', salesChannelSource: 'url' }),
+    })
+
+    const gets = checkoutUrls().filter(isOrderFormGet)
+
+    // Same as an unmarked session: SC-less fetch first, then the refetch.
+    expect(response.errors).toBeUndefined()
+    expect(new URL(gets[0]).searchParams.has('sc')).toBe(false)
   })
 })

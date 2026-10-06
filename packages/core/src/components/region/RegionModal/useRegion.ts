@@ -41,8 +41,10 @@ export default function useRegion(): UseRegionValues {
 
     try {
       // `session` usually comes from `useSession()`, which also carries UI state
+      // and filters session-only channel keys (sales channel markers).
       const newSession = {
         ...toSessionInput(session),
+        channel: sessionStore.read()?.channel ?? session.channel,
         postalCode,
         geoCoordinates: null, // Revalidate geo coordinates in API when users set a new postal code
       } as Session
