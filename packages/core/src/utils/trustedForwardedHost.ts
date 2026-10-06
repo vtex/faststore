@@ -40,3 +40,11 @@ export function singleForwardedHost(
 
   return value && !value.includes(',') ? value : undefined
 }
+
+/**
+ * Drops every Domain attribute so the cookie becomes host-only: the browser
+ * scopes it to the exact host it requested, whatever header picked this path.
+ */
+export function removeCookieDomain(setCookie: string): string {
+  return setCookie.replace(/;\s*domain=[^;]*/gi, '')
+}
