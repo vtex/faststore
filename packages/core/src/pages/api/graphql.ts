@@ -10,6 +10,11 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie } from 'src/utils/getCookie'
 import { isLocalHost } from 'src/utils/isLocalHost'
+import {
+  isHostAllowed,
+  removeCookieDomain,
+  singleForwardedHost,
+} from 'src/utils/trustedForwardedHost'
 import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
 import { execute } from '../../server'
 
@@ -20,24 +25,45 @@ const ALLOWED_HOST_SUFFIXES = ['localhost', '.vtex.app', '.localhost']
 // Example: "Set-Cookie: key=value; Domain=example.com; Path=/"
 const MATCH_DOMAIN_REGEXP = /(?:^|;\s*)(?:domain=)([^;]+)/i
 
+const toHostname = (hostHeader: string | undefined) => {
+  const trimmed = hostHeader?.trim()
+  if (!trimmed) {
+    return null
+  }
+
+  try {
+    return new URL(`https://${trimmed}`).hostname
+  } catch {
+    return null
+  }
+}
+
 /**
- * Extracts hostname from the incoming request.
+ * Extracts hostname from the incoming request. The preview ingress forwards a
+ * client-supplied x-forwarded-host as is, so it only decides whether the cookie
+ * Domain is dropped, never which domain is used. A multi-value header is
+ * ignored; a single value is used only if it is on the allowlist.
  */
 const getRequestHostname = ({
   request,
 }: {
   request: NextApiRequest
 }): string | null => {
-  const hostHeader = request.headers.host?.trim()
-  if (!hostHeader) {
-    return null
+  const forwardedHeader = request.headers['x-forwarded-host']
+  const forwardedHostname = toHostname(singleForwardedHost(forwardedHeader))
+  if (forwardedHeader && !forwardedHostname) {
+    // The value is client-controllable, so it is not logged.
+    console.warn('Ignoring multi-value or malformed x-forwarded-host')
   }
 
-  try {
-    return new URL(`https://${hostHeader}`).hostname
-  } catch {
-    return null
+  if (
+    forwardedHostname &&
+    isHostAllowed(forwardedHostname, ALLOWED_HOST_SUFFIXES)
+  ) {
+    return forwardedHostname
   }
+
+  return toHostname(request.headers.host)
 }
 
 /**
@@ -57,22 +83,10 @@ const shouldReplaceCookieDomain = ({
 }
 
 /**
- * Determines if host is eligible for domain normalization.
- */
-const isAllowedHost = ({
-  host,
-  allowList,
-}: {
-  host: string
-  allowList: string[]
-}) => {
-  const normalizedHost = host.toLowerCase()
-
-  return allowList.some((suffix) => normalizedHost.endsWith(suffix))
-}
-
-/**
- * Ensure the cookie domain matches the current host so the browser can store it.
+ * On allowlisted hosts (previews, localhost) the upstream cookie domain does not
+ * match the browser host, so the Domain attribute is dropped and the cookie
+ * becomes host-only. The host is never written into the cookie, so a forged
+ * x-forwarded-host cannot choose the cookie scope.
  */
 const normalizeSetCookieDomain = ({
   request,
@@ -93,13 +107,13 @@ const normalizeSetCookieDomain = ({
   const cookieDomain = domainMatch[1]
 
   if (
-    !isAllowedHost({ host, allowList: ALLOWED_HOST_SUFFIXES }) ||
+    !isHostAllowed(host, ALLOWED_HOST_SUFFIXES) ||
     !shouldReplaceCookieDomain({ cookieDomain, host })
   ) {
     return setCookie
   }
 
-  return setCookie.replace(MATCH_DOMAIN_REGEXP, `; domain=${host}`)
+  return removeCookieDomain(setCookie)
 }
 
 const parseRequest = (request: NextApiRequest) => {
