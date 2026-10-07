@@ -142,7 +142,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.100.4
+        specifier: ^3.100.6
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -7917,6 +7917,7 @@ packages:
         integrity: sha512-KLLTJWrvwIP+OPfMn0x2PheDEP20RPUcGXj/ERegTgdmPEZylALQldygiqrPPu8P45uNuPs7ckmReLY6v/iA5g==,
       }
     engines: { node: ">= 0.10" }
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   clone-response@1.0.3:
     resolution:
