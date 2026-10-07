@@ -12,6 +12,9 @@ export * from './src/typings/overrides'
 export { getOverriddenSection } from './src/sdk/overrides/getOverriddenSection'
 export { getMyAccountRoutes } from './src/sdk/account/getMyAccountRoutes'
 
+export { RichText } from './src/components/ui/RichText'
+export type { RichTextProps } from './src/components/ui/RichText'
+
 // Overridable Sections
 export { default as AlertSection } from './src/components/sections/Alert'
 export { default as BannerTextSection } from './src/components/sections/BannerText'
