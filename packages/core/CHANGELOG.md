@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.9.3-dev.2](https://github.com/vtex/faststore/compare/v4.9.3-dev.1...v4.9.3-dev.2) (2026-10-07)
+
+### Bug Fixes
+
+- address security & functional concerns from dk review ([d0b6106](https://github.com/vtex/faststore/commit/d0b610688ec551d8105c74750927be4ab1af7224))
+- **core:** harden x-forwarded-host handling and drop orderNumber fallback ([c1faa35](https://github.com/vtex/faststore/commit/c1faa35fe070ff8b51d4f07a5f1f33da4b17d836)), closes [#3178](https://github.com/vtex/faststore/issues/3178)
+- **core:** ignore multi-value x-forwarded-host and cover port and case ([b81d5d9](https://github.com/vtex/faststore/commit/b81d5d91721f9f8205251ad39e607b094386083c))
+- **core:** log ignored x-forwarded-host and cover CR/LF hostnames ([adaa816](https://github.com/vtex/faststore/commit/adaa81608b7e72759272e1d6d23ca6257b9a4d59))
+- **core:** make preview cookies host-only instead of rewriting their domain ([8e4901e](https://github.com/vtex/faststore/commit/8e4901ec7d127336bc27c0ae8e52c9cadea1a5a3))
+- **core:** reject hostnames that would inject Set-Cookie attributes ([059a437](https://github.com/vtex/faststore/commit/059a4377c3b1b8f66aeed2b73ce130e1ab827f77))
+- resolve ValidateCartMutation infinite loop in preview environments (SFS-3034) ([1cc9a5e](https://github.com/vtex/faststore/commit/1cc9a5efb1617f3d032623c4ee5f687ad5e2ccd9)), closes [#3178](https://github.com/vtex/faststore/issues/3178) [#3178](https://github.com/vtex/faststore/issues/3178) [#3190](https://github.com/vtex/faststore/issues/3190) [#3188](https://github.com/vtex/faststore/issues/3188) [#1467584](https://github.com/vtex/faststore/issues/1467584)
+
 ## [4.9.3-dev.1](https://github.com/vtex/faststore/compare/v4.9.3-dev.0...v4.9.3-dev.1) (2026-10-06)
 
 ### Bug Fixes
