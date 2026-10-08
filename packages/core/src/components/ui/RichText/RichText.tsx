@@ -26,6 +26,7 @@ import {
 } from 'lexical'
 import { RichText as UIRichText } from '@faststore/ui'
 import { isContentPlatformSource } from 'src/server/content/utils'
+import { RichTextImageNode } from './RichTextImageNode'
 
 export interface RichTextProps {
   /**
@@ -124,6 +125,7 @@ function lexicalToHtml(content: string) {
       ListItemNode,
       CodeNode,
       HorizontalRuleNode,
+      RichTextImageNode,
     ],
     onError: (error) => {
       throw error

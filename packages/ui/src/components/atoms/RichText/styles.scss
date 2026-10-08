@@ -1,4 +1,26 @@
 [data-fs-rich-text] {
+  [data-fs-rich-text-image-wrapper] {
+    display: flex;
+    margin: var(--fs-spacing-2) 0;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    &[data-fs-rich-text-image-alignment="left"] {
+      justify-content: flex-start;
+    }
+
+    &[data-fs-rich-text-image-alignment="center"] {
+      justify-content: center;
+    }
+
+    &[data-fs-rich-text-image-alignment="right"] {
+      justify-content: flex-end;
+    }
+  }
+
   [data-fs-rich-text-list="true"] {
     padding: 0;
     margin: 0;
