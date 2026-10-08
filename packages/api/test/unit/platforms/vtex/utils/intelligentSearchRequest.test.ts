@@ -598,6 +598,40 @@ describe('buildIntelligentSearchRequest', () => {
       })
     })
 
+    it('uses the segment country when only the postal code is overridden', () => {
+      const request = buildIntelligentSearchRequest({
+        endpoint: 'pickup-point-availability',
+        segment,
+        defaults: { locale: 'pt-BR', salesChannel: 1 },
+        args: { postalCode: '22271020' },
+      })
+
+      const params = paramsToObject(request.params)
+
+      expect(params['zip-code']).toBe('22271020')
+      expect(params.country).toBe('BRA')
+      expect(params.coordinates).toBeUndefined()
+      expect(params.deliveryZonesHash).toBeUndefined()
+      expect(params.pickupPointsHash).toBeUndefined()
+    })
+
+    it('keeps the segment coordinates when the postal code matches and none are sent', () => {
+      const request = buildIntelligentSearchRequest({
+        endpoint: 'pickup-point-availability',
+        segment,
+        defaults: { locale: 'pt-BR', salesChannel: 1 },
+        args: { postalCode: '01002020' },
+      })
+
+      expect(paramsToObject(request.params)).toMatchObject({
+        'zip-code': '01002020',
+        country: 'BRA',
+        coordinates: '-46.63,-23.54',
+        deliveryZonesHash: 'abc',
+        pickupPointsHash: 'def',
+      })
+    })
+
     it('throws when neither an address override nor a segment zip code is available', () => {
       expect(() =>
         buildIntelligentSearchRequest({

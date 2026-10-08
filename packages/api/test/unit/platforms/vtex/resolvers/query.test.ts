@@ -824,4 +824,27 @@ describe('Query.pickupPoints', () => {
       pickupPointsHash: null,
     })
   })
+
+  it('omits coordinates when the caller only sends a postal code', async () => {
+    const pickupPointAvailability = vi.fn().mockResolvedValue(null)
+    const ctx = {
+      clients: { search: { pickupPointAvailability } },
+    }
+
+    const result = await pickupPoints(
+      null,
+      { postalCode: '22041080', country: 'BRA' },
+      ctx
+    )
+
+    expect(pickupPointAvailability).toHaveBeenCalledWith({
+      postalCode: '22041080',
+      country: 'BRA',
+      coordinates: undefined,
+    })
+    expect(result).toEqual({
+      pickupPointDistances: [],
+      pickupPointsHash: null,
+    })
+  })
 })

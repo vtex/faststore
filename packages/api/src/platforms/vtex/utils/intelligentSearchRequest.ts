@@ -78,9 +78,9 @@ export interface IntelligentSearchRequestArgs {
   allowRedirect?: boolean
   field?: ProductIdentifierField
   value?: string
-  /** Overrides the segment postal code. With `country`, drops delivery hashes when the address differs. */
+  /** Overrides the segment postal code. A different CEP omits delivery hashes. */
   postalCode?: string
-  /** Overrides the segment country. Required together with `postalCode`. */
+  /** Country for `postalCode`. Falls back to the segment country when omitted. */
   country?: string
   /** `longitude,latitude`. Used to sort pickup points. */
   coordinates?: string
@@ -562,7 +562,7 @@ function buildProductsParams(
 }
 
 function normalizeLocationToken(value: string | undefined): string {
-  return (value ?? '').replace(/[\s-]/g, '').toUpperCase()
+  return (value ?? '').replaceAll(/[\s-]/g, '').toUpperCase()
 }
 
 /**
@@ -582,18 +582,24 @@ function buildPickupPointAvailabilityParams(
 ): { params: URLSearchParams; path: string } {
   const { segmentParams, extraFacets } = segmentData
   const { postalCode, country, coordinates } = args
-  const hasPostalOverride = Boolean(postalCode && country)
+  const hasPostalOverride = Boolean(postalCode)
+  const overrideCountry = country || segmentParams.country
   const sameLocation =
     hasPostalOverride &&
     normalizeLocationToken(postalCode) ===
       normalizeLocationToken(segmentParams['zip-code']) &&
-    normalizeLocationToken(country) ===
+    normalizeLocationToken(overrideCountry) ===
       normalizeLocationToken(segmentParams.country)
 
   const zipCode = hasPostalOverride ? postalCode : segmentParams['zip-code']
-  const resolvedCountry = hasPostalOverride ? country : segmentParams.country
+  const resolvedCountry = hasPostalOverride
+    ? overrideCountry
+    : segmentParams.country
+  const segmentCoordinates = sameLocation
+    ? segmentParams.coordinates
+    : undefined
   const resolvedCoordinates = hasPostalOverride
-    ? (coordinates ?? (sameLocation ? segmentParams.coordinates : undefined))
+    ? (coordinates ?? segmentCoordinates)
     : coordinates || segmentParams.coordinates
 
   const includeHashes = !hasPostalOverride || sameLocation
