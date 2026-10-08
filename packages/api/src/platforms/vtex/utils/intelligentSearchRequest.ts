@@ -607,9 +607,15 @@ function buildPickupPointAvailabilityParams(
     segmentParams.deliveryZonesHash && segmentParams.pickupPointHash
   )
 
-  if ((!zipCode || !resolvedCountry) && !(includeHashes && hasHashes)) {
+  const hasCoordinates = Boolean(resolvedCoordinates)
+
+  if (
+    (!zipCode || !resolvedCountry) &&
+    !hasCoordinates &&
+    !(includeHashes && hasHashes)
+  ) {
     throw new Error(
-      'Missing delivery location for pickup point availability. Provide postalCode and country, or a segment with zip-code.'
+      'Missing delivery location for pickup point availability. Provide postalCode and country, coordinates, or a segment with zip-code.'
     )
   }
 

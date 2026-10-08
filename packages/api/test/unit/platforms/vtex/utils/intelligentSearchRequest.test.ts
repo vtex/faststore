@@ -632,6 +632,23 @@ describe('buildIntelligentSearchRequest', () => {
       })
     })
 
+    it('accepts coordinates when the segment has no postal code', () => {
+      const request = buildIntelligentSearchRequest({
+        endpoint: 'pickup-point-availability',
+        segment: { channel: 1 },
+        defaults: { locale: 'pt-BR', salesChannel: 1 },
+        args: { coordinates: '-43.19,-22.95' },
+      })
+
+      const params = paramsToObject(request.params)
+
+      expect(params.coordinates).toBe('-43.19,-22.95')
+      expect(params['zip-code']).toBeUndefined()
+      expect(params.country).toBeUndefined()
+      expect(params.deliveryZonesHash).toBeUndefined()
+      expect(params.pickupPointsHash).toBeUndefined()
+    })
+
     it('throws when neither an address override nor a segment zip code is available', () => {
       expect(() =>
         buildIntelligentSearchRequest({
