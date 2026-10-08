@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.10.0-dev.0](https://github.com/vtex/faststore/compare/v4.9.3-dev.2...v4.10.0-dev.0) (2026-10-08)
+
+### Features
+
+- render images in RichText via a custom Lexical image node ([#3448](https://github.com/vtex/faststore/issues/3448)) ([a7c85b8](https://github.com/vtex/faststore/commit/a7c85b8478a64994b123f81ee08add594daa7b2f))
+
 ## [4.9.3-dev.2](https://github.com/vtex/faststore/compare/v4.9.3-dev.1...v4.9.3-dev.2) (2026-10-07)
 
 ### Bug Fixes
