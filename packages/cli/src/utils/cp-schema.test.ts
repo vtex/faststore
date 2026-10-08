@@ -60,7 +60,9 @@ describe('cp-schema', () => {
         recursive: true,
       })
 
-      expect(getExistingCpDirs(tempDir)).toEqual(['cms/faststore/components'])
+      expect(getExistingCpDirs(tempDir)).toEqual([
+        path.join('cms', 'faststore', 'components'),
+      ])
     })
 
     it('returns both dirs when both exist', () => {
@@ -72,8 +74,8 @@ describe('cp-schema', () => {
       })
 
       expect(getExistingCpDirs(tempDir)).toEqual([
-        'cms/faststore/components',
-        'cms/faststore/pages',
+        path.join('cms', 'faststore', 'components'),
+        path.join('cms', 'faststore', 'pages'),
       ])
     })
 
@@ -102,7 +104,7 @@ describe('cp-schema', () => {
   })
 
   describe('generateAndUploadSchema', () => {
-    it('runs generate then upload synchronously without -l', () => {
+    it('runs generate then upload synchronously without -l, forwarding the project as --storeId', () => {
       const schemaOut = path.join(tempDir, 'cms', 'faststore', 'schema.json')
 
       generateAndUploadSchema({
@@ -110,6 +112,7 @@ describe('cp-schema', () => {
         dirs: ['cms/faststore/components', 'cms/faststore/pages'],
         schemaOut,
         dryRun: false,
+        project: 'my-store',
       })
 
       expect(runCommandSyncMock).toHaveBeenCalledTimes(2)
@@ -121,12 +124,27 @@ describe('cp-schema', () => {
         interactive: true,
       })
       expect(runCommandSyncMock.mock.calls[1][0]).toEqual({
-        cmd: `vtex content upload-schema ${schemaOut}`,
+        cmd: `vtex content upload-schema ${schemaOut} --storeId my-store`,
         cwd: tempDir,
         throws: 'error',
         errorMessage: 'Failed to upload CMS schema',
         interactive: true,
       })
+    })
+
+    it('falls back to the "faststore" storeId when no project is configured', () => {
+      const schemaOut = path.join(tempDir, 'cms', 'faststore', 'schema.json')
+
+      generateAndUploadSchema({
+        basePath: tempDir,
+        dirs: ['cms/faststore/components', 'cms/faststore/pages'],
+        schemaOut,
+        dryRun: false,
+      })
+
+      expect(runCommandSyncMock.mock.calls[1][0].cmd).toBe(
+        `vtex content upload-schema ${schemaOut} --storeId faststore`
+      )
     })
 
     it('skips upload on dry-run', () => {

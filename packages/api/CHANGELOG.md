@@ -3,6 +3,259 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.9.3-dev.2](https://github.com/vtex/faststore/compare/v4.9.3-dev.1...v4.9.3-dev.2) (2026-10-07)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.9.3-dev.1](https://github.com/vtex/faststore/compare/v4.9.3-dev.0...v4.9.3-dev.1) (2026-10-06)
+
+### Bug Fixes
+
+- keep empty carts from moving the session sales channel ([#3509](https://github.com/vtex/faststore/issues/3509)) ([600fb7d](https://github.com/vtex/faststore/commit/600fb7d9403553c12bd01d6b3955f18c48f91054)), closes [#3435](https://github.com/vtex/faststore/issues/3435) [#3435](https://github.com/vtex/faststore/issues/3435)
+
+## [4.9.3-dev.0](https://github.com/vtex/faststore/compare/v4.9.1-dev.0...v4.9.3-dev.0) (2026-10-05)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.9.2](https://github.com/vtex/faststore/compare/v4.9.1...v4.9.2) (2026-10-02)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.9.1](https://github.com/vtex/faststore/compare/v4.9.0...v4.9.1) (2026-10-02)
+
+### Bug Fixes
+
+- restore raw StoreProduct.releaseDate, normalize only in PDP JSON-LD ([#3508](https://github.com/vtex/faststore/issues/3508)) ([fb0112d](https://github.com/vtex/faststore/commit/fb0112df966dc59b8971c335bcb5fd405b715763)), closes [#3465](https://github.com/vtex/faststore/issues/3465) [#3465](https://github.com/vtex/faststore/issues/3465) [#1438](https://github.com/vtex/faststore/issues/1438) [#3437](https://github.com/vtex/faststore/issues/3437)
+
+# [4.9.0](https://github.com/vtex/faststore/compare/v4.9.0-dev.8...v4.9.0) (2026-09-30)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.9.0-dev.8](https://github.com/vtex/faststore/compare/v4.9.0-dev.7...v4.9.0-dev.8) (2026-09-30)
+
+### Bug Fixes
+
+- **api:** keep VTEX services out of validateCart line merging ([#3504](https://github.com/vtex/faststore/issues/3504)) ([2885fc6](https://github.com/vtex/faststore/commit/2885fc670860b671b587a63904c1a0393baf03db)), closes [#3460](https://github.com/vtex/faststore/issues/3460)
+
+# [4.9.0-dev.7](https://github.com/vtex/faststore/compare/v4.9.0-dev.6...v4.9.0-dev.7) (2026-09-29)
+
+### Features
+
+- **api:** expose product clusters on product groups ([#3499](https://github.com/vtex/faststore/issues/3499)) ([d82c21b](https://github.com/vtex/faststore/commit/d82c21b66884ae61479179fd72d211decf9bd283)), closes [20v1.json#L1926-L1942](https://github.com/20v1.json/issues/L1926-L1942) [/github.com/vtex/faststore/blob/dev/packages/api/src/platforms/vtex/clients/search/types/ProductSearchResult.ts#L71-L83](https://github.com//github.com/vtex/faststore/blob/dev/packages/api/src/platforms/vtex/clients/search/types/ProductSearchResult.ts/issues/L71-L83)
+
+# [4.9.0-dev.6](https://github.com/vtex/faststore/compare/v4.9.0-dev.5...v4.9.0-dev.6) (2026-09-29)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.9.0-dev.5](https://github.com/vtex/faststore/compare/v4.9.0-dev.4...v4.9.0-dev.5) (2026-09-29)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.9.0-dev.4](https://github.com/vtex/faststore/compare/v4.9.0-dev.3...v4.9.0-dev.4) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.9.0-dev.3](https://github.com/vtex/faststore/compare/v4.9.0-dev.2...v4.9.0-dev.3) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.9.0-dev.2](https://github.com/vtex/faststore/compare/v4.9.0-dev.1...v4.9.0-dev.2) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.9.0-dev.1](https://github.com/vtex/faststore/compare/v4.9.0-dev.0...v4.9.0-dev.1) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.9.0-dev.0](https://github.com/vtex/faststore/compare/v4.8.1-dev.3...v4.9.0-dev.0) (2026-09-24)
+
+### Features
+
+- **api,sdk:** support custom StoreSort values via customSortMap ([#3496](https://github.com/vtex/faststore/issues/3496)) ([8613faa](https://github.com/vtex/faststore/commit/8613faa046449801d17a2f0076e3a9b9d5a8c00f)), closes [/github.com/vtex/faststore/pull/3496#discussion_r4063084635](https://github.com//github.com/vtex/faststore/pull/3496/issues/discussion_r4063084635) [vtex-sites/playground.store#238](https://github.com/vtex-sites/playground.store/issues/238) [#3495](https://github.com/vtex/faststore/issues/3495)
+
+## [4.8.1-dev.3](https://github.com/vtex/faststore/compare/v4.8.1-dev.2...v4.8.1-dev.3) (2026-09-22)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.8.1-dev.2](https://github.com/vtex/faststore/compare/v4.8.1-dev.1...v4.8.1-dev.2) (2026-09-21)
+
+### Bug Fixes
+
+- **core:** SUMA review fixes — reset cart/orderForm on contract switch, default contract in switcher, no Sign-in flash (B2BTEAM-3827) ([#3479](https://github.com/vtex/faststore/issues/3479)) ([d015186](https://github.com/vtex/faststore/commit/d015186f66bc5cdfce55d3da1c21b2d4dbb3d39e))
+
+## [4.8.1-dev.1](https://github.com/vtex/faststore/compare/v4.8.1-dev.0...v4.8.1-dev.1) (2026-09-18)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.8.1-dev.0](https://github.com/vtex/faststore/compare/v4.8.0...v4.8.1-dev.0) (2026-09-15)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.8.0](https://github.com/vtex/faststore/compare/v4.7.0...v4.8.0) (2026-09-15)
+
+### Features
+
+- release 4.8.0 (graduate dev → main) ([#3488](https://github.com/vtex/faststore/issues/3488)) ([09ff84a](https://github.com/vtex/faststore/commit/09ff84aabe1f5a5a74fe52c191f37e5521dd8e9b)), closes [#3466](https://github.com/vtex/faststore/issues/3466) [#3481](https://github.com/vtex/faststore/issues/3481) [#3487](https://github.com/vtex/faststore/issues/3487) [#3453](https://github.com/vtex/faststore/issues/3453) [#3484](https://github.com/vtex/faststore/issues/3484) [#3482](https://github.com/vtex/faststore/issues/3482) [#3476](https://github.com/vtex/faststore/issues/3476) [#3477](https://github.com/vtex/faststore/issues/3477) [#3474](https://github.com/vtex/faststore/issues/3474) [#3422](https://github.com/vtex/faststore/issues/3422) [#3470](https://github.com/vtex/faststore/issues/3470)
+
+# [4.8.0-dev.8](https://github.com/vtex/faststore/compare/v4.8.0-dev.7...v4.8.0-dev.8) (2026-09-14)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.8.0-dev.7](https://github.com/vtex/faststore/compare/v4.8.0-dev.6...v4.8.0-dev.7) (2026-09-14)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.8.0-dev.6](https://github.com/vtex/faststore/compare/v4.8.0-dev.5...v4.8.0-dev.6) (2026-09-11)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.8.0-dev.5](https://github.com/vtex/faststore/compare/v4.8.0-dev.4...v4.8.0-dev.5) (2026-09-09)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.8.0-dev.4](https://github.com/vtex/faststore/compare/v4.8.0-dev.3...v4.8.0-dev.4) (2026-09-08)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.8.0-dev.3](https://github.com/vtex/faststore/compare/v4.8.0-dev.2...v4.8.0-dev.3) (2026-09-08)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.8.0-dev.2](https://github.com/vtex/faststore/compare/v4.8.0-dev.1...v4.8.0-dev.2) (2026-09-07)
+
+### Features
+
+- **api:** export `validateUserAuthentication` and `getAuthCookie` ([#3481](https://github.com/vtex/faststore/issues/3481)) ([3ead365](https://github.com/vtex/faststore/commit/3ead365e185dddf6af228ab04040c462f2a97679)), closes [#3480](https://github.com/vtex/faststore/issues/3480) [#3474](https://github.com/vtex/faststore/issues/3474) [#3480](https://github.com/vtex/faststore/issues/3480) [#3474](https://github.com/vtex/faststore/issues/3474)
+
+# [4.8.0-dev.1](https://github.com/vtex/faststore/compare/v4.8.0-dev.0...v4.8.0-dev.1) (2026-09-03)
+
+### Bug Fixes
+
+- **api:** export Resolver, GraphqlContext and helper types from the public entry ([0683c25](https://github.com/vtex/faststore/commit/0683c259c85ae603bf6dd23d7e0b8c64cc7b6ccf))
+- **api:** keep the public Resolver type compatible with v3 ([e580a72](https://github.com/vtex/faststore/commit/e580a720d0b2d840b386f8809b8aed1d2acf00db))
+
+# [4.8.0-dev.0](https://github.com/vtex/faststore/compare/v4.7.1-dev.2...v4.8.0-dev.0) (2026-09-03)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.7.1-dev.2](https://github.com/vtex/faststore/compare/v4.7.1-dev.1...v4.7.1-dev.2) (2026-09-02)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.7.1-dev.1](https://github.com/vtex/faststore/compare/v4.7.1-dev.0...v4.7.1-dev.1) (2026-09-01)
+
+### Bug Fixes
+
+- point localized canonical and hreflang at the rendered locale ([#3470](https://github.com/vtex/faststore/issues/3470)) ([d9038cf](https://github.com/vtex/faststore/commit/d9038cf631cf40eae5b9d9e3eb2c33290eba7b73))
+
+## [4.7.1-dev.0](https://github.com/vtex/faststore/compare/v4.7.0...v4.7.1-dev.0) (2026-08-31)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.7.0](https://github.com/vtex/faststore/compare/v4.7.0-dev.9...v4.7.0) (2026-08-31)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.7.0-dev.9](https://github.com/vtex/faststore/compare/v4.7.0-dev.8...v4.7.0-dev.9) (2026-08-31)
+
+### Bug Fixes
+
+- **api:** separate hreflang slugs from locale-switch navigation ([#3462](https://github.com/vtex/faststore/issues/3462)) ([3091a46](https://github.com/vtex/faststore/commit/3091a46031f387d1e11e5747dd0f4ac6bef358e2))
+
+# [4.7.0-dev.8](https://github.com/vtex/faststore/compare/v4.7.0-dev.7...v4.7.0-dev.8) (2026-08-28)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.7.0-dev.7](https://github.com/vtex/faststore/compare/v4.7.0-dev.6...v4.7.0-dev.7) (2026-08-28)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.7.0-dev.6](https://github.com/vtex/faststore/compare/v4.7.0-dev.5...v4.7.0-dev.6) (2026-08-26)
+
+### Bug Fixes
+
+- make PDP product JSON-LD Schema.org compliant ([#3465](https://github.com/vtex/faststore/issues/3465)) ([0c09f15](https://github.com/vtex/faststore/commit/0c09f15456d3490602970ce0b4dff6b3c76a4f9c)), closes [#1449246](https://github.com/vtex/faststore/issues/1449246)
+
+# [4.7.0-dev.5](https://github.com/vtex/faststore/compare/v4.7.0-dev.4...v4.7.0-dev.5) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.7.0-dev.4](https://github.com/vtex/faststore/compare/v4.7.0-dev.3...v4.7.0-dev.4) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.7.0-dev.3](https://github.com/vtex/faststore/compare/v4.7.0-dev.2...v4.7.0-dev.3) (2026-08-25)
+
+### Bug Fixes
+
+- **api:** correct item videos field casing ([#3447](https://github.com/vtex/faststore/issues/3447)) ([80c5fd7](https://github.com/vtex/faststore/commit/80c5fd7a33571e3250190066e4dafc6c865e7f07))
+
+# [4.7.0-dev.2](https://github.com/vtex/faststore/compare/v4.7.0-dev.1...v4.7.0-dev.2) (2026-08-24)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.7.0-dev.1](https://github.com/vtex/faststore/compare/v4.7.0-dev.0...v4.7.0-dev.1) (2026-08-24)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.7.0-dev.0](https://github.com/vtex/faststore/compare/v4.6.1-dev.0...v4.7.0-dev.0) (2026-08-24)
+
+### Features
+
+- My Account Cards — Personal + Shared listing ([#3443](https://github.com/vtex/faststore/issues/3443)) ([6dded69](https://github.com/vtex/faststore/commit/6dded6905ed5bbf5c7fe71cfc106abf95c816888)), closes [vtex/faststore-dx-spec-kit#24](https://github.com/vtex/faststore-dx-spec-kit/issues/24)
+
+## [4.6.1-dev.0](https://github.com/vtex/faststore/compare/v4.6.0...v4.6.1-dev.0) (2026-08-18)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.6.0](https://github.com/vtex/faststore/compare/v4.6.0-dev.6...v4.6.0) (2026-08-18)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.6.0-dev.6](https://github.com/vtex/faststore/compare/v4.6.0-dev.5...v4.6.0-dev.6) (2026-08-14)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.6.0-dev.5](https://github.com/vtex/faststore/compare/v4.6.0-dev.4...v4.6.0-dev.5) (2026-08-13)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.6.0-dev.4](https://github.com/vtex/faststore/compare/v4.6.0-dev.3...v4.6.0-dev.4) (2026-08-12)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.6.0-dev.3](https://github.com/vtex/faststore/compare/v4.6.0-dev.2...v4.6.0-dev.3) (2026-08-12)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.6.0-dev.2](https://github.com/vtex/faststore/compare/v4.6.0-dev.1...v4.6.0-dev.2) (2026-08-12)
+
+### Bug Fixes
+
+- **api:** address Sonar and harden session sales-channel sync ([5f6e8e9](https://github.com/vtex/faststore/commit/5f6e8e909def75f60c24cdaffae9303ed2c0a052))
+- **api:** address Sonar findings in validateCart and orderForm URL ([3211231](https://github.com/vtex/faststore/commit/321123179d3e5789fb7730ef94c8f2f0d8b878b1))
+- **api:** keep orderForm sales channel after stale validateCart sync ([09b051b](https://github.com/vtex/faststore/commit/09b051b80aaff7183adf7f5e86aece438bcd38f0))
+- **api:** preserve orderForm sales channel in validateCart ([2336cda](https://github.com/vtex/faststore/commit/2336cda2c95970850dd0d29c1c18043ca8c9078a))
+- **api:** sync adopted orderForm sales channel into session ([8943da7](https://github.com/vtex/faststore/commit/8943da7821f8abec08a39b7907a258bf156b05ee))
+
+# [4.6.0-dev.1](https://github.com/vtex/faststore/compare/v4.6.0-dev.0...v4.6.0-dev.1) (2026-08-11)
+
+## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.5.1) (2026-08-11)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.6.0-dev.0](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.6.0-dev.0) (2026-08-11)
+
+### Features
+
+- removing vtex/diagnostics-nodejs ([#3389](https://github.com/vtex/faststore/issues/3389)) ([74e2d50](https://github.com/vtex/faststore/commit/74e2d503a44903929b90af7701956536690d4e41))
+
+## [4.5.1-dev.4](https://github.com/vtex/faststore/compare/v4.5.1-dev.3...v4.5.1-dev.4) (2026-08-10)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.5.1-dev.3](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1-dev.3) (2026-08-10)
+
 ## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1) (2026-08-11)
 
 **Note:** Version bump only for package @faststore/api

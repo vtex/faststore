@@ -75,6 +75,7 @@ export default function ListOrdersPage({
         >
           <BeforeSection />
           <RenderSectionsBase
+            skipLazyLoading
             sections={pageSections}
             components={ACCOUNT_COMPONENTS}
           />

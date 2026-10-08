@@ -3,6 +3,263 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.9.3-dev.2](https://github.com/vtex/faststore/compare/v4.9.3-dev.1...v4.9.3-dev.2) (2026-10-07)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.9.3-dev.1](https://github.com/vtex/faststore/compare/v4.9.3-dev.0...v4.9.3-dev.1) (2026-10-06)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.9.3-dev.0](https://github.com/vtex/faststore/compare/v4.9.1-dev.0...v4.9.3-dev.0) (2026-10-05)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.9.2](https://github.com/vtex/faststore/compare/v4.9.1...v4.9.2) (2026-10-02)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.9.1](https://github.com/vtex/faststore/compare/v4.9.0...v4.9.1) (2026-10-02)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.9.0](https://github.com/vtex/faststore/compare/v4.9.0-dev.8...v4.9.0) (2026-09-30)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.9.0-dev.8](https://github.com/vtex/faststore/compare/v4.9.0-dev.7...v4.9.0-dev.8) (2026-09-30)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.9.0-dev.7](https://github.com/vtex/faststore/compare/v4.9.0-dev.6...v4.9.0-dev.7) (2026-09-29)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.9.0-dev.6](https://github.com/vtex/faststore/compare/v4.9.0-dev.5...v4.9.0-dev.6) (2026-09-29)
+
+### Bug Fixes
+
+- normalize next bin path to forward slashes on Windows ([a1231d0](https://github.com/vtex/faststore/commit/a1231d0e9687ddf1324ad46f158412f0af7231bb))
+- run the CLI test suite on Windows ([2182bdf](https://github.com/vtex/faststore/commit/2182bdf9690fd81713d268faeb17349ba2480a37))
+
+# [4.9.0-dev.5](https://github.com/vtex/faststore/compare/v4.9.0-dev.4...v4.9.0-dev.5) (2026-09-29)
+
+### Bug Fixes
+
+- **cli:** satisfy biome formatting in generate.test.ts ([5fbfb69](https://github.com/vtex/faststore/commit/5fbfb6931d449734901c0240faa28452a73012ef)), closes [#3486](https://github.com/vtex/faststore/issues/3486)
+- **core:** avoid Yarn Classic Windows tar-extraction bug dropping src/pages/s.tsx ([1d9cec9](https://github.com/vtex/faststore/commit/1d9cec97a7b1eee249ed4521fe8c103eee81921a))
+
+# [4.9.0-dev.4](https://github.com/vtex/faststore/compare/v4.9.0-dev.3...v4.9.0-dev.4) (2026-09-28)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.9.0-dev.3](https://github.com/vtex/faststore/compare/v4.9.0-dev.2...v4.9.0-dev.3) (2026-09-28)
+
+### Bug Fixes
+
+- refuse an unquotable next path inside the package.json builder ([#3503](https://github.com/vtex/faststore/issues/3503)) ([da85b46](https://github.com/vtex/faststore/commit/da85b4626e127c268a87c2e6533e012d4787670a)), closes [#3494](https://github.com/vtex/faststore/issues/3494)
+
+# [4.9.0-dev.2](https://github.com/vtex/faststore/compare/v4.9.0-dev.1...v4.9.0-dev.2) (2026-09-28)
+
+### Bug Fixes
+
+- always quote the resolved next bin path ([#3494](https://github.com/vtex/faststore/issues/3494)) ([407a05a](https://github.com/vtex/faststore/commit/407a05aa7c1fe946c701d7c70097a13ed9bf5f68))
+
+# [4.9.0-dev.1](https://github.com/vtex/faststore/compare/v4.9.0-dev.0...v4.9.0-dev.1) (2026-09-28)
+
+### Bug Fixes
+
+- resolve the store root by folder name when merging custom typeDefs ([#3502](https://github.com/vtex/faststore/issues/3502)) ([756baef](https://github.com/vtex/faststore/commit/756baefb20eccc97d35f9c40635dc757d7c73961))
+
+# [4.9.0-dev.0](https://github.com/vtex/faststore/compare/v4.8.1-dev.3...v4.9.0-dev.0) (2026-09-24)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.8.1-dev.3](https://github.com/vtex/faststore/compare/v4.8.1-dev.2...v4.8.1-dev.3) (2026-09-22)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.8.1-dev.2](https://github.com/vtex/faststore/compare/v4.8.1-dev.1...v4.8.1-dev.2) (2026-09-21)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.8.1-dev.1](https://github.com/vtex/faststore/compare/v4.8.1-dev.0...v4.8.1-dev.1) (2026-09-18)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.8.1-dev.0](https://github.com/vtex/faststore/compare/v4.8.0...v4.8.1-dev.0) (2026-09-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.8.0](https://github.com/vtex/faststore/compare/v4.7.0...v4.8.0) (2026-09-15)
+
+### Features
+
+- release 4.8.0 (graduate dev → main) ([#3488](https://github.com/vtex/faststore/issues/3488)) ([09ff84a](https://github.com/vtex/faststore/commit/09ff84aabe1f5a5a74fe52c191f37e5521dd8e9b)), closes [#3466](https://github.com/vtex/faststore/issues/3466) [#3481](https://github.com/vtex/faststore/issues/3481) [#3487](https://github.com/vtex/faststore/issues/3487) [#3453](https://github.com/vtex/faststore/issues/3453) [#3484](https://github.com/vtex/faststore/issues/3484) [#3482](https://github.com/vtex/faststore/issues/3482) [#3476](https://github.com/vtex/faststore/issues/3476) [#3477](https://github.com/vtex/faststore/issues/3477) [#3474](https://github.com/vtex/faststore/issues/3474) [#3422](https://github.com/vtex/faststore/issues/3422) [#3470](https://github.com/vtex/faststore/issues/3470)
+
+# [4.8.0-dev.8](https://github.com/vtex/faststore/compare/v4.8.0-dev.7...v4.8.0-dev.8) (2026-09-14)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.8.0-dev.7](https://github.com/vtex/faststore/compare/v4.8.0-dev.6...v4.8.0-dev.7) (2026-09-14)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.8.0-dev.6](https://github.com/vtex/faststore/compare/v4.8.0-dev.5...v4.8.0-dev.6) (2026-09-11)
+
+### Bug Fixes
+
+- normalize outputFileTracingRoot to forward slashes on Windows ([#3484](https://github.com/vtex/faststore/issues/3484)) ([5c24f4a](https://github.com/vtex/faststore/commit/5c24f4a551853b1e93c898f4fa7d9729ceca44cc)), closes [#3483](https://github.com/vtex/faststore/issues/3483) [#3450](https://github.com/vtex/faststore/issues/3450) [#3483](https://github.com/vtex/faststore/issues/3483) [#3450](https://github.com/vtex/faststore/issues/3450) [#3450](https://github.com/vtex/faststore/issues/3450)
+
+# [4.8.0-dev.5](https://github.com/vtex/faststore/compare/v4.8.0-dev.4...v4.8.0-dev.5) (2026-09-09)
+
+### Bug Fixes
+
+- forward contentSource.project as --storeId in cms-sync CP flow ([#3482](https://github.com/vtex/faststore/issues/3482)) ([c52365e](https://github.com/vtex/faststore/commit/c52365e74e00120961702ff3301f0f0d8fbe5449))
+
+# [4.8.0-dev.4](https://github.com/vtex/faststore/compare/v4.8.0-dev.3...v4.8.0-dev.4) (2026-09-08)
+
+### Bug Fixes
+
+- generate GraphQL types when the project path contains spaces ([#3476](https://github.com/vtex/faststore/issues/3476)) ([b20c134](https://github.com/vtex/faststore/commit/b20c134eb5618f15e7e8328d6fa8ecc588d8e149)), closes [#3454](https://github.com/vtex/faststore/issues/3454) [#3454](https://github.com/vtex/faststore/issues/3454) [#3454](https://github.com/vtex/faststore/issues/3454) [#3454](https://github.com/vtex/faststore/issues/3454) [#3474](https://github.com/vtex/faststore/issues/3474) [#3475](https://github.com/vtex/faststore/issues/3475) [#3477](https://github.com/vtex/faststore/issues/3477)
+
+# [4.8.0-dev.3](https://github.com/vtex/faststore/compare/v4.8.0-dev.2...v4.8.0-dev.3) (2026-09-08)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.8.0-dev.2](https://github.com/vtex/faststore/compare/v4.8.0-dev.1...v4.8.0-dev.2) (2026-09-07)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.8.0-dev.1](https://github.com/vtex/faststore/compare/v4.8.0-dev.0...v4.8.0-dev.1) (2026-09-03)
+
+### Bug Fixes
+
+- **cli:** keep store stories and Jest mocks out of the .faststore type-check ([2caafc1](https://github.com/vtex/faststore/commit/2caafc1112d5870c69a6673d7fd4d6b601404e3f)), closes [#3459](https://github.com/vtex/faststore/issues/3459)
+
+# [4.8.0-dev.0](https://github.com/vtex/faststore/compare/v4.7.1-dev.2...v4.8.0-dev.0) (2026-09-03)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.7.1-dev.2](https://github.com/vtex/faststore/compare/v4.7.1-dev.1...v4.7.1-dev.2) (2026-09-02)
+
+### Bug Fixes
+
+- keep package manager spawn off a shell and out of generate.ts ([4807b0a](https://github.com/vtex/faststore/commit/4807b0af08c214b58160a90246234e5242280224))
+- refuse package manager substitution when installing dependencies ([1a06a13](https://github.com/vtex/faststore/commit/1a06a13dd7feafab89f4792831a863c786c7ded8)), closes [#3422](https://github.com/vtex/faststore/issues/3422)
+- resolve the package manager against the target directory ([86f1732](https://github.com/vtex/faststore/commit/86f1732025d187d6c24899258642379872b7a8e7)), closes [#3422](https://github.com/vtex/faststore/issues/3422)
+- stop forwarding unvalidated ni output to the shell in the CLI ([84eb880](https://github.com/vtex/faststore/commit/84eb88052aec6625d9deb5d535e7d182a08e1cbb))
+
+## [4.7.1-dev.1](https://github.com/vtex/faststore/compare/v4.7.1-dev.0...v4.7.1-dev.1) (2026-09-01)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.7.1-dev.0](https://github.com/vtex/faststore/compare/v4.7.0...v4.7.1-dev.0) (2026-08-31)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0](https://github.com/vtex/faststore/compare/v4.7.0-dev.9...v4.7.0) (2026-08-31)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.9](https://github.com/vtex/faststore/compare/v4.7.0-dev.8...v4.7.0-dev.9) (2026-08-31)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.8](https://github.com/vtex/faststore/compare/v4.7.0-dev.7...v4.7.0-dev.8) (2026-08-28)
+
+### Bug Fixes
+
+- **deps:** keep Yarn 1 from hoisting an incompatible @inquirer/type into the CLI ([6e5cfca](https://github.com/vtex/faststore/commit/6e5cfca1a8d029390bcc3b463a328d513481d457))
+- keep core unit tests out of the storefront .faststore app ([c7fed58](https://github.com/vtex/faststore/commit/c7fed5822d24066efdd44ec86d69f61d0d309bd7))
+
+# [4.7.0-dev.7](https://github.com/vtex/faststore/compare/v4.7.0-dev.6...v4.7.0-dev.7) (2026-08-28)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.6](https://github.com/vtex/faststore/compare/v4.7.0-dev.5...v4.7.0-dev.6) (2026-08-26)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.5](https://github.com/vtex/faststore/compare/v4.7.0-dev.4...v4.7.0-dev.5) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.4](https://github.com/vtex/faststore/compare/v4.7.0-dev.3...v4.7.0-dev.4) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.3](https://github.com/vtex/faststore/compare/v4.7.0-dev.2...v4.7.0-dev.3) (2026-08-25)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.2](https://github.com/vtex/faststore/compare/v4.7.0-dev.1...v4.7.0-dev.2) (2026-08-24)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.7.0-dev.1](https://github.com/vtex/faststore/compare/v4.7.0-dev.0...v4.7.0-dev.1) (2026-08-24)
+
+### Bug Fixes
+
+- let Sonar recognise test files ([a7b966a](https://github.com/vtex/faststore/commit/a7b966a6e3eafe51fec687169781f2f78137c9e9))
+- reference next by a path relative to .faststore ([372b66e](https://github.com/vtex/faststore/commit/372b66e328d73802f7cffcc05bae48e966eabc97))
+- resolve the next binary from @faststore/core ([5478a4d](https://github.com/vtex/faststore/commit/5478a4dd24ffa7ab5d12907b945698cd04cb2f79))
+- write the resolved next path with forward slashes ([95c07f9](https://github.com/vtex/faststore/commit/95c07f935037f419304eb792bebc6d6f4af983ac))
+
+# [4.7.0-dev.0](https://github.com/vtex/faststore/compare/v4.6.1-dev.0...v4.7.0-dev.0) (2026-08-24)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.6.1-dev.0](https://github.com/vtex/faststore/compare/v4.6.0...v4.6.1-dev.0) (2026-08-18)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0](https://github.com/vtex/faststore/compare/v4.6.0-dev.6...v4.6.0) (2026-08-18)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.6](https://github.com/vtex/faststore/compare/v4.6.0-dev.5...v4.6.0-dev.6) (2026-08-14)
+
+### Bug Fixes
+
+- resolve node_modules bins when running scripts inside .faststore ([#3440](https://github.com/vtex/faststore/issues/3440)) ([2bf174a](https://github.com/vtex/faststore/commit/2bf174a7295d106354d97d7ca2c161ed706cff9a)), closes [#3439](https://github.com/vtex/faststore/issues/3439) [#3419](https://github.com/vtex/faststore/issues/3419)
+
+# [4.6.0-dev.5](https://github.com/vtex/faststore/compare/v4.6.0-dev.4...v4.6.0-dev.5) (2026-08-13)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.4](https://github.com/vtex/faststore/compare/v4.6.0-dev.3...v4.6.0-dev.4) (2026-08-12)
+
+### Bug Fixes
+
+- custom GraphQL typeDefs silently ignored on Windows ([#3419](https://github.com/vtex/faststore/issues/3419)) ([bdeb6a7](https://github.com/vtex/faststore/commit/bdeb6a757c44dda24b96cffc73d34652de165adf))
+
+# [4.6.0-dev.3](https://github.com/vtex/faststore/compare/v4.6.0-dev.2...v4.6.0-dev.3) (2026-08-12)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.2](https://github.com/vtex/faststore/compare/v4.6.0-dev.1...v4.6.0-dev.2) (2026-08-12)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.1](https://github.com/vtex/faststore/compare/v4.6.0-dev.0...v4.6.0-dev.1) (2026-08-11)
+
+## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.5.1) (2026-08-11)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.6.0-dev.0](https://github.com/vtex/faststore/compare/v4.5.1-dev.4...v4.6.0-dev.0) (2026-08-11)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.5.1-dev.4](https://github.com/vtex/faststore/compare/v4.5.1-dev.3...v4.5.1-dev.4) (2026-08-10)
+
+### Bug Fixes
+
+- restore account, path, port arg order on cli dev command ([#3439](https://github.com/vtex/faststore/issues/3439)) ([b13e834](https://github.com/vtex/faststore/commit/b13e8341539fb8108c35a63f26218c4671d308f8)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [#2491](https://github.com/vtex/faststore/issues/2491) [#2491](https://github.com/vtex/faststore/issues/2491) [#3111](https://github.com/vtex/faststore/issues/3111)
+
+## [4.5.1-dev.3](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1-dev.3) (2026-08-10)
+
 ## [4.5.1](https://github.com/vtex/faststore/compare/v4.5.1-dev.2...v4.5.1) (2026-08-11)
 
 **Note:** Version bump only for package @faststore/cli

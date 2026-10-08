@@ -34,4 +34,8 @@ type StoreContract {
   Indicates whether this contract is the one currently active in the session.
   """
   isActive: Boolean!
+  """
+  Indicates whether this contract is the Organization Unit's default contract.
+  """
+  isDefault: Boolean!
 }

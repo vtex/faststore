@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "4.5.1",
+  "version": "4.9.3-dev.2",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "type": "module",
@@ -32,8 +32,7 @@
     "@graphql-codegen/cli": "catalog:",
     "@graphql-tools/merge": "catalog:",
     "@graphql-tools/utils": "catalog:",
-    "@inquirer/confirm": "^5.1.19",
-    "@inquirer/prompts": "^5.1.2",
+    "@inquirer/prompts": "^7.10.1",
     "@oclif/core": "^4",
     "@oclif/plugin-help": "^6",
     "@oclif/plugin-not-found": "^3",
@@ -46,8 +45,7 @@
     "globby": "^15.0.0",
     "oclif": "^4",
     "ora": "5.4.1",
-    "prettier": "^3.1.0",
-    "resolve-pkg": "^3.0.0"
+    "prettier": "^3.1.0"
   },
   "devDependencies": {
     "@types/degit": "^2.8.6",
@@ -84,8 +82,8 @@
   },
   "scripts": {
     "build": "tsup-node",
-    "test": "vitest run src/**/*.test.ts",
-    "test:coverage": "vitest run src/**/*.test.ts --coverage",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "postpack": "shx rm -f oclif.manifest.json",
     "prepack": "na run build && oclif readme",
     "version": "oclif readme && git add README.md"

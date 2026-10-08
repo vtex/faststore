@@ -1,3 +1,4 @@
+import type { LocalizedProductLocale } from './LocalizedProductContext'
 import type { Binding, Locale } from './types'
 
 /**
@@ -72,6 +73,43 @@ export function resolveBinding(
 
   // Multiple matches - apply isDefault tie-breaker
   return matches.find((b) => b.isDefault) ?? matches[0]
+}
+
+/**
+ * Resolves which product slug the locale selector should navigate to.
+ *
+ * Falls back to the default locale's slug rather than to any other entry, so a
+ * translated slug is never carried across locales (e.g. an Italian slug served
+ * under an es-ES prefix).
+ *
+ * `otherLocales` only carries locales the catalog has a registered slug for, so
+ * an untranslated product has no entry at all — not even for the default
+ * locale. `defaultLocaleSlug` covers that gap: the API resolves it best-effort
+ * so navigation lands on the product page instead of the locale root.
+ *
+ * @param otherLocales - Registered localized slugs for the current product
+ * @param targetLocale - Locale the shopper is switching to
+ * @param defaultLocale - The store's default locale
+ * @param defaultLocaleSlug - Best-effort default-locale slug, PDP only
+ * @returns The slug to redirect to, or null when none is available
+ */
+export function resolveTargetSlug({
+  otherLocales,
+  targetLocale,
+  defaultLocale,
+  defaultLocaleSlug,
+}: {
+  otherLocales: LocalizedProductLocale[] | null | undefined
+  targetLocale: string
+  defaultLocale: string
+  defaultLocaleSlug?: string | null
+}): string | null {
+  return (
+    otherLocales?.find((e) => e.locale === targetLocale)?.slug ??
+    otherLocales?.find((e) => e.locale === defaultLocale)?.slug ??
+    defaultLocaleSlug ??
+    null
+  )
 }
 
 /**

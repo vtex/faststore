@@ -1,12 +1,16 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import vm from 'node:vm'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   PUBLIC_FILES_ALLOWED_EXTENSIONS,
   buildFaststorePackageJson,
+  copyCoreFiles,
   copyPublicFiles,
   isPublicFileAllowed,
+  relativeNextBin,
+  updateNextConfig,
 } from './generate'
 
 describe('buildFaststorePackageJson', () => {
@@ -65,6 +69,108 @@ describe('buildFaststorePackageJson', () => {
       serve: 'next serve',
       dev: 'next dev --webpack',
       'dev-only': 'next dev --webpack',
+      predev: 'na run partytown',
+      prebuild: 'na run partytown',
+    })
+  })
+
+  it('invokes Next through the resolved path when one is given', () => {
+    const nextBin = '../node_modules/next/dist/bin/next'
+
+    const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
+
+    expect(result.scripts).toMatchObject({
+      build: `node "${nextBin}" build --webpack`,
+      serve: `node "${nextBin}" serve`,
+      dev: `node "${nextBin}" dev --webpack`,
+      'dev-only': `node "${nextBin}" dev --webpack`,
+    })
+  })
+
+  /**
+   * When the store and the Next binary share a directory, `path.relative`
+   * cancels it out — a store directory containing a quote, a `$` or a backtick
+   * never reaches the script at all.
+   */
+  it('keeps a store path with shell metacharacters out of the script', () => {
+    const tmpDir = '/Users/dev/my "store" $(x)`y`/.faststore'
+    const nextBin = path
+      .relative(
+        tmpDir,
+        '/Users/dev/my "store" $(x)`y`/node_modules/next/dist/bin/next'
+      )
+      .replaceAll('\\', '/')
+
+    const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
+    const build = (result.scripts as Record<string, string>).build
+
+    expect(build).toBe(
+      'node "../node_modules/next/dist/bin/next" build --webpack'
+    )
+    for (const char of ['$', '`', "'"]) {
+      expect(build).not.toContain(char)
+    }
+  })
+
+  /**
+   * The binary is resolved through its realpath, so when `next` is a symlink
+   * target outside the store the relative path climbs out of `.faststore` and
+   * keeps every segment it does not share with it. Unquoted, the shell would
+   * split that path on each space and hand `node` only the first piece.
+   */
+  it('quotes a resolved Next path that leaves the store through a spaced directory', () => {
+    const tmpDir = '/tmp/fs-isolation/packages/brand/.faststore'
+    const nextBin = path
+      .relative(
+        tmpDir,
+        '/Users/john doe/Area de trabalho/repo/node_modules/next/dist/bin/next'
+      )
+      .replaceAll('\\', '/')
+
+    expect(nextBin).toContain('john doe/Area de trabalho')
+
+    const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
+
+    expect(result.scripts).toMatchObject({
+      build: `node "${nextBin}" build --webpack`,
+      serve: `node "${nextBin}" serve`,
+      dev: `node "${nextBin}" dev --webpack`,
+      'dev-only': `node "${nextBin}" dev --webpack`,
+    })
+  })
+
+  /**
+   * This function writes the shell string, so the guard lives here too.
+   * `relativeNextBin` already refuses these paths; a caller that skips it
+   * gets the same fallback.
+   */
+  it.each([
+    ['a double quote', '../node_modules/my "next"/dist/bin/next'],
+    ['a dollar sign', '../node_modules/$next/dist/bin/next'],
+    ['a backtick', '../node_modules/`next`/dist/bin/next'],
+    ['a percent sign', '../node_modules/%next%/dist/bin/next'],
+  ])(
+    'falls back to the bare next command when the given path has %s',
+    (_, nextBin) => {
+      const result = buildFaststorePackageJson(coreManifest, undefined, nextBin)
+
+      expect(result.scripts).toMatchObject({
+        build: 'next build --webpack',
+        serve: 'next serve',
+        dev: 'next dev --webpack',
+        'dev-only': 'next dev --webpack',
+      })
+    }
+  )
+
+  it('leaves the partytown steps alone', () => {
+    const result = buildFaststorePackageJson(
+      coreManifest,
+      undefined,
+      '/store/node_modules/next/dist/bin/next'
+    )
+
+    expect(result.scripts).toMatchObject({
       predev: 'na run partytown',
       prebuild: 'na run partytown',
     })
@@ -222,5 +328,219 @@ describe('copyPublicFiles', () => {
 
     expect(fs.existsSync(path.join(buildDir(), 'inter.woff2'))).toBe(true)
     expect(fs.existsSync(path.join(buildDir(), 'broken.woff2'))).toBe(false)
+  })
+})
+
+describe('copyCoreFiles', () => {
+  let basePath: string
+
+  beforeEach(() => {
+    basePath = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-core-copy-'))
+    fs.writeFileSync(
+      path.join(basePath, 'package.json'),
+      JSON.stringify({ name: 'store', private: true })
+    )
+  })
+
+  afterEach(() => {
+    fs.rmSync(basePath, { recursive: true, force: true })
+  })
+
+  // Real file I/O against the full core package — slower on Windows runners.
+  it('copies core into .faststore without unit-test trees and strips test globs from tsconfig', () => {
+    copyCoreFiles(basePath)
+
+    const tmpDir = path.join(basePath, '.faststore')
+    const tsConfig = JSON.parse(
+      fs.readFileSync(path.join(tmpDir, 'tsconfig.json'), 'utf8')
+    )
+
+    expect(fs.existsSync(path.join(tmpDir, 'src'))).toBe(true)
+    expect(fs.existsSync(path.join(tmpDir, 'test'))).toBe(false)
+    // Regression guard: the search page must ship at `src/pages/s/index.tsx`,
+    // never as a bare `src/pages/s.tsx`, or Windows installs break. The note
+    // at the top of `packages/core/src/pages/s/index.tsx` explains why.
+    expect(fs.existsSync(path.join(tmpDir, 'src/pages/s/index.tsx'))).toBe(true)
+    expect(fs.existsSync(path.join(tmpDir, 'src/pages/s.tsx'))).toBe(false)
+    expect(tsConfig.include).not.toContain('test/**/*.ts')
+    expect(tsConfig.include).not.toContain('test/**/*.tsx')
+    expect(tsConfig.exclude).toEqual(
+      expect.arrayContaining([
+        'test',
+        '**/*.test.ts',
+        '**/*.test.tsx',
+        '**/__tests__/**',
+      ])
+    )
+  }, 30_000)
+})
+
+describe('updateNextConfig', () => {
+  let basePath: string
+
+  /**
+   * Actually parses the generated next.config.js as JS, the same way
+   * Next.js loads it via require(). A malformed string literal (e.g. an
+   * unescaped apostrophe, or a raw backslash treated as an escape
+   * sequence) throws here instead of just failing a string comparison.
+   */
+  function loadNextConfig(code: string) {
+    const context: { module: { exports: Record<string, unknown> } } = {
+      module: { exports: {} },
+    }
+
+    vm.runInNewContext(code, context)
+
+    return context.module.exports
+  }
+
+  beforeEach(() => {
+    basePath = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-next-config-'))
+    fs.mkdirSync(path.join(basePath, '.faststore'), { recursive: true })
+    fs.writeFileSync(
+      path.join(basePath, '.faststore', 'next.config.js'),
+      "module.exports = {\n  outputFileTracingRoot: '/placeholder',\n}\n"
+    )
+  })
+
+  afterEach(() => {
+    fs.rmSync(basePath, { recursive: true, force: true })
+    vi.restoreAllMocks()
+  })
+
+  it('normalizes a Windows cwd to forward slashes so the written config stays valid JS', () => {
+    vi.spyOn(process, 'cwd').mockReturnValue(
+      'C:\\Users\\dev\\starter\\.faststore'
+    )
+
+    updateNextConfig(basePath)
+
+    const nextConfigData = fs.readFileSync(
+      path.join(basePath, '.faststore', 'next.config.js'),
+      'utf8'
+    )
+
+    expect(nextConfigData).not.toContain('\\')
+    expect(loadNextConfig(nextConfigData).outputFileTracingRoot).toBe(
+      'C:/Users/dev/starter/.faststore'
+    )
+  })
+
+  it('escapes an apostrophe in the cwd so the generated config stays valid JS', () => {
+    // A Windows username like O'Brien would otherwise terminate the
+    // hand-wrapped single-quoted string literal early.
+    vi.spyOn(process, 'cwd').mockReturnValue(
+      "C:\\Users\\O'Brien\\starter\\.faststore"
+    )
+
+    updateNextConfig(basePath)
+
+    const nextConfigData = fs.readFileSync(
+      path.join(basePath, '.faststore', 'next.config.js'),
+      'utf8'
+    )
+
+    expect(loadNextConfig(nextConfigData).outputFileTracingRoot).toBe(
+      "C:/Users/O'Brien/starter/.faststore"
+    )
+  })
+})
+
+describe('relativeNextBin', () => {
+  let root: string
+
+  /** Writes a package that exposes the Next executable at the given path. */
+  function installNext(at: string) {
+    fs.mkdirSync(path.join(at, 'dist', 'bin'), { recursive: true })
+    fs.writeFileSync(
+      path.join(at, 'package.json'),
+      JSON.stringify({
+        name: 'next',
+        version: '16.3.1',
+        main: 'index.js',
+        exports: { '.': './index.js', './dist/bin/next': './dist/bin/next' },
+      })
+    )
+    fs.writeFileSync(path.join(at, 'index.js'), 'module.exports = {}\n')
+    fs.writeFileSync(
+      path.join(at, 'dist', 'bin', 'next'),
+      '#!/usr/bin/env node\n'
+    )
+  }
+
+  /** A core package and the `.faststore` its generated scripts run from. */
+  function tree() {
+    root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'fsp-next-')))
+
+    const coreDir = path.join(root, 'node_modules', '@faststore', 'core')
+    fs.mkdirSync(coreDir, { recursive: true })
+    fs.writeFileSync(
+      path.join(coreDir, 'package.json'),
+      JSON.stringify({
+        name: '@faststore/core',
+        version: '1.0.0',
+        main: 'index.js',
+      })
+    )
+    fs.writeFileSync(path.join(coreDir, 'index.js'), 'module.exports = {}\n')
+
+    const tmpDir = path.join(root, '.faststore')
+    fs.mkdirSync(tmpDir, { recursive: true })
+
+    return { coreDir, tmpDir }
+  }
+
+  afterEach(() => {
+    if (root) {
+      fs.rmSync(root, { recursive: true, force: true })
+      root = undefined as unknown as string
+    }
+  })
+
+  it('points at the Next that core resolves, relative to .faststore', () => {
+    const { coreDir, tmpDir } = tree()
+    installNext(path.join(coreDir, 'node_modules', 'next'))
+
+    // .faststore sits beside node_modules, so the path climbs out of it once
+    expect(relativeNextBin(coreDir, tmpDir)).toBe(
+      '../node_modules/@faststore/core/node_modules/next/dist/bin/next'
+    )
+  })
+
+  /**
+   * Resolution climbs to an ancestor when a package has no copy of its own,
+   * which is what makes a hoisted install work at all.
+   */
+  it('finds an ancestor copy when core has none of its own', () => {
+    const { coreDir, tmpDir } = tree()
+    installNext(path.join(root, 'node_modules', 'next'))
+
+    expect(relativeNextBin(coreDir, tmpDir)).toBe(
+      '../node_modules/next/dist/bin/next'
+    )
+  })
+
+  /**
+   * Double quotes do not neutralise these: `sh` expands `$` and a backtick, a
+   * `"` ends the quoting, and `cmd.exe` expands `%VAR%`. Each one is checked on
+   * its own, so dropping any of them from the guard fails its own case.
+   *
+   * Skipped on Windows: it rejects `"` in a directory name, and creating the
+   * symlink needs elevated privileges there.
+   */
+  it.skipIf(process.platform === 'win32').each([
+    ['a double quote', 'elsewhere "x"'],
+    ['a dollar sign', 'elsewhere $x'],
+    ['a backtick', 'elsewhere `x`'],
+    ['a percent sign', 'elsewhere %x%'],
+  ])('falls back when the path outside the store has %s', (_, dirName) => {
+    const { coreDir, tmpDir } = tree()
+    const outside = path.join(root, dirName, 'next')
+
+    installNext(outside)
+    fs.mkdirSync(path.join(coreDir, 'node_modules'), { recursive: true })
+    fs.symlinkSync(outside, path.join(coreDir, 'node_modules', 'next'), 'dir')
+
+    expect(relativeNextBin(coreDir, tmpDir)).toBeUndefined()
   })
 })

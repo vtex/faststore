@@ -62,7 +62,7 @@ These packages are part of the monorepo but are not intended for direct use by s
 | Package | Description |
 | :--- | :--- |
 | `@faststore/lighthouse` | Generates Lighthouse CI configurations for automated performance audits and quality gates. |
-| `@faststore/diagnostics` | OpenTelemetry tracing and observability for monitoring application performance. |
+| `@faststore/diagnostics` | OpenTelemetry tracing and logging for monitoring application performance. |
 | `@faststore/storybook` | Isolated environment for developing and documenting UI components (not published). |
 
 ## License

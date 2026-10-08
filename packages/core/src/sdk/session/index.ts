@@ -21,6 +21,9 @@ import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
 import { getInitialSession, reconcileSessionLocale } from './initialSession'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
+import { type SessionUIKey, toSessionInput } from './toSessionInput'
+
+export { toSessionInput } from './toSessionInput'
 
 const isReloadAfterLogoutPending = (): boolean => {
   try {
@@ -160,18 +163,11 @@ export const validateSession = async (session: Session) => {
       return null
     }
 
-    // Remove fields that are not part of IStoreSession type
-    const { isSessionReady, isValidating, ...sessionWithoutExtras } =
-      session as Session & {
-        isSessionReady?: boolean
-        isValidating?: boolean
-      }
-
     const data = await request<
       ValidateSessionMutation,
       ValidateSessionMutationVariables
     >(mutation, {
-      session: sessionWithoutExtras,
+      session: toSessionInput(session),
       search: window.location.search,
     })
 
@@ -194,6 +190,9 @@ export const validateSession = async (session: Session) => {
 const [validationStore, onValidate, hasValidatedStore] =
   createValidationStore(validateSession)
 
+/** True after at least one validateSession cycle finished (success or failure). */
+export const hasValidatedSessionStore = hasValidatedStore
+
 const urlAwareInitialSession = getInitialSession()
 const defaultStore = createSessionStore(
   urlAwareInitialSession,
@@ -207,12 +206,26 @@ const defaultStore = createSessionStore(
 export const sessionStore = {
   ...defaultStore,
   set: (val: Session) => {
-    if (deepEqual(val, defaultStore.read()) === true) return
+    // Also drops UI state already persisted, since `session` then differs
+    const session = toSessionInput(val)
+    if (deepEqual(session, defaultStore.read()) === true) return
 
-    defaultStore.set(val)
+    defaultStore.set(session)
 
     // Trigger cart revalidation when session changes
     cartStore.set(cartStore.read())
+  },
+  /**
+   * Updates session without revalidating the cart. Used when aligning
+   * `channel.salesChannel` to an orderForm SC adopted by `validateCart`.
+   * Still runs `validateSession` via the store's optimistic validator; that
+   * path keeps an explicit (non-default) client SC.
+   */
+  setSilent: (val: Session) => {
+    const session = toSessionInput(val)
+    if (deepEqual(session, defaultStore.read()) === true) return
+
+    defaultStore.set(session)
   },
 }
 
@@ -262,15 +275,17 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
     channel = filterChannel(channel ?? '')
   }
 
-  return useMemo(
-    () => ({
-      ...session,
-      channel,
+  return useMemo(() => {
+    // Must match `SESSION_UI_KEYS`, which `toSessionInput` strips before the
+    // session is stored or sent to the API
+    const uiState = {
       isValidating,
       isSessionReady,
-    }),
-    [isValidating, session, channel, isSessionReady]
-  )
+      hasValidated,
+    } satisfies Record<SessionUIKey, boolean>
+
+    return { ...session, channel, ...uiState }
+  }, [isValidating, session, channel, isSessionReady, hasValidated])
 }
 
 /**

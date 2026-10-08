@@ -4,6 +4,10 @@ import type { SelectedFacet } from 'src/sdk/search/useMyAccountFilter'
 
 export interface FilterFacetPendingApprovalProps {
   /**
+   * Localized label shown next to the toggle.
+   */
+  label: string
+  /**
    * Current selected facets from filter context
    */
   selected: SelectedFacet[]
@@ -14,9 +18,10 @@ export interface FilterFacetPendingApprovalProps {
 }
 
 function FilterFacetPendingApproval({
+  label,
   selected,
   dispatch,
-}: FilterFacetPendingApprovalProps) {
+}: Readonly<FilterFacetPendingApprovalProps>) {
   const isSelected = useMemo(
     () =>
       selected.some((f) => f.key === 'pendingMyApproval' && f.value === 'true'),
@@ -52,9 +57,9 @@ function FilterFacetPendingApproval({
         testId="pending-approval-toggle"
         checked={isSelected}
         onChange={handleToggleChange}
-        aria-label="Filter orders pending approval"
+        aria-label={label}
       />
-      <label htmlFor="pending-approval-toggle">Pending my approval</label>
+      <label htmlFor="pending-approval-toggle">{label}</label>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import { existsSync } from 'node:fs'
 import fsExtra from 'fs-extra'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
+import { withNodeModulesBins } from '../utils/binPaths'
 import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
@@ -94,6 +95,7 @@ export default class Build extends Command {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
+      env: withNodeModulesBins(tmpDir),
     })
 
     if (scriptResult.status && scriptResult.status !== 0) {

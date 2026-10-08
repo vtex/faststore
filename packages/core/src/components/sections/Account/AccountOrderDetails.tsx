@@ -22,6 +22,14 @@ const AccountOrderDetails = ({
   cancelErrorToast = defaultOrderDetailsHeaderLabels.cancelErrorToast,
   approveLabel = defaultOrderDetailsHeaderLabels.approveLabel,
   rejectLabel = defaultOrderDetailsHeaderLabels.rejectLabel,
+  rejectModalTitle = defaultOrderDetailsHeaderLabels.rejectModalTitle,
+  rejectModalMessage = defaultOrderDetailsHeaderLabels.rejectModalMessage,
+  rejectModalConfirmText = defaultOrderDetailsHeaderLabels.rejectModalConfirmText,
+  approveSuccessToast = defaultOrderDetailsHeaderLabels.approveSuccessToast,
+  approveErrorToast = defaultOrderDetailsHeaderLabels.approveErrorToast,
+  rejectSuccessToast = defaultOrderDetailsHeaderLabels.rejectSuccessToast,
+  rejectErrorToast = defaultOrderDetailsHeaderLabels.rejectErrorToast,
+  pendingFurtherApprovalsAlert = defaultOrderDetailsHeaderLabels.pendingFurtherApprovalsAlert,
 }: AccountOrderDetailsProps) => {
   const { order, orderStatusLabels } =
     useAccountPageData<AccountOrderDetailsPageData>()
@@ -46,6 +54,14 @@ const AccountOrderDetails = ({
           cancelErrorToast,
           approveLabel,
           rejectLabel,
+          rejectModalTitle,
+          rejectModalMessage,
+          rejectModalConfirmText,
+          approveSuccessToast,
+          approveErrorToast,
+          rejectSuccessToast,
+          rejectErrorToast,
+          pendingFurtherApprovalsAlert,
         }}
       />
     </Section>

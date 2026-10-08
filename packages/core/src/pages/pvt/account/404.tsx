@@ -57,7 +57,11 @@ function Page({
 
         <Layout accountName={accountName}>
           {sections && sections.length > 0 && (
-            <RenderSectionsBase sections={sections} components={COMPONENTS} />
+            <RenderSectionsBase
+              skipLazyLoading
+              sections={sections}
+              components={COMPONENTS}
+            />
           )}
         </Layout>
       </RenderSections>

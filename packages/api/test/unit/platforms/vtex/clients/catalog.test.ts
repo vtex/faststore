@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { CatalogDataplane } from '../../../../../src/platforms/vtex/clients/catalog'
+import type { Options } from '../../../../../src/typings/globals'
 
 const catalogOptions = {
   platform: 'vtex',

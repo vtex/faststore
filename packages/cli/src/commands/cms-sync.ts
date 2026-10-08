@@ -164,6 +164,7 @@ export default class CmsSync extends Command {
         dirs,
         schemaOut,
         dryRun: dryRun ?? false,
+        project: storeConfig?.contentSource?.project,
       })
     } finally {
       if (cleanup) {

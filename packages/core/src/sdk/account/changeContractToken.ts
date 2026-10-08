@@ -1,7 +1,5 @@
 import fetch from 'isomorphic-unfetch'
 
-import storeConfig from '../../../discovery.config'
-
 export class ContractSwitchError extends Error {
   constructor(message: string) {
     super(message)
@@ -11,51 +9,20 @@ export class ContractSwitchError extends Error {
 
 export const isContractSwitchEnabled = true
 
-type VtexAuthCookie = {
-  Name: string
-  Value: string
-}
-
-export type SwitchPropertiesResponse = {
-  authStatus?: string
-  expiresIn?: number
-  authCookie?: VtexAuthCookie | null
-  accountAuthCookie?: VtexAuthCookie | null
-}
-
-const DEFAULT_AUTH_COOKIE_MAX_AGE = 86_400
-const SWITCH_PROPERTIES_TIMEOUT_MS = 30_000
-
-export function applyVtexAuthCookieFromSwitchResponse(
-  response: SwitchPropertiesResponse
-): void {
-  if (globalThis.window === undefined) {
-    return
-  }
-
-  const maxAge = response.expiresIn ?? DEFAULT_AUTH_COOKIE_MAX_AGE
-  const secure =
-    globalThis.window.location.protocol === 'https:' ? '; secure' : ''
-
-  const cookies = [response.authCookie, response.accountAuthCookie].filter(
-    (cookie): cookie is VtexAuthCookie =>
-      Boolean(cookie?.Name?.trim() && cookie?.Value)
-  )
-
-  for (const cookie of cookies) {
-    document.cookie = `${cookie.Name}=${cookie.Value}; path=/; max-age=${maxAge}; samesite=lax${secure}`
-  }
-}
+const SWITCH_CONTRACT_TIMEOUT_MS = 30_000
 
 /**
- * Switches the buyer's active contract via VTEX Identity storefront credential API.
+ * Switches the buyer's active contract through `/api/fs/switch-contract`.
  *
- * POST /api/authenticator/storefront/credential/switch-properties?an={account}
- * Body: { properties: { customerId: contractId } }
+ * The route relays the call to VTEX Identity and answers with a single
+ * `Set-Cookie` batch: the new auth cookie plus the expiry of the previous
+ * contract's checkout orderForm cookies, which are `HttpOnly` and therefore
+ * unreachable from here. Because both travel in the same response, there is no
+ * window where the browser holds the new credential alongside the old
+ * orderForm (B2BTEAM-3827).
  *
- * Applies the returned `authCookie` (and optional `accountAuthCookie`) so the
- * storefront JWT reflects the new commercial context. Throws `ContractSwitchError`
- * on hard failures so `switchContract` can keep the previous contract active.
+ * Throws `ContractSwitchError` on any failure so `switchContract` can keep the
+ * previous contract active.
  */
 export async function changeContractToken(
   contractId: string
@@ -64,23 +31,16 @@ export async function changeContractToken(
     throw new ContractSwitchError('Missing contractId for contract switch')
   }
 
-  const an = encodeURIComponent(storeConfig.api.storeId)
-  const url = `/api/authenticator/storefront/credential/switch-properties?an=${an}`
-
   let response: Response
   try {
-    response = await fetch(url, {
+    response = await fetch('/api/fs/switch-contract', {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        properties: {
-          customerId: contractId,
-        },
-      }),
-      signal: AbortSignal.timeout(SWITCH_PROPERTIES_TIMEOUT_MS),
+      body: JSON.stringify({ contractId }),
+      signal: AbortSignal.timeout(SWITCH_CONTRACT_TIMEOUT_MS),
     })
   } catch (error) {
     if (
@@ -101,19 +61,15 @@ export async function changeContractToken(
     )
   }
 
-  const payload = (await response.json()) as SwitchPropertiesResponse
+  // Reading the body to completion guarantees the `Set-Cookie` headers are
+  // committed before `switchContract` reloads the page.
+  const payload = (await response.json().catch(() => null)) as {
+    success?: boolean
+  } | null
 
-  if (payload.authStatus?.toLowerCase() !== 'success') {
+  if (!payload?.success) {
     throw new ContractSwitchError('Contract switch was not successful')
   }
-
-  if (!payload.authCookie?.Name || !payload.authCookie?.Value) {
-    throw new ContractSwitchError(
-      'Contract switch succeeded but no auth cookie was returned'
-    )
-  }
-
-  applyVtexAuthCookieFromSwitchResponse(payload)
 
   return true
 }

@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { IntelligentSearch } from '../../../../../src/platforms/vtex/clients/search'
 import type { GraphqlContext } from '../../../../../src/platforms/vtex'
+import type { Options } from '../../../../../src/typings/globals'
 
 const searchOptions = {
   platform: 'vtex',

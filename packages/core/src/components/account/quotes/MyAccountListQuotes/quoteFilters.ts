@@ -1,4 +1,5 @@
-import { quoteStatusMap } from 'src/utils/quoteStatus'
+import { getLocalizedQuoteStatusMap } from 'src/utils/quoteStatus'
+import type { QuoteStatusCmsLabels } from 'src/utils/quoteStatus'
 
 export type QuoteFilters = {
   page: number
@@ -20,13 +21,22 @@ export function getSelectedFacets(filters: QuoteFilters): QuoteSelectedFacet[] {
   return facets
 }
 
-export function getAllFacets(filters: QuoteFilters) {
+export type QuoteFacetLabels = {
+  statusFacetLabel?: string
+  createdAtFacetLabel?: string
+  expiresAtFacetLabel?: string
+  statusCmsLabels?: QuoteStatusCmsLabels
+}
+
+export function getAllFacets(filters: QuoteFilters, labels?: QuoteFacetLabels) {
+  const statusMap = getLocalizedQuoteStatusMap(labels?.statusCmsLabels)
+
   return [
     {
       __typename: 'StoreFacetBoolean' as const,
       key: 'status',
-      label: 'Status',
-      values: Object.entries(quoteStatusMap).map(([key, { label }]) => ({
+      label: labels?.statusFacetLabel ?? 'Status',
+      values: Object.entries(statusMap).map(([key, { label }]) => ({
         label,
         quantity: 0,
         selected: false,
@@ -36,14 +46,14 @@ export function getAllFacets(filters: QuoteFilters) {
     {
       __typename: 'StoreFacetRange' as const,
       key: 'createdAt',
-      label: 'Created Date',
+      label: labels?.createdAtFacetLabel ?? 'Created Date',
       from: filters.createdAtFrom,
       to: filters.createdAtTo,
     },
     {
       __typename: 'StoreFacetRange' as const,
       key: 'expiresAt',
-      label: 'Expiry Date',
+      label: labels?.expiresAtFacetLabel ?? 'Expiry Date',
       from: filters.expiresAtFrom,
       to: filters.expiresAtTo,
     },

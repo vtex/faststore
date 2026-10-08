@@ -78,8 +78,8 @@ export interface Product {
   linkText: string
   productReference: string
   categoryId: string
-  clusterHighlights: Record<string, any>
-  productClusters: Record<string, string>
+  clusterHighlights: ProductCluster[]
+  productClusters: ProductCluster[]
   categories: string[]
   categoriesIds: string[]
   link: string
@@ -98,6 +98,11 @@ export interface Product {
   manufacturerCode?: string
   advertisement?: Advertisement
   deliveryPromisesBadges?: DeliveryPromiseBadge[]
+}
+
+export interface ProductCluster {
+  id: string
+  name: string
 }
 
 interface Image {
@@ -129,7 +134,9 @@ export interface Item {
   unitMultiplier: number
   modalType: any | null
   images: Image[]
-  Videos: string[]
+  videos: string[]
+  /** @deprecated Incorrect casing, kept for backwards compatibility. Use `videos`. Will be removed in the next major version. */
+  Videos?: string[]
   variations: Array<{
     name: string
     values: string[]

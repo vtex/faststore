@@ -8,6 +8,9 @@ const config: DefaultSeoProps = {
   norobots: storeConfig.experimental.noRobots,
   dangerouslySetAllPagesToNoFollow: storeConfig.experimental.nofollow,
   dangerouslySetAllPagesToNoIndex: storeConfig.experimental.noindex,
+  twitter: {
+    cardType: 'summary_large_image',
+  },
   additionalMetaTags: [
     {
       name: 'generated-at',

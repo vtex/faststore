@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 import { gql } from '@faststore/core/api'
 
-import { hasEnabledRecommendationShelf } from 'src/sdk/analytics/utils/hasEnabledRecommendationShelf'
+import storeConfig from 'discovery.config'
 import { useLazyQuery } from 'src/sdk/graphql/useLazyQuery'
 import { getCookie } from 'src/utils/getCookie'
 import { retry } from 'src/utils/retry'
@@ -20,9 +20,9 @@ const startRecommendationSessionMutation = gql(`
 type StartRecommendationSessionData = { startRecommendationSession: boolean }
 type StartRecommendationSessionVariables = Record<string, never>
 
-// In-memory lock so Layout re-renders (e.g. multiple RecommendationShelves
-// fetching) cannot start more than one session before the cookie lands.
-// Survives effect cleanup / Strict Mode remounts for this JS realm.
+// In-memory lock so Layout re-renders / shelf fallback cannot start more than
+// one session before the cookie lands. Survives effect cleanup / Strict Mode
+// remounts for this JS realm.
 let hasRequestedStartRecommendationSession = false
 
 /** @internal Test-only: clears the in-memory session-start lock. */
@@ -34,14 +34,14 @@ export function resetStartRecommendationSessionLock() {
  * Starts the anonymous recommendation/personalization session once per browser
  * session.
  *
- * Mounted from `Layout` with the current page props. Opt-in is controlled by
- * the CMS boolean prop `enableRecommendations` on `RecommendationShelf`
- * (default `false`): if no shelf on the page has it enabled, this hook is a
- * no-op and the store never hits the Recommendations API.
+ * Mounted from `Layout` (gated by `experimental.enableRecommendations`) so it
+ * runs on every page when the store opts in via discovery config. Also used as
+ * a fallback from `RecommendationShelf` when the flag is off and `userId` is
+ * missing (including while lookup is still pending) — pass `enabled` to
+ * override the feature flag for that call site.
  *
- * Multiple enabled shelves on the same page still produce a single call: the
- * hook runs once from Layout and is gated by an in-memory lock plus the
- * session cookie.
+ * Multiple callers still produce a single mutation: the in-memory lock plus the
+ * session cookie ensure at most one attempt per browser session.
  *
  * The product view is no longer reported through a mutation here: the PDP now
  * exposes the product data as `<meta property="product:*">` tags, which the
@@ -49,9 +49,14 @@ export function resetStartRecommendationSessionLock() {
  *
  * All work runs client-side in effects (after hydration), so it doesn't affect
  * SSR/TTFB or Lighthouse render metrics.
+ *
+ * @param enabled Optional override. When omitted, uses
+ *   `storeConfig.experimental.enableRecommendations`. When provided (e.g. by
+ *   RecommendationShelf fallback), that boolean wins.
  */
-export function useStartRecommendationSession(pageProps?: unknown) {
-  const enableRecommendations = hasEnabledRecommendationShelf(pageProps)
+export function useStartRecommendationSession(enabled?: boolean) {
+  const flagEnabled = storeConfig.experimental?.enableRecommendations === true
+  const enableRecommendations = enabled ?? flagEnabled
 
   const [runStartRecommendationSession] = useLazyQuery<
     StartRecommendationSessionData,

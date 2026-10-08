@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  extractOrderStatusLabelsFromSections,
   getLocalizedOrderStatusMap,
   getOrderStatusLabel,
   orderStatusMap,
@@ -32,5 +33,26 @@ describe('getLocalizedOrderStatusMap', () => {
         statusFallback: 'Custom fallback',
       })
     ).toBe('Custom fallback')
+  })
+
+  it('extracts order-details status translations from CMS sections', () => {
+    expect(
+      extractOrderStatusLabelsFromSections([
+        {
+          data: {
+            statusTitle: 'Situação',
+            paymentApprovedStatus: 'Pagamento aprovado',
+          },
+        },
+        {
+          data: {
+            canceledStatus: 'Cancelado',
+          },
+        },
+      ])
+    ).toEqual({
+      paymentApprovedStatus: 'Pagamento aprovado',
+      canceledStatus: 'Cancelado',
+    })
   })
 })

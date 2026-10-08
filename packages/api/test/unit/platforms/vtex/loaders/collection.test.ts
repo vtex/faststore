@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { NotFoundError } from '../../../../../src/platforms/errors'
 import type { Clients } from '../../../../../src/platforms/vtex/clients'
+import type { Options } from '../../../../../src/typings/globals'
 import type {
   ByLinkIdBrandResponse,
   ByLinkIdCategoryResponse,

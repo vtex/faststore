@@ -1,0 +1,64 @@
+"""
+Whether a saved card is personally owned by the buyer or shared by their
+Organization/Contract. Resolved server-side by the Saved-cards service from
+the buyer's `useAdHocCard` role — never inferred client-side.
+"""
+enum CardOrigin {
+  personal
+  shared
+}
+
+"""
+A saved payment card returned by the Saved-cards service.
+"""
+type SavedCard {
+  """
+  Account identifier that owns the card.
+  """
+  accountId: String
+  """
+  First digits of the card (BIN).
+  """
+  bin: String
+  """
+  Masked card number, per PCI display rules.
+  """
+  cardNumber: String
+  """
+  Buyer- or admin-assigned nickname for the card (e.g. "Team lunch card"), when
+  the Saved-cards service has one on file. Absent for most cards — callers
+  should fall back to `paymentSystemName` for display.
+  """
+  cardLabel: String
+  """
+  Numeric payment system identifier.
+  """
+  paymentSystem: String
+  """
+  Human-readable payment system name (e.g. Visa, Mastercard).
+  """
+  paymentSystemName: String
+  """
+  Whether this card is the account default.
+  """
+  isDefault: Boolean
+  """
+  Whether this card is active.
+  """
+  isActive: Boolean
+  """
+  Whether this card is personally owned by the buyer or shared by their
+  Organization/Contract.
+  """
+  origin: CardOrigin!
+}
+
+"""
+Result of listing the current user's saved credit cards.
+"""
+type SavedCardListResult {
+  """
+  The list of saved credit cards.
+  """
+  list: [SavedCard!]
+}

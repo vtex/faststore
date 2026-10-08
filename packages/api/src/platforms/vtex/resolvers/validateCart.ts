@@ -1,11 +1,22 @@
 import deepEquals from 'fast-deep-equal'
 
 import { parse } from 'cookie'
+import {
+  channelWhenSessionDivergesFromOrderForm,
+  shouldTrustOrderFormSalesChannel,
+} from '../utils/cartSalesChannel'
+import {
+  isLocalizationEnabled,
+  rejectedSalesChannelOf,
+  salesChannelSourceOf,
+} from '../utils/sessionChannel'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
 import {
   attachmentToPropertyValue,
   getPropertyId,
+  getServiceKey,
+  serviceToPropertyValue,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
 
@@ -35,6 +46,28 @@ type Indexed<T> = T & { index?: number }
 const isAttachment = (value: IStorePropertyValue) =>
   value.valueReference === VALUE_REFERENCES.attachment
 
+const isService = (value: IStorePropertyValue) =>
+  value.valueReference === VALUE_REFERENCES.service
+
+/** Sorted keys of the services applied to a line; independent of their order. */
+const getServiceKeys = (item: IStoreOffer) =>
+  (item.itemOffered.additionalProperty ?? [])
+    .filter(isService)
+    .map(getServiceKey)
+    .sort((a, b) => a.localeCompare(b))
+
+/**
+ * Identity segment for services. Checkout treats a unit with a service as a
+ * different line from one without, so FastStore must too: otherwise the delta
+ * merges them and either replicates or drops the service. Empty when the line
+ * has no services, so ids of unserviced lines are unchanged.
+ */
+const getServiceSegment = (item: IStoreOffer) => {
+  const keys = getServiceKeys(item)
+
+  return keys.length > 0 ? `services:${keys.join('-')}` : undefined
+}
+
 const getId = (item: IStoreOffer) =>
   [
     item.itemOffered.sku,
@@ -44,6 +77,7 @@ const getId = (item: IStoreOffer) =>
       ?.filter(isAttachment)
       .map(getPropertyId)
       .join('-'),
+    getServiceSegment(item),
   ]
     .filter(Boolean)
     .join('::')
@@ -60,7 +94,10 @@ const orderFormItemToOffer = (
     sku: item.id,
     image: [],
     name: item.name,
-    additionalProperty: item.attachments.map(attachmentToPropertyValue),
+    additionalProperty: [
+      ...item.attachments.map(attachmentToPropertyValue),
+      ...(item.bundleItems ?? []).map(serviceToPropertyValue),
+    ],
   },
   index,
 })
@@ -96,6 +133,8 @@ const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer[]> =>
 
 const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
   // Omit priceToken: it exists on the browser payload but not on orderForm items.
+  // Compare the service segment explicitly: a browser line claiming a service
+  // Checkout does not have must not be reported as "in sync".
   const pick = (
     { priceToken: _, ...item }: Indexed<IStoreOffer>,
     index: number
@@ -104,6 +143,7 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
     itemOffered: {
       sku: item.itemOffered.sku,
     },
+    services: getServiceSegment(item),
     index,
   })
 
@@ -175,7 +215,8 @@ const joinItems = (form: OrderForm) => {
 const orderFormToCart = async (
   form: OrderForm,
   skuLoader: GraphqlContext['loaders']['skuLoader'],
-  shouldSplitItem?: boolean | null
+  shouldSplitItem?: boolean | null,
+  adoptedSalesChannel?: string | null
 ) => {
   return {
     order: {
@@ -185,6 +226,7 @@ const orderFormToCart = async (
         product: await skuLoader.load(`${item.id}-invisibleItems`),
       })),
       shouldSplitItem,
+      ...(adoptedSalesChannel ? { salesChannel: adoptedSalesChannel } : {}),
     },
     messages: form.messages.map(({ text, status }) => ({
       text,
@@ -202,12 +244,23 @@ const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) => {
   // - quantity: to detect quantity changes
   // - seller: to detect seller changes
   // - attachments: to detect customizations/personalizations changes
-  const criticalItems = items.map((item) => ({
-    id: item.id,
-    quantity: item.quantity,
-    seller: item.seller,
-    attachments: item.attachments, // customizations
-  }))
+  // - services: to detect services attached/removed outside FastStore. Added
+  //   only when the line has services so the etag of every other line (and of
+  //   carts without services) stays byte-identical to the previous algorithm.
+  const criticalItems = items.map((item) => {
+    const services = (item.bundleItems ?? [])
+      .map(serviceToPropertyValue)
+      .map(({ propertyID }) => propertyID)
+      .sort((a, b) => a.localeCompare(b))
+
+    return {
+      id: item.id,
+      quantity: item.quantity,
+      seller: item.seller,
+      attachments: item.attachments, // customizations
+      ...(services.length > 0 ? { services } : {}),
+    }
+  })
 
   return md5(
     JSON.stringify({ sessionId: sessionJwt?.id ?? '', items: criticalItems })
@@ -337,6 +390,86 @@ const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
 }
 
 /**
+ * Fetches the orderForm, omitting `sc` for existing carts so Checkout keeps the
+ * SC stored on the cart (unless the session SC comes from the URL).
+ *
+ * Checkout only stores an SC after an items mutation with `sc`. An empty
+ * orderForm fetched without `sc` may report the platform default (SC 1):
+ * refetch it with the session SC instead of trusting (and adopting) it. Same
+ * for an orderForm on an SC Session Manager rejected for this shopper.
+ */
+const getOrderForm = async (
+  ctx: GraphqlContext,
+  orderFormId: string | undefined,
+  isUrlSalesChannel: boolean,
+  rejectedSalesChannel: string | undefined
+) => {
+  const { commerce } = ctx.clients
+  const orderForm = await commerce.checkout.orderForm({
+    id: orderFormId,
+    channel: ctx.storage.channel,
+    preserveSalesChannel: Boolean(orderFormId) && !isUrlSalesChannel,
+  })
+
+  if (
+    !orderFormId ||
+    shouldTrustOrderFormSalesChannel(
+      orderForm,
+      ctx.storage.channel.salesChannel,
+      rejectedSalesChannel
+    )
+  ) {
+    return orderForm
+  }
+
+  return commerce.checkout.orderForm({
+    id: orderFormId,
+    channel: ctx.storage.channel,
+  })
+}
+
+/**
+ * Keep Checkout on the orderForm SC when the browser session lags behind it.
+ * Only orderForms with items have a stored SC worth protecting, and a
+ * URL-derived (localization) session SC always wins.
+ */
+const adoptOrderFormSalesChannelWhenSessionDiverges = (
+  ctx: GraphqlContext,
+  orderForm: OrderForm,
+  canAdopt: boolean
+): string | null => {
+  if (!canAdopt || orderForm.items.length === 0) {
+    return null
+  }
+
+  const adoptedChannel = channelWhenSessionDivergesFromOrderForm(
+    ctx.storage.channel,
+    orderForm.salesChannel
+  )
+
+  if (adoptedChannel) {
+    mutateChannelContext(ctx, adoptedChannel)
+    return orderForm.salesChannel ? String(orderForm.salesChannel) : null
+  }
+
+  return null
+}
+
+/** Return a cart only when an SC was adopted (so the client can sync session). */
+const cartWhenSalesChannelAdoptedOrNull = (
+  form: OrderForm,
+  skuLoader: GraphqlContext['loaders']['skuLoader'],
+  shouldSplitItem: boolean | null | undefined,
+  adoptedSalesChannel: string | null
+) => {
+  if (!adoptedSalesChannel) {
+    return null
+  }
+
+  return orderFormToCart(form, skuLoader, shouldSplitItem, adoptedSalesChannel)
+}
+
+/**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
  * the commerce platform. If the cart is valid, we return null, if the cart is
@@ -365,6 +498,12 @@ export const validateCart = async (
 
   const channel = session?.channel
   const locale = session?.locale
+  // Localization derives the SC from the URL: never omit `sc` nor adopt.
+  const isUrlSalesChannel =
+    salesChannelSourceOf(channel, {
+      localizationEnabled: isLocalizationEnabled(ctx.discoveryConfig),
+    }) === 'url'
+  const rejectedSalesChannel = rejectedSalesChannelOf(channel)
 
   if (channel) {
     mutateChannelContext(ctx, channel)
@@ -374,11 +513,18 @@ export const validateCart = async (
     mutateLocaleContext(ctx, locale)
   }
 
-  // Step1: Get OrderForm from VTEX Commerce
-  const orderForm = await commerce.checkout.orderForm({
-    id: orderFormIdFromCookie || undefined,
-    channel: ctx.storage.channel,
-  })
+  // Step1: Get OrderForm from VTEX Commerce.
+  // For existing carts (`orderFormId` present), omit `sc` on the first GET so
+  // Checkout keeps the orderForm's current sales channel. Passing a stale
+  // session SC (e.g. after Quick Order) would recalculate the cart and drop
+  // items only available in the orderForm's trade policy. New carts still
+  // send `sc` from the session (see commerce.checkout.orderForm).
+  const orderForm = await getOrderForm(
+    ctx,
+    orderFormIdFromCookie || undefined,
+    isUrlSalesChannel,
+    rejectedSalesChannel
+  )
   const orderNumber = orderForm.orderFormId
 
   // Clear messages so it doesn't keep populating toasts on a loop
@@ -398,15 +544,37 @@ export const validateCart = async (
   const isStale = isOrderFormStale(orderForm, sessionJwt)
 
   if (isStale) {
+    // Adopt the orderForm SC so subsequent checkout calls (etag, etc.) stay
+    // on the trade policy that actually owns the items.
+    const adoptedSalesChannel = adoptOrderFormSalesChannelWhenSessionDiverges(
+      ctx,
+      orderForm,
+      !isUrlSalesChannel
+    )
+
     const newOrderForm = await setOrderFormEtag(
       orderForm,
       commerce,
       sessionJwt
     ).then(joinItems)
     if (orderNumber) {
-      return orderFormToCart(newOrderForm, skuLoader, shouldSplitItem)
+      return orderFormToCart(
+        newOrderForm,
+        skuLoader,
+        shouldSplitItem,
+        adoptedSalesChannel
+      )
     }
   }
+
+  // Keep Checkout on the orderForm trade policy when the browser session still
+  // has a stale SC (Quick Order). Refetching with `sc=session` would wipe
+  // items that exist only on the orderForm's sales channel.
+  const adoptedSalesChannel = adoptOrderFormSalesChannelWhenSessionDiverges(
+    ctx,
+    orderForm,
+    !isUrlSalesChannel
+  )
 
   // Step2: Process items from both browser and checkout so they have the same shape
   const browserItemsById = groupById(acceptedOffer)
@@ -470,9 +638,15 @@ export const validateCart = async (
     ? shouldUpdateShippingData(orderForm, session)
     : { updateShipping: false }
 
-  // If there are no item changes and no shipping data updates needed, return null
+  // If there are no item/shipping changes: still return the cart when we
+  // adopted the orderForm SC so the client can align `fs::session`.
   if (changes.length === 0 && !updateShipping) {
-    return null
+    return cartWhenSalesChannelAdoptedOrNull(
+      orderForm,
+      skuLoader,
+      shouldSplitItem,
+      adoptedSalesChannel
+    )
   }
 
   // Step4: Apply delta changes to order form
@@ -541,9 +715,19 @@ export const validateCart = async (
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm) && equalMessages) {
-    return null
+    return cartWhenSalesChannelAdoptedOrNull(
+      updatedOrderForm,
+      skuLoader,
+      shouldSplitItem,
+      adoptedSalesChannel
+    )
   }
 
   // Step6: There were changes, convert orderForm to StoreCart
-  return orderFormToCart(updatedOrderForm, skuLoader, shouldSplitItem)
+  return orderFormToCart(
+    updatedOrderForm,
+    skuLoader,
+    shouldSplitItem,
+    adoptedSalesChannel
+  )
 }

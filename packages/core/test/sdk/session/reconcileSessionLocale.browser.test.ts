@@ -165,6 +165,22 @@ describe('reconcileSessionLocale (browser, localization enabled)', () => {
     expect(channel.customKey).toBe('keep-me')
   })
 
+  it('marks the URL salesChannel as intentional, replacing an orderForm adoption', () => {
+    stubHref('https://store.example.com/pt-BR/some/path')
+
+    const payload: Session = {
+      ...STALE,
+      channel:
+        '{"salesChannel":"4","salesChannelSource":"orderForm","rejectedSalesChannel":"6"}',
+    }
+
+    const channel = JSON.parse(reconcileSessionLocale(payload).channel ?? '{}')
+
+    expect(channel.salesChannel).toBe('1')
+    expect(channel.salesChannelSource).toBe('url')
+    expect(channel).not.toHaveProperty('rejectedSalesChannel')
+  })
+
   it('survives a malformed channel JSON in the payload (does not throw, still reconciles)', () => {
     stubHref('https://store.example.com/pt-BR/some/path')
 

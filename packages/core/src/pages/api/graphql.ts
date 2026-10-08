@@ -11,8 +11,16 @@ import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie } from 'src/utils/getCookie'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
 import { isLocalHost } from 'src/utils/isLocalHost'
+import {
+  isHostAllowed,
+  removeCookieDomain,
+  singleForwardedHost,
+} from 'src/utils/trustedForwardedHost'
 import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
 import { execute } from '../../server'
+import { logger } from '@faststore/diagnostics'
+
+const OTELLogger = logger('@faststore/core')
 
 const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
 const DEFAULT_STALE_WHILE_REVALIDATE = 60 * 60 // 1 hour
@@ -53,22 +61,10 @@ const shouldReplaceCookieDomain = ({
 }
 
 /**
- * Determines if host is eligible for domain normalization.
- */
-const isAllowedHost = ({
-  host,
-  allowList,
-}: {
-  host: string
-  allowList: string[]
-}) => {
-  const normalizedHost = host.toLowerCase()
-
-  return allowList.some((suffix) => normalizedHost.endsWith(suffix))
-}
-
-/**
- * Ensure the cookie domain matches the current host so the browser can store it.
+ * On allowlisted hosts (previews, localhost) the upstream cookie domain does not
+ * match the browser host, so the Domain attribute is dropped and the cookie
+ * becomes host-only. The host is never written into the cookie, so a forged
+ * x-forwarded-host cannot choose the cookie scope.
  */
 const normalizeSetCookieDomain = ({
   request,
@@ -82,20 +78,31 @@ const normalizeSetCookieDomain = ({
     return setCookie
   }
 
-  const host = getRequestHostname(request.headers.host)
+  // The preview ingress forwards a client-supplied x-forwarded-host as is, so
+  // it only decides whether the Domain is dropped, never which domain is used.
+  const forwardedHeader = request.headers['x-forwarded-host']
+  const forwardedHost = getRequestHostname(singleForwardedHost(forwardedHeader))
+  if (forwardedHeader && !forwardedHost) {
+    // The value is client-controllable, so it is not logged.
+    OTELLogger('warn', 'Ignoring multi-value or malformed x-forwarded-host')
+  }
+  const host =
+    forwardedHost && isHostAllowed(forwardedHost, ALLOWED_HOST_SUFFIXES)
+      ? forwardedHost
+      : getRequestHostname(request.headers.host)
   if (!host) {
     return setCookie
   }
   const cookieDomain = domainMatch[1]
 
   if (
-    !isAllowedHost({ host, allowList: ALLOWED_HOST_SUFFIXES }) ||
+    !isHostAllowed(host, ALLOWED_HOST_SUFFIXES) ||
     !shouldReplaceCookieDomain({ cookieDomain, host })
   ) {
     return setCookie
   }
 
-  return setCookie.replace(MATCH_DOMAIN_REGEXP, `; domain=${host}`)
+  return removeCookieDomain(setCookie)
 }
 
 const parseRequest = (request: NextApiRequest) => {
@@ -147,9 +154,121 @@ const hasVtexIdclientAutCookie = (request: NextApiRequest): boolean => {
   )
 }
 
+/**
+ * Responds to a GraphQL execution that returned errors: recovers the
+ * upstream status from a FastStoreError when possible instead of collapsing
+ * everything to 500, and logs every error for observability.
+ */
+const respondWithGraphqlErrors = (
+  errors: readonly unknown[],
+  response: Parameters<NextApiHandler>[1]
+) => {
+  // After error masking, entries are GraphQLError instances whose `name` is
+  // "GraphQLError" — the original FastStoreError (carrying the upstream
+  // status) is nested in `originalError`. Recover it so the BFF propagates
+  // the real status instead of collapsing everything to 500.
+  const fastStoreError = errors.map(recoverFastStoreError).find(Boolean)
+  const reportedErrors = errors.map((graphqlError) => {
+    const fsError = recoverFastStoreError(graphqlError)
+
+    return {
+      message: (graphqlError as { message?: string })?.message,
+      status: fsError?.extensions.status,
+      type: fsError?.extensions.type,
+    }
+  })
+
+  console.error('Graphql execution returned with error: ', reportedErrors)
+  OTELLogger(
+    'error',
+    'Graphql execution returned with error: %o',
+    reportedErrors
+  )
+
+  const status = fastStoreError?.extensions.status ?? 500
+
+  // Error responses are never cacheable: some upstream statuses (404, 410,
+  // ...) are heuristically cacheable by intermediaries per RFC 9111 §4.2.2,
+  // which would let a CDN cache an error for this operation.
+  response.setHeader('cache-control', 'no-store')
+
+  // No recoverable FastStoreError: keep the masked, body-less 500.
+  if (!fastStoreError) {
+    response.status(status).end()
+    return
+  }
+
+  // Only FastStoreError-derived details are exposed. `type`/`status` are a
+  // closed enum (safe everywhere); the free-text `message` may echo raw
+  // upstream text, so it is restricted to non-production responses. The
+  // full message is still available server-side via the log above.
+  const responseError = {
+    extensions: {
+      type: fastStoreError.extensions.type,
+      status: fastStoreError.extensions.status,
+    },
+    ...(process.env.NODE_ENV === 'production'
+      ? {}
+      : { message: fastStoreError.message }),
+  }
+
+  response.status(status)
+  response.setHeader('content-type', 'application/json')
+  response.send(JSON.stringify({ errors: [responseError] }))
+}
+
+/**
+ * Responds to an error thrown out of the main handler try-block (a rejected
+ * `parseRequest`/`execute`, or anything else unexpected).
+ */
+const respondToUnexpectedError = (
+  err: unknown,
+  response: Parameters<NextApiHandler>[1]
+) => {
+  // Same rationale as `respondWithGraphqlErrors`: a 400/401/500 here must
+  // never be cached. This path can run after the success branch has already
+  // set a cacheable cache-control (e.g. `setHeader('set-cookie', ...)`
+  // rejecting a malformed upstream cookie, or `JSON.stringify` throwing
+  // after cache-control was set but before `send` completed). Guarded by
+  // `headersSent`: if the throw came from `send()` itself after headers were
+  // already flushed, `setHeader` would throw ERR_HTTP_HEADERS_SENT and this
+  // would fail to produce a handled response.
+  if (!response.headersSent) {
+    response.setHeader('cache-control', 'no-store')
+  }
+
+  console.error(
+    'Something unexpected occurred querying Graphql endpoint: \n',
+    err
+  )
+  OTELLogger(
+    'error',
+    'Something unexpected occurred querying Graphql endpoint: %o',
+    err
+  )
+
+  if (err instanceof BadRequestError) {
+    response.status(400).end()
+    return
+  }
+
+  if (err instanceof UnauthorizedError) {
+    response.status(401).end()
+    return
+  }
+
+  response.status(500).end()
+}
+
 const handler: NextApiHandler = async (request, response) => {
   if (request.method !== 'POST' && request.method !== 'GET') {
     response.status(405).end()
+    OTELLogger(
+      'info',
+      'Invalid request method: %s %s',
+      request.method,
+      request.url
+    )
 
     return
   }
@@ -157,6 +276,15 @@ const handler: NextApiHandler = async (request, response) => {
   try {
     // value is used to cache bust the request if there is a VtexIdclientAutCookie
     const { operation, variables, query, v: value } = parseRequest(request)
+
+    // Variables and the query body are deliberately not logged: they carry
+    // session and customer data.
+    OTELLogger(
+      'debug',
+      'operation: %s hash: %s',
+      operation?.__meta__?.operationName,
+      operation?.__meta__?.operationHash
+    )
 
     const isLocal = isLocalHost(getRequestHostname(request.headers.host))
 
@@ -204,50 +332,7 @@ const handler: NextApiHandler = async (request, response) => {
     const hasErrors = Array.isArray(errors) && errors.length > 0
 
     if (hasErrors) {
-      // After error masking, entries are GraphQLError instances whose
-      // `name` is "GraphQLError" — the original FastStoreError (carrying the
-      // upstream status) is nested in `originalError`. Recover it so the BFF
-      // propagates the real status instead of collapsing everything to 500.
-      const fastStoreError = errors.map(recoverFastStoreError).find(Boolean)
-
-      console.error(
-        'Graphql execution returned with error: ',
-        errors.map((graphqlError) => {
-          const fsError = recoverFastStoreError(graphqlError)
-
-          return {
-            message: (graphqlError as { message?: string })?.message,
-            status: fsError?.extensions.status,
-            type: fsError?.extensions.type,
-          }
-        })
-      )
-
-      const status = fastStoreError?.extensions.status ?? 500
-
-      // No recoverable FastStoreError: keep the masked, body-less 500.
-      if (!fastStoreError) {
-        response.status(status).end()
-        return
-      }
-
-      // Only FastStoreError-derived details are exposed. `type`/`status` are a
-      // closed enum (safe everywhere); the free-text `message` may echo raw
-      // upstream text, so it is restricted to non-production responses. The
-      // full message is still available server-side via the log above.
-      const responseError = {
-        extensions: {
-          type: fastStoreError.extensions.type,
-          status: fastStoreError.extensions.status,
-        },
-        ...(process.env.NODE_ENV !== 'production'
-          ? { message: fastStoreError.message }
-          : {}),
-      }
-
-      response.status(status)
-      response.setHeader('content-type', 'application/json')
-      response.send(JSON.stringify({ errors: [responseError] }))
+      respondWithGraphqlErrors(errors, response)
       return
     }
 
@@ -300,23 +385,7 @@ const handler: NextApiHandler = async (request, response) => {
     response.setHeader('content-type', 'application/json')
     response.send(JSON.stringify({ data, errors }))
   } catch (err) {
-    console.error(
-      'Something unexpected occurred querying Graphql endpoint: \n',
-      err
-    )
-
-    if (err instanceof BadRequestError) {
-      response.status(400).end()
-      return
-    }
-
-    if (err instanceof UnauthorizedError) {
-      response.status(401).end()
-      return
-    }
-
-    response.status(500).end()
-    return
+    respondToUnexpectedError(err, response)
   }
 }
 

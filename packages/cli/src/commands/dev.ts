@@ -7,6 +7,7 @@ import dotenv from 'dotenv'
 import { cpSync, existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { withNodeModulesBins } from '../utils/binPaths'
 import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
@@ -68,6 +69,7 @@ async function storeDev(
     errorMessage: `The "predev" step ("${packageManager} predev") failed inside the ".faststore" directory. See the error output below for details.`,
     throws: 'error',
     cwd: tmpDir,
+    env: withNodeModulesBins(tmpDir),
   })
 
   const { success } = copyGenerated(
@@ -89,10 +91,10 @@ async function storeDev(
     cwd: tmpDir,
     signal: devAbortController.signal,
     stdio: ['inherit', 'pipe', 'inherit'],
-    env: {
+    env: withNodeModulesBins(tmpDir, {
       ...process.env,
       ...envVars,
-    },
+    }),
   })
 
   let nextStdout = ''
@@ -126,15 +128,15 @@ function copyGenerated(from: string, to: string) {
 
 export default class Dev extends Command {
   static args = {
-    path: Args.string({
-      name: 'path',
-      description:
-        'The path where the FastStore being run is. Defaults to cwd.',
-    }),
     account: Args.string({
       name: 'account',
       description:
         'The account for which the Discovery is running. Currently noop.',
+    }),
+    path: Args.string({
+      name: 'path',
+      description:
+        'The path where the FastStore being run is. Defaults to cwd.',
     }),
     port: Args.string({
       name: 'port',

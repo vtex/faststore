@@ -111,7 +111,7 @@ function getAllFacets({
     {
       __typename: 'StoreFacetBoolean',
       key: 'status',
-      label: 'Status',
+      label: labels.statusFilterLabel,
       values: FastStoreOrderStatus.map((status, index) => ({
         label: statusFacetLabels[index] ?? status,
         quantity: 0,
@@ -122,7 +122,7 @@ function getAllFacets({
     {
       __typename: 'StoreFacetRange',
       key: 'dateRange',
-      label: 'Order Date',
+      label: labels.orderDateFilterLabel,
       from: filters.dateInitial,
       to: filters.dateFinal,
     },

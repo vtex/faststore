@@ -49,8 +49,8 @@ vi.mock('../utils/vtex', () => ({
     assertVtexReadyForAccountMock(...args),
 }))
 
-import CmsSync from './cms-sync'
 import { logger } from '../utils/logger'
+import CmsSync from './cms-sync'
 
 function writeDiscoveryConfig(
   storeDir: string,
@@ -235,6 +235,21 @@ describe('CmsSync', () => {
 
       expect(infoMock).toHaveBeenCalledWith(
         expect.stringContaining('Detected contentSource "CP"')
+      )
+    })
+
+    it('forwards contentSource.project to generateAndUploadSchema', async () => {
+      writeDiscoveryConfig(tempDir, {
+        contentSource: { type: 'CP', project: 'storeframework-faststore' },
+      })
+      getExistingCpDirsMock.mockReturnValue(['cms/faststore/components'])
+
+      await runCmsSync({ storeDir: tempDir })
+
+      expect(generateAndUploadSchemaMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          project: 'storeframework-faststore',
+        })
       )
     })
 

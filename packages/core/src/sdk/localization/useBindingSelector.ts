@@ -8,6 +8,7 @@ import {
   getCurrenciesForLocale,
   isValidUrl,
   resolveBinding,
+  resolveTargetSlug,
 } from './bindingSelector'
 import type { LocalizedProductLocale } from './LocalizedProductContext'
 import type { BindingSelectorError, Locale } from './types'
@@ -147,11 +148,14 @@ export interface UseBindingSelectorReturn {
  *   localized page URL instead of preserving the current page path verbatim.
  * @param urlSuffix - Suffix appended after the slug when building the redirect URL.
  *   Use '/p' for product pages (default) and '' for collection/PLP pages.
+ * @param defaultLocaleSlug - Slug for the store's default locale, used when the
+ *   target locale is absent from `otherLocales`. PDP only; PLPs pass nothing.
  * @returns Object with languages, currencies, selections, and actions
  */
 export function useBindingSelector(
   otherLocales?: Array<{ locale: string; slug: string }> | null,
-  urlSuffix = '/p'
+  urlSuffix = '/p',
+  defaultLocaleSlug?: string | null
 ): UseBindingSelectorReturn {
   const { locale: currentLocale, currency: currentCurrency } = useSession()
   const localizationConfig = storeConfig.localization as LocalizationConfig
@@ -284,27 +288,17 @@ export function useBindingSelector(
       ? otherLocales
       : recoverOtherLocales()
 
-    if (effectiveOtherLocales?.length) {
-      // 1. Target locale has a specific translation → use it
-      const localizedEntry = effectiveOtherLocales.find(
-        (e) => e.locale === localeCode
-      )
+    const slug = resolveTargetSlug({
+      otherLocales: effectiveOtherLocales,
+      targetLocale: localeCode,
+      defaultLocale: localizationConfig.defaultLocale,
+      defaultLocaleSlug,
+    })
 
-      // 2. No translation for target locale → fall back to the default locale slug
-      //    (IS linkText, always in the default locale) to avoid carrying over a
-      //    translated slug from a different locale (e.g. Italian slug on es-ES).
-      //    For an unavailable target this yields a 404 at the product URL (expected).
-      const fallbackEntry = effectiveOtherLocales.find(
-        (e) => e.locale === localizationConfig.defaultLocale
-      )
-
-      const entry = localizedEntry ?? fallbackEntry
-
-      if (entry) {
-        const baseUrl = binding.url.replace(/\/$/, '')
-        globalThis.location.href = `${baseUrl}/${entry.slug}${urlSuffix}${globalThis.location.search}${globalThis.location.hash}`
-        return
-      }
+    if (slug) {
+      const baseUrl = binding.url.replace(/\/$/, '')
+      globalThis.location.href = `${baseUrl}/${slug}${urlSuffix}${globalThis.location.search}${globalThis.location.hash}`
+      return
     }
 
     // otherLocales is empty/null but we're still on a PDP: strip the stale slug.
@@ -329,6 +323,7 @@ export function useBindingSelector(
     localizationConfig.defaultLocale,
     otherLocales,
     urlSuffix,
+    defaultLocaleSlug,
   ])
 
   const isSaveEnabled = Boolean(localeCode && currencyCode && !error)

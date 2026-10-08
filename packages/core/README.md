@@ -31,7 +31,7 @@ packages/core/
 │   ├── server/           # Server-side utilities (CMS content fetching)
 │   ├── customizations/   # Store-level overrides: styles, fonts, components, fragments
 │   ├── styles/           # Global SCSS styles
-│   └── instrumentation.ts  # Next.js instrumentation hook (boots @faststore/diagnostics when otelEnabled)
+│   └── instrumentation.ts  # Next.js instrumentation hook (boots @faststore/diagnostics — see docs/observability.md)
 ├── cms/faststore/        # CMS configuration: sections.json, content-types.json, schemas
 ├── @generated/           # Auto-generated GraphQL types — do not edit
 ├── discovery.config.default.js  # Committed base store configuration (platform, sales channel, locale)

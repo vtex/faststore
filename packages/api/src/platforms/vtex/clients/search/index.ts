@@ -1,4 +1,5 @@
 import pLimit from 'p-limit'
+import type { Options } from '../../../../typings/globals'
 
 import type { GraphqlContext } from '../../'
 import { getWithCookie } from '../../utils/cookies'

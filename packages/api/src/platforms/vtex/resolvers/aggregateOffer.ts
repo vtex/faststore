@@ -1,4 +1,5 @@
 import type { GraphqlResolver } from '..'
+import type { PromiseType } from '../../../typings/globals'
 import { inStock, price } from '../utils/productStock'
 import { withTax } from '../utils/taxes'
 import type { StoreProduct } from './product'

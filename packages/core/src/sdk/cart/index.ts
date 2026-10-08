@@ -13,8 +13,14 @@ import type {
 
 import storeConfig from '../../../discovery.config'
 import { request } from '../graphql/request'
-import { sessionStore } from '../session'
+import {
+  hasValidatedSessionStore,
+  sessionStore,
+  toSessionInput,
+} from '../session'
+import { syncSessionWithValidatedCart } from '../session/syncSalesChannelFromOrderForm'
 import { createValidationStore, useStore } from '../useStore'
+import { waitForSessionValidated } from './waitForSessionValidated'
 
 export interface CartItem
   extends SDKCartItem,
@@ -33,6 +39,7 @@ export const ValidateCartMutation = gql(`
     validateCart(cart: $cart, session: $session) {
       order {
         orderNumber
+        salesChannel
         acceptedOffer {
           ...CartItem
         }
@@ -114,11 +121,15 @@ const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
     .join('::')
 
 const validateCart = async (cart: Cart): Promise<Cart | null> => {
+  await waitForSessionValidated(hasValidatedSessionStore)
+
   const { validateCart: validated = null } = await request<
     ValidateCartMutationMutation,
     ValidateCartMutationMutationVariables
   >(ValidateCartMutation, {
-    session: sessionStore.read(),
+    // The session loaded from IndexedDB skips `sessionStore.set`, so it may
+    // still carry UI state persisted by an older version
+    session: toSessionInput(sessionStore.read()),
     cart: {
       order: {
         orderNumber: cart.id,
@@ -150,6 +161,17 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
       },
     },
   })
+
+  syncSessionWithValidatedCart(
+    {
+      adoptedSalesChannel: validated?.order?.salesChannel,
+      // `null` means the browser cart is already valid.
+      itemCount: (validated ? validated.order.acceptedOffer : cart.items)
+        .length,
+    },
+    () => sessionStore.read(),
+    (session) => sessionStore.setSilent(session)
+  )
 
   return (
     validated && {

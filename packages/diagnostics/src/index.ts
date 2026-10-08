@@ -1,3 +1,4 @@
 import './globals'
 export * as OTELAPI from '@opentelemetry/api'
-export { getTelemetryClient, getTraceClient } from './start'
+export { type LogSeverity, logger } from './logger'
+export { getTelemetryClient, type TelemetryOptions } from './start'

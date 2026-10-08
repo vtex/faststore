@@ -134,6 +134,14 @@ describe('getInitialSession (browser, localization enabled)', () => {
     expect(channel.regionId).toBe('region-abc')
   })
 
+  it('marks the URL-derived salesChannel as intentional', () => {
+    stubHref('https://store.example.com/en-US/some/path')
+
+    const result = getInitialSession(defaults)
+
+    expect(JSON.parse(result.channel ?? '{}').salesChannelSource).toBe('url')
+  })
+
   it('preserves non-locale defaults (country, person, etc.)', () => {
     stubHref('https://store.example.com/en-US/some/path')
 

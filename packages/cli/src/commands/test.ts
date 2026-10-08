@@ -2,6 +2,7 @@ import { Args, Command } from '@oclif/core'
 import { spawn } from 'node:child_process'
 import chokidar from 'chokidar'
 
+import { withNodeModulesBins } from '../utils/binPaths'
 import { getPreferredPackageManager } from '../utils/commands'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
@@ -37,6 +38,7 @@ async function storeTest(tmpDir: string) {
     cwd: tmpDir,
     signal: testAbortController.signal,
     stdio: 'inherit',
+    env: withNodeModulesBins(tmpDir),
   })
 
   testProcess.on('close', () => {

@@ -1,9 +1,8 @@
 import type { APIOptions } from '@faststore/api'
-import { getTraceClient } from '@faststore/diagnostics'
 import storeConfig from '../../discovery.config'
 import pkgJSON from '../../package.json'
 
-const { name, version } = pkgJSON
+const { version } = pkgJSON
 
 export const apiOptions: APIOptions = {
   platform: storeConfig.platform as APIOptions['platform'],
@@ -14,6 +13,7 @@ export const apiOptions: APIOptions = {
   showSponsored: storeConfig.api.showSponsored,
   simulationBehavior: (storeConfig.api as Record<string, any>)
     .simulationBehavior,
+  customSortMap: (storeConfig.api as Record<string, any>).customSortMap,
   incrementAddress: storeConfig.api.incrementAddress,
   channel: storeConfig.session.channel,
   locale: storeConfig.session.locale,
@@ -23,25 +23,7 @@ export const apiOptions: APIOptions = {
       storeConfig.api?.enableUnavailableItemsOnCart ?? false,
   },
   version,
-  OTEL: {
-    enabled: storeConfig.analytics.otelEnabled,
-  },
+  // feature flag default to false as it should not emit traces/logs yet
+  OTEL_ENABLED: false,
   discoveryConfig: storeConfig,
-}
-
-export async function withTraceClient<T extends APIOptions = typeof apiOptions>(
-  apiOptions: T
-): Promise<T> {
-  const OTEL = {}
-  getTraceClient(
-    apiOptions?.discoveryConfig?.analytics?.serviceName ?? name
-  )?.inject(OTEL)
-
-  return {
-    ...apiOptions,
-    OTEL: {
-      ...OTEL,
-      enabled: storeConfig.analytics?.otelEnabled?.toString() === 'true',
-    },
-  } as T
 }

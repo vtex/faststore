@@ -7,9 +7,9 @@ function Layout({ children }: PropsWithChildren) {
   const props = isValidElement(children) ? children.props : undefined
   usePageViewEvent(props)
 
-  // Starts the personalization session once per browser session when the page
-  // CMS data includes a RecommendationShelf with `enableRecommendations: true`.
-  useStartRecommendationSession(props)
+  // Starts the personalization session once per browser session on every page
+  // when `experimental.enableRecommendations` is true.
+  useStartRecommendationSession()
 
   return <>{children}</>
 }
