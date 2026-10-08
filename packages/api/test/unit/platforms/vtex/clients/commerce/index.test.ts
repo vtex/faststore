@@ -38,41 +38,6 @@ vi.mock('../../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
 
 describe('VTEX Commerce', () => {
   describe('Checkout', () => {
-    describe('Pickup points', () => {
-      it('should succeed with valid geo coordinates', async () => {
-        const validResponse = {
-          pickupPointDistances: [],
-          pickupPointsHash: '',
-        }
-        const geoCoordinates = {
-          latitude: 123,
-          longitude: 456,
-        }
-
-        fetchAPIMocked.mockResolvedValueOnce(validResponse)
-
-        const { commerce } = clients.getClients(apiOptions, context)
-        const result = await commerce.checkout.pickupPoints({
-          geoCoordinates,
-        })
-
-        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
-        expect(result).toEqual(validResponse)
-      })
-
-      it('should throw an error when no params', async () => {
-        const { commerce } = clients.getClients(apiOptions, context)
-
-        expect(() => commerce.checkout.pickupPoints({})).toThrow(Error)
-        expect(() =>
-          commerce.checkout.pickupPoints({
-            geoCoordinates: undefined,
-          })
-        ).toThrow(Error)
-        expect(fetchAPIMocked).not.toHaveBeenCalled()
-      })
-    })
-
     describe('orderForm', () => {
       it('includes sc query param by default', async () => {
         fetchAPIMocked.mockResolvedValueOnce({

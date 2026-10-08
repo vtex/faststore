@@ -530,15 +530,23 @@ type Query {
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
-  Returns a list of pickup points near to the given geo coordinates.
+  Returns pickup points that have products available for the shopper location and sales channel.
   """
   pickupPoints(
     """
-    Geo coordinates input.
+    Geo coordinates used to sort pickup points by distance (`longitude,latitude`).
     """
     geoCoordinates: IStoreGeoCoordinates
+    """
+    Postal code. When it differs from the segment cookie, delivery hashes are omitted so a simulated address is not resolved against the previous CEP.
+    """
+    postalCode: String
+    """
+    Three-letter country code for `postalCode`.
+    """
+    country: String
   ): PickupPoints
-    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
   """
   Returns the status of an Order Entry Service operation by its ID.
   """

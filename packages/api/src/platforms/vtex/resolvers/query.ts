@@ -1012,18 +1012,28 @@ export const Query = {
   },
   pickupPoints: async (
     _: unknown,
-    { geoCoordinates }: QueryPickupPointsArgs,
+    { geoCoordinates, postalCode, country }: QueryPickupPointsArgs,
     ctx: GraphqlContext
   ) => {
     const {
-      clients: { commerce },
+      clients: { search },
     } = ctx
 
-    const result = await commerce.checkout.pickupPoints({
-      geoCoordinates,
+    const coordinates =
+      geoCoordinates?.longitude != null && geoCoordinates?.latitude != null
+        ? `${geoCoordinates.longitude},${geoCoordinates.latitude}`
+        : undefined
+
+    const result = await search.pickupPointAvailability({
+      postalCode: postalCode ?? undefined,
+      country: country ?? undefined,
+      coordinates,
     })
 
-    return result
+    return {
+      pickupPointDistances: result?.pickupPointDistances ?? [],
+      pickupPointsHash: null,
+    }
   },
   orderEntryOperation: getOrderEntryOperation,
   orderFormItems: getOrderFormItems,

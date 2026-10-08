@@ -522,4 +522,90 @@ describe('buildIntelligentSearchRequest', () => {
       expect(paramsToObject(request.params).productClusterId).toBeUndefined()
     })
   })
+
+  describe('pickup-point-availability', () => {
+    const segment = {
+      channel: 1,
+      cultureInfo: 'pt-BR',
+      countryCode: 'BRA',
+      facets:
+        'zip-code=01002020;country=BRA;coordinates=-46.63,-23.54;pickupPoint=account_29;deliveryZonesHash=abc;pickupPointsHash=def;productClusterIds=158;',
+    }
+
+    it('forwards location, sales channel, and collection facets without pickupPoint or pagination', () => {
+      const request = buildIntelligentSearchRequest({
+        endpoint: 'pickup-point-availability',
+        segment,
+        defaults: { locale: 'pt-BR', salesChannel: 1 },
+      })
+
+      expect(paramsToObject(request.params)).toEqual({
+        sc: '1',
+        locale: 'pt-BR',
+        country: 'BRA',
+        'zip-code': '01002020',
+        coordinates: '-46.63,-23.54',
+        deliveryZonesHash: 'abc',
+        pickupPointsHash: 'def',
+      })
+      expect(request.path).toBe('productClusterIds/158/')
+      expect(request.params.has('pickupPoint')).toBe(false)
+      expect(request.params.has('from')).toBe(false)
+      expect(request.params.has('to')).toBe(false)
+      expect(request.params.has('sort')).toBe(false)
+      expect(request.params.has('regionId')).toBe(false)
+    })
+
+    it('omits hashes and the previous coordinates when the postal code changes', () => {
+      const request = buildIntelligentSearchRequest({
+        endpoint: 'pickup-point-availability',
+        segment,
+        defaults: { locale: 'pt-BR', salesChannel: 1 },
+        args: {
+          postalCode: '22271020',
+          country: 'BRA',
+          coordinates: '-43.19,-22.95',
+        },
+      })
+
+      const params = paramsToObject(request.params)
+
+      expect(params['zip-code']).toBe('22271020')
+      expect(params.country).toBe('BRA')
+      expect(params.coordinates).toBe('-43.19,-22.95')
+      expect(params.deliveryZonesHash).toBeUndefined()
+      expect(params.pickupPointsHash).toBeUndefined()
+      expect(params.pickupPoint).toBeUndefined()
+    })
+
+    it('keeps hashes when the override is the same location', () => {
+      const request = buildIntelligentSearchRequest({
+        endpoint: 'pickup-point-availability',
+        segment,
+        defaults: { locale: 'pt-BR', salesChannel: 1 },
+        args: {
+          postalCode: '01002-020',
+          country: 'bra',
+          coordinates: '-46.63,-23.54',
+        },
+      })
+
+      expect(paramsToObject(request.params)).toMatchObject({
+        'zip-code': '01002-020',
+        country: 'bra',
+        deliveryZonesHash: 'abc',
+        pickupPointsHash: 'def',
+      })
+    })
+
+    it('throws when neither an address override nor a segment zip code is available', () => {
+      expect(() =>
+        buildIntelligentSearchRequest({
+          endpoint: 'pickup-point-availability',
+          segment: { channel: 1 },
+          defaults: { locale: 'pt-BR', salesChannel: 1 },
+        })
+      ).toThrow(/delivery location/i)
+    })
+  })
 })

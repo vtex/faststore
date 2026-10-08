@@ -29,7 +29,7 @@ const DeliveryPromiseContext = createContext<Context | undefined>(undefined)
 export function DeliveryPromiseProvider({
   children,
 }: PropsWithChildren<unknown>) {
-  const { postalCode, geoCoordinates } = useSession()
+  const { postalCode, geoCoordinates, country } = useSession()
   const [state, dispatch] = useReducer(
     deliveryPromiseReducer,
     undefined,
@@ -42,12 +42,18 @@ export function DeliveryPromiseProvider({
     }
 
     async function fetchPickupPoints() {
+      const simulation = state.simulatePickupPoints
+        ? state.pickupPointsSimulation
+        : undefined
+
       const newPickupPoints = await getPickupPoints({
-        geoCoordinates:
-          state.simulatePickupPoints &&
-          state.pickupPointsSimulation?.geoCoordinates
-            ? state.pickupPointsSimulation.geoCoordinates
-            : geoCoordinates,
+        geoCoordinates: simulation
+          ? (simulation.geoCoordinates ?? null)
+          : geoCoordinates,
+        postalCode: simulation
+          ? (simulation.postalCode ?? postalCode)
+          : postalCode,
+        country: simulation ? (simulation.country ?? country) : country,
       })
 
       // Pickup points simulation

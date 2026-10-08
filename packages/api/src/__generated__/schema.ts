@@ -945,7 +945,7 @@ export type Query = {
   orderEntryOperation?: Maybe<StoreOrderEntryOperationStatus>;
   /** Returns the items in an orderForm by its ID. */
   orderFormItems: Array<StoreOrderFormCartItem>;
-  /** Returns a list of pickup points near to the given geo coordinates. */
+  /** Returns pickup points that have products available for the shopper location and sales channel. */
   pickupPoints?: Maybe<PickupPoints>;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
@@ -1031,7 +1031,9 @@ export type QueryOrderFormItemsArgs = {
 
 
 export type QueryPickupPointsArgs = {
+  country?: InputMaybe<Scalars['String']['input']>;
   geoCoordinates?: InputMaybe<IStoreGeoCoordinates>;
+  postalCode?: InputMaybe<Scalars['String']['input']>;
 };
 
 

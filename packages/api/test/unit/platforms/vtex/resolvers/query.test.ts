@@ -783,3 +783,45 @@ describe('Query.accountProfile', () => {
     })
   })
 })
+
+describe('Query.pickupPoints', () => {
+  const pickupPoints = (Query as any).pickupPoints
+
+  it('loads availability from intelligent search and keeps the pickup id', async () => {
+    const pickupPointAvailability = vi.fn().mockResolvedValue({
+      pickupPointDistances: [
+        { pickupId: 'vendemo_1', pickupName: 'Botafogo', isActive: true },
+      ],
+    })
+    const logisticsPickupPoints = vi.fn()
+    const ctx = {
+      clients: {
+        search: { pickupPointAvailability },
+        commerce: { checkout: { pickupPoints: logisticsPickupPoints } },
+      },
+    }
+
+    const result = await pickupPoints(
+      null,
+      {
+        postalCode: '22271020',
+        country: 'BRA',
+        geoCoordinates: { latitude: -22.95, longitude: -43.19 },
+      },
+      ctx
+    )
+
+    expect(pickupPointAvailability).toHaveBeenCalledWith({
+      postalCode: '22271020',
+      country: 'BRA',
+      coordinates: '-43.19,-22.95',
+    })
+    expect(logisticsPickupPoints).not.toHaveBeenCalled()
+    expect(result).toEqual({
+      pickupPointDistances: [
+        { pickupId: 'vendemo_1', pickupName: 'Botafogo', isActive: true },
+      ],
+      pickupPointsHash: null,
+    })
+  })
+})
