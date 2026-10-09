@@ -6,6 +6,7 @@ import type {
   ClientProductQueryQueryVariables,
 } from '@generated/graphql'
 
+import { request } from '../graphql/request'
 import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
 
@@ -45,5 +46,22 @@ export const useProductQuery = <T extends ClientProductQueryQuery>(
   >(query, variables, {
     fallbackData,
     revalidateOnMount: true,
+    // `useQuery`'s default fetcher never settles when `request` throws, so SWR
+    // never exposes `error` (e.g. the B2B assortment 404 the PDP reacts to).
+    // This fetcher keeps the same deferral but forwards the rejection. Retries
+    // stay off, as they effectively were while failures went unreported.
+    fetcher: () =>
+      new Promise<ClientProductQueryQuery & T>((resolve, reject) => {
+        setTimeout(() => {
+          request<
+            ClientProductQueryQuery & T,
+            ClientProductQueryQueryVariables
+          >(query, variables).then(
+            (data) => resolve(data as ClientProductQueryQuery & T),
+            reject
+          )
+        })
+      }),
+    shouldRetryOnError: false,
   })
 }
