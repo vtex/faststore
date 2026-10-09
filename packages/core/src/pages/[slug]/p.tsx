@@ -44,6 +44,7 @@ import { LocalizedProductProvider } from 'src/sdk/localization/LocalizedProductC
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
+import { useProductNotFoundRedirect } from 'src/sdk/product/useProductNotFoundRedirect'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import { injectGlobalSections } from 'src/server/cms/global'
 import type { PDPContentType } from 'src/server/cms/pdp'
@@ -197,6 +198,7 @@ function Page({
         const productQuery = useProductQuery(product.id, {
           product: product,
         })
+        useProductNotFoundRedirect(productQuery.error)
         return {
           client: productQuery.data,
           isValidating: productQuery.isValidating,
