@@ -49,6 +49,13 @@ export function shouldRefreshPickupPoints(
   return shouldUpdatePickupPoints || locationChanged
 }
 
+export function isCurrentPickupRequest(
+  requestId: number,
+  latestRequestId: number
+) {
+  return requestId === latestRequestId
+}
+
 const DeliveryPromiseContext = createContext<Context | undefined>(undefined)
 
 export function DeliveryPromiseProvider({
@@ -61,6 +68,7 @@ export function DeliveryPromiseProvider({
     initializeDeliveryPromiseState
   )
   const fetchedLocationKey = useRef<string | null>(null)
+  const pickupRequestId = useRef(0)
 
   useEffect(() => {
     const locationKey = pickupLocationKey(channel, country)
@@ -77,6 +85,7 @@ export function DeliveryPromiseProvider({
     }
 
     fetchedLocationKey.current = locationKey
+    const currentRequest = ++pickupRequestId.current
 
     async function fetchPickupPoints() {
       const simulation = state.simulatePickupPoints
@@ -93,6 +102,10 @@ export function DeliveryPromiseProvider({
         country: simulation ? (simulation.country ?? country) : country,
         channel,
       })
+
+      if (!isCurrentPickupRequest(currentRequest, pickupRequestId.current)) {
+        return
+      }
 
       // Pickup points simulation
       if (state.simulatePickupPoints) {
@@ -135,6 +148,10 @@ export function DeliveryPromiseProvider({
     }
 
     fetchPickupPoints()
+
+    return () => {
+      pickupRequestId.current += 1
+    }
   }, [state.shouldUpdatePickupPoints, postalCode, channel, country])
 
   const value = useMemo(

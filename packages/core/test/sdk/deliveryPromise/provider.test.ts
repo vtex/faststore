@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  isCurrentPickupRequest,
   pickupLocationKey,
   shouldRefreshPickupPoints,
 } from '../../../src/sdk/deliveryPromise/provider'
@@ -39,5 +40,15 @@ describe('shouldRefreshPickupPoints', () => {
     expect(
       shouldRefreshPickupPoints('01310100', false, locationKey, nextKey)
     ).toBe(true)
+  })
+})
+
+describe('isCurrentPickupRequest', () => {
+  it('keeps the response that matches the latest request', () => {
+    expect(isCurrentPickupRequest(2, 2)).toBe(true)
+  })
+
+  it('drops a response after a newer request has started', () => {
+    expect(isCurrentPickupRequest(1, 2)).toBe(false)
   })
 })
