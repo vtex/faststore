@@ -41,6 +41,32 @@ describe('shouldRefreshPickupPoints', () => {
       shouldRefreshPickupPoints('01310100', false, locationKey, nextKey)
     ).toBe(true)
   })
+
+  it('does not refetch a location that just failed', () => {
+    const nextKey = pickupLocationKey('{"salesChannel":"2"}', 'BRA')
+
+    expect(
+      shouldRefreshPickupPoints(
+        '01310100',
+        false,
+        locationKey,
+        nextKey,
+        nextKey
+      )
+    ).toBe(false)
+  })
+
+  it('retries a failed location when the update flag is set again', () => {
+    expect(
+      shouldRefreshPickupPoints(
+        '01310100',
+        true,
+        locationKey,
+        locationKey,
+        locationKey
+      )
+    ).toBe(true)
+  })
 })
 
 describe('isCurrentPickupRequest', () => {

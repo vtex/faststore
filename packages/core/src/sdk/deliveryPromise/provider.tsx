@@ -37,16 +37,25 @@ export function shouldRefreshPickupPoints(
   postalCode: string | null | undefined,
   shouldUpdatePickupPoints: boolean,
   previousLocationKey: string | null,
-  locationKey: string
+  locationKey: string,
+  failedLocationKey: string | null = null
 ) {
   if (!postalCode) {
+    return false
+  }
+
+  if (shouldUpdatePickupPoints) {
+    return true
+  }
+
+  if (failedLocationKey === locationKey) {
     return false
   }
 
   const locationChanged =
     previousLocationKey !== null && previousLocationKey !== locationKey
 
-  return shouldUpdatePickupPoints || locationChanged
+  return locationChanged
 }
 
 export function isCurrentPickupRequest(
@@ -68,6 +77,7 @@ export function DeliveryPromiseProvider({
     initializeDeliveryPromiseState
   )
   const fetchedLocationKey = useRef<string | null>(null)
+  const failedLocationKey = useRef<string | null>(null)
   const pickupRequestId = useRef(0)
 
   useEffect(() => {
@@ -78,35 +88,55 @@ export function DeliveryPromiseProvider({
         postalCode,
         state.shouldUpdatePickupPoints,
         fetchedLocationKey.current,
-        locationKey
+        locationKey,
+        failedLocationKey.current
       )
     ) {
       return
     }
 
-    fetchedLocationKey.current = locationKey
     const currentRequest = ++pickupRequestId.current
+    failedLocationKey.current = null
 
     async function fetchPickupPoints() {
       const simulation = state.simulatePickupPoints
         ? state.pickupPointsSimulation
         : undefined
 
-      const newPickupPoints = await getPickupPoints({
-        geoCoordinates: simulation
-          ? (simulation.geoCoordinates ?? null)
-          : geoCoordinates,
-        postalCode: simulation
-          ? (simulation.postalCode ?? postalCode)
-          : postalCode,
-        country: simulation ? (simulation.country ?? country) : country,
-        channel,
-      })
+      try {
+        const newPickupPoints = await getPickupPoints({
+          geoCoordinates: simulation
+            ? (simulation.geoCoordinates ?? null)
+            : geoCoordinates,
+          postalCode: simulation
+            ? (simulation.postalCode ?? postalCode)
+            : postalCode,
+          country: simulation ? (simulation.country ?? country) : country,
+          channel,
+        })
 
-      if (!isCurrentPickupRequest(currentRequest, pickupRequestId.current)) {
-        return
+        if (!isCurrentPickupRequest(currentRequest, pickupRequestId.current)) {
+          return
+        }
+
+        fetchedLocationKey.current = locationKey
+        applyPickupPoints(newPickupPoints ?? [])
+      } catch {
+        if (!isCurrentPickupRequest(currentRequest, pickupRequestId.current)) {
+          return
+        }
+
+        failedLocationKey.current = locationKey
+        deliveryPromiseStore.set({
+          shouldUpdatePickupPoints: false,
+          simulatePickupPoints: false,
+        })
       }
+    }
 
+    function applyPickupPoints(
+      newPickupPoints: NonNullable<Awaited<ReturnType<typeof getPickupPoints>>>
+    ) {
       // Pickup points simulation
       if (state.simulatePickupPoints) {
         deliveryPromiseStore.set({
