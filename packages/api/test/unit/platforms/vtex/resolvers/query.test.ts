@@ -876,5 +876,10 @@ describe('Query.pickupPoints', () => {
 
     expect(ctx.storage.channel.salesChannel).toBe('2')
     expect(ctx.storage.channel.regionId).toBe('region-2')
+    expect(pickupPointAvailability).toHaveBeenCalledWith({
+      postalCode: '01310100',
+      country: 'BRA',
+      coordinates: undefined,
+    })
   })
 })

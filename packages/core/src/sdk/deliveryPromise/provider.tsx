@@ -6,6 +6,7 @@ import {
   useEffect,
   useMemo,
   useReducer,
+  useRef,
 } from 'react'
 
 import { useSession } from 'src/sdk/session'
@@ -24,6 +25,30 @@ type Context = DeliveryPromiseReducerState & {
   dispatchDeliveryPromiseAction: Dispatch<DeliveryPromiseReducerAction>
 }
 
+export function pickupLocationKey(
+  channel?: string | null,
+  country?: string | null
+) {
+  return `${channel ?? ''}\0${country ?? ''}`
+}
+
+/** A cleared update flag still refetches when the shopper channel or country changes. */
+export function shouldRefreshPickupPoints(
+  postalCode: string | null | undefined,
+  shouldUpdatePickupPoints: boolean,
+  previousLocationKey: string | null,
+  locationKey: string
+) {
+  if (!postalCode) {
+    return false
+  }
+
+  const locationChanged =
+    previousLocationKey !== null && previousLocationKey !== locationKey
+
+  return shouldUpdatePickupPoints || locationChanged
+}
+
 const DeliveryPromiseContext = createContext<Context | undefined>(undefined)
 
 export function DeliveryPromiseProvider({
@@ -35,11 +60,23 @@ export function DeliveryPromiseProvider({
     undefined,
     initializeDeliveryPromiseState
   )
+  const fetchedLocationKey = useRef<string | null>(null)
 
   useEffect(() => {
-    if (!postalCode || !state.shouldUpdatePickupPoints) {
+    const locationKey = pickupLocationKey(channel, country)
+
+    if (
+      !shouldRefreshPickupPoints(
+        postalCode,
+        state.shouldUpdatePickupPoints,
+        fetchedLocationKey.current,
+        locationKey
+      )
+    ) {
       return
     }
+
+    fetchedLocationKey.current = locationKey
 
     async function fetchPickupPoints() {
       const simulation = state.simulatePickupPoints
@@ -98,7 +135,7 @@ export function DeliveryPromiseProvider({
     }
 
     fetchPickupPoints()
-  }, [state.shouldUpdatePickupPoints, postalCode, channel])
+  }, [state.shouldUpdatePickupPoints, postalCode, channel, country])
 
   const value = useMemo(
     () => ({

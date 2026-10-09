@@ -215,4 +215,30 @@ describe('IntelligentSearch.pickupPointAvailability', () => {
     )
     expect(parsed.searchParams.get('zip-code')).toBe('01002020')
   })
+
+  it('sends the server sales channel instead of the segment cookie channel', async () => {
+    const segment = Buffer.from(
+      JSON.stringify({
+        channel: 1,
+        cultureInfo: 'pt-BR',
+        countryCode: 'BRA',
+        facets: 'zip-code=01002020;country=BRA;',
+      })
+    ).toString('base64')
+
+    fetchAPIMocked.mockResolvedValueOnce({ pickupPointDistances: [] })
+
+    const ctx = makeCtx({ cookie: `vtex_segment=${segment}` })
+    ctx.storage.channel.salesChannel = '2'
+
+    const is = IntelligentSearch(searchOptions, ctx)
+    await is.pickupPointAvailability({
+      postalCode: '01310100',
+      country: 'BRA',
+    })
+
+    const [url] = fetchAPIMocked.mock.calls[0]
+
+    expect(new URL(url).searchParams.get('sc')).toBe('2')
+  })
 })

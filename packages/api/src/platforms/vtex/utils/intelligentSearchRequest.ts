@@ -634,6 +634,7 @@ function buildPickupPointAvailabilityParams(
 
   if (includeHashes) {
     set('deliveryZonesHash', segmentParams.deliveryZonesHash)
+    // The segment field is singular. The Intelligent Search query param is plural.
     set('pickupPointsHash', segmentParams.pickupPointHash)
   }
 
