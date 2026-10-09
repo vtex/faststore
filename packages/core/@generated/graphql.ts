@@ -999,6 +999,7 @@ export type QueryOrderFormItemsArgs = {
 
 
 export type QueryPickupPointsArgs = {
+  channel: InputMaybe<Scalars['String']['input']>;
   country: InputMaybe<Scalars['String']['input']>;
   geoCoordinates: InputMaybe<IStoreGeoCoordinates>;
   postalCode: InputMaybe<Scalars['String']['input']>;
@@ -2965,6 +2966,7 @@ export type ClientPickupPointsQueryQueryVariables = Exact<{
   geoCoordinates: InputMaybe<IStoreGeoCoordinates>;
   postalCode: InputMaybe<Scalars['String']['input']>;
   country: InputMaybe<Scalars['String']['input']>;
+  channel: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -3667,7 +3669,7 @@ export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operation
 export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
 export const StartRecommendationSessionDocument = {"__meta__":{"operationName":"StartRecommendationSession","operationHash":"1def6438c0cd87b85002411ac7326c221f192583"}} as unknown as TypedDocumentString<StartRecommendationSessionMutation, StartRecommendationSessionMutationVariables>;
 export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"3c71b0d3fc2bade14df68abfa271858beb361b12"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
-export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"ClientPickupPointsQuery","operationHash":"cbc9bb89f0c9f89f30ea4f72890ee153e52f2d53"}} as unknown as TypedDocumentString<ClientPickupPointsQueryQuery, ClientPickupPointsQueryQueryVariables>;
+export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"ClientPickupPointsQuery","operationHash":"0f70fea0ad598b50c0ca9c086860907881a68e4f"}} as unknown as TypedDocumentString<ClientPickupPointsQueryQuery, ClientPickupPointsQueryQueryVariables>;
 export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"SubscribeToNewsletter","operationHash":"feb7005103a859e2bc8cf2360d568806fd88deba"}} as unknown as TypedDocumentString<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;
 export const StartOrderEntryOperationMutationDocument = {"__meta__":{"operationName":"StartOrderEntryOperationMutation","operationHash":"78c50fbf9b85d03dbeac9b05b06405217f2ec440"}} as unknown as TypedDocumentString<StartOrderEntryOperationMutationMutation, StartOrderEntryOperationMutationMutationVariables>;
 export const OrderEntryOperationQueryDocument = {"__meta__":{"operationName":"OrderEntryOperationQuery","operationHash":"93fc6c5c593dd4c82686fdf063fe419760297e54"}} as unknown as TypedDocumentString<OrderEntryOperationQueryQuery, OrderEntryOperationQueryQueryVariables>;

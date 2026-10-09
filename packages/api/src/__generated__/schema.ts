@@ -1031,6 +1031,7 @@ export type QueryOrderFormItemsArgs = {
 
 
 export type QueryPickupPointsArgs = {
+  channel?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
   geoCoordinates?: InputMaybe<IStoreGeoCoordinates>;
   postalCode?: InputMaybe<Scalars['String']['input']>;

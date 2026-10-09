@@ -545,6 +545,10 @@ type Query {
     Three-letter country code for `postalCode`.
     """
     country: String
+    """
+    Shopper channel, the same JSON string used by the `channel` search facet. When set, its sales channel is used instead of the store default.
+    """
+    channel: String
   ): PickupPoints
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
   """

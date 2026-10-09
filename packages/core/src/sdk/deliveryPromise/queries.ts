@@ -12,11 +12,13 @@ const pickupPointsQuery = gql(`
     $geoCoordinates: IStoreGeoCoordinates
     $postalCode: String
     $country: String
+    $channel: String
   ) {
     pickupPoints(
       geoCoordinates: $geoCoordinates
       postalCode: $postalCode
       country: $country
+      channel: $channel
     ) {
       pickupPointDistances {
         pickupId
@@ -42,12 +44,14 @@ type GetPickupPointsProps = {
   } | null
   postalCode?: string | null
   country?: string | null
+  channel?: string | null
 }
 
 export const getPickupPoints = async ({
   geoCoordinates,
   postalCode,
   country,
+  channel,
 }: GetPickupPointsProps) => {
   if (!deliveryPromise.enabled) {
     return []
@@ -61,6 +65,7 @@ export const getPickupPoints = async ({
     geoCoordinates: geoCoordinates ?? undefined,
     postalCode: postalCode ?? undefined,
     country: country ?? undefined,
+    channel: channel ?? undefined,
   }
 
   const data = await request<

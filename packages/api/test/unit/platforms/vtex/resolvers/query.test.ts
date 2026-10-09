@@ -847,4 +847,34 @@ describe('Query.pickupPoints', () => {
       pickupPointsHash: null,
     })
   })
+
+  it('applies the shopper sales channel before listing pickup points', async () => {
+    const pickupPointAvailability = vi.fn().mockResolvedValue({
+      pickupPointDistances: [],
+    })
+    const ctx = {
+      clients: { search: { pickupPointAvailability } },
+      storage: {
+        channel: {
+          seller: '',
+          regionId: '',
+          salesChannel: '1',
+          hasOnlyDefaultSalesChannel: true,
+        },
+      },
+    }
+
+    await pickupPoints(
+      null,
+      {
+        postalCode: '01310100',
+        country: 'BRA',
+        channel: JSON.stringify({ salesChannel: '2', regionId: 'region-2' }),
+      },
+      ctx
+    )
+
+    expect(ctx.storage.channel.salesChannel).toBe('2')
+    expect(ctx.storage.channel.regionId).toBe('region-2')
+  })
 })

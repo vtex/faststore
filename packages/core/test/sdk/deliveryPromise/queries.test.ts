@@ -75,10 +75,12 @@ describe('getPickupPoints', () => {
       },
     })
 
+    const channel = JSON.stringify({ salesChannel: '2', regionId: '' })
     const points = await getPickupPoints({
       geoCoordinates: null,
       postalCode: '22041080',
       country: 'BRA',
+      channel,
     })
 
     expect(request).toHaveBeenCalledWith(
@@ -86,6 +88,7 @@ describe('getPickupPoints', () => {
       expect.objectContaining({
         postalCode: '22041080',
         country: 'BRA',
+        channel,
         geoCoordinates: undefined,
       })
     )

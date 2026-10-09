@@ -1012,12 +1012,16 @@ export const Query = {
   },
   pickupPoints: async (
     _: unknown,
-    { geoCoordinates, postalCode, country }: QueryPickupPointsArgs,
+    { geoCoordinates, postalCode, country, channel }: QueryPickupPointsArgs,
     ctx: GraphqlContext
   ) => {
     const {
       clients: { search },
     } = ctx
+
+    if (channel) {
+      mutateChannelContext(ctx, channel)
+    }
 
     const coordinates =
       geoCoordinates?.longitude != null && geoCoordinates?.latitude != null

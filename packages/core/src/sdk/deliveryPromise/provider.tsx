@@ -29,7 +29,7 @@ const DeliveryPromiseContext = createContext<Context | undefined>(undefined)
 export function DeliveryPromiseProvider({
   children,
 }: PropsWithChildren<unknown>) {
-  const { postalCode, geoCoordinates, country } = useSession()
+  const { postalCode, geoCoordinates, country, channel } = useSession()
   const [state, dispatch] = useReducer(
     deliveryPromiseReducer,
     undefined,
@@ -54,6 +54,7 @@ export function DeliveryPromiseProvider({
           ? (simulation.postalCode ?? postalCode)
           : postalCode,
         country: simulation ? (simulation.country ?? country) : country,
+        channel,
       })
 
       // Pickup points simulation
@@ -97,7 +98,7 @@ export function DeliveryPromiseProvider({
     }
 
     fetchPickupPoints()
-  }, [state.shouldUpdatePickupPoints, postalCode])
+  }, [state.shouldUpdatePickupPoints, postalCode, channel])
 
   const value = useMemo(
     () => ({
