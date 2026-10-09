@@ -127,9 +127,12 @@ export function DeliveryPromiseProvider({
         }
 
         failedLocationKey.current = locationKey
-        deliveryPromiseStore.set({
-          shouldUpdatePickupPoints: false,
-          simulatePickupPoints: false,
+        dispatch({
+          type: 'updateDeliveryPromiseState',
+          payload: {
+            shouldUpdatePickupPoints: false,
+            simulatePickupPoints: false,
+          },
         })
       }
     }

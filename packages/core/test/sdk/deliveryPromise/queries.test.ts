@@ -108,4 +108,16 @@ describe('getPickupPoints', () => {
       },
     ])
   })
+
+  it('returns an empty list when the request has no data', async () => {
+    request.mockResolvedValueOnce(null)
+
+    await expect(
+      getPickupPoints({
+        geoCoordinates: null,
+        postalCode: '01310100',
+        country: 'BRA',
+      })
+    ).resolves.toEqual([])
+  })
 })
