@@ -828,7 +828,10 @@ export type PickupPoints = {
   __typename?: 'PickupPoints';
   /** List of pickup point distances for the given location. */
   pickupPointDistances?: Maybe<Array<Maybe<PickupPointDistance>>>;
-  /** Hash of the pickup points data. */
+  /**
+   * Not returned by Intelligent Search pickup-point-availability. Always null.
+   * @deprecated Not returned by Intelligent Search pickup-point-availability. Always null.
+   */
   pickupPointsHash?: Maybe<Scalars['String']['output']>;
 };
 

@@ -634,7 +634,7 @@ function buildPickupPointAvailabilityParams(
 
   if (includeHashes) {
     set('deliveryZonesHash', segmentParams.deliveryZonesHash)
-    // The segment field is singular. The Intelligent Search query param is plural.
+    // SegmentParams.pickupPointHash is the internal name. The cookie facet and the query param are both pickupPointsHash.
     set('pickupPointsHash', segmentParams.pickupPointHash)
   }
 

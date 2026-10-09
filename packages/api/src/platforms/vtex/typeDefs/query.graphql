@@ -534,7 +534,7 @@ type Query {
   """
   pickupPoints(
     """
-    Geo coordinates used to sort pickup points by distance (`longitude,latitude`).
+    Geo coordinates used to sort pickup points by distance (`longitude,latitude`). Without `postalCode`, the segment postal code stays in place.
     """
     geoCoordinates: IStoreGeoCoordinates
     """

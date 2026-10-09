@@ -38,7 +38,8 @@ export function shouldRefreshPickupPoints(
   shouldUpdatePickupPoints: boolean,
   previousLocationKey: string | null,
   locationKey: string,
-  failedLocationKey: string | null = null
+  failedLocationKey: string | null = null,
+  hasPersistedList = false
 ) {
   if (!postalCode) {
     return false
@@ -50,6 +51,11 @@ export function shouldRefreshPickupPoints(
 
   if (failedLocationKey === locationKey) {
     return false
+  }
+
+  // A list restored from storage has no channel recorded for this page load.
+  if (previousLocationKey === null && hasPersistedList) {
+    return true
   }
 
   const locationChanged =
@@ -82,6 +88,7 @@ export function DeliveryPromiseProvider({
 
   useEffect(() => {
     const locationKey = pickupLocationKey(channel, country)
+    const hasPersistedList = (state.pickupPoints?.length ?? 0) > 0
 
     if (
       !shouldRefreshPickupPoints(
@@ -89,7 +96,8 @@ export function DeliveryPromiseProvider({
         state.shouldUpdatePickupPoints,
         fetchedLocationKey.current,
         locationKey,
-        failedLocationKey.current
+        failedLocationKey.current,
+        hasPersistedList
       )
     ) {
       return
@@ -185,7 +193,13 @@ export function DeliveryPromiseProvider({
     return () => {
       pickupRequestId.current += 1
     }
-  }, [state.shouldUpdatePickupPoints, postalCode, channel, country])
+  }, [
+    state.shouldUpdatePickupPoints,
+    state.pickupPoints?.length,
+    postalCode,
+    channel,
+    country,
+  ])
 
   const value = useMemo(
     () => ({

@@ -793,11 +793,9 @@ describe('Query.pickupPoints', () => {
         { pickupId: 'vendemo_1', pickupName: 'Botafogo', isActive: true },
       ],
     })
-    const logisticsPickupPoints = vi.fn()
     const ctx = {
       clients: {
         search: { pickupPointAvailability },
-        commerce: { checkout: { pickupPoints: logisticsPickupPoints } },
       },
     }
 
@@ -816,7 +814,6 @@ describe('Query.pickupPoints', () => {
       country: 'BRA',
       coordinates: '-43.19,-22.95',
     })
-    expect(logisticsPickupPoints).not.toHaveBeenCalled()
     expect(result).toEqual({
       pickupPointDistances: [
         { pickupId: 'vendemo_1', pickupName: 'Botafogo', isActive: true },
@@ -849,11 +846,16 @@ describe('Query.pickupPoints', () => {
   })
 
   it('applies the shopper sales channel before listing pickup points', async () => {
-    const pickupPointAvailability = vi.fn().mockResolvedValue({
-      pickupPointDistances: [],
-    })
+    let seenSalesChannel: string | undefined
     const ctx = {
-      clients: { search: { pickupPointAvailability } },
+      clients: {
+        search: {
+          pickupPointAvailability: vi.fn().mockImplementation(async () => {
+            seenSalesChannel = ctx.storage.channel.salesChannel
+            return { pickupPointDistances: [] }
+          }),
+        },
+      },
       storage: {
         channel: {
           seller: '',
@@ -874,9 +876,9 @@ describe('Query.pickupPoints', () => {
       ctx
     )
 
-    expect(ctx.storage.channel.salesChannel).toBe('2')
+    expect(seenSalesChannel).toBe('2')
     expect(ctx.storage.channel.regionId).toBe('region-2')
-    expect(pickupPointAvailability).toHaveBeenCalledWith({
+    expect(ctx.clients.search.pickupPointAvailability).toHaveBeenCalledWith({
       postalCode: '01310100',
       country: 'BRA',
       coordinates: undefined,

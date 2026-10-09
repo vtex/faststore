@@ -56,6 +56,25 @@ describe('shouldRefreshPickupPoints', () => {
     ).toBe(false)
   })
 
+  it('refetches a stored list before this page has fetched', () => {
+    expect(
+      shouldRefreshPickupPoints(
+        '01310100',
+        false,
+        null,
+        locationKey,
+        null,
+        true
+      )
+    ).toBe(true)
+  })
+
+  it('does not fetch an empty stored list before the shopper updates the postal code', () => {
+    expect(
+      shouldRefreshPickupPoints('01310100', false, null, locationKey)
+    ).toBe(false)
+  })
+
   it('retries a failed location when the update flag is set again', () => {
     expect(
       shouldRefreshPickupPoints(
