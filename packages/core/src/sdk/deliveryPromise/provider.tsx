@@ -129,12 +129,33 @@ export function DeliveryPromiseProvider({
 
         fetchedLocationKey.current = locationKey
         applyPickupPoints(newPickupPoints ?? [])
-      } catch {
+      } catch (error) {
         if (!isCurrentPickupRequest(currentRequest, pickupRequestId.current)) {
           return
         }
 
+        console.warn('Failed to fetch pickup points:', error)
         failedLocationKey.current = locationKey
+
+        if (state.simulatePickupPoints) {
+          const failedSimulation = {
+            pickupPointsSimulation: {
+              ...state.pickupPointsSimulation,
+              pickupPoints: [],
+            },
+            shouldUpdatePickupPoints: false,
+            simulatePickupPoints: false,
+          }
+
+          deliveryPromiseStore.set(failedSimulation)
+          dispatch({
+            type: 'updateDeliveryPromiseState',
+            payload: failedSimulation,
+          })
+
+          return
+        }
+
         dispatch({
           type: 'updateDeliveryPromiseState',
           payload: {

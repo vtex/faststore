@@ -35,6 +35,8 @@ import {
 } from '../../../src/sdk/deliveryPromise/provider'
 import { deliveryPromiseStore } from '../../../src/sdk/deliveryPromise/useDeliveryPromise'
 
+// Mirrors the store → reducer subscription in useDeliveryPromise.
+// This suite does not cover that hook: if the hook stops syncing, these tests still pass.
 function StoreSync() {
   const { dispatchDeliveryPromiseAction } = useDeliveryPromiseContext()
 
@@ -51,14 +53,30 @@ function StoreSync() {
 }
 
 function renderProvider(
-  onDispatch: (dispatch: Dispatch<DeliveryPromiseReducerAction>) => void
+  onDispatch: (dispatch: Dispatch<DeliveryPromiseReducerAction>) => void,
+  onLoadingFlag?: (shouldUpdatePickupPoints: boolean) => void
 ) {
   return render(
     <DeliveryPromiseProvider>
       <StoreSync />
       <DispatchBridge onDispatch={onDispatch} />
+      {onLoadingFlag ? <LoadingFlagProbe onFlag={onLoadingFlag} /> : null}
     </DeliveryPromiseProvider>
   )
+}
+
+function LoadingFlagProbe({
+  onFlag,
+}: {
+  onFlag: (shouldUpdatePickupPoints: boolean) => void
+}) {
+  const { shouldUpdatePickupPoints } = useDeliveryPromiseContext()
+
+  useEffect(() => {
+    onFlag(shouldUpdatePickupPoints)
+  }, [onFlag, shouldUpdatePickupPoints])
+
+  return null
 }
 
 function DispatchBridge({
@@ -178,7 +196,7 @@ describe('DeliveryPromiseProvider pickup fetch', () => {
       second.resolve([{ id: 'vendemo_rio', name: 'VTEX Rio' }])
     })
     await act(async () => {
-      first.reject(new Error('stale'))
+      first.resolve([{ id: 'vendemo_stale', name: 'Stale' }])
     })
 
     await waitFor(() => {
@@ -186,14 +204,17 @@ describe('DeliveryPromiseProvider pickup fetch', () => {
         { id: 'vendemo_rio', name: 'VTEX Rio' },
       ])
     })
+    expect(getPickupPoints).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({ channel: '{"salesChannel":"2"}' })
+    )
   })
 
-  it('clears the loading flag after a failed request and retries on the next update', async () => {
-    getPickupPoints
-      .mockRejectedValueOnce(new Error('network'))
-      .mockResolvedValueOnce([{ id: 'vendemo_sp', name: 'VTEX SP' }])
+  it('drops a response that arrives after the postal code is cleared', async () => {
+    const pending = deferred<Array<{ id: string; name: string }>>()
+    getPickupPoints.mockImplementationOnce(() => pending.promise)
 
-    renderProvider(captureDispatch)
+    const view = renderProvider(captureDispatch)
 
     await act(async () => {
       dispatch({
@@ -208,7 +229,48 @@ describe('DeliveryPromiseProvider pickup fetch', () => {
     await waitFor(() => {
       expect(getPickupPoints).toHaveBeenCalledTimes(1)
     })
-    await act(async () => {})
+
+    session.postalCode = null
+    view.rerender(
+      <DeliveryPromiseProvider>
+        <StoreSync />
+        <DispatchBridge onDispatch={captureDispatch} />
+      </DeliveryPromiseProvider>
+    )
+
+    await act(async () => {
+      pending.resolve([{ id: 'vendemo_stale', name: 'Stale' }])
+    })
+
+    expect(deliveryPromiseStore.read()?.pickupPoints).toEqual([])
+  })
+
+  it('clears the loading flag after a failed request and retries on the next update', async () => {
+    getPickupPoints
+      .mockRejectedValueOnce(new Error('network'))
+      .mockResolvedValueOnce([{ id: 'vendemo_sp', name: 'VTEX SP' }])
+
+    let shouldUpdatePickupPoints = true
+    renderProvider(captureDispatch, (flag) => {
+      shouldUpdatePickupPoints = flag
+    })
+
+    await act(async () => {
+      dispatch({
+        type: 'onPostalCodeChange',
+        payload: {
+          simulatePickupPoints: false,
+          validatedSession: { postalCode: '01310100', country: 'BRA' },
+        },
+      })
+    })
+
+    await waitFor(() => {
+      expect(getPickupPoints).toHaveBeenCalledTimes(1)
+    })
+    await waitFor(() => {
+      expect(shouldUpdatePickupPoints).toBe(false)
+    })
 
     await act(async () => {
       dispatch({
@@ -262,6 +324,48 @@ describe('DeliveryPromiseProvider pickup fetch', () => {
       })
     )
     expect(deliveryPromiseStore.read()?.pickupPoints).toEqual([])
+  })
+
+  it('clears the simulated list when the next postal code fails', async () => {
+    getPickupPoints
+      .mockResolvedValueOnce([{ id: 'vendemo_sp', name: 'VTEX SP' }])
+      .mockRejectedValueOnce(new Error('network'))
+
+    renderProvider(captureDispatch)
+
+    await act(async () => {
+      dispatch({
+        type: 'onPostalCodeChange',
+        payload: {
+          simulatePickupPoints: true,
+          validatedSession: { postalCode: '01310100', country: 'BRA' },
+        },
+      })
+    })
+
+    await waitFor(() => {
+      expect(
+        deliveryPromiseStore.read()?.pickupPointsSimulation?.pickupPoints
+      ).toEqual([{ id: 'vendemo_sp', name: 'VTEX SP' }])
+    })
+
+    await act(async () => {
+      dispatch({
+        type: 'onPostalCodeChange',
+        payload: {
+          simulatePickupPoints: true,
+          validatedSession: { postalCode: '22041080', country: 'BRA' },
+        },
+      })
+    })
+
+    await waitFor(() => {
+      expect(
+        deliveryPromiseStore.read()?.pickupPointsSimulation?.pickupPoints
+      ).toEqual([])
+    })
+    expect(deliveryPromiseStore.read()?.pickupPoints).toEqual([])
+    expect(deliveryPromiseStore.read()?.shouldUpdatePickupPoints).toBe(false)
   })
 
   it('keeps the selected store when it is still in the new list', async () => {
