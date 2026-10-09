@@ -44,6 +44,7 @@ import {
   resolveActiveContractIdFromSession,
   resolveDefaultContractId,
 } from '../utils/contract'
+import { assertProductInContractAssortment } from '../utils/contractAssortment'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
 import { enhanceSku, type EnhancedSku } from '../utils/enhanceSku'
@@ -202,25 +203,35 @@ export const Query = {
       loaders: { skuLoader },
     } = ctx
 
-    try {
-      const skuId = id ?? slug?.split('-').pop() ?? ''
+    const loadSku = async () => {
+      try {
+        const skuId = id ?? slug?.split('-').pop() ?? ''
 
-      if (!isValidSkuId(skuId)) {
-        throw new Error(INVALID_SKU_ID_ERROR)
+        if (!isValidSkuId(skuId)) {
+          throw new Error(INVALID_SKU_ID_ERROR)
+        }
+
+        const sku = await skuLoader.load(skuId)
+
+        await assertSkuMatchesSlug(ctx, sku, slug, locale)
+
+        return sku
+      } catch (err) {
+        if (!shouldFallbackToProductRoute(err)) {
+          throw err
+        }
+
+        return fetchProductBySlugFallback(ctx, slug)
       }
-
-      const sku = await skuLoader.load(skuId)
-
-      await assertSkuMatchesSlug(ctx, sku, slug, locale)
-
-      return sku
-    } catch (err) {
-      if (!shouldFallbackToProductRoute(err)) {
-        throw err
-      }
-
-      return fetchProductBySlugFallback(ctx, slug)
     }
+
+    const sku = await loadSku()
+
+    // Runs outside `loadSku` so its NotFoundError is not swallowed by the
+    // slug fallback, which would refetch and return the same product.
+    assertProductInContractAssortment(ctx, sku)
+
+    return sku
   },
   collection: (
     _: unknown,
