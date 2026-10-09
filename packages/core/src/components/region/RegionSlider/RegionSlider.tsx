@@ -74,6 +74,7 @@ function RegionSlider() {
   )
   const pickupPoints = useMemo(
     () =>
+      pickupPointsSimulation?.postalCode ||
       pickupPointsSimulation?.geoCoordinates
         ? pickupPointsSimulation.pickupPoints
         : statePickupPoints,

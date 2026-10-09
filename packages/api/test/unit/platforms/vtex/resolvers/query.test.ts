@@ -783,3 +783,105 @@ describe('Query.accountProfile', () => {
     })
   })
 })
+
+describe('Query.pickupPoints', () => {
+  const pickupPoints = (Query as any).pickupPoints
+
+  it('loads availability from intelligent search and keeps the pickup id', async () => {
+    const pickupPointAvailability = vi.fn().mockResolvedValue({
+      pickupPointDistances: [
+        { pickupId: 'vendemo_1', pickupName: 'Botafogo', isActive: true },
+      ],
+    })
+    const ctx = {
+      clients: {
+        search: { pickupPointAvailability },
+      },
+    }
+
+    const result = await pickupPoints(
+      null,
+      {
+        postalCode: '22271020',
+        country: 'BRA',
+        geoCoordinates: { latitude: -22.95, longitude: -43.19 },
+      },
+      ctx
+    )
+
+    expect(pickupPointAvailability).toHaveBeenCalledWith({
+      postalCode: '22271020',
+      country: 'BRA',
+      coordinates: '-43.19,-22.95',
+    })
+    expect(result).toEqual({
+      pickupPointDistances: [
+        { pickupId: 'vendemo_1', pickupName: 'Botafogo', isActive: true },
+      ],
+      pickupPointsHash: null,
+    })
+  })
+
+  it('omits coordinates when the caller only sends a postal code', async () => {
+    const pickupPointAvailability = vi.fn().mockResolvedValue(null)
+    const ctx = {
+      clients: { search: { pickupPointAvailability } },
+    }
+
+    const result = await pickupPoints(
+      null,
+      { postalCode: '22041080', country: 'BRA' },
+      ctx
+    )
+
+    expect(pickupPointAvailability).toHaveBeenCalledWith({
+      postalCode: '22041080',
+      country: 'BRA',
+      coordinates: undefined,
+    })
+    expect(result).toEqual({
+      pickupPointDistances: [],
+      pickupPointsHash: null,
+    })
+  })
+
+  it('applies the shopper sales channel before listing pickup points', async () => {
+    let seenSalesChannel: string | undefined
+    const ctx = {
+      clients: {
+        search: {
+          pickupPointAvailability: vi.fn().mockImplementation(async () => {
+            seenSalesChannel = ctx.storage.channel.salesChannel
+            return { pickupPointDistances: [] }
+          }),
+        },
+      },
+      storage: {
+        channel: {
+          seller: '',
+          regionId: '',
+          salesChannel: '1',
+          hasOnlyDefaultSalesChannel: true,
+        },
+      },
+    }
+
+    await pickupPoints(
+      null,
+      {
+        postalCode: '01310100',
+        country: 'BRA',
+        channel: JSON.stringify({ salesChannel: '2', regionId: 'region-2' }),
+      },
+      ctx
+    )
+
+    expect(seenSalesChannel).toBe('2')
+    expect(ctx.storage.channel.regionId).toBe('region-2')
+    expect(ctx.clients.search.pickupPointAvailability).toHaveBeenCalledWith({
+      postalCode: '01310100',
+      country: 'BRA',
+      coordinates: undefined,
+    })
+  })
+})

@@ -10,8 +10,16 @@ import { request } from 'src/sdk/graphql/request'
 const pickupPointsQuery = gql(`
   query ClientPickupPointsQuery(
     $geoCoordinates: IStoreGeoCoordinates
+    $postalCode: String
+    $country: String
+    $channel: String
   ) {
-    pickupPoints(geoCoordinates: $geoCoordinates) {
+    pickupPoints(
+      geoCoordinates: $geoCoordinates
+      postalCode: $postalCode
+      country: $country
+      channel: $channel
+    ) {
       pickupPointDistances {
         pickupId
         distance
@@ -34,21 +42,30 @@ type GetPickupPointsProps = {
     latitude: number
     longitude: number
   } | null
+  postalCode?: string | null
+  country?: string | null
+  channel?: string | null
 }
 
 export const getPickupPoints = async ({
   geoCoordinates,
+  postalCode,
+  country,
+  channel,
 }: GetPickupPointsProps) => {
   if (!deliveryPromise.enabled) {
     return []
   }
 
-  if (!geoCoordinates) {
+  if (!postalCode && !geoCoordinates) {
     return []
   }
 
   const variables = {
     geoCoordinates: geoCoordinates ?? undefined,
+    postalCode: postalCode ?? undefined,
+    country: country ?? undefined,
+    channel: channel ?? undefined,
   }
 
   const data = await request<

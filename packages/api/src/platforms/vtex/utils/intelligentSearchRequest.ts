@@ -55,6 +55,7 @@ export type IntelligentSearchEndpoint =
   | 'products'
   | 'search-suggestions'
   | 'top-searches'
+  | 'pickup-point-availability'
 
 export interface IntelligentSearchDefaults {
   salesChannel?: string | number
@@ -77,6 +78,12 @@ export interface IntelligentSearchRequestArgs {
   allowRedirect?: boolean
   field?: ProductIdentifierField
   value?: string
+  /** Overrides the segment postal code. A different CEP omits delivery hashes. */
+  postalCode?: string
+  /** Country for `postalCode`. Falls back to the segment country when omitted. */
+  country?: string
+  /** `longitude,latitude`. Used to sort pickup points. */
+  coordinates?: string
 }
 
 export interface IntelligentSearchRequestInput {
@@ -554,6 +561,86 @@ function buildProductsParams(
   return params
 }
 
+function normalizeLocationToken(value: string | undefined): string {
+  return (value ?? '').replaceAll(/[\s-]/g, '').toUpperCase()
+}
+
+/**
+ * Lists pickup points that have products for the shopper location.
+ * Does not forward PLP facets or the `pickupPoint` query param: that param
+ * restricts the response to a single point.
+ *
+ * Delivery hashes are forwarded only when the requested postal code matches
+ * the segment. A simulated address must not reuse hashes from the previous CEP.
+ */
+function buildPickupPointAvailabilityParams(
+  args: IntelligentSearchRequestArgs,
+  segmentData: {
+    segmentParams: SegmentParams
+    extraFacets: IntelligentSearchFacet[]
+  }
+): { params: URLSearchParams; path: string } {
+  const { segmentParams, extraFacets } = segmentData
+  const { postalCode, country, coordinates } = args
+  const hasPostalOverride = Boolean(postalCode)
+  const overrideCountry = country || segmentParams.country
+  const sameLocation =
+    hasPostalOverride &&
+    normalizeLocationToken(postalCode) ===
+      normalizeLocationToken(segmentParams['zip-code']) &&
+    normalizeLocationToken(overrideCountry) ===
+      normalizeLocationToken(segmentParams.country)
+
+  const zipCode = hasPostalOverride ? postalCode : segmentParams['zip-code']
+  const resolvedCountry = hasPostalOverride
+    ? overrideCountry
+    : segmentParams.country
+  const segmentCoordinates = sameLocation
+    ? segmentParams.coordinates
+    : undefined
+  const resolvedCoordinates = hasPostalOverride
+    ? (coordinates ?? segmentCoordinates)
+    : coordinates || segmentParams.coordinates
+
+  const includeHashes = !hasPostalOverride || sameLocation
+  const hasHashes = Boolean(
+    segmentParams.deliveryZonesHash && segmentParams.pickupPointHash
+  )
+
+  const hasCoordinates = Boolean(resolvedCoordinates)
+
+  if (
+    (!zipCode || !resolvedCountry) &&
+    !hasCoordinates &&
+    !(includeHashes && hasHashes)
+  ) {
+    throw new Error(
+      'Missing delivery location for pickup point availability. Provide postalCode and country, coordinates, or a segment with zip-code.'
+    )
+  }
+
+  const params = new URLSearchParams()
+  const set = (key: string, value?: string | number) => {
+    if (value !== undefined && value !== null && String(value) !== '') {
+      params.append(key, String(value))
+    }
+  }
+
+  set('sc', segmentParams.sc)
+  set('locale', segmentParams.locale)
+  set('country', resolvedCountry)
+  set('zip-code', zipCode)
+  set('coordinates', resolvedCoordinates)
+
+  if (includeHashes) {
+    set('deliveryZonesHash', segmentParams.deliveryZonesHash)
+    // SegmentParams.pickupPointHash is the internal name. The cookie facet and the query param are both pickupPointsHash.
+    set('pickupPointsHash', segmentParams.pickupPointHash)
+  }
+
+  return { params, path: buildAttributePath(extraFacets) }
+}
+
 function createRequest(
   path: string,
   params: URLSearchParams
@@ -628,6 +715,15 @@ export function buildIntelligentSearchRequest(
       })
 
       return createRequest('', params)
+    }
+
+    case 'pickup-point-availability': {
+      const { params, path } = buildPickupPointAvailabilityParams(
+        args,
+        segmentData
+      )
+
+      return createRequest(path, params)
     }
 
     default: {
