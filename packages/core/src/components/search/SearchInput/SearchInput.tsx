@@ -245,7 +245,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           return
         }
 
-        // useId generates ids with colons, which break CSS selectors
         document
           .getElementById(searchDropdownId)
           ?.querySelector<HTMLElement>('a[href], button:not([disabled])')
@@ -261,8 +260,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const handleDropdownKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
       if (event.key === 'Escape') {
         event.preventDefault()
-        // Focusing the input reopens the dropdown via onFocus, so close it
-        // afterwards: both updates are batched and the last one wins.
         focusSearchInput()
         setSearchDropdownVisible(false)
       }
