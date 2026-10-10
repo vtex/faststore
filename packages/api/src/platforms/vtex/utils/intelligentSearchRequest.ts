@@ -218,6 +218,16 @@ function extractSegmentData(segment: Record<string, unknown>): {
   }
 }
 
+/**
+ * Non-shipping facets carried by the `vtex_segment` cookie (e.g. the B2B
+ * contract's `productClusterIds`), in the order they appear in the cookie.
+ */
+export function getSegmentExtraFacets(
+  segment: Record<string, unknown>
+): IntelligentSearchFacet[] {
+  return extractSegmentData(segment).extraFacets
+}
+
 function appendSegmentParams(
   params: URLSearchParams,
   segmentParams: SegmentParams
