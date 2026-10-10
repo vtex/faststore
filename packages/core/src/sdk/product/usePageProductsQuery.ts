@@ -82,19 +82,21 @@ const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
  *   session cookie, so it never shows up in the query variables. Keyed off
  *   the presence of a `b2b` session (not `customerId`'s value) because
  *   `customerId` can resolve to an empty string for a legitimate B2B buyer
- *   (see `buildB2bSession` in `@faststore/api`) — falling back to a generic
- *   marker still forces the re-fetch for them, while the real `customerId`,
- *   when present, keeps invalidating the cache on contract switch.
+ *   (see `buildB2bSession` in `@faststore/api`). The fallback chain still
+ *   forces the re-fetch for them: the real `customerId`, when present, keeps
+ *   invalidating the cache on contract switch; otherwise the organizational
+ *   unit (`unitId`) tells buyers of different units apart; a generic marker is
+ *   the last resort.
  */
 const getShopperScope = ({
   postalCode,
   b2b,
 }: {
   postalCode?: string | null
-  b2b?: { customerId?: string | null } | null
+  b2b?: { customerId?: string | null; unitId?: string | null } | null
 }) => ({
   ...(isDeliveryPromiseEnabled && { _postalCode: postalCode ?? '' }),
-  ...(b2b && { _contract: b2b.customerId || 'b2b' }),
+  ...(b2b && { _contract: b2b.customerId || b2b.unitId || 'b2b' }),
 })
 
 interface UseCreateUseGalleryPageProps {

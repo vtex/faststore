@@ -11,7 +11,7 @@ const mockUseLocalizedVariables = vi.hoisted(() => vi.fn())
 
 vi.mock('@generated', () => ({ gql: (query: unknown) => query }))
 vi.mock('discovery.config', () => ({
-  default: { deliveryPromise: { enabled: false } },
+  default: { deliveryPromise: { enabled: true } },
 }))
 vi.mock('@faststore/sdk', () => ({
   useSearch: () => ({
@@ -54,33 +54,16 @@ const renderFirstGalleryPage = () => {
   return renderHook(() => created.current.useGalleryPage(0))
 }
 
-describe('useCreateUseGalleryPage', () => {
+// `isDeliveryPromiseEnabled` is read when the module loads, so this scenario
+// needs its own file with the flag mocked on.
+describe('useCreateUseGalleryPage with deliveryPromise enabled', () => {
   afterEach(() => {
     vi.clearAllMocks()
   })
 
-  it('reuses the SSG first page for anonymous shoppers', () => {
+  it('scopes the page by postal code and contract together for B2B buyers', () => {
     mockUseSession.mockReturnValue({
-      postalCode: null,
-      b2b: null,
-      isValidating: false,
-    })
-    mockUseLocalizedVariables.mockReturnValue(serverManyProductsVariables)
-    mockUseQuery.mockReturnValue({ data: null })
-
-    const { result } = renderFirstGalleryPage()
-
-    expect(mockUseQuery).toHaveBeenCalledWith(
-      expect.anything(),
-      serverManyProductsVariables,
-      expect.objectContaining({ doNotRun: true })
-    )
-    expect(result.current.data).toBe(initialPages)
-  })
-
-  it('re-fetches the first page for B2B buyers so the contract assortment applies', () => {
-    mockUseSession.mockReturnValue({
-      postalCode: null,
+      postalCode: '01310-100',
       b2b: { customerId: 'contract-137' },
       isValidating: false,
     })
@@ -91,53 +74,16 @@ describe('useCreateUseGalleryPage', () => {
 
     expect(mockUseQuery).toHaveBeenCalledWith(
       expect.anything(),
-      { ...serverManyProductsVariables, _contract: 'contract-137' },
+      {
+        ...serverManyProductsVariables,
+        _postalCode: '01310-100',
+        _contract: 'contract-137',
+      },
       expect.objectContaining({ doNotRun: false })
     )
   })
 
-  it('still re-fetches for B2B buyers whose customerId resolves to an empty string', () => {
-    // `buildB2bSession` in @faststore/api can resolve `customerId` to `''`
-    // (see validateSessionHelpers.ts) even for a representative with an
-    // active contract. The fix must not depend on the value being truthy —
-    // only on the `b2b` session existing — or it silently falls back to the
-    // anonymous behavior (reusing the unfiltered SSG page).
-    mockUseSession.mockReturnValue({
-      postalCode: null,
-      b2b: { customerId: '' },
-      isValidating: false,
-    })
-    mockUseLocalizedVariables.mockReturnValue(serverManyProductsVariables)
-    mockUseQuery.mockReturnValue({ data: null })
-
-    renderFirstGalleryPage()
-
-    expect(mockUseQuery).toHaveBeenCalledWith(
-      expect.anything(),
-      { ...serverManyProductsVariables, _contract: 'b2b' },
-      expect.objectContaining({ doNotRun: false })
-    )
-  })
-
-  it('tells B2B buyers apart by organizational unit when customerId is empty', () => {
-    mockUseSession.mockReturnValue({
-      postalCode: null,
-      b2b: { customerId: '', unitId: 'unit-42' },
-      isValidating: false,
-    })
-    mockUseLocalizedVariables.mockReturnValue(serverManyProductsVariables)
-    mockUseQuery.mockReturnValue({ data: null })
-
-    renderFirstGalleryPage()
-
-    expect(mockUseQuery).toHaveBeenCalledWith(
-      expect.anything(),
-      { ...serverManyProductsVariables, _contract: 'unit-42' },
-      expect.objectContaining({ doNotRun: false })
-    )
-  })
-
-  it('ignores the postal code while deliveryPromise is disabled', () => {
+  it('still reuses the SSG page for an anonymous shopper with a postal code', () => {
     mockUseSession.mockReturnValue({
       postalCode: '01310-100',
       b2b: null,
@@ -150,9 +96,32 @@ describe('useCreateUseGalleryPage', () => {
 
     expect(mockUseQuery).toHaveBeenCalledWith(
       expect.anything(),
-      serverManyProductsVariables,
+      { ...serverManyProductsVariables, _postalCode: '01310-100' },
       expect.objectContaining({ doNotRun: true })
     )
     expect(result.current.data).toBe(initialPages)
+  })
+
+  it('re-fetches when the postal code changed after the SSG page was seeded', () => {
+    mockUseSession.mockReturnValueOnce({
+      postalCode: null,
+      b2b: null,
+      isValidating: false,
+    })
+    mockUseSession.mockReturnValue({
+      postalCode: '01310-100',
+      b2b: null,
+      isValidating: false,
+    })
+    mockUseLocalizedVariables.mockReturnValue(serverManyProductsVariables)
+    mockUseQuery.mockReturnValue({ data: null })
+
+    renderFirstGalleryPage()
+
+    expect(mockUseQuery).toHaveBeenCalledWith(
+      expect.anything(),
+      { ...serverManyProductsVariables, _postalCode: '01310-100' },
+      expect.objectContaining({ doNotRun: false })
+    )
   })
 })
