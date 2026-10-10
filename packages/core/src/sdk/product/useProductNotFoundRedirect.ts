@@ -19,8 +19,10 @@ const isNotFound = (error: unknown) => {
 /**
  * The PDP is statically generated without the shopper's session, so a B2B
  * contract assortment is only enforced when the client refetches the product.
- * Shows the 404 page, keeping the product URL, when that refetch says the
- * product is not available to the shopper.
+ * Replaces the PDP with the store's 404 page when that refetch says the
+ * product is not available to the shopper. The URL becomes `/404`: passing the
+ * product path as the `as` argument would make Next load the PDP's data for
+ * the 404 page, which expects a different shape and crashes.
  *
  * Restricted to B2B sessions: for other shoppers a failed refetch keeps
  * rendering the static product, as before.
@@ -33,6 +35,6 @@ export const useProductNotFoundRedirect = (error: unknown) => {
   useEffect(() => {
     if (!shouldRedirect) return
 
-    router.replace('/404', router.asPath)
+    router.replace('/404')
   }, [shouldRedirect, router])
 }

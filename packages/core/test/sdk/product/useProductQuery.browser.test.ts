@@ -22,7 +22,7 @@ vi.mock('src/utils/cookieCacheBusting', () => ({
 }))
 vi.mock('src/sdk/session', () => ({ useSession: mockUseSession }))
 vi.mock('next/router', () => ({
-  useRouter: () => ({ asPath: '/macbook-air-13-123/p', replace: mockReplace }),
+  useRouter: () => ({ replace: mockReplace }),
 }))
 
 import { useProductNotFoundRedirect } from '../../../src/sdk/product/useProductNotFoundRedirect'
@@ -76,9 +76,7 @@ describe('useProductQuery', () => {
 
     renderHook(usePdpClientQuery, { wrapper: isolatedCache })
 
-    await waitFor(() =>
-      expect(mockReplace).toHaveBeenCalledWith('/404', '/macbook-air-13-123/p')
-    )
+    await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/404'))
   })
 
   it('keeps the product and does not redirect when the refetch succeeds', async () => {

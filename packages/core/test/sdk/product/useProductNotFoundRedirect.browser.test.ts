@@ -9,10 +9,7 @@ const mockReplace = vi.hoisted(() => vi.fn())
 const mockUseSession = vi.hoisted(() => vi.fn())
 
 vi.mock('next/router', () => ({
-  useRouter: () => ({
-    asPath: '/macbook-air-13-123/p',
-    replace: mockReplace,
-  }),
+  useRouter: () => ({ replace: mockReplace }),
 }))
 vi.mock('src/sdk/session', () => ({ useSession: mockUseSession }))
 
@@ -26,12 +23,12 @@ describe('useProductNotFoundRedirect', () => {
     vi.clearAllMocks()
   })
 
-  it('shows the 404 page, keeping the product URL, when the BFF answers 404 to a B2B shopper', () => {
+  it('replaces the PDP with the 404 page when the BFF answers 404 to a B2B shopper', () => {
     mockUseSession.mockReturnValue(b2bSession)
 
     renderHook(() => useProductNotFoundRedirect({ status: 404 }))
 
-    expect(mockReplace).toHaveBeenCalledWith('/404', '/macbook-air-13-123/p')
+    expect(mockReplace).toHaveBeenCalledWith('/404')
   })
 
   it('recognizes a NotFoundError carried in the GraphQL extensions', () => {
