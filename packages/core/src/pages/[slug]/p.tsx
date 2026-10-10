@@ -182,7 +182,7 @@ function Page({
     )
   }
 
-  const { client, isValidating } = isClientOfferEnabled
+  const { client, isValidating, clientError } = isClientOfferEnabled
     ? (() => {
         const offer = useOffer({ skuId: product.sku })
         return {
@@ -192,18 +192,21 @@ function Page({
             },
           },
           isValidating: offer.isValidating,
+          clientError: undefined,
         }
       })()
     : (() => {
         const productQuery = useProductQuery(product.id, {
           product: product,
         })
-        useProductNotFoundRedirect(productQuery.error)
         return {
           client: productQuery.data,
           isValidating: productQuery.isValidating,
+          clientError: productQuery.error,
         }
       })()
+
+  useProductNotFoundRedirect(clientError)
 
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}

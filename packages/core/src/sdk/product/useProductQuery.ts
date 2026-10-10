@@ -19,6 +19,19 @@ const query = gql(`
   }
 `)
 
+const nextTick = () => new Promise<void>((resolve) => setTimeout(resolve))
+
+const fetchProduct = async <T extends ClientProductQueryQuery>(
+  variables: ClientProductQueryQueryVariables
+) => {
+  await nextTick()
+
+  return (await request<
+    ClientProductQueryQuery & T,
+    ClientProductQueryQueryVariables
+  >(query, variables)) as ClientProductQueryQuery & T
+}
+
 export const useProductQuery = <T extends ClientProductQueryQuery>(
   productID: string,
   fallbackData?: T
@@ -50,18 +63,7 @@ export const useProductQuery = <T extends ClientProductQueryQuery>(
     // never exposes `error` (e.g. the B2B assortment 404 the PDP reacts to).
     // This fetcher keeps the same deferral but forwards the rejection. Retries
     // stay off, as they effectively were while failures went unreported.
-    fetcher: () =>
-      new Promise<ClientProductQueryQuery & T>((resolve, reject) => {
-        setTimeout(() => {
-          request<
-            ClientProductQueryQuery & T,
-            ClientProductQueryQueryVariables
-          >(query, variables).then(
-            (data) => resolve(data as ClientProductQueryQuery & T),
-            reject
-          )
-        })
-      }),
+    fetcher: () => fetchProduct<T>(variables),
     shouldRetryOnError: false,
   })
 }
