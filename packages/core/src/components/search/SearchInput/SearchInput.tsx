@@ -1,4 +1,4 @@
-import type { CSSProperties, SetStateAction } from 'react'
+import type { CSSProperties, KeyboardEvent, SetStateAction } from 'react'
 import {
   Suspense,
   forwardRef,
@@ -230,6 +230,44 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setFileUploadVisible(false)
     })
 
+    const focusSearchInput = () => {
+      searchRef.current
+        ?.querySelector<HTMLInputElement>('[data-fs-search-input-field-input]')
+        ?.focus()
+    }
+
+    const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault()
+
+        if (!searchDropdownVisible) {
+          setSearchDropdownVisible(true)
+          return
+        }
+
+        // useId generates ids with colons, which break CSS selectors
+        document
+          .getElementById(searchDropdownId)
+          ?.querySelector<HTMLElement>('a[href], button:not([disabled])')
+          ?.focus()
+      }
+
+      if (event.key === 'Escape' && searchDropdownVisible) {
+        event.preventDefault()
+        setSearchDropdownVisible(false)
+      }
+    }
+
+    const handleDropdownKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        // Focusing the input reopens the dropdown via onFocus, so close it
+        // afterwards: both updates are batched and the last one wins.
+        focusSearchInput()
+        setSearchDropdownVisible(false)
+      }
+    }
+
     const { data, error } = useSuggestions(searchQueryDeferred)
     const terms = (data?.search.suggestions.terms ?? []).slice(
       0,
@@ -367,9 +405,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   attachmentButton?.ariaLabel ??
                   a11yLabels?.attachButtonAriaLabel,
               }}
-              onChange={(e: { target: { value: SetStateAction<string> } }) =>
+              onChange={(e: { target: { value: SetStateAction<string> } }) => {
                 setSearchQuery(e.target.value)
-              }
+                setSearchDropdownVisible(true)
+              }}
               onSubmit={(term: string) => {
                 const path = formatSearchPath({
                   term,
@@ -388,6 +427,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               }
               aria-haspopup="dialog"
               aria-autocomplete="list"
+              onKeyDown={handleInputKeyDown}
               {...otherProps}
             />
 
@@ -397,6 +437,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   id={searchDropdownId}
                   role="dialog"
                   aria-label="Search suggestions"
+                  onKeyDown={handleDropdownKeyDown}
                   sort={sort as SearchState['sort']}
                   quickOrderSettings={quickOrderSettings}
                   onChangeCustomSearchDropdownVisible={
