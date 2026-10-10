@@ -6,6 +6,7 @@ import {
   useCallback,
   useDeferredValue,
   useEffect,
+  useId,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -127,6 +128,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const searchQueryDeferred = useDeferredValue(searchQuery)
     const [searchDropdownVisible, setSearchDropdownVisible] =
       useState<boolean>(false)
+    const searchDropdownId = useId()
     const [fileUploadVisible, setFileUploadVisible] = useState<boolean>(false)
     const [isUploadOpen, setIsUploadOpen] = useState(false)
     const [hasFile, setHasFile] = useState(false)
@@ -379,12 +381,22 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               }}
               onFocus={() => setSearchDropdownVisible(true)}
               value={searchQuery}
+              role="combobox"
+              aria-expanded={searchDropdownVisible}
+              aria-controls={
+                searchDropdownVisible ? searchDropdownId : undefined
+              }
+              aria-haspopup="dialog"
+              aria-autocomplete="list"
               {...otherProps}
             />
 
             {searchDropdownVisible && (
               <Suspense fallback={null}>
                 <SearchDropdown
+                  id={searchDropdownId}
+                  role="dialog"
+                  aria-label="Search suggestions"
                   sort={sort as SearchState['sort']}
                   quickOrderSettings={quickOrderSettings}
                   onChangeCustomSearchDropdownVisible={
