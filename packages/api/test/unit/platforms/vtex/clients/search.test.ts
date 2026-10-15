@@ -153,3 +153,92 @@ describe('IntelligentSearch — getSegmentLocale priority', () => {
     expect(capturedLocale()).toBeNull()
   })
 })
+
+describe('IntelligentSearch.pickupPointAvailability', () => {
+  it('requests pickup-point availability with the postal code and segment country', async () => {
+    const segment = Buffer.from(
+      JSON.stringify({
+        channel: 1,
+        cultureInfo: 'pt-BR',
+        countryCode: 'BRA',
+        facets: 'zip-code=01002020;country=BRA;productClusterIds=158;',
+      })
+    ).toString('base64')
+
+    fetchAPIMocked.mockResolvedValueOnce({ pickupPointDistances: [] })
+
+    const is = IntelligentSearch(
+      searchOptions,
+      makeCtx({
+        cookie: `vtex_segment=${segment}`,
+        localizationEnabled: false,
+      })
+    )
+
+    await is.pickupPointAvailability({ postalCode: '22271020' })
+
+    const [url] = fetchAPIMocked.mock.calls[0]
+    const parsed = new URL(url)
+
+    expect(parsed.pathname).toBe(
+      '/api/intelligent-search/v1/pickup-point-availability/productClusterIds/158/'
+    )
+    expect(parsed.searchParams.get('zip-code')).toBe('22271020')
+    expect(parsed.searchParams.get('country')).toBe('BRA')
+    expect(parsed.searchParams.get('deliveryZonesHash')).toBeNull()
+  })
+
+  it('omits the attribute path when the segment has no extra facets', async () => {
+    const segment = Buffer.from(
+      JSON.stringify({
+        channel: 1,
+        cultureInfo: 'pt-BR',
+        countryCode: 'BRA',
+        facets: 'zip-code=01002020;country=BRA;',
+      })
+    ).toString('base64')
+
+    fetchAPIMocked.mockResolvedValueOnce({ pickupPointDistances: [] })
+
+    const is = IntelligentSearch(
+      searchOptions,
+      makeCtx({ cookie: `vtex_segment=${segment}` })
+    )
+
+    await is.pickupPointAvailability({})
+
+    const [url] = fetchAPIMocked.mock.calls[0]
+    const parsed = new URL(url)
+
+    expect(parsed.pathname).toBe(
+      '/api/intelligent-search/v1/pickup-point-availability'
+    )
+    expect(parsed.searchParams.get('zip-code')).toBe('01002020')
+  })
+
+  it('sends the server sales channel instead of the segment cookie channel', async () => {
+    const segment = Buffer.from(
+      JSON.stringify({
+        channel: 1,
+        cultureInfo: 'pt-BR',
+        countryCode: 'BRA',
+        facets: 'zip-code=01002020;country=BRA;',
+      })
+    ).toString('base64')
+
+    fetchAPIMocked.mockResolvedValueOnce({ pickupPointDistances: [] })
+
+    const ctx = makeCtx({ cookie: `vtex_segment=${segment}` })
+    ctx.storage.channel.salesChannel = '2'
+
+    const is = IntelligentSearch(searchOptions, ctx)
+    await is.pickupPointAvailability({
+      postalCode: '01310100',
+      country: 'BRA',
+    })
+
+    const [url] = fetchAPIMocked.mock.calls[0]
+
+    expect(new URL(url).searchParams.get('sc')).toBe('2')
+  })
+})

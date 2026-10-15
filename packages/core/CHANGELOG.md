@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.10.0-dev.1](https://github.com/vtex/faststore/compare/v4.10.0-dev.0...v4.10.0-dev.1) (2026-10-15)
+
+### Bug Fixes
+
+- **core:** drop a late pickup response and clear a failed simulation ([fa86e1c](https://github.com/vtex/faststore/commit/fa86e1c0a5026d73e5d869131b5647b39b2913f1))
+- honor a postal code override without a country ([4a3f83c](https://github.com/vtex/faststore/commit/4a3f83cb56a9aef1a1802a493ea167be3bf3e618))
+- ignore stale pickup point responses ([0936343](https://github.com/vtex/faststore/commit/0936343f334133e067aef9eded4821114191f08e))
+- refresh pickup points when the shopper channel changes ([0a0e370](https://github.com/vtex/faststore/commit/0a0e370a270f8c6ab5de89a1889c2f808711077a))
+- refresh stored pickup points for the current channel ([fac72e3](https://github.com/vtex/faststore/commit/fac72e3b02ee3997f413f98fdd92240f0db365a7))
+- retry pickup points after a failed request ([6ead323](https://github.com/vtex/faststore/commit/6ead323d5d7170c1649d3d707dfe32d64807c04f))
+- use the shopper sales channel for pickup points ([5034eb6](https://github.com/vtex/faststore/commit/5034eb6f564c154cf7a20bcf287d9365b10da022))
+
+### Features
+
+- list pickup points from Intelligent Search ([6dfb717](https://github.com/vtex/faststore/commit/6dfb71779c107276620a671e8739d2cd286103fe))
+
+# [4.10.0-dev.0](https://github.com/vtex/faststore/compare/v4.9.3-dev.2...v4.10.0-dev.0) (2026-10-08)
+
+### Features
+
+- render images in RichText via a custom Lexical image node ([#3448](https://github.com/vtex/faststore/issues/3448)) ([a7c85b8](https://github.com/vtex/faststore/commit/a7c85b8478a64994b123f81ee08add594daa7b2f))
+
+## [4.9.3-dev.2](https://github.com/vtex/faststore/compare/v4.9.3-dev.1...v4.9.3-dev.2) (2026-10-07)
+
+### Bug Fixes
+
+- address security & functional concerns from dk review ([d0b6106](https://github.com/vtex/faststore/commit/d0b610688ec551d8105c74750927be4ab1af7224))
+- **core:** harden x-forwarded-host handling and drop orderNumber fallback ([c1faa35](https://github.com/vtex/faststore/commit/c1faa35fe070ff8b51d4f07a5f1f33da4b17d836)), closes [#3178](https://github.com/vtex/faststore/issues/3178)
+- **core:** ignore multi-value x-forwarded-host and cover port and case ([b81d5d9](https://github.com/vtex/faststore/commit/b81d5d91721f9f8205251ad39e607b094386083c))
+- **core:** log ignored x-forwarded-host and cover CR/LF hostnames ([adaa816](https://github.com/vtex/faststore/commit/adaa81608b7e72759272e1d6d23ca6257b9a4d59))
+- **core:** make preview cookies host-only instead of rewriting their domain ([8e4901e](https://github.com/vtex/faststore/commit/8e4901ec7d127336bc27c0ae8e52c9cadea1a5a3))
+- **core:** reject hostnames that would inject Set-Cookie attributes ([059a437](https://github.com/vtex/faststore/commit/059a4377c3b1b8f66aeed2b73ce130e1ab827f77))
+- resolve ValidateCartMutation infinite loop in preview environments (SFS-3034) ([1cc9a5e](https://github.com/vtex/faststore/commit/1cc9a5efb1617f3d032623c4ee5f687ad5e2ccd9)), closes [#3178](https://github.com/vtex/faststore/issues/3178) [#3178](https://github.com/vtex/faststore/issues/3178) [#3190](https://github.com/vtex/faststore/issues/3190) [#3188](https://github.com/vtex/faststore/issues/3188) [#1467584](https://github.com/vtex/faststore/issues/1467584)
+
+## [4.9.3-dev.1](https://github.com/vtex/faststore/compare/v4.9.3-dev.0...v4.9.3-dev.1) (2026-10-06)
+
+### Bug Fixes
+
+- keep empty carts from moving the session sales channel ([#3509](https://github.com/vtex/faststore/issues/3509)) ([600fb7d](https://github.com/vtex/faststore/commit/600fb7d9403553c12bd01d6b3955f18c48f91054)), closes [#3435](https://github.com/vtex/faststore/issues/3435) [#3435](https://github.com/vtex/faststore/issues/3435)
+
+## [4.9.3-dev.0](https://github.com/vtex/faststore/compare/v4.9.1-dev.0...v4.9.3-dev.0) (2026-10-05)
+
+**Note:** Version bump only for package @faststore/core
+
 ## [4.9.2](https://github.com/vtex/faststore/compare/v4.9.1...v4.9.2) (2026-10-02)
 
 ### Bug Fixes

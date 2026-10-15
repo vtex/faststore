@@ -11,6 +11,11 @@ import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie } from 'src/utils/getCookie'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
 import { isLocalHost } from 'src/utils/isLocalHost'
+import {
+  isHostAllowed,
+  removeCookieDomain,
+  singleForwardedHost,
+} from 'src/utils/trustedForwardedHost'
 import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
 import { execute } from '../../server'
 import { logger } from '@faststore/diagnostics'
@@ -56,22 +61,10 @@ const shouldReplaceCookieDomain = ({
 }
 
 /**
- * Determines if host is eligible for domain normalization.
- */
-const isAllowedHost = ({
-  host,
-  allowList,
-}: {
-  host: string
-  allowList: string[]
-}) => {
-  const normalizedHost = host.toLowerCase()
-
-  return allowList.some((suffix) => normalizedHost.endsWith(suffix))
-}
-
-/**
- * Ensure the cookie domain matches the current host so the browser can store it.
+ * On allowlisted hosts (previews, localhost) the upstream cookie domain does not
+ * match the browser host, so the Domain attribute is dropped and the cookie
+ * becomes host-only. The host is never written into the cookie, so a forged
+ * x-forwarded-host cannot choose the cookie scope.
  */
 const normalizeSetCookieDomain = ({
   request,
@@ -85,20 +78,31 @@ const normalizeSetCookieDomain = ({
     return setCookie
   }
 
-  const host = getRequestHostname(request.headers.host)
+  // The preview ingress forwards a client-supplied x-forwarded-host as is, so
+  // it only decides whether the Domain is dropped, never which domain is used.
+  const forwardedHeader = request.headers['x-forwarded-host']
+  const forwardedHost = getRequestHostname(singleForwardedHost(forwardedHeader))
+  if (forwardedHeader && !forwardedHost) {
+    // The value is client-controllable, so it is not logged.
+    OTELLogger('warn', 'Ignoring multi-value or malformed x-forwarded-host')
+  }
+  const host =
+    forwardedHost && isHostAllowed(forwardedHost, ALLOWED_HOST_SUFFIXES)
+      ? forwardedHost
+      : getRequestHostname(request.headers.host)
   if (!host) {
     return setCookie
   }
   const cookieDomain = domainMatch[1]
 
   if (
-    !isAllowedHost({ host, allowList: ALLOWED_HOST_SUFFIXES }) ||
+    !isHostAllowed(host, ALLOWED_HOST_SUFFIXES) ||
     !shouldReplaceCookieDomain({ cookieDomain, host })
   ) {
     return setCookie
   }
 
-  return setCookie.replace(MATCH_DOMAIN_REGEXP, `; domain=${host}`)
+  return removeCookieDomain(setCookie)
 }
 
 const parseRequest = (request: NextApiRequest) => {

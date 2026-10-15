@@ -110,9 +110,9 @@ export const toArray = <T>(x: T[] | T | undefined) =>
   Array.isArray(x) ? x : x ? [x] : []
 
 /**
- * Filters the channel object by removing the hasOnlyDefaultSalesChannel key.
- * This key is used only in the useAuth hook and is only required to send on the ValidateSession mutation,
- * so we remove it from the session's channel object to avoid unnecessary cache invalidations and query executions
+ * Filters the channel object by removing the hasOnlyDefaultSalesChannel, salesChannelSource and rejectedSalesChannel keys.
+ * These keys are session-only (useAuth and the ValidateSession/ValidateCart mutations),
+ * so we remove them from the session's channel object to avoid unnecessary cache invalidations and query executions
  *
  * @param channel - The channel string to filter.
  * @returns The filtered channel string.
@@ -122,8 +122,12 @@ export function filterChannel(channel: string): string {
     return '{}'
   }
   try {
-    const { hasOnlyDefaultSalesChannel, ...filteredChannel } =
-      JSON.parse(channel)
+    const {
+      hasOnlyDefaultSalesChannel,
+      salesChannelSource,
+      rejectedSalesChannel,
+      ...filteredChannel
+    } = JSON.parse(channel)
     return JSON.stringify(filteredChannel)
   } catch {
     console.warn('[filterChannel] Invalid channel JSON:', channel)
