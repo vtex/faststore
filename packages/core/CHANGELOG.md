@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.10.0-dev.1](https://github.com/vtex/faststore/compare/v4.10.0-dev.0...v4.10.0-dev.1) (2026-10-15)
+
+### Bug Fixes
+
+- **core:** drop a late pickup response and clear a failed simulation ([fa86e1c](https://github.com/vtex/faststore/commit/fa86e1c0a5026d73e5d869131b5647b39b2913f1))
+- honor a postal code override without a country ([4a3f83c](https://github.com/vtex/faststore/commit/4a3f83cb56a9aef1a1802a493ea167be3bf3e618))
+- ignore stale pickup point responses ([0936343](https://github.com/vtex/faststore/commit/0936343f334133e067aef9eded4821114191f08e))
+- refresh pickup points when the shopper channel changes ([0a0e370](https://github.com/vtex/faststore/commit/0a0e370a270f8c6ab5de89a1889c2f808711077a))
+- refresh stored pickup points for the current channel ([fac72e3](https://github.com/vtex/faststore/commit/fac72e3b02ee3997f413f98fdd92240f0db365a7))
+- retry pickup points after a failed request ([6ead323](https://github.com/vtex/faststore/commit/6ead323d5d7170c1649d3d707dfe32d64807c04f))
+- use the shopper sales channel for pickup points ([5034eb6](https://github.com/vtex/faststore/commit/5034eb6f564c154cf7a20bcf287d9365b10da022))
+
+### Features
+
+- list pickup points from Intelligent Search ([6dfb717](https://github.com/vtex/faststore/commit/6dfb71779c107276620a671e8739d2cd286103fe))
+
 # [4.10.0-dev.0](https://github.com/vtex/faststore/compare/v4.9.3-dev.2...v4.10.0-dev.0) (2026-10-08)
 
 ### Features
