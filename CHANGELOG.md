@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.10.0](https://github.com/vtex/faststore/compare/v4.10.0-dev.1...v4.10.0) (2026-10-15)
+
+## [4.9.2](https://github.com/vtex/faststore/compare/v4.9.1...v4.9.2) (2026-10-02)
+
+### Bug Fixes
+
+- **core:** keep UI session state out of session and cart mutations ([#3511](https://github.com/vtex/faststore/issues/3511)) ([3c58a21](https://github.com/vtex/faststore/commit/3c58a213d237f8d5f7919ab12f63015fbfe3ef73)), closes [#3479](https://github.com/vtex/faststore/issues/3479) [#3479](https://github.com/vtex/faststore/issues/3479) [#3509](https://github.com/vtex/faststore/issues/3509)
+
+## [4.9.1](https://github.com/vtex/faststore/compare/v4.9.1-dev.0...v4.9.1) (2026-10-02)
+
+### Bug Fixes
+
+- restore raw StoreProduct.releaseDate, normalize only in PDP JSON-LD ([#3508](https://github.com/vtex/faststore/issues/3508)) ([fb0112d](https://github.com/vtex/faststore/commit/fb0112df966dc59b8971c335bcb5fd405b715763)), closes [#3465](https://github.com/vtex/faststore/issues/3465) [#3465](https://github.com/vtex/faststore/issues/3465) [#1438](https://github.com/vtex/faststore/issues/1438) [#3437](https://github.com/vtex/faststore/issues/3437)
+
 # [4.10.0-dev.1](https://github.com/vtex/faststore/compare/v4.10.0-dev.0...v4.10.0-dev.1) (2026-10-15)
 
 ### Bug Fixes
