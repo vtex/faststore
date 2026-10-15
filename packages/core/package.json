@@ -84,7 +84,7 @@
     "react-intersection-observer": "catalog:",
     "sass": "^1.97.0",
     "sass-loader": "^12.6.0",
-    "sharp": "^0.32.6",
+    "sharp": "^0.35.5",
     "style-loader": "^3.3.1",
     "swr": "^2.2.5",
     "use-sync-external-store": "^1.6.0"
