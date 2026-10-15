@@ -18,7 +18,7 @@ import {
   sessionStore,
   toSessionInput,
 } from '../session'
-import { syncSalesChannelFromOrderForm } from '../session/syncSalesChannelFromOrderForm'
+import { syncSessionWithValidatedCart } from '../session/syncSalesChannelFromOrderForm'
 import { createValidationStore, useStore } from '../useStore'
 import { waitForSessionValidated } from './waitForSessionValidated'
 
@@ -162,14 +162,16 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
     },
   })
 
-  const adoptedSalesChannel = validated?.order?.salesChannel
-  if (adoptedSalesChannel) {
-    syncSalesChannelFromOrderForm(
-      adoptedSalesChannel,
-      () => sessionStore.read(),
-      (session) => sessionStore.setSilent(session)
-    )
-  }
+  syncSessionWithValidatedCart(
+    {
+      adoptedSalesChannel: validated?.order?.salesChannel,
+      // `null` means the browser cart is already valid.
+      itemCount: (validated ? validated.order.acceptedOffer : cart.items)
+        .length,
+    },
+    () => sessionStore.read(),
+    (session) => sessionStore.setSilent(session)
+  )
 
   return (
     validated && {

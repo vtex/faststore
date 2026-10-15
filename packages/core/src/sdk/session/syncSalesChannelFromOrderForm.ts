@@ -35,8 +35,9 @@ function readSalesChannel(channel: Record<string, unknown>): string {
  * (e.g. after Quick Order) without revalidating the cart.
  *
  * Uses `sessionStore.setSilent` so we do not trigger `cartStore.set` mid-flight
- * (that race previously wiped SC-exclusive items). Marks the channel as
- * explicit (`hasOnlyDefaultSalesChannel: false`) so `validateSession` keeps it.
+ * (that race previously wiped SC-exclusive items). Marks the channel with
+ * `salesChannelSource: 'orderForm'` so `validateSession` keeps it until the
+ * cart is empty (see `releaseAdoptedSalesChannel`).
  */
 export function syncSalesChannelFromOrderForm(
   salesChannel: string | null | undefined,
@@ -61,8 +62,60 @@ export function syncSalesChannelFromOrderForm(
       ...channel,
       salesChannel: nextSalesChannel,
       hasOnlyDefaultSalesChannel: false,
+      salesChannelSource: 'orderForm',
     }),
   })
 
   return true
+}
+
+/**
+ * Drops the orderForm adoption marker and any rejected SC once the cart has no
+ * items, so Session Manager can again reject or replace the sales channel on
+ * the next `validateSession`. The SC itself is kept: an empty `salesChannel`
+ * would reach Checkout and catalog queries.
+ */
+export function releaseAdoptedSalesChannel(
+  readSession: () => Session,
+  setSilent: (session: Session) => void
+): boolean {
+  const session = readSession()
+  const { salesChannelSource, rejectedSalesChannel, ...channel } =
+    parseChannelRecord(session.channel)
+  const isAdopted = salesChannelSource === 'orderForm'
+
+  if (!isAdopted && rejectedSalesChannel === undefined) {
+    return false
+  }
+
+  setSilent({
+    ...session,
+    channel: JSON.stringify(
+      isAdopted || salesChannelSource === undefined
+        ? channel
+        : { ...channel, salesChannelSource }
+    ),
+  })
+
+  return true
+}
+
+/**
+ * Applies the sales channel outcome of a `validateCart` to the session: adopt
+ * the orderForm SC when the API returned one, release the adoption once the
+ * cart is empty.
+ */
+export function syncSessionWithValidatedCart(
+  {
+    adoptedSalesChannel,
+    itemCount,
+  }: { adoptedSalesChannel: string | null | undefined; itemCount: number },
+  readSession: () => Session,
+  setSilent: (session: Session) => void
+) {
+  syncSalesChannelFromOrderForm(adoptedSalesChannel, readSession, setSilent)
+
+  if (itemCount === 0) {
+    releaseAdoptedSalesChannel(readSession, setSilent)
+  }
 }

@@ -828,7 +828,10 @@ export type PickupPoints = {
   __typename?: 'PickupPoints';
   /** List of pickup point distances for the given location. */
   pickupPointDistances?: Maybe<Array<Maybe<PickupPointDistance>>>;
-  /** Hash of the pickup points data. */
+  /**
+   * Not returned by Intelligent Search pickup-point-availability. Always null.
+   * @deprecated Not returned by Intelligent Search pickup-point-availability. Always null.
+   */
   pickupPointsHash?: Maybe<Scalars['String']['output']>;
 };
 
@@ -945,7 +948,7 @@ export type Query = {
   orderEntryOperation?: Maybe<StoreOrderEntryOperationStatus>;
   /** Returns the items in an orderForm by its ID. */
   orderFormItems: Array<StoreOrderFormCartItem>;
-  /** Returns a list of pickup points near to the given geo coordinates. */
+  /** Returns pickup points that have products available for the shopper location and sales channel. */
   pickupPoints?: Maybe<PickupPoints>;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
@@ -1031,7 +1034,10 @@ export type QueryOrderFormItemsArgs = {
 
 
 export type QueryPickupPointsArgs = {
+  channel?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
   geoCoordinates?: InputMaybe<IStoreGeoCoordinates>;
+  postalCode?: InputMaybe<Scalars['String']['input']>;
 };
 
 
