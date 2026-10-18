@@ -1,5 +1,5 @@
 import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils'
-import type { GraphQLSchema } from 'graphql'
+import { defaultFieldResolver, type GraphQLSchema } from 'graphql'
 
 import type { Directive } from './index'
 
@@ -68,7 +68,7 @@ const directive: Directive = {
               scope: minScope(ctx.cacheControl?.scope, scope),
             }
 
-            return resolver?.(obj, args, ctx, info)
+            return (resolver ?? defaultFieldResolver)(obj, args, ctx, info)
           }
         }
 
