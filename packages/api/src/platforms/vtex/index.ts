@@ -1,6 +1,6 @@
-import { mergeSchemas } from '@graphql-tools/schema'
+import { mergeTypeDefs } from '@graphql-tools/merge'
+import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
 import { type GraphQLSchema, isSchema } from 'graphql'
-import { withDirectives } from '../../directives'
 import authDirective from '../../directives/auth'
 import cacheControlDirective from '../../directives/cacheControl'
 import { ResolverTrace } from '../../observability/telemetry'
@@ -99,19 +99,27 @@ export function getResolvers() {
   return finalResolvers as typeof resolvers
 }
 
+const directives = [cacheControlDirective, authDirective]
+
 export function GraphqlVtexSchema(mergeSchema?: GraphQLSchema) {
-  const withCacheControl = withDirectives([
-    cacheControlDirective,
-    authDirective,
-  ])
+  const platformSchema = makeExecutableSchema({
+    typeDefs: mergeTypeDefs([
+      ...directives.map((directive) => directive.typeDefs),
+      typeDefs,
+    ]),
+    resolvers: getResolvers(),
+  })
 
-  const platformSchema = withCacheControl(getResolvers(), typeDefs)
+  // Directives must be applied once, after merging: transforming the native
+  // schema first leaves store fields unwrapped, and transforming the store
+  // schema first overrides native resolvers with wrappers around nothing.
+  const schema =
+    mergeSchema && isSchema(mergeSchema)
+      ? mergeSchemas({ schemas: [platformSchema, mergeSchema] })
+      : platformSchema
 
-  if (mergeSchema && isSchema(mergeSchema)) {
-    return mergeSchemas({
-      schemas: [platformSchema, mergeSchema],
-    })
-  }
-
-  return platformSchema
+  return directives.reduce(
+    (finalSchema, { transformer }) => transformer(finalSchema),
+    schema
+  )
 }
