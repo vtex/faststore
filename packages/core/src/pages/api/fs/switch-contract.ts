@@ -1,6 +1,5 @@
 import { parse } from 'cookie'
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
-import type { TLSSocket } from 'node:tls'
 
 import storeConfig from 'discovery.config'
 import { expireCookieServer, getCookieDomains } from 'src/utils/clearCookies'
@@ -72,7 +71,8 @@ const isSecureRequest = (request: NextApiRequest): boolean => {
     return proto.split(',')[0].trim() === 'https'
   }
 
-  return Boolean((request.socket as TLSSocket | undefined)?.encrypted)
+  const socket = request.socket
+  return Boolean(socket && 'encrypted' in socket && socket.encrypted)
 }
 
 /**
