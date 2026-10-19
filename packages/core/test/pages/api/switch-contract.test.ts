@@ -185,20 +185,70 @@ describe('/api/fs/switch-contract', () => {
     expect(res.json).toHaveBeenCalledWith({ success: true })
   })
 
-  it('carries Max-Age from expiresIn and Secure behind https', async () => {
+  it('writes the auth cookie with the same scope VTEX ID uses', async () => {
     const handler = await getHandler()
     const { req, res } = createReqRes()
 
     await handler(req, res)
 
     const authCookie = setCookiesFrom(res).find((cookie) =>
+      cookie.startsWith('VtexIdclientAutCookie_test-store=new-contract-token')
+    )
+
+    expect(authCookie).toBe(
+      'VtexIdclientAutCookie_test-store=new-contract-token; Domain=store.example.com; Path=/; Max-Age=3600; HttpOnly; Secure; SameSite=None'
+    )
+  })
+
+  it('stays Secure even when the proxy forwards plain http', async () => {
+    const handler = await getHandler()
+    const { req, res } = createReqRes({
+      headers: { 'x-forwarded-proto': 'http' },
+    })
+
+    await handler(req, res)
+
+    const authCookie = setCookiesFrom(res).find((cookie) =>
+      cookie.startsWith('VtexIdclientAutCookie_test-store=new-contract-token')
+    )
+
+    expect(authCookie).toContain('; Secure')
+  })
+
+  it('expires a leftover host-only auth cookie before setting the scoped one', async () => {
+    const handler = await getHandler()
+    const { req, res } = createReqRes()
+
+    await handler(req, res)
+
+    const authCookies = setCookiesFrom(res).filter((cookie) =>
       cookie.startsWith('VtexIdclientAutCookie_test-store=')
     )
 
-    expect(authCookie).toContain('Max-Age=3600')
-    expect(authCookie).toContain('Path=/')
-    expect(authCookie).toContain('SameSite=Lax')
-    expect(authCookie).toContain('Secure')
+    expect(authCookies).toHaveLength(2)
+    expect(authCookies[0]).toMatch(/^VtexIdclientAutCookie_test-store=;/)
+    expect(authCookies[0]).toContain('max-age=0')
+    expect(authCookies[0]).toContain('path=/')
+    // Host-only: no Domain, so it cannot touch VTEX ID's scoped cookie.
+    expect(authCookies[0].toLowerCase()).not.toContain('domain=')
+    expect(authCookies[1]).toContain('Domain=store.example.com')
+  })
+
+  it('strips the port from the Host header', async () => {
+    const handler = await getHandler()
+    const { req, res } = createReqRes({
+      headers: { host: 'store.example.com:443' },
+    })
+
+    await handler(req, res)
+
+    expect(setCookiesFrom(res)).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining(
+          'new-contract-token; Domain=store.example.com; Path=/'
+        ),
+      ])
+    )
   })
 
   it.each([
@@ -222,7 +272,7 @@ describe('/api/fs/switch-contract', () => {
       await handler(req, res)
 
       const authCookie = setCookiesFrom(res).find((cookie) =>
-        cookie.startsWith('VtexIdclientAutCookie_test-store=')
+        cookie.startsWith('VtexIdclientAutCookie_test-store=new-contract-token')
       )
 
       // Max-Age=0 would delete the very credential this response installs.
@@ -231,19 +281,27 @@ describe('/api/fs/switch-contract', () => {
     }
   )
 
-  it('omits Secure on plain http', async () => {
+  it.each([
+    ['localhost', 'localhost:3000'],
+    ['127.0.0.1', '127.0.0.1:3000'],
+    ['an unsafe host', 'store.example.com;evil=1'],
+  ])('writes a single host-only cookie on %s', async (_label, host) => {
     const handler = await getHandler()
     const { req, res } = createReqRes({
-      headers: { 'x-forwarded-proto': 'http' },
+      headers: { host, 'x-forwarded-proto': 'http' },
     })
 
     await handler(req, res)
 
-    const authCookie = setCookiesFrom(res).find((cookie) =>
+    const authCookies = setCookiesFrom(res).filter((cookie) =>
       cookie.startsWith('VtexIdclientAutCookie_test-store=')
     )
 
-    expect(authCookie).not.toContain('Secure')
+    // No Domain means the cookie already replaces the host-only one, so
+    // expiring it in the same batch would delete the new credential.
+    expect(authCookies).toEqual([
+      'VtexIdclientAutCookie_test-store=new-contract-token; Path=/; Max-Age=3600; HttpOnly; SameSite=Lax',
+    ])
   })
 
   it('also emits the accountAuthCookie when present', async () => {
@@ -263,9 +321,14 @@ describe('/api/fs/switch-contract', () => {
 
     await handler(req, res)
 
-    expect(setCookiesFrom(res)).toEqual(
+    const cookies = setCookiesFrom(res)
+
+    expect(cookies).toEqual(
       expect.arrayContaining([
-        expect.stringContaining('VtexIdclientAutCookie_account=account-token'),
+        expect.stringMatching(/^VtexIdclientAutCookie_account=;.*max-age=0/),
+        expect.stringContaining(
+          'VtexIdclientAutCookie_account=account-token; Domain=store.example.com'
+        ),
       ])
     )
   })

@@ -3,6 +3,14 @@
 const HOSTNAME_PATTERN = /^[a-z0-9.-]+$/
 
 /**
+ * Whether `host` can be written as a Set-Cookie Domain attribute without
+ * injecting extra attributes.
+ */
+export function isCookieSafeHostname(host: string): boolean {
+  return HOSTNAME_PATTERN.test(host.toLowerCase())
+}
+
+/**
  * An entry starting with "." matches subdomains only; any other entry matches
  * the host itself and its subdomains. Matching is anchored on a label boundary,
  * so "evil-localhost" never matches "localhost".

@@ -4,6 +4,8 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import storeConfig from 'discovery.config'
 import { expireCookieServer, getCookieDomains } from 'src/utils/clearCookies'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
+import { isLocalHost } from 'src/utils/isLocalHost'
+import { isCookieSafeHostname } from 'src/utils/trustedForwardedHost'
 
 /**
  * Cookies holding the checkout orderForm of the previous commercial context.
@@ -42,19 +44,6 @@ const isAuthCookie = (cookie: unknown): cookie is VtexAuthCookie => {
   return Boolean(candidate?.Name?.trim() && candidate?.Value)
 }
 
-const isSecureRequest = (request: NextApiRequest): boolean => {
-  const forwarded = request.headers['x-forwarded-proto']
-  const proto = Array.isArray(forwarded) ? forwarded[0] : forwarded
-
-  if (proto) {
-    return proto.split(',')[0].trim() === 'https'
-  }
-
-  const hostname = getRequestHostname(request.headers.host)
-
-  return hostname !== 'localhost' && hostname !== '127.0.0.1'
-}
-
 /**
  * A non-positive `expiresIn` would turn into `Max-Age=0`, which expires the
  * credential the response is supposed to install — logging the buyer out while
@@ -67,24 +56,50 @@ const resolveMaxAge = (expiresIn: unknown): number =>
     : DEFAULT_AUTH_COOKIE_MAX_AGE
 
 /**
- * Mirrors the attributes the storefront used to write via `document.cookie`.
- * `HttpOnly` is deliberately left out: the cookie lives on a domain shared
- * with VTEX's own checkout, so hardening it is a separate, explicitly tested
- * change.
+ * Domain for the auth cookies, or `undefined` to write them host-only.
+ *
+ * Local hosts stay host-only, since browsers handle `Domain=localhost`
+ * inconsistently. So does any host that cannot be written verbatim into the
+ * attribute.
+ */
+const resolveAuthCookieDomain = (
+  request: NextApiRequest
+): string | undefined => {
+  const hostname = getRequestHostname(request.headers.host)
+
+  if (!hostname || isLocalHost(hostname) || !isCookieSafeHostname(hostname)) {
+    return undefined
+  }
+
+  return hostname
+}
+
+/**
+ * Mirrors the attributes VTEX ID uses when it sets these cookies at login and
+ * refresh (`Domain=<host>; Path=/; Secure; SameSite=None; HttpOnly`).
+ *
+ * Browsers tell cookies apart by name, domain and path, and a cookie with a
+ * Domain attribute never matches a host-only one. Writing the contract token
+ * host-only would sit next to VTEX ID's cookie instead of replacing it, leaving
+ * two `VtexIdclientAutCookie_<account>` with different contracts. Each reader
+ * then picks a different one (SO-699). Any host-only copy left by earlier
+ * versions is expired in the same batch.
  */
 const buildAuthCookies = (
   payload: SwitchPropertiesResponse,
-  secure: boolean
+  domain: string | undefined
 ): string[] => {
   const maxAge = resolveMaxAge(payload.expiresIn)
-  const secureAttr = secure ? '; Secure' : ''
+  const attributes = domain
+    ? `Domain=${domain}; Path=/; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=None`
+    : `Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Lax`
 
   return [payload.authCookie, payload.accountAuthCookie]
     .filter(isAuthCookie)
-    .map(
-      (cookie) =>
-        `${cookie.Name}=${cookie.Value}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secureAttr}`
-    )
+    .flatMap((cookie) => [
+      ...(domain ? [expireCookieServer({ name: cookie.Name, path: '/' })] : []),
+      `${cookie.Name}=${cookie.Value}; ${attributes}`,
+    ])
 }
 
 const buildOrderFormExpiryCookies = (request: NextApiRequest): string[] => {
@@ -168,7 +183,7 @@ const handler: NextApiHandler<SwitchContractResponse> = async (
     }
 
     response.setHeader('Set-Cookie', [
-      ...buildAuthCookies(payload, isSecureRequest(request)),
+      ...buildAuthCookies(payload, resolveAuthCookieDomain(request)),
       ...buildOrderFormExpiryCookies(request),
     ])
 
