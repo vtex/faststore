@@ -328,6 +328,30 @@ describe('/api/fs/switch-contract', () => {
     }
   )
 
+  it.each([
+    ['plain http', false, ''],
+    ['a TLS connection', true, '; Secure'],
+  ])(
+    'follows the connection without x-forwarded-proto on %s',
+    async (_label, encrypted, secureAttr) => {
+      const handler = await getHandler()
+      const { req, res } = createReqRes({
+        headers: { host: '192.168.1.10', 'x-forwarded-proto': undefined },
+        socket: { encrypted } as unknown as NextApiRequest['socket'],
+      })
+
+      await handler(req, res)
+
+      const authCookies = setCookiesFrom(res).filter((cookie) =>
+        cookie.startsWith('VtexIdclientAutCookie_test-store=')
+      )
+
+      expect(authCookies).toEqual([
+        `VtexIdclientAutCookie_test-store=new-contract-token; Path=/; Max-Age=3600; HttpOnly; SameSite=Lax${secureAttr}`,
+      ])
+    }
+  )
+
   it('also emits the accountAuthCookie when present', async () => {
     ;(global.fetch as Mock).mockResolvedValue({
       ok: true,

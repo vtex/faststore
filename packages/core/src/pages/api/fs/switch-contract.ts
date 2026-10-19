@@ -1,5 +1,6 @@
 import { parse } from 'cookie'
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
+import type { TLSSocket } from 'node:tls'
 
 import storeConfig from 'discovery.config'
 import { expireCookieServer, getCookieDomains } from 'src/utils/clearCookies'
@@ -57,6 +58,12 @@ const resolveMaxAge = (expiresIn: unknown): number =>
 
 const IPV4_PATTERN = /^\d{1,3}(?:\.\d{1,3}){3}$/
 
+/**
+ * Uses the forwarded protocol when a proxy sets it, otherwise the connection
+ * itself. A non-local hostname alone does not imply https: a `Secure` cookie
+ * sent over plain http is dropped by the browser while the route reports
+ * success.
+ */
 const isSecureRequest = (request: NextApiRequest): boolean => {
   const forwarded = request.headers['x-forwarded-proto']
   const proto = Array.isArray(forwarded) ? forwarded[0] : forwarded
@@ -65,7 +72,7 @@ const isSecureRequest = (request: NextApiRequest): boolean => {
     return proto.split(',')[0].trim() === 'https'
   }
 
-  return !isLocalHost(getRequestHostname(request.headers.host))
+  return Boolean((request.socket as TLSSocket | undefined)?.encrypted)
 }
 
 /**
@@ -114,9 +121,10 @@ const buildAuthCookies = (
   secure: boolean
 ): string[] => {
   const maxAge = resolveMaxAge(payload.expiresIn)
+  const hostOnlySecureAttr = secure ? '; Secure' : ''
   const attributes = domain
     ? `Domain=${domain}; Path=/; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=None`
-    : `Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Lax${secure ? '; Secure' : ''}`
+    : `Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Lax${hostOnlySecureAttr}`
 
   return [payload.authCookie, payload.accountAuthCookie]
     .filter(isAuthCookie)
