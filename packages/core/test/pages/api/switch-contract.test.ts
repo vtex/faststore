@@ -284,6 +284,7 @@ describe('/api/fs/switch-contract', () => {
   it.each([
     ['localhost', 'localhost:3000'],
     ['127.0.0.1', '127.0.0.1:3000'],
+    ['a LAN IP', '192.168.1.10'],
     ['an unsafe host', 'store.example.com;evil=1'],
   ])('writes a single host-only cookie on %s', async (_label, host) => {
     const handler = await getHandler()
@@ -303,6 +304,29 @@ describe('/api/fs/switch-contract', () => {
       'VtexIdclientAutCookie_test-store=new-contract-token; Path=/; Max-Age=3600; HttpOnly; SameSite=Lax',
     ])
   })
+
+  it.each([
+    ['a LAN IP', '192.168.1.10'],
+    ['an IPv6 literal', '[2001:db8::1]'],
+  ])(
+    'keeps the host-only cookie Secure on %s over https',
+    async (_label, host) => {
+      const handler = await getHandler()
+      const { req, res } = createReqRes({
+        headers: { host, 'x-forwarded-proto': 'https' },
+      })
+
+      await handler(req, res)
+
+      const authCookies = setCookiesFrom(res).filter((cookie) =>
+        cookie.startsWith('VtexIdclientAutCookie_test-store=')
+      )
+
+      expect(authCookies).toEqual([
+        'VtexIdclientAutCookie_test-store=new-contract-token; Path=/; Max-Age=3600; HttpOnly; SameSite=Lax; Secure',
+      ])
+    }
+  )
 
   it('also emits the accountAuthCookie when present', async () => {
     ;(global.fetch as Mock).mockResolvedValue({

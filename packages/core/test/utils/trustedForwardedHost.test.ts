@@ -113,10 +113,14 @@ describe('isCookieSafeHostname', () => {
     }
   )
 
-  it.each(['store.com;evil=1', 'store.com path=/', 'store.com,other.com', ''])(
-    'rejects %j',
-    (host) => {
-      expect(isCookieSafeHostname(host)).toBe(false)
-    }
-  )
+  it.each([
+    'store.com;evil=1',
+    'store.com path=/',
+    'store.com,other.com',
+    'store.com\r\nSet-Cookie: evil=1',
+    'store.com%0d%0a',
+    '',
+  ])('rejects %j', (host) => {
+    expect(isCookieSafeHostname(host)).toBe(false)
+  })
 })

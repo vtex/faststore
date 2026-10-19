@@ -55,19 +55,38 @@ const resolveMaxAge = (expiresIn: unknown): number =>
     ? expiresIn
     : DEFAULT_AUTH_COOKIE_MAX_AGE
 
+const IPV4_PATTERN = /^\d{1,3}(?:\.\d{1,3}){3}$/
+
+const isSecureRequest = (request: NextApiRequest): boolean => {
+  const forwarded = request.headers['x-forwarded-proto']
+  const proto = Array.isArray(forwarded) ? forwarded[0] : forwarded
+
+  if (proto) {
+    return proto.split(',')[0].trim() === 'https'
+  }
+
+  return !isLocalHost(getRequestHostname(request.headers.host))
+}
+
 /**
  * Domain for the auth cookies, or `undefined` to write them host-only.
  *
  * Local hosts stay host-only, since browsers handle `Domain=localhost`
- * inconsistently. So does any host that cannot be written verbatim into the
- * attribute.
+ * inconsistently. So do IP literals, which are never the storefront's public
+ * domain and may be reached over plain http, and any host that cannot be
+ * written verbatim into the attribute.
  */
 const resolveAuthCookieDomain = (
   request: NextApiRequest
 ): string | undefined => {
   const hostname = getRequestHostname(request.headers.host)
 
-  if (!hostname || isLocalHost(hostname) || !isCookieSafeHostname(hostname)) {
+  if (
+    !hostname ||
+    isLocalHost(hostname) ||
+    IPV4_PATTERN.test(hostname) ||
+    !isCookieSafeHostname(hostname)
+  ) {
     return undefined
   }
 
@@ -82,17 +101,22 @@ const resolveAuthCookieDomain = (
  * Domain attribute never matches a host-only one. Writing the contract token
  * host-only would sit next to VTEX ID's cookie instead of replacing it, leaving
  * two `VtexIdclientAutCookie_<account>` with different contracts. Each reader
- * then picks a different one (SO-699). Any host-only copy left by earlier
- * versions is expired in the same batch.
+ * then picks a different one. Any host-only copy left by earlier versions is
+ * expired in the same batch.
+ *
+ * The Domain-scoped cookie is always `Secure`, like VTEX ID's, because the
+ * forwarded protocol is not reliable behind the CDN. The host-only fallback
+ * follows the request protocol so plain-http local hosts keep working.
  */
 const buildAuthCookies = (
   payload: SwitchPropertiesResponse,
-  domain: string | undefined
+  domain: string | undefined,
+  secure: boolean
 ): string[] => {
   const maxAge = resolveMaxAge(payload.expiresIn)
   const attributes = domain
     ? `Domain=${domain}; Path=/; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=None`
-    : `Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Lax`
+    : `Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Lax${secure ? '; Secure' : ''}`
 
   return [payload.authCookie, payload.accountAuthCookie]
     .filter(isAuthCookie)
@@ -183,7 +207,11 @@ const handler: NextApiHandler<SwitchContractResponse> = async (
     }
 
     response.setHeader('Set-Cookie', [
-      ...buildAuthCookies(payload, resolveAuthCookieDomain(request)),
+      ...buildAuthCookies(
+        payload,
+        resolveAuthCookieDomain(request),
+        isSecureRequest(request)
+      ),
       ...buildOrderFormExpiryCookies(request),
     ])
 
