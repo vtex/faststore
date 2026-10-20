@@ -89,7 +89,9 @@ export const getStoreCookie =
 /**
  * This function returns a modified copy of the original cookie header (ctx.headers.cookie from the first request)
  * with the cookie values that comes in each request (ctx.storage.cookies).
- * If there is no cookies in storage, the ctx.headers?.cookie is used
+ * If there is no cookies in storage, the ctx.headers?.cookie is used.
+ * If there is no original cookie header (e.g. a shopper's first request), the header is built from
+ * ctx.storage.cookies alone, so cookies set by earlier calls (like CheckoutOrderFormOwnership) reach the next ones.
  *
  * ctx.storage.cookies is a Map<string[1], Record<string, string>[2]> where,
  * [1] cookie key
@@ -99,13 +101,16 @@ export const getStoreCookie =
  *     }
  */
 export const getUpdatedCookie = (ctx: ContextForCookies) => {
-  if (!ctx.headers?.cookie) {
+  const contextStorageCookies = Array.from(
+    ctx.storage?.cookies?.entries() ?? []
+  )
+
+  if (!ctx.headers?.cookie && contextStorageCookies.length === 0) {
     return null
   }
 
   // Normalize cookies to handle duplicates (keep last value)
-  const normalizedCookie = normalizeCookies(ctx.headers.cookie)
-  const contextStorageCookies = Array.from(ctx.storage.cookies.entries())
+  const normalizedCookie = normalizeCookies(ctx.headers?.cookie ?? '')
 
   if (contextStorageCookies.length === 0) {
     return normalizedCookie
@@ -168,6 +173,11 @@ export const updatesCookieValueByKey = (
       cookieParts[0],
       `${cookieParts[1]}=${storageCookieValue}`
     )
+  }
+
+  // nothing to append to (e.g. first request without a cookie header)
+  if (!existingCookies) {
+    return `${storageCookieKey}=${storageCookieValue}`
   }
 
   // add new storage cookie to the original list of cookies

@@ -46,6 +46,30 @@ describe('getUpdatedCookie', () => {
     expect(getUpdatedCookie(ctx)).toEqual(null)
   })
 
+  it('Should return null if there is no cookie header and storage cookies are empty', () => {
+    const ctx = { headers: {}, storage: { cookies: new Map() } }
+
+    expect(getUpdatedCookie(ctx)).toEqual(null)
+  })
+
+  it('Should build the cookie from storage cookies if there is no cookie header (first visit)', () => {
+    // Cookies set by Checkout earlier in the same request must reach the next
+    // calls, otherwise data inserted there gets an ownership the browser never receives
+    const cookieStorage = {
+      'checkout.vtex.com': { value: '__ofid=f9295573872f45f9b0041f40ccc4e136' },
+      CheckoutOrderFormOwnership: { value: 'ownershipValue' },
+    }
+
+    const ctx = {
+      headers: {},
+      storage: { cookies: new Map(Object.entries(cookieStorage)) },
+    }
+
+    expect(getUpdatedCookie(ctx)).toEqual(
+      'checkout.vtex.com=__ofid=f9295573872f45f9b0041f40ccc4e136;CheckoutOrderFormOwnership=ownershipValue'
+    )
+  })
+
   it('Should return original cookie headers if storage cookies are empty', () => {
     const cookie = 'key=value'
     const ctx = {
@@ -94,6 +118,10 @@ describe('updatesCookieValueByKey', () => {
       'key1=value1; key2=value2; key3=value3;key4=value4'
     )
   })
+
+  it('Should not add a leading separator if there are no existing cookies', () => {
+    expect(updatesCookieValueByKey('', 'key1', 'value1')).toEqual('key1=value1')
+  })
 })
 
 describe('getWithCookie', () => {
@@ -119,6 +147,25 @@ describe('getWithCookie', () => {
     const newHeaders = withCookie(headers)
 
     expect(newHeaders).toEqual({ ...headers, cookie: ctx.headers.cookie })
+  })
+
+  it('Should return headers with storage cookies if there is no cookie header', () => {
+    const ctx = {
+      headers: {},
+      storage: {
+        cookies: new Map([
+          ['CheckoutOrderFormOwnership', { value: 'ownershipValue' }],
+        ]),
+      },
+    }
+
+    const withCookie = getWithCookie(ctx)
+    const headers = { 'content-type': 'application/json' }
+
+    expect(withCookie(headers)).toEqual({
+      ...headers,
+      cookie: 'CheckoutOrderFormOwnership=ownershipValue',
+    })
   })
 })
 

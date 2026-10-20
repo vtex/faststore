@@ -92,6 +92,45 @@ describe('VTEX Commerce', () => {
         expect(url).not.toContain('refreshOutdatedData')
       })
     })
+
+    describe('cookies', () => {
+      it('sends cookies set by a previous call in the same request when the request has no cookie header', async () => {
+        // First visit: no incoming cookie header, so the cookies Checkout sets
+        // on the first call only exist in ctx.storage.cookies
+        const firstVisitContext = contextFactory({ headers: {} })
+
+        fetchAPIMocked.mockImplementationOnce(async (_info, _init, options) => {
+          const headers = new Headers()
+          headers.append(
+            'set-cookie',
+            'checkout.vtex.com=__ofid=of-1; path=/; secure; samesite=lax; httponly'
+          )
+          headers.append(
+            'set-cookie',
+            'CheckoutOrderFormOwnership=ownershipValue; path=/; secure; samesite=strict; httponly'
+          )
+          options?.storeCookies?.(headers)
+
+          return { orderFormId: 'of-1', salesChannel: '1', items: [] }
+        })
+        fetchAPIMocked.mockResolvedValueOnce({ orderFormId: 'of-1' })
+
+        const { commerce } = clients.getClients(apiOptions, firstVisitContext)
+        await commerce.checkout.orderForm({})
+        await commerce.checkout.shippingData({
+          id: 'of-1',
+          index: 0,
+          selectedAddresses: [],
+        })
+
+        const [, firstInit] = fetchAPIMocked.mock.calls[0]
+        const [, secondInit] = fetchAPIMocked.mock.calls[1]
+        expect(firstInit.headers.cookie).toBeUndefined()
+        expect(secondInit.headers.cookie).toBe(
+          'checkout.vtex.com=__ofid=of-1;CheckoutOrderFormOwnership=ownershipValue'
+        )
+      })
+    })
   })
 
   describe('Order Entry', () => {
