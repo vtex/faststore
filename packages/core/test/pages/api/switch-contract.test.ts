@@ -323,7 +323,7 @@ describe('/api/fs/switch-contract', () => {
       )
 
       expect(authCookies).toEqual([
-        'VtexIdclientAutCookie_test-store=new-contract-token; Path=/; Max-Age=3600; HttpOnly; SameSite=Lax; Secure',
+        'VtexIdclientAutCookie_test-store=new-contract-token; Path=/; Max-Age=3600; HttpOnly; Secure; SameSite=Lax',
       ])
     }
   )
@@ -347,7 +347,7 @@ describe('/api/fs/switch-contract', () => {
       )
 
       expect(authCookies).toEqual([
-        `VtexIdclientAutCookie_test-store=new-contract-token; Path=/; Max-Age=3600; HttpOnly; SameSite=Lax${secureAttr}`,
+        `VtexIdclientAutCookie_test-store=new-contract-token; Path=/; Max-Age=3600; HttpOnly${secureAttr}; SameSite=Lax`,
       ])
     }
   )

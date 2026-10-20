@@ -120,11 +120,16 @@ const buildAuthCookies = (
   domain: string | undefined,
   secure: boolean
 ): string[] => {
-  const maxAge = resolveMaxAge(payload.expiresIn)
-  const hostOnlySecureAttr = secure ? '; Secure' : ''
-  const attributes = domain
-    ? `Domain=${domain}; Path=/; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=None`
-    : `Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Lax${hostOnlySecureAttr}`
+  const attributes = [
+    domain && `Domain=${domain}`,
+    'Path=/',
+    `Max-Age=${resolveMaxAge(payload.expiresIn)}`,
+    'HttpOnly',
+    (domain || secure) && 'Secure',
+    `SameSite=${domain ? 'None' : 'Lax'}`,
+  ]
+    .filter(Boolean)
+    .join('; ')
 
   return [payload.authCookie, payload.accountAuthCookie]
     .filter(isAuthCookie)
