@@ -56,6 +56,11 @@ export interface Context {
     locale: string
     flags: FeatureFlags
     searchArgs?: Omit<SearchArgs, 'type'>
+    /**
+     * Checkout cookies received while resolving this request, keyed by cookie
+     * name. The GraphQL handler forwards `setCookie` values to the browser.
+     */
+    cookies: Map<string, Record<string, string>>
   }
   headers: Record<string, string>
 }
@@ -96,6 +101,7 @@ export const getContextFactory =
       channel: ChannelMarshal.parse(options.channel),
       flags: options.flags ?? {},
       locale: options.locale,
+      cookies: new Map<string, Record<string, string>>(),
     }
     ctx.clients = getClients(options, ctx)
     ctx.loaders = getLoaders(options, ctx)

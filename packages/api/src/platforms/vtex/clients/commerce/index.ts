@@ -19,6 +19,7 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { ShippingDataBody } from './types/ShippingData'
+import { getStoreCookie, getWithCookie } from '../../utils/cookies'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -29,11 +30,43 @@ const BASE_INIT = {
   },
 }
 
+const getHeader = (headers: Context['headers'] | undefined, name: string) => {
+  const value: string | string[] | undefined = (headers as any)?.[name]
+
+  return Array.isArray(value) ? value[0] : value
+}
+
+/**
+ * Host the Checkout API uses as the domain of the cookies it sets. Checkout
+ * only honors it for hosts registered in the account, so a forged value is
+ * ignored there.
+ */
+const getForwardedHost = (headers: Context['headers'] | undefined) => {
+  // Proxies may append values: "client, proxy". Only the first one is the store host.
+  const host =
+    getHeader(headers, 'x-forwarded-host')?.split(',')[0] ??
+    getHeader(headers, 'host') ??
+    ''
+
+  return host.trim().replace(/^www\./, '')
+}
+
 export const VtexCommerce = (
   { account, environment }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br`
+  const storeCookies = getStoreCookie(ctx)
+  const withCookie = getWithCookie(ctx)
+  const forwardedHost = getForwardedHost(ctx.headers)
+
+  // Checkout calls forward the shopper cookies and keep the cookies Checkout
+  // sets (e.g. CheckoutOrderFormOwnership) so they can reach the browser.
+  const checkoutHeaders = () =>
+    withCookie({
+      'content-type': 'application/json',
+      'X-FORWARDED-HOST': forwardedHost,
+    })
 
   return {
     catalog: {
@@ -107,8 +140,10 @@ export const VtexCommerce = (
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
             ...BASE_INIT,
+            headers: checkoutHeaders(),
             body: JSON.stringify(body),
-          }
+          },
+          { storeCookies }
         )
       },
       orderForm: ({
@@ -128,7 +163,11 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
-          BASE_INIT
+          {
+            ...BASE_INIT,
+            headers: checkoutHeaders(),
+          },
+          { storeCookies }
         )
       },
       updateOrderFormItems: ({
@@ -153,12 +192,14 @@ export const VtexCommerce = (
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
           {
             ...BASE_INIT,
+            headers: checkoutHeaders(),
             body: JSON.stringify({
               orderItems,
               noSplitItem: !shouldSplitItem,
             }),
             method: 'PATCH',
-          }
+          },
+          { storeCookies }
         )
       },
       setCustomData: ({
@@ -176,9 +217,11 @@ export const VtexCommerce = (
           `${base}/api/checkout/pub/orderForm/${id}/customData/${appId}/${key}`,
           {
             ...BASE_INIT,
+            headers: checkoutHeaders(),
             body: JSON.stringify({ value }),
             method: 'PUT',
-          }
+          },
+          { storeCookies }
         )
       },
       region: async ({
