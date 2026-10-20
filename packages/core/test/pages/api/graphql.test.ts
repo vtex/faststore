@@ -9,14 +9,23 @@ import { GraphQLError } from 'graphql'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import discoveryConfig from '../../../discovery.config'
 import handler from '../../../src/pages/api/graphql'
 import { execute } from '../../../src/server'
+import { shouldForceRefreshTokenForValidateSession } from '../../../src/utils/validateSessionRefreshToken'
 
 vi.mock('../../../src/server', () => ({
   execute: vi.fn(),
 }))
 
+vi.mock('../../../src/utils/validateSessionRefreshToken', () => ({
+  shouldForceRefreshTokenForValidateSession: vi.fn(),
+}))
+
 const mockedExecute = vi.mocked(execute)
+const mockedShouldForceRefreshToken = vi.mocked(
+  shouldForceRefreshTokenForValidateSession
+)
 
 const createResponse = ({ headersSent = false } = {}) => {
   const res = {
@@ -228,4 +237,59 @@ describe('/api/graphql request handling', () => {
     expect(res.status).toHaveBeenCalledWith(500)
     expect(res.end).toHaveBeenCalled()
   })
+})
+
+describe('/api/graphql ValidateSession refresh-token bypass', () => {
+  const originalRefreshToken = discoveryConfig.experimental.refreshToken
+
+  const createValidateSessionRequest = (host: string) =>
+    ({
+      method: 'GET',
+      url: '/api/graphql',
+      headers: { host },
+      query: {
+        operationName: 'ValidateSession',
+        operationHash: 'hash',
+        variables: JSON.stringify({ session: {} }),
+      },
+    }) as unknown as NextApiRequest
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+    discoveryConfig.experimental.refreshToken = true
+    mockedShouldForceRefreshToken.mockReturnValue(true)
+    mockedExecute.mockResolvedValue({
+      data: { validateSession: null },
+      errors: undefined,
+      extensions: { cookies: new Map(), cacheControl: undefined },
+    } as never)
+  })
+
+  afterEach(() => {
+    discoveryConfig.experimental.refreshToken = originalRefreshToken
+  })
+
+  it.each([
+    'localhost:3000',
+    '127.0.0.1:3000',
+    'brandless-abc123.preview.vtex.app',
+  ])('does not force a 401 on %s', async (host) => {
+    const res = createResponse()
+    await handler(createValidateSessionRequest(host), res)
+
+    expect(mockedShouldForceRefreshToken).not.toHaveBeenCalled()
+    expect(res.status).not.toHaveBeenCalledWith(401)
+    expect(mockedExecute).toHaveBeenCalled()
+  })
+
+  it.each(['brandless.vtex.app', 'brandless.fast.store'])(
+    'forces a 401 on the production host %s',
+    async (host) => {
+      const res = createResponse()
+      await handler(createValidateSessionRequest(host), res)
+
+      expect(res.status).toHaveBeenCalledWith(401)
+      expect(mockedExecute).not.toHaveBeenCalled()
+    }
+  )
 })

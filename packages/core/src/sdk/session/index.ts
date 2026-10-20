@@ -8,7 +8,7 @@ import type {
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
 import deepEqual from 'fast-deep-equal'
-import { isLocalHostBrowser } from 'src/utils/isLocalHost'
+import { shouldBypassRefreshTokenBrowser } from 'src/utils/shouldBypassRefreshToken'
 import { filterChannel } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
 import {
@@ -126,9 +126,9 @@ export const validateSession = async (session: Session) => {
   // If the refreshToken is enabled and the refreshAfter is expired, refresh the token.
   // On success, continue to the validation flow with the refreshed session.
   // On failure (logoutAndClearSession already triggered), bail out.
-  // Skipped in local environments where the refresh token infrastructure is unavailable.
+  // Skipped on localhost and WebOps previews, where the refresh token infrastructure is unavailable.
   if (
-    !isLocalHostBrowser() &&
+    !shouldBypassRefreshTokenBrowser() &&
     storeConfig.experimental?.refreshToken &&
     isRefreshAfterExpired(session)
   ) {
@@ -174,7 +174,7 @@ export const validateSession = async (session: Session) => {
     return data.validateSession
   } catch (error) {
     const shouldRefreshToken =
-      !isLocalHostBrowser() &&
+      !shouldBypassRefreshTokenBrowser() &&
       error?.status === 401 &&
       storeConfig.experimental?.refreshToken
 

@@ -10,7 +10,7 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie } from 'src/utils/getCookie'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
-import { isLocalHost } from 'src/utils/isLocalHost'
+import { shouldBypassRefreshToken } from 'src/utils/shouldBypassRefreshToken'
 import {
   isHostAllowed,
   removeCookieDomain,
@@ -286,10 +286,12 @@ const handler: NextApiHandler = async (request, response) => {
       operation?.__meta__?.operationHash
     )
 
-    const isLocal = isLocalHost(getRequestHostname(request.headers.host))
+    const bypassRefreshToken = shouldBypassRefreshToken(
+      getRequestHostname(request.headers.host)
+    )
 
     if (
-      !isLocal &&
+      !bypassRefreshToken &&
       operation.__meta__.operationName === 'ValidateSession' &&
       discoveryConfig.experimental?.refreshToken
     ) {
