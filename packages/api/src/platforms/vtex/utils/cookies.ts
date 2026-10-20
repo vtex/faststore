@@ -150,6 +150,9 @@ export const getAuthCookie = (cookies: string, account: string) => {
   return authCookie || ''
 }
 
+const escapeRegExp = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
 /**
  * This function updates the cookie value based on its key
  *
@@ -164,14 +167,18 @@ export const updatesCookieValueByKey = (
   storageCookieKey: string,
   storageCookieValue: string
 ) => {
-  const MATCH_COOKIE_KEY_VALUE = new RegExp(`(${storageCookieKey})=([^;]*)`)
-  const cookieParts = existingCookies.match(MATCH_COOKIE_KEY_VALUE)
+  // Match the whole key (not a suffix of another one) and escape it, since
+  // keys like `checkout.vtex.com` contain regex characters
+  const MATCH_COOKIE_KEY_VALUE = new RegExp(
+    `(^|;\\s*)(${escapeRegExp(storageCookieKey)})=([^;]*)`
+  )
 
   // replaces original cookie with the one coming from storage
-  if (cookieParts) {
+  if (MATCH_COOKIE_KEY_VALUE.test(existingCookies)) {
     return existingCookies.replace(
-      cookieParts[0],
-      `${cookieParts[1]}=${storageCookieValue}`
+      MATCH_COOKIE_KEY_VALUE,
+      (_, separator: string, key: string) =>
+        `${separator}${key}=${storageCookieValue}`
     )
   }
 

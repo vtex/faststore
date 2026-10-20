@@ -119,6 +119,22 @@ describe('updatesCookieValueByKey', () => {
     )
   })
 
+  it('Should not replace a cookie whose key ends with the storage cookie key', () => {
+    const cookie = 'CheckoutOrderFormOwnership=value1; Ownership=value2'
+
+    expect(
+      updatesCookieValueByKey(cookie, 'Ownership', 'alteredValue2')
+    ).toEqual('CheckoutOrderFormOwnership=value1; Ownership=alteredValue2')
+  })
+
+  it('Should treat regex characters in the storage cookie key literally', () => {
+    const cookie = 'checkoutXvtexXcom=value1'
+
+    expect(
+      updatesCookieValueByKey(cookie, 'checkout.vtex.com', '__ofid=of-1')
+    ).toEqual('checkoutXvtexXcom=value1;checkout.vtex.com=__ofid=of-1')
+  })
+
   it('Should not add a leading separator if there are no existing cookies', () => {
     expect(updatesCookieValueByKey('', 'key1', 'value1')).toEqual('key1=value1')
   })
