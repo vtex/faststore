@@ -39,6 +39,9 @@ module.exports = {
     showSponsored: false,
     incrementAddress: true,
     enableUnavailableItemsOnCart: false,
+    // Keep each Checkout cart line (e.g. units split with `/split` or by
+    // assembly options) as its own cart line instead of merging by SKU.
+    preserveCartLines: false,
   },
 
   // Default session
