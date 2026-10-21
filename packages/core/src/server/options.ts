@@ -21,6 +21,7 @@ export const apiOptions: APIOptions = {
     enableOrderFormSync: true,
     enableUnavailableItemsOnCart:
       storeConfig.api?.enableUnavailableItemsOnCart ?? false,
+    preserveCartLines: storeConfig.api?.preserveCartLines ?? false,
   },
   version,
   // feature flag default to false as it should not emit traces/logs yet
