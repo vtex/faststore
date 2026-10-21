@@ -33,16 +33,16 @@ export const getSkuLoader = ({ flags }: Options, clients: Clients) => {
       {} as Record<string, EnhancedSku>
     )
 
-    const skus = skuIds.map((skuId) => skuBySkuId[skuId])
-    const missingSkus = skuIds.filter((skuId) => !skuBySkuId[skuId])
-
-    if (missingSkus.length > 0) {
-      throw new NotFoundError(
-        `Search API did not found the following skus: ${missingSkus.join(',')}`
-      )
-    }
-
-    return skus
+    // Reject only the keys Search did not return: one hidden SKU (e.g. a
+    // service sold as an assembly option) must not fail the other keys of the
+    // batch, such as the rest of a cart.
+    return skuIds.map(
+      (skuId) =>
+        skuBySkuId[skuId] ??
+        new NotFoundError(
+          `Search API did not found the following skus: ${skuId}`
+        )
+    )
   }
 
   return new DataLoader<string, EnhancedSku>(loader, {
