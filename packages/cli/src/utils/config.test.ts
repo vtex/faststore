@@ -1,5 +1,17 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { isMyAccountEnabled, resolveContentSource } from './config'
+import {
+  afterAll,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest'
+import {
+  getDisabledSections,
+  isMyAccountEnabled,
+  resolveContentSource,
+} from './config'
 import { logger } from './logger'
 
 describe('resolveContentSource', () => {
@@ -58,5 +70,69 @@ describe('isMyAccountEnabled', () => {
     expect(isMyAccountEnabled({})).toBe(false)
     expect(isMyAccountEnabled(null)).toBe(false)
     expect(isMyAccountEnabled(undefined)).toBe(false)
+  })
+})
+
+describe('getDisabledSections', () => {
+  const warnSpy = vi.spyOn(logger, 'warn').mockImplementation(() => {})
+
+  beforeEach(() => {
+    warnSpy.mockClear()
+  })
+
+  afterAll(() => {
+    warnSpy.mockRestore()
+  })
+
+  it('returns the configured section names', () => {
+    expect(
+      getDisabledSections({
+        contentSource: { disabledSections: ['Hero', 'Newsletter'] },
+      })
+    ).toEqual(['Hero', 'Newsletter'])
+    expect(warnSpy).not.toHaveBeenCalled()
+  })
+
+  it('drops duplicates silently', () => {
+    expect(
+      getDisabledSections({
+        contentSource: { disabledSections: ['Hero', 'Hero'] },
+      })
+    ).toEqual(['Hero'])
+    expect(warnSpy).not.toHaveBeenCalled()
+  })
+
+  it('drops empty and non-string entries with a warning', () => {
+    expect(
+      getDisabledSections({
+        contentSource: { disabledSections: ['Hero', '', 42, null, 'Hero'] },
+      })
+    ).toEqual(['Hero'])
+    expect(warnSpy).toHaveBeenCalledTimes(1)
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('Ignoring "", 42, null.')
+    )
+  })
+
+  it('returns an empty list with a warning when the option is not an array', () => {
+    expect(
+      getDisabledSections({ contentSource: { disabledSections: 'Hero' } })
+    ).toEqual([])
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining(
+        'contentSource.disabledSections must be an array of section names. Ignoring "Hero".'
+      )
+    )
+  })
+
+  it('returns an empty list when the option, contentSource, or config is absent', () => {
+    expect(getDisabledSections({ contentSource: {} })).toEqual([])
+    expect(
+      getDisabledSections({ contentSource: { disabledSections: null } })
+    ).toEqual([])
+    expect(getDisabledSections({})).toEqual([])
+    expect(getDisabledSections(null)).toEqual([])
+    expect(getDisabledSections(undefined)).toEqual([])
+    expect(warnSpy).not.toHaveBeenCalled()
   })
 })
