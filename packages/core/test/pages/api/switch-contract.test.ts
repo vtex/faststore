@@ -225,13 +225,53 @@ describe('/api/fs/switch-contract', () => {
       cookie.startsWith('VtexIdclientAutCookie_test-store=')
     )
 
-    expect(authCookies).toHaveLength(2)
+    expect(authCookies).toHaveLength(3)
     expect(authCookies[0]).toMatch(/^VtexIdclientAutCookie_test-store=;/)
     expect(authCookies[0]).toContain('max-age=0')
     expect(authCookies[0]).toContain('path=/')
     // Host-only: no Domain, so it cannot touch VTEX ID's scoped cookie.
     expect(authCookies[0].toLowerCase()).not.toContain('domain=')
-    expect(authCookies[1]).toContain('Domain=store.example.com')
+    expect(authCookies[2]).toContain('Domain=store.example.com')
+  })
+
+  it('expires the copy VTEX ID refresh leaves on the parent domain', async () => {
+    const handler = await getHandler()
+    const { req, res } = createReqRes()
+
+    await handler(req, res)
+
+    const authCookies = setCookiesFrom(res).filter((cookie) =>
+      cookie.startsWith('VtexIdclientAutCookie_test-store=')
+    )
+
+    expect(authCookies[1]).toMatch(/^VtexIdclientAutCookie_test-store=;/)
+    expect(authCookies[1]).toContain('max-age=0')
+    expect(authCookies[1]).toContain('path=/')
+    expect(authCookies[1]).toContain('domain=example.com')
+    // The new token is never written to the parent domain.
+    expect(
+      authCookies.filter((cookie) => cookie.includes('new-contract-token'))
+    ).toEqual([expect.stringContaining('Domain=store.example.com;')])
+  })
+
+  it.each([
+    ['a single-label parent', 'store.com', []],
+    ['a deep host', 'a.b.store.com', ['b.store.com', 'store.com']],
+    ['a two-level suffix', 'www.store.com.br', ['store.com.br', 'com.br']],
+  ])('expires every parent domain for %s', async (_label, host, parents) => {
+    const handler = await getHandler()
+    const { req, res } = createReqRes({ headers: { host } })
+
+    await handler(req, res)
+
+    const expiredDomains = setCookiesFrom(res)
+      .filter((cookie) =>
+        cookie.startsWith('VtexIdclientAutCookie_test-store=;')
+      )
+      .map((cookie) => cookie.match(/domain=([^;]+)/)?.[1])
+      .filter(Boolean)
+
+    expect(expiredDomains).toEqual(parents)
   })
 
   it('strips the port from the Host header', async () => {

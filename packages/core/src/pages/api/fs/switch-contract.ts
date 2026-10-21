@@ -76,6 +76,20 @@ const isSecureRequest = (request: NextApiRequest): boolean => {
 }
 
 /**
+ * Every parent of `hostname` with at least two labels, closest first:
+ * `a.b.store.com` gives `b.store.com` and `store.com`. A parent that is a
+ * public suffix (e.g. `com.br`) is rejected by the browser, so expiring a
+ * cookie there is a no-op.
+ */
+const getParentDomains = (hostname: string): string[] => {
+  const labels = hostname.split('.')
+
+  return labels
+    .slice(1, -1)
+    .map((_, index) => labels.slice(index + 1).join('.'))
+}
+
+/**
  * Domain for the auth cookies, or `undefined` to write them host-only.
  *
  * Local hosts stay host-only, since browsers handle `Domain=localhost`
@@ -111,6 +125,12 @@ const resolveAuthCookieDomain = (
  * then picks a different one. Any host-only copy left by earlier versions is
  * expired in the same batch.
  *
+ * VTEX ID's refresh also writes the cookie on the parent domain (e.g.
+ * `Domain=store.com` for `www.store.com`), which this response cannot replace
+ * without widening the cookie to every sibling host. Those copies are expired
+ * instead, so the only auth cookie left holds the switched contract. The next
+ * refresh writes the host and parent copies with the same token.
+ *
  * The Domain-scoped cookie is always `Secure`, like VTEX ID's, because the
  * forwarded protocol is not reliable behind the CDN. The host-only fallback
  * follows the request protocol so plain-http local hosts keep working.
@@ -120,6 +140,9 @@ const buildAuthCookies = (
   domain: string | undefined,
   secure: boolean
 ): string[] => {
+  const staleScopes = domain
+    ? [undefined, ...getParentDomains(domain)]
+    : ([] as Array<string | undefined>)
   const attributes = [
     domain && `Domain=${domain}`,
     'Path=/',
@@ -134,7 +157,13 @@ const buildAuthCookies = (
   return [payload.authCookie, payload.accountAuthCookie]
     .filter(isAuthCookie)
     .flatMap((cookie) => [
-      ...(domain ? [expireCookieServer({ name: cookie.Name, path: '/' })] : []),
+      ...staleScopes.map((staleDomain) =>
+        expireCookieServer({
+          name: cookie.Name,
+          path: '/',
+          domain: staleDomain,
+        })
+      ),
       `${cookie.Name}=${cookie.Value}; ${attributes}`,
     ])
 }
