@@ -6,7 +6,9 @@ import fsExtra from 'fs-extra'
 const { readFileSync, existsSync, writeFileSync, mkdirSync } = fsExtra
 
 import { pathToFileURL } from 'node:url'
+import { getDisabledSections } from './config'
 import { withBasePath } from './directory'
+import { logger } from './logger'
 import { getPluginName, getPluginsList } from './plugins'
 
 export interface ContentTypeOrSectionDefinition {
@@ -93,6 +95,34 @@ export function dedupeAndMergeDefinitions(
   })
 
   return result
+}
+
+/**
+ * Removes the section definitions whose `name` is listed in `disabledNames`,
+ * so they are not synced to the CMS Admin section picker.
+ *
+ * Returns the remaining sections, the names that were hidden, and the
+ * configured names that matched no section (likely typos).
+ */
+export function filterDisabledSections(
+  definitions: ContentTypeOrSectionDefinition[],
+  disabledNames: string[]
+) {
+  const disabled = new Set(disabledNames)
+  const hidden = new Set<string>()
+
+  const sections = definitions.filter((definition) => {
+    if (definition.name && disabled.has(definition.name)) {
+      hidden.add(definition.name)
+      return false
+    }
+
+    return true
+  })
+
+  const unknown = disabledNames.filter((name) => !hidden.has(name))
+
+  return { sections, hidden: Array.from(hidden), unknown }
 }
 
 async function confirmUserChoice(
@@ -188,6 +218,33 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
       } else {
         throw err
       }
+    }
+  }
+
+  // Applied after every plugin and store merge so that disabling a section
+  // wins over overriding it.
+  if (fileName === 'sections.json') {
+    const disabledSections = getDisabledSections(userStoreConfig)
+
+    if (disabledSections.length > 0) {
+      const { sections, hidden, unknown } = filterDisabledSections(
+        output,
+        disabledSections
+      )
+
+      output = sections
+
+      if (hidden.length) {
+        logger.info(
+          `${chalk.blue('info')} - Hiding disabled sections from the CMS: ${hidden.join(', ')}`
+        )
+      }
+
+      unknown.forEach((name) => {
+        logger.warn(
+          `${chalk.yellow('warning')} - contentSource.disabledSections: no section named "${name}" was found in ${fileName}.`
+        )
+      })
     }
   }
 
