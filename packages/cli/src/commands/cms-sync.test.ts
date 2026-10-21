@@ -15,8 +15,8 @@ const errorNoCustomizationMock = vi.hoisted(() =>
 )
 const generateAndUploadSchemaMock = vi.hoisted(() => vi.fn())
 const getCpSchemaOutputPathMock = vi.hoisted(() => vi.fn())
-const prepareMyAccountMergeDirMock = vi.hoisted(() => vi.fn())
-const cleanupMyAccountMergeDirMock = vi.hoisted(() => vi.fn())
+const prepareCpMergeDirMock = vi.hoisted(() => vi.fn())
+const cleanupCpMergeDirMock = vi.hoisted(() => vi.fn())
 const assertVtexReadyForAccountMock = vi.hoisted(() => vi.fn())
 
 vi.mock('node:child_process', () => ({
@@ -38,10 +38,8 @@ vi.mock('../utils/cp-schema', () => ({
     generateAndUploadSchemaMock(...args),
   getCpSchemaOutputPath: (...args: unknown[]) =>
     getCpSchemaOutputPathMock(...args),
-  prepareMyAccountMergeDir: (...args: unknown[]) =>
-    prepareMyAccountMergeDirMock(...args),
-  cleanupMyAccountMergeDir: (...args: unknown[]) =>
-    cleanupMyAccountMergeDirMock(...args),
+  prepareCpMergeDir: (...args: unknown[]) => prepareCpMergeDirMock(...args),
+  cleanupCpMergeDir: (...args: unknown[]) => cleanupCpMergeDirMock(...args),
 }))
 
 vi.mock('../utils/vtex', () => ({
@@ -252,11 +250,11 @@ describe('CmsSync', () => {
   })
 
   describe('CP branch with My Account', () => {
-    const mergeDir = '/tmp/faststore-cms-myaccount-xyz'
+    const mergeDir = '/tmp/faststore-cms-merge-xyz'
     const mergedDirs = [`${mergeDir}/components`, `${mergeDir}/pages`]
 
     beforeEach(() => {
-      prepareMyAccountMergeDirMock.mockReturnValue({
+      prepareCpMergeDirMock.mockReturnValue({
         mergeDir,
         dirs: mergedDirs,
       })
@@ -274,7 +272,10 @@ describe('CmsSync', () => {
 
       await runCmsSync({ storeDir: tempDir })
 
-      expect(prepareMyAccountMergeDirMock).toHaveBeenCalledWith(tempDir)
+      expect(prepareCpMergeDirMock).toHaveBeenCalledWith(tempDir, {
+        includeMyAccount: true,
+        disabledSections: [],
+      })
       expect(infoMock).toHaveBeenCalledWith(
         expect.stringContaining('Merging My Account')
       )
@@ -288,7 +289,7 @@ describe('CmsSync', () => {
         dryRun: false,
       })
       expect(errorNoCustomizationMock).not.toHaveBeenCalled()
-      expect(cleanupMyAccountMergeDirMock).toHaveBeenCalledWith(mergeDir)
+      expect(cleanupCpMergeDirMock).toHaveBeenCalledWith(mergeDir)
     })
 
     it('proceeds with only My Account dirs when the store has none (matrix #11)', async () => {
@@ -304,7 +305,7 @@ describe('CmsSync', () => {
       expect(generateAndUploadSchemaMock).toHaveBeenCalledWith(
         expect.objectContaining({ dirs: mergedDirs })
       )
-      expect(cleanupMyAccountMergeDirMock).toHaveBeenCalledWith(mergeDir)
+      expect(cleanupCpMergeDirMock).toHaveBeenCalledWith(mergeDir)
     })
 
     it('does not include My Account when the flag is off (matrix #12)', async () => {
@@ -319,8 +320,8 @@ describe('CmsSync', () => {
 
       await runCmsSync({ storeDir: tempDir })
 
-      expect(prepareMyAccountMergeDirMock).not.toHaveBeenCalled()
-      expect(cleanupMyAccountMergeDirMock).not.toHaveBeenCalled()
+      expect(prepareCpMergeDirMock).not.toHaveBeenCalled()
+      expect(cleanupCpMergeDirMock).not.toHaveBeenCalled()
       expect(generateAndUploadSchemaMock).toHaveBeenCalledWith(
         expect.objectContaining({
           dirs: ['cms/faststore/components', 'cms/faststore/pages'],
@@ -340,7 +341,7 @@ describe('CmsSync', () => {
       expect(generateAndUploadSchemaMock).toHaveBeenCalledWith(
         expect.objectContaining({ dryRun: true })
       )
-      expect(cleanupMyAccountMergeDirMock).toHaveBeenCalledWith(mergeDir)
+      expect(cleanupCpMergeDirMock).toHaveBeenCalledWith(mergeDir)
     })
 
     it('cleans up via an exit hook so a toolbelt process.exit cannot leak the staging dir', async () => {
@@ -370,10 +371,10 @@ describe('CmsSync', () => {
 
       // The exit hook itself removes the staging dir — the guarantee for the
       // process.exit() path that bypasses `finally`.
-      cleanupMyAccountMergeDirMock.mockClear()
+      cleanupCpMergeDirMock.mockClear()
       expect(exitHandler).toBeDefined()
       exitHandler?.()
-      expect(cleanupMyAccountMergeDirMock).toHaveBeenCalledWith(mergeDir)
+      expect(cleanupCpMergeDirMock).toHaveBeenCalledWith(mergeDir)
 
       onceSpy.mockRestore()
       removeSpy.mockRestore()
@@ -385,16 +386,86 @@ describe('CmsSync', () => {
         experimental: { enableFaststoreMyAccount: true },
       })
       getExistingCpDirsMock.mockReturnValue(['cms/faststore/components'])
-      prepareMyAccountMergeDirMock.mockImplementation(() => {
-        throw new Error('prepareMyAccountMergeDir exited')
+      prepareCpMergeDirMock.mockImplementation(() => {
+        throw new Error('prepareCpMergeDir exited')
       })
 
       await expect(runCmsSync({ storeDir: tempDir })).rejects.toThrow(
-        'prepareMyAccountMergeDir exited'
+        'prepareCpMergeDir exited'
       )
 
       expect(generateAndUploadSchemaMock).not.toHaveBeenCalled()
-      expect(cleanupMyAccountMergeDirMock).not.toHaveBeenCalled()
+      expect(cleanupCpMergeDirMock).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('CP branch with disabledSections', () => {
+    const mergeDir = '/tmp/faststore-cms-merge-xyz'
+    const mergedDirs = [`${mergeDir}/components`, `${mergeDir}/pages`]
+
+    beforeEach(() => {
+      prepareCpMergeDirMock.mockReturnValue({ mergeDir, dirs: mergedDirs })
+    })
+
+    it('stages the store dirs with the disabled sections hidden', async () => {
+      writeDiscoveryConfig(tempDir, {
+        contentSource: { type: 'CP', disabledSections: ['Hero', 'Newsletter'] },
+      })
+      getExistingCpDirsMock.mockReturnValue([])
+
+      await runCmsSync({ storeDir: tempDir, dryRun: true })
+
+      expect(prepareCpMergeDirMock).toHaveBeenCalledWith(tempDir, {
+        includeMyAccount: false,
+        disabledSections: ['Hero', 'Newsletter'],
+      })
+      expect(infoMock).not.toHaveBeenCalledWith(
+        expect.stringContaining('Merging My Account')
+      )
+      // The core content-types are always staged, so a store without its own
+      // customizations is not an error.
+      expect(getExistingCpDirsMock).not.toHaveBeenCalled()
+      expect(errorNoCustomizationMock).not.toHaveBeenCalled()
+      expect(generateAndUploadSchemaMock).toHaveBeenCalledWith({
+        basePath: tempDir,
+        dirs: mergedDirs,
+        schemaOut: path.join(tempDir, 'cms/faststore/schema.json'),
+        dryRun: true,
+      })
+      expect(cleanupCpMergeDirMock).toHaveBeenCalledWith(mergeDir)
+    })
+
+    it('combines disabledSections with My Account in a single staging dir', async () => {
+      writeDiscoveryConfig(tempDir, {
+        contentSource: { type: 'CP', disabledSections: ['Hero'] },
+        experimental: { enableFaststoreMyAccount: true },
+      })
+
+      await runCmsSync({ storeDir: tempDir })
+
+      expect(prepareCpMergeDirMock).toHaveBeenCalledTimes(1)
+      expect(prepareCpMergeDirMock).toHaveBeenCalledWith(tempDir, {
+        includeMyAccount: true,
+        disabledSections: ['Hero'],
+      })
+      expect(generateAndUploadSchemaMock).toHaveBeenCalledWith(
+        expect.objectContaining({ dirs: mergedDirs })
+      )
+      expect(cleanupCpMergeDirMock).toHaveBeenCalledWith(mergeDir)
+    })
+
+    it('does not stage anything when disabledSections is empty', async () => {
+      writeDiscoveryConfig(tempDir, {
+        contentSource: { type: 'CP', disabledSections: [] },
+      })
+      getExistingCpDirsMock.mockReturnValue(['cms/faststore/components'])
+
+      await runCmsSync({ storeDir: tempDir })
+
+      expect(prepareCpMergeDirMock).not.toHaveBeenCalled()
+      expect(generateAndUploadSchemaMock).toHaveBeenCalledWith(
+        expect.objectContaining({ dirs: ['cms/faststore/components'] })
+      )
     })
   })
 })
