@@ -19,8 +19,19 @@ import { isBranchPreview, isContentPlatformSource } from './utils'
 
 type ContentResult = ContentData | (ContentEntry & PageContentType)
 
+type ContentListCacheEntry = {
+  expiresAt: number
+  promise: Promise<{ data: ContentResult[] }>
+}
+
+// Bounds how stale the template list can get in long-lived processes (ISR);
+// a CMS publish already triggers a new build.
+const CONTENT_LIST_CACHE_TTL_MS = 5 * 60 * 1000
+
 export class ContentService {
   private clientCP: ClientCP
+
+  private readonly contentListCache = new Map<string, ContentListCacheEntry>()
 
   constructor() {
     this.clientCP = new ClientCP({
@@ -46,29 +57,12 @@ export class ContentService {
 
     if (isContentPlatformSource()) {
       const serviceParams = this.convertOptionsToParams(options)
-      // TODO: This should be temporary until the cp data-plane have a search engine.
-      const MAX_PAGES = 25
-      const allEntries: ContentEntry[] = []
-      let scroll: string | undefined
-      let pages = 0
 
-      do {
-        const result = await this.clientCP.listEntries(serviceParams, scroll)
-        allEntries.push(...result.entries)
-        const next = result.scroll ?? undefined
-        if (next && next === scroll) break
-        scroll = next
-      } while (scroll && ++pages < MAX_PAGES)
-
-      if (pages >= MAX_PAGES) {
-        console.warn('listEntries pagination hit MAX_PAGES cap', serviceParams)
+      if (options.isPreview) {
+        return this.listAndFillEntries(serviceParams, true)
       }
 
-      return this.fillEntriesWithData(
-        allEntries,
-        serviceParams,
-        options.isPreview
-      )
+      return this.getCachedContentList(serviceParams)
     }
     return getCMSPage(options.cmsOptions)
   }
@@ -134,6 +128,60 @@ export class ContentService {
       if (isNotFoundError(err)) console.warn('Content not found', err)
       else throw err
     }
+  }
+
+  private getCachedContentList(
+    serviceParams: EntryPathParams
+  ): Promise<{ data: ContentResult[] }> {
+    // listEntries only depends on these fields; the page slug must stay out of the key.
+    const { accountName, storeId, contentType, locale } = serviceParams
+    const key = JSON.stringify([accountName, storeId, contentType, locale])
+
+    const cached = this.contentListCache.get(key)
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.promise
+    }
+
+    const promise = this.listAndFillEntries(serviceParams, false).catch(
+      (err: unknown) => {
+        if (this.contentListCache.get(key)?.promise === promise) {
+          this.contentListCache.delete(key)
+        }
+        throw err
+      }
+    )
+
+    this.contentListCache.set(key, {
+      expiresAt: Date.now() + CONTENT_LIST_CACHE_TTL_MS,
+      promise,
+    })
+
+    return promise
+  }
+
+  private async listAndFillEntries(
+    serviceParams: EntryPathParams,
+    isPreview: boolean
+  ): Promise<{ data: (ContentEntry & PageContentType)[] }> {
+    // TODO: This should be temporary until the cp data-plane have a search engine.
+    const MAX_PAGES = 25
+    const allEntries: ContentEntry[] = []
+    let scroll: string | undefined
+    let pages = 0
+
+    do {
+      const result = await this.clientCP.listEntries(serviceParams, scroll)
+      allEntries.push(...result.entries)
+      const next = result.scroll ?? undefined
+      if (next && next === scroll) break
+      scroll = next
+    } while (scroll && ++pages < MAX_PAGES)
+
+    if (pages >= MAX_PAGES) {
+      console.warn('listEntries pagination hit MAX_PAGES cap', serviceParams)
+    }
+
+    return this.fillEntriesWithData(allEntries, serviceParams, isPreview)
   }
 
   private async fillEntriesWithData(
