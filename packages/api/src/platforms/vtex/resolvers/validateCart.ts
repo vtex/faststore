@@ -12,6 +12,8 @@ import {
 } from '../utils/sessionChannel'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
+import { enhanceSkuFromOrderFormItem } from '../utils/enhanceSku'
+import { isNotFoundError } from '../../errors'
 import {
   attachmentToPropertyValue,
   getPropertyId,
@@ -212,6 +214,25 @@ const joinItems = (form: OrderForm) => {
   }
 }
 
+/**
+ * Search data for a cart line. An assembly option child (e.g. a service SKU
+ * hidden from the storefront) that Search does not return is built from the
+ * orderForm line instead of failing the whole cart. Any other missing SKU
+ * still fails, so a product removed from the catalog keeps surfacing as an
+ * error instead of a degraded cart line.
+ */
+const loadCartSku = (
+  item: OrderFormItem,
+  skuLoader: GraphqlContext['loaders']['skuLoader']
+) =>
+  skuLoader.load(`${item.id}-invisibleItems`).catch((error) => {
+    if (isNotFoundError(error) && item.parentItemIndex != null) {
+      return enhanceSkuFromOrderFormItem(item)
+    }
+
+    throw error
+  })
+
 const orderFormToCart = async (
   form: OrderForm,
   skuLoader: GraphqlContext['loaders']['skuLoader'],
@@ -223,7 +244,7 @@ const orderFormToCart = async (
       orderNumber: form.orderFormId,
       acceptedOffer: form.items.map(async (item) => ({
         ...item,
-        product: await skuLoader.load(`${item.id}-invisibleItems`),
+        product: await loadCartSku(item, skuLoader),
       })),
       shouldSplitItem,
       ...(adoptedSalesChannel ? { salesChannel: adoptedSalesChannel } : {}),
@@ -551,6 +572,15 @@ export const validateCart = async (
       orderForm,
       !isUrlSalesChannel
     )
+
+    // Load the lines before writing the etag. If one fails, the etag stays
+    // stale, so the next validation returns this cart again instead of
+    // applying the browser cart (possibly empty) over it.
+    if (orderNumber) {
+      await Promise.all(
+        orderForm.items.map((item) => loadCartSku(item, skuLoader))
+      )
+    }
 
     const newOrderForm = await setOrderFormEtag(
       orderForm,
