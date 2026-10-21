@@ -176,6 +176,8 @@ module.exports = {
 
   contentSource: {
     type: 'CMS',
+    // Native sections hidden from the CMS Admin section picker by `faststore cms-sync`, e.g. ['Hero'].
+    disabledSections: [],
   },
 
   deliveryPromise: {
