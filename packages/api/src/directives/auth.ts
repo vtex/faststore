@@ -1,5 +1,5 @@
 import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils'
-import type { GraphQLSchema } from 'graphql'
+import { defaultFieldResolver, type GraphQLSchema } from 'graphql'
 
 import { validateUserAuthentication } from '../platforms/vtex/utils/auth'
 import type { Directive } from './index'
@@ -21,7 +21,12 @@ const directive: Directive = {
             await validateUserAuthentication(context)
 
             // Continue with the original resolver
-            return originalResolver?.(root, args, context, info)
+            return (originalResolver ?? defaultFieldResolver)(
+              root,
+              args,
+              context,
+              info
+            )
           }
         }
 
