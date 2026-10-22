@@ -137,6 +137,70 @@ describe('useCreateUseGalleryPage', () => {
     )
   })
 
+  it('re-fetches the first page when the buyer switches contract', () => {
+    const contractPage = {
+      search: { products: { pageInfo: { totalCount: 1 }, edges: [] } },
+    }
+
+    mockUseSession.mockReturnValue({
+      postalCode: null,
+      b2b: { customerId: 'contract-a' },
+      isValidating: false,
+    })
+    mockUseLocalizedVariables.mockReturnValue(serverManyProductsVariables)
+    mockUseQuery.mockReturnValue({ data: contractPage })
+
+    const { result: created } = renderHook(() =>
+      useCreateUseGalleryPage({ initialPages, serverManyProductsVariables })
+    )
+    const { rerender } = renderHook(() => created.current.useGalleryPage(0))
+
+    mockUseSession.mockReturnValue({
+      postalCode: null,
+      b2b: { customerId: 'contract-b' },
+      isValidating: false,
+    })
+    rerender()
+
+    expect(mockUseQuery).toHaveBeenLastCalledWith(
+      expect.anything(),
+      { ...serverManyProductsVariables, _contract: 'contract-b' },
+      expect.objectContaining({ doNotRun: false })
+    )
+  })
+
+  it('stops scoping the first page once the B2B session ends', () => {
+    const contractPage = {
+      search: { products: { pageInfo: { totalCount: 1 }, edges: [] } },
+    }
+
+    mockUseSession.mockReturnValue({
+      postalCode: null,
+      b2b: { customerId: 'contract-a' },
+      isValidating: false,
+    })
+    mockUseLocalizedVariables.mockReturnValue(serverManyProductsVariables)
+    mockUseQuery.mockReturnValue({ data: contractPage })
+
+    const { result: created } = renderHook(() =>
+      useCreateUseGalleryPage({ initialPages, serverManyProductsVariables })
+    )
+    const { rerender } = renderHook(() => created.current.useGalleryPage(0))
+
+    mockUseSession.mockReturnValue({
+      postalCode: null,
+      b2b: null,
+      isValidating: false,
+    })
+    rerender()
+
+    expect(mockUseQuery).toHaveBeenLastCalledWith(
+      expect.anything(),
+      serverManyProductsVariables,
+      expect.objectContaining({ doNotRun: false })
+    )
+  })
+
   it('ignores the postal code while deliveryPromise is disabled', () => {
     mockUseSession.mockReturnValue({
       postalCode: '01310-100',

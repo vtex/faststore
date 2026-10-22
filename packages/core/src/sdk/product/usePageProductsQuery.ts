@@ -72,10 +72,11 @@ const getKey = (object: any) => JSON.stringify(object)
 const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
 
 /**
- * Cache-only keys that scope gallery pages to the shopper context. They are not
- * declared by the operation, so the API ignores them; they only make the local
- * cache comparison miss when a page was loaded for another context (e.g. the
- * anonymous SSG page).
+ * Cache-only keys that scope gallery pages to the shopper context. They make
+ * the local cache comparison (and the SWR key) miss when a page was loaded for
+ * another context (e.g. the anonymous SSG page). They are not declared by the
+ * operation, so the API ignores them, but they are still sent with the
+ * variables, which go in the URL because this query is a GET operation.
  * - `_postalCode`: pages are invalidated on region change. Only applied when
  *   deliveryPromise is enabled to avoid unnecessary cache fragmentation.
  * - `_contract`: the B2B contract assortment is applied server-side from the
