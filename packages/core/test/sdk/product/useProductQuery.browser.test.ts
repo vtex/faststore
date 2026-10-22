@@ -79,6 +79,32 @@ describe('useProductQuery', () => {
     await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/404'))
   })
 
+  it('retries a transient failure instead of treating it as not found', async () => {
+    mockUseSession.mockReturnValue({
+      channel: '{"salesChannel":"1"}',
+      locale: 'en-US',
+      b2b: { customerId: 'contract-137' },
+    })
+    const fresh = { product: { id: '123', name: 'Fresh' } }
+    mockRequest
+      .mockRejectedValueOnce({ status: 500, message: 'Internal Server Error' })
+      .mockResolvedValue(fresh)
+
+    const fastRetries = ({ children }: { children: ReactNode }) =>
+      createElement(
+        SWRConfig,
+        { value: { provider: () => new Map(), errorRetryInterval: 1 } },
+        children
+      )
+
+    const { result } = renderHook(usePdpClientQuery, { wrapper: fastRetries })
+
+    await waitFor(() => expect(result.current.data).toEqual(fresh))
+
+    expect(mockRequest).toHaveBeenCalledTimes(2)
+    expect(mockReplace).not.toHaveBeenCalled()
+  })
+
   it('keeps the product and does not redirect when the refetch succeeds', async () => {
     mockUseSession.mockReturnValue({
       channel: '{"salesChannel":"1"}',

@@ -7,6 +7,7 @@ import type {
 } from '@generated/graphql'
 
 import { request } from '../graphql/request'
+import { onErrorRetry } from '../graphql/retryPolicy'
 import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
 
@@ -61,9 +62,15 @@ export const useProductQuery = <T extends ClientProductQueryQuery>(
     revalidateOnMount: true,
     // `useQuery`'s default fetcher never settles when `request` throws, so SWR
     // never exposes `error` (e.g. the B2B assortment 404 the PDP reacts to).
-    // This fetcher keeps the same deferral but forwards the rejection. Retries
-    // stay off, as they effectively were while failures went unreported.
+    // This fetcher keeps the same deferral but forwards the rejection.
     fetcher: () => fetchProduct<T>(variables),
-    shouldRetryOnError: false,
+    // A 404 is the answer (the product is not available to this shopper), not
+    // a transient failure, so it is not retried. Other errors follow the
+    // shared retry policy.
+    onErrorRetry: (error, key, config, revalidate, opts) => {
+      if ((error as { status?: number } | undefined)?.status === 404) return
+
+      onErrorRetry(error, key, config, revalidate, opts)
+    },
   })
 }
