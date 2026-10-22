@@ -12,6 +12,7 @@ import { getJWTAutCookie } from 'src/utils/getCookie'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
 import { isLocalHost } from 'src/utils/isLocalHost'
 import {
+  HOST_ONLY_COOKIE_HOST_SUFFIXES,
   isHostAllowed,
   removeCookieDomain,
   singleForwardedHost,
@@ -24,7 +25,7 @@ const OTELLogger = logger('@faststore/core')
 
 const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
 const DEFAULT_STALE_WHILE_REVALIDATE = 60 * 60 // 1 hour
-const ALLOWED_HOST_SUFFIXES = ['localhost', '.vtex.app', '.localhost']
+const ALLOWED_HOST_SUFFIXES = HOST_ONLY_COOKIE_HOST_SUFFIXES
 
 /**
  * Recovers a FastStoreError from an execution error, whether it is the error

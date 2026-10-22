@@ -1,11 +1,16 @@
 import { parse } from 'cookie'
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
+import { isIP } from 'node:net'
 
 import storeConfig from 'discovery.config'
 import { expireCookieServer, getCookieDomains } from 'src/utils/clearCookies'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
-import { isLocalHost } from 'src/utils/isLocalHost'
-import { isCookieSafeHostname } from 'src/utils/trustedForwardedHost'
+import {
+  HOST_ONLY_COOKIE_HOST_SUFFIXES,
+  isCookieSafeHostname,
+  isHostAllowed,
+  singleForwardedHost,
+} from 'src/utils/trustedForwardedHost'
 
 /**
  * Cookies holding the checkout orderForm of the previous commercial context.
@@ -55,8 +60,6 @@ const resolveMaxAge = (expiresIn: unknown): number =>
     ? expiresIn
     : DEFAULT_AUTH_COOKIE_MAX_AGE
 
-const IPV4_PATTERN = /^\d{1,3}(?:\.\d{1,3}){3}$/
-
 /**
  * Uses the forwarded protocol when a proxy sets it, otherwise the connection
  * itself. A non-local hostname alone does not imply https: a `Secure` cookie
@@ -89,23 +92,34 @@ const getParentDomains = (hostname: string): string[] => {
     .map((_, index) => labels.slice(index + 1).join('.'))
 }
 
+const isHostOnlyCookieHost = (hostname: string | null): boolean =>
+  !!hostname && isHostAllowed(hostname, HOST_ONLY_COOKIE_HOST_SUFFIXES)
+
 /**
  * Domain for the auth cookies, or `undefined` to write them host-only.
  *
- * Local hosts stay host-only, since browsers handle `Domain=localhost`
- * inconsistently. So do IP literals, which are never the storefront's public
- * domain and may be reached over plain http, and any host that cannot be
- * written verbatim into the attribute.
+ * Previews and local hosts stay host-only, the same as the cookies
+ * `/api/graphql` relays there: behind the preview ingress `Host` is not the
+ * host the browser requested, and a mismatched Domain makes the browser drop
+ * the cookie while the route reports success. `x-forwarded-host` only decides
+ * that the cookie is host-only; it never chooses the Domain. IP literals and
+ * hosts that cannot be written verbatim into the attribute (including a
+ * trailing-dot FQDN) are host-only too.
  */
 const resolveAuthCookieDomain = (
   request: NextApiRequest
 ): string | undefined => {
   const hostname = getRequestHostname(request.headers.host)
+  const forwardedHost = getRequestHostname(
+    singleForwardedHost(request.headers['x-forwarded-host'])
+  )
 
   if (
     !hostname ||
-    isLocalHost(hostname) ||
-    IPV4_PATTERN.test(hostname) ||
+    isHostOnlyCookieHost(hostname) ||
+    isHostOnlyCookieHost(forwardedHost) ||
+    isIP(hostname) !== 0 ||
+    hostname.endsWith('.') ||
     !isCookieSafeHostname(hostname)
   ) {
     return undefined
@@ -140,9 +154,9 @@ const buildAuthCookies = (
   domain: string | undefined,
   secure: boolean
 ): string[] => {
-  const staleScopes = domain
+  const staleScopes: Array<string | undefined> = domain
     ? [undefined, ...getParentDomains(domain)]
-    : ([] as Array<string | undefined>)
+    : []
   const attributes = [
     domain && `Domain=${domain}`,
     'Path=/',

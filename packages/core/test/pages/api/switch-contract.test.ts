@@ -274,6 +274,49 @@ describe('/api/fs/switch-contract', () => {
     expect(expiredDomains).toEqual(parents)
   })
 
+  it.each([
+    ['a preview Host', { host: 'sfj-abc--test-store.preview.vtex.app' }],
+    [
+      'a preview x-forwarded-host behind an internal Host',
+      {
+        host: 'discovery.internal',
+        'x-forwarded-host': 'sfj-abc--test-store.preview.vtex.app',
+      },
+    ],
+    ['a .localhost Host', { host: 'store.localhost:3000' }],
+    ['a trailing-dot FQDN', { host: 'store.example.com.' }],
+  ])('writes a single host-only cookie for %s', async (_label, headers) => {
+    const handler = await getHandler()
+    const { req, res } = createReqRes({ headers })
+
+    await handler(req, res)
+
+    const authCookies = setCookiesFrom(res).filter((cookie) =>
+      cookie.startsWith('VtexIdclientAutCookie_test-store=')
+    )
+
+    expect(authCookies).toHaveLength(1)
+    expect(authCookies[0]).toContain('new-contract-token; Path=/;')
+    expect(authCookies[0].toLowerCase()).not.toContain('domain=')
+  })
+
+  it('does not let x-forwarded-host choose the Domain', async () => {
+    const handler = await getHandler()
+    const { req, res } = createReqRes({
+      headers: { 'x-forwarded-host': 'attacker.example.org' },
+    })
+
+    await handler(req, res)
+
+    expect(setCookiesFrom(res)).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining(
+          'new-contract-token; Domain=store.example.com;'
+        ),
+      ])
+    )
+  })
+
   it('strips the port from the Host header', async () => {
     const handler = await getHandler()
     const { req, res } = createReqRes({

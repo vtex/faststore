@@ -3,6 +3,16 @@
 const HOSTNAME_PATTERN = /^[a-z0-9.-]+$/
 
 /**
+ * Hosts whose upstream cookie domain does not match the browser host (previews
+ * and local development). Cookies served there are written host-only.
+ */
+export const HOST_ONLY_COOKIE_HOST_SUFFIXES = [
+  'localhost',
+  '.vtex.app',
+  '.localhost',
+]
+
+/**
  * Whether `host` can be written as a Set-Cookie Domain attribute without
  * injecting extra attributes.
  */
