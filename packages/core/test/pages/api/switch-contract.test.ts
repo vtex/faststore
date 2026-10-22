@@ -435,6 +435,56 @@ describe('/api/fs/switch-contract', () => {
     }
   )
 
+  it('relays the upstream vid_rt re-scoped to the storefront host', async () => {
+    ;(global.fetch as Mock).mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => successPayload,
+      headers: {
+        getSetCookie: () => [
+          'vid_rt=rt-1; expires=Thu, 22 Oct 2027 00:00:00 GMT; domain=test-store.myvtex.com; path=/api/authenticator/v1/refreshtoken/webstore; secure; samesite=strict; httponly',
+          'VtexIdclientAutCookie_test-store=upstream-token; domain=test-store.myvtex.com; path=/',
+        ],
+      },
+    })
+    const handler = await getHandler()
+    const { req, res } = createReqRes()
+
+    await handler(req, res)
+
+    const cookies = setCookiesFrom(res)
+    const vidRt = cookies.filter((cookie) => cookie.startsWith('vid_rt='))
+
+    expect(vidRt).toEqual([
+      'vid_rt=rt-1; expires=Thu, 22 Oct 2027 00:00:00 GMT; path=/api/authenticator/v1/refreshtoken/webstore; secure; samesite=strict; httponly; Domain=store.example.com',
+    ])
+    // Only vid_rt is relayed; the auth cookie still comes from the payload.
+    expect(cookies.some((cookie) => cookie.includes('upstream-token'))).toBe(
+      false
+    )
+  })
+
+  it('relays vid_rt host-only when the auth cookie is host-only', async () => {
+    ;(global.fetch as Mock).mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => successPayload,
+      headers: {
+        getSetCookie: () => [
+          'vid_rt=rt-1; domain=test-store.myvtex.com; path=/api/vtexid/refreshtoken/webstore; httponly',
+        ],
+      },
+    })
+    const handler = await getHandler()
+    const { req, res } = createReqRes({ headers: { host: 'localhost:3000' } })
+
+    await handler(req, res)
+
+    expect(
+      setCookiesFrom(res).filter((cookie) => cookie.startsWith('vid_rt='))
+    ).toEqual(['vid_rt=rt-1; path=/api/vtexid/refreshtoken/webstore; httponly'])
+  })
+
   it('also emits the accountAuthCookie when present', async () => {
     ;(global.fetch as Mock).mockResolvedValue({
       ok: true,

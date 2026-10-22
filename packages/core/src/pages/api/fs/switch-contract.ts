@@ -9,6 +9,7 @@ import {
   HOST_ONLY_COOKIE_HOST_SUFFIXES,
   isCookieSafeHostname,
   isHostAllowed,
+  removeCookieDomain,
   singleForwardedHost,
 } from 'src/utils/trustedForwardedHost'
 
@@ -182,6 +183,25 @@ const buildAuthCookies = (
     ])
 }
 
+/**
+ * `switch-properties` also issues `vid_rt` (the refresh token) on the
+ * Authenticator refresh paths. It is called server-side on
+ * `<account>.myvtex.com`, so its Domain points there and the browser would
+ * reject it. Re-scope it like the auth cookies so the next B2B refresh, which
+ * goes through the Authenticator route, finds it.
+ */
+const relayRefreshTokenCookies = (
+  headers: Headers | undefined,
+  domain: string | undefined
+): string[] =>
+  (headers?.getSetCookie?.() ?? [])
+    .filter((cookie) => cookie.trimStart().startsWith('vid_rt='))
+    .map((cookie) => {
+      const hostOnly = removeCookieDomain(cookie)
+
+      return domain ? `${hostOnly}; Domain=${domain}` : hostOnly
+    })
+
 const buildOrderFormExpiryCookies = (request: NextApiRequest): string[] => {
   const hostname = getRequestHostname(request.headers.host)
   const domains = hostname ? getCookieDomains(hostname) : [undefined]
@@ -262,12 +282,11 @@ const handler: NextApiHandler<SwitchContractResponse> = async (
       return
     }
 
+    const domain = resolveAuthCookieDomain(request)
+
     response.setHeader('Set-Cookie', [
-      ...buildAuthCookies(
-        payload,
-        resolveAuthCookieDomain(request),
-        isSecureRequest(request)
-      ),
+      ...buildAuthCookies(payload, domain, isSecureRequest(request)),
+      ...relayRefreshTokenCookies(switchResponse.headers, domain),
       ...buildOrderFormExpiryCookies(request),
     ])
 

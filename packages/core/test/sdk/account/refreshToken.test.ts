@@ -13,6 +13,8 @@ vi.mock('src/utils/utilities', () => ({
 }))
 
 import {
+  REFRESH_AFTER_FALLBACK_SECONDS,
+  getNextRefreshAfter,
   getRefreshAfterSeconds,
   isRefreshTokenSuccessful,
   refreshTokenRequest,
@@ -184,5 +186,19 @@ describe('getRefreshAfterSeconds', () => {
     expect(getRefreshAfterSeconds({})).toBeNull()
     expect(getRefreshAfterSeconds({ refreshAfter: '' })).toBeNull()
     expect(getRefreshAfterSeconds({ refreshAfter: 'soon' })).toBeNull()
+  })
+})
+
+describe('getNextRefreshAfter', () => {
+  it('uses the refreshAfter from the response', () => {
+    expect(getNextRefreshAfter({ refreshAfter: 1792717383 }, 100)).toBe(
+      '1792717383'
+    )
+  })
+
+  it('falls back to a short delay from now when the response has none', () => {
+    expect(getNextRefreshAfter({ authStatus: 'Success' }, 100)).toBe(
+      String(100 + REFRESH_AFTER_FALLBACK_SECONDS)
+    )
   })
 })

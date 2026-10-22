@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { isLocalHostBrowser } from 'src/utils/isLocalHost'
 import { logoutAndClearSession, sessionStore } from '../session'
 import {
-  getRefreshAfterSeconds,
+  getNextRefreshAfter,
   isRefreshTokenSuccessful,
   refreshTokenRequest,
 } from './refreshToken'
@@ -37,8 +37,7 @@ export const useRefreshToken = (
 
         if (isRefreshTokenSuccessful(result)) {
           // Update session with new refreshAfter timestamp
-          const refreshAfter =
-            getRefreshAfterSeconds(result) ?? currentSession.refreshAfter
+          const refreshAfter = getNextRefreshAfter(result)
 
           sessionStore.set({
             ...currentSession,

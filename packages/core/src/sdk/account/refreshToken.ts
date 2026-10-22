@@ -91,7 +91,7 @@ export const refreshTokenRequest = async ({
       method: 'POST',
     })
 
-    if (isRefreshTokenSuccessful(result)) return result
+    if (isRefreshTokenSuccessful(result)) break
   }
 
   return result
@@ -118,3 +118,21 @@ export const getRefreshAfterSeconds = (
 
   return Number.isFinite(seconds) ? String(Math.floor(seconds)) : null
 }
+
+/**
+ * How long to wait before refreshing again when a successful refresh carries
+ * no usable `refreshAfter`. Keeping the old, already-expired value would make
+ * every following session validation call the refresh route again.
+ */
+export const REFRESH_AFTER_FALLBACK_SECONDS = 60 * 60
+
+/**
+ * `refreshAfter` to store after a successful refresh: the value from the
+ * response, or a short fallback from now when the response has none.
+ */
+export const getNextRefreshAfter = (
+  result: RefreshTokenResponse | undefined,
+  nowSeconds = Math.floor(Date.now() / 1000)
+): string =>
+  getRefreshAfterSeconds(result) ??
+  String(nowSeconds + REFRESH_AFTER_FALLBACK_SECONDS)
