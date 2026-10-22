@@ -1,11 +1,21 @@
 import fetch from 'isomorphic-unfetch'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { sanitizeHost } from 'src/utils/utilities'
+import { REFRESH_TOKEN_PATHS } from './refreshTokenPaths'
 
+/**
+ * Covers both refresh routes:
+ * - Authenticator: `{ authStatus: 'Success', refreshAfter: 1792717383 }`
+ *   (epoch seconds).
+ * - Legacy VTEX ID: `{ status: 'Success', refreshAfter: '2026-03-26T02:53:39+00:00' }`.
+ */
 export interface RefreshTokenResponse {
   status?: string
-  refreshAfter?: string
+  authStatus?: string
+  refreshAfter?: string | number
 }
+
+const isClientError = (status: number) => status >= 400 && status < 500
 
 async function fetchWithRetry(
   url: RequestInfo | URL,
@@ -15,6 +25,9 @@ async function fetchWithRetry(
   for (let i = 0; i < maxRetries; i++) {
     try {
       const res = await fetch(url, init)
+
+      // A 4xx will not change on retry (e.g. no `vid_rt` for this route).
+      if (isClientError(res.status)) return undefined
       if (res.status !== 200) continue
 
       const data = await res.json()
@@ -25,12 +38,12 @@ async function fetchWithRetry(
   return undefined
 }
 
-function getRefreshTokenUrl(): string {
+function getRefreshTokenUrl(path: string): string {
   if (globalThis.window !== undefined) {
-    return '/api/vtexid/refreshtoken/webstore'
+    return path
   }
 
-  return `${new URL(getStoreURL()).origin}/api/vtexid/refreshtoken/webstore`
+  return `${new URL(getStoreURL()).origin}${path}`
 }
 
 function getRefreshTokenHeaders(): HeadersInit {
@@ -45,19 +58,49 @@ function getRefreshTokenHeaders(): HeadersInit {
   return headers
 }
 
-export const refreshTokenRequest = async (): Promise<
-  RefreshTokenResponse | undefined
-> => {
-  return fetchWithRetry(getRefreshTokenUrl(), {
-    credentials: 'include',
-    headers: getRefreshTokenHeaders(),
-    body: JSON.stringify({}),
-    method: 'POST',
-  })
-}
-
 export const isRefreshTokenSuccessful = (
   result: RefreshTokenResponse | undefined
 ): boolean => {
-  return result?.status?.toLowerCase?.() === 'success'
+  return (result?.authStatus ?? result?.status)?.toLowerCase?.() === 'success'
+}
+
+export const refreshTokenRequest = async (): Promise<
+  RefreshTokenResponse | undefined
+> => {
+  let result: RefreshTokenResponse | undefined
+
+  for (const path of REFRESH_TOKEN_PATHS) {
+    result = await fetchWithRetry(getRefreshTokenUrl(path), {
+      credentials: 'include',
+      headers: getRefreshTokenHeaders(),
+      body: JSON.stringify({}),
+      method: 'POST',
+    })
+
+    if (isRefreshTokenSuccessful(result)) return result
+  }
+
+  return result
+}
+
+/**
+ * Normalizes `refreshAfter` to epoch seconds as a string, the format stored in
+ * the session. Accepts epoch seconds (number or numeric string) and ISO dates.
+ * Returns `null` when the value is missing or unparseable.
+ */
+export const getRefreshAfterSeconds = (
+  result: RefreshTokenResponse | undefined
+): string | null => {
+  const value = result?.refreshAfter
+
+  if (value === undefined || value === null || value === '') {
+    return null
+  }
+
+  const seconds =
+    typeof value === 'number' || /^\d+$/.test(value)
+      ? Number(value)
+      : new Date(value).getTime() / 1000
+
+  return Number.isFinite(seconds) ? String(Math.floor(seconds)) : null
 }

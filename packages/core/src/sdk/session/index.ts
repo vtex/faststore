@@ -12,6 +12,7 @@ import { isLocalHostBrowser } from 'src/utils/isLocalHost'
 import { filterChannel } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
 import {
+  getRefreshAfterSeconds,
   isRefreshTokenSuccessful,
   refreshTokenRequest,
 } from '../account/refreshToken'
@@ -99,9 +100,7 @@ async function handleRefreshToken(session: Session): Promise<Session | null> {
   if (isRefreshTokenSuccessful(result)) {
     return {
       ...session,
-      refreshAfter: String(
-        Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
-      ),
+      refreshAfter: getRefreshAfterSeconds(result) ?? session.refreshAfter,
     }
   }
 

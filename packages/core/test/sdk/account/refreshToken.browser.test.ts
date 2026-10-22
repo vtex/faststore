@@ -14,7 +14,7 @@ describe('refreshTokenRequest (browser)', () => {
   beforeEach(() => {
     mockFetch.mockResolvedValue({
       status: 200,
-      json: async () => ({ status: 'success' }),
+      json: async () => ({ authStatus: 'Success' }),
     })
   })
 
@@ -28,7 +28,7 @@ describe('refreshTokenRequest (browser)', () => {
     expect(mockFetch).toHaveBeenCalledTimes(1)
 
     const [url, init] = mockFetch.mock.calls[0]
-    expect(url).toBe('/api/vtexid/refreshtoken/webstore')
+    expect(url).toBe('/api/authenticator/v1/refreshtoken/webstore')
     expect(init.headers).toEqual({ 'content-type': 'application/json' })
   })
 })
