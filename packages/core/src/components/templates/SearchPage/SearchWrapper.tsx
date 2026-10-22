@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { useSearch } from '@faststore/sdk'
 import { useRouter } from 'next/router'
 
@@ -40,6 +41,19 @@ export default function SearchWrapper({
     selectedFacets,
   })
 
+  const redirectUrl = pageProductGalleryData?.redirect?.url
+  const lastRedirectedUrl = useRef<string | null>(null)
+
+  // Intelligent Search redirects must run in an effect — calling router.replace
+  // during render re-fires on every state update (e.g. scrollRestoration's
+  // resetInfiniteScroll) and loops until the tab hangs.
+  useEffect(() => {
+    if (!redirectUrl || lastRedirectedUrl.current === redirectUrl) return
+
+    lastRedirectedUrl.current = redirectUrl
+    void router.replace(redirectUrl)
+  }, [redirectUrl, router])
+
   const emptySearchProps = storeConfig.experimental.enableSearchSSR
     ? {
         title: storeConfig.seo.search.bodyH1 ?? 'Showing results for:',
@@ -58,11 +72,7 @@ export default function SearchWrapper({
   }
 
   // Redirect when there are registered Intelligent Search redirects on VTEX Admin
-  if (pageProductGalleryData?.redirect?.url) {
-    router.replace(pageProductGalleryData?.redirect?.url, null, {
-      shallow: true,
-    })
-
+  if (redirectUrl) {
     return (
       <PageProvider context={{ globalSettings }}>
         <RenderSections globalSections={globalSections}>
