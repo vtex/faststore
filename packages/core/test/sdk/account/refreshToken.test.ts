@@ -28,7 +28,7 @@ const authenticatorSuccess = {
   refreshAfter: 1792717383,
 }
 
-describe('refreshTokenRequest (node)', () => {
+describe('refreshTokenRequest (node, B2B session)', () => {
   beforeEach(() => {
     mockFetch.mockResolvedValue({
       status: 200,
@@ -41,7 +41,7 @@ describe('refreshTokenRequest (node)', () => {
   })
 
   it('posts to the Authenticator route on the store origin with Host header on the server', async () => {
-    const result = await refreshTokenRequest()
+    const result = await refreshTokenRequest({ isB2B: true })
 
     expect(result).toEqual(authenticatorSuccess)
     expect(mockFetch).toHaveBeenCalledTimes(1)
@@ -65,7 +65,7 @@ describe('refreshTokenRequest (node)', () => {
         json: async () => ({ status: 'Success', refreshAfter: '123' }),
       })
 
-    const result = await refreshTokenRequest()
+    const result = await refreshTokenRequest({ isB2B: true })
 
     expect(result).toEqual({ status: 'Success', refreshAfter: '123' })
     expect(mockFetch.mock.calls.map(([url]) => url)).toEqual([
@@ -85,7 +85,7 @@ describe('refreshTokenRequest (node)', () => {
         json: async () => ({ status: 'Success' }),
       })
 
-    const result = await refreshTokenRequest()
+    const result = await refreshTokenRequest({ isB2B: true })
 
     expect(result).toEqual({ status: 'Success' })
     expect(mockFetch).toHaveBeenCalledTimes(2)
@@ -95,7 +95,7 @@ describe('refreshTokenRequest (node)', () => {
   it('retries 5xx on each route and returns undefined after failures', async () => {
     mockFetch.mockResolvedValue({ status: 500, json: async () => ({}) })
 
-    const result = await refreshTokenRequest()
+    const result = await refreshTokenRequest({ isB2B: true })
 
     expect(result).toBeUndefined()
     expect(mockFetch).toHaveBeenCalledTimes(6)
@@ -109,11 +109,41 @@ describe('refreshTokenRequest (node)', () => {
         json: async () => authenticatorSuccess,
       })
 
-    const result = await refreshTokenRequest()
+    const result = await refreshTokenRequest({ isB2B: true })
 
     expect(result).toEqual(authenticatorSuccess)
     expect(mockFetch).toHaveBeenCalledTimes(2)
     expect(mockFetch.mock.calls[1][0]).toBe(AUTHENTICATOR_URL)
+  })
+})
+
+describe('refreshTokenRequest (node, non-B2B session)', () => {
+  beforeEach(() => {
+    mockFetch.mockResolvedValue({
+      status: 200,
+      json: async () => ({ status: 'Success', refreshAfter: '123' }),
+    })
+  })
+
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it('only calls the legacy route, as VTEX ID recommends outside B2B', async () => {
+    const result = await refreshTokenRequest()
+
+    expect(result).toEqual({ status: 'Success', refreshAfter: '123' })
+    expect(mockFetch.mock.calls.map(([url]) => url)).toEqual([LEGACY_URL])
+  })
+
+  it('retries 5xx on the legacy route only', async () => {
+    mockFetch.mockResolvedValue({ status: 500, json: async () => ({}) })
+
+    const result = await refreshTokenRequest({ isB2B: false })
+
+    expect(result).toBeUndefined()
+    expect(mockFetch).toHaveBeenCalledTimes(3)
+    expect(mockFetch.mock.calls.every(([url]) => url === LEGACY_URL)).toBe(true)
   })
 })
 

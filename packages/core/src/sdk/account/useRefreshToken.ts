@@ -31,7 +31,9 @@ export const useRefreshToken = (
       const currentSession = sessionStore.read() ?? sessionStore.readInitial()
 
       try {
-        const result = await refreshTokenRequest()
+        const result = await refreshTokenRequest({
+          isB2B: !!currentSession?.b2b,
+        })
 
         if (isRefreshTokenSuccessful(result)) {
           // Update session with new refreshAfter timestamp

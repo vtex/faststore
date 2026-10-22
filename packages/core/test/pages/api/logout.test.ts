@@ -40,7 +40,7 @@ describe('/api/fs/logout', () => {
     mockConfig.default.experimental = { refreshToken: true }
   })
 
-  it('expires vid_rt on both refresh paths even though the request never carries it', async () => {
+  it('expires vid_rt on every path it can be scoped to, even though the request never carries it', async () => {
     const handler = await getHandler()
     const { req, res } = createReqRes()
 
@@ -51,8 +51,9 @@ describe('/api/fs/logout', () => {
     )
 
     for (const path of [
-      '/api/authenticator/v1/refreshtoken/webstore',
       '/api/vtexid/refreshtoken/webstore',
+      '/api/authenticator/refreshtoken/webstore',
+      '/api/authenticator/v1/refreshtoken/webstore',
     ]) {
       expect(vidRt.some((cookie) => cookie.includes(`path=${path}`))).toBe(true)
     }

@@ -1,7 +1,10 @@
 import fetch from 'isomorphic-unfetch'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { sanitizeHost } from 'src/utils/utilities'
-import { REFRESH_TOKEN_PATHS } from './refreshTokenPaths'
+import {
+  AUTHENTICATOR_REFRESH_TOKEN_PATH,
+  LEGACY_REFRESH_TOKEN_PATH,
+} from './refreshTokenPaths'
 
 /**
  * Covers both refresh routes:
@@ -64,12 +67,23 @@ export const isRefreshTokenSuccessful = (
   return (result?.authStatus ?? result?.status)?.toLowerCase?.() === 'success'
 }
 
-export const refreshTokenRequest = async (): Promise<
-  RefreshTokenResponse | undefined
-> => {
+/**
+ * Refresh routes to try, in order. B2B sessions use the Authenticator route,
+ * which keeps the selected contract, and fall back to the legacy one for
+ * sessions whose `vid_rt` only exists on the legacy path (e.g. OAuth logins).
+ * Every other session keeps using the legacy route, as VTEX ID recommends.
+ */
+export const getRefreshTokenPaths = (isB2B: boolean): string[] =>
+  isB2B
+    ? [AUTHENTICATOR_REFRESH_TOKEN_PATH, LEGACY_REFRESH_TOKEN_PATH]
+    : [LEGACY_REFRESH_TOKEN_PATH]
+
+export const refreshTokenRequest = async ({
+  isB2B = false,
+}: { isB2B?: boolean } = {}): Promise<RefreshTokenResponse | undefined> => {
   let result: RefreshTokenResponse | undefined
 
-  for (const path of REFRESH_TOKEN_PATHS) {
+  for (const path of getRefreshTokenPaths(isB2B)) {
     result = await fetchWithRetry(getRefreshTokenUrl(path), {
       credentials: 'include',
       headers: getRefreshTokenHeaders(),

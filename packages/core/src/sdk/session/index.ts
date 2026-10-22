@@ -95,7 +95,7 @@ export const mutation = gql(`
 `)
 
 async function handleRefreshToken(session: Session): Promise<Session | null> {
-  const result = await refreshTokenRequest()
+  const result = await refreshTokenRequest({ isB2B: !!session.b2b })
 
   if (isRefreshTokenSuccessful(result)) {
     return {

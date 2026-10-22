@@ -7,7 +7,7 @@ import {
   getCookieDomains,
   getVtexCookieNames,
 } from 'src/utils/clearCookies'
-import { REFRESH_TOKEN_PATHS } from 'src/sdk/account/refreshTokenPaths'
+import { VID_RT_PATHS } from 'src/sdk/account/refreshTokenPaths'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
 
 const ADDITIONAL_COOKIES = ['CheckoutOrderFormOwnership'] as const
@@ -34,9 +34,9 @@ const handler: NextApiHandler = async (
     const vtexCookieNames = getVtexCookieNames(Object.keys(cookies))
 
     // vid_rt is scoped to the refresh routes, so the browser never sends it
-    // here and its presence can't be checked. Expire it on every refresh path.
+    // here and its presence can't be checked. Expire it on every path it can be scoped to.
     if (discoveryConfig.experimental?.refreshToken) {
-      for (const path of REFRESH_TOKEN_PATHS) {
+      for (const path of VID_RT_PATHS) {
         for (const domain of domains) {
           clearedCookies.push(
             expireCookieServer({ name: 'vid_rt', path, domain })
