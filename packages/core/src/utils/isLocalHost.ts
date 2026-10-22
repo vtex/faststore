@@ -17,12 +17,3 @@ export function isLocalHost(hostname: string | null | undefined): boolean {
   if (!hostname) return false
   return LOCAL_HOSTNAMES.has(hostname.toLowerCase())
 }
-
-/**
- * Browser-side wrapper that reads `window.location.hostname`. Returns `false`
- * when `window` is not available (SSR/Node).
- */
-export function isLocalHostBrowser(): boolean {
-  if (typeof window === 'undefined') return false
-  return isLocalHost(window.location.hostname)
-}

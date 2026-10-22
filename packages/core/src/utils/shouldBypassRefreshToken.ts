@@ -24,9 +24,10 @@ export function shouldBypassRefreshToken(
   hostname: string | null | undefined
 ): boolean {
   if (!hostname) return false
+  const normalizedHostname = hostname.toLowerCase()
   return (
-    isLocalHost(hostname) ||
-    hostname.toLowerCase().endsWith(PREVIEW_HOST_SUFFIX)
+    isLocalHost(normalizedHostname) ||
+    normalizedHostname.endsWith(PREVIEW_HOST_SUFFIX)
   )
 }
 
@@ -35,6 +36,6 @@ export function shouldBypassRefreshToken(
  * when `window` is not available (SSR/Node).
  */
 export function shouldBypassRefreshTokenBrowser(): boolean {
-  if (typeof window === 'undefined') return false
-  return shouldBypassRefreshToken(window.location.hostname)
+  if (typeof globalThis.window === 'undefined') return false
+  return shouldBypassRefreshToken(globalThis.window.location.hostname)
 }

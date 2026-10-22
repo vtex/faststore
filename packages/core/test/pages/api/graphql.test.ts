@@ -293,3 +293,97 @@ describe('/api/graphql ValidateSession refresh-token bypass', () => {
     }
   )
 })
+
+describe('/api/graphql success cache-control', () => {
+  const originalGraphqlCacheControl =
+    discoveryConfig.experimental.graphqlCacheControl
+
+  const mockExecuteWithCacheControl = (cacheControl?: unknown) => {
+    mockedExecute.mockResolvedValue({
+      data: {},
+      errors: undefined,
+      extensions: { cookies: new Map(), cacheControl },
+    } as never)
+  }
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  afterEach(() => {
+    discoveryConfig.experimental.graphqlCacheControl =
+      originalGraphqlCacheControl
+  })
+
+  it('uses the cache-control collected while executing the operation', async () => {
+    mockExecuteWithCacheControl({ scope: 'public', sMaxAge: 120 })
+
+    const res = createResponse()
+    await handler(createRequest(), res)
+
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'cache-control',
+      'public, s-maxage=120, stale-while-revalidate=0'
+    )
+  })
+
+  it('makes collected cache-control private when there is an auth cookie', async () => {
+    mockExecuteWithCacheControl({ scope: 'public', sMaxAge: 120 })
+
+    const req = createRequest()
+    req.headers.cookie = 'VtexIdclientAutCookie_store=jwt'
+    const res = createResponse()
+    await handler(req, res)
+
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'cache-control',
+      'private, s-maxage=120, stale-while-revalidate=0'
+    )
+  })
+
+  it('falls back to the default max-age for GET queries without collected cache-control', async () => {
+    discoveryConfig.experimental.graphqlCacheControl = {
+      maxAge: 0,
+      staleWhileRevalidate: 0,
+    }
+    mockExecuteWithCacheControl()
+
+    const res = createResponse()
+    await handler(createRequest(), res)
+
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'cache-control',
+      'public, s-maxage=300, stale-while-revalidate=3600'
+    )
+  })
+
+  it('uses the configured max-age and stale-while-revalidate for GET queries', async () => {
+    discoveryConfig.experimental.graphqlCacheControl = {
+      maxAge: 60,
+      staleWhileRevalidate: 30,
+    }
+    mockExecuteWithCacheControl()
+
+    const req = createRequest()
+    req.headers.cookie = 'VtexIdclientAutCookie_store=jwt'
+    const res = createResponse()
+    await handler(req, res)
+
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'cache-control',
+      'private, s-maxage=60, stale-while-revalidate=30'
+    )
+  })
+
+  it('does not cache operations that are not GET queries', async () => {
+    mockExecuteWithCacheControl()
+
+    const res = createResponse()
+    await handler(createRequest('SubscribeToNewsletter'), res)
+
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'cache-control',
+      'no-cache, no-store'
+    )
+  })
+})
