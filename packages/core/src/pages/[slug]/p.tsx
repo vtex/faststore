@@ -206,14 +206,14 @@ function Page({
         }
       })()
 
-  useProductNotFoundRedirect(clientError)
+  const isLeavingForNotFound = useProductNotFoundRedirect(clientError)
 
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
   const context = {
     data: {
       ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
-      isValidating,
+      isValidating: isValidating || isLeavingForNotFound,
     },
     globalSettings,
   } as PDPContext

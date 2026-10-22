@@ -15,8 +15,9 @@ vi.mock('src/sdk/session', () => ({ useSession: mockUseSession }))
 
 import { useProductNotFoundRedirect } from '../../../src/sdk/product/useProductNotFoundRedirect'
 
-const b2bSession = { b2b: { customerId: 'contract-137' } }
-const anonymousSession = { b2b: null }
+const b2bSession = { b2b: { customerId: 'contract-137' }, isValidating: false }
+const anonymousSession = { b2b: null, isValidating: false }
+const validatingSession = { b2b: null, isValidating: true }
 
 describe('useProductNotFoundRedirect', () => {
   afterEach(() => {
@@ -60,8 +61,40 @@ describe('useProductNotFoundRedirect', () => {
   it('keeps the static product for shoppers without a B2B session', () => {
     mockUseSession.mockReturnValue(anonymousSession)
 
-    renderHook(() => useProductNotFoundRedirect({ status: 404 }))
+    const { result } = renderHook(() =>
+      useProductNotFoundRedirect({ status: 404 })
+    )
 
     expect(mockReplace).not.toHaveBeenCalled()
+    expect(result.current).toBe(false)
+  })
+
+  it('keeps the PDP loading while the 404 redirect is pending', () => {
+    mockUseSession.mockReturnValue(b2bSession)
+
+    const { result } = renderHook(() =>
+      useProductNotFoundRedirect({ status: 404 })
+    )
+
+    expect(result.current).toBe(true)
+  })
+
+  it('keeps the PDP loading while the session has not told whether the shopper is B2B', () => {
+    mockUseSession.mockReturnValue(validatingSession)
+
+    const { result } = renderHook(() =>
+      useProductNotFoundRedirect({ status: 404 })
+    )
+
+    expect(mockReplace).not.toHaveBeenCalled()
+    expect(result.current).toBe(true)
+  })
+
+  it('does not hold the PDP when the refetch succeeds', () => {
+    mockUseSession.mockReturnValue(validatingSession)
+
+    const { result } = renderHook(() => useProductNotFoundRedirect(undefined))
+
+    expect(result.current).toBe(false)
   })
 })

@@ -26,15 +26,24 @@ const isNotFound = (error: unknown) => {
  *
  * Restricted to B2B sessions: for other shoppers a failed refetch keeps
  * rendering the static product, as before.
+ *
+ * Returns whether the PDP must keep its loading state instead of the product's
+ * price and buy button: while the redirect is pending, and while a not-found
+ * answer waits for the session to tell whether the shopper is B2B. Without it,
+ * the failed refetch falls back to the static product and its price shows
+ * until the 404 page loads.
  */
 export const useProductNotFoundRedirect = (error: unknown) => {
   const router = useRouter()
-  const { b2b } = useSession()
-  const shouldRedirect = Boolean(b2b) && isNotFound(error)
+  const { b2b, isValidating: isSessionValidating } = useSession()
+  const notFound = isNotFound(error)
+  const shouldRedirect = Boolean(b2b) && notFound
 
   useEffect(() => {
     if (!shouldRedirect) return
 
     router.replace('/404')
   }, [shouldRedirect, router])
+
+  return shouldRedirect || (notFound && isSessionValidating)
 }
