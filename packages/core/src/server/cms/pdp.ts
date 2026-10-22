@@ -57,11 +57,14 @@ const getPDPFromCmsEnvData = async (
 
   const template = findBestPDPTemplate(pages, product)
 
-  return getPage<PDPContentType>({
-    contentType: 'pdp',
-    documentId: template.documentId as string,
-    versionId: template.versionId,
-  })
+  return getPage<PDPContentType>(
+    {
+      contentType: 'pdp',
+      documentId: template.documentId as string,
+      versionId: template.versionId,
+    },
+    { cache: true }
+  )
 }
 
 const getPDPFromCms = async (

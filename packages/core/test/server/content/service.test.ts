@@ -1,12 +1,23 @@
 import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
 
+import { clientCMS, cmsPageCache } from '../../../src/server/cms'
 import { ContentService } from '../../../src/server/content/service'
 import type { ContentParams } from '../../../src/server/content/types'
+import { isContentPlatformSource } from '../../../src/server/content/utils'
 
-jest.mock('../../../src/server/content/utils', () => ({
-  ...jest.requireActual('../../../src/server/content/utils'),
-  isContentPlatformSource: jest.fn(() => true),
-}))
+jest.mock('../../../src/server/content/utils', () => {
+  const isContentPlatformSource = jest.fn(() => true)
+  return {
+    ...jest.requireActual('../../../src/server/content/utils'),
+    isContentPlatformSource,
+    isBranchPreview: (previewData?: {
+      versionId?: string
+      releaseId?: string
+    }) =>
+      isContentPlatformSource() &&
+      !!(previewData?.versionId || previewData?.releaseId),
+  }
+})
 
 const NOT_FOUND = 'Request failed with status code 404'
 const FIVE_MINUTES = 5 * 60 * 1000
@@ -218,5 +229,175 @@ describe('ContentService Content Platform template list cache', () => {
     jest.advanceTimersByTime(1)
     await service.getMultipleContent({ contentType: 'plp' })
     expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
+  })
+})
+
+describe('ContentService Content Platform single entry cache', () => {
+  beforeEach(() => {
+    jest.spyOn(console, 'warn').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    jest.restoreAllMocks()
+    jest.useRealTimers()
+  })
+
+  it('shares one list and entry fetch across concurrent pages', async () => {
+    const { service, clientCP } = createServiceWithClient([['generic']])
+
+    const results = await Promise.all(
+      Array.from({ length: 20 }, () =>
+        service.getSingleContent({ contentType: 'globalSections' })
+      )
+    )
+
+    expect(clientCP.listEntries).toHaveBeenCalledTimes(1)
+    expect(clientCP.getEntry).toHaveBeenCalledTimes(1)
+    for (const result of results) {
+      expect(result.sections).toEqual([{ name: 'Generic' }])
+    }
+  })
+
+  it('keeps separate entries per content type', async () => {
+    const { service, clientCP } = createServiceWithClient([['generic']])
+
+    await service.getSingleContent({ contentType: 'globalSections' })
+    await service.getSingleContent({ contentType: 'globalHeaderSections' })
+    await service.getSingleContent({ contentType: 'globalSections' })
+
+    expect(
+      clientCP.listEntries.mock.calls.map(([params]) => params.contentType)
+    ).toEqual(['globalSections', 'globalHeaderSections'])
+  })
+
+  it('caches an empty content type', async () => {
+    const { service, clientCP } = createServiceWithClient([[]])
+
+    const first = await service.getSingleContent({
+      contentType: 'globalFooterSections',
+    })
+    await service.getSingleContent({ contentType: 'globalFooterSections' })
+
+    expect(first).toEqual({})
+    expect(clientCP.listEntries).toHaveBeenCalledTimes(1)
+    expect(clientCP.getEntry).not.toHaveBeenCalled()
+  })
+
+  it('does not cache lookups by slug', async () => {
+    const { service, clientCP } = createServiceWithClient([['generic']])
+
+    await service.getSingleContent({ contentType: 'landingPage', slug: 'a' })
+    await service.getSingleContent({ contentType: 'landingPage', slug: 'a' })
+
+    expect(clientCP.getEntryBySlug).toHaveBeenCalledTimes(2)
+    expect(clientCP.listEntries).not.toHaveBeenCalled()
+  })
+
+  it('does not cache filtered lookups', async () => {
+    const { service, clientCP } = createServiceWithClient([['generic']])
+    const params: ContentParams = {
+      contentType: 'globalSections',
+      filters: { page: 1 },
+    }
+
+    await service.getSingleContent(params)
+    await service.getSingleContent(params)
+
+    expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
+  })
+
+  it('bypasses the cache for branch previews', async () => {
+    const { service, clientCP } = createServiceWithClient([['generic']])
+    const branchPreview: ContentParams = {
+      contentType: 'globalSections',
+      previewData: {
+        contentType: 'landingPage',
+        documentId: 'some-landing-page',
+        versionId: 'branch-1',
+      },
+    }
+
+    await service.getSingleContent({ contentType: 'globalSections' })
+    await service.getSingleContent(branchPreview)
+    await service.getSingleContent(branchPreview)
+    await service.getSingleContent({ contentType: 'globalSections' })
+
+    expect(clientCP.listEntries).toHaveBeenCalledTimes(3)
+    expect(clientCP.getEntry).toHaveBeenCalledTimes(1)
+    expect(clientCP.previewEntryById).toHaveBeenCalledTimes(2)
+  })
+
+  it('does not cache a multiple-entries error', async () => {
+    const { service, clientCP } = createServiceWithClient([
+      ['generic', 'collection'],
+    ])
+
+    await expect(
+      service.getSingleContent({ contentType: 'globalSections' })
+    ).rejects.toThrow()
+    await expect(
+      service.getSingleContent({ contentType: 'globalSections' })
+    ).rejects.toThrow()
+
+    expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
+  })
+
+  it('fetches again after the TTL', async () => {
+    jest.useFakeTimers()
+    const { service, clientCP } = createServiceWithClient([['generic']])
+
+    await service.getSingleContent({ contentType: 'globalSections' })
+    jest.advanceTimersByTime(FIVE_MINUTES)
+    await service.getSingleContent({ contentType: 'globalSections' })
+
+    expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
+  })
+})
+
+describe('ContentService Headless CMS single content cache', () => {
+  const locator = {
+    contentType: 'globalSections',
+    documentId: 'doc-1',
+    versionId: 'version-1',
+  }
+  const originalGetCMSPage = clientCMS.getCMSPage
+
+  beforeEach(() => {
+    jest.mocked(isContentPlatformSource).mockReturnValue(false)
+    cmsPageCache.clear()
+    clientCMS.getCMSPage = jest.fn(async () => ({
+      id: 'doc-1',
+      sections: [{ name: 'Children' }],
+    })) as unknown as typeof clientCMS.getCMSPage
+  })
+
+  afterEach(() => {
+    jest.mocked(isContentPlatformSource).mockReturnValue(true)
+    clientCMS.getCMSPage = originalGetCMSPage
+  })
+
+  it('reuses a published document fetched by locator', async () => {
+    const service = new ContentService()
+
+    await Promise.all([
+      service.getSingleContent(locator),
+      service.getSingleContent(locator),
+    ])
+    await service.getSingleContent(locator)
+
+    expect(clientCMS.getCMSPage).toHaveBeenCalledTimes(1)
+  })
+
+  it('fetches the document on every preview request', async () => {
+    const service = new ContentService()
+    const previewParams: ContentParams = {
+      ...locator,
+      previewData: locator,
+    }
+
+    await service.getSingleContent(previewParams)
+    await service.getSingleContent(previewParams)
+
+    expect(clientCMS.getCMSPage).toHaveBeenCalledTimes(2)
   })
 })
