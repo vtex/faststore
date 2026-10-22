@@ -74,11 +74,14 @@ const getPLPFromCmsEnvData = async (
 
   const template = findBestPLPTemplate(pages, slug, rewrites)
 
-  return getPage<PLPContentType>({
-    contentType: 'plp',
-    documentId: template.documentId as string,
-    versionId: template.versionId,
-  })
+  return getPage<PLPContentType>(
+    {
+      contentType: 'plp',
+      documentId: template.documentId as string,
+      versionId: template.versionId,
+    },
+    { cache: true }
+  )
 }
 
 export const getPLPFromCms = async (

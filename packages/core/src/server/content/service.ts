@@ -14,31 +14,27 @@ import {
 import config from '../../../discovery.config'
 import { getPDP, type PDPContentType } from '../cms/pdp'
 import { getPLP, type PLPContentType } from '../cms/plp'
+import { createPromiseCache } from './promiseCache'
 import type { ContentOptions, ContentParams } from './types'
 import { isBranchPreview, isContentPlatformSource } from './utils'
 
 type ContentResult = ContentData | (ContentEntry & PageContentType)
-
-type ContentListCacheEntry = {
-  expiresAt: number
-  promise: Promise<{ data: ContentResult[] }>
-}
 
 const OPTIONAL_CONTENT_TYPES = [
   'globalHeaderSections',
   'globalFooterSections',
 ] as const
 
-// Bounds how stale the template list can get in long-lived processes (ISR);
-// a CMS publish already triggers a new build.
-const CONTENT_LIST_CACHE_TTL_MS = 5 * 60 * 1000
-
 export class ContentService {
   private readonly clientCP = new ClientCP({
     tenant: config.api.storeId,
   })
 
-  private readonly contentListCache = new Map<string, ContentListCacheEntry>()
+  private readonly contentListCache = createPromiseCache<{
+    data: ContentResult[]
+  }>()
+
+  private readonly firstEntryCache = createPromiseCache<PageContentType>()
 
   async getSingleContent<T extends ContentData>(
     params: ContentParams
@@ -48,7 +44,7 @@ export class ContentService {
     if (isContentPlatformSource()) {
       return this.getFromCP<T>(options)
     }
-    return getPage(options.cmsOptions)
+    return getPage(options.cmsOptions, { cache: !options.isPreview })
   }
 
   async getMultipleContent(
@@ -134,30 +130,9 @@ export class ContentService {
   private getCachedContentList(
     serviceParams: EntryPathParams
   ): Promise<{ data: ContentResult[] }> {
-    // listEntries only depends on these fields; the page slug must stay out of the key.
-    const { accountName, storeId, contentType, locale } = serviceParams
-    const key = JSON.stringify([accountName, storeId, contentType, locale])
-
-    const cached = this.contentListCache.get(key)
-    if (cached && cached.expiresAt > Date.now()) {
-      return cached.promise
-    }
-
-    const promise = this.listAndFillEntries(serviceParams, false).catch(
-      (err: unknown) => {
-        if (this.contentListCache.get(key)?.promise === promise) {
-          this.contentListCache.delete(key)
-        }
-        throw err
-      }
+    return this.contentListCache.get(getContentTypeKey(serviceParams), () =>
+      this.listAndFillEntries(serviceParams, false)
     )
-
-    this.contentListCache.set(key, {
-      expiresAt: Date.now() + CONTENT_LIST_CACHE_TTL_MS,
-      promise,
-    })
-
-    return promise
   }
 
   private async listAndFillEntries(
@@ -206,9 +181,17 @@ export class ContentService {
     params: EntryPathParams,
     isPreview: boolean
   ): Promise<PageContentType> {
-    return params.entryId || params.slug
-      ? await this.getEntryData(params, isPreview)
-      : await this.fetchFirstEntryFromList(params, isPreview)
+    if (params.entryId || params.slug) {
+      return this.getEntryData(params, isPreview)
+    }
+
+    if (isPreview) {
+      return this.fetchFirstEntryFromList(params, true)
+    }
+
+    return this.firstEntryCache.get(getContentTypeKey(params), () =>
+      this.fetchFirstEntryFromList(params, false)
+    )
   }
 
   private async getEntryData(
@@ -349,6 +332,16 @@ export class ContentService {
       name: entry.name ?? '',
     }
   }
+}
+
+// listEntries only depends on these fields; the page slug must stay out of the key.
+function getContentTypeKey({
+  accountName,
+  storeId,
+  contentType,
+  locale,
+}: EntryPathParams): string {
+  return JSON.stringify([accountName, storeId, contentType, locale])
 }
 
 function isNotFoundError(err: unknown): boolean {
