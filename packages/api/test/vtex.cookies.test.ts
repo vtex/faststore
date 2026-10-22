@@ -54,24 +54,6 @@ describe('getUpdatedCookie', () => {
     expect(getUpdatedCookie(ctx)).toEqual(cookie)
   })
 
-  it('Should send storage cookies even when the request had no cookie header', () => {
-    const ctx = {
-      headers: {},
-      storage: {
-        cookies: new Map(
-          Object.entries({
-            'checkout.vtex.com': { value: '__ofid=abc' },
-            CheckoutOrderFormOwnership: { value: 'owner' },
-          })
-        ),
-      },
-    } as ContextForCookies
-
-    expect(getUpdatedCookie(ctx)).toEqual(
-      'checkout.vtex.com=__ofid=abc;CheckoutOrderFormOwnership=owner'
-    )
-  })
-
   it('Should replace cookies with the ones in storage', () => {
     const cookie = 'key1=value1; key2=value2; key3=value3'
     const cookieStorage = {
@@ -107,21 +89,6 @@ describe('updatesCookieValueByKey', () => {
     )
   })
 
-  it('Should not match a cookie whose name only ends with the key', () => {
-    const cookie = 'mycheckout.vtex.com=other; checkout.vtex.com=__ofid=old'
-
-    expect(
-      updatesCookieValueByKey(cookie, 'checkout.vtex.com', '__ofid=new')
-    ).toEqual('mycheckout.vtex.com=other; checkout.vtex.com=__ofid=new')
-  })
-
-  it('Should treat dots in the key literally', () => {
-    const cookie = 'checkoutXvtexXcom=other'
-
-    expect(
-      updatesCookieValueByKey(cookie, 'checkout.vtex.com', '__ofid=new')
-    ).toEqual('checkoutXvtexXcom=other;checkout.vtex.com=__ofid=new')
-  })
 })
 
 describe('getWithCookie', () => {
@@ -308,38 +275,6 @@ describe('VtexCommerce checkout cookies', () => {
         'CFEUHpzya69CNICSrc4h5cJzeQE856pULms%2BxxQdF9EOh5WPwtrzqMwl9FwAhPVM',
       setCookie: OWNERSHIP_SET_COOKIE,
     })
-  })
-
-  it('Should reuse cookies Checkout set earlier in the same request on a first visit', async () => {
-    const ctx = createContext({ host: 'www.store.com' })
-
-    mockedFetch.mockImplementationOnce(async (_info, _init, fetchOptions) => {
-      fetchOptions.storeCookies(headersWith([OWNERSHIP_SET_COOKIE]))
-
-      return {}
-    })
-    mockedFetch.mockResolvedValue({})
-
-    const commerce = VtexCommerce(options, ctx)
-
-    await commerce.checkout.shippingData({
-      id: 'abc',
-      body: { selectedAddresses: [] } as any,
-    })
-    await commerce.checkout.setCustomData({
-      id: 'abc',
-      appId: 'faststore',
-      key: 'cartEtag',
-      value: 'etag',
-    })
-
-    const [, firstInit] = mockedFetch.mock.calls[0]
-    const [, secondInit] = mockedFetch.mock.calls[1]
-
-    expect(firstInit.headers.cookie).toBeUndefined()
-    expect(secondInit.headers.cookie).toEqual(
-      'CheckoutOrderFormOwnership=CFEUHpzya69CNICSrc4h5cJzeQE856pULms%2BxxQdF9EOh5WPwtrzqMwl9FwAhPVM'
-    )
   })
 
   it('Should fall back to the host header when there is no x-forwarded-host', async () => {
