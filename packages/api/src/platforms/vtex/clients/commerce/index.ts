@@ -44,8 +44,8 @@ const getHeader = (headers: Context['headers'] | undefined, name: string) => {
 const getForwardedHost = (headers: Context['headers'] | undefined) => {
   // Proxies may append values: "client, proxy". Only the first one is the store host.
   const host =
-    getHeader(headers, 'x-forwarded-host')?.split(',')[0] ??
-    getHeader(headers, 'host') ??
+    getHeader(headers, 'x-forwarded-host')?.split(',')[0].trim() ||
+    getHeader(headers, 'host') ||
     ''
 
   return host.trim().replace(/^www\./, '')

@@ -23,9 +23,9 @@ const OWNERSHIP_SET_COOKIE =
   'CheckoutOrderFormOwnership=CFEUHpzya69CNICSrc4h5cJzeQE856pULms%2BxxQdF9EOh5WPwtrzqMwl9FwAhPVM; expires=Sat, 08 Jun 2024 20:12:41 GMT; domain=vtexfaststore.com; path=/; secure; samesite=strict; httponly'
 
 const headersWith = (setCookies: string[]) =>
-  (({
+  ({
     getSetCookie: () => setCookies,
-  } as unknown) as Headers)
+  } as unknown as Headers)
 
 beforeEach(() => {
   mockedFetch.mockReset()
@@ -88,7 +88,6 @@ describe('updatesCookieValueByKey', () => {
       'key1=value1; key2=value2; key3=value3;key4=value4'
     )
   })
-
 })
 
 describe('getWithCookie', () => {
@@ -167,10 +166,12 @@ describe('getSetCookies', () => {
   })
 
   it('Should use raw() from node-fetch v2 (Node 16)', () => {
-    const headers = ({
-      raw: () => ({ 'set-cookie': [CHECKOUT_SET_COOKIE, OWNERSHIP_SET_COOKIE] }),
+    const headers = {
+      raw: () => ({
+        'set-cookie': [CHECKOUT_SET_COOKIE, OWNERSHIP_SET_COOKIE],
+      }),
       get: () => `${CHECKOUT_SET_COOKIE}, ${OWNERSHIP_SET_COOKIE}`,
-    } as unknown) as Headers
+    } as unknown as Headers
 
     expect(getSetCookies(headers)).toEqual([
       CHECKOUT_SET_COOKIE,
@@ -179,9 +180,9 @@ describe('getSetCookies', () => {
   })
 
   it('Should split a combined set-cookie header without breaking expires dates', () => {
-    const headers = ({
+    const headers = {
       get: () => `${CHECKOUT_SET_COOKIE}, ${OWNERSHIP_SET_COOKIE}`,
-    } as unknown) as Headers
+    } as unknown as Headers
 
     expect(getSetCookies(headers)).toEqual([
       CHECKOUT_SET_COOKIE,
@@ -190,7 +191,7 @@ describe('getSetCookies', () => {
   })
 
   it('Should return an empty list when there is no set-cookie', () => {
-    const headers = ({ get: () => null } as unknown) as Headers
+    const headers = { get: () => null } as unknown as Headers
 
     expect(getSetCookies(headers)).toEqual([])
   })
@@ -226,13 +227,13 @@ describe('VtexCommerce checkout cookies', () => {
   } as Options
 
   const createContext = (headers: Record<string, string>) =>
-    (({
+    ({
       headers,
       storage: {
         channel: { salesChannel: '1', regionId: '' },
         cookies: new Map(),
       },
-    } as unknown) as Context)
+    } as unknown as Context)
 
   it('Should forward shopper cookies and forwarded host, and store Checkout cookies', async () => {
     const ctx = createContext({
@@ -290,6 +291,18 @@ describe('VtexCommerce checkout cookies', () => {
       'content-type': 'application/json',
       'X-FORWARDED-HOST': 'store.com',
     })
+  })
+
+  it('Should fall back to the host header when x-forwarded-host is empty', async () => {
+    const ctx = createContext({ 'x-forwarded-host': '', host: 'www.store.com' })
+
+    mockedFetch.mockResolvedValue({})
+
+    await VtexCommerce(options, ctx).checkout.orderForm({ id: 'abc' })
+
+    const [, init] = mockedFetch.mock.calls[0]
+
+    expect(init.headers['X-FORWARDED-HOST']).toEqual('store.com')
   })
 
   it('Should not send shopper cookies to the simulation', async () => {
