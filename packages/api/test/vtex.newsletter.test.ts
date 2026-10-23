@@ -2,6 +2,7 @@ import { execute, parse } from 'graphql'
 
 import { getContextFactory, getSchema } from '../src'
 import type { Options } from '../src'
+import { getClients } from '../src/platforms/vtex/clients'
 import { resetAnonymousNewsletterWarnings } from '../src/platforms/vtex/clients/commerce'
 
 const apiOptions = {
@@ -192,6 +193,27 @@ test('`subscribeToNewsletter` names both variables in the warning when neither i
   expect(warn.mock.calls[0][0]).toContain(
     'FS_NEWSLETTER_APP_KEY and FS_NEWSLETTER_APP_TOKEN are not set'
   )
+})
+
+test('`subscribeToNewsletter` caps how many accounts it remembers', async () => {
+  const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+  // Calls the client directly: building a schema for each of 101 accounts
+  // would make the test slow.
+  const context = getContextFactory(apiOptions)({})
+  const subscribeAs = (account: string) =>
+    getClients(
+      { ...apiOptions, account },
+      context
+    ).commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+  // 100 accounts fill the set; the 101st clears it, so the first account is
+  // warned again instead of the set growing.
+  for (let i = 0; i <= 100; i++) {
+    await subscribeAs(`store${i}`)
+  }
+  await subscribeAs('store0')
+
+  expect(warn).toHaveBeenCalledTimes(102)
 })
 
 test('`subscribeToNewsletter` does not send the app key of other features', async () => {
