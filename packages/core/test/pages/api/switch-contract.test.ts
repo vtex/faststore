@@ -328,13 +328,18 @@ describe('/api/fs/switch-contract', () => {
 
     await handler(req, res)
 
-    expect(setCookiesFrom(res)).toEqual(
+    const cookies = setCookiesFrom(res)
+
+    expect(cookies).toEqual(
       expect.arrayContaining([
         expect.stringContaining(
           'new-contract-token; Domain=store.example.com;'
         ),
       ])
     )
+    expect(
+      cookies.some((cookie) => cookie.includes('attacker.example.org'))
+    ).toBe(false)
   })
 
   it('strips the port from the Host header', async () => {
