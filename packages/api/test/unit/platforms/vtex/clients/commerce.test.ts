@@ -129,8 +129,11 @@ describe('VTEX Commerce', () => {
       })
     })
 
-    // Keep this as the first fallback test: the warning is emitted once per
-    // process.
+    // The fallback warning is kept once per account, so each test that asserts
+    // on it uses its own account and doesn't depend on test order.
+    const fallbackOptions = (account: string) =>
+      ({ ...apiOptions, account }) as Options
+
     it('falls back to the anonymous PATCH without credentials and warns only once', async () => {
       delete process.env.FS_NEWSLETTER_APP_KEY
       delete process.env.FS_NEWSLETTER_APP_TOKEN
@@ -139,17 +142,42 @@ describe('VTEX Commerce', () => {
         .mockResolvedValueOnce({ Id: 'NL-3' })
         .mockResolvedValueOnce({ Id: 'NL-4' })
 
-      const { commerce } = clients.getClients(apiOptions, context)
+      const { commerce } = clients.getClients(
+        fallbackOptions('fallbackstore'),
+        context
+      )
       await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
       await commerce.subscribeToNewsletter({ email: 'john@example.com' })
 
-      const [url, init] = fetchAPIMocked.mock.calls[0]
-      expect(url).toBe(
-        'https://storeframework.vtexcommercestable.com.br/api/dataentities/NL/documents/'
-      )
-      expect(init.method).toBe('PATCH')
-      expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
+      expect(fetchAPIMocked).toHaveBeenCalledTimes(2)
+      for (const [url, init] of fetchAPIMocked.mock.calls) {
+        expect(url).toBe(
+          'https://fallbackstore.vtexcommercestable.com.br/api/dataentities/NL/documents/'
+        )
+        expect(init.method).toBe('PATCH')
+        expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
+        expect(init.headers['X-VTEX-API-AppToken']).toBeUndefined()
+      }
       expect(warn).toHaveBeenCalledTimes(1)
+    })
+
+    it('warns once for each account that falls back', async () => {
+      delete process.env.FS_NEWSLETTER_APP_KEY
+      delete process.env.FS_NEWSLETTER_APP_TOKEN
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+      fetchAPIMocked.mockResolvedValue({ Id: 'NL-6' })
+
+      for (const account of ['fallbackstorea', 'fallbackstoreb']) {
+        const { commerce } = clients.getClients(
+          fallbackOptions(account),
+          context
+        )
+        await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+        await commerce.subscribeToNewsletter({ email: 'john@example.com' })
+      }
+
+      expect(warn).toHaveBeenCalledTimes(2)
+      fetchAPIMocked.mockReset()
     })
 
     it('does not send the app key of other features', async () => {

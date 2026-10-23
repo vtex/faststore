@@ -15,9 +15,9 @@ interface FetchAPIOptions {
 }
 
 // Headers that carry credentials (store API keys and shopper cookies). They
-// are replaced before the failed request is logged.
+// are replaced before a failed request and its response are logged.
 const SENSITIVE_HEADER =
-  /^(x-vtex-api-appkey|x-vtex-api-apptoken|cookie|vtexidclientautcookie.*)$/i
+  /^(x-vtex-api-appkey|x-vtex-api-apptoken|cookie|set-cookie|vtexidclientautcookie.*)$/i
 
 const REDACTED = '[redacted]'
 
@@ -33,10 +33,13 @@ export const redactHeaders = (
     redacted[name] = SENSITIVE_HEADER.test(name) ? REDACTED : value
   }
 
-  if (typeof Headers !== 'undefined' && headers instanceof Headers) {
-    headers.forEach((value, name) => add(name, value))
-  } else if (Array.isArray(headers)) {
+  if (Array.isArray(headers)) {
     headers.forEach(([name, value]) => add(name, value))
+  } else if (typeof (headers as Headers).forEach === 'function') {
+    // Matches both the global `Headers` and the polyfill returned by
+    // `isomorphic-unfetch` on Node, which isn't an instance of the global one.
+    const headerList = headers as Headers
+    headerList.forEach((value, name) => add(name, value))
   } else {
     Object.entries(headers).forEach(([name, value]) => add(name, value))
   }
@@ -65,10 +68,16 @@ export const fetchAPI = async (
     return response.status !== 204 ? response.json() : undefined
   }
 
+  // Log a summary instead of the raw Response, whose headers may include
+  // `Set-Cookie` with shopper credentials.
   console.error(
     info,
     init && { ...init, headers: redactHeaders(init.headers) },
-    response
+    {
+      status: response.status,
+      statusText: response.statusText,
+      headers: redactHeaders(response.headers),
+    }
   )
   const text = await response.text()
 
