@@ -12,6 +12,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [4.10.1-dev.0](https://github.com/vtex/faststore/compare/v4.10.0...v4.10.1-dev.0) (2026-10-15)
 
 **Note:** Version bump only for package faststore
+## [4.10.1](https://github.com/vtex/faststore/compare/v4.10.0...v4.10.1) (2026-10-23)
+
+
+- **core:** cache Content Platform template list across page generations ([#3542](https://github.com/vtex/faststore/issues/3542)) ([ab44199](https://github.com/vtex/faststore/commit/ab441997841b5f47b4dcc65d82fdfbb03fb579f2)), closes [#3384](https://github.com/vtex/faststore/issues/3384)
 
 # [4.10.0](https://github.com/vtex/faststore/compare/v4.10.0-dev.1...v4.10.0) (2026-10-15)
 
