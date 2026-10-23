@@ -69,10 +69,15 @@ export const fetchAPI = async (
   }
 
   // Log a summary instead of the raw Response, whose headers may include
-  // `Set-Cookie` with shopper credentials.
+  // `Set-Cookie` with shopper credentials. The request body is omitted because
+  // it can carry personal data (e.g. the newsletter email and name).
   console.error(
     info,
-    init && { ...init, headers: redactHeaders(init.headers) },
+    init && {
+      ...init,
+      headers: redactHeaders(init.headers),
+      body: init.body ? REDACTED : undefined,
+    },
     {
       status: response.status,
       statusText: response.statusText,
