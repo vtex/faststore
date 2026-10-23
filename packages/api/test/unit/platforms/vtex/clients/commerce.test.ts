@@ -174,6 +174,54 @@ describe('VTEX Commerce', () => {
       fetchAPIMocked.mockReset()
     })
 
+    it.each([
+      [
+        'FS_NEWSLETTER_APP_TOKEN',
+        'FS_NEWSLETTER_APP_KEY',
+        { key: 'newsletter-key', token: undefined },
+      ],
+      [
+        'FS_NEWSLETTER_APP_KEY',
+        'FS_NEWSLETTER_APP_TOKEN',
+        { key: undefined, token: 'newsletter-token' },
+      ],
+    ])(
+      'names only %s in the warning when it is the one missing',
+      async (missing, present, env) => {
+        delete process.env.FS_NEWSLETTER_APP_KEY
+        delete process.env.FS_NEWSLETTER_APP_TOKEN
+        if (env.key) process.env.FS_NEWSLETTER_APP_KEY = env.key
+        if (env.token) process.env.FS_NEWSLETTER_APP_TOKEN = env.token
+        const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+        fetchAPIMocked.mockResolvedValueOnce({ Id: 'NL-7' })
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+        const [, init] = fetchAPIMocked.mock.calls[0]
+        expect(init.method).toBe('PATCH')
+        expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
+
+        const [message] = warn.mock.calls[0]
+        expect(message).toContain(`${missing} is not set`)
+        expect(message).not.toContain(present)
+      }
+    )
+
+    it('names both variables in the warning when neither is set', async () => {
+      delete process.env.FS_NEWSLETTER_APP_KEY
+      delete process.env.FS_NEWSLETTER_APP_TOKEN
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+      fetchAPIMocked.mockResolvedValueOnce({ Id: 'NL-8' })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+      expect(warn.mock.calls[0][0]).toContain(
+        'FS_NEWSLETTER_APP_KEY and FS_NEWSLETTER_APP_TOKEN are not set'
+      )
+    })
+
     it('does not send the app key of other features', async () => {
       delete process.env.FS_NEWSLETTER_APP_KEY
       delete process.env.FS_NEWSLETTER_APP_TOKEN
