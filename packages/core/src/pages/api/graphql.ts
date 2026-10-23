@@ -1,5 +1,6 @@
 import {
   BadRequestError,
+  type CacheControl,
   UnauthorizedError,
   isFastStoreError,
   stringifyCacheControl,
@@ -10,7 +11,7 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie } from 'src/utils/getCookie'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
-import { isLocalHost } from 'src/utils/isLocalHost'
+import { shouldBypassRefreshTokenForRequest } from 'src/utils/shouldBypassRefreshToken'
 import {
   HOST_ONLY_COOKIE_HOST_SUFFIXES,
   isHostAllowed,
@@ -261,6 +262,87 @@ const respondToUnexpectedError = (
   response.status(500).end()
 }
 
+/**
+ * With `experimental.refreshToken` on, rejects a ValidateSession with 401 when
+ * the token needs a refresh, so the client runs the refresh-token flow first.
+ *
+ * Skipped on localhost and WebOps previews: neither proxies VTEX ID, so the
+ * refresh would fail and log out a manually injected auth cookie.
+ */
+const assertValidateSessionTokenIsFresh = ({
+  request,
+  operationName,
+  sessionRefreshAfter,
+}: {
+  request: NextApiRequest
+  operationName: string | undefined
+  sessionRefreshAfter: string | null | undefined
+}) => {
+  if (
+    operationName !== 'ValidateSession' ||
+    !discoveryConfig.experimental?.refreshToken ||
+    shouldBypassRefreshTokenForRequest(request.headers)
+  ) {
+    return
+  }
+
+  const jwt = getJWTAutCookie({
+    headers: request.headers,
+    account: discoveryConfig.api.storeId,
+  })
+
+  if (shouldForceRefreshTokenForValidateSession({ jwt, sessionRefreshAfter })) {
+    throw new UnauthorizedError(
+      'Unauthorized: Token expired. Please login again or refresh the page.'
+    )
+  }
+}
+
+/**
+ * Cache-Control for a successful response: the directives collected while
+ * executing the operation when there are any, otherwise a default
+ * `s-maxage`/`stale-while-revalidate` for GET queries and `no-store` for
+ * everything else.
+ */
+const getSuccessCacheControl = ({
+  request,
+  operationName,
+  cacheControl,
+  hasAuthCookie,
+}: {
+  request: NextApiRequest
+  operationName: string | undefined
+  cacheControl: CacheControl | undefined
+  hasAuthCookie: boolean
+}) => {
+  if (cacheControl) {
+    return stringifyCacheControl(cacheControl, hasAuthCookie)
+  }
+
+  if (
+    request.method !== 'GET' ||
+    !operationName?.toLowerCase()?.endsWith('query')
+  ) {
+    return 'no-cache, no-store'
+  }
+
+  const graphqlCacheControl = discoveryConfig?.experimental?.graphqlCacheControl
+
+  const maxAge =
+    graphqlCacheControl?.maxAge && graphqlCacheControl.maxAge > 0
+      ? graphqlCacheControl.maxAge
+      : DEFAULT_MAX_AGE // 5 minutes
+
+  const staleWhileRevalidate =
+    graphqlCacheControl?.staleWhileRevalidate &&
+    graphqlCacheControl.staleWhileRevalidate > 0
+      ? graphqlCacheControl.staleWhileRevalidate
+      : DEFAULT_STALE_WHILE_REVALIDATE // 1 hour
+
+  const scope = hasAuthCookie ? 'private' : 'public'
+  return `${scope}, s-maxage=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
+}
+
 const handler: NextApiHandler = async (request, response) => {
   if (request.method !== 'POST' && request.method !== 'GET') {
     response.status(405).end()
@@ -287,29 +369,11 @@ const handler: NextApiHandler = async (request, response) => {
       operation?.__meta__?.operationHash
     )
 
-    const isLocal = isLocalHost(getRequestHostname(request.headers.host))
-
-    if (
-      !isLocal &&
-      operation.__meta__.operationName === 'ValidateSession' &&
-      discoveryConfig.experimental?.refreshToken
-    ) {
-      const jwt = getJWTAutCookie({
-        headers: request.headers,
-        account: discoveryConfig.api.storeId,
-      })
-
-      const shouldRefreshToken = shouldForceRefreshTokenForValidateSession({
-        jwt,
-        sessionRefreshAfter: variables?.session?.refreshAfter,
-      })
-
-      if (shouldRefreshToken) {
-        throw new UnauthorizedError(
-          'Unauthorized: Token expired. Please login again or refresh the page.'
-        )
-      }
-    }
+    assertValidateSessionTokenIsFresh({
+      request,
+      operationName: operation.__meta__.operationName,
+      sessionRefreshAfter: variables?.session?.refreshAfter,
+    })
 
     // Prevents to call ValidateSession or ValidateCartMutation without session (required) and get GraphQLError
     const doNotRun =
@@ -339,39 +403,15 @@ const handler: NextApiHandler = async (request, response) => {
 
     const hasAuthCookie = hasVtexIdclientAutCookie(request)
 
-    if (extensions.cacheControl) {
-      const cacheControl = stringifyCacheControl(
-        extensions.cacheControl,
-        hasAuthCookie
-      )
-      response.setHeader('cache-control', cacheControl)
-    } else if (
-      request.method === 'GET' &&
-      operation.__meta__.operationName?.toLowerCase()?.endsWith('query')
-    ) {
-      const maxAge =
-        discoveryConfig?.experimental?.graphqlCacheControl?.maxAge &&
-        discoveryConfig?.experimental?.graphqlCacheControl?.maxAge > 0
-          ? discoveryConfig.experimental.graphqlCacheControl.maxAge
-          : DEFAULT_MAX_AGE // 5 minutes
-
-      const staleWhileRevalidate =
-        discoveryConfig?.experimental?.graphqlCacheControl
-          ?.staleWhileRevalidate &&
-        discoveryConfig?.experimental?.graphqlCacheControl
-          ?.staleWhileRevalidate > 0
-          ? discoveryConfig.experimental.graphqlCacheControl
-              .staleWhileRevalidate
-          : DEFAULT_STALE_WHILE_REVALIDATE // 1 hour
-
-      const scope = hasAuthCookie ? 'private' : 'public'
-      response.setHeader(
-        'cache-control',
-        `${scope}, s-maxage=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
-      )
-    } else {
-      response.setHeader('cache-control', 'no-cache, no-store')
-    }
+    response.setHeader(
+      'cache-control',
+      getSuccessCacheControl({
+        request,
+        operationName: operation.__meta__.operationName,
+        cacheControl: extensions.cacheControl,
+        hasAuthCookie,
+      })
+    )
 
     const setCookieValues = Array.from(extensions.cookies.values())
     if (setCookieValues.length > 0 && !hasErrors) {

@@ -8,7 +8,7 @@ import type {
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
 import deepEqual from 'fast-deep-equal'
-import { isLocalHostBrowser } from 'src/utils/isLocalHost'
+import { shouldBypassRefreshTokenBrowser } from 'src/utils/shouldBypassRefreshToken'
 import { filterChannel } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
 import {
@@ -108,6 +108,43 @@ async function handleRefreshToken(session: Session): Promise<Session | null> {
   return null
 }
 
+/**
+ * The refresh-token flow runs only when `experimental.refreshToken` is on and
+ * the host can reach VTEX ID: localhost and WebOps previews do not proxy it.
+ */
+function canRefreshToken(): boolean {
+  return (
+    !!storeConfig.experimental?.refreshToken &&
+    !shouldBypassRefreshTokenBrowser()
+  )
+}
+
+/**
+ * With deliveryPromise on and no postalCode in the session, fills it from the
+ * B2B saved address or from the shopper location.
+ */
+async function syncDeliveryPromisePostalCode(session: Session) {
+  if (
+    !storeConfig.deliveryPromise?.enabled ||
+    (session.postalCode &&
+      session.postalCode !== storeConfig.session.postalCode)
+  ) {
+    return
+  }
+
+  // Case B2B: If a B2B shopper is logged in and a saved address is available, the postalCode field is automatically updated with the postal code from that address by the B2B session apps (shopper-session and profile-session).
+  if (session.b2b?.savedPostalCode) {
+    sessionStore.set({
+      ...session,
+      postalCode: session.b2b.savedPostalCode,
+    })
+    return
+  }
+
+  const sessionWithLocation = await getPostalCode(session)
+  !!sessionWithLocation && sessionStore.set(sessionWithLocation)
+}
+
 function isRefreshAfterExpired(session: Session): boolean {
   return (
     !!session.refreshAfter &&
@@ -125,12 +162,8 @@ export const validateSession = async (session: Session) => {
   // If the refreshToken is enabled and the refreshAfter is expired, refresh the token.
   // On success, continue to the validation flow with the refreshed session.
   // On failure (logoutAndClearSession already triggered), bail out.
-  // Skipped in local environments where the refresh token infrastructure is unavailable.
-  if (
-    !isLocalHostBrowser() &&
-    storeConfig.experimental?.refreshToken &&
-    isRefreshAfterExpired(session)
-  ) {
+  // Skipped on localhost and WebOps previews, where the refresh token infrastructure is unavailable.
+  if (canRefreshToken() && isRefreshAfterExpired(session)) {
     const refreshed = await handleRefreshToken(session)
     if (!refreshed) {
       return null
@@ -138,23 +171,7 @@ export const validateSession = async (session: Session) => {
     session = refreshed
   }
 
-  // If deliveryPromise is enabled and there is no postalCode in the session
-  if (
-    storeConfig.deliveryPromise?.enabled &&
-    (!session.postalCode ||
-      session.postalCode === storeConfig.session.postalCode)
-  ) {
-    // Case B2B: If a B2B shopper is logged in and a saved address is available, the postalCode field is automatically updated with the postal code from that address by the B2B session apps (shopper-session and profile-session).
-    if (session.b2b && session.b2b?.savedPostalCode) {
-      sessionStore.set({
-        ...session,
-        postalCode: session.b2b.savedPostalCode,
-      })
-    } else {
-      const sessionWithLocation = await getPostalCode(session)
-      !!sessionWithLocation && sessionStore.set(sessionWithLocation)
-    }
-  }
+  await syncDeliveryPromisePostalCode(session)
 
   try {
     // Prevents to call ValidateSession without session (required) and get Error
@@ -172,12 +189,7 @@ export const validateSession = async (session: Session) => {
 
     return data.validateSession
   } catch (error) {
-    const shouldRefreshToken =
-      !isLocalHostBrowser() &&
-      error?.status === 401 &&
-      storeConfig.experimental?.refreshToken
-
-    if (shouldRefreshToken) {
+    if (error?.status === 401 && canRefreshToken()) {
       const refreshed = await handleRefreshToken(session)
       if (refreshed) {
         sessionStore.set(refreshed)
