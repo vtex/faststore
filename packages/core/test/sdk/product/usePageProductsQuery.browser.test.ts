@@ -25,7 +25,10 @@ vi.mock('src/sdk/product/useLocalizedVariables', () => ({
   useLocalizedVariables: mockUseLocalizedVariables,
 }))
 
-import { useCreateUseGalleryPage } from '../../../src/sdk/product/usePageProductsQuery'
+import {
+  hashContractScope,
+  useCreateUseGalleryPage,
+} from '../../../src/sdk/product/usePageProductsQuery'
 
 const serverManyProductsVariables = {
   first: 12,
@@ -91,7 +94,10 @@ describe('useCreateUseGalleryPage', () => {
 
     expect(mockUseQuery).toHaveBeenCalledWith(
       expect.anything(),
-      { ...serverManyProductsVariables, _contract: 'contract-137' },
+      {
+        ...serverManyProductsVariables,
+        _contract: hashContractScope('contract-137'),
+      },
       expect.objectContaining({ doNotRun: false })
     )
   })
@@ -114,8 +120,28 @@ describe('useCreateUseGalleryPage', () => {
 
     expect(mockUseQuery).toHaveBeenCalledWith(
       expect.anything(),
-      { ...serverManyProductsVariables, _contract: 'b2b' },
+      { ...serverManyProductsVariables, _contract: hashContractScope('b2b') },
       expect.objectContaining({ doNotRun: false })
+    )
+  })
+
+  it('keeps the raw contract id out of the query variables', () => {
+    mockUseSession.mockReturnValue({
+      postalCode: null,
+      b2b: { customerId: 'contract-137', unitId: 'unit-42' },
+      isValidating: false,
+    })
+    mockUseLocalizedVariables.mockReturnValue(serverManyProductsVariables)
+    mockUseQuery.mockReturnValue({ data: null })
+
+    renderFirstGalleryPage()
+
+    // The variables go in the GET URL, so they must not carry the raw ids.
+    const variables = JSON.stringify(mockUseQuery.mock.calls.at(-1)?.[1])
+    expect(variables).not.toContain('contract-137')
+    expect(variables).not.toContain('unit-42')
+    expect(hashContractScope('contract-a')).not.toBe(
+      hashContractScope('contract-b')
     )
   })
 
@@ -132,7 +158,10 @@ describe('useCreateUseGalleryPage', () => {
 
     expect(mockUseQuery).toHaveBeenCalledWith(
       expect.anything(),
-      { ...serverManyProductsVariables, _contract: 'unit-42' },
+      {
+        ...serverManyProductsVariables,
+        _contract: hashContractScope('unit-42'),
+      },
       expect.objectContaining({ doNotRun: false })
     )
   })
@@ -164,7 +193,10 @@ describe('useCreateUseGalleryPage', () => {
 
     expect(mockUseQuery).toHaveBeenLastCalledWith(
       expect.anything(),
-      { ...serverManyProductsVariables, _contract: 'contract-b' },
+      {
+        ...serverManyProductsVariables,
+        _contract: hashContractScope('contract-b'),
+      },
       expect.objectContaining({ doNotRun: false })
     )
   })

@@ -25,7 +25,10 @@ vi.mock('src/sdk/product/useLocalizedVariables', () => ({
   useLocalizedVariables: mockUseLocalizedVariables,
 }))
 
-import { useCreateUseGalleryPage } from '../../../src/sdk/product/usePageProductsQuery'
+import {
+  hashContractScope,
+  useCreateUseGalleryPage,
+} from '../../../src/sdk/product/usePageProductsQuery'
 
 const serverManyProductsVariables = {
   first: 12,
@@ -77,7 +80,7 @@ describe('useCreateUseGalleryPage with deliveryPromise enabled', () => {
       {
         ...serverManyProductsVariables,
         _postalCode: '01310-100',
-        _contract: 'contract-137',
+        _contract: hashContractScope('contract-137'),
       },
       expect.objectContaining({ doNotRun: false })
     )

@@ -87,7 +87,10 @@ const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
  *   forces the re-fetch for them: the real `customerId`, when present, keeps
  *   invalidating the cache on contract switch; otherwise the organizational
  *   unit (`unitId`) tells buyers of different units apart; a generic marker is
- *   the last resort.
+ *   the last resort. Since the value ends up in the URL, it is hashed so the
+ *   raw contract or unit id never reaches access, CDN or RUM logs. The URL
+ *   still differs per contract, so a contract page is never served from the
+ *   anonymous page's cache entry.
  */
 const getShopperScope = ({
   postalCode,
@@ -97,8 +100,19 @@ const getShopperScope = ({
   b2b?: { customerId?: string | null; unitId?: string | null } | null
 }) => ({
   ...(isDeliveryPromiseEnabled && { _postalCode: postalCode ?? '' }),
-  ...(b2b && { _contract: b2b.customerId || b2b.unitId || 'b2b' }),
+  ...(b2b && {
+    _contract: hashContractScope(b2b.customerId || b2b.unitId || 'b2b'),
+  }),
 })
+
+/** 32-bit string hash: distinct per contract, without exposing the raw id. */
+export function hashContractScope(value: string) {
+  let hash = 0
+  for (const char of value) {
+    hash = Math.trunc(Math.imul(31, hash) + (char.codePointAt(0) ?? 0))
+  }
+  return (hash >>> 0).toString(36)
+}
 
 interface UseCreateUseGalleryPageProps {
   initialPages: ClientManyProductsQueryWithSearchIdQuery
