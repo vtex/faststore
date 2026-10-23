@@ -31,6 +31,28 @@ describe('redactHeaders', () => {
     })
   })
 
+  it('redacts generic credential headers', () => {
+    expect(
+      redactHeaders({
+        Authorization: 'Bearer secret',
+        'Proxy-Authorization': 'Basic secret',
+        'X-Api-Key': 'secret',
+        'X-Auth-Token': 'secret',
+        'X-Client-Secret': 'secret',
+        'X-Forwarded-Host': 'www.example.com',
+        accept: 'application/json',
+      })
+    ).toEqual({
+      Authorization: '[redacted]',
+      'Proxy-Authorization': '[redacted]',
+      'X-Api-Key': '[redacted]',
+      'X-Auth-Token': '[redacted]',
+      'X-Client-Secret': '[redacted]',
+      'X-Forwarded-Host': 'www.example.com',
+      accept: 'application/json',
+    })
+  })
+
   it('reads headers from any object with forEach, such as fetch polyfills', () => {
     const polyfillHeaders = {
       forEach: (callback: (value: string, name: string) => void) => {
