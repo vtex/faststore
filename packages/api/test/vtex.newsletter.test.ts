@@ -2,6 +2,7 @@ import { execute, parse } from 'graphql'
 
 import { getContextFactory, getSchema } from '../src'
 import type { Options } from '../src'
+import { resetAnonymousNewsletterWarnings } from '../src/platforms/vtex/clients/commerce'
 
 const apiOptions = {
   platform: 'vtex',
@@ -53,8 +54,6 @@ const createRunner = (options: Options) => {
 
 const run = createRunner(apiOptions)
 
-// The fallback warning is kept once per account, so each test that asserts on
-// it uses its own account and doesn't depend on test order.
 const runFor = (account: string) => createRunner({ ...apiOptions, account })
 
 const originalEnv = process.env
@@ -65,6 +64,7 @@ const withCredentials = () => {
 }
 
 beforeEach(() => {
+  resetAnonymousNewsletterWarnings()
   mockedFetch.mockReset()
   mockedFetch.mockResolvedValue({ Id: 'NL-1' })
   process.env = { ...originalEnv }
@@ -124,15 +124,14 @@ test('`subscribeToNewsletter` omits an empty name, as sent when the name input i
 
 test('`subscribeToNewsletter` falls back to the anonymous PATCH without credentials and warns only once', async () => {
   const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
-  const runFallback = runFor('fallbackstore')
 
-  await runFallback({ data: { name: 'Jane', email: 'jane@example.com' } })
-  await runFallback({ data: { name: 'John', email: 'john@example.com' } })
+  await run({ data: { name: 'Jane', email: 'jane@example.com' } })
+  await run({ data: { name: 'John', email: 'john@example.com' } })
 
   expect(mockedFetch).toHaveBeenCalledTimes(2)
   for (const [url, init] of mockedFetch.mock.calls) {
     expect(url).toBe(
-      'https://fallbackstore.vtexcommercestable.com.br/api/dataentities/NL/documents/'
+      'https://storeframework.vtexcommercestable.com.br/api/dataentities/NL/documents/'
     )
     expect(init.method).toBe('PATCH')
     expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
@@ -144,7 +143,7 @@ test('`subscribeToNewsletter` falls back to the anonymous PATCH without credenti
 test('`subscribeToNewsletter` warns once for each account that falls back', async () => {
   const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
 
-  for (const account of ['fallbackstorea', 'fallbackstoreb']) {
+  for (const account of ['storea', 'storeb']) {
     const runFallback = runFor(account)
 
     await runFallback({ data: { name: 'Jane', email: 'jane@example.com' } })
