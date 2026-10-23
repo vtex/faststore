@@ -18,8 +18,6 @@ export interface RefreshTokenResponse {
   refreshAfter?: string | number
 }
 
-const isClientError = (status: number) => status >= 400 && status < 500
-
 async function fetchWithRetry(
   url: RequestInfo | URL,
   init?: RequestInit,
@@ -28,9 +26,6 @@ async function fetchWithRetry(
   for (let i = 0; i < maxRetries; i++) {
     try {
       const res = await fetch(url, init)
-
-      // A 4xx will not change on retry (e.g. no `vid_rt` for this route).
-      if (isClientError(res.status)) return undefined
       if (res.status !== 200) continue
 
       const data = await res.json()
@@ -68,33 +63,24 @@ export const isRefreshTokenSuccessful = (
 }
 
 /**
- * Refresh routes to try, in order. B2B sessions use the Authenticator route,
- * which keeps the selected contract, and fall back to the legacy one for
- * sessions whose `vid_rt` only exists on the legacy path (e.g. OAuth logins).
- * Every other session keeps using the legacy route, as VTEX ID recommends.
+ * Refresh route for the session. B2B sessions use the Authenticator route,
+ * which keeps the selected contract (`customerId`, `unitId`,
+ * `isRepresentative`). Every other session keeps the legacy VTEX ID route, as
+ * VTEX ID recommends. There is no fallback between them: like before, a failed
+ * refresh logs the shopper out.
  */
-export const getRefreshTokenPaths = (isB2B: boolean): string[] =>
-  isB2B
-    ? [AUTHENTICATOR_REFRESH_TOKEN_PATH, LEGACY_REFRESH_TOKEN_PATH]
-    : [LEGACY_REFRESH_TOKEN_PATH]
+export const getRefreshTokenPath = (isB2B: boolean): string =>
+  isB2B ? AUTHENTICATOR_REFRESH_TOKEN_PATH : LEGACY_REFRESH_TOKEN_PATH
 
 export const refreshTokenRequest = async ({
   isB2B = false,
 }: { isB2B?: boolean } = {}): Promise<RefreshTokenResponse | undefined> => {
-  let result: RefreshTokenResponse | undefined
-
-  for (const path of getRefreshTokenPaths(isB2B)) {
-    result = await fetchWithRetry(getRefreshTokenUrl(path), {
-      credentials: 'include',
-      headers: getRefreshTokenHeaders(),
-      body: JSON.stringify({}),
-      method: 'POST',
-    })
-
-    if (isRefreshTokenSuccessful(result)) break
-  }
-
-  return result
+  return fetchWithRetry(getRefreshTokenUrl(getRefreshTokenPath(isB2B)), {
+    credentials: 'include',
+    headers: getRefreshTokenHeaders(),
+    body: JSON.stringify({}),
+    method: 'POST',
+  })
 }
 
 /**

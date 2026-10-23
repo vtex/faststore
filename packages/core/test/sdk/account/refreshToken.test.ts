@@ -59,48 +59,38 @@ describe('refreshTokenRequest (node, B2B session)', () => {
     expect(JSON.parse(init.body as string)).toEqual({})
   })
 
-  it('falls back to the legacy route without retrying a 4xx from the Authenticator', async () => {
-    mockFetch
-      .mockResolvedValueOnce({ status: 401, json: async () => ({}) })
-      .mockResolvedValueOnce({
-        status: 200,
-        json: async () => ({ status: 'Success', refreshAfter: '123' }),
-      })
+  it('does not fall back to the legacy route when the Authenticator fails', async () => {
+    mockFetch.mockResolvedValue({ status: 401, json: async () => ({}) })
 
     const result = await refreshTokenRequest({ isB2B: true })
 
-    expect(result).toEqual({ status: 'Success', refreshAfter: '123' })
-    expect(mockFetch.mock.calls.map(([url]) => url)).toEqual([
-      AUTHENTICATOR_URL,
-      LEGACY_URL,
-    ])
+    expect(result).toBeUndefined()
+    expect(mockFetch).toHaveBeenCalledTimes(3)
+    expect(
+      mockFetch.mock.calls.every(([url]) => url === AUTHENTICATOR_URL)
+    ).toBe(true)
   })
 
-  it('falls back to the legacy route when the Authenticator does not report success', async () => {
-    mockFetch
-      .mockResolvedValueOnce({
-        status: 200,
-        json: async () => ({ authStatus: 'WrongCredentials' }),
-      })
-      .mockResolvedValueOnce({
-        status: 200,
-        json: async () => ({ status: 'Success' }),
-      })
+  it('returns the Authenticator answer as is when it does not report success', async () => {
+    mockFetch.mockResolvedValue({
+      status: 200,
+      json: async () => ({ authStatus: 'WrongCredentials' }),
+    })
 
     const result = await refreshTokenRequest({ isB2B: true })
 
-    expect(result).toEqual({ status: 'Success' })
-    expect(mockFetch).toHaveBeenCalledTimes(2)
-    expect(mockFetch.mock.calls[1][0]).toBe(LEGACY_URL)
+    expect(result).toEqual({ authStatus: 'WrongCredentials' })
+    expect(isRefreshTokenSuccessful(result)).toBe(false)
+    expect(mockFetch).toHaveBeenCalledTimes(1)
   })
 
-  it('retries 5xx on each route and returns undefined after failures', async () => {
+  it('retries non-200 answers on the Authenticator route only', async () => {
     mockFetch.mockResolvedValue({ status: 500, json: async () => ({}) })
 
     const result = await refreshTokenRequest({ isB2B: true })
 
     expect(result).toBeUndefined()
-    expect(mockFetch).toHaveBeenCalledTimes(6)
+    expect(mockFetch).toHaveBeenCalledTimes(3)
   })
 
   it('retries after network errors and succeeds on a later attempt', async () => {
