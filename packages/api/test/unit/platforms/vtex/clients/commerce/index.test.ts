@@ -362,6 +362,8 @@ describe('VTEX Commerce', () => {
     afterEach(() => {
       vi.unstubAllEnvs()
       vi.restoreAllMocks()
+      // Drop persistent stubs (e.g. `mockResolvedValue`) even if a test fails.
+      fetchAPIMocked.mockReset()
     })
 
     it('creates the document with a POST authenticated by the newsletter app key', async () => {
@@ -448,7 +450,6 @@ describe('VTEX Commerce', () => {
       }
 
       expect(warn).toHaveBeenCalledTimes(2)
-      fetchAPIMocked.mockReset()
     })
 
     it.each([
