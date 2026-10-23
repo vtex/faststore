@@ -189,18 +189,23 @@ const buildAuthCookies = (
  * `<account>.myvtex.com`, so its Domain points there and the browser would
  * reject it. Re-scope it like the auth cookies so the next B2B refresh, which
  * goes through the Authenticator route, finds it.
+ *
+ * Only relayed with `experimental.refreshToken` on: otherwise nothing uses it,
+ * and `/api/fs/logout` does not expire it either, so it would outlive logout.
  */
 const relayRefreshTokenCookies = (
   headers: Headers | undefined,
   domain: string | undefined
 ): string[] =>
-  (headers?.getSetCookie?.() ?? [])
-    .filter((cookie) => cookie.trimStart().startsWith('vid_rt='))
-    .map((cookie) => {
-      const hostOnly = removeCookieDomain(cookie)
+  !storeConfig.experimental?.refreshToken
+    ? []
+    : (headers?.getSetCookie?.() ?? [])
+        .filter((cookie) => cookie.trimStart().startsWith('vid_rt='))
+        .map((cookie) => {
+          const hostOnly = removeCookieDomain(cookie)
 
-      return domain ? `${hostOnly}; Domain=${domain}` : hostOnly
-    })
+          return domain ? `${hostOnly}; Domain=${domain}` : hostOnly
+        })
 
 const buildOrderFormExpiryCookies = (request: NextApiRequest): string[] => {
   const hostname = getRequestHostname(request.headers.host)

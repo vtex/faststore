@@ -3,10 +3,14 @@ import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
 
 import type { SwitchContractResponse } from '../../../src/pages/api/fs/switch-contract'
 
-vi.mock('discovery.config', () => ({
-  __esModule: true,
-  default: { api: { storeId: 'test-store' } },
+const mockConfig = vi.hoisted(() => ({
+  default: {
+    api: { storeId: 'test-store' },
+    experimental: { refreshToken: true } as Record<string, unknown>,
+  },
 }))
+
+vi.mock('discovery.config', () => ({ __esModule: true, ...mockConfig }))
 
 const CONTRACT_ID = '69b5d80e-8f61-44e0-a5cb-db54c326699c'
 const ORDER_FORM_COOKIES =
@@ -487,6 +491,35 @@ describe('/api/fs/switch-contract', () => {
     expect(cookies.some((cookie) => cookie.includes('upstream-token'))).toBe(
       false
     )
+  })
+
+  it('does not relay vid_rt when refresh token is disabled', async () => {
+    mockConfig.default.experimental = {}
+    ;(global.fetch as Mock).mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => successPayload,
+      headers: {
+        getSetCookie: () => [
+          'vid_rt=rt-1; domain=test-store.myvtex.com; path=/api/authenticator/v1/refreshtoken/webstore; secure; httponly',
+        ],
+      },
+    })
+    const handler = await getHandler()
+    const { req, res } = createReqRes()
+
+    try {
+      await handler(req, res)
+    } finally {
+      mockConfig.default.experimental = { refreshToken: true }
+    }
+
+    const cookies = setCookiesFrom(res)
+    expect(cookies.some((cookie) => cookie.startsWith('vid_rt='))).toBe(false)
+    // The contract switch itself still goes through.
+    expect(
+      cookies.some((cookie) => cookie.includes('new-contract-token'))
+    ).toBe(true)
   })
 
   it('relays vid_rt host-only when the auth cookie is host-only', async () => {
