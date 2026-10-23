@@ -66,20 +66,23 @@ describe('fetchAPI', () => {
       fetchAPI('https://example.vtexcommercestable.com.br/api/test', {
         method: 'POST',
         headers: SECRET_HEADERS,
-        body: '{}',
+        body: '{"email":"jane@example.com"}',
       })
     ).rejects.toThrow('Forbidden')
 
-    // The request itself still carries the credentials.
+    // The request itself still carries the credentials and the body.
     const [, init] = mockFetch.mock.calls[0]
     expect(init.headers['X-VTEX-API-AppKey']).toBe('app-key-secret')
+    expect(init.body).toBe('{"email":"jane@example.com"}')
 
     expect(error).toHaveBeenCalledTimes(1)
     const logged = JSON.stringify(error.mock.calls[0])
     expect(logged).not.toContain('secret')
+    expect(logged).not.toContain('jane@example.com')
     expect(error.mock.calls[0][1].headers['X-VTEX-API-AppKey']).toBe(
       '[redacted]'
     )
+    expect(error.mock.calls[0][1].body).toBe('[redacted]')
   })
 
   it('does not log credential headers from the failed response', async () => {
