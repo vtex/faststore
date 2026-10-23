@@ -1,6 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
 
+import type { MutationSubscribeToNewsletterArgs } from '../../../../../src/__generated__/schema'
 import { BadRequestError } from '../../../../../src/platforms/errors'
+import type { GraphqlContext } from '../../../../../src/platforms/vtex'
 import { subscribeToNewsletter } from '../../../../../src/platforms/vtex/resolvers/subscribeToNewsletter'
 
 const makeContext = () => ({
@@ -11,8 +13,14 @@ const makeContext = () => ({
   },
 })
 
-const subscribe = (ctx: ReturnType<typeof makeContext>, data: any) =>
-  subscribeToNewsletter(null, { data }, ctx as any)
+// `id` isn't part of the input type; it's sent on purpose to check that extra
+// fields are dropped.
+type SubscribeInput = MutationSubscribeToNewsletterArgs['data'] & {
+  id?: string
+}
+
+const subscribe = (ctx: ReturnType<typeof makeContext>, data: SubscribeInput) =>
+  subscribeToNewsletter(null, { data }, ctx as unknown as GraphqlContext)
 
 describe('subscribeToNewsletter', () => {
   it('normalizes the input and returns only the created id', async () => {

@@ -15,9 +15,9 @@ interface FetchAPIOptions {
 }
 
 // Headers that carry credentials (store API keys and shopper cookies). They
-// are replaced before the failed request is logged.
+// are replaced before a failed request and its response are logged.
 const SENSITIVE_HEADER =
-  /^(x-vtex-api-appkey|x-vtex-api-apptoken|cookie|vtexidclientautcookie.*)$/i
+  /^(x-vtex-api-appkey|x-vtex-api-apptoken|cookie|set-cookie|vtexidclientautcookie.*)$/i
 
 const REDACTED = '[redacted]'
 
@@ -65,10 +65,16 @@ export const fetchAPI = async (
     return response.status !== 204 ? response.json() : undefined
   }
 
+  // Log a summary instead of the raw Response, whose headers may include
+  // `Set-Cookie` with shopper credentials.
   console.error(
     info,
     init && { ...init, headers: redactHeaders(init.headers) },
-    response
+    {
+      status: response.status,
+      statusText: response.statusText,
+      headers: redactHeaders(response.headers),
+    }
   )
   const text = await response.text()
 

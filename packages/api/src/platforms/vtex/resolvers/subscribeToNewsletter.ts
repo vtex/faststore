@@ -17,7 +17,8 @@ export const subscribeToNewsletter = async (
   { clients: { commerce } }: GraphqlContext
 ): Promise<PersonNewsletter | null> => {
   // The subscription is written with a store credential, so only validated
-  // values reach Master Data (see "Authentication in API extensions").
+  // values reach Master Data. See "Create-only writes from anonymous visitors"
+  // in https://developers.vtex.com/docs/guides/faststore/api-extensions-authentication-in-api-extensions
   const email = data.email?.trim().toLowerCase() ?? ''
   const name = data.name?.trim() ?? ''
 

@@ -69,4 +69,33 @@ describe('fetchAPI', () => {
       '[redacted]'
     )
   })
+
+  it('does not log credential headers from the failed response', async () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {})
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 403,
+      statusText: 'Forbidden',
+      headers: new Headers({
+        'content-type': 'text/plain',
+        'set-cookie': 'VtexIdclientAutCookie_store=response-secret',
+      }),
+      text: async () => 'Forbidden',
+    })
+
+    await expect(
+      fetchAPI('https://example.vtexcommercestable.com.br/api/test')
+    ).rejects.toThrow(ForbiddenError)
+
+    const [, , loggedResponse] = error.mock.calls[0]
+    expect(loggedResponse).toEqual({
+      status: 403,
+      statusText: 'Forbidden',
+      headers: {
+        'content-type': 'text/plain',
+        'set-cookie': '[redacted]',
+      },
+    })
+    expect(JSON.stringify(error.mock.calls[0])).not.toContain('secret')
+  })
 })
