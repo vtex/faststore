@@ -242,11 +242,14 @@ describe('/api/graphql request handling', () => {
 describe('/api/graphql ValidateSession refresh-token bypass', () => {
   const originalRefreshToken = discoveryConfig.experimental.refreshToken
 
-  const createValidateSessionRequest = (host: string) =>
+  const createValidateSessionRequest = (
+    host: string,
+    extraHeaders: Record<string, string> = {}
+  ) =>
     ({
       method: 'GET',
       url: '/api/graphql',
-      headers: { host },
+      headers: { host, ...extraHeaders },
       query: {
         operationName: 'ValidateSession',
         operationHash: 'hash',
@@ -276,6 +279,20 @@ describe('/api/graphql ValidateSession refresh-token bypass', () => {
   ])('does not force a 401 on %s', async (host) => {
     const res = createResponse()
     await handler(createValidateSessionRequest(host), res)
+
+    expect(mockedShouldForceRefreshToken).not.toHaveBeenCalled()
+    expect(res.status).not.toHaveBeenCalledWith(401)
+    expect(mockedExecute).toHaveBeenCalled()
+  })
+
+  it('does not force a 401 on a preview behind the ingress', async () => {
+    const res = createResponse()
+    await handler(
+      createValidateSessionRequest('faststore-internal:3000', {
+        'x-forwarded-host': 'brandless-abc123.preview.vtex.app',
+      }),
+      res
+    )
 
     expect(mockedShouldForceRefreshToken).not.toHaveBeenCalled()
     expect(res.status).not.toHaveBeenCalledWith(401)

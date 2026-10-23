@@ -11,7 +11,7 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie } from 'src/utils/getCookie'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
-import { shouldBypassRefreshToken } from 'src/utils/shouldBypassRefreshToken'
+import { shouldBypassRefreshTokenForRequest } from 'src/utils/shouldBypassRefreshToken'
 import {
   isHostAllowed,
   removeCookieDomain,
@@ -280,7 +280,7 @@ const assertValidateSessionTokenIsFresh = ({
   if (
     operationName !== 'ValidateSession' ||
     !discoveryConfig.experimental?.refreshToken ||
-    shouldBypassRefreshToken(getRequestHostname(request.headers.host))
+    shouldBypassRefreshTokenForRequest(request.headers)
   ) {
     return
   }

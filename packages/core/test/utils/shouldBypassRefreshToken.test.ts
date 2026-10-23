@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   shouldBypassRefreshToken,
   shouldBypassRefreshTokenBrowser,
+  shouldBypassRefreshTokenForRequest,
 } from '../../src/utils/shouldBypassRefreshToken'
 
 describe('shouldBypassRefreshToken', () => {
@@ -17,6 +18,12 @@ describe('shouldBypassRefreshToken', () => {
 
   it('is case-insensitive for preview hosts', () => {
     expect(shouldBypassRefreshToken('Brandless-ABC123.Preview.VTEX.app')).toBe(
+      true
+    )
+  })
+
+  it('ignores the trailing dot of a fully qualified preview host', () => {
+    expect(shouldBypassRefreshToken('brandless-abc123.preview.vtex.app.')).toBe(
       true
     )
   })
@@ -39,6 +46,48 @@ describe('shouldBypassRefreshToken', () => {
     expect(shouldBypassRefreshToken(null)).toBe(false)
     expect(shouldBypassRefreshToken(undefined)).toBe(false)
     expect(shouldBypassRefreshToken('')).toBe(false)
+  })
+})
+
+describe('shouldBypassRefreshTokenForRequest', () => {
+  it('returns true when the Host header is a local or preview host', () => {
+    expect(shouldBypassRefreshTokenForRequest({ host: 'localhost:3000' })).toBe(
+      true
+    )
+    expect(
+      shouldBypassRefreshTokenForRequest({
+        host: 'brandless-abc123.preview.vtex.app',
+      })
+    ).toBe(true)
+  })
+
+  it('returns true when the preview host arrives in x-forwarded-host', () => {
+    // Behind the preview ingress, Host is an internal name.
+    expect(
+      shouldBypassRefreshTokenForRequest({
+        host: 'faststore-internal:3000',
+        'x-forwarded-host': 'brandless-abc123.preview.vtex.app',
+      })
+    ).toBe(true)
+  })
+
+  it('ignores a multi-value x-forwarded-host', () => {
+    expect(
+      shouldBypassRefreshTokenForRequest({
+        host: 'brandless.fast.store',
+        'x-forwarded-host': 'brandless-abc123.preview.vtex.app, proxy',
+      })
+    ).toBe(false)
+  })
+
+  it('returns false on production hosts', () => {
+    expect(
+      shouldBypassRefreshTokenForRequest({
+        host: 'brandless.fast.store',
+        'x-forwarded-host': 'brandless.fast.store',
+      })
+    ).toBe(false)
+    expect(shouldBypassRefreshTokenForRequest({})).toBe(false)
   })
 })
 
