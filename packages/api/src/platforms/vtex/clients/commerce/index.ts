@@ -711,6 +711,11 @@ export const VtexCommerce = (
         email,
         isNewsletterOptIn: true,
       })
+      // Use a key dedicated to the newsletter, whose role has only the Dynamic
+      // Storage "Insert or update document (not remove)" resource. Master Data
+      // permissions aren't scoped by entity, so never reuse a key that serves
+      // other features, and rotate it like any other secret. Setup steps:
+      // https://developers.vtex.com/docs/guides/faststore/organisms-newsletter#setting-up-newsletter-subscriptions
       const appKey = process.env.FS_NEWSLETTER_APP_KEY
       const appToken = process.env.FS_NEWSLETTER_APP_TOKEN
 
