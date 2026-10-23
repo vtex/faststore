@@ -223,6 +223,27 @@ describe('VTEX Commerce', () => {
       )
     })
 
+    it('caps how many accounts it remembers', async () => {
+      delete process.env.FS_NEWSLETTER_APP_KEY
+      delete process.env.FS_NEWSLETTER_APP_TOKEN
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+      fetchAPIMocked.mockResolvedValue({ Id: 'NL-10' })
+
+      const subscribeAs = (account: string) =>
+        clients
+          .getClients({ ...apiOptions, account } as Options, context)
+          .commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+      // 100 accounts fill the set; the 101st clears it, so the first account
+      // is warned again instead of the set growing.
+      for (let i = 0; i <= 100; i++) {
+        await subscribeAs(`store${i}`)
+      }
+      await subscribeAs('store0')
+
+      expect(warn).toHaveBeenCalledTimes(102)
+    })
+
     it('does not send the app key of other features', async () => {
       delete process.env.FS_NEWSLETTER_APP_KEY
       delete process.env.FS_NEWSLETTER_APP_TOKEN
