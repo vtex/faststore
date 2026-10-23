@@ -196,16 +196,19 @@ const buildAuthCookies = (
 const relayRefreshTokenCookies = (
   headers: Headers | undefined,
   domain: string | undefined
-): string[] =>
-  !storeConfig.experimental?.refreshToken
-    ? []
-    : (headers?.getSetCookie?.() ?? [])
-        .filter((cookie) => cookie.trimStart().startsWith('vid_rt='))
-        .map((cookie) => {
-          const hostOnly = removeCookieDomain(cookie)
+): string[] => {
+  if (!storeConfig.experimental?.refreshToken) {
+    return []
+  }
 
-          return domain ? `${hostOnly}; Domain=${domain}` : hostOnly
-        })
+  return (headers?.getSetCookie?.() ?? [])
+    .filter((cookie) => cookie.trimStart().startsWith('vid_rt='))
+    .map((cookie) => {
+      const hostOnly = removeCookieDomain(cookie)
+
+      return domain ? `${hostOnly}; Domain=${domain}` : hostOnly
+    })
+}
 
 const buildOrderFormExpiryCookies = (request: NextApiRequest): string[] => {
   const hostname = getRequestHostname(request.headers.host)
