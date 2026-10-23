@@ -89,22 +89,27 @@ const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
  *   unit (`unitId`) tells buyers of different units apart; a generic marker is
  *   the last resort. Since the value ends up in the URL, it is hashed so the
  *   raw contract or unit id is not written to access, CDN or RUM logs as is.
- *   The hash is unkeyed: it avoids that incidental exposure, not a deliberate
- *   reversal of a guessable id. The URL still differs per contract, so a
- *   contract page is never served from the anonymous page's cache entry.
+ *   These ids are not secrets (the session already hands them to the
+ *   browser), so the hash is cosmetic, not a privacy control: it is unkeyed
+ *   and a guessable id can be recovered from it. The URL still differs per
+ *   contract, so a contract page is never served from the anonymous page's
+ *   cache entry.
  */
 const getShopperScope = ({
   postalCode,
-  b2b,
+  contract,
 }: {
   postalCode?: string | null
-  b2b?: { customerId?: string | null; unitId?: string | null } | null
+  contract?: string | null
 }) => ({
   ...(isDeliveryPromiseEnabled && { _postalCode: postalCode ?? '' }),
-  ...(b2b && {
-    _contract: hashContractScope(b2b.customerId || b2b.unitId || 'b2b'),
-  }),
+  ...(contract && { _contract: hashContractScope(contract) }),
 })
+
+/** The id a B2B session is scoped by, or `null` outside a B2B session. */
+const getContractScope = (
+  b2b?: { customerId?: string | null; unitId?: string | null } | null
+) => (b2b ? b2b.customerId || b2b.unitId || 'b2b' : null)
 
 /**
  * 53-bit string hash (cyrb53): wide enough that two contracts in the same
@@ -113,8 +118,8 @@ const getShopperScope = ({
 export function hashContractScope(value: string) {
   let h1 = 0xdeadbeef
   let h2 = 0x41c6ce57
-  for (let i = 0; i < value.length; i++) {
-    const code = value.charCodeAt(i)
+  for (const char of value) {
+    const code = char.codePointAt(0) ?? 0
     h1 = Math.imul(h1 ^ code, 2654435761)
     h2 = Math.imul(h2 ^ code, 1597334677)
   }
@@ -177,12 +182,15 @@ export const useCreateUseGalleryPage = (
       selectedFacets,
     })
 
+    // Keyed on the contract id, not the `b2b` object, which is rebuilt on
+    // every session update.
+    const contract = getContractScope(b2b)
     const localizedVariablesWithRegion = useMemo(
       () => ({
         ...localizedVariables,
-        ...getShopperScope({ postalCode, b2b }),
+        ...getShopperScope({ postalCode, contract }),
       }),
-      [localizedVariables, postalCode, b2b]
+      [localizedVariables, postalCode, contract]
     )
 
     const hasSameVariables = deepEquals(

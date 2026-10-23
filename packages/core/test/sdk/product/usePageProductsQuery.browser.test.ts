@@ -125,6 +125,12 @@ describe('useCreateUseGalleryPage', () => {
     )
   })
 
+  it('hashes the contract scope to a stable value', () => {
+    // Golden value: catches a change to the hash itself, which the other
+    // tests miss because they derive their expectations from it.
+    expect(hashContractScope('contract-137')).toBe('185k3l4sd4t')
+  })
+
   it('keeps the raw contract id out of the query variables', () => {
     mockUseSession.mockReturnValue({
       postalCode: null,
