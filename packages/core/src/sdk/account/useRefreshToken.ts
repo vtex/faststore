@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
 import { isLocalHostBrowser } from 'src/utils/isLocalHost'
 import { logoutAndClearSession, sessionStore } from '../session'
-import { isRefreshTokenSuccessful, refreshTokenRequest } from './refreshToken'
+import {
+  getNextRefreshAfter,
+  isB2BSession,
+  isRefreshTokenSuccessful,
+  refreshTokenRequest,
+} from './refreshToken'
 
 export const useRefreshToken = (
   needsRefreshToken?: boolean,
@@ -27,13 +32,13 @@ export const useRefreshToken = (
       const currentSession = sessionStore.read() ?? sessionStore.readInitial()
 
       try {
-        const result = await refreshTokenRequest()
+        const result = await refreshTokenRequest({
+          isB2B: isB2BSession(currentSession),
+        })
 
         if (isRefreshTokenSuccessful(result)) {
           // Update session with new refreshAfter timestamp
-          const refreshAfter = String(
-            Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
-          )
+          const refreshAfter = getNextRefreshAfter(result)
 
           sessionStore.set({
             ...currentSession,
