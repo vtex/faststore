@@ -87,6 +87,10 @@ const BASE_INIT = {
 // instead of per instance, to avoid flooding the logs.
 const accountsWarnedAboutAnonymousNewsletter = new Set<string>()
 
+/** Test-only: forget which accounts were warned about the anonymous fallback. */
+export const resetAnonymousNewsletterWarnings = () =>
+  accountsWarnedAboutAnonymousNewsletter.clear()
+
 /**
  * Encode a by-linkid path for the category endpoint. Category link paths can be
  * multi-segment (e.g. "computer---software/eletronicos"); the Catalog endpoint
