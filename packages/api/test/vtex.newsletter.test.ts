@@ -153,6 +153,47 @@ test('`subscribeToNewsletter` warns once for each account that falls back', asyn
   expect(warn).toHaveBeenCalledTimes(2)
 })
 
+test.each([
+  [
+    'FS_NEWSLETTER_APP_TOKEN',
+    'FS_NEWSLETTER_APP_KEY',
+    { FS_NEWSLETTER_APP_KEY: 'newsletter-key' },
+  ],
+  [
+    'FS_NEWSLETTER_APP_KEY',
+    'FS_NEWSLETTER_APP_TOKEN',
+    { FS_NEWSLETTER_APP_TOKEN: 'newsletter-token' },
+  ],
+])(
+  '`subscribeToNewsletter` names only %s in the warning when it is the one missing',
+  async (missing, present, env) => {
+    Object.assign(process.env, env)
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+
+    await run({ data: { name: 'Jane', email: 'jane@example.com' } })
+
+    const { init } = sentRequest()
+
+    expect(init.method).toBe('PATCH')
+    expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
+
+    const [message] = warn.mock.calls[0]
+
+    expect(message).toContain(`${missing} is not set`)
+    expect(message).not.toContain(present)
+  }
+)
+
+test('`subscribeToNewsletter` names both variables in the warning when neither is set', async () => {
+  const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+
+  await run({ data: { name: 'Jane', email: 'jane@example.com' } })
+
+  expect(warn.mock.calls[0][0]).toContain(
+    'FS_NEWSLETTER_APP_KEY and FS_NEWSLETTER_APP_TOKEN are not set'
+  )
+})
+
 test('`subscribeToNewsletter` does not send the app key of other features', async () => {
   process.env.FS_DISCOVERY_APP_KEY = 'discovery-key'
   process.env.FS_DISCOVERY_APP_TOKEN = 'discovery-token'
