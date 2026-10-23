@@ -258,6 +258,8 @@ describe('/api/fs/switch-contract', () => {
     ['a single-label parent', 'store.com', []],
     ['a deep host', 'a.b.store.com', ['b.store.com', 'store.com']],
     ['a two-level suffix', 'www.store.com.br', ['store.com.br', 'com.br']],
+    ['a .co.uk store', 'www.store.co.uk', ['store.co.uk', 'co.uk']],
+    ['a .com.au store', 'shop.store.com.au', ['store.com.au', 'com.au']],
   ])('expires every parent domain for %s', async (_label, host, parents) => {
     const handler = await getHandler()
     const { req, res } = createReqRes({ headers: { host } })
@@ -273,6 +275,24 @@ describe('/api/fs/switch-contract', () => {
 
     expect(expiredDomains).toEqual(parents)
   })
+
+  it.each(['www.store.com.br', 'www.store.co.uk', 'shop.store.com.au'])(
+    'writes the new token only on the request host for %s, never on a parent or public suffix',
+    async (host) => {
+      const handler = await getHandler()
+      const { req, res } = createReqRes({ headers: { host } })
+
+      await handler(req, res)
+
+      // Parents (including public suffixes such as co.uk, which the browser
+      // rejects) only ever get expiries; the token is scoped to the host.
+      expect(
+        setCookiesFrom(res).filter((cookie) =>
+          cookie.includes('new-contract-token')
+        )
+      ).toEqual([expect.stringContaining(`; Domain=${host}; Path=/;`)])
+    }
+  )
 
   it.each([
     ['a preview Host', { host: 'sfj-abc--test-store.preview.vtex.app' }],
