@@ -89,9 +89,11 @@ const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
  *   unit (`unitId`) tells buyers of different units apart; a generic marker is
  *   the last resort. Since the value ends up in the URL, it is hashed so the
  *   raw contract or unit id is not written to access, CDN or RUM logs as is.
- *   The hash is unkeyed: it avoids that incidental exposure, not a deliberate
- *   reversal of a guessable id. The URL still differs per contract, so a
- *   contract page is never served from the anonymous page's cache entry.
+ *   These ids are not secrets (the session already hands them to the
+ *   browser), so the hash is cosmetic, not a privacy control: it is unkeyed
+ *   and a guessable id can be recovered from it. The URL still differs per
+ *   contract, so a contract page is never served from the anonymous page's
+ *   cache entry.
  */
 const getShopperScope = ({
   postalCode,
