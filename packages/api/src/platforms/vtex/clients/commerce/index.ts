@@ -30,9 +30,10 @@ const BASE_INIT = {
   },
 }
 
-// Logged once per process so stores still relying on public `NL` fields are
-// told to configure credentials without flooding the logs.
-let hasWarnedAnonymousNewsletter = false
+// Accounts already warned that they rely on public `NL` fields. The commerce
+// client is created per request, so the warning is kept once per account
+// instead of per instance, to avoid flooding the logs.
+const accountsWarnedAboutAnonymousNewsletter = new Set<string>()
 
 export const VtexCommerce = (
   { account, environment, incrementAddress }: Options,
@@ -389,8 +390,8 @@ export const VtexCommerce = (
         })
       }
 
-      if (!hasWarnedAnonymousNewsletter) {
-        hasWarnedAnonymousNewsletter = true
+      if (!accountsWarnedAboutAnonymousNewsletter.has(account)) {
+        accountsWarnedAboutAnonymousNewsletter.add(account)
         console.warn(
           '[subscribeToNewsletter] FS_NEWSLETTER_APP_KEY/FS_NEWSLETTER_APP_TOKEN are not set. Falling back to an anonymous Master Data request, which requires public fields in the NL entity. Configure the credentials and make the NL fields private.'
         )

@@ -26,10 +26,27 @@ describe('redactHeaders', () => {
     })
   })
 
+  it('reads headers from any object with forEach, such as fetch polyfills', () => {
+    expect(redactHeaders(polyfillHeaders('secret'))).toEqual({
+      'content-type': 'text/plain',
+      'set-cookie': '[redacted]',
+    })
+  })
+
   it('returns undefined when there are no headers', () => {
     expect(redactHeaders(undefined)).toBeUndefined()
   })
 })
+
+// Shaped like the Headers polyfill returned by isomorphic-unfetch on Node.
+function polyfillHeaders(cookieValue: string) {
+  return {
+    forEach: (callback: (value: string, name: string) => void) => {
+      callback('text/plain', 'content-type')
+      callback(`VtexIdclientAutCookie_store=${cookieValue}`, 'set-cookie')
+    },
+  } as unknown as Headers
+}
 
 describe('fetchAPI', () => {
   afterEach(() => {
@@ -63,5 +80,31 @@ describe('fetchAPI', () => {
     expect(error.mock.calls[0][1].headers['X-VTEX-API-AppKey']).toBe(
       '[redacted]'
     )
+  })
+
+  it('does not log credential headers from the failed response', async () => {
+    const error = jest.spyOn(console, 'error').mockImplementation(() => {})
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 403,
+      statusText: 'Forbidden',
+      headers: polyfillHeaders('response-secret'),
+      text: async () => 'Forbidden',
+    })
+
+    await expect(
+      fetchAPI('https://example.vtexcommercestable.com.br/api/test')
+    ).rejects.toThrow('Forbidden')
+
+    const [, , loggedResponse] = error.mock.calls[0]
+    expect(loggedResponse).toEqual({
+      status: 403,
+      statusText: 'Forbidden',
+      headers: {
+        'content-type': 'text/plain',
+        'set-cookie': '[redacted]',
+      },
+    })
+    expect(JSON.stringify(error.mock.calls[0])).not.toContain('secret')
   })
 })

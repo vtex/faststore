@@ -34,20 +34,28 @@ jest.mock('../src/platforms/vtex/clients/fetch.ts', () => ({
   ) => mockedFetch(info, init, options),
 }))
 
-const schemaPromise = getSchema(apiOptions)
-const contextFactory = getContextFactory(apiOptions)
+const createRunner = (options: Options) => {
+  const schemaPromise = getSchema(options)
+  const contextFactory = getContextFactory(options)
 
-const run = async (variables: Record<string, unknown>) =>
-  execute(
-    await schemaPromise,
-    parse(SubscribeToNewsletterMutation),
-    null,
-    {
-      ...contextFactory({}),
-      headers: { 'content-type': 'application/json', cookie: '' },
-    },
-    variables
-  )
+  return async (variables: Record<string, unknown>) =>
+    execute(
+      await schemaPromise,
+      parse(SubscribeToNewsletterMutation),
+      null,
+      {
+        ...contextFactory({}),
+        headers: { 'content-type': 'application/json', cookie: '' },
+      },
+      variables
+    )
+}
+
+const run = createRunner(apiOptions)
+
+// The fallback warning is kept once per account, so each test that asserts on
+// it uses its own account and doesn't depend on test order.
+const runFor = (account: string) => createRunner({ ...apiOptions, account })
 
 const originalEnv = process.env
 
@@ -114,22 +122,36 @@ test('`subscribeToNewsletter` omits an empty name, as sent when the name input i
   })
 })
 
-// Keep this as the first fallback test: the warning is emitted once per
-// process.
 test('`subscribeToNewsletter` falls back to the anonymous PATCH without credentials and warns only once', async () => {
   const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+  const runFallback = runFor('fallbackstore')
 
-  await run({ data: { name: 'Jane', email: 'jane@example.com' } })
-  await run({ data: { name: 'John', email: 'john@example.com' } })
+  await runFallback({ data: { name: 'Jane', email: 'jane@example.com' } })
+  await runFallback({ data: { name: 'John', email: 'john@example.com' } })
 
-  const { url, init } = sentRequest()
-
-  expect(url).toBe(
-    'https://storeframework.vtexcommercestable.com.br/api/dataentities/NL/documents/'
-  )
-  expect(init.method).toBe('PATCH')
-  expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
+  expect(mockedFetch).toHaveBeenCalledTimes(2)
+  for (const [url, init] of mockedFetch.mock.calls) {
+    expect(url).toBe(
+      'https://fallbackstore.vtexcommercestable.com.br/api/dataentities/NL/documents/'
+    )
+    expect(init.method).toBe('PATCH')
+    expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
+    expect(init.headers['X-VTEX-API-AppToken']).toBeUndefined()
+  }
   expect(warn).toHaveBeenCalledTimes(1)
+})
+
+test('`subscribeToNewsletter` warns once for each account that falls back', async () => {
+  const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+
+  for (const account of ['fallbackstorea', 'fallbackstoreb']) {
+    const runFallback = runFor(account)
+
+    await runFallback({ data: { name: 'Jane', email: 'jane@example.com' } })
+    await runFallback({ data: { name: 'John', email: 'john@example.com' } })
+  }
+
+  expect(warn).toHaveBeenCalledTimes(2)
 })
 
 test('`subscribeToNewsletter` does not send the app key of other features', async () => {
