@@ -10,6 +10,7 @@ import { request } from '../graphql/request'
 import { onErrorRetry } from '../graphql/retryPolicy'
 import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
+import { isNotFound } from './useProductNotFoundRedirect'
 
 const query = gql(`
   query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {
@@ -64,11 +65,12 @@ export const useProductQuery = <T extends ClientProductQueryQuery>(
     // never exposes `error` (e.g. the B2B assortment 404 the PDP reacts to).
     // This fetcher keeps the same deferral but forwards the rejection.
     fetcher: () => fetchProduct<T>(variables),
-    // A 404 is the answer (the product is not available to this shopper), not
-    // a transient failure, so it is not retried. Other errors follow the
-    // shared retry policy.
+    // A not-found is the answer (the product is not available to this
+    // shopper), not a transient failure, so it is not retried. It is matched
+    // the same way the PDP redirect matches it. Other errors follow the shared
+    // retry policy.
     onErrorRetry: (error, key, config, revalidate, opts) => {
-      if ((error as { status?: number } | undefined)?.status === 404) return
+      if (isNotFound(error)) return
 
       onErrorRetry(error, key, config, revalidate, opts)
     },

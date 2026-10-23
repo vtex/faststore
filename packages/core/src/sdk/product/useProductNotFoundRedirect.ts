@@ -7,7 +7,7 @@ import { useSession } from '../session'
  * A non-2xx BFF response reaches the client as `{ status }` (see
  * `ParseInvalidRequest`), while a 2xx one keeps the GraphQL `extensions`.
  */
-const isNotFound = (error: unknown) => {
+export const isNotFound = (error: unknown) => {
   const { status, extensions } = (error ?? {}) as {
     status?: number
     extensions?: { type?: string }

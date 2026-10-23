@@ -66,6 +66,29 @@ describe('useProductQuery', () => {
     expect(mockRequest).toHaveBeenCalledTimes(1)
   })
 
+  it('does not retry a NotFoundError carried in the GraphQL extensions', async () => {
+    mockUseSession.mockReturnValue({
+      channel: '{"salesChannel":"1"}',
+      locale: 'en-US',
+      b2b: { customerId: 'contract-137' },
+    })
+    mockRequest.mockRejectedValue({ extensions: { type: 'NotFoundError' } })
+
+    const fastRetries = ({ children }: { children: ReactNode }) =>
+      createElement(
+        SWRConfig,
+        { value: { provider: () => new Map(), errorRetryInterval: 1 } },
+        children
+      )
+
+    renderHook(usePdpClientQuery, { wrapper: fastRetries })
+
+    await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/404'))
+    // Long enough for a retry at the 1 ms interval to have run.
+    await new Promise((resolve) => setTimeout(resolve, 50))
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+  })
+
   it('sends a B2B shopper to the 404 page when the refetch answers 404', async () => {
     mockUseSession.mockReturnValue({
       channel: '{"salesChannel":"1"}',
