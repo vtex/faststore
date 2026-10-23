@@ -359,6 +359,7 @@ function makeProductCtx({
   getLocalizedProduct = vi.fn(),
   pagetype = vi.fn(),
   fetchProduct = vi.fn(),
+  cookie,
 }: {
   localizationEnabled?: boolean
   locale?: string
@@ -368,8 +369,10 @@ function makeProductCtx({
   getLocalizedProduct?: (...args: any[]) => Promise<any>
   pagetype?: (...args: any[]) => Promise<any>
   fetchProduct?: (...args: any[]) => Promise<any>
+  cookie?: string
 } = {}) {
   return {
+    headers: { cookie },
     storage: { locale },
     discoveryConfig: {
       localization: localizationEnabled
@@ -660,6 +663,73 @@ describe('Query.product', () => {
         callProduct([{ key: 'id', value: '999' }], ctx)
       ).rejects.toThrow('boom')
       expect(pagetype).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('contract assortment', () => {
+    const contractCookie = `vtex_segment=${Buffer.from(
+      JSON.stringify({ facets: 'productClusterIds=137;' })
+    ).toString('base64')}`
+
+    const inAssortment = [{ id: '137', name: 'Contract' }]
+    const outOfAssortment = [{ id: '10', name: 'Other' }]
+
+    it('returns the product when it belongs to the contract assortment', async () => {
+      const sku = makeSku({ productClusters: inAssortment })
+      const load = vi.fn().mockResolvedValue(sku)
+      const ctx = makeProductCtx({ load, cookie: contractCookie })
+
+      const result = await callProduct([{ key: 'id', value: '100' }], ctx)
+
+      expect(result).toBe(sku)
+    })
+
+    it('throws NotFoundError when the product is outside the contract assortment', async () => {
+      const load = vi
+        .fn()
+        .mockResolvedValue(makeSku({ productClusters: outOfAssortment }))
+      const pagetype = vi.fn()
+      const ctx = makeProductCtx({ load, pagetype, cookie: contractCookie })
+
+      await expect(
+        callProduct(
+          [
+            { key: 'id', value: '100' },
+            { key: 'slug', value: 'blue-shirt-100' },
+          ],
+          ctx
+        )
+      ).rejects.toMatchObject({ extensions: { type: 'NotFoundError' } })
+      expect(pagetype).not.toHaveBeenCalled()
+    })
+
+    it('checks products resolved through the slug fallback too', async () => {
+      const load = vi.fn().mockRejectedValue(new NotFoundError('no sku'))
+      const pagetype = vi
+        .fn()
+        .mockResolvedValue({ pageType: 'Product', id: 55 })
+      const fetchProduct = vi
+        .fn()
+        .mockResolvedValue(
+          makeSearchProduct({ productClusters: outOfAssortment })
+        )
+      const ctx = makeProductCtx({
+        load,
+        pagetype,
+        fetchProduct,
+        cookie: contractCookie,
+      })
+
+      await expect(
+        callProduct(
+          [
+            { key: 'id', value: '999' },
+            { key: 'slug', value: 'blue-shirt-999' },
+          ],
+          ctx
+        )
+      ).rejects.toMatchObject({ extensions: { type: 'NotFoundError' } })
+      expect(fetchProduct).toHaveBeenCalled()
     })
   })
 })

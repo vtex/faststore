@@ -14,7 +14,7 @@ describe('refreshTokenRequest (browser)', () => {
   beforeEach(() => {
     mockFetch.mockResolvedValue({
       status: 200,
-      json: async () => ({ status: 'success' }),
+      json: async () => ({ authStatus: 'Success' }),
     })
   })
 
@@ -30,5 +30,14 @@ describe('refreshTokenRequest (browser)', () => {
     const [url, init] = mockFetch.mock.calls[0]
     expect(url).toBe('/api/vtexid/refreshtoken/webstore')
     expect(init.headers).toEqual({ 'content-type': 'application/json' })
+  })
+
+  it('uses the relative Authenticator route for B2B sessions', async () => {
+    await refreshTokenRequest({ isB2B: true })
+
+    expect(mockFetch).toHaveBeenCalledTimes(1)
+    expect(mockFetch.mock.calls[0][0]).toBe(
+      '/api/authenticator/v1/refreshtoken/webstore'
+    )
   })
 })

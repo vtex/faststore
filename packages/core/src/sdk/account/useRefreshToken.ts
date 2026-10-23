@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
-import { isLocalHostBrowser } from 'src/utils/isLocalHost'
+import { shouldBypassRefreshTokenBrowser } from 'src/utils/shouldBypassRefreshToken'
 import { logoutAndClearSession, sessionStore } from '../session'
-import { isRefreshTokenSuccessful, refreshTokenRequest } from './refreshToken'
+import {
+  getNextRefreshAfter,
+  isRefreshTokenSuccessful,
+  refreshTokenRequest,
+} from './refreshToken'
 
 export const useRefreshToken = (
   needsRefreshToken?: boolean,
@@ -13,13 +17,12 @@ export const useRefreshToken = (
     const handleRefreshTokenAndUpdateSession = async () => {
       if (!needsRefreshToken) return
 
-      // The refresh-token endpoint lives on the production origin and relies on
-      // the `vid_rt` cookie scoped to that origin. From localhost the request is
-      // cross-origin, so the cookie is not sent and the refresh always fails —
-      // which would also wipe the manually injected `VtexIdclientAutCookie_<account>`
+      // The refresh-token endpoint relies on VTEX ID, which neither localhost
+      // nor WebOps previews proxy, so the refresh always fails there — which
+      // would also wipe the manually injected `VtexIdclientAutCookie_<account>`
       // via `logoutAndClearSession`. Bail out and fall back to the static 403
       // view so developers can keep testing logged-in flows.
-      if (isLocalHostBrowser()) {
+      if (shouldBypassRefreshTokenBrowser()) {
         setShouldShow403(true)
         return
       }
@@ -27,13 +30,13 @@ export const useRefreshToken = (
       const currentSession = sessionStore.read() ?? sessionStore.readInitial()
 
       try {
-        const result = await refreshTokenRequest()
+        const result = await refreshTokenRequest({
+          isB2B: !!currentSession?.b2b,
+        })
 
         if (isRefreshTokenSuccessful(result)) {
           // Update session with new refreshAfter timestamp
-          const refreshAfter = String(
-            Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
-          )
+          const refreshAfter = getNextRefreshAfter(result)
 
           sessionStore.set({
             ...currentSession,
