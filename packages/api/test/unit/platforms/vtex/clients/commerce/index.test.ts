@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import * as clients from '../../../../../../src/platforms/vtex/clients'
 // This should be imported AFTER the '../../../../../../src/platforms/vtex/clients'
 import { NotFoundError } from '../../../../../../src/platforms/errors'
@@ -350,6 +350,95 @@ describe('VTEX Commerce', () => {
         )
         expect(result).toEqual(mockResponse)
       })
+    })
+  })
+
+  describe('subscribeToNewsletter', () => {
+    afterEach(() => {
+      vi.unstubAllEnvs()
+      vi.restoreAllMocks()
+    })
+
+    it('creates the document with a POST authenticated by the newsletter app key', async () => {
+      vi.stubEnv('FS_NEWSLETTER_APP_KEY', 'newsletter-key')
+      vi.stubEnv('FS_NEWSLETTER_APP_TOKEN', 'newsletter-token')
+      fetchAPIMocked.mockResolvedValueOnce({ Id: 'NL-1' })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      const result = await commerce.subscribeToNewsletter({
+        name: 'Jane',
+        email: 'jane@example.com',
+      })
+
+      expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+      const [url, init, options] = fetchAPIMocked.mock.calls[0]
+      expect(url).toBe(
+        'https://storeframework.vtexcommercestable.com.br/api/dataentities/NL/documents'
+      )
+      expect(init.method).toBe('POST')
+      expect(init.headers['X-VTEX-API-AppKey']).toBe('newsletter-key')
+      expect(init.headers['X-VTEX-API-AppToken']).toBe('newsletter-token')
+      expect(init.headers.cookie).toBeUndefined()
+      expect(JSON.parse(init.body)).toEqual({
+        name: 'Jane',
+        email: 'jane@example.com',
+        isNewsletterOptIn: true,
+      })
+      expect(options).toBeUndefined()
+      expect(result).toEqual({ Id: 'NL-1' })
+    })
+
+    it('omits the name from the body when it is not provided', async () => {
+      vi.stubEnv('FS_NEWSLETTER_APP_KEY', 'newsletter-key')
+      vi.stubEnv('FS_NEWSLETTER_APP_TOKEN', 'newsletter-token')
+      fetchAPIMocked.mockResolvedValueOnce({ Id: 'NL-2' })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+      const [, init] = fetchAPIMocked.mock.calls[0]
+      expect(JSON.parse(init.body)).toEqual({
+        email: 'jane@example.com',
+        isNewsletterOptIn: true,
+      })
+    })
+
+    // Keep this as the first fallback test: the warning is emitted once per
+    // process.
+    it('falls back to the anonymous PATCH without credentials and warns only once', async () => {
+      vi.stubEnv('FS_NEWSLETTER_APP_KEY', '')
+      vi.stubEnv('FS_NEWSLETTER_APP_TOKEN', '')
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+      fetchAPIMocked
+        .mockResolvedValueOnce({ Id: 'NL-3' })
+        .mockResolvedValueOnce({ Id: 'NL-4' })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+      await commerce.subscribeToNewsletter({ email: 'john@example.com' })
+
+      const [url, init] = fetchAPIMocked.mock.calls[0]
+      expect(url).toBe(
+        'https://storeframework.vtexcommercestable.com.br/api/dataentities/NL/documents/'
+      )
+      expect(init.method).toBe('PATCH')
+      expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
+      expect(warn).toHaveBeenCalledTimes(1)
+    })
+
+    it('does not send the app key of other features', async () => {
+      vi.stubEnv('FS_NEWSLETTER_APP_KEY', '')
+      vi.stubEnv('FS_NEWSLETTER_APP_TOKEN', '')
+      vi.stubEnv('FS_DISCOVERY_APP_KEY', 'discovery-key')
+      vi.stubEnv('FS_DISCOVERY_APP_TOKEN', 'discovery-token')
+      fetchAPIMocked.mockResolvedValueOnce({ Id: 'NL-5' })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+      const [, init] = fetchAPIMocked.mock.calls[0]
+      expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
+      expect(init.headers['X-VTEX-API-AppToken']).toBeUndefined()
     })
   })
 
