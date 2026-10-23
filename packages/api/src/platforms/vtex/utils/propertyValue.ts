@@ -16,6 +16,12 @@ export const VALUE_REFERENCES = {
    * lists the services *available* for the line, not the applied ones.
    */
   service: 'SERVICE',
+  /**
+   * The Checkout cart line a cart item mirrors (its `uniqueId`). Only set when
+   * the `preserveCartLines` flag is on, so units of one SKU that Checkout keeps
+   * apart stay apart in FastStore. Never sent back to Checkout.
+   */
+  line: 'LINE',
 } as const
 
 export function attachmentToPropertyValue(attachment: Attachment) {
@@ -23,6 +29,15 @@ export function attachmentToPropertyValue(attachment: Attachment) {
     name: attachment.name,
     value: attachment.content,
     valueReference: VALUE_REFERENCES.attachment,
+  }
+}
+
+export function lineToPropertyValue(uniqueId: string) {
+  return {
+    propertyID: `LINE:${uniqueId}`,
+    name: 'line',
+    value: uniqueId,
+    valueReference: VALUE_REFERENCES.line,
   }
 }
 
