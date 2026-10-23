@@ -32,6 +32,32 @@ describe('useProductNotFoundRedirect', () => {
     expect(mockReplace).toHaveBeenCalledWith('/404')
   })
 
+  it('navigates once even when the router changes identity', () => {
+    mockUseSession.mockReturnValue(b2bSession)
+
+    // The mocked `useRouter` returns a new object on every render.
+    const { rerender } = renderHook(() =>
+      useProductNotFoundRedirect({ status: 404 })
+    )
+    rerender()
+    rerender()
+
+    expect(mockReplace).toHaveBeenCalledTimes(1)
+  })
+
+  it('redirects again for a later not-found after one that cleared', () => {
+    mockUseSession.mockReturnValue(b2bSession)
+
+    const { rerender } = renderHook(
+      ({ error }: { error: unknown }) => useProductNotFoundRedirect(error),
+      { initialProps: { error: { status: 404 } as unknown } }
+    )
+    rerender({ error: undefined })
+    rerender({ error: { status: 404 } })
+
+    expect(mockReplace).toHaveBeenCalledTimes(2)
+  })
+
   it('recognizes a NotFoundError carried in the GraphQL extensions', () => {
     mockUseSession.mockReturnValue(b2bSession)
 
