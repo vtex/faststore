@@ -67,6 +67,34 @@ export interface ProductsByIdentifierArgs {
   hideUnavailableItems?: boolean
 }
 
+export interface PickupPointAvailabilityArgs {
+  postalCode?: string
+  country?: string
+  coordinates?: string
+}
+
+export interface PickupPointAvailabilityResult {
+  pickupPointDistances?: Array<{
+    pickupId?: string
+    distance?: number
+    pickupName?: string
+    isActive?: boolean
+    address?: {
+      city?: string
+      state?: string
+      number?: string
+      street?: string
+      postalCode?: string
+      neighborhood?: string
+    }
+    businessHours?: Array<{
+      dayOfWeek?: number
+      openingTime?: string
+      closingTime?: string
+    }>
+  }>
+}
+
 export const isFacetBoolean = (
   facet: Facet
 ): facet is Facet<FacetValueBoolean> => facet.type === 'TEXT'
@@ -243,6 +271,26 @@ export const IntelligentSearch = (
   const facets = (args: Omit<SearchArgs, 'type'>) =>
     search<FacetSearchResult>({ ...args, type: 'facets' })
 
+  const pickupPointAvailability = ({
+    postalCode,
+    country,
+    coordinates,
+  }: PickupPointAvailabilityArgs): Promise<PickupPointAvailabilityResult> => {
+    const request = buildIntelligentSearchRequest({
+      endpoint: 'pickup-point-availability',
+      segment,
+      defaults: requestDefaults(),
+      args: { postalCode, country, coordinates },
+    })
+
+    const path = request.path ? `/${request.path}` : ''
+
+    return fetchAPI(
+      `${base}/api/intelligent-search/v1/pickup-point-availability${path}?${request.params.toString()}`,
+      { headers }
+    )
+  }
+
   const productCount = (
     args: Omit<SearchArgs, 'type' | 'page' | 'count' | 'sort'>
   ): Promise<ProductCountResult> => {
@@ -267,5 +315,6 @@ export const IntelligentSearch = (
     suggestedTerms,
     topSearches,
     productCount,
+    pickupPointAvailability,
   }
 }
