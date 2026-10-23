@@ -88,9 +88,10 @@ const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
  *   invalidating the cache on contract switch; otherwise the organizational
  *   unit (`unitId`) tells buyers of different units apart; a generic marker is
  *   the last resort. Since the value ends up in the URL, it is hashed so the
- *   raw contract or unit id never reaches access, CDN or RUM logs. The URL
- *   still differs per contract, so a contract page is never served from the
- *   anonymous page's cache entry.
+ *   raw contract or unit id is not written to access, CDN or RUM logs as is.
+ *   The hash is unkeyed: it avoids that incidental exposure, not a deliberate
+ *   reversal of a guessable id. The URL still differs per contract, so a
+ *   contract page is never served from the anonymous page's cache entry.
  */
 const getShopperScope = ({
   postalCode,
@@ -105,13 +106,25 @@ const getShopperScope = ({
   }),
 })
 
-/** 32-bit string hash: distinct per contract, without exposing the raw id. */
+/**
+ * 53-bit string hash (cyrb53): wide enough that two contracts in the same
+ * browser never share a cache key in practice, without exposing the raw id.
+ */
 export function hashContractScope(value: string) {
-  let hash = 0
-  for (const char of value) {
-    hash = Math.trunc(Math.imul(31, hash) + (char.codePointAt(0) ?? 0))
+  let h1 = 0xdeadbeef
+  let h2 = 0x41c6ce57
+  for (let i = 0; i < value.length; i++) {
+    const code = value.charCodeAt(i)
+    h1 = Math.imul(h1 ^ code, 2654435761)
+    h2 = Math.imul(h2 ^ code, 1597334677)
   }
-  return (hash >>> 0).toString(36)
+  h1 =
+    Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^
+    Math.imul(h2 ^ (h2 >>> 13), 3266489909)
+  h2 =
+    Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^
+    Math.imul(h1 ^ (h1 >>> 13), 3266489909)
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36)
 }
 
 interface UseCreateUseGalleryPageProps {
