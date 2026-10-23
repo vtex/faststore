@@ -6,8 +6,11 @@ import type {
   ClientProductQueryQueryVariables,
 } from '@generated/graphql'
 
+import { request } from '../graphql/request'
+import { onErrorRetry } from '../graphql/retryPolicy'
 import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
+import { isProductNotFound } from './isProductNotFound'
 
 const query = gql(`
   query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {
@@ -17,6 +20,19 @@ const query = gql(`
     }
   }
 `)
+
+const nextTick = () => new Promise<void>((resolve) => setTimeout(resolve))
+
+const fetchProduct = async <T extends ClientProductQueryQuery>(
+  variables: ClientProductQueryQueryVariables
+) => {
+  await nextTick()
+
+  return (await request<
+    ClientProductQueryQuery & T,
+    ClientProductQueryQueryVariables
+  >(query, variables)) as ClientProductQueryQuery & T
+}
 
 export const useProductQuery = <T extends ClientProductQueryQuery>(
   productID: string,
@@ -45,5 +61,18 @@ export const useProductQuery = <T extends ClientProductQueryQuery>(
   >(query, variables, {
     fallbackData,
     revalidateOnMount: true,
+    // `useQuery`'s default fetcher never settles when `request` throws, so SWR
+    // never exposes `error` (e.g. the B2B assortment 404 the PDP reacts to).
+    // This fetcher keeps the same deferral but forwards the rejection.
+    fetcher: () => fetchProduct<T>(variables),
+    // A not-found is the answer (the product is not available to this
+    // shopper), not a transient failure, so it is not retried. It is matched
+    // the same way the PDP redirect matches it. Other errors follow the shared
+    // retry policy.
+    onErrorRetry: (error, key, config, revalidate, opts) => {
+      if (isProductNotFound(error)) return
+
+      onErrorRetry(error, key, config, revalidate, opts)
+    },
   })
 }
