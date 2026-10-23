@@ -41,7 +41,6 @@ import type {
   OrderForm,
   OrderFormInputItem,
 } from './types/OrderForm'
-import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
@@ -625,30 +624,6 @@ export const VtexCommerce = (
             }),
           },
           {}
-        )
-      },
-      pickupPoints: ({
-        geoCoordinates,
-      }: PickupPointsInput): Promise<PickupPoints> => {
-        if (!geoCoordinates) {
-          throw new Error(
-            'Missing required parameter for listing pickup points.'
-          )
-        }
-
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        return fetchAPI(
-          `${base}/api/logistics-shipping/pickuppoints/_search`,
-          {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({ coordinate: geoCoordinates }),
-          },
-          { storeCookies }
         )
       },
     },
