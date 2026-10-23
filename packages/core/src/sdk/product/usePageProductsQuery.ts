@@ -95,16 +95,19 @@ const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
  */
 const getShopperScope = ({
   postalCode,
-  b2b,
+  contract,
 }: {
   postalCode?: string | null
-  b2b?: { customerId?: string | null; unitId?: string | null } | null
+  contract?: string | null
 }) => ({
   ...(isDeliveryPromiseEnabled && { _postalCode: postalCode ?? '' }),
-  ...(b2b && {
-    _contract: hashContractScope(b2b.customerId || b2b.unitId || 'b2b'),
-  }),
+  ...(contract && { _contract: hashContractScope(contract) }),
 })
+
+/** The id a B2B session is scoped by, or `null` outside a B2B session. */
+const getContractScope = (
+  b2b?: { customerId?: string | null; unitId?: string | null } | null
+) => (b2b ? b2b.customerId || b2b.unitId || 'b2b' : null)
 
 /**
  * 53-bit string hash (cyrb53): wide enough that two contracts in the same
@@ -177,12 +180,15 @@ export const useCreateUseGalleryPage = (
       selectedFacets,
     })
 
+    // Keyed on the contract id, not the `b2b` object, which is rebuilt on
+    // every session update.
+    const contract = getContractScope(b2b)
     const localizedVariablesWithRegion = useMemo(
       () => ({
         ...localizedVariables,
-        ...getShopperScope({ postalCode, b2b }),
+        ...getShopperScope({ postalCode, contract }),
       }),
-      [localizedVariables, postalCode, b2b]
+      [localizedVariables, postalCode, contract]
     )
 
     const hasSameVariables = deepEquals(
