@@ -107,6 +107,26 @@ describe('fetchAPI', () => {
     expect(error.mock.calls[0][1].body).toBe('[redacted]')
   })
 
+  it('logs only the URL when the request is a Request instance', async () => {
+    const error = jest.spyOn(console, 'error').mockImplementation(() => {})
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 403,
+      text: async () => 'Forbidden',
+    })
+    const request = {
+      url: 'https://example.vtexcommercestable.com.br/api/test',
+      headers: { Authorization: 'Bearer request-secret' },
+    } as unknown as Request
+
+    await expect(fetchAPI(request)).rejects.toThrow('Forbidden')
+
+    expect(error.mock.calls[0][0]).toBe(
+      'https://example.vtexcommercestable.com.br/api/test'
+    )
+    expect(JSON.stringify(error.mock.calls[0])).not.toContain('secret')
+  })
+
   it('does not log credential headers from the failed response', async () => {
     const error = jest.spyOn(console, 'error').mockImplementation(() => {})
     mockFetch.mockResolvedValueOnce({
