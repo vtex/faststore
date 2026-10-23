@@ -1,5 +1,13 @@
 import type { Session } from '@faststore/sdk'
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import {
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest'
 
 const mockRequest = vi.hoisted(() => vi.fn())
 const mockRefreshTokenRequest = vi.hoisted(() => vi.fn())
@@ -32,12 +40,17 @@ const session: Session = {
   refreshAfter: null,
 }
 
+// The store validates its initial session when the module loads. Let that
+// call settle once, so no test depends on calls left by another one.
+beforeAll(async () => {
+  mockRequest.mockResolvedValue({ validateSession: null })
+  await vi.waitFor(() => expect(mockRequest).toHaveBeenCalled())
+})
+
 describe('validateSession', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
+    mockRequest.mockReset()
     mockRequest.mockResolvedValue({ validateSession: null })
-    // The store validates its initial session on load; let it settle first
-    await vi.waitFor(() => expect(mockRequest).toHaveBeenCalled())
-    mockRequest.mockClear()
   })
 
   it('does not send the UI state persisted with the session', async () => {
@@ -69,10 +82,9 @@ describe('validateSession refresh-token bypass', () => {
     })
   }
 
-  beforeEach(async () => {
+  beforeEach(() => {
+    mockRequest.mockReset()
     mockRequest.mockResolvedValue({ validateSession: null })
-    await vi.waitFor(() => expect(mockRequest).toHaveBeenCalled())
-    mockRequest.mockClear()
     mockRefreshTokenRequest.mockReset()
     mockRefreshTokenRequest.mockResolvedValue({
       status: 'success',
