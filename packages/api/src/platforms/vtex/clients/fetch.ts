@@ -67,7 +67,8 @@ export const fetchAPI = async (
   // `Set-Cookie` with shopper credentials. The request body is omitted because
   // it can carry personal data (e.g. the newsletter email and name).
   console.error(
-    info,
+    // Only the URL: a `Request` instance could carry unredacted headers.
+    typeof info === 'string' ? info : info.url,
     init && {
       ...init,
       headers: redactHeaders(init.headers),
