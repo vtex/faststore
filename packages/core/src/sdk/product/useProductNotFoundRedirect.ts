@@ -1,20 +1,8 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { useSession } from '../session'
-
-/**
- * A non-2xx BFF response reaches the client as `{ status }` (see
- * `ParseInvalidRequest`), while a 2xx one keeps the GraphQL `extensions`.
- */
-export const isNotFound = (error: unknown) => {
-  const { status, extensions } = (error ?? {}) as {
-    status?: number
-    extensions?: { type?: string }
-  }
-
-  return status === 404 || extensions?.type === 'NotFoundError'
-}
+import { isProductNotFound } from './isProductNotFound'
 
 /**
  * The PDP is statically generated without the shopper's session, so a B2B
@@ -36,12 +24,20 @@ export const isNotFound = (error: unknown) => {
 export const useProductNotFoundRedirect = (error: unknown) => {
   const router = useRouter()
   const { b2b, isValidating: isSessionValidating } = useSession()
-  const notFound = isNotFound(error)
+  const notFound = isProductNotFound(error)
   const shouldRedirect = Boolean(b2b) && notFound
+  // The router changes identity on route events, which re-runs the effect.
+  // Navigate once per not-found so a pending redirect is not restarted.
+  const hasRedirected = useRef(false)
 
   useEffect(() => {
-    if (!shouldRedirect) return
+    if (!shouldRedirect) {
+      hasRedirected.current = false
+      return
+    }
+    if (hasRedirected.current) return
 
+    hasRedirected.current = true
     router.replace('/404')
   }, [shouldRedirect, router])
 

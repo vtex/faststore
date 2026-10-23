@@ -10,7 +10,7 @@ import { request } from '../graphql/request'
 import { onErrorRetry } from '../graphql/retryPolicy'
 import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
-import { isNotFound } from './useProductNotFoundRedirect'
+import { isProductNotFound } from './isProductNotFound'
 
 const query = gql(`
   query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {
@@ -70,7 +70,7 @@ export const useProductQuery = <T extends ClientProductQueryQuery>(
     // the same way the PDP redirect matches it. Other errors follow the shared
     // retry policy.
     onErrorRetry: (error, key, config, revalidate, opts) => {
-      if (isNotFound(error)) return
+      if (isProductNotFound(error)) return
 
       onErrorRetry(error, key, config, revalidate, opts)
     },

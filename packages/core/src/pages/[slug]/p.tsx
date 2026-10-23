@@ -192,6 +192,10 @@ function Page({
             },
           },
           isValidating: offer.isValidating,
+          // This mode reads the offer straight from Intelligent Search and
+          // never runs `ClientProductQuery`, where the B2B contract assortment
+          // is checked, so there is no not-found to redirect on. Supporting
+          // the redirect here is out of scope for now.
           clientError: undefined,
         }
       })()

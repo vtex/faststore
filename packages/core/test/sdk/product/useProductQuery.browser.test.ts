@@ -10,6 +10,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 const mockRequest = vi.hoisted(() => vi.fn())
 const mockReplace = vi.hoisted(() => vi.fn())
 const mockUseSession = vi.hoisted(() => vi.fn())
+const mockSharedRetry = vi.hoisted(() => vi.fn())
 
 vi.mock('@generated', () => ({
   gql: () => ({
@@ -21,6 +22,16 @@ vi.mock('src/utils/cookieCacheBusting', () => ({
   getClientCacheBustingValue: () => null,
 }))
 vi.mock('src/sdk/session', () => ({ useSession: mockUseSession }))
+// Spies on the shared retry policy while keeping its behavior. SWR calls
+// `onErrorRetry` synchronously when the error lands, so whether a retry was
+// scheduled is known without waiting on the clock.
+vi.mock('src/sdk/graphql/retryPolicy', async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import('src/sdk/graphql/retryPolicy')>()
+  mockSharedRetry.mockImplementation(actual.onErrorRetry)
+
+  return { ...actual, onErrorRetry: mockSharedRetry }
+})
 vi.mock('next/router', () => ({
   useRouter: () => ({ replace: mockReplace }),
 }))
@@ -74,18 +85,11 @@ describe('useProductQuery', () => {
     })
     mockRequest.mockRejectedValue({ extensions: { type: 'NotFoundError' } })
 
-    const fastRetries = ({ children }: { children: ReactNode }) =>
-      createElement(
-        SWRConfig,
-        { value: { provider: () => new Map(), errorRetryInterval: 1 } },
-        children
-      )
-
-    renderHook(usePdpClientQuery, { wrapper: fastRetries })
+    renderHook(usePdpClientQuery, { wrapper: isolatedCache })
 
     await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/404'))
-    // Long enough for a retry at the 1 ms interval to have run.
-    await new Promise((resolve) => setTimeout(resolve, 50))
+    // The shared policy is what schedules a retry; it is never reached.
+    expect(mockSharedRetry).not.toHaveBeenCalled()
     expect(mockRequest).toHaveBeenCalledTimes(1)
   })
 
@@ -125,6 +129,7 @@ describe('useProductQuery', () => {
     await waitFor(() => expect(result.current.data).toEqual(fresh))
 
     expect(mockRequest).toHaveBeenCalledTimes(2)
+    expect(mockSharedRetry).toHaveBeenCalledTimes(1)
     expect(mockReplace).not.toHaveBeenCalled()
   })
 
