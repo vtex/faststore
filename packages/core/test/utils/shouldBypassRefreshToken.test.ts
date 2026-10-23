@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { shouldBypassRefreshToken } from '../../src/utils/shouldBypassRefreshToken'
+import {
+  shouldBypassRefreshToken,
+  shouldBypassRefreshTokenBrowser,
+} from '../../src/utils/shouldBypassRefreshToken'
 
 describe('shouldBypassRefreshToken', () => {
   it.each(['localhost', '127.0.0.1'])('returns true for "%s"', (hostname) => {
@@ -36,5 +39,11 @@ describe('shouldBypassRefreshToken', () => {
     expect(shouldBypassRefreshToken(null)).toBe(false)
     expect(shouldBypassRefreshToken(undefined)).toBe(false)
     expect(shouldBypassRefreshToken('')).toBe(false)
+  })
+})
+
+describe('shouldBypassRefreshTokenBrowser', () => {
+  it('returns false when window is not available (SSR/Node)', () => {
+    expect(shouldBypassRefreshTokenBrowser()).toBe(false)
   })
 })

@@ -36,6 +36,6 @@ export function shouldBypassRefreshToken(
  * when `window` is not available (SSR/Node).
  */
 export function shouldBypassRefreshTokenBrowser(): boolean {
-  if (typeof globalThis.window === 'undefined') return false
+  if (globalThis.window === undefined) return false
   return shouldBypassRefreshToken(globalThis.window.location.hostname)
 }
