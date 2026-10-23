@@ -37,6 +37,16 @@ vi.mock('../../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
   ) => fetchAPIMocked(info, init, options),
 }))
 
+const OTELLoggerMocked = vi.hoisted(() => vi.fn())
+
+vi.mock(
+  '../../../../../../src/observability/telemetry',
+  async (importOriginal) => ({
+    ...(await importOriginal<Record<string, unknown>>()),
+    OTELLogger: OTELLoggerMocked,
+  })
+)
+
 describe('VTEX Commerce', () => {
   describe('Checkout', () => {
     describe('orderForm', () => {
@@ -496,6 +506,43 @@ describe('VTEX Commerce', () => {
       expect(warn.mock.calls[0][0]).toContain(
         'FS_NEWSLETTER_APP_KEY and FS_NEWSLETTER_APP_TOKEN are not set'
       )
+    })
+
+    it('also sends the fallback warning to OpenTelemetry logs', async () => {
+      vi.stubEnv('FS_NEWSLETTER_APP_KEY', '')
+      vi.stubEnv('FS_NEWSLETTER_APP_TOKEN', '')
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+      OTELLoggerMocked.mockClear()
+      fetchAPIMocked.mockResolvedValueOnce({ Id: 'NL-9' })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+      expect(OTELLoggerMocked).toHaveBeenCalledTimes(1)
+      const [level, , message] = OTELLoggerMocked.mock.calls[0]
+      expect(level).toBe('warn')
+      expect(message).toContain('are not set')
+    })
+
+    it('caps how many accounts it remembers', async () => {
+      vi.stubEnv('FS_NEWSLETTER_APP_KEY', '')
+      vi.stubEnv('FS_NEWSLETTER_APP_TOKEN', '')
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+      fetchAPIMocked.mockResolvedValue({ Id: 'NL-10' })
+
+      const subscribeAs = (account: string) =>
+        clients
+          .getClients({ ...apiOptions, account } as Options, context)
+          .commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+      // 100 accounts fill the set; the 101st clears it, so the first account
+      // is warned again instead of the set growing.
+      for (let i = 0; i <= 100; i++) {
+        await subscribeAs(`store${i}`)
+      }
+      await subscribeAs('store0')
+
+      expect(warn).toHaveBeenCalledTimes(102)
     })
 
     it('does not send the app key of other features', async () => {
