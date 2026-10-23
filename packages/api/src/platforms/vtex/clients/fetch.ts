@@ -33,10 +33,13 @@ export const redactHeaders = (
     redacted[name] = SENSITIVE_HEADER.test(name) ? REDACTED : value
   }
 
-  if (typeof Headers !== 'undefined' && headers instanceof Headers) {
-    headers.forEach((value, name) => add(name, value))
-  } else if (Array.isArray(headers)) {
+  if (Array.isArray(headers)) {
     headers.forEach(([name, value]) => add(name, value))
+  } else if (typeof (headers as Headers).forEach === 'function') {
+    // Matches both the global `Headers` and the polyfill returned by
+    // `isomorphic-unfetch` on Node, which isn't an instance of the global one.
+    const headerList = headers as Headers
+    headerList.forEach((value, name) => add(name, value))
   } else {
     Object.entries(headers).forEach(([name, value]) => add(name, value))
   }

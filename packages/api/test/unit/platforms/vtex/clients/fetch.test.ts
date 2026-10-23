@@ -31,6 +31,20 @@ describe('redactHeaders', () => {
     })
   })
 
+  it('reads headers from any object with forEach, such as fetch polyfills', () => {
+    const polyfillHeaders = {
+      forEach: (callback: (value: string, name: string) => void) => {
+        callback('text/plain', 'content-type')
+        callback('VtexIdclientAutCookie_store=secret', 'set-cookie')
+      },
+    }
+
+    expect(redactHeaders(polyfillHeaders as unknown as Headers)).toEqual({
+      'content-type': 'text/plain',
+      'set-cookie': '[redacted]',
+    })
+  })
+
   it('returns undefined when there are no headers', () => {
     expect(redactHeaders(undefined)).toBeUndefined()
   })
