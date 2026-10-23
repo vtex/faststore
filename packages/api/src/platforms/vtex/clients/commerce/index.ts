@@ -54,6 +54,10 @@ const BASE_INIT = {
   },
 }
 
+// Logged once per process so stores still relying on public `NL` fields are
+// told to configure credentials without flooding the logs.
+let hasWarnedAnonymousNewsletter = false
+
 export const VtexCommerce = (
   { account, environment, incrementAddress, subDomainPrefix }: Options,
   ctx: Context
@@ -448,15 +452,58 @@ export const VtexCommerce = (
         { storeCookies }
       )
     },
-    subscribeToNewsletter: (data: {
-      name: string
+    /**
+     * Creates a newsletter subscription in the `NL` Master Data entity.
+     *
+     * With `FS_NEWSLETTER_APP_KEY`/`FS_NEWSLETTER_APP_TOKEN` set, the document is
+     * created with a `POST` authenticated by that dedicated key, so `NL` fields
+     * can stay private. The request is create-only: the body is built here from
+     * the validated fields and never carries a document id, so the caller can't
+     * reach an existing record.
+     *
+     * Without the credentials, it falls back to the legacy anonymous `PATCH`,
+     * which only works while `NL` fields are public.
+     */
+    subscribeToNewsletter: ({
+      name,
+      email,
+    }: {
+      name?: string
       email: string
     }): Promise<MasterDataResponse> => {
+      const body = JSON.stringify({
+        ...(name ? { name } : {}),
+        email,
+        isNewsletterOptIn: true,
+      })
+      const appKey = process.env.FS_NEWSLETTER_APP_KEY
+      const appToken = process.env.FS_NEWSLETTER_APP_TOKEN
+
+      if (appKey && appToken) {
+        return fetchAPI(`${base}/api/dataentities/NL/documents`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            accept: 'application/json',
+            'X-VTEX-API-AppKey': appKey,
+            'X-VTEX-API-AppToken': appToken,
+          },
+          body,
+        })
+      }
+
+      if (!hasWarnedAnonymousNewsletter) {
+        hasWarnedAnonymousNewsletter = true
+        console.warn(
+          '[subscribeToNewsletter] FS_NEWSLETTER_APP_KEY/FS_NEWSLETTER_APP_TOKEN are not set. Falling back to an anonymous Master Data request, which requires public fields in the NL entity. Configure the credentials and make the NL fields private.'
+        )
+      }
+
       return fetchAPI(
         `${base}/api/dataentities/NL/documents/`,
         {
           ...BASE_INIT,
-          body: JSON.stringify({ ...data, isNewsletterOptIn: true }),
+          body,
           method: 'PATCH',
         },
         { storeCookies }
