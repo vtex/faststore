@@ -56,7 +56,9 @@ const BASE_INIT = {
 
 // Accounts already warned that they rely on public `NL` fields. The commerce
 // client is created per request, so the warning is kept once per account
-// instead of per instance, to avoid flooding the logs.
+// instead of per instance, to avoid flooding the logs. The account comes from
+// the store's API options, not from the request, so the set holds at most one
+// entry per account the process is configured for (usually one).
 const accountsWarnedAboutAnonymousNewsletter = new Set<string>()
 
 /** Test-only: forget which accounts were warned about the anonymous fallback. */
