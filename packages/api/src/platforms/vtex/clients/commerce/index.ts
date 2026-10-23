@@ -268,8 +268,17 @@ export const VtexCommerce = (
 
       if (!accountsWarnedAboutAnonymousNewsletter.has(account)) {
         accountsWarnedAboutAnonymousNewsletter.add(account)
+
+        // Name only the missing variables, so a partial setup is easy to spot.
+        const missing = [
+          !appKey && 'FS_NEWSLETTER_APP_KEY',
+          !appToken && 'FS_NEWSLETTER_APP_TOKEN',
+        ].filter(Boolean)
+
         console.warn(
-          '[subscribeToNewsletter] FS_NEWSLETTER_APP_KEY/FS_NEWSLETTER_APP_TOKEN are not set. Falling back to an anonymous Master Data request, which requires public fields in the NL entity. Configure the credentials and make the NL fields private.'
+          `[subscribeToNewsletter] ${missing.join(' and ')} ${
+            missing.length > 1 ? 'are' : 'is'
+          } not set. Falling back to an anonymous Master Data request, which requires public fields in the NL entity. Configure both credentials and make the NL fields private.`
         )
       }
 

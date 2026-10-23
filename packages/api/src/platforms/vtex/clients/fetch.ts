@@ -3,10 +3,12 @@ import packageJson from '../../../../package.json'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
 
-// Headers that carry credentials (store API keys and shopper cookies). They
-// are replaced before the failed request is logged.
-const SENSITIVE_HEADER =
-  /^(x-vtex-api-appkey|x-vtex-api-apptoken|cookie|set-cookie|vtexidclientautcookie.*)$/i
+// Headers that may carry credentials: store API keys (`X-VTEX-API-AppKey`,
+// `X-VTEX-API-AppToken`), shopper cookies (`Cookie`, `Set-Cookie`,
+// `VtexIdclientAutCookie_*`), `Authorization`, and generic token, secret or
+// API key headers. They are replaced before a failed request and its response
+// are logged. Matched by substring so new credential headers are covered too.
+const SENSITIVE_HEADER = /authorization|cookie|token|secret|api-?key|appkey/i
 
 const REDACTED = '[redacted]'
 
