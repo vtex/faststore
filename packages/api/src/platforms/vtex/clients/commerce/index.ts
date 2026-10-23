@@ -31,7 +31,11 @@ const BASE_INIT = {
 
 // Accounts already warned that they rely on public `NL` fields. The commerce
 // client is created per request, so the warning is kept once per account
-// instead of per instance, to avoid flooding the logs.
+// instead of per instance, to avoid flooding the logs. The account comes from
+// the store's API options, not from the request, so the set holds at most one
+// entry per account the process is configured for (usually one). It's still
+// capped, so it can't grow without bound if that ever changes.
+const MAX_WARNED_NEWSLETTER_ACCOUNTS = 100
 const accountsWarnedAboutAnonymousNewsletter = new Set<string>()
 
 /** Test-only: forget which accounts were warned about the anonymous fallback. */
@@ -267,6 +271,12 @@ export const VtexCommerce = (
       }
 
       if (!accountsWarnedAboutAnonymousNewsletter.has(account)) {
+        if (
+          accountsWarnedAboutAnonymousNewsletter.size >=
+          MAX_WARNED_NEWSLETTER_ACCOUNTS
+        ) {
+          accountsWarnedAboutAnonymousNewsletter.clear()
+        }
         accountsWarnedAboutAnonymousNewsletter.add(account)
 
         // Name only the missing variables, so a partial setup is easy to spot.
