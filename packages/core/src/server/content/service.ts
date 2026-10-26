@@ -185,9 +185,19 @@ export class ContentService {
       serviceParams
     )
     return {
-      data: entries.map(({ content, ...entry }) =>
-        this.mergeEntryWithData(entry, content as PageContentType)
-      ),
+      data: entries.flatMap(({ content, ...entry }) => {
+        // An entry without content would otherwise become a template-less
+        // shell, which findBestPDPTemplate/findBestPLPTemplate treat as the
+        // generic template.
+        if (!content) {
+          console.warn(
+            'Content Platform entry listed without content',
+            entry.id
+          )
+          return []
+        }
+        return [this.mergeEntryWithData(entry, content as PageContentType)]
+      }),
     }
   }
 

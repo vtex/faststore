@@ -390,6 +390,27 @@ describe('ContentService', () => {
       expect(clientCP.getEntry).not.toHaveBeenCalled()
     })
 
+    it('skips and warns about an entry listed without content', async () => {
+      const { service, clientCP } = createServiceWithClient([
+        ['collection', 'other'],
+      ])
+      clientCP.listEntriesWithContent.mockResolvedValueOnce({
+        entries: [
+          toEntry('collection') as ReturnType<typeof toEntryWithContent>,
+          toEntryWithContent('other'),
+        ],
+        scroll: null,
+      })
+
+      const { data } = await service.getMultipleContent({ contentType: 'plp' })
+
+      expect(data.map((entry) => entry.id)).toEqual(['other'])
+      expect(console.warn).toHaveBeenCalledWith(
+        expect.stringContaining('without content'),
+        'collection'
+      )
+    })
+
     describe('PDP', () => {
       it('skips the product slug lookup and matches a template from the list', async () => {
         const { service, clientCP } = createServiceWithClient([
