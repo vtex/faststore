@@ -197,7 +197,8 @@ export class ContentService {
     ) => Promise<{ entries: T[]; scroll?: string | null }>,
     serviceParams: EntryPathParams
   ): Promise<T[]> {
-    // TODO: This should be temporary until the cp data-plane have a search engine.
+    // The data plane has no search engine yet, so every entry is listed and
+    // the template is matched here.
     const MAX_PAGES = 25
     const allEntries: T[] = []
     let scroll: string | undefined
