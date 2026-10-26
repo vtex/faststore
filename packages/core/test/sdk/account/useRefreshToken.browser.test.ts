@@ -7,6 +7,7 @@ const mockLogoutAndClearSession = vi.hoisted(() => vi.fn())
 vi.mock('../../../src/sdk/account/refreshToken', () => ({
   refreshTokenRequest: mockRefreshTokenRequest,
   isRefreshTokenSuccessful: () => false,
+  isB2BSession: () => false,
 }))
 
 vi.mock('../../../src/sdk/session', () => ({

@@ -20,6 +20,7 @@ vi.mock('../../../src/sdk/account/refreshToken', () => ({
   refreshTokenRequest: mockRefreshTokenRequest,
   isRefreshTokenSuccessful: () => true,
   getNextRefreshAfter: () => String(Math.floor(Date.now() / 1000) + 3600),
+  isB2BSession: () => false,
 }))
 
 import storeConfig from '../../../discovery.config'
