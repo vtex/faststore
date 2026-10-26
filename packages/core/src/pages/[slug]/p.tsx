@@ -502,7 +502,9 @@ export const getStaticProps: GetStaticProps<
       data,
       ...cmsPage,
       meta,
-      offers,
+      // Next.js cannot serialize an `undefined` prop, and a product with no
+      // offer has no JSON-LD offer (see toProductJsonLdOffer).
+      ...(offers && { offers }),
       globalSections: globalSectionsResult,
       key: seo.canonical,
     },
