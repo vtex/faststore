@@ -3,6 +3,7 @@ import { shouldBypassRefreshTokenBrowser } from 'src/utils/shouldBypassRefreshTo
 import { logoutAndClearSession, sessionStore } from '../session'
 import {
   getNextRefreshAfter,
+  isB2BSession,
   isRefreshTokenSuccessful,
   refreshTokenRequest,
 } from './refreshToken'
@@ -31,7 +32,7 @@ export const useRefreshToken = (
 
       try {
         const result = await refreshTokenRequest({
-          isB2B: !!currentSession?.b2b,
+          isB2B: isB2BSession(currentSession),
         })
 
         if (isRefreshTokenSuccessful(result)) {

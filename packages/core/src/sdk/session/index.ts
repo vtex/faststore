@@ -13,6 +13,7 @@ import { filterChannel } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
 import {
   getNextRefreshAfter,
+  isB2BSession,
   isRefreshTokenSuccessful,
   refreshTokenRequest,
 } from '../account/refreshToken'
@@ -95,7 +96,7 @@ export const mutation = gql(`
 `)
 
 async function handleRefreshToken(session: Session): Promise<Session | null> {
-  const result = await refreshTokenRequest({ isB2B: !!session.b2b })
+  const result = await refreshTokenRequest({ isB2B: isB2BSession(session) })
 
   if (isRefreshTokenSuccessful(result)) {
     return {

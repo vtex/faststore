@@ -16,6 +16,7 @@ import {
   REFRESH_AFTER_FALLBACK_SECONDS,
   getNextRefreshAfter,
   getRefreshAfterSeconds,
+  isB2BSession,
   isRefreshTokenSuccessful,
   refreshTokenRequest,
 } from '../../../src/sdk/account/refreshToken'
@@ -136,6 +137,30 @@ describe('refreshTokenRequest (node, non-B2B session)', () => {
     expect(result).toBeUndefined()
     expect(mockFetch).toHaveBeenCalledTimes(3)
     expect(mockFetch.mock.calls.every(([url]) => url === LEGACY_URL)).toBe(true)
+  })
+})
+
+describe('isB2BSession', () => {
+  it('is true when the session has both a unit and a contract', () => {
+    expect(
+      isB2BSession({ b2b: { unitId: 'unit-1', customerId: 'contract-1' } })
+    ).toBe(true)
+  })
+
+  it.each([
+    ['no b2b', { b2b: null }],
+    ['an empty unitId', { b2b: { unitId: '', customerId: 'contract-1' } }],
+    ['an empty customerId', { b2b: { unitId: 'unit-1', customerId: '' } }],
+    ['no ids', { b2b: {} }],
+  ])('is false with %s', (_, session) => {
+    // `b2b` exists for every isRepresentative token, which can be true
+    // outside B2B, so the ids decide.
+    expect(isB2BSession(session)).toBe(false)
+  })
+
+  it('is false without a session', () => {
+    expect(isB2BSession(null)).toBe(false)
+    expect(isB2BSession(undefined)).toBe(false)
   })
 })
 

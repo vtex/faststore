@@ -63,6 +63,24 @@ export const isRefreshTokenSuccessful = (
 }
 
 /**
+ * Whether the session belongs to a B2B buyer: one with an organizational unit
+ * (`unitId`) and a contract (`customerId`). `session.b2b` alone is not enough:
+ * it is set for every `isRepresentative` token, and that flag can also be true
+ * outside B2B.
+ */
+export const isB2BSession = (
+  session:
+    | {
+        b2b?: {
+          unitId?: string | null
+          customerId?: string | null
+        } | null
+      }
+    | null
+    | undefined
+): boolean => Boolean(session?.b2b?.unitId && session?.b2b?.customerId)
+
+/**
  * Refresh route for the session. B2B sessions use the Authenticator route,
  * which keeps the selected contract (`customerId`, `unitId`,
  * `isRepresentative`). Every other session keeps the legacy VTEX ID route, as
