@@ -85,14 +85,18 @@ const OG_PRODUCT_CONDITION_BY_SCHEMA: Record<string, string> = {
   'https://schema.org/UsedCondition': 'used',
 }
 
-type Props = PDPContentType & {
+type Props = {
+  sections: PDPContentType['sections']
+  settings: PDPContentType['settings']
   data: ServerProductQueryQuery
   globalSections: GlobalSectionsData
+  offers: ReturnType<typeof toProductJsonLdOffer>
   meta: {
     title: string
     description: string
     canonical: string
   }
+  key: string
 }
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
@@ -500,7 +504,8 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       data,
-      ...cmsPage,
+      sections: cmsPage.sections,
+      settings: cmsPage.settings,
       meta,
       offers,
       globalSections: globalSectionsResult,
