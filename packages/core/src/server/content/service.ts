@@ -18,7 +18,9 @@ import { createPromiseCache } from './promiseCache'
 import type { ContentOptions, ContentParams } from './types'
 import { isBranchPreview, isContentPlatformSource } from './utils'
 
-type ContentResult = ContentData | (ContentEntry & PageContentType)
+type ContentResult = ContentData | PageContentType
+
+const CONTENT_AUTHOR_FIELDS = ['createdBy', 'updatedBy'] as const
 
 const OPTIONAL_CONTENT_TYPES = [
   'globalHeaderSections',
@@ -138,7 +140,7 @@ export class ContentService {
   private async listAndFillEntries(
     serviceParams: EntryPathParams,
     isPreview: boolean
-  ): Promise<{ data: (ContentEntry & PageContentType)[] }> {
+  ): Promise<{ data: PageContentType[] }> {
     // TODO: This should be temporary until the cp data-plane have a search engine.
     const MAX_PAGES = 25
     const allEntries: ContentEntry[] = []
@@ -164,7 +166,7 @@ export class ContentService {
     entries: ContentEntry[],
     serviceParams: EntryPathParams,
     isPreview: boolean
-  ): Promise<{ data: (ContentEntry & PageContentType)[] }> {
+  ): Promise<{ data: PageContentType[] }> {
     const data = await Promise.all(
       entries.map(async (entry) => {
         const entryData = await this.getEntryData(
@@ -207,15 +209,21 @@ export class ContentService {
       throw new Error(`${operation} requires entryId or slug`)
     }
 
+    const entry = await this.loadEntry(params, isPreview)
+
+    return withoutContentAuthorMetadata(entry as PageContentType)
+  }
+
+  private loadEntry(params: EntryPathParams, isPreview: boolean) {
     if (isPreview) {
       return params.entryId
-        ? (this.clientCP.previewEntryById(params) as Promise<PageContentType>)
-        : (this.clientCP.previewEntryBySlug(params) as Promise<PageContentType>)
+        ? this.clientCP.previewEntryById(params)
+        : this.clientCP.previewEntryBySlug(params)
     }
 
     return params.entryId
-      ? (this.clientCP.getEntry(params) as Promise<PageContentType>)
-      : (this.clientCP.getEntryBySlug(params) as Promise<PageContentType>)
+      ? this.clientCP.getEntry(params)
+      : this.clientCP.getEntryBySlug(params)
   }
 
   private async fetchFirstEntryFromList(
@@ -324,10 +332,9 @@ export class ContentService {
   private mergeEntryWithData(
     entry: ContentEntry,
     data: PageContentType
-  ): ContentEntry & PageContentType {
+  ): PageContentType {
     return {
-      ...entry,
-      ...data,
+      ...withoutContentAuthorMetadata(data),
       id: entry.id,
       name: entry.name ?? '',
     }
@@ -352,6 +359,16 @@ function getContentTypeKey({
   locale,
 }: EntryPathParams): string {
   return JSON.stringify([accountName, storeId, contentType, locale])
+}
+
+function withoutContentAuthorMetadata<T extends object>(value: T): T {
+  const content = { ...value } as Record<string, unknown>
+
+  for (const field of CONTENT_AUTHOR_FIELDS) {
+    delete content[field]
+  }
+
+  return content as T
 }
 
 function isNotFoundError(err: unknown): boolean {

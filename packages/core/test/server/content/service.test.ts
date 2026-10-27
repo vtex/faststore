@@ -46,7 +46,17 @@ const entryData: Record<string, Record<string, unknown>> = {
   },
 }
 
-const toEntry = (id: string) => ({ id, name: id }) as ContentEntry
+const toEntry = (id: string): ContentEntry => ({
+  id,
+  name: id,
+  account: 'example-account',
+  storeId: 'faststore',
+  createdAt: '2026-01-01T00:00:00.000Z',
+  updatedAt: '2026-01-02T00:00:00.000Z',
+  createdBy: 'editor@example.com',
+  updatedBy: 'other@example.com',
+  slug: id,
+})
 
 function createFakeClientCP(pages: string[][]) {
   return {
@@ -59,6 +69,8 @@ function createFakeClientCP(pages: string[][]) {
     }),
     getEntry: vi.fn(async ({ entryId }: EntryPathParams) => ({
       ...entryData[entryId as string],
+      createdBy: 'payload@example.com',
+      updatedBy: 'payload@example.com',
     })),
     previewEntryById: vi.fn(async ({ entryId }: EntryPathParams) => ({
       ...entryData[entryId as string],
@@ -178,6 +190,33 @@ describe('ContentService', () => {
       vi.mocked(isContentPlatformSource).mockReset()
       vi.restoreAllMocks()
       vi.useRealTimers()
+    })
+
+    it('keeps Content Platform author emails out of public page content', async () => {
+      const { service, clientCP } = createServiceWithClient()
+      clientCP.getEntryBySlug.mockResolvedValueOnce({
+        sections: [{ name: 'Direct' }],
+        createdBy: 'editor@example.com',
+        updatedBy: 'other@example.com',
+      })
+
+      const directPage = await service.getSingleContent({
+        contentType: 'pdp',
+        slug: 'product-slug',
+      })
+      const { data } = await service.getMultipleContent({ contentType: 'pdp' })
+      const listedPage = data[0]
+
+      expect(directPage.sections).toEqual([{ name: 'Direct' }])
+      expect(directPage).not.toHaveProperty('createdBy')
+      expect(directPage).not.toHaveProperty('updatedBy')
+      expect(listedPage.id).toBe('generic')
+      expect(listedPage.name).toBe('generic')
+      expect(listedPage.sections).toEqual([{ name: 'Generic' }])
+      expect(listedPage).not.toHaveProperty('createdBy')
+      expect(listedPage).not.toHaveProperty('updatedBy')
+      expect(listedPage).not.toHaveProperty('account')
+      expect(listedPage).not.toHaveProperty('storeId')
     })
 
     it('shares one list and entry fetch across concurrent PLPs with different slugs', async () => {

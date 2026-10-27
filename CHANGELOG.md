@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.10.1-dev.2](https://github.com/vtex/faststore/compare/v4.10.1-dev.1...v4.10.1-dev.2) (2026-10-27)
+
+### Bug Fixes
+
+- **core:** keep CMS author emails off public page props ([a63c6b1](https://github.com/vtex/faststore/commit/a63c6b1b880055a9ceb6395ad3bba04ad2ce4a95))
+
 ## [4.10.1-dev.1](https://github.com/vtex/faststore/compare/v4.10.1-dev.0...v4.10.1-dev.1) (2026-10-21)
 
 ### Bug Fixes
