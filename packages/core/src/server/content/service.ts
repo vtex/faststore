@@ -15,23 +15,24 @@ import MissingContentError from 'src/sdk/error/MissingContentError'
 import { getPDP, type PDPContentType } from '../cms/pdp'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import type { ServerProductQueryQuery } from '@generated/graphql'
+import { createPromiseCache } from './promiseCache'
 import { isBranchPreview, isContentPlatformSource } from './utils'
 
 type ContentResult = ContentData | (ContentEntry & PageContentType)
 
-type ContentListCacheEntry = {
-  expiresAt: number
-  promise: Promise<{ data: ContentResult[] }>
-}
-
-// Bounds how stale the template list can get in long-lived processes (ISR);
-// a CMS publish already triggers a new build.
-const CONTENT_LIST_CACHE_TTL_MS = 5 * 60 * 1000
+const OPTIONAL_CONTENT_TYPES = [
+  'globalHeaderSections',
+  'globalFooterSections',
+] as const
 
 export class ContentService {
   private clientCP: ClientCP
 
-  private readonly contentListCache = new Map<string, ContentListCacheEntry>()
+  private readonly contentListCache = createPromiseCache<{
+    data: ContentResult[]
+  }>()
+
+  private readonly firstEntryCache = createPromiseCache<PageContentType>()
 
   constructor() {
     this.clientCP = new ClientCP({
@@ -47,7 +48,7 @@ export class ContentService {
     if (isContentPlatformSource()) {
       return this.getFromCP<T>(options)
     }
-    return getPage(options.cmsOptions)
+    return getPage(options.cmsOptions, { cache: !options.isPreview })
   }
 
   async getMultipleContent(
@@ -118,10 +119,15 @@ export class ContentService {
     options: ContentOptions
   ): Promise<T> {
     const params = this.convertOptionsToParams(options)
+    // Filters are forwarded to listEntries, so a filtered lookup is not shared.
+    const shareable =
+      !options.isPreview &&
+      !('filters' in options.cmsOptions && options.cmsOptions.filters)
     try {
       const entry: PageContentType = await this.getEntry(
         params,
-        options.isPreview
+        options.isPreview,
+        shareable
       )
       return entry as T
     } catch (err: unknown) {
@@ -133,30 +139,9 @@ export class ContentService {
   private getCachedContentList(
     serviceParams: EntryPathParams
   ): Promise<{ data: ContentResult[] }> {
-    // listEntries only depends on these fields; the page slug must stay out of the key.
-    const { accountName, storeId, contentType, locale } = serviceParams
-    const key = JSON.stringify([accountName, storeId, contentType, locale])
-
-    const cached = this.contentListCache.get(key)
-    if (cached && cached.expiresAt > Date.now()) {
-      return cached.promise
-    }
-
-    const promise = this.listAndFillEntries(serviceParams, false).catch(
-      (err: unknown) => {
-        if (this.contentListCache.get(key)?.promise === promise) {
-          this.contentListCache.delete(key)
-        }
-        throw err
-      }
+    return this.contentListCache.get(getContentTypeKey(serviceParams), () =>
+      this.listAndFillEntries(serviceParams, false)
     )
-
-    this.contentListCache.set(key, {
-      expiresAt: Date.now() + CONTENT_LIST_CACHE_TTL_MS,
-      promise,
-    })
-
-    return promise
   }
 
   private async listAndFillEntries(
@@ -203,11 +188,24 @@ export class ContentService {
 
   private async getEntry(
     params: EntryPathParams,
-    isPreview: boolean
+    isPreview: boolean,
+    shareable: boolean
   ): Promise<PageContentType> {
-    return params.entryId || params.slug
-      ? await this.getEntryData(params, isPreview)
-      : await this.fetchFirstEntryFromList(params, isPreview)
+    if (params.entryId || params.slug) {
+      return this.getEntryData(params, isPreview)
+    }
+
+    if (!shareable) {
+      return this.fetchFirstEntryFromList(params, isPreview)
+    }
+
+    // An empty required type is likely content that is about to be published,
+    // so it is not kept for the whole TTL. Optional types are empty by design.
+    return this.firstEntryCache.get(
+      getContentTypeKey(params),
+      () => this.fetchFirstEntryFromList(params, false),
+      (entry) => !isEmptyEntry(entry) || isOptionalContentType(params)
+    )
   }
 
   private async getEntryData(
@@ -336,6 +334,26 @@ export class ContentService {
       name: entry.name || '',
     }
   }
+}
+
+function isOptionalContentType({ contentType }: EntryPathParams): boolean {
+  return OPTIONAL_CONTENT_TYPES.includes(
+    contentType as (typeof OPTIONAL_CONTENT_TYPES)[number]
+  )
+}
+
+function isEmptyEntry(entry: PageContentType): boolean {
+  return Object.keys(entry).length === 0
+}
+
+// listEntries only depends on these fields; the page slug must stay out of the key.
+function getContentTypeKey({
+  accountName,
+  storeId,
+  contentType,
+  locale,
+}: EntryPathParams): string {
+  return JSON.stringify([accountName, storeId, contentType, locale])
 }
 
 function isNotFoundError(err: unknown): boolean {
