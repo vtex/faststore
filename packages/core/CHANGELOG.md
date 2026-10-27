@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.10.1-dev.3](https://github.com/vtex/faststore/compare/v4.10.1-dev.2...v4.10.1-dev.3) (2026-10-27)
+
+### Bug Fixes
+
+- **core:** address review feedback on CMS cache ([8cec85f](https://github.com/vtex/faststore/commit/8cec85f730643dc72914c8477e9021c7437d8921))
+- **core:** cache global and single CMS content across page generations ([6f20530](https://github.com/vtex/faststore/commit/6f205308216be07cb567595ff5ed59f6a229d876))
+- **core:** do not cache empty required CMS content ([21a2dd3](https://github.com/vtex/faststore/commit/21a2dd3a1379c5b60ea96003e0addd6173f2923e))
+
 ## [4.10.1-dev.2](https://github.com/vtex/faststore/compare/v4.10.1-dev.1...v4.10.1-dev.2) (2026-10-27)
 
 ### Bug Fixes
