@@ -110,6 +110,33 @@ describe('createPromiseCache', () => {
     expect(load).toHaveBeenCalledTimes(1)
   })
 
+  it('drops expired entries when a new key is stored', async () => {
+    vi.useFakeTimers()
+    const cache = createPromiseCache<string>(1000)
+    const load = vi.fn(async () => 'value')
+
+    await cache.get('old-version', load)
+    await cache.get('other', load)
+    expect(cache.size).toBe(2)
+
+    vi.advanceTimersByTime(1000)
+    await cache.get('new-version', load)
+
+    expect(cache.size).toBe(1)
+  })
+
+  it('keeps entries that have not expired when a new key is stored', async () => {
+    vi.useFakeTimers()
+    const cache = createPromiseCache<string>(1000)
+    const load = vi.fn(async () => 'value')
+
+    await cache.get('a', load)
+    vi.advanceTimersByTime(999)
+    await cache.get('b', load)
+
+    expect(cache.size).toBe(2)
+  })
+
   it('drops every entry on clear', async () => {
     const cache = createPromiseCache<string>(1000)
     const load = vi.fn(async () => 'value')

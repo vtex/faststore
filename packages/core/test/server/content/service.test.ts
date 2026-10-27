@@ -3,26 +3,42 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { clientCMS, cmsPageCache } from '../../../src/server/cms'
 import { ContentService } from '../../../src/server/content/service'
-import type {
-  ContentOptions,
-  ContentParams,
+import {
+  type ContentOptions,
+  type ContentParams,
+  ContentSourceType,
 } from '../../../src/server/content/types'
-import type * as ContentUtils from '../../../src/server/content/utils'
-import { isContentPlatformSource } from '../../../src/server/content/utils'
+import { contentSource } from '../../../discovery.config'
 
-vi.mock('../../../src/server/content/utils', async (importOriginal) => {
-  const actual = await importOriginal<typeof ContentUtils>()
-  const isContentPlatformSource = vi.fn(actual.isContentPlatformSource)
+type ContentSourceConfig = { type: string }
+type DiscoveryConfigModule = {
+  default: Record<string, unknown>
+  contentSource: ContentSourceConfig
+}
+
+vi.mock('../../../discovery.config', async (importOriginal) => {
+  const actual = await importOriginal<DiscoveryConfigModule>()
+  const base = actual.default ?? actual
+  const mutableContentSource = {
+    ...(base.contentSource as ContentSourceConfig),
+  }
+
   return {
     ...actual,
-    isContentPlatformSource,
-    isBranchPreview: (
-      previewData: Parameters<typeof ContentUtils.isBranchPreview>[0]
-    ) =>
-      isContentPlatformSource() &&
-      !!(previewData?.versionId || previewData?.releaseId),
+    default: { ...base, contentSource: mutableContentSource },
+    contentSource: mutableContentSource,
   }
 })
+
+const DEFAULT_CONTENT_SOURCE_TYPE = contentSource.type
+
+const useContentPlatform = () => {
+  contentSource.type = ContentSourceType.ContentPlatform
+}
+
+const useHeadlessCms = () => {
+  contentSource.type = DEFAULT_CONTENT_SOURCE_TYPE
+}
 
 type ContentServiceInternals = {
   createContentOptions: (params: ContentParams) => ContentOptions
@@ -182,12 +198,12 @@ describe('ContentService', () => {
     const FIVE_MINUTES = 5 * 60 * 1000
 
     beforeEach(() => {
-      vi.mocked(isContentPlatformSource).mockReturnValue(true)
+      useContentPlatform()
       vi.spyOn(console, 'warn').mockImplementation(() => {})
     })
 
     afterEach(() => {
-      vi.mocked(isContentPlatformSource).mockReset()
+      useHeadlessCms()
       vi.restoreAllMocks()
       vi.useRealTimers()
     })
@@ -385,12 +401,12 @@ describe('ContentService', () => {
     const FIVE_MINUTES = 5 * 60 * 1000
 
     beforeEach(() => {
-      vi.mocked(isContentPlatformSource).mockReturnValue(true)
+      useContentPlatform()
       vi.spyOn(console, 'warn').mockImplementation(() => {})
     })
 
     afterEach(() => {
-      vi.mocked(isContentPlatformSource).mockReset()
+      useHeadlessCms()
       vi.restoreAllMocks()
       vi.useRealTimers()
     })
@@ -542,16 +558,20 @@ describe('ContentService', () => {
     }
 
     beforeEach(() => {
-      vi.mocked(isContentPlatformSource).mockReturnValue(false)
+      useHeadlessCms()
       cmsPageCache.clear()
-      clientCMS.getCMSPage = vi.fn(async () => ({
+      vi.spyOn(clientCMS, 'getCMSPage').mockResolvedValue({
         id: 'doc-1',
+        name: 'doc-1',
+        status: 'published',
+        type: 'globalSections',
+        releaseId: 'release-1',
         sections: [{ name: 'Children' }],
-      })) as unknown as typeof clientCMS.getCMSPage
+      } as Awaited<ReturnType<typeof clientCMS.getCMSPage>>)
     })
 
     afterEach(() => {
-      vi.mocked(isContentPlatformSource).mockReset()
+      useHeadlessCms()
       vi.restoreAllMocks()
     })
 
