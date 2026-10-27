@@ -222,15 +222,21 @@ export class ContentService {
       throw new Error(`${operation} requires entryId or slug`)
     }
 
-    const entry = isPreview
-      ? await (params.entryId
-          ? this.clientCP.previewEntryById(params)
-          : this.clientCP.previewEntryBySlug(params))
-      : await (params.entryId
-          ? this.clientCP.getEntry(params)
-          : this.clientCP.getEntryBySlug(params))
+    const entry = await this.loadEntry(params, isPreview)
 
     return withoutContentAuthorMetadata(entry as PageContentType)
+  }
+
+  private loadEntry(params: EntryPathParams, isPreview: boolean) {
+    if (isPreview) {
+      return params.entryId
+        ? this.clientCP.previewEntryById(params)
+        : this.clientCP.previewEntryBySlug(params)
+    }
+
+    return params.entryId
+      ? this.clientCP.getEntry(params)
+      : this.clientCP.getEntryBySlug(params)
   }
 
   private async fetchFirstEntryFromList(

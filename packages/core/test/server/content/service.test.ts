@@ -42,7 +42,7 @@ const entryData: Record<string, Record<string, unknown>> = {
 const toEntry = (id: string): ContentEntry => ({
   id,
   name: id,
-  account: 'levimx',
+  account: 'example-account',
   storeId: 'faststore',
   createdAt: '2026-01-01T00:00:00.000Z',
   updatedAt: '2026-01-02T00:00:00.000Z',
