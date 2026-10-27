@@ -1,22 +1,34 @@
 import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
 
+import { contentSource } from '../../../discovery.config'
 import { clientCMS, cmsPageCache } from '../../../src/server/cms'
 import { ContentService } from '../../../src/server/content/service'
-import type { ContentParams } from '../../../src/server/content/types'
-import { isContentPlatformSource } from '../../../src/server/content/utils'
+import {
+  type ContentParams,
+  ContentSourceType,
+} from '../../../src/server/content/types'
 
-jest.mock('../../../src/server/content/utils', () => {
-  const isContentPlatformSource = jest.fn(() => true)
+jest.mock('../../../discovery.config', () => {
+  const actual = jest.requireActual('../../../discovery.config')
+  const base = actual.default ?? actual
+  const mutableContentSource = { ...base.contentSource }
+
   return {
-    ...jest.requireActual('../../../src/server/content/utils'),
-    isContentPlatformSource,
-    isBranchPreview: (previewData?: {
-      versionId?: string
-      releaseId?: string
-    }) =>
-      isContentPlatformSource() &&
-      !!(previewData?.versionId || previewData?.releaseId),
+    __esModule: true,
+    ...actual,
+    default: { ...base, contentSource: mutableContentSource },
+    contentSource: mutableContentSource,
   }
+})
+
+const DEFAULT_CONTENT_SOURCE_TYPE = contentSource.type
+
+beforeEach(() => {
+  contentSource.type = ContentSourceType.ContentPlatform
+})
+
+afterAll(() => {
+  contentSource.type = DEFAULT_CONTENT_SOURCE_TYPE
 })
 
 const NOT_FOUND = 'Request failed with status code 404'
@@ -389,20 +401,22 @@ describe('ContentService Headless CMS single content cache', () => {
     documentId: 'doc-1',
     versionId: 'version-1',
   }
-  const originalGetCMSPage = clientCMS.getCMSPage
 
   beforeEach(() => {
-    jest.mocked(isContentPlatformSource).mockReturnValue(false)
+    contentSource.type = DEFAULT_CONTENT_SOURCE_TYPE
     cmsPageCache.clear()
-    clientCMS.getCMSPage = jest.fn(async () => ({
+    jest.spyOn(clientCMS, 'getCMSPage').mockResolvedValue({
       id: 'doc-1',
+      name: 'doc-1',
+      status: 'published',
+      type: 'globalSections',
+      releaseId: 'release-1',
       sections: [{ name: 'Children' }],
-    })) as unknown as typeof clientCMS.getCMSPage
+    } as Awaited<ReturnType<typeof clientCMS.getCMSPage>>)
   })
 
   afterEach(() => {
-    jest.mocked(isContentPlatformSource).mockReturnValue(true)
-    clientCMS.getCMSPage = originalGetCMSPage
+    jest.restoreAllMocks()
   })
 
   it('reuses a published document fetched by locator', async () => {

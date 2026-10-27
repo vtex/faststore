@@ -12,6 +12,9 @@ type PromiseCacheEntry<T> = {
  * in-flight promise, entries expire after `ttlMs`, and rejections are evicted
  * so the next caller retries. When `shouldCache` rejects a resolved value, the
  * entry is evicted too, so only the callers already waiting share that value.
+ * Expired entries are also dropped whenever a new one is stored, so keys that
+ * are never requested again (e.g. superseded document versions) do not pile up
+ * for the lifetime of the process.
  */
 export function createPromiseCache<T>(ttlMs = CONTENT_CACHE_TTL_MS) {
   const entries = new Map<string, PromiseCacheEntry<T>>()
@@ -33,6 +36,11 @@ export function createPromiseCache<T>(ttlMs = CONTENT_CACHE_TTL_MS) {
         }
       }
 
+      const now = Date.now()
+      entries.forEach((entry, entryKey) => {
+        if (entry.expiresAt <= now) entries.delete(entryKey)
+      })
+
       const promise = load().then(
         (value) => {
           if (!shouldCache(value)) evict()
@@ -44,13 +52,17 @@ export function createPromiseCache<T>(ttlMs = CONTENT_CACHE_TTL_MS) {
         }
       )
 
-      entries.set(key, { expiresAt: Date.now() + ttlMs, promise })
+      entries.set(key, { expiresAt: now + ttlMs, promise })
 
       return promise
     },
 
     clear() {
       entries.clear()
+    },
+
+    get size() {
+      return entries.size
     },
   }
 }
