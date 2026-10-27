@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.51](https://github.com/vtex/faststore/compare/v1.12.50...v1.12.51) (2026-10-27)
+
+### Bug Fixes
+
+- **api:** forward Checkout cookies so Ownership Cookie works on v1 ([#3527](https://github.com/vtex/faststore/issues/3527)) ([5932cd0](https://github.com/vtex/faststore/commit/5932cd09aec97d14927abd0d4e364f9512286cf8)), closes [#2133](https://github.com/vtex/faststore/issues/2133) [#2162](https://github.com/vtex/faststore/issues/2162) [#2158](https://github.com/vtex/faststore/issues/2158) [#2164](https://github.com/vtex/faststore/issues/2164) [#2150](https://github.com/vtex/faststore/issues/2150) [vtex-sites/nextjs.store#415](https://github.com/vtex-sites/nextjs.store/issues/415) [vtex-sites/gatsby.store#235](https://github.com/vtex-sites/gatsby.store/issues/235) [#2133](https://github.com/vtex/faststore/issues/2133) [#2162](https://github.com/vtex/faststore/issues/2162) [#2158](https://github.com/vtex/faststore/issues/2158) [#2164](https://github.com/vtex/faststore/issues/2164)
+
 ## [1.12.50](https://github.com/vtex/faststore/compare/v1.12.49...v1.12.50) (2024-09-05)
 
 ### Features
