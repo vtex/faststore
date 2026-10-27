@@ -6,7 +6,6 @@ import storeConfig from 'discovery.config'
 import { expireCookieServer, getCookieDomains } from 'src/utils/clearCookies'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
 import {
-  HOST_ONLY_COOKIE_HOST_SUFFIXES,
   isCookieSafeHostname,
   isHostAllowed,
   removeCookieDomain,
@@ -93,15 +92,27 @@ const getParentDomains = (hostname: string): string[] => {
     .map((_, index) => labels.slice(index + 1).join('.'))
 }
 
+/**
+ * Hosts where the auth cookies stay host-only: WebOps previews, whose ingress
+ * does not pass the browser host in `Host`, and local development.
+ * `{account}.vtex.app` is a production domain that receives the browser host,
+ * so it gets a Domain like any custom domain. `/api/graphql` keeps its wider
+ * `.vtex.app` list for the cookies it relays from upstream.
+ */
+const HOST_ONLY_AUTH_COOKIE_SUFFIXES = [
+  'localhost',
+  '.localhost',
+  '.preview.vtex.app',
+]
+
 const isHostOnlyCookieHost = (hostname: string | null): boolean =>
-  !!hostname && isHostAllowed(hostname, HOST_ONLY_COOKIE_HOST_SUFFIXES)
+  !!hostname && isHostAllowed(hostname, HOST_ONLY_AUTH_COOKIE_SUFFIXES)
 
 /**
  * Domain for the auth cookies, or `undefined` to write them host-only.
  *
- * Previews and local hosts stay host-only, the same as the cookies
- * `/api/graphql` relays there: behind the preview ingress `Host` is not the
- * host the browser requested, and a mismatched Domain makes the browser drop
+ * Previews and local hosts stay host-only: behind the preview ingress `Host`
+ * is not the host the browser requested, and a mismatched Domain makes the browser drop
  * the cookie while the route reports success. `x-forwarded-host` only decides
  * that the cookie is host-only; it never chooses the Domain. IP literals and
  * hosts that cannot be written verbatim into the attribute (including a

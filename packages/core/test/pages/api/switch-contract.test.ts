@@ -298,6 +298,24 @@ describe('/api/fs/switch-contract', () => {
     }
   )
 
+  it('scopes the cookie to an {account}.vtex.app production host', async () => {
+    // Unlike previews, this domain receives the browser host in `Host`.
+    const handler = await getHandler()
+    const { req, res } = createReqRes({
+      headers: { host: 'test-store.vtex.app' },
+    })
+
+    await handler(req, res)
+
+    const authCookies = setCookiesFrom(res).filter((cookie) =>
+      cookie.includes('new-contract-token')
+    )
+
+    expect(authCookies).toEqual([
+      expect.stringContaining('; Domain=test-store.vtex.app; Path=/;'),
+    ])
+  })
+
   it.each([
     ['a preview Host', { host: 'sfj-abc--test-store.preview.vtex.app' }],
     [
