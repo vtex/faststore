@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.8](https://github.com/vtex/faststore/compare/v3.100.7...v3.100.8) (2026-10-27)
+
+### Bug Fixes
+
+- **core:** address review feedback on CMS cache (3.x) ([ef77b3f](https://github.com/vtex/faststore/commit/ef77b3fa73d2cd475fef6129a3d0a948b9b59cbc))
+- **core:** cache Content Platform template list across page generations (3.x) ([6480dd5](https://github.com/vtex/faststore/commit/6480dd5850baaacd3e9cc698be4690795b63ab7a)), closes [#3526](https://github.com/vtex/faststore/issues/3526)
+- **core:** cache global and single CMS content across page generations (3.x) ([01d1b3a](https://github.com/vtex/faststore/commit/01d1b3a6ab6df30676f38275399ba6e5d3e0213b))
+- **core:** do not cache empty required CMS content (3.x) ([df849cb](https://github.com/vtex/faststore/commit/df849cb3b967b305fa67b2cc7b3f7fdafabcba99))
+
 ## [3.100.7](https://github.com/vtex/faststore/compare/v3.100.6...v3.100.7) (2026-10-26)
 
 ### Bug Fixes
