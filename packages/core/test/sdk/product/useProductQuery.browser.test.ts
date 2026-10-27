@@ -72,9 +72,11 @@ describe('useProductQuery', () => {
 
     expect(result.current.error).toMatchObject({ status: 404 })
     expect(result.current.isValidating).toBe(false)
-    // Keeps rendering the static product, and does not retry the failed call.
+    // The data stays the static product, and the failed call is not retried.
     expect(result.current.data).toBe(fallbackData)
     expect(mockRequest).toHaveBeenCalledTimes(1)
+    // Shoppers without a B2B session are sent to the 404 page too.
+    await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/404'))
   })
 
   it('does not retry a NotFoundError carried in the GraphQL extensions', async () => {
