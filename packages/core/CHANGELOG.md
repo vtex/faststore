@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.7](https://github.com/vtex/faststore/compare/v3.100.6...v3.100.7) (2026-10-26)
+
+### Bug Fixes
+
+- **core:** cache Content Platform template list across page generations (3.x) ([#3534](https://github.com/vtex/faststore/issues/3534)) ([825c176](https://github.com/vtex/faststore/commit/825c176357b0f40ac9d112ee9789dce0c8198cf0)), closes [#3526](https://github.com/vtex/faststore/issues/3526) [#3384](https://github.com/vtex/faststore/issues/3384) [#3526](https://github.com/vtex/faststore/issues/3526) [#3526](https://github.com/vtex/faststore/issues/3526) [#3384](https://github.com/vtex/faststore/issues/3384)
+
 ## [3.100.6](https://github.com/vtex/faststore/compare/v3.100.5...v3.100.6) (2026-10-07)
 
 ### Bug Fixes
