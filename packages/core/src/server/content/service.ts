@@ -20,6 +20,11 @@ import { isBranchPreview, isContentPlatformSource } from './utils'
 
 type ContentResult = ContentData | (ContentEntry & PageContentType)
 
+const OPTIONAL_CONTENT_TYPES = [
+  'globalHeaderSections',
+  'globalFooterSections',
+] as const
+
 export class ContentService {
   private clientCP: ClientCP
 
@@ -194,8 +199,12 @@ export class ContentService {
       return this.fetchFirstEntryFromList(params, isPreview)
     }
 
-    return this.firstEntryCache.get(getContentTypeKey(params), () =>
-      this.fetchFirstEntryFromList(params, false)
+    // An empty required type is likely content that is about to be published,
+    // so it is not kept for the whole TTL. Optional types are empty by design.
+    return this.firstEntryCache.get(
+      getContentTypeKey(params),
+      () => this.fetchFirstEntryFromList(params, false),
+      (entry) => !isEmptyEntry(entry) || isOptionalContentType(params)
     )
   }
 
@@ -325,6 +334,16 @@ export class ContentService {
       name: entry.name || '',
     }
   }
+}
+
+function isOptionalContentType({ contentType }: EntryPathParams): boolean {
+  return OPTIONAL_CONTENT_TYPES.includes(
+    contentType as (typeof OPTIONAL_CONTENT_TYPES)[number]
+  )
+}
+
+function isEmptyEntry(entry: PageContentType): boolean {
+  return Object.keys(entry).length === 0
 }
 
 // listEntries only depends on these fields; the page slug must stay out of the key.

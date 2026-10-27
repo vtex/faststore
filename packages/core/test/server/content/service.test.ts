@@ -270,7 +270,7 @@ describe('ContentService Content Platform single entry cache', () => {
     ).toEqual(['globalSections', 'globalHeaderSections'])
   })
 
-  it('caches an empty content type', async () => {
+  it('caches an empty optional content type', async () => {
     const { service, clientCP } = createServiceWithClient([[]])
 
     const first = await service.getSingleContent({
@@ -281,6 +281,35 @@ describe('ContentService Content Platform single entry cache', () => {
     expect(first).toEqual({})
     expect(clientCP.listEntries).toHaveBeenCalledTimes(1)
     expect(clientCP.getEntry).not.toHaveBeenCalled()
+  })
+
+  it('does not cache an empty required content type', async () => {
+    const { service, clientCP } = createServiceWithClient([[]])
+
+    const first = await service.getSingleContent({
+      contentType: 'globalSections',
+    })
+    await service.getSingleContent({ contentType: 'globalSections' })
+
+    expect(first).toEqual({})
+    expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
+  })
+
+  it('picks up a required content type published after an empty lookup', async () => {
+    const { service, clientCP } = createServiceWithClient([['generic']])
+    clientCP.listEntries.mockResolvedValueOnce({ entries: [], scroll: null })
+
+    const before = await service.getSingleContent({
+      contentType: 'globalSections',
+    })
+    const after = await service.getSingleContent({
+      contentType: 'globalSections',
+    })
+    await service.getSingleContent({ contentType: 'globalSections' })
+
+    expect(before).toEqual({})
+    expect(after.sections).toEqual([{ name: 'Generic' }])
+    expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
   })
 
   it('does not cache lookups by slug', async () => {
