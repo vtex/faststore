@@ -189,8 +189,12 @@ export class ContentService {
       return this.fetchFirstEntryFromList(params, true)
     }
 
-    return this.firstEntryCache.get(getContentTypeKey(params), () =>
-      this.fetchFirstEntryFromList(params, false)
+    // An empty required type is likely content that is about to be published,
+    // so it is not kept for the whole TTL. Optional types are empty by design.
+    return this.firstEntryCache.get(
+      getContentTypeKey(params),
+      () => this.fetchFirstEntryFromList(params, false),
+      (entry) => !isEmptyEntry(entry) || isOptionalContentType(params)
     )
   }
 
@@ -220,11 +224,7 @@ export class ContentService {
   ): Promise<PageContentType> {
     const { entries } = await this.clientCP.listEntries(params)
     if (!entries || entries.length === 0) {
-      const isOptional = OPTIONAL_CONTENT_TYPES.includes(
-        params.contentType as (typeof OPTIONAL_CONTENT_TYPES)[number]
-      )
-
-      if (!isOptional) {
+      if (!isOptionalContentType(params)) {
         console.warn('No entries found for params', params)
       }
       return {} as PageContentType
@@ -332,6 +332,16 @@ export class ContentService {
       name: entry.name ?? '',
     }
   }
+}
+
+function isOptionalContentType({ contentType }: EntryPathParams): boolean {
+  return OPTIONAL_CONTENT_TYPES.includes(
+    contentType as (typeof OPTIONAL_CONTENT_TYPES)[number]
+  )
+}
+
+function isEmptyEntry(entry: PageContentType): boolean {
+  return Object.keys(entry).length === 0
 }
 
 // listEntries only depends on these fields; the page slug must stay out of the key.

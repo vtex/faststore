@@ -85,6 +85,31 @@ describe('createPromiseCache', () => {
     expect(load).toHaveBeenCalledTimes(2)
   })
 
+  it('does not keep values rejected by shouldCache', async () => {
+    const cache = createPromiseCache<string>(1000)
+    const load = vi.fn(async () => '')
+    const shouldCache = (value: string) => value !== ''
+
+    const concurrent = await Promise.all([
+      cache.get('key', load, shouldCache),
+      cache.get('key', load, shouldCache),
+    ])
+    await cache.get('key', load, shouldCache)
+
+    expect(concurrent).toEqual(['', ''])
+    expect(load).toHaveBeenCalledTimes(2)
+  })
+
+  it('keeps values accepted by shouldCache', async () => {
+    const cache = createPromiseCache<string>(1000)
+    const load = vi.fn(async () => 'value')
+
+    await cache.get('key', load, (value) => value !== '')
+    await cache.get('key', load, (value) => value !== '')
+
+    expect(load).toHaveBeenCalledTimes(1)
+  })
+
   it('drops every entry on clear', async () => {
     const cache = createPromiseCache<string>(1000)
     const load = vi.fn(async () => 'value')
