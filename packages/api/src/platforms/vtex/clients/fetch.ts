@@ -38,7 +38,15 @@ export const redactHeaders = (
   return redacted
 }
 
-export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
+interface FetchAPIOptions {
+  storeCookies?: (headers: Headers) => void
+}
+
+export const fetchAPI = async (
+  info: RequestInfo,
+  init?: RequestInit,
+  options?: FetchAPIOptions
+) => {
   const response = await fetch(info, {
     ...init,
     headers: {
@@ -48,6 +56,10 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
   })
 
   if (response.ok) {
+    if (options?.storeCookies) {
+      options.storeCookies(response.headers)
+    }
+
     return response.status !== 204 ? response.json() : undefined
   }
 
