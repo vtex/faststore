@@ -116,6 +116,21 @@ describe('useProductNotFoundRedirect', () => {
     expect(result.current).toBe(true)
   })
 
+  it('releases the PDP once the session settles without a B2B buyer', () => {
+    mockUseSession.mockReturnValue(validatingSession)
+
+    const { result, rerender } = renderHook(() =>
+      useProductNotFoundRedirect({ status: 404 })
+    )
+    expect(result.current).toBe(true)
+
+    mockUseSession.mockReturnValue(anonymousSession)
+    rerender()
+
+    expect(result.current).toBe(false)
+    expect(mockReplace).not.toHaveBeenCalled()
+  })
+
   it('does not hold the PDP when the refetch succeeds', () => {
     mockUseSession.mockReturnValue(validatingSession)
 

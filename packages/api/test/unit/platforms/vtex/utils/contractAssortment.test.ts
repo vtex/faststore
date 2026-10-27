@@ -106,6 +106,35 @@ describe('assertProductInContractAssortment', () => {
     ).not.toThrow()
   })
 
+  it('accepts any allowed collection and lets an excluded one veto it', () => {
+    // Allowed IDs are OR'd; any excluded match rejects the product.
+    const ctx = makeCtx(
+      segmentCookie({
+        facets: 'productClusterIds=137,200;productClusterIds=not:300;',
+      })
+    )
+
+    expect(() =>
+      assertProductInContractAssortment(ctx, makeSku(clusters('200')))
+    ).not.toThrow()
+    expect(() =>
+      assertProductInContractAssortment(ctx, makeSku(clusters('200', '300')))
+    ).toThrow()
+    expect(() =>
+      assertProductInContractAssortment(ctx, makeSku(clusters('10')))
+    ).toThrow()
+  })
+
+  it('throws for a product without collections when the segment allows some', () => {
+    // Fails closed: a product with no `productClusters` is not in any
+    // allowed collection.
+    const ctx = makeCtx(segmentCookie({ facets: 'productClusterIds=137;' }))
+
+    expect(() =>
+      assertProductInContractAssortment(ctx, makeSku(undefined))
+    ).toThrow()
+  })
+
   it('throws NotFoundError when the product is outside the assortment', () => {
     const ctx = makeCtx(segmentCookie({ facets: 'productClusterIds=137;' }))
 
