@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.9](https://github.com/vtex/faststore/compare/v3.100.8...v3.100.9) (2026-10-28)
+
+### Bug Fixes
+
+- **api:** create newsletter subscriptions with a dedicated app key (3.x) ([#3545](https://github.com/vtex/faststore/issues/3545)) ([f58deb7](https://github.com/vtex/faststore/commit/f58deb79ecafe3438d9ed5795cb928ef50c0aaa8))
+
 ## [3.100.8](https://github.com/vtex/faststore/compare/v3.100.7...v3.100.8) (2026-10-27)
 
 ### Bug Fixes
