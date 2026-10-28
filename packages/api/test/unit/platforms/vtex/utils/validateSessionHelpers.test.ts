@@ -167,8 +167,22 @@ describe('buildB2bSession', () => {
     expect(
       buildB2bSession({
         ...emptyArgs,
-        authentication: { unitId: { value: '  ' } },
-        unitId: '',
+        authentication: {
+          customerId: { value: 'cust' },
+          unitId: { value: '  ' },
+        },
+        unitId: ' ',
+        customerId: 'cust',
+      })
+    ).toBeNull()
+  })
+
+  it('returns null when the claims are not strings', () => {
+    expect(
+      buildB2bSession({
+        ...emptyArgs,
+        unitId: 42 as unknown as string,
+        customerId: { id: 'cust' } as unknown as string,
       })
     ).toBeNull()
   })

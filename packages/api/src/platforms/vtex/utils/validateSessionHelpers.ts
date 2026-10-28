@@ -139,9 +139,13 @@ function shopperString(value: { value?: unknown } | null | undefined): string {
   return typeof value?.value === 'string' ? value.value : ''
 }
 
-function firstNonBlank(...values: Array<string | null | undefined>): string {
+/**
+ * First value that is a non-blank string, trimmed. Session values and JWT
+ * claims are only nominally typed, so anything else is skipped.
+ */
+export function firstNonBlank(...values: unknown[]): string {
   for (const value of values) {
-    const trimmed = value?.trim()
+    const trimmed = typeof value === 'string' ? value.trim() : ''
     if (trimmed) return trimmed
   }
 
@@ -155,7 +159,7 @@ function firstNonBlank(...values: Array<string | null | undefined>): string {
  */
 export function resolveB2bUnitId(
   authentication: { unitId?: { value?: string | null } | null } | null,
-  jwtUnitId?: string
+  jwtUnitId?: unknown
 ): string {
   return firstNonBlank(authentication?.unitId?.value, jwtUnitId)
 }

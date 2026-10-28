@@ -716,11 +716,13 @@ describe('Query.accountProfile', () => {
     })
   })
 
-  it('does not throw and skips the CL lookup when no contract id is available anywhere', async () => {
-    const { ctx, getContractById, sessionMock } = makeRepCtx({ customerId: '' })
+  it('returns the user profile for a unit member without any contract', async () => {
+    const { ctx, getContractById, getUserById, sessionMock } = makeRepCtx({
+      customerId: '',
+    })
     sessionMock.mockResolvedValue({
       namespaces: {
-        profile: null,
+        profile: { id: { value: 'profile-1' } },
         authentication: null,
         shopper: {
           firstName: { value: 'Joao' },
@@ -728,11 +730,59 @@ describe('Query.accountProfile', () => {
         },
       },
     })
+    getUserById.mockResolvedValue({
+      id: 'user-1',
+      name: 'Joao Caetano',
+      email: 'joao@example.com',
+    })
 
     const result = await accountProfile(null, null, ctx)
 
     expect(getContractById).not.toHaveBeenCalled()
-    expect(result).toEqual({ name: 'Joao Caetano', email: '', id: '' })
+    expect(result).toEqual({
+      name: 'Joao Caetano',
+      email: 'joao@example.com',
+      id: 'user-1',
+    })
+  })
+
+  it('takes the contract from the session when the token has none', async () => {
+    const { ctx, getContractById, sessionMock } = makeRepCtx({
+      customerId: '',
+    })
+    sessionMock.mockResolvedValue({
+      namespaces: {
+        profile: null,
+        authentication: null,
+        shopper: { activeContractId: { value: 'contract-2' } },
+      },
+    })
+    getContractById.mockResolvedValue({ corporateName: 'Corp Y' })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(getContractById).toHaveBeenCalledWith({ contractId: 'contract-2' })
+    expect(result).toEqual({ name: 'Corp Y', email: '', id: 'contract-2' })
+  })
+
+  it('treats non-string unit and contract claims as missing', async () => {
+    const { ctx, getUserById, sessionMock } = makeRepCtx({
+      claims: { unitId: 42, customerId: { id: 'contract-1' } },
+    })
+    getUserById.mockResolvedValue({
+      id: 'user-1',
+      name: 'Shopper',
+      email: 'shopper@example.com',
+    })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(sessionMock).not.toHaveBeenCalled()
+    expect(result).toEqual({
+      name: 'Shopper',
+      email: 'shopper@example.com',
+      id: 'user-1',
+    })
   })
 
   it('does not fail the field when getContractById throws', async () => {
