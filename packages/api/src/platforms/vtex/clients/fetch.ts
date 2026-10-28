@@ -3,6 +3,41 @@ import packageJson from '../../../../package.json'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
 
+// Headers that may carry credentials: store API keys (`X-VTEX-API-AppKey`,
+// `X-VTEX-API-AppToken`), shopper cookies (`Cookie`, `Set-Cookie`,
+// `VtexIdclientAutCookie_*`), `Authorization`, and generic token, secret or
+// API key headers. They are replaced before a failed request and its response
+// are logged. Matched by substring so new credential headers are covered too.
+const SENSITIVE_HEADER = /authorization|cookie|token|secret|api-?key|appkey/i
+
+const REDACTED = '[redacted]'
+
+export const redactHeaders = (
+  headers?: HeadersInit
+): Record<string, string> | undefined => {
+  if (!headers) {
+    return undefined
+  }
+
+  const redacted: Record<string, string> = {}
+  const add = (name: string, value: string) => {
+    redacted[name] = SENSITIVE_HEADER.test(name) ? REDACTED : value
+  }
+
+  if (Array.isArray(headers)) {
+    headers.forEach(([name, value]) => add(name, value))
+  } else if (typeof (headers as Headers).forEach === 'function') {
+    // Matches both the global `Headers` and the polyfill returned by
+    // `isomorphic-unfetch` on Node, which isn't an instance of the global one.
+    const headerList = headers as Headers
+    headerList.forEach((value, name) => add(name, value))
+  } else {
+    Object.entries(headers).forEach(([name, value]) => add(name, value))
+  }
+
+  return redacted
+}
+
 interface FetchAPIOptions {
   storeCookies?: (headers: Headers) => void
 }
@@ -28,7 +63,23 @@ export const fetchAPI = async (
     return response.status !== 204 ? response.json() : undefined
   }
 
-  console.error(info, init, response)
+  // Log a summary instead of the raw Response, whose headers may include
+  // `Set-Cookie` with shopper credentials. The request body is omitted because
+  // it can carry personal data (e.g. the newsletter email and name).
+  console.error(
+    // Only the URL: a `Request` instance could carry unredacted headers.
+    typeof info === 'string' ? info : info.url,
+    init && {
+      ...init,
+      headers: redactHeaders(init.headers),
+      body: init.body ? REDACTED : undefined,
+    },
+    {
+      status: response.status,
+      statusText: response.statusText,
+      headers: redactHeaders(response.headers),
+    }
+  )
   const text = await response.text()
 
   throw new Error(text)
