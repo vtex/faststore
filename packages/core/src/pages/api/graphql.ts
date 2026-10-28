@@ -13,6 +13,7 @@ import { getJWTAutCookie } from 'src/utils/getCookie'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
 import { shouldBypassRefreshTokenForRequest } from 'src/utils/shouldBypassRefreshToken'
 import {
+  HOST_ONLY_COOKIE_HOST_SUFFIXES,
   isHostAllowed,
   removeCookieDomain,
   singleForwardedHost,
@@ -25,7 +26,6 @@ const OTELLogger = logger('@faststore/core')
 
 const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
 const DEFAULT_STALE_WHILE_REVALIDATE = 60 * 60 // 1 hour
-const ALLOWED_HOST_SUFFIXES = ['localhost', '.vtex.app', '.localhost']
 
 /**
  * Recovers a FastStoreError from an execution error, whether it is the error
@@ -88,7 +88,8 @@ const normalizeSetCookieDomain = ({
     OTELLogger('warn', 'Ignoring multi-value or malformed x-forwarded-host')
   }
   const host =
-    forwardedHost && isHostAllowed(forwardedHost, ALLOWED_HOST_SUFFIXES)
+    forwardedHost &&
+    isHostAllowed(forwardedHost, HOST_ONLY_COOKIE_HOST_SUFFIXES)
       ? forwardedHost
       : getRequestHostname(request.headers.host)
   if (!host) {
@@ -97,7 +98,7 @@ const normalizeSetCookieDomain = ({
   const cookieDomain = domainMatch[1]
 
   if (
-    !isHostAllowed(host, ALLOWED_HOST_SUFFIXES) ||
+    !isHostAllowed(host, HOST_ONLY_COOKIE_HOST_SUFFIXES) ||
     !shouldReplaceCookieDomain({ cookieDomain, host })
   ) {
     return setCookie

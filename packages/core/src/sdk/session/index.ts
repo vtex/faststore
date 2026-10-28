@@ -12,6 +12,8 @@ import { shouldBypassRefreshTokenBrowser } from 'src/utils/shouldBypassRefreshTo
 import { filterChannel } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
 import {
+  getNextRefreshAfter,
+  isB2BSession,
   isRefreshTokenSuccessful,
   refreshTokenRequest,
 } from '../account/refreshToken'
@@ -94,14 +96,12 @@ export const mutation = gql(`
 `)
 
 async function handleRefreshToken(session: Session): Promise<Session | null> {
-  const result = await refreshTokenRequest()
+  const result = await refreshTokenRequest({ isB2B: isB2BSession(session) })
 
   if (isRefreshTokenSuccessful(result)) {
     return {
       ...session,
-      refreshAfter: String(
-        Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
-      ),
+      refreshAfter: getNextRefreshAfter(result),
     }
   }
 
