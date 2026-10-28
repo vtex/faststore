@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.10.1-dev.7](https://github.com/vtex/faststore/compare/v4.10.1-dev.6...v4.10.1-dev.7) (2026-10-28)
+
+### Bug Fixes
+
+- **api:** apply the unit and contract rule to accountProfile and guard non-string claims ([ab97c85](https://github.com/vtex/faststore/commit/ab97c85951e0c4b1a4f0f57a0e9a49560b74a81b))
+- **api:** identify B2B sessions by organizational unit and contract ([36b7dc6](https://github.com/vtex/faststore/commit/36b7dc6eead7c8dd0ae38b15d4020b35ddafe8d2))
+- **api:** keep Intelligent Search failures from looking like a missing SKU ([262ff4b](https://github.com/vtex/faststore/commit/262ff4bd5c298b184ff73490d83c7c76d8dcbcdb))
+- **api:** return not found for products outside the B2B contract assortment ([3341802](https://github.com/vtex/faststore/commit/3341802f6d4225486b85592bf43b8e64e4b1ac62))
+
 ## [4.10.1-dev.6](https://github.com/vtex/faststore/compare/v4.10.1-dev.5...v4.10.1-dev.6) (2026-10-28)
 
 **Note:** Version bump only for package @faststore/api

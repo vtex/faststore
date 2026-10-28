@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.10.1-dev.7](https://github.com/vtex/faststore/compare/v4.10.1-dev.6...v4.10.1-dev.7) (2026-10-28)
+
+### Bug Fixes
+
+- **api:** apply the unit and contract rule to accountProfile and guard non-string claims ([ab97c85](https://github.com/vtex/faststore/commit/ab97c85951e0c4b1a4f0f57a0e9a49560b74a81b))
+- **api:** identify B2B sessions by organizational unit and contract ([36b7dc6](https://github.com/vtex/faststore/commit/36b7dc6eead7c8dd0ae38b15d4020b35ddafe8d2))
+- **api:** keep Intelligent Search failures from looking like a missing SKU ([262ff4b](https://github.com/vtex/faststore/commit/262ff4bd5c298b184ff73490d83c7c76d8dcbcdb))
+- **api:** return not found for products outside the B2B contract assortment ([3341802](https://github.com/vtex/faststore/commit/3341802f6d4225486b85592bf43b8e64e4b1ac62))
+- **core:** address Sonar findings on the PDP 404 redirect ([47ccb81](https://github.com/vtex/faststore/commit/47ccb81b741a48d14a7c8da5361e23b08c15d3ca))
+- **core:** expire parent-domain auth cookies on contract switch ([abe0845](https://github.com/vtex/faststore/commit/abe0845bcb487d1998294aab5ee5fd3a91e269e7))
+- **core:** keep a single refresh route per session, like main ([afd6ce9](https://github.com/vtex/faststore/commit/afd6ce90126830d0c67f9e6bdf9521f95345c9f6))
+- **core:** keep IP hosts host-only and Secure by scheme in switch-contract ([20ab5bf](https://github.com/vtex/faststore/commit/20ab5bf951b4be0dbb5ec09263b1e0c0aa32571e))
+- **core:** keep switch-contract cookies host-only on previews ([940e76e](https://github.com/vtex/faststore/commit/940e76e6751293592cdb8b60d581be42c8c8e8dd))
+- **core:** keep the PDP loading until the B2B 404 redirect ([7dc8008](https://github.com/vtex/faststore/commit/7dc80084c23e85e38d456a7bde0f505f38d11649))
+- **core:** keep the switched contract on a sibling checkout host ([3b69fad](https://github.com/vtex/faststore/commit/3b69fad4594699c5b395ce86dbf19cb1821eba97))
+- **core:** read the connection when x-forwarded-proto is absent ([6d4a7fa](https://github.com/vtex/faststore/commit/6d4a7fa9902d6d486e239001aeac94b51c1d06f6))
+- **core:** redirect to /404 without reusing PDP path as data source ([158e653](https://github.com/vtex/faststore/commit/158e65305048eb3cf4d275324eef00d0c5bcb152))
+- **core:** redirect to the 404 page for any shopper out of the assortment ([9ba660d](https://github.com/vtex/faststore/commit/9ba660d3f513512fd4bc0c27fb1750c6211a9182))
+- **core:** redirect to the 404 page once per not-found product ([17bc72b](https://github.com/vtex/faststore/commit/17bc72b35291b9a847e1550555ecdaeb7805c40c))
+- **core:** refresh the token through the Authenticator route ([8da50ef](https://github.com/vtex/faststore/commit/8da50efb6d9924385c2e2be98cdf0ca9a0564891))
+- **core:** relay vid_rt on contract switch and bound the refreshAfter fallback ([d154bff](https://github.com/vtex/faststore/commit/d154bffc6523b51f391da0db928234223f693e8e))
+- **core:** relay vid_rt on contract switch only with refresh token on ([0111217](https://github.com/vtex/faststore/commit/0111217b01079d4efdbd86bdee7be90a08bac8cf))
+- **core:** retry transient PDP refetch failures, not 404s ([638f8a4](https://github.com/vtex/faststore/commit/638f8a47d878256239b4e1e43987fc6e287dade5))
+- **core:** scope switch-contract auth cookie like VTEX ID ([dcab25f](https://github.com/vtex/faststore/commit/dcab25f861e022ec460606e234a0e8ac8e2ef2f7))
+- **core:** scope the switched auth cookie on {account}.vtex.app ([b878178](https://github.com/vtex/faststore/commit/b87817886efd0632e61b30e6c4edb96975a4c05e))
+- **core:** show 404 on the PDP when a B2B shopper cannot access the product ([45485ad](https://github.com/vtex/faststore/commit/45485adfb31b67e5310144cf8d37a0867b51a19c))
+- **core:** skip retries for every not-found shape on the PDP refetch ([f7e808e](https://github.com/vtex/faststore/commit/f7e808ee4253ad5c966feb02c3b574abe5a742e3))
+- **core:** surface a failed PDP product refetch so the 404 redirect can run ([d6a0923](https://github.com/vtex/faststore/commit/d6a0923125a68308913b122f8c2584e0fb5fcf32))
+- **core:** use the Authenticator refresh route only for B2B sessions ([31d55cd](https://github.com/vtex/faststore/commit/31d55cd293b91646aba6147edfda84c37ba3fd17))
+- **core:** use the B2B refresh route only with a unit and a contract ([bd76720](https://github.com/vtex/faststore/commit/bd76720a84fd4bae3e6fbea2d8b1bf3afdaabe02))
+
 ## [4.10.1-dev.6](https://github.com/vtex/faststore/compare/v4.10.1-dev.5...v4.10.1-dev.6) (2026-10-28)
 
 ### Bug Fixes
