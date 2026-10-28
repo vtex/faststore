@@ -44,6 +44,7 @@ import { LocalizedProductProvider } from 'src/sdk/localization/LocalizedProductC
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
+import { useProductNotFoundRedirect } from 'src/sdk/product/useProductNotFoundRedirect'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import { injectGlobalSections } from 'src/server/cms/global'
 import type { PDPContentType } from 'src/server/cms/pdp'
@@ -185,7 +186,7 @@ function Page({
     )
   }
 
-  const { client, isValidating } = isClientOfferEnabled
+  const { client, isValidating, clientError } = isClientOfferEnabled
     ? (() => {
         const offer = useOffer({ skuId: product.sku })
         return {
@@ -195,6 +196,11 @@ function Page({
             },
           },
           isValidating: offer.isValidating,
+          // This mode reads the offer straight from Intelligent Search and
+          // never runs `ClientProductQuery`, where the B2B contract assortment
+          // is checked, so there is no not-found to redirect on. Supporting
+          // the redirect here is out of scope for now.
+          clientError: undefined,
         }
       })()
     : (() => {
@@ -204,15 +210,18 @@ function Page({
         return {
           client: productQuery.data,
           isValidating: productQuery.isValidating,
+          clientError: productQuery.error,
         }
       })()
+
+  const isLeavingForNotFound = useProductNotFoundRedirect(clientError)
 
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
   const context = {
     data: {
       ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
-      isValidating,
+      isValidating: isValidating || isLeavingForNotFound,
     },
     globalSettings,
   } as PDPContext
