@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.10.1-dev.4](https://github.com/vtex/faststore/compare/v4.10.1-dev.3...v4.10.1-dev.4) (2026-10-28)
+
+### Bug Fixes
+
+- **api:** create newsletter subscriptions with a dedicated app key ([#3544](https://github.com/vtex/faststore/issues/3544)) ([4758b96](https://github.com/vtex/faststore/commit/4758b96638fb644b5e681f9f39a91c1f5a07d197))
+
 ## [4.10.1-dev.3](https://github.com/vtex/faststore/compare/v4.10.1-dev.2...v4.10.1-dev.3) (2026-10-27)
 
 **Note:** Version bump only for package @faststore/api
