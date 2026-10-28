@@ -40,14 +40,14 @@ export const getCheckoutParentDomain = (
     storeLabels[index] === checkoutLabels[index];
     index++
   ) {
-    common.push(storeLabels[index])
+    common.unshift(storeLabels[index])
   }
 
   if (common.length < 2) {
     return undefined
   }
 
-  const parent = common.reverse().join('.')
+  const parent = common.join('.')
 
   return parent === hostname.toLowerCase() ? undefined : parent
 }
