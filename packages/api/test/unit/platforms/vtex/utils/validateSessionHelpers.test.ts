@@ -138,23 +138,113 @@ describe('buildPersonFromProfile', () => {
 })
 
 describe('buildB2bSession', () => {
-  it('returns null when the shopper is not a representative', () => {
+  const emptyArgs = {
+    authentication: null,
+    shopper: null,
+    publicData: null,
+    profile: null,
+    contract: null,
+  }
+
+  it('returns null without a unit', () => {
+    expect(buildB2bSession(emptyArgs)).toBeNull()
+  })
+
+  it('returns null with a contract but no unit', () => {
     expect(
       buildB2bSession({
-        isRepresentative: false,
-        authentication: null,
-        shopper: null,
-        publicData: null,
-        profile: null,
-        contract: null,
+        ...emptyArgs,
+        authentication: {
+          customerId: { value: 'cust' },
+          unitId: { value: '' },
+        },
+        customerId: 'cust',
       })
     ).toBeNull()
+  })
+
+  it('returns null when the unit is blank', () => {
+    expect(
+      buildB2bSession({
+        ...emptyArgs,
+        authentication: { unitId: { value: '  ' } },
+        unitId: '',
+      })
+    ).toBeNull()
+  })
+
+  it('builds the session from the JWT claims when the session has none', () => {
+    expect(
+      buildB2bSession({ ...emptyArgs, unitId: 'jwt-unit', customerId: 'jwt' })
+    ).toMatchObject({
+      isRepresentative: true,
+      unitId: 'jwt-unit',
+      customerId: 'jwt',
+    })
+  })
+
+  it('returns null for a unit without a contract', () => {
+    expect(
+      buildB2bSession({
+        ...emptyArgs,
+        authentication: { unitId: { value: 'u1' }, customerId: { value: ' ' } },
+      })
+    ).toBeNull()
+  })
+
+  it('does not take the profile id as the contract', () => {
+    expect(
+      buildB2bSession({
+        ...emptyArgs,
+        authentication: { unitId: { value: 'u1' } },
+        profile: { id: { value: 'shopper-profile' } },
+      })
+    ).toBeNull()
+  })
+
+  it.each([
+    [
+      'the active contract',
+      {
+        shopper: { activeContractId: { value: 'active' } },
+        authentication: { customerId: { value: 'auth' } },
+        customerId: 'jwt',
+      },
+      'active',
+    ],
+    [
+      'the authentication contract',
+      {
+        shopper: { activeContractId: { value: '' } },
+        authentication: { customerId: { value: 'auth' } },
+        customerId: 'jwt',
+      },
+      'auth',
+    ],
+    [
+      'the JWT claim when the session value is blank',
+      {
+        authentication: { customerId: { value: '' } },
+        customerId: 'jwt',
+      },
+      'jwt',
+    ],
+  ])('resolves the contract from %s', (_label, overrides, expected) => {
+    expect(
+      buildB2bSession({
+        ...emptyArgs,
+        ...overrides,
+        authentication: {
+          ...overrides.authentication,
+          unitId: { value: 'u1' },
+        },
+      })?.customerId
+    ).toBe(expected)
   })
 
   it('builds B2B fields from authentication and shopper namespaces', () => {
     expect(
       buildB2bSession({
-        isRepresentative: true,
         authentication: {
           customerId: { value: 'cust' },
           unitName: { value: 'Unit' },
@@ -189,7 +279,6 @@ describe('buildB2bSession', () => {
 
   it('ignores non-string shopper name values', () => {
     const result = buildB2bSession({
-      isRepresentative: true,
       authentication: null,
       shopper: {
         firstName: { value: 123 },

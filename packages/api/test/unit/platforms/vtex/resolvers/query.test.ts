@@ -669,13 +669,14 @@ describe('Query.accountProfile', () => {
 
   const makeRepCtx = ({
     customerId = 'contract-1',
-  }: { customerId?: string }) => {
+    claims = { unitId: 'unit-1' },
+  }: { customerId?: string; claims?: Record<string, unknown> }) => {
     const getContractById = vi.fn()
     const getUserById = vi.fn()
     const sessionMock = vi.fn()
 
     const jwtPayload = Buffer.from(
-      JSON.stringify({ userId: 'user-1', isRepresentative: true, customerId })
+      JSON.stringify({ userId: 'user-1', customerId, ...claims })
     ).toString('base64url')
     const token = `header.${jwtPayload}.signature`
 
@@ -780,6 +781,41 @@ describe('Query.accountProfile', () => {
       name: 'Corp X',
       email: 'x@y.com',
       id: 'contract-1',
+    })
+  })
+
+  it('returns the contract for a unit member without the isRepresentative flag', async () => {
+    const { ctx, getContractById, getUserById, sessionMock } = makeRepCtx({
+      claims: { unitId: 'unit-1', isRepresentative: false },
+    })
+    sessionMock.mockResolvedValue({
+      namespaces: { profile: null, authentication: null, shopper: null },
+    })
+    getContractById.mockResolvedValue({ corporateName: 'Corp X' })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(getUserById).not.toHaveBeenCalled()
+    expect(result).toEqual({ name: 'Corp X', email: '', id: 'contract-1' })
+  })
+
+  it('returns the user profile when the token has no unit, even if flagged as representative', async () => {
+    const { ctx, getUserById, sessionMock } = makeRepCtx({
+      claims: { isRepresentative: true },
+    })
+    getUserById.mockResolvedValue({
+      id: 'user-1',
+      name: 'Shopper',
+      email: 'shopper@example.com',
+    })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(sessionMock).not.toHaveBeenCalled()
+    expect(result).toEqual({
+      name: 'Shopper',
+      email: 'shopper@example.com',
+      id: 'user-1',
     })
   })
 })

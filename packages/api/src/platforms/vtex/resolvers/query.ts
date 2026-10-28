@@ -871,8 +871,8 @@ export const Query = {
       orgUnit: authentication?.unitName?.value ?? '',
     }
   },
-  // If isRepresentative, return b2b information.
-  // If not, return b2c user information
+  // Buyers in an organizational unit get the contract information.
+  // Everyone else gets the b2c user information.
   accountProfile: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
     const {
       account,
@@ -886,7 +886,7 @@ export const Query = {
       return null
     }
 
-    if (jwt?.isRepresentative) {
+    if (jwt?.unitId?.trim()) {
       const sessionData = await commerce.session('').catch(() => null)
 
       if (!sessionData) {

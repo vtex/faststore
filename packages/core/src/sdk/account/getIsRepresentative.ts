@@ -6,6 +6,11 @@ type GetIsRepresentativeParams = {
   account: string
 }
 
+/**
+ * Whether the buyer is a B2B member: the VTEX ID token carries both an
+ * organizational unit and a contract, the rule Buyer Portal uses. The
+ * `isRepresentative` claim is not read, since it can be true outside B2B.
+ */
 export function getIsRepresentative({
   headers,
   account,
@@ -15,6 +20,9 @@ export function getIsRepresentative({
   ]
   const jwt = parseJwt(authCookie)
 
-  const isRepresentative = jwt?.isRepresentative
-  return !!isRepresentative
+  return isNonBlankString(jwt?.unitId) && isNonBlankString(jwt?.customerId)
+}
+
+function isNonBlankString(value: unknown): boolean {
+  return typeof value === 'string' && value.trim() !== ''
 }
