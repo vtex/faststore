@@ -398,7 +398,6 @@ describe('resolveJwtClaims', () => {
     await expect(
       resolveJwtClaims(clients, undefined, 'storeframework')
     ).resolves.toEqual({
-      isRepresentative: false,
       customerId: undefined,
       unitId: undefined,
     })
@@ -418,7 +417,6 @@ describe('resolveJwtClaims', () => {
     await expect(
       resolveJwtClaims(clients, 'cookie', 'storeframework')
     ).resolves.toEqual({
-      isRepresentative: true,
       customerId: 'cust-1',
       unitId: 'unit-1',
     })
@@ -438,7 +436,6 @@ describe('resolveJwtClaims', () => {
     await expect(
       resolveJwtClaims(clients, 'cookie', 'storeframework')
     ).resolves.toEqual({
-      isRepresentative: false,
       customerId: undefined,
       unitId: undefined,
     })

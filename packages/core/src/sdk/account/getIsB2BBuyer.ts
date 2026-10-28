@@ -1,7 +1,7 @@
 import { parse } from 'cookie'
 import { parseJwt } from 'src/utils/getCookie'
 
-type GetIsRepresentativeParams = {
+type GetIsB2BBuyerParams = {
   headers?: Record<string, string>
   account: string
 }
@@ -11,10 +11,10 @@ type GetIsRepresentativeParams = {
  * organizational unit and a contract, the rule Buyer Portal uses. The
  * `isRepresentative` claim is not read, since it can be true outside B2B.
  */
-export function getIsRepresentative({
+export function getIsB2BBuyer({
   headers,
   account,
-}: GetIsRepresentativeParams): boolean {
+}: GetIsB2BBuyerParams): boolean {
   const authCookie = parse(headers?.cookie ?? '')?.[
     'VtexIdclientAutCookie_' + account
   ]

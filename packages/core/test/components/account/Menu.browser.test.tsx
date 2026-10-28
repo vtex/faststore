@@ -65,7 +65,7 @@ describe('Menu', () => {
 
   it('mounts the OrganizationDrawer with initialView "switch" when Switch is clicked', () => {
     mockUseSession.mockReturnValue({
-      b2b: { unitId: 'unit-1', isRepresentative: true },
+      b2b: { unitId: 'unit-1', customerId: 'contract-1' },
     })
 
     render(<Menu accountName="Jane" items={items} />)
@@ -79,19 +79,21 @@ describe('Menu', () => {
       expect.objectContaining({
         isOpen: true,
         initialView: 'switch',
-        isRepresentative: true,
+        isB2BBuyer: true,
       })
     )
   })
 
-  it('passes isRepresentative as a boolean even when b2b.isRepresentative is undefined', () => {
-    mockUseSession.mockReturnValue({ b2b: { unitId: 'unit-1' } })
+  it('passes isB2BBuyer for a B2B session without the isRepresentative flag', () => {
+    mockUseSession.mockReturnValue({
+      b2b: { unitId: 'unit-1', isRepresentative: false },
+    })
 
     render(<Menu accountName="Jane" items={items} />)
     fireEvent.click(screen.getByRole('button', { name: 'Switch' }))
 
     expect(mockOrganizationDrawer).toHaveBeenCalledWith(
-      expect.objectContaining({ isRepresentative: false })
+      expect.objectContaining({ isB2BBuyer: true })
     )
   })
 

@@ -39,6 +39,7 @@ export interface Person {
 
 export interface B2bInfo {
   customerId: string
+  /** @deprecated Always `true` when `b2b` is set. Check that `b2b` is not null instead. */
   isRepresentative: boolean
   unitName: string
   unitId: string

@@ -12,7 +12,7 @@ export type NavbarAccountAreaProps = {
   isSignInResolved: boolean
   /** Whether the representative-only Organization sign-in area is enabled. */
   isOrganizationEnabled: boolean | undefined
-  isRepresentative?: boolean
+  isB2BBuyer?: boolean
   signInButton: SectionNavbarProps['signInButton']
   ButtonSignIn: NavbarOverrides['_experimentalButtonSignIn']
   /** Data attribute toggled on the loading skeleton (Navbar vs NavbarSlider). */
@@ -30,7 +30,7 @@ export type NavbarAccountAreaProps = {
 export const NavbarAccountArea = ({
   isSignInResolved,
   isOrganizationEnabled,
-  isRepresentative,
+  isB2BBuyer,
   signInButton,
   ButtonSignIn,
   skeletonAttr,
@@ -48,7 +48,7 @@ export const NavbarAccountArea = ({
     return (
       <OrganizationSignInButton
         icon={signInButton.icon}
-        isRepresentative={isRepresentative}
+        isB2BBuyer={isB2BBuyer}
       />
     )
   }

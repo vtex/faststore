@@ -7,7 +7,7 @@ import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
-import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { getIsB2BBuyer } from 'src/sdk/account/getIsB2BBuyer'
 import type { AccountNavigationLabels } from 'src/sdk/account/getMyAccountRoutes'
 import { validateUser } from 'src/sdk/account/validateUser'
 import { execute } from 'src/server'
@@ -87,7 +87,7 @@ export function myAccountCmsServerSideProps(
       return { redirect }
     }
 
-    const isRepresentative = getIsRepresentative({
+    const isB2BBuyer = getIsB2BBuyer({
       headers: context.req.headers as Record<string, string>,
       account: storeConfig.api.storeId,
     })
@@ -135,7 +135,7 @@ export function myAccountCmsServerSideProps(
       props: {
         globalSections: globalSectionsResult,
         accountName: account.data?.accountProfile?.name ?? '',
-        isRepresentative,
+        isB2BBuyer,
         pageSections,
         navigationLabels: navigationData as AccountNavigationLabels,
       },

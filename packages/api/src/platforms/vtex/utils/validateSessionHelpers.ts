@@ -107,7 +107,6 @@ export async function resolveJwtClaims(
   }
 
   return {
-    isRepresentative: isValidJwt ? Boolean(jwt?.isRepresentative) : false,
     customerId: isValidJwt ? jwt?.customerId : undefined,
     unitId: isValidJwt ? jwt?.unitId : undefined,
   }
@@ -169,8 +168,8 @@ export function resolveB2bUnitId(
  * authentication namespace and then to the JWT claim. Blank values fall
  * through, so an empty session value never hides the claim.
  *
- * `isRepresentative` stays `true` whenever `b2b` is returned: consumers read
- * it as "B2B member".
+ * The deprecated `isRepresentative` field stays `true` whenever `b2b` is
+ * returned, so consumers that still read it keep working.
  */
 export function buildB2bSession(args: {
   authentication: {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getIsRepresentative } from '../../../src/sdk/account/getIsRepresentative'
+import { getIsB2BBuyer } from '../../../src/sdk/account/getIsB2BBuyer'
 
 const ACCOUNT = 'storeaccount'
 
@@ -11,18 +11,16 @@ const withToken = (payload: Record<string, unknown>) => ({
   account: ACCOUNT,
 })
 
-describe('getIsRepresentative', () => {
+describe('getIsB2BBuyer', () => {
   it('is true when the token has a unit and a contract', () => {
     expect(
-      getIsRepresentative(
-        withToken({ unitId: 'unit-1', customerId: 'contract-1' })
-      )
+      getIsB2BBuyer(withToken({ unitId: 'unit-1', customerId: 'contract-1' }))
     ).toBe(true)
   })
 
   it('does not depend on the isRepresentative claim', () => {
     expect(
-      getIsRepresentative(
+      getIsB2BBuyer(
         withToken({
           unitId: 'unit-1',
           customerId: 'contract-1',
@@ -30,9 +28,7 @@ describe('getIsRepresentative', () => {
         })
       )
     ).toBe(true)
-    expect(getIsRepresentative(withToken({ isRepresentative: true }))).toBe(
-      false
-    )
+    expect(getIsB2BBuyer(withToken({ isRepresentative: true }))).toBe(false)
   })
 
   it.each([
@@ -41,13 +37,13 @@ describe('getIsRepresentative', () => {
     ['with blank claims', { unitId: ' ', customerId: '' }],
     ['with non-string claims', { unitId: 1, customerId: true }],
   ])('is false %s', (_label, payload) => {
-    expect(getIsRepresentative(withToken(payload))).toBe(false)
+    expect(getIsB2BBuyer(withToken(payload))).toBe(false)
   })
 
   it('is false without an auth cookie or with a malformed one', () => {
-    expect(getIsRepresentative({ headers: {}, account: ACCOUNT })).toBe(false)
+    expect(getIsB2BBuyer({ headers: {}, account: ACCOUNT })).toBe(false)
     expect(
-      getIsRepresentative({
+      getIsB2BBuyer({
         headers: { cookie: `VtexIdclientAutCookie_${ACCOUNT}=not-a-jwt` },
         account: ACCOUNT,
       })
