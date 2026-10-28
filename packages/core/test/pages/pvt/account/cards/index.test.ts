@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 const mockExecute = vi.hoisted(() => vi.fn())
 const mockGetB2BSessionClaims = vi.hoisted(() => vi.fn())
-const mockGetIsRepresentative = vi.hoisted(() => vi.fn(() => true))
+const mockGetIsB2BBuyer = vi.hoisted(() => vi.fn(() => true))
 const mockGetMyAccountRedirect = vi.hoisted(() =>
   vi.fn(() => ({ isFaststoreMyAccountEnabled: true, redirect: undefined }))
 )
@@ -30,8 +30,8 @@ vi.mock('src/components/cms/GlobalSections', () => ({
 vi.mock('src/sdk/account/getB2BSessionClaims', () => ({
   getB2BSessionClaims: mockGetB2BSessionClaims,
 }))
-vi.mock('src/sdk/account/getIsRepresentative', () => ({
-  getIsRepresentative: mockGetIsRepresentative,
+vi.mock('src/sdk/account/getIsB2BBuyer', () => ({
+  getIsB2BBuyer: mockGetIsB2BBuyer,
 }))
 vi.mock('src/utils/myAccountRedirect', () => ({
   getMyAccountRedirect: mockGetMyAccountRedirect,

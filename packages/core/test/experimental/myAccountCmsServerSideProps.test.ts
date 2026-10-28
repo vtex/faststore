@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const mockValidateUser = vi.fn()
 const mockGetMyAccountRedirect = vi.fn()
-const mockGetIsRepresentative = vi.fn()
+const mockGetIsB2BBuyer = vi.fn()
 const mockFetchMyAccountPageContent = vi.fn()
 const mockGetGlobalSectionsData = vi.fn()
 const mockExecute = vi.fn()
@@ -20,8 +20,8 @@ vi.mock('src/utils/myAccountRedirect', () => ({
     mockGetMyAccountRedirect(...args),
 }))
 
-vi.mock('src/sdk/account/getIsRepresentative', () => ({
-  getIsRepresentative: (...args: unknown[]) => mockGetIsRepresentative(...args),
+vi.mock('src/sdk/account/getIsB2BBuyer', () => ({
+  getIsB2BBuyer: (...args: unknown[]) => mockGetIsB2BBuyer(...args),
 }))
 
 vi.mock('src/server/cms/fetchMyAccountPageContent', () => ({
@@ -78,7 +78,7 @@ function buildContext(overrides: Record<string, unknown> = {}) {
 describe('myAccountCmsServerSideProps', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockGetIsRepresentative.mockReturnValue(false)
+    mockGetIsB2BBuyer.mockReturnValue(false)
     mockGetGlobalSectionsData.mockReturnValue([
       Promise.resolve({ sections: [], settings: {} }),
       Promise.resolve({ sections: [] }),
@@ -176,7 +176,7 @@ describe('myAccountCmsServerSideProps', () => {
     expect(result).toMatchObject({
       props: {
         accountName: 'Ada',
-        isRepresentative: false,
+        isB2BBuyer: false,
         navigationLabels: { profileLabel: 'Profile' },
         pageSections: [
           {

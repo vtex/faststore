@@ -60,6 +60,10 @@ import { getCatalogLocale, isLocalizationEnabled } from '../utils/localization'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { slugify } from '../utils/slugify'
 import { resolveSort } from '../utils/sort'
+import {
+  firstNonBlank,
+  resolveB2bUnitId,
+} from '../utils/validateSessionHelpers'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
 import { getOrderEntryOperation } from './getOrderEntryOperation'
@@ -882,8 +886,8 @@ export const Query = {
       orgUnit: authentication?.unitName?.value ?? '',
     }
   },
-  // If isRepresentative, return b2b information.
-  // If not, return b2c user information
+  // Buyers with an organizational unit and a contract get the contract
+  // information. Everyone else gets the b2c user information.
   accountProfile: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
     const {
       account,
@@ -897,7 +901,7 @@ export const Query = {
       return null
     }
 
-    if (jwt?.isRepresentative) {
+    if (resolveB2bUnitId(null, jwt.unitId)) {
       const sessionData = await commerce.session('').catch(() => null)
 
       if (!sessionData) {
@@ -908,13 +912,14 @@ export const Query = {
       const shopper = sessionData.namespaces.shopper ?? null
       const authentication = sessionData.namespaces.authentication ?? null
 
-      const contractId =
-        resolveActiveContractIdFromSession(sessionData) ||
-        jwt?.customerId?.trim() ||
-        ''
+      const contractId = firstNonBlank(
+        shopper?.activeContractId?.value,
+        authentication?.customerId?.value,
+        jwt.customerId
+      )
 
-      let contract = null
       if (contractId) {
+        let contract = null
         try {
           contract = await commerce.masterData.getContractById({ contractId })
         } catch (err) {
@@ -923,23 +928,21 @@ export const Query = {
             err
           )
         }
-      }
 
-      const shopperName =
-        `${(shopper?.firstName?.value ?? '').trim()} ${(shopper?.lastName?.value ?? '').trim()}`.trim()
-      const name =
-        resolveActiveContractDisplayName(contract, profile) || shopperName
+        const shopperName =
+          `${(shopper?.firstName?.value ?? '').trim()} ${(shopper?.lastName?.value ?? '').trim()}`.trim()
+        const name =
+          resolveActiveContractDisplayName(contract, profile) || shopperName
 
-      return {
-        name: name || '',
-        email:
-          profile?.email?.value || authentication?.storeUserEmail?.value || '',
-        id:
-          profile?.id?.value ||
-          authentication?.customerId?.value ||
-          jwt?.customerId?.trim() ||
-          '',
-        // createdAt: '',
+        return {
+          name: name || '',
+          email:
+            profile?.email?.value ||
+            authentication?.storeUserEmail?.value ||
+            '',
+          id: profile?.id?.value || contractId,
+          // createdAt: '',
+        }
       }
     }
 

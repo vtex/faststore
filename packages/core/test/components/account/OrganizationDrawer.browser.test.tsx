@@ -108,7 +108,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 
@@ -124,7 +124,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 
@@ -141,7 +141,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 
@@ -152,7 +152,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen={false}
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 
@@ -160,7 +160,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 
@@ -181,7 +181,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 
@@ -200,7 +200,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 
@@ -215,7 +215,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen
         closeDrawer={vi.fn()}
-        isRepresentative
+        isB2BBuyer
         initialView="switch"
       />
     )
@@ -258,7 +258,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 
@@ -301,7 +301,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 
@@ -313,7 +313,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen={false}
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 
@@ -323,7 +323,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 
@@ -340,7 +340,7 @@ describe('OrganizationDrawer', () => {
       <OrganizationDrawer
         isOpen
         closeDrawer={mockCloseDrawer}
-        isRepresentative={false}
+        isB2BBuyer={false}
       />
     )
 

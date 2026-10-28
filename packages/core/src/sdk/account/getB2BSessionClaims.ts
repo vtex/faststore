@@ -10,7 +10,7 @@ export type B2BSessionClaims = {
   /**
    * Whether the buyer is associated with a Unit/Contract. Per the Personal
    * Cards PRD (REQ-2), this is detected by the presence of a `unitId` claim in
-   * the VTEX ID JWT — the same cookie `getIsRepresentative` already decodes.
+   * the VTEX ID JWT — the same cookie `getIsB2BBuyer` already decodes.
    * Gates the Shared tab (FR-5).
    *
    * Note this is the only part of the gate that lives in the token. The

@@ -54,8 +54,8 @@ function NavbarSlider({
   const isFaststoreMyAccountEnabled =
     storeConfig.experimental?.enableFaststoreMyAccount
 
-  const isRepresentative = b2b?.isRepresentative
-  const isOrganizationEnabled = isFaststoreMyAccountEnabled && isRepresentative
+  const isB2BBuyer = Boolean(b2b)
+  const isOrganizationEnabled = isFaststoreMyAccountEnabled && isB2BBuyer
 
   const isLocalizationEnabled =
     storeConfig.localization?.enabled &&
@@ -92,7 +92,7 @@ function NavbarSlider({
           <NavbarAccountArea
             isSignInResolved={isSignInResolved}
             isOrganizationEnabled={isOrganizationEnabled}
-            isRepresentative={isRepresentative}
+            isB2BBuyer={isB2BBuyer}
             signInButton={signInButton}
             ButtonSignIn={ButtonSignIn}
             skeletonAttr="data-fs-navbar-slider-signin-skeleton"
