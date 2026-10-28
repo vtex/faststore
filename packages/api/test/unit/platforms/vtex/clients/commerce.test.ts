@@ -3,6 +3,7 @@ import {
   getContextFactory,
 } from '../../../../../src/platforms/vtex'
 import * as clients from '../../../../../src/platforms/vtex/clients'
+import { resetAnonymousNewsletterWarnings } from '../../../../../src/platforms/vtex/clients/commerce'
 
 const apiOptions = {
   platform: 'vtex',
@@ -70,6 +71,192 @@ describe('VTEX Commerce', () => {
         ).toThrow(Error)
         expect(fetchAPIMocked).not.toHaveBeenCalled()
       })
+    })
+  })
+
+  describe('subscribeToNewsletter', () => {
+    const originalEnv = process.env
+
+    beforeEach(() => {
+      process.env = { ...originalEnv }
+      resetAnonymousNewsletterWarnings()
+    })
+
+    afterEach(() => {
+      process.env = originalEnv
+      jest.restoreAllMocks()
+      // Drop persistent stubs (e.g. `mockResolvedValue`) even if a test fails.
+      fetchAPIMocked.mockReset()
+    })
+
+    it('creates the document with a POST authenticated by the newsletter app key', async () => {
+      process.env.FS_NEWSLETTER_APP_KEY = 'newsletter-key'
+      process.env.FS_NEWSLETTER_APP_TOKEN = 'newsletter-token'
+      fetchAPIMocked.mockResolvedValueOnce({ Id: 'NL-1' })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      const result = await commerce.subscribeToNewsletter({
+        name: 'Jane',
+        email: 'jane@example.com',
+      })
+
+      expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+      const [url, init, options] = fetchAPIMocked.mock.calls[0]
+      expect(url).toBe(
+        'https://storeframework.vtexcommercestable.com.br/api/dataentities/NL/documents'
+      )
+      expect(init.method).toBe('POST')
+      expect(init.headers['X-VTEX-API-AppKey']).toBe('newsletter-key')
+      expect(init.headers['X-VTEX-API-AppToken']).toBe('newsletter-token')
+      expect(init.headers.cookie).toBeUndefined()
+      expect(JSON.parse(init.body)).toEqual({
+        name: 'Jane',
+        email: 'jane@example.com',
+        isNewsletterOptIn: true,
+      })
+      expect(options).toBeUndefined()
+      expect(result).toEqual({ Id: 'NL-1' })
+    })
+
+    it('omits the name from the body when it is not provided', async () => {
+      process.env.FS_NEWSLETTER_APP_KEY = 'newsletter-key'
+      process.env.FS_NEWSLETTER_APP_TOKEN = 'newsletter-token'
+      fetchAPIMocked.mockResolvedValueOnce({ Id: 'NL-2' })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+      const [, init] = fetchAPIMocked.mock.calls[0]
+      expect(JSON.parse(init.body)).toEqual({
+        email: 'jane@example.com',
+        isNewsletterOptIn: true,
+      })
+    })
+
+    it('falls back to the anonymous PATCH without credentials and warns only once', async () => {
+      delete process.env.FS_NEWSLETTER_APP_KEY
+      delete process.env.FS_NEWSLETTER_APP_TOKEN
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+      fetchAPIMocked
+        .mockResolvedValueOnce({ Id: 'NL-3' })
+        .mockResolvedValueOnce({ Id: 'NL-4' })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+      await commerce.subscribeToNewsletter({ email: 'john@example.com' })
+
+      expect(fetchAPIMocked).toHaveBeenCalledTimes(2)
+      for (const [url, init] of fetchAPIMocked.mock.calls) {
+        expect(url).toBe(
+          'https://storeframework.vtexcommercestable.com.br/api/dataentities/NL/documents/'
+        )
+        expect(init.method).toBe('PATCH')
+        expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
+        expect(init.headers['X-VTEX-API-AppToken']).toBeUndefined()
+      }
+      expect(warn).toHaveBeenCalledTimes(1)
+    })
+
+    it('warns once for each account that falls back', async () => {
+      delete process.env.FS_NEWSLETTER_APP_KEY
+      delete process.env.FS_NEWSLETTER_APP_TOKEN
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+      fetchAPIMocked.mockResolvedValue({ Id: 'NL-6' })
+
+      for (const account of ['storea', 'storeb']) {
+        const { commerce } = clients.getClients(
+          { ...apiOptions, account } as Options,
+          context
+        )
+        await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+        await commerce.subscribeToNewsletter({ email: 'john@example.com' })
+      }
+
+      expect(warn).toHaveBeenCalledTimes(2)
+    })
+
+    it.each([
+      [
+        'FS_NEWSLETTER_APP_TOKEN',
+        'FS_NEWSLETTER_APP_KEY',
+        { key: 'newsletter-key', token: undefined },
+      ],
+      [
+        'FS_NEWSLETTER_APP_KEY',
+        'FS_NEWSLETTER_APP_TOKEN',
+        { key: undefined, token: 'newsletter-token' },
+      ],
+    ])(
+      'names only %s in the warning when it is the one missing',
+      async (missing, present, env) => {
+        delete process.env.FS_NEWSLETTER_APP_KEY
+        delete process.env.FS_NEWSLETTER_APP_TOKEN
+        if (env.key) process.env.FS_NEWSLETTER_APP_KEY = env.key
+        if (env.token) process.env.FS_NEWSLETTER_APP_TOKEN = env.token
+        const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+        fetchAPIMocked.mockResolvedValueOnce({ Id: 'NL-7' })
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+        const [, init] = fetchAPIMocked.mock.calls[0]
+        expect(init.method).toBe('PATCH')
+        expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
+
+        const [message] = warn.mock.calls[0]
+        expect(message).toContain(`${missing} is not set`)
+        expect(message).not.toContain(present)
+      }
+    )
+
+    it('names both variables in the warning when neither is set', async () => {
+      delete process.env.FS_NEWSLETTER_APP_KEY
+      delete process.env.FS_NEWSLETTER_APP_TOKEN
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+      fetchAPIMocked.mockResolvedValueOnce({ Id: 'NL-8' })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+      expect(warn.mock.calls[0][0]).toContain(
+        'FS_NEWSLETTER_APP_KEY and FS_NEWSLETTER_APP_TOKEN are not set'
+      )
+    })
+
+    it('caps how many accounts it remembers', async () => {
+      delete process.env.FS_NEWSLETTER_APP_KEY
+      delete process.env.FS_NEWSLETTER_APP_TOKEN
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+      fetchAPIMocked.mockResolvedValue({ Id: 'NL-10' })
+
+      const subscribeAs = (account: string) =>
+        clients
+          .getClients({ ...apiOptions, account } as Options, context)
+          .commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+      // 100 accounts fill the set; the 101st clears it, so the first account
+      // is warned again instead of the set growing.
+      for (let i = 0; i <= 100; i++) {
+        await subscribeAs(`store${i}`)
+      }
+      await subscribeAs('store0')
+
+      expect(warn).toHaveBeenCalledTimes(102)
+    })
+
+    it('does not send the app key of other features', async () => {
+      delete process.env.FS_NEWSLETTER_APP_KEY
+      delete process.env.FS_NEWSLETTER_APP_TOKEN
+      process.env.FS_DISCOVERY_APP_KEY = 'discovery-key'
+      process.env.FS_DISCOVERY_APP_TOKEN = 'discovery-token'
+      fetchAPIMocked.mockResolvedValueOnce({ Id: 'NL-5' })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.subscribeToNewsletter({ email: 'jane@example.com' })
+
+      const [, init] = fetchAPIMocked.mock.calls[0]
+      expect(init.headers['X-VTEX-API-AppKey']).toBeUndefined()
+      expect(init.headers['X-VTEX-API-AppToken']).toBeUndefined()
     })
   })
 })
