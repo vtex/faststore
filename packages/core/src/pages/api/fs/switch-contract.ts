@@ -4,6 +4,7 @@ import { isIP } from 'node:net'
 
 import storeConfig from 'discovery.config'
 import { expireCookieServer, getCookieDomains } from 'src/utils/clearCookies'
+import { getCheckoutParentDomain } from 'src/utils/getCheckoutParentDomain'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
 import {
   isCookieSafeHostname,
@@ -152,10 +153,11 @@ const resolveAuthCookieDomain = (
  * expired in the same batch.
  *
  * VTEX ID's refresh also writes the cookie on the parent domain (e.g.
- * `Domain=store.com` for `www.store.com`), which this response cannot replace
- * without widening the cookie to every sibling host. Those copies are expired
- * instead, so the only auth cookie left holds the switched contract. The next
- * refresh writes the host and parent copies with the same token.
+ * `Domain=store.com` for `www.store.com`). Parent copies are expired, so the
+ * only auth cookie left holds the switched contract. The exception is the
+ * parent shared with a checkout on a sibling host (`secure.store.com`): the
+ * token is written there too, with the same value as the host copy, so
+ * checkout keeps the session after the switch.
  *
  * The Domain-scoped cookie is always `Secure`, like VTEX ID's, because the
  * forwarded protocol is not reliable behind the CDN. The host-only fallback
@@ -166,19 +168,27 @@ const buildAuthCookies = (
   domain: string | undefined,
   secure: boolean
 ): string[] => {
+  const checkoutParent = domain ? getCheckoutParentDomain(domain) : undefined
   const staleScopes: Array<string | undefined> = domain
-    ? [undefined, ...getParentDomains(domain)]
+    ? [
+        undefined,
+        ...getParentDomains(domain).filter(
+          (parent) => parent !== checkoutParent
+        ),
+      ]
     : []
-  const attributes = [
-    domain && `Domain=${domain}`,
-    'Path=/',
-    `Max-Age=${resolveMaxAge(payload.expiresIn)}`,
-    'HttpOnly',
-    (domain || secure) && 'Secure',
-    `SameSite=${domain ? 'None' : 'Lax'}`,
-  ]
-    .filter(Boolean)
-    .join('; ')
+  const writeScopes = checkoutParent ? [domain, checkoutParent] : [domain]
+  const attributes = (scope: string | undefined) =>
+    [
+      scope && `Domain=${scope}`,
+      'Path=/',
+      `Max-Age=${resolveMaxAge(payload.expiresIn)}`,
+      'HttpOnly',
+      (scope || secure) && 'Secure',
+      `SameSite=${scope ? 'None' : 'Lax'}`,
+    ]
+      .filter(Boolean)
+      .join('; ')
 
   return [payload.authCookie, payload.accountAuthCookie]
     .filter(isAuthCookie)
@@ -190,7 +200,9 @@ const buildAuthCookies = (
           domain: staleDomain,
         })
       ),
-      `${cookie.Name}=${cookie.Value}; ${attributes}`,
+      ...writeScopes.map(
+        (scope) => `${cookie.Name}=${cookie.Value}; ${attributes(scope)}`
+      ),
     ])
 }
 

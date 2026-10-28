@@ -8,6 +8,7 @@ import {
   getVtexCookieNames,
 } from 'src/utils/clearCookies'
 import { VID_RT_PATHS } from 'src/sdk/account/refreshTokenPaths'
+import { getCheckoutParentDomain } from 'src/utils/getCheckoutParentDomain'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
 
 const ADDITIONAL_COOKIES = ['CheckoutOrderFormOwnership'] as const
@@ -28,7 +29,13 @@ const handler: NextApiHandler = async (
   try {
     const hostname = getRequestHostname(request.headers.host)
     const cookies = parse(request.headers.cookie ?? '')
-    const domains = hostname ? getCookieDomains(hostname) : [undefined]
+    const checkoutParent = hostname
+      ? getCheckoutParentDomain(hostname)
+      : undefined
+    const domains = [
+      ...(hostname ? getCookieDomains(hostname) : [undefined]),
+      ...(checkoutParent ? [checkoutParent] : []),
+    ]
     const clearedCookies: string[] = []
 
     const vtexCookieNames = getVtexCookieNames(Object.keys(cookies))

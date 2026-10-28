@@ -2,7 +2,9 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
 
 const mockConfig = vi.hoisted(() => ({
-  default: { experimental: { refreshToken: true } as Record<string, unknown> },
+  default: {
+    experimental: { refreshToken: true } as Record<string, unknown>,
+  } as { experimental: Record<string, unknown>; secureSubdomain?: string },
 }))
 
 vi.mock('discovery.config', () => ({ __esModule: true, ...mockConfig }))
@@ -38,6 +40,7 @@ describe('/api/fs/logout', () => {
   beforeEach(() => {
     vi.resetModules()
     mockConfig.default.experimental = { refreshToken: true }
+    mockConfig.default.secureSubdomain = undefined
   })
 
   it('expires vid_rt on every path it can be scoped to, even though the request never carries it', async () => {
@@ -68,6 +71,36 @@ describe('/api/fs/logout', () => {
 
     expect(
       setCookiesFrom(res).some((cookie) => cookie.startsWith('vid_rt='))
+    ).toBe(false)
+  })
+
+  it('expires the auth cookie on the parent shared with a sibling checkout host', async () => {
+    mockConfig.default.secureSubdomain = 'https://secure.example.com'
+    const handler = await getHandler()
+    const { req, res } = createReqRes()
+
+    await handler(req, res)
+
+    expect(
+      setCookiesFrom(res).filter((cookie) =>
+        cookie.startsWith('VtexIdclientAutCookie_test-store=;')
+      )
+    ).toEqual(
+      expect.arrayContaining([expect.stringContaining('; domain=example.com;')])
+    )
+  })
+
+  it('does not touch the parent domain when checkout runs on the store host', async () => {
+    mockConfig.default.secureSubdomain = 'https://store.example.com'
+    const handler = await getHandler()
+    const { req, res } = createReqRes()
+
+    await handler(req, res)
+
+    expect(
+      setCookiesFrom(res).some((cookie) =>
+        cookie.includes('; domain=example.com;')
+      )
     ).toBe(false)
   })
 })

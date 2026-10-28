@@ -7,6 +7,10 @@ const mockConfig = vi.hoisted(() => ({
   default: {
     api: { storeId: 'test-store' },
     experimental: { refreshToken: true } as Record<string, unknown>,
+  } as {
+    api: { storeId: string }
+    experimental: Record<string, unknown>
+    secureSubdomain?: string
   },
 }))
 
@@ -78,6 +82,7 @@ const setCookiesFrom = (res: { setHeader: Mock }): string[] => {
 describe('/api/fs/switch-contract', () => {
   beforeEach(() => {
     vi.resetModules()
+    mockConfig.default.secureSubdomain = undefined
     global.fetch = vi.fn().mockResolvedValue({
       ok: true,
       status: 200,
@@ -297,6 +302,109 @@ describe('/api/fs/switch-contract', () => {
       ).toEqual([expect.stringContaining(`; Domain=${host}; Path=/;`)])
     }
   )
+
+  describe('with checkout on a sibling host', () => {
+    const tokenCookies = (cookies: string[]) =>
+      cookies.filter((cookie) => cookie.includes('new-contract-token'))
+
+    it('writes the same token on the host and on the shared parent', async () => {
+      mockConfig.default.secureSubdomain = 'https://secure.example.com'
+      const handler = await getHandler()
+      const { req, res } = createReqRes()
+
+      await handler(req, res)
+
+      const cookies = setCookiesFrom(res)
+
+      expect(tokenCookies(cookies)).toEqual([
+        'VtexIdclientAutCookie_test-store=new-contract-token; Domain=store.example.com; Path=/; Max-Age=3600; HttpOnly; Secure; SameSite=None',
+        'VtexIdclientAutCookie_test-store=new-contract-token; Domain=example.com; Path=/; Max-Age=3600; HttpOnly; Secure; SameSite=None',
+      ])
+      expect(
+        cookies.some(
+          (cookie) =>
+            cookie.startsWith('VtexIdclientAutCookie_test-store=;') &&
+            cookie.includes('domain=example.com;')
+        )
+      ).toBe(false)
+    })
+
+    it('still expires the parents above the shared one', async () => {
+      mockConfig.default.secureSubdomain = 'https://secure.b.store.com'
+      const handler = await getHandler()
+      const { req, res } = createReqRes({ headers: { host: 'a.b.store.com' } })
+
+      await handler(req, res)
+
+      const cookies = setCookiesFrom(res)
+      const expiredDomains = cookies
+        .filter((cookie) =>
+          cookie.startsWith('VtexIdclientAutCookie_test-store=;')
+        )
+        .map((cookie) => cookie.match(/domain=([^;]+)/)?.[1])
+        .filter(Boolean)
+
+      expect(expiredDomains).toEqual(['store.com'])
+      expect(tokenCookies(cookies)).toEqual([
+        expect.stringContaining('; Domain=a.b.store.com; Path=/;'),
+        expect.stringContaining('; Domain=b.store.com; Path=/;'),
+      ])
+    })
+
+    it.each([
+      ['on the store host', 'https://store.example.com'],
+      ['on a subdomain of the store host', 'https://secure.store.example.com'],
+      ['on an unrelated domain', 'https://secure.other.org'],
+      ['with an invalid URL', 'not a url'],
+    ])('writes only the host copy with checkout %s', async (_label, url) => {
+      mockConfig.default.secureSubdomain = url
+      const handler = await getHandler()
+      const { req, res } = createReqRes()
+
+      await handler(req, res)
+
+      expect(tokenCookies(setCookiesFrom(res))).toEqual([
+        expect.stringContaining('; Domain=store.example.com; Path=/;'),
+      ])
+    })
+
+    it('keeps preview hosts host-only', async () => {
+      mockConfig.default.secureSubdomain = 'https://secure.vtex.app'
+      const handler = await getHandler()
+      const { req, res } = createReqRes({
+        headers: { host: 'sfj-abc--test-store.preview.vtex.app' },
+      })
+
+      await handler(req, res)
+
+      const cookies = tokenCookies(setCookiesFrom(res))
+
+      expect(cookies).toHaveLength(1)
+      expect(cookies[0].toLowerCase()).not.toContain('domain=')
+    })
+
+    it('keeps vid_rt on the store host', async () => {
+      mockConfig.default.secureSubdomain = 'https://secure.example.com'
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => successPayload,
+        headers: {
+          getSetCookie: () => [
+            'vid_rt=rt-1; path=/api/authenticator/v1/refreshtoken/webstore; secure; httponly; Domain=test-store.myvtex.com',
+          ],
+        },
+      })
+      const handler = await getHandler()
+      const { req, res } = createReqRes()
+
+      await handler(req, res)
+
+      expect(
+        setCookiesFrom(res).filter((cookie) => cookie.startsWith('vid_rt='))
+      ).toEqual([expect.stringMatching(/; Domain=store\.example\.com$/)])
+    })
+  })
 
   it('scopes the cookie to an {account}.vtex.app production host', async () => {
     // Unlike previews, this domain receives the browser host in `Host`.
