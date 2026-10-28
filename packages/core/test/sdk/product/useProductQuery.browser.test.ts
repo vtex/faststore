@@ -72,16 +72,18 @@ describe('useProductQuery', () => {
 
     expect(result.current.error).toMatchObject({ status: 404 })
     expect(result.current.isValidating).toBe(false)
-    // Keeps rendering the static product, and does not retry the failed call.
+    // The data stays the static product, and the failed call is not retried.
     expect(result.current.data).toBe(fallbackData)
     expect(mockRequest).toHaveBeenCalledTimes(1)
+    // Shoppers without a B2B session are sent to the 404 page too.
+    await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/404'))
   })
 
   it('does not retry a NotFoundError carried in the GraphQL extensions', async () => {
     mockUseSession.mockReturnValue({
       channel: '{"salesChannel":"1"}',
       locale: 'en-US',
-      b2b: { unitId: 'unit-1', customerId: 'contract-137' },
+      b2b: { customerId: 'contract-137' },
     })
     mockRequest.mockRejectedValue({ extensions: { type: 'NotFoundError' } })
 
@@ -97,7 +99,7 @@ describe('useProductQuery', () => {
     mockUseSession.mockReturnValue({
       channel: '{"salesChannel":"1"}',
       locale: 'en-US',
-      b2b: { unitId: 'unit-1', customerId: 'contract-137' },
+      b2b: { customerId: 'contract-137' },
     })
     mockRequest.mockRejectedValue({ status: 404, message: 'Not Found' })
 
@@ -110,7 +112,7 @@ describe('useProductQuery', () => {
     mockUseSession.mockReturnValue({
       channel: '{"salesChannel":"1"}',
       locale: 'en-US',
-      b2b: { unitId: 'unit-1', customerId: 'contract-137' },
+      b2b: { customerId: 'contract-137' },
     })
     const fresh = { product: { id: '123', name: 'Fresh' } }
     mockRequest
@@ -137,7 +139,7 @@ describe('useProductQuery', () => {
     mockUseSession.mockReturnValue({
       channel: '{"salesChannel":"1"}',
       locale: 'en-US',
-      b2b: { unitId: 'unit-1', customerId: 'contract-137' },
+      b2b: { customerId: 'contract-137' },
     })
     const fresh = { product: { id: '123', name: 'Fresh' } }
     mockRequest.mockResolvedValue(fresh)
