@@ -2,12 +2,15 @@
  * Middleware is always active. It runs:
  * 1. Password protection (PasswordProtectionService) — when applicable (default/custom domains per env).
  * 2. Redirects — only when ENABLE_REDIRECTS_MIDDLEWARE is set at runtime.
+ * 3. Content Security Policy (CspService) — on pass-through responses only,
+ *    never on redirects or errors. Settings come from data-plane at runtime.
  */
 
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import storeConfig from 'discovery.config'
 
+import { CspService } from './server/csp'
 import { PasswordProtectionService } from './server/password-protection-service'
 
 type Redirect = {
@@ -27,6 +30,7 @@ class DynamoRedirectsClient implements RedirectsClient {
 }
 
 const redirectsClient = new DynamoRedirectsClient()
+const cspService = new CspService()
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
@@ -64,11 +68,17 @@ export async function middleware(request: NextRequest) {
         'public, max-age=300, stale-while-revalidate=31536000'
       )
 
-      return response
+      // 301/302 redirects never carry CSP headers.
+      return response.status === 200
+        ? cspService.apply(response, storeConfig.api.storeId)
+        : response
     }
   }
 
-  return storeProtectionResult.response
+  return cspService.apply(
+    storeProtectionResult.response,
+    storeConfig.api.storeId
+  )
 }
 
 export const config = {
