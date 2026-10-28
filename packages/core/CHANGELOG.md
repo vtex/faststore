@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.10.1-dev.6](https://github.com/vtex/faststore/compare/v4.10.1-dev.5...v4.10.1-dev.6) (2026-10-28)
+
+### Bug Fixes
+
+- **core:** document that gallery scope keys reach the request URL ([dc61bdf](https://github.com/vtex/faststore/commit/dc61bdf2411b88ac15d29066a668a26f521785de))
+- **core:** hash the B2B contract scope sent with gallery queries ([f8bfac9](https://github.com/vtex/faststore/commit/f8bfac9f5dd4fbda848982a701e54eb1f3d2c14b))
+- **core:** refetch PLP first page for B2B buyers so the contract assortment applies ([72ddfdf](https://github.com/vtex/faststore/commit/72ddfdf06b7cc7a74aca7036cce37c400fef2cc0))
+- **core:** tell B2B buyers apart by org unit in the gallery cache key ([c7fe237](https://github.com/vtex/faststore/commit/c7fe237088515c40a49f34b46297022279c57f93))
+- **core:** widen the B2B contract scope hash to 53 bits ([f05f556](https://github.com/vtex/faststore/commit/f05f556c135b914af7c1058633ca50144a41669c))
+
 ## [4.10.1-dev.5](https://github.com/vtex/faststore/compare/v4.10.1-dev.4...v4.10.1-dev.5) (2026-10-28)
 
 ### Bug Fixes
