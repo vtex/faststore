@@ -5,7 +5,11 @@
     "NODE_ENV",
     "DISABLE_3P_SCRIPTS",
     "CMS_DATA",
-    "DISCOVERY_DEBUG"
+    "DISCOVERY_DEBUG",
+    "DATA_PLANE_API_URL",
+    "CSP_SETTINGS_TTL_MS",
+    "CSP_SETTINGS_STALE_MS",
+    "CSP_SETTINGS_TIMEOUT_MS"
   ],
   "tasks": {
     "site#build": {
