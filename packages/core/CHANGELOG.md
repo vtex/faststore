@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.10.1-dev.5](https://github.com/vtex/faststore/compare/v4.10.1-dev.4...v4.10.1-dev.5) (2026-10-28)
+
+### Bug Fixes
+
+- **core:** bypass refresh-token flow on WebOps preview hosts ([0c8db36](https://github.com/vtex/faststore/commit/0c8db363b2f62ff054e3f3524cd15951b3aafe91))
+- **core:** detect preview hosts from x-forwarded-host on the server ([ec5d8a7](https://github.com/vtex/faststore/commit/ec5d8a7c70eca06c90153fe7cb5b58aa192bfb46))
+
 ## [4.10.1-dev.4](https://github.com/vtex/faststore/compare/v4.10.1-dev.3...v4.10.1-dev.4) (2026-10-28)
 
 **Note:** Version bump only for package @faststore/core
