@@ -4,7 +4,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 const mockRefreshTokenRequest = vi.hoisted(() => vi.fn())
 const mockLogoutAndClearSession = vi.hoisted(() => vi.fn())
 
-vi.mock('../../../src/sdk/account/refreshToken', () => ({
+vi.mock('../../../src/sdk/account/refreshToken', async (importOriginal) => ({
+  ...(await importOriginal<
+    typeof import('../../../src/sdk/account/refreshToken')
+  >()),
   refreshTokenRequest: mockRefreshTokenRequest,
   isRefreshTokenSuccessful: () => false,
 }))

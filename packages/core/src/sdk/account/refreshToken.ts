@@ -64,9 +64,8 @@ export const isRefreshTokenSuccessful = (
 
 /**
  * Whether the session belongs to a B2B buyer: one with an organizational unit
- * (`unitId`) and a contract (`customerId`). `session.b2b` alone is not enough:
- * it is set for every `isRepresentative` token, and that flag can also be true
- * outside B2B.
+ * (`unitId`) and a contract (`customerId`), the same rule the API uses to
+ * fill `session.b2b`.
  */
 export const isB2BSession = (
   session:
