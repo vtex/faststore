@@ -178,7 +178,7 @@ const offerToOrderItemInput = (
   ...(offer.priceToken ? { priceToken: offer.priceToken } : {}),
 })
 
-const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer[]> =>
+const groupById = <T extends IStoreOffer>(offers: T[]): Map<string, T[]> =>
   offers.reduce((acc, item) => {
     const id = getId(item)
 
@@ -189,7 +189,7 @@ const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer[]> =>
     acc.get(id)?.push(item)
 
     return acc
-  }, new Map<string, IStoreOffer[]>())
+  }, new Map<string, T[]>())
 
 const equals = (
   storeOrder: IStoreOrder,
@@ -640,7 +640,7 @@ const getItemChanges = (
       // With preserveCartLines, look at this line only: a unit of the same SKU
       // that has no services must still accept quantity edits.
       const isAssembly = preserveLines
-        ? isAssemblyLine(orderForm.items, (head as Indexed<IStoreOffer>).index)
+        ? isAssemblyLine(orderForm.items, head.index)
         : hasParentItem(orderForm.items, head.itemOffered.sku) ||
           hasChildItem(orderForm.items, head.itemOffered.sku)
 

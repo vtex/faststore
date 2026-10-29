@@ -17,6 +17,9 @@ import {
 } from '../mocks/ValidateCartServices'
 import { createProductFetchResultForSku } from '../mocks/ValidateCartMutation'
 
+/** A service SKU sold as an assembly option of `SKU`. */
+const SERVICE_SKU = '290'
+
 const mockedFetch = vi.fn()
 
 vi.mock('../../src/platforms/vtex/clients/fetch.ts', () => ({
@@ -118,7 +121,7 @@ const assemblySplit = () => [
   unit('u2'),
   orderFormItem({
     uniqueId: 'u3',
-    id: '290',
+    id: SERVICE_SKU,
     parentItemIndex: 1,
     parentAssemblyBinding: 'ESP_optional_ESP',
   }),
@@ -347,7 +350,7 @@ describe('`validateCart` with `preserveCartLines`', () => {
       expect(changes(patches[0])).toEqual([
         { id: SKU, index: 0, quantity: 2 },
         { id: SKU, index: 1, quantity: 1 },
-        { id: '290', index: 2, quantity: 1 },
+        { id: SERVICE_SKU, index: 2, quantity: 1 },
       ])
     })
 
@@ -362,7 +365,7 @@ describe('`validateCart` with `preserveCartLines`', () => {
 
       expect(changes(patches[0])).toEqual([
         { id: SKU, index: 1, quantity: 1 },
-        { id: '290', index: 2, quantity: 1 },
+        { id: SERVICE_SKU, index: 2, quantity: 1 },
         { id: SKU, index: 0, quantity: 0 },
       ])
     })
@@ -373,7 +376,7 @@ describe('`validateCart` with `preserveCartLines`', () => {
         unit('u2'),
         orderFormItem({
           uniqueId: 'u3',
-          id: '290',
+          id: SERVICE_SKU,
           parentItemIndex: 0,
           parentAssemblyBinding: 'ESP_optional_ESP',
         }),
@@ -391,7 +394,7 @@ describe('`validateCart` with `preserveCartLines`', () => {
       expect(changes(patches[0])).toEqual([
         { id: SKU, index: undefined, quantity: 1 },
         { id: SKU, index: 0, quantity: 1 },
-        { id: '290', index: 1, quantity: 1 },
+        { id: SERVICE_SKU, index: 1, quantity: 1 },
       ])
     })
   })
