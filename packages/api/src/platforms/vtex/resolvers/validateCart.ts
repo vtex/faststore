@@ -240,11 +240,14 @@ function hasParentItem(items: OrderFormItem[], itemId: string) {
   )
 }
 
+/** A line with assembly option children (by cart index). */
+const isAssemblyParent = (items: OrderFormItem[], index?: number) =>
+  index !== undefined && items.some((item) => item.parentItemIndex === index)
+
 /** An assembly option parent, or one of its children (by cart index). */
 const isAssemblyLine = (items: OrderFormItem[], index?: number) =>
   index !== undefined &&
-  (items[index]?.parentItemIndex != null ||
-    items.some((item) => item.parentItemIndex === index))
+  (items[index]?.parentItemIndex != null || isAssemblyParent(items, index))
 
 /**
  * With `preserveCartLines`, map each browser line to a Checkout line.
@@ -678,13 +681,19 @@ const getItemChanges = (
         : hasParentItem(orderForm.items, head.itemOffered.sku) ||
           hasChildItem(orderForm.items, head.itemOffered.sku)
 
+      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
+
+      // An assembly parent follows the shopper's quantity, as on Checkout,
+      // which scales its children along. Children keep Checkout's quantity.
       if (isAssembly) {
-        acc.itemsToUpdate.push(head)
+        acc.itemsToUpdate.push(
+          preserveLines && isAssemblyParent(orderForm.items, head.index)
+            ? { ...head, quantity: totalQuantity }
+            : head
+        )
 
         return acc
       }
-
-      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
 
       // set total quantity to first item
       acc.itemsToUpdate.push({

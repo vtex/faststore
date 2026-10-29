@@ -368,6 +368,51 @@ describe('`validateCart` with `preserveCartLines`', () => {
       expect(changes(patches[0])).toEqual([{ id: SKU, index: 0, quantity: 2 }])
     })
 
+    test('the serviced unit accepts quantity edits and its service follows, as on Checkout', async () => {
+      const run = await createRunner(true)
+      const items = assemblySplit()
+      const patches = mockCheckout(
+        freshOrderForm(items),
+        freshOrderForm([
+          items[0],
+          { ...items[1], quantity: 2 },
+          { ...items[2], quantity: 2 },
+        ])
+      )
+
+      const response = await run({
+        cart: browserCart([
+          browserUnit(items[0]),
+          browserUnit(items[1], 2),
+          browserUnit(items[2]),
+        ]),
+      })
+
+      expect(changes(patches[0])).toEqual([{ id: SKU, index: 1, quantity: 2 }])
+      expect(acceptedOffer(response).map(({ quantity }) => quantity)).toEqual([
+        1, 2, 2,
+      ])
+    })
+
+    test('a service quantity edit is not sent: Checkout derives it from its unit', async () => {
+      const run = await createRunner(true)
+      const items = assemblySplit()
+      const patches = mockCheckout(freshOrderForm(items))
+
+      const response = await run({
+        cart: browserCart([
+          browserUnit(items[0]),
+          browserUnit(items[1]),
+          browserUnit(items[2], 3),
+        ]),
+      })
+
+      expect(patches).toHaveLength(0)
+      expect(acceptedOffer(response).map(({ quantity }) => quantity)).toEqual([
+        1, 1, 1,
+      ])
+    })
+
     test('echoing the cart does not write to Checkout', async () => {
       const run = await createRunner(true)
       const items = assemblySplit()
