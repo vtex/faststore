@@ -14,31 +14,29 @@ import {
 import config from '../../../discovery.config'
 import { getPDP, type PDPContentType } from '../cms/pdp'
 import { getPLP, type PLPContentType } from '../cms/plp'
+import { createPromiseCache } from './promiseCache'
 import type { ContentOptions, ContentParams } from './types'
 import { isBranchPreview, isContentPlatformSource } from './utils'
 
-type ContentResult = ContentData | (ContentEntry & PageContentType)
+type ContentResult = ContentData | PageContentType
 
-type ContentListCacheEntry = {
-  expiresAt: number
-  promise: Promise<{ data: ContentResult[] }>
-}
+const CONTENT_AUTHOR_FIELDS = ['createdBy', 'updatedBy'] as const
 
 const OPTIONAL_CONTENT_TYPES = [
   'globalHeaderSections',
   'globalFooterSections',
 ] as const
 
-// Bounds how stale the template list can get in long-lived processes (ISR);
-// a CMS publish already triggers a new build.
-const CONTENT_LIST_CACHE_TTL_MS = 5 * 60 * 1000
-
 export class ContentService {
   private readonly clientCP = new ClientCP({
     tenant: config.api.storeId,
   })
 
-  private readonly contentListCache = new Map<string, ContentListCacheEntry>()
+  private readonly contentListCache = createPromiseCache<{
+    data: ContentResult[]
+  }>()
+
+  private readonly firstEntryCache = createPromiseCache<PageContentType>()
 
   async getSingleContent<T extends ContentData>(
     params: ContentParams
@@ -48,7 +46,7 @@ export class ContentService {
     if (isContentPlatformSource()) {
       return this.getFromCP<T>(options)
     }
-    return getPage(options.cmsOptions)
+    return getPage(options.cmsOptions, { cache: !options.isPreview })
   }
 
   async getMultipleContent(
@@ -134,36 +132,15 @@ export class ContentService {
   private getCachedContentList(
     serviceParams: EntryPathParams
   ): Promise<{ data: ContentResult[] }> {
-    // listEntries only depends on these fields; the page slug must stay out of the key.
-    const { accountName, storeId, contentType, locale } = serviceParams
-    const key = JSON.stringify([accountName, storeId, contentType, locale])
-
-    const cached = this.contentListCache.get(key)
-    if (cached && cached.expiresAt > Date.now()) {
-      return cached.promise
-    }
-
-    const promise = this.listAndFillEntries(serviceParams, false).catch(
-      (err: unknown) => {
-        if (this.contentListCache.get(key)?.promise === promise) {
-          this.contentListCache.delete(key)
-        }
-        throw err
-      }
+    return this.contentListCache.get(getContentTypeKey(serviceParams), () =>
+      this.listAndFillEntries(serviceParams, false)
     )
-
-    this.contentListCache.set(key, {
-      expiresAt: Date.now() + CONTENT_LIST_CACHE_TTL_MS,
-      promise,
-    })
-
-    return promise
   }
 
   private async listAndFillEntries(
     serviceParams: EntryPathParams,
     isPreview: boolean
-  ): Promise<{ data: (ContentEntry & PageContentType)[] }> {
+  ): Promise<{ data: PageContentType[] }> {
     // TODO: This should be temporary until the cp data-plane have a search engine.
     const MAX_PAGES = 25
     const allEntries: ContentEntry[] = []
@@ -189,7 +166,7 @@ export class ContentService {
     entries: ContentEntry[],
     serviceParams: EntryPathParams,
     isPreview: boolean
-  ): Promise<{ data: (ContentEntry & PageContentType)[] }> {
+  ): Promise<{ data: PageContentType[] }> {
     const data = await Promise.all(
       entries.map(async (entry) => {
         const entryData = await this.getEntryData(
@@ -206,9 +183,21 @@ export class ContentService {
     params: EntryPathParams,
     isPreview: boolean
   ): Promise<PageContentType> {
-    return params.entryId || params.slug
-      ? await this.getEntryData(params, isPreview)
-      : await this.fetchFirstEntryFromList(params, isPreview)
+    if (params.entryId || params.slug) {
+      return this.getEntryData(params, isPreview)
+    }
+
+    if (isPreview) {
+      return this.fetchFirstEntryFromList(params, true)
+    }
+
+    // An empty required type is likely content that is about to be published,
+    // so it is not kept for the whole TTL. Optional types are empty by design.
+    return this.firstEntryCache.get(
+      getContentTypeKey(params),
+      () => this.fetchFirstEntryFromList(params, false),
+      (entry) => !isEmptyEntry(entry) || isOptionalContentType(params)
+    )
   }
 
   private async getEntryData(
@@ -220,15 +209,21 @@ export class ContentService {
       throw new Error(`${operation} requires entryId or slug`)
     }
 
+    const entry = await this.loadEntry(params, isPreview)
+
+    return withoutContentAuthorMetadata(entry as PageContentType)
+  }
+
+  private loadEntry(params: EntryPathParams, isPreview: boolean) {
     if (isPreview) {
       return params.entryId
-        ? (this.clientCP.previewEntryById(params) as Promise<PageContentType>)
-        : (this.clientCP.previewEntryBySlug(params) as Promise<PageContentType>)
+        ? this.clientCP.previewEntryById(params)
+        : this.clientCP.previewEntryBySlug(params)
     }
 
     return params.entryId
-      ? (this.clientCP.getEntry(params) as Promise<PageContentType>)
-      : (this.clientCP.getEntryBySlug(params) as Promise<PageContentType>)
+      ? this.clientCP.getEntry(params)
+      : this.clientCP.getEntryBySlug(params)
   }
 
   private async fetchFirstEntryFromList(
@@ -237,11 +232,7 @@ export class ContentService {
   ): Promise<PageContentType> {
     const { entries } = await this.clientCP.listEntries(params)
     if (!entries || entries.length === 0) {
-      const isOptional = OPTIONAL_CONTENT_TYPES.includes(
-        params.contentType as (typeof OPTIONAL_CONTENT_TYPES)[number]
-      )
-
-      if (!isOptional) {
+      if (!isOptionalContentType(params)) {
         console.warn('No entries found for params', params)
       }
       return {} as PageContentType
@@ -341,14 +332,43 @@ export class ContentService {
   private mergeEntryWithData(
     entry: ContentEntry,
     data: PageContentType
-  ): ContentEntry & PageContentType {
+  ): PageContentType {
     return {
-      ...entry,
-      ...data,
+      ...withoutContentAuthorMetadata(data),
       id: entry.id,
       name: entry.name ?? '',
     }
   }
+}
+
+function isOptionalContentType({ contentType }: EntryPathParams): boolean {
+  return OPTIONAL_CONTENT_TYPES.includes(
+    contentType as (typeof OPTIONAL_CONTENT_TYPES)[number]
+  )
+}
+
+function isEmptyEntry(entry: PageContentType): boolean {
+  return Object.keys(entry).length === 0
+}
+
+// listEntries only depends on these fields; the page slug must stay out of the key.
+function getContentTypeKey({
+  accountName,
+  storeId,
+  contentType,
+  locale,
+}: EntryPathParams): string {
+  return JSON.stringify([accountName, storeId, contentType, locale])
+}
+
+function withoutContentAuthorMetadata<T extends object>(value: T): T {
+  const content = { ...value } as Record<string, unknown>
+
+  for (const field of CONTENT_AUTHOR_FIELDS) {
+    delete content[field]
+  }
+
+  return content as T
 }
 
 function isNotFoundError(err: unknown): boolean {

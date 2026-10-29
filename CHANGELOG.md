@@ -3,25 +3,101 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.10.2-dev.0](https://github.com/vtex/faststore/compare/v4.10.1-dev.7...v4.10.2-dev.0) (2026-10-29)
+
+## [4.10.1](https://github.com/vtex/faststore/compare/v4.10.1-dev.1...v4.10.1) (2026-10-23)
+
+### Bug Fixes
+
+- **core:** cache Content Platform template list across page generations ([#3542](https://github.com/vtex/faststore/issues/3542)) ([ab44199](https://github.com/vtex/faststore/commit/ab441997841b5f47b4dcc65d82fdfbb03fb579f2)), closes [#3384](https://github.com/vtex/faststore/issues/3384)
+
 ## [4.10.1](https://github.com/vtex/faststore/compare/v4.10.0...v4.10.1) (2026-10-23)
 
 ### Bug Fixes
 
 - **core:** cache Content Platform template list across page generations ([#3542](https://github.com/vtex/faststore/issues/3542)) ([ab44199](https://github.com/vtex/faststore/commit/ab441997841b5f47b4dcc65d82fdfbb03fb579f2)), closes [#3384](https://github.com/vtex/faststore/issues/3384)
 
+## [4.10.1-dev.7](https://github.com/vtex/faststore/compare/v4.10.1-dev.6...v4.10.1-dev.7) (2026-10-28)
+
+### Bug Fixes
+
+- **api:** apply the unit and contract rule to accountProfile and guard non-string claims ([ab97c85](https://github.com/vtex/faststore/commit/ab97c85951e0c4b1a4f0f57a0e9a49560b74a81b))
+- **api:** identify B2B sessions by organizational unit and contract ([36b7dc6](https://github.com/vtex/faststore/commit/36b7dc6eead7c8dd0ae38b15d4020b35ddafe8d2))
+- **api:** keep Intelligent Search failures from looking like a missing SKU ([262ff4b](https://github.com/vtex/faststore/commit/262ff4bd5c298b184ff73490d83c7c76d8dcbcdb))
+- **api:** return not found for products outside the B2B contract assortment ([3341802](https://github.com/vtex/faststore/commit/3341802f6d4225486b85592bf43b8e64e4b1ac62))
+- **core:** address Sonar findings on the PDP 404 redirect ([47ccb81](https://github.com/vtex/faststore/commit/47ccb81b741a48d14a7c8da5361e23b08c15d3ca))
+- **core:** expire parent-domain auth cookies on contract switch ([abe0845](https://github.com/vtex/faststore/commit/abe0845bcb487d1998294aab5ee5fd3a91e269e7))
+- **core:** keep a single refresh route per session, like main ([afd6ce9](https://github.com/vtex/faststore/commit/afd6ce90126830d0c67f9e6bdf9521f95345c9f6))
+- **core:** keep IP hosts host-only and Secure by scheme in switch-contract ([20ab5bf](https://github.com/vtex/faststore/commit/20ab5bf951b4be0dbb5ec09263b1e0c0aa32571e))
+- **core:** keep switch-contract cookies host-only on previews ([940e76e](https://github.com/vtex/faststore/commit/940e76e6751293592cdb8b60d581be42c8c8e8dd))
+- **core:** keep the PDP loading until the B2B 404 redirect ([7dc8008](https://github.com/vtex/faststore/commit/7dc80084c23e85e38d456a7bde0f505f38d11649))
+- **core:** keep the switched contract on a sibling checkout host ([3b69fad](https://github.com/vtex/faststore/commit/3b69fad4594699c5b395ce86dbf19cb1821eba97))
+- **core:** read the connection when x-forwarded-proto is absent ([6d4a7fa](https://github.com/vtex/faststore/commit/6d4a7fa9902d6d486e239001aeac94b51c1d06f6))
+- **core:** redirect to /404 without reusing PDP path as data source ([158e653](https://github.com/vtex/faststore/commit/158e65305048eb3cf4d275324eef00d0c5bcb152))
+- **core:** redirect to the 404 page for any shopper out of the assortment ([9ba660d](https://github.com/vtex/faststore/commit/9ba660d3f513512fd4bc0c27fb1750c6211a9182))
+- **core:** redirect to the 404 page once per not-found product ([17bc72b](https://github.com/vtex/faststore/commit/17bc72b35291b9a847e1550555ecdaeb7805c40c))
+- **core:** refresh the token through the Authenticator route ([8da50ef](https://github.com/vtex/faststore/commit/8da50efb6d9924385c2e2be98cdf0ca9a0564891))
+- **core:** relay vid_rt on contract switch and bound the refreshAfter fallback ([d154bff](https://github.com/vtex/faststore/commit/d154bffc6523b51f391da0db928234223f693e8e))
+- **core:** relay vid_rt on contract switch only with refresh token on ([0111217](https://github.com/vtex/faststore/commit/0111217b01079d4efdbd86bdee7be90a08bac8cf))
+- **core:** retry transient PDP refetch failures, not 404s ([638f8a4](https://github.com/vtex/faststore/commit/638f8a47d878256239b4e1e43987fc6e287dade5))
+- **core:** scope switch-contract auth cookie like VTEX ID ([dcab25f](https://github.com/vtex/faststore/commit/dcab25f861e022ec460606e234a0e8ac8e2ef2f7))
+- **core:** scope the switched auth cookie on {account}.vtex.app ([b878178](https://github.com/vtex/faststore/commit/b87817886efd0632e61b30e6c4edb96975a4c05e))
+- **core:** show 404 on the PDP when a B2B shopper cannot access the product ([45485ad](https://github.com/vtex/faststore/commit/45485adfb31b67e5310144cf8d37a0867b51a19c))
+- **core:** skip retries for every not-found shape on the PDP refetch ([f7e808e](https://github.com/vtex/faststore/commit/f7e808ee4253ad5c966feb02c3b574abe5a742e3))
+- **core:** surface a failed PDP product refetch so the 404 redirect can run ([d6a0923](https://github.com/vtex/faststore/commit/d6a0923125a68308913b122f8c2584e0fb5fcf32))
+- **core:** use the Authenticator refresh route only for B2B sessions ([31d55cd](https://github.com/vtex/faststore/commit/31d55cd293b91646aba6147edfda84c37ba3fd17))
+- **core:** use the B2B refresh route only with a unit and a contract ([bd76720](https://github.com/vtex/faststore/commit/bd76720a84fd4bae3e6fbea2d8b1bf3afdaabe02))
+
+## [4.10.1-dev.6](https://github.com/vtex/faststore/compare/v4.10.1-dev.5...v4.10.1-dev.6) (2026-10-28)
+
+### Bug Fixes
+
+- **core:** document that gallery scope keys reach the request URL ([dc61bdf](https://github.com/vtex/faststore/commit/dc61bdf2411b88ac15d29066a668a26f521785de))
+- **core:** hash the B2B contract scope sent with gallery queries ([f8bfac9](https://github.com/vtex/faststore/commit/f8bfac9f5dd4fbda848982a701e54eb1f3d2c14b))
+- **core:** refetch PLP first page for B2B buyers so the contract assortment applies ([72ddfdf](https://github.com/vtex/faststore/commit/72ddfdf06b7cc7a74aca7036cce37c400fef2cc0))
+- **core:** tell B2B buyers apart by org unit in the gallery cache key ([c7fe237](https://github.com/vtex/faststore/commit/c7fe237088515c40a49f34b46297022279c57f93))
+- **core:** widen the B2B contract scope hash to 53 bits ([f05f556](https://github.com/vtex/faststore/commit/f05f556c135b914af7c1058633ca50144a41669c))
+
+## [4.10.1-dev.5](https://github.com/vtex/faststore/compare/v4.10.1-dev.4...v4.10.1-dev.5) (2026-10-28)
+
+### Bug Fixes
+
+- **core:** bypass refresh-token flow on WebOps preview hosts ([0c8db36](https://github.com/vtex/faststore/commit/0c8db363b2f62ff054e3f3524cd15951b3aafe91))
+- **core:** detect preview hosts from x-forwarded-host on the server ([ec5d8a7](https://github.com/vtex/faststore/commit/ec5d8a7c70eca06c90153fe7cb5b58aa192bfb46))
+
+## [4.10.1-dev.4](https://github.com/vtex/faststore/compare/v4.10.1-dev.3...v4.10.1-dev.4) (2026-10-28)
+
+### Bug Fixes
+
+- **api:** create newsletter subscriptions with a dedicated app key ([#3544](https://github.com/vtex/faststore/issues/3544)) ([4758b96](https://github.com/vtex/faststore/commit/4758b96638fb644b5e681f9f39a91c1f5a07d197))
+
+## [4.10.1-dev.3](https://github.com/vtex/faststore/compare/v4.10.1-dev.2...v4.10.1-dev.3) (2026-10-27)
+
+### Bug Fixes
+
+- **core:** address review feedback on CMS cache ([8cec85f](https://github.com/vtex/faststore/commit/8cec85f730643dc72914c8477e9021c7437d8921))
+- **core:** cache global and single CMS content across page generations ([6f20530](https://github.com/vtex/faststore/commit/6f205308216be07cb567595ff5ed59f6a229d876))
+- **core:** do not cache empty required CMS content ([21a2dd3](https://github.com/vtex/faststore/commit/21a2dd3a1379c5b60ea96003e0addd6173f2923e))
+
+## [4.10.1-dev.2](https://github.com/vtex/faststore/compare/v4.10.1-dev.1...v4.10.1-dev.2) (2026-10-27)
+
+### Bug Fixes
+
+- **core:** keep CMS author emails off public page props ([a63c6b1](https://github.com/vtex/faststore/commit/a63c6b1b880055a9ceb6395ad3bba04ad2ce4a95))
+
+## [4.10.1-dev.1](https://github.com/vtex/faststore/compare/v4.10.1-dev.0...v4.10.1-dev.1) (2026-10-21)
+
+### Bug Fixes
+
+- **core:** cache Content Platform template list across page generations ([#3526](https://github.com/vtex/faststore/issues/3526)) ([b03ed33](https://github.com/vtex/faststore/commit/b03ed332bd8c4ea5ef4bb834b8590728946852e5)), closes [#3384](https://github.com/vtex/faststore/issues/3384) [#3384](https://github.com/vtex/faststore/issues/3384)
+
+## [4.10.1-dev.0](https://github.com/vtex/faststore/compare/v4.10.0...v4.10.1-dev.0) (2026-10-15)
+
+**Note:** Version bump only for package faststore
+
 # [4.10.0](https://github.com/vtex/faststore/compare/v4.10.0-dev.1...v4.10.0) (2026-10-15)
 
-## [4.9.2](https://github.com/vtex/faststore/compare/v4.9.1...v4.9.2) (2026-10-02)
-
-### Bug Fixes
-
-- **core:** keep UI session state out of session and cart mutations ([#3511](https://github.com/vtex/faststore/issues/3511)) ([3c58a21](https://github.com/vtex/faststore/commit/3c58a213d237f8d5f7919ab12f63015fbfe3ef73)), closes [#3479](https://github.com/vtex/faststore/issues/3479) [#3479](https://github.com/vtex/faststore/issues/3479) [#3509](https://github.com/vtex/faststore/issues/3509)
-
-## [4.9.1](https://github.com/vtex/faststore/compare/v4.9.1-dev.0...v4.9.1) (2026-10-02)
-
-### Bug Fixes
-
-- restore raw StoreProduct.releaseDate, normalize only in PDP JSON-LD ([#3508](https://github.com/vtex/faststore/issues/3508)) ([fb0112d](https://github.com/vtex/faststore/commit/fb0112df966dc59b8971c335bcb5fd405b715763)), closes [#3465](https://github.com/vtex/faststore/issues/3465) [#3465](https://github.com/vtex/faststore/issues/3465) [#1438](https://github.com/vtex/faststore/issues/1438) [#3437](https://github.com/vtex/faststore/issues/3437)
+**Note:** Version bump only for package faststore
 
 # [4.10.0-dev.1](https://github.com/vtex/faststore/compare/v4.10.0-dev.0...v4.10.0-dev.1) (2026-10-15)
 

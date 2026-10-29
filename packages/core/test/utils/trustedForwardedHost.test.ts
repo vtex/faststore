@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  isCookieSafeHostname,
   singleForwardedHost,
   isHostAllowed,
   removeCookieDomain,
@@ -101,5 +102,25 @@ describe('removeCookieDomain', () => {
 
   it('keeps cookies without a Domain attribute unchanged', () => {
     expect(removeCookieDomain('a=1; path=/')).toBe('a=1; path=/')
+  })
+})
+
+describe('isCookieSafeHostname', () => {
+  it.each(['store.example.com', 'b2b-store.vtexfaststore.com', 'Store.COM'])(
+    'accepts %s',
+    (host) => {
+      expect(isCookieSafeHostname(host)).toBe(true)
+    }
+  )
+
+  it.each([
+    'store.com;evil=1',
+    'store.com path=/',
+    'store.com,other.com',
+    'store.com\r\nSet-Cookie: evil=1',
+    'store.com%0d%0a',
+    '',
+  ])('rejects %j', (host) => {
+    expect(isCookieSafeHostname(host)).toBe(false)
   })
 })

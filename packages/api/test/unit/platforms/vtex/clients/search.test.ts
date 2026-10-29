@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { IntelligentSearch } from '../../../../../src/platforms/vtex/clients/search'
 import type { GraphqlContext } from '../../../../../src/platforms/vtex'
 import type { Options } from '../../../../../src/typings/globals'
+import { NotFoundError } from '../../../../../src/platforms/errors'
 
 const searchOptions = {
   platform: 'vtex',
@@ -240,5 +241,49 @@ describe('IntelligentSearch.pickupPointAvailability', () => {
     const [url] = fetchAPIMocked.mock.calls[0]
 
     expect(new URL(url).searchParams.get('sc')).toBe('2')
+  })
+})
+
+describe('IntelligentSearch.productsByIdentifier', () => {
+  const product = { productId: '1', items: [] }
+
+  it('drops a product that fails, by default', async () => {
+    fetchAPIMocked
+      .mockResolvedValueOnce(product)
+      .mockRejectedValueOnce(new Error('Service Unavailable'))
+    const is = IntelligentSearch(searchOptions, makeCtx({}))
+
+    await expect(
+      is.productsByIdentifier({ field: 'sku', values: ['1', '2'] })
+    ).resolves.toEqual([product])
+  })
+
+  it('rethrows an upstream failure with throwOnUpstreamError', async () => {
+    const failure = new Error('Service Unavailable')
+    fetchAPIMocked.mockResolvedValueOnce(product).mockRejectedValueOnce(failure)
+    const is = IntelligentSearch(searchOptions, makeCtx({}))
+
+    await expect(
+      is.productsByIdentifier({
+        field: 'sku',
+        values: ['1', '2'],
+        throwOnUpstreamError: true,
+      })
+    ).rejects.toBe(failure)
+  })
+
+  it('still drops a not-found product with throwOnUpstreamError', async () => {
+    fetchAPIMocked
+      .mockResolvedValueOnce(product)
+      .mockRejectedValueOnce(new NotFoundError('Not Found'))
+    const is = IntelligentSearch(searchOptions, makeCtx({}))
+
+    await expect(
+      is.productsByIdentifier({
+        field: 'sku',
+        values: ['1', '2'],
+        throwOnUpstreamError: true,
+      })
+    ).resolves.toEqual([product])
   })
 })

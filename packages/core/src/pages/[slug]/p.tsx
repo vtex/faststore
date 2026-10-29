@@ -44,6 +44,7 @@ import { LocalizedProductProvider } from 'src/sdk/localization/LocalizedProductC
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
+import { useProductNotFoundRedirect } from 'src/sdk/product/useProductNotFoundRedirect'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import { injectGlobalSections } from 'src/server/cms/global'
 import type { PDPContentType } from 'src/server/cms/pdp'
@@ -85,14 +86,18 @@ const OG_PRODUCT_CONDITION_BY_SCHEMA: Record<string, string> = {
   'https://schema.org/UsedCondition': 'used',
 }
 
-type Props = PDPContentType & {
+type Props = {
+  sections: PDPContentType['sections']
+  settings: PDPContentType['settings']
   data: ServerProductQueryQuery
   globalSections: GlobalSectionsData
+  offers: ReturnType<typeof toProductJsonLdOffer>
   meta: {
     title: string
     description: string
     canonical: string
   }
+  key: string
 }
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
@@ -181,7 +186,7 @@ function Page({
     )
   }
 
-  const { client, isValidating } = isClientOfferEnabled
+  const { client, isValidating, clientError } = isClientOfferEnabled
     ? (() => {
         const offer = useOffer({ skuId: product.sku })
         return {
@@ -191,6 +196,11 @@ function Page({
             },
           },
           isValidating: offer.isValidating,
+          // This mode reads the offer straight from Intelligent Search and
+          // never runs `ClientProductQuery`, where the B2B contract assortment
+          // is checked, so there is no not-found to redirect on. Supporting
+          // the redirect here is out of scope for now.
+          clientError: undefined,
         }
       })()
     : (() => {
@@ -200,15 +210,18 @@ function Page({
         return {
           client: productQuery.data,
           isValidating: productQuery.isValidating,
+          clientError: productQuery.error,
         }
       })()
+
+  const isLeavingForNotFound = useProductNotFoundRedirect(clientError)
 
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
   const context = {
     data: {
       ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
-      isValidating,
+      isValidating: isValidating || isLeavingForNotFound,
     },
     globalSettings,
   } as PDPContext
@@ -500,7 +513,8 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       data,
-      ...cmsPage,
+      sections: cmsPage.sections,
+      settings: cmsPage.settings,
       meta,
       offers,
       globalSections: globalSectionsResult,

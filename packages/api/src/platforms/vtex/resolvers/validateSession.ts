@@ -22,6 +22,7 @@ import {
   buildPersonFromProfile,
   buildSessionSearchParams,
   getPreciseLocationData,
+  resolveB2bUnitId,
   resolveJwtClaims,
   resolveSellerInRegion,
 } from '../utils/validateSessionHelpers'
@@ -187,7 +188,7 @@ export const validateSession = async (
     oldSession.locale
   )
   const marketingData = buildMarketingData(params, oldSession.marketingData)
-  const { isRepresentative, customerId, unitId } = await resolveJwtClaims(
+  const { customerId, unitId } = await resolveJwtClaims(
     clients,
     headers?.cookie,
     account
@@ -211,7 +212,7 @@ export const validateSession = async (
   const publicData = sessionData?.namespaces.public ?? null
 
   let contract = null
-  if (isRepresentative && profile?.id?.value) {
+  if (resolveB2bUnitId(authentication, unitId) && profile?.id?.value) {
     try {
       contract = await clients.commerce.masterData.getContractById({
         contractId: profile.id.value,
@@ -262,7 +263,6 @@ export const validateSession = async (
      * - Contract data: `profile` namespace (those info will be available inside Faststore's Session `person` object)
      */
     b2b: buildB2bSession({
-      isRepresentative,
       authentication,
       shopper,
       publicData,

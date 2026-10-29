@@ -17,6 +17,7 @@ export const getSkuLoader = ({ flags }: Options, clients: Clients) => {
       field: 'sku',
       values: skuIds,
       showInvisibleItems,
+      throwOnUpstreamError: true,
       ...(flags?.enableUnavailableItemsOnCart && {
         hideUnavailableItems: false,
       }),

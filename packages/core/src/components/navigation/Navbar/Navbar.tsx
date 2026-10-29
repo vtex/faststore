@@ -132,9 +132,9 @@ function Navbar({
   const isFaststoreMyAccountEnabled =
     storeConfig.experimental?.enableFaststoreMyAccount
 
-  const isRepresentative = b2b?.isRepresentative
+  const isB2BBuyer = Boolean(b2b)
 
-  const isOrganizationEnabled = isFaststoreMyAccountEnabled && isRepresentative
+  const isOrganizationEnabled = isFaststoreMyAccountEnabled && isB2BBuyer
   const isLocalizationEnabled =
     storeConfig.localization?.enabled &&
     localizationButton?.shouldDisplayLocalizationButton
@@ -240,7 +240,7 @@ function Navbar({
               <NavbarAccountArea
                 isSignInResolved={isSignInResolved}
                 isOrganizationEnabled={isOrganizationEnabled}
-                isRepresentative={isRepresentative}
+                isB2BBuyer={isB2BBuyer}
                 signInButton={signInButton}
                 ButtonSignIn={ButtonSignIn}
                 skeletonAttr="data-fs-navbar-signin-skeleton"

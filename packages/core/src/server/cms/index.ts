@@ -3,6 +3,7 @@ import ClientCMS from '@vtex/client-cms'
 
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
+import { createPromiseCache } from 'src/server/content/promiseCache'
 import { sanitizeHost } from 'src/utils/utilities'
 import config from '../../../discovery.config'
 
@@ -79,16 +80,64 @@ export const clientCMS = new ClientCMS({
   host: sanitizeHost(new URL(getStoreURL()).origin),
 })
 
+type CMSPageResult = { data: ContentData[] }
+
+export const cmsPageCache = createPromiseCache<CMSPageResult>()
+
+type GetCMSPageOptions = {
+  /**
+   * Reuse a document fetched by locator. Only safe when the locator does not
+   * come from a preview, since preview versions change between requests.
+   */
+  cache?: boolean
+}
+
+/**
+ * Listings by content type never carry preview data (previews always resolve
+ * to a locator), so they are shared across pages. Filtered listings depend on
+ * the page (e.g. landing page slug) and stay uncached.
+ */
 export const getCMSPage = async (
   options: Options,
-  cmsClient: ClientCMS = clientCMS
-) => {
+  cmsClient: ClientCMS = clientCMS,
+  { cache = false }: GetCMSPageOptions = {}
+): Promise<CMSPageResult> => {
+  const shareable = cmsClient === clientCMS
+
   if (isLocator(options)) {
-    return await cmsClient
-      .getCMSPage(options)
-      .then((page) => ({ data: [page] }))
+    const fetchByLocator = () =>
+      cmsClient.getCMSPage(options).then((page) => ({ data: [page] }))
+
+    if (!cache || !shareable) {
+      return fetchByLocator()
+    }
+
+    const { contentType, documentId, versionId, releaseId } = options
+    return cmsPageCache.get(
+      JSON.stringify([
+        'locator',
+        contentType,
+        documentId,
+        versionId,
+        releaseId,
+      ]),
+      fetchByLocator
+    )
   }
 
+  if (options.filters || !shareable) {
+    return listCMSPages(options, cmsClient)
+  }
+
+  return cmsPageCache.get(JSON.stringify(['list', options.contentType]), () =>
+    listCMSPages(options, cmsClient)
+  )
+}
+
+const listCMSPages = async (
+  options: Exclude<Options, Locator>,
+  cmsClient: ClientCMS
+): Promise<CMSPageResult> => {
   const pages = []
   const page = 1
   const perPage = 10
@@ -124,8 +173,11 @@ export const getCMSPage = async (
   return { data: pages }
 }
 
-export const getPage = async <T extends ContentData>(options: Options) => {
-  const result = await getCMSPage(options)
+export const getPage = async <T extends ContentData>(
+  options: Options,
+  getOptions?: GetCMSPageOptions
+) => {
+  const result = await getCMSPage(options, clientCMS, getOptions)
 
   const pages = result.data
 

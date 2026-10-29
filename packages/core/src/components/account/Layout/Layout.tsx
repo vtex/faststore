@@ -13,16 +13,16 @@ import styles from '../section.module.scss'
 
 export type LayoutProps = {
   accountName: string
-  isRepresentative?: boolean
+  isB2BBuyer?: boolean
   navigationLabels?: AccountNavigationLabels
 }
 
-const ROUTES_ONLY_FOR_REPRESENTATIVE = [USER_DETAILS_ROUTE]
+const ROUTES_ONLY_FOR_B2B_BUYERS = new Set<string>([USER_DETAILS_ROUTE])
 
 const Layout = ({
   children,
   accountName,
-  isRepresentative = true,
+  isB2BBuyer = true,
   navigationLabels,
 }: PropsWithChildren<LayoutProps>) => {
   const { b2b } = useSession()
@@ -41,11 +41,9 @@ const Layout = ({
   // page. `useAdHocCard` is a separate, finer gate that only affects the
   // Personal-tab rendering inside the page itself — it never hides the entry.
   const routes = (
-    isRepresentative
+    isB2BBuyer
       ? menuItems
-      : menuItems.filter(
-          ({ route }) => !ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)
-        )
+      : menuItems.filter(({ route }) => !ROUTES_ONLY_FOR_B2B_BUYERS.has(route))
   ).filter(
     ({ route }) => isOrgMember || !ROUTES_ONLY_FOR_B2B_MEMBERS.includes(route)
   )

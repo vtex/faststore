@@ -24,8 +24,7 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { fetchMyAccountPageContent } from 'src/server/cms/fetchMyAccountPageContent'
-import { getRequestHostname } from 'src/utils/getRequestHostname'
-import { isLocalHost } from 'src/utils/isLocalHost'
+import { shouldBypassRefreshTokenForRequest } from 'src/utils/shouldBypassRefreshToken'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
@@ -137,14 +136,16 @@ const getServerSidePropsBase: GetServerSideProps<
 
     const statusCode: number = (account.errors[0] as any)?.extensions?.status
 
-    const isLocal = isLocalHost(getRequestHostname(context.req.headers.host))
+    const bypassRefreshToken = shouldBypassRefreshTokenForRequest(
+      context.req.headers
+    )
 
     return {
       props: {
         globalSections: globalSectionsResult,
         pageSections: pageContent.sections,
         needsRefreshToken:
-          !isLocal &&
+          !bypassRefreshToken &&
           (statusCode === 401 || statusCode === 403) &&
           storeConfig.experimental?.refreshToken,
         fromPage,

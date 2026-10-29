@@ -3,7 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.10.2-dev.0](https://github.com/vtex/faststore/compare/v4.10.1-dev.7...v4.10.2-dev.0) (2026-10-29)
+
+## [4.10.1](https://github.com/vtex/faststore/compare/v4.10.1-dev.1...v4.10.1) (2026-10-23)
+
+**Note:** Version bump only for package @faststore/storybook
+
 ## [4.10.1](https://github.com/vtex/faststore/compare/v4.10.0...v4.10.1) (2026-10-23)
+
+**Note:** Version bump only for package @faststore/storybook
+
+## [4.10.1-dev.7](https://github.com/vtex/faststore/compare/v4.10.1-dev.6...v4.10.1-dev.7) (2026-10-28)
+
+**Note:** Version bump only for package @faststore/storybook
+
+## [4.10.1-dev.6](https://github.com/vtex/faststore/compare/v4.10.1-dev.5...v4.10.1-dev.6) (2026-10-28)
+
+**Note:** Version bump only for package @faststore/storybook
+
+## [4.10.1-dev.5](https://github.com/vtex/faststore/compare/v4.10.1-dev.4...v4.10.1-dev.5) (2026-10-28)
+
+**Note:** Version bump only for package @faststore/storybook
+
+## [4.10.1-dev.4](https://github.com/vtex/faststore/compare/v4.10.1-dev.3...v4.10.1-dev.4) (2026-10-28)
+
+**Note:** Version bump only for package @faststore/storybook
+
+## [4.10.1-dev.3](https://github.com/vtex/faststore/compare/v4.10.1-dev.2...v4.10.1-dev.3) (2026-10-27)
+
+**Note:** Version bump only for package @faststore/storybook
+
+## [4.10.1-dev.2](https://github.com/vtex/faststore/compare/v4.10.1-dev.1...v4.10.1-dev.2) (2026-10-27)
+
+**Note:** Version bump only for package @faststore/storybook
+
+## [4.10.1-dev.1](https://github.com/vtex/faststore/compare/v4.10.1-dev.0...v4.10.1-dev.1) (2026-10-21)
+
+**Note:** Version bump only for package @faststore/storybook
+
+## [4.10.1-dev.0](https://github.com/vtex/faststore/compare/v4.10.0...v4.10.1-dev.0) (2026-10-15)
 
 **Note:** Version bump only for package @faststore/storybook
 
