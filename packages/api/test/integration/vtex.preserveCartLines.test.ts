@@ -240,10 +240,8 @@ describe('`validateCart` with `preserveCartLines`', () => {
       })
 
       expect(response.errors).toBeUndefined()
-      expect(changes(patches[0])).toEqual([
-        { id: SKU, index: 0, quantity: 1 },
-        { id: SKU, index: 1, quantity: 1 },
-      ])
+      // Any items write makes Checkout recalculate and may renew line ids.
+      expect(patches).toHaveLength(0)
       expect(response.data?.validateCart).toBeNull()
     })
 
@@ -259,10 +257,7 @@ describe('`validateCart` with `preserveCartLines`', () => {
         cart: browserCart([browserUnit(items[0]), browserUnit(items[1], 3)]),
       })
 
-      expect(changes(patches[0])).toEqual([
-        { id: SKU, index: 0, quantity: 1 },
-        { id: SKU, index: 1, quantity: 3 },
-      ])
+      expect(changes(patches[0])).toEqual([{ id: SKU, index: 1, quantity: 3 }])
       expect(response.data?.validateCart).toBeNull()
     })
 
@@ -276,10 +271,7 @@ describe('`validateCart` with `preserveCartLines`', () => {
 
       const response = await run({ cart: browserCart([browserUnit(items[1])]) })
 
-      expect(changes(patches[0])).toEqual([
-        { id: SKU, index: 1, quantity: 1 },
-        { id: SKU, index: 0, quantity: 0 },
-      ])
+      expect(changes(patches[0])).toEqual([{ id: SKU, index: 0, quantity: 0 }])
       expect(response.data?.validateCart).toBeNull()
     })
 
@@ -296,10 +288,7 @@ describe('`validateCart` with `preserveCartLines`', () => {
         ]),
       })
 
-      expect(changes(patches[0])).toEqual([
-        { id: SKU, index: 0, quantity: 2 },
-        { id: SKU, index: 1, quantity: 1 },
-      ])
+      expect(changes(patches[0])).toEqual([{ id: SKU, index: 0, quantity: 2 }])
     })
 
     test('never sends the line identity to Checkout', async () => {
@@ -307,7 +296,9 @@ describe('`validateCart` with `preserveCartLines`', () => {
       const items = manualSplit()
       const patches = mockCheckout(freshOrderForm(items))
 
-      await run({ cart: browserCart(items.map((item) => browserUnit(item))) })
+      await run({
+        cart: browserCart([browserUnit(items[0]), browserUnit(items[1], 2)]),
+      })
 
       const body = JSON.stringify(patches[0])
       expect(body).not.toContain('LINE')
@@ -319,16 +310,43 @@ describe('`validateCart` with `preserveCartLines`', () => {
       const items = manualSplit()
       mockCheckout(
         freshOrderForm(items),
-        freshOrderForm([items[0], unit('u4')])
+        freshOrderForm([unit('u1', { quantity: 2 }), unit('u4')])
       )
 
       const response = await run({
-        cart: browserCart(items.map((item) => browserUnit(item))),
+        cart: browserCart([browserUnit(items[0], 2), browserUnit(items[1])]),
       })
 
       // Returning null would keep `u2` in the browser, and the next
       // validation would add it again as a new line.
       expect(response.errors).toBeUndefined()
+      expect(lineIdsOf(acceptedOffer(response))).toEqual(['LINE:u1', 'LINE:u4'])
+    })
+
+    test('a browser line Checkout renewed edits the renewed line', async () => {
+      const run = await createRunner(true)
+      const patches = mockCheckout(freshOrderForm([unit('u1'), unit('u4')]))
+
+      await run({
+        cart: browserCart([
+          browserUnit(unit('u1')),
+          browserUnit(unit('u2'), 3),
+        ]),
+      })
+
+      // Not added again as a new line while `u4` is removed.
+      expect(changes(patches[0])).toEqual([{ id: SKU, index: 1, quantity: 3 }])
+    })
+
+    test('echoing renewed lines returns the current ids without writing', async () => {
+      const run = await createRunner(true)
+      const patches = mockCheckout(freshOrderForm([unit('u1'), unit('u4')]))
+
+      const response = await run({
+        cart: browserCart([browserUnit(unit('u1')), browserUnit(unit('u2'))]),
+      })
+
+      expect(patches).toHaveLength(0)
       expect(lineIdsOf(acceptedOffer(response))).toEqual(['LINE:u1', 'LINE:u4'])
     })
   })
@@ -347,11 +365,71 @@ describe('`validateCart` with `preserveCartLines`', () => {
         ]),
       })
 
-      expect(changes(patches[0])).toEqual([
-        { id: SKU, index: 0, quantity: 2 },
-        { id: SKU, index: 1, quantity: 1 },
-        { id: SERVICE_SKU, index: 2, quantity: 1 },
+      expect(changes(patches[0])).toEqual([{ id: SKU, index: 0, quantity: 2 }])
+    })
+
+    test('echoing the cart does not write to Checkout', async () => {
+      const run = await createRunner(true)
+      const items = assemblySplit()
+      const patches = mockCheckout(freshOrderForm(items))
+
+      const response = await run({
+        cart: browserCart(items.map((item) => browserUnit(item))),
+      })
+
+      // Checkout renews the unserviced unit `uniqueId` on every items write:
+      // writing here would make every validation return a new cart.
+      expect(patches).toHaveLength(0)
+      expect(response.data?.validateCart).toBeNull()
+    })
+
+    test('a quantity edit Checkout answers with a new line converges', async () => {
+      const run = await createRunner(true)
+      const items = assemblySplit()
+      const split = [
+        unit('u1'),
+        unit('u2'),
+        unit('u4'),
+        { ...items[2], parentItemIndex: 1 },
+      ]
+      const renewed = [split[0], split[1], unit('u5'), split[3]]
+
+      mockCheckout(freshOrderForm(items), freshOrderForm(split))
+      const first = await run({
+        cart: browserCart([
+          browserUnit(items[0], 2),
+          browserUnit(items[1]),
+          browserUnit(items[2]),
+        ]),
+      })
+
+      expect(lineIdsOf(acceptedOffer(first))).toEqual([
+        'LINE:u1',
+        'LINE:u2',
+        'LINE:u4',
+        'LINE:u3',
       ])
+
+      // Echoing it back must settle, even after Checkout renewed `u4`.
+      const patches = mockCheckout(freshOrderForm(renewed))
+      const second = await run({
+        cart: browserCart(split.map((item) => browserUnit(item))),
+      })
+
+      expect(patches).toHaveLength(0)
+      expect(lineIdsOf(acceptedOffer(second))).toEqual([
+        'LINE:u1',
+        'LINE:u2',
+        'LINE:u5',
+        'LINE:u3',
+      ])
+
+      mockCheckout(freshOrderForm(renewed))
+      const third = await run({
+        cart: browserCart(renewed.map((item) => browserUnit(item))),
+      })
+
+      expect(third.data?.validateCart).toBeNull()
     })
 
     test('removing the unit without services keeps the serviced unit and its service', async () => {
@@ -363,11 +441,7 @@ describe('`validateCart` with `preserveCartLines`', () => {
         cart: browserCart([browserUnit(items[1]), browserUnit(items[2])]),
       })
 
-      expect(changes(patches[0])).toEqual([
-        { id: SKU, index: 1, quantity: 1 },
-        { id: SERVICE_SKU, index: 2, quantity: 1 },
-        { id: SKU, index: 0, quantity: 0 },
-      ])
+      expect(changes(patches[0])).toEqual([{ id: SKU, index: 0, quantity: 0 }])
     })
 
     test('a new unit is not folded into a serviced unit', async () => {
@@ -393,8 +467,6 @@ describe('`validateCart` with `preserveCartLines`', () => {
 
       expect(changes(patches[0])).toEqual([
         { id: SKU, index: undefined, quantity: 1 },
-        { id: SKU, index: 0, quantity: 1 },
-        { id: SERVICE_SKU, index: 1, quantity: 1 },
       ])
     })
   })

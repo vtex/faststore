@@ -247,30 +247,64 @@ const isAssemblyLine = (items: OrderFormItem[], index?: number) =>
     items.some((item) => item.parentItemIndex === index))
 
 /**
- * With `preserveCartLines`, a browser line without a Checkout line is a unit
- * the shopper just added. Fold it into the first Checkout line of the same SKU
- * that is not part of an assembly, as FastStore does without the flag. If there
- * is none, it stays new and Checkout adds it as its own line.
+ * With `preserveCartLines`, map each browser line to a Checkout line.
+ *
+ * Checkout gives a line it split off itself (e.g. the unserviced units next to
+ * a serviced one) a new `uniqueId` on every recalculation. A browser line whose
+ * Checkout line is gone takes over a line of the same SKU no browser line
+ * claims, so it is not added again while its replacement is removed.
+ *
+ * A browser line without a Checkout line is a unit the shopper just added. Fold
+ * it into the first Checkout line of the same SKU that is not part of an
+ * assembly, as FastStore does without the flag. If there is none, it stays new
+ * and Checkout adds it as its own line.
  */
 const assignCheckoutLines = (
   offers: IStoreOffer[],
   originOffers: Indexed<IStoreOffer>[],
   items: OrderFormItem[]
-) =>
-  offers.map((offer) => {
-    if (getLineId(offer)) {
+) => {
+  const originLineIds = new Set(originOffers.map(getLineId))
+  const claimed = new Set(
+    offers.map(getLineId).filter((lineId) => originLineIds.has(lineId))
+  )
+  const isFreeLine = (origin: Indexed<IStoreOffer>, baseId: string) =>
+    getBaseId(origin) === baseId && !isAssemblyLine(items, origin.index)
+
+  const remapped = offers.map((offer) => {
+    const lineId = getLineId(offer)
+
+    if (!lineId || originLineIds.has(lineId)) {
       return offer
     }
 
     const baseId = getBaseId(offer)
     const target = originOffers.find(
-      (origin) =>
-        getBaseId(origin) === baseId && !isAssemblyLine(items, origin.index)
+      (origin) => isFreeLine(origin, baseId) && !claimed.has(getLineId(origin))
     )
+    const targetLineId = target && getLineId(target)
+
+    if (!targetLineId) {
+      return withoutLine(offer)
+    }
+
+    claimed.add(targetLineId)
+
+    return withLine(offer, targetLineId)
+  })
+
+  return remapped.map((offer) => {
+    if (getLineId(offer)) {
+      return offer
+    }
+
+    const baseId = getBaseId(offer)
+    const target = originOffers.find((origin) => isFreeLine(origin, baseId))
     const targetLineId = target && getLineId(target)
 
     return targetLineId ? withLine(offer, targetLineId) : offer
   })
+}
 
 const joinItems = (form: OrderForm, preserveLines = false) => {
   // Checkout already decided which units are separate lines: keep them.
@@ -664,8 +698,8 @@ const getItemChanges = (
       return acc
     },
     {
-      itemsToAdd: [] as IStoreOffer[],
-      itemsToUpdate: [] as IStoreOffer[],
+      itemsToAdd: [] as Indexed<IStoreOffer>[],
+      itemsToUpdate: [] as Indexed<IStoreOffer>[],
     }
   )
 
@@ -673,7 +707,18 @@ const getItemChanges = (
     .filter(([id]) => !browserItemsById.has(id))
     .flatMap(([, items]) => items.map((item) => ({ ...item, quantity: 0 })))
 
-  return [...itemsToAdd, ...itemsToUpdate, ...itemsToDelete].map(
+  // Any items write makes Checkout recalculate, which renews the `uniqueId` of
+  // lines it split off itself. With preserveCartLines, writing lines that did
+  // not change would hand the browser new ids on every validation, forever.
+  const changedItems = preserveLines
+    ? itemsToUpdate.filter(
+        (item) =>
+          item.index === undefined ||
+          orderForm.items[item.index]?.quantity !== item.quantity
+      )
+    : itemsToUpdate
+
+  return [...itemsToAdd, ...changedItems, ...itemsToDelete].map(
     offerToOrderItemInput
   )
 }
@@ -804,8 +849,19 @@ export const validateCart = async (
     : { updateShipping: false }
 
   // If there are no item/shipping changes: still return the cart when we
-  // adopted the orderForm SC so the client can align `fs::session`.
+  // adopted the orderForm SC so the client can align `fs::session`, or when
+  // the browser holds Checkout lines that were renewed meanwhile.
   if (changes.length === 0 && !updateShipping) {
+    if (preserveLines && !equals(order, orderForm, preserveLines)) {
+      return orderFormToCart(
+        orderForm,
+        skuLoader,
+        shouldSplitItem,
+        adoptedSalesChannel,
+        preserveLines
+      )
+    }
+
     return cartWhenSalesChannelAdoptedOrNull(
       orderForm,
       skuLoader,
