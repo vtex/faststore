@@ -69,4 +69,54 @@ describe('shouldUpdateShippingData', () => {
 
     expect(result).toEqual({ updateShipping: true, addressChanged: false })
   })
+
+  it('For an orderForm with items and an address saved without geoCoordinates (headless checkout) it should not update the Shipping Data', () => {
+    const [selectedAddress] =
+      OrderFormWithSamePostalCodeFromSession.shippingData.selectedAddresses
+    const orderForm = {
+      ...OrderFormWithSamePostalCodeFromSession,
+      shippingData: {
+        ...OrderFormWithSamePostalCodeFromSession.shippingData,
+        selectedAddresses: [{ ...selectedAddress, geoCoordinates: [] }],
+      },
+    }
+
+    const result = shouldUpdateShippingData(orderForm, mockSession)
+
+    expect(result).toEqual({ updateShipping: false, addressChanged: false })
+  })
+
+  it('For an orderForm with items and an address without the geoCoordinates field it should not update the Shipping Data', () => {
+    const [selectedAddress] =
+      OrderFormWithSamePostalCodeFromSession.shippingData.selectedAddresses
+    const { geoCoordinates: _geoCoordinates, ...addressWithoutGeoCoordinates } =
+      selectedAddress
+    const orderForm = {
+      ...OrderFormWithSamePostalCodeFromSession,
+      shippingData: {
+        ...OrderFormWithSamePostalCodeFromSession.shippingData,
+        selectedAddresses: [addressWithoutGeoCoordinates],
+      },
+    }
+
+    const result = shouldUpdateShippingData(orderForm, mockSession)
+
+    expect(result).toEqual({ updateShipping: false, addressChanged: false })
+  })
+
+  it('For an orderForm with items, an address saved without geoCoordinates and a different postal code from the session it should update the Shipping Data', () => {
+    const [selectedAddress] =
+      OrderFormWithDifferentPostalCodeFromSession.shippingData.selectedAddresses
+    const orderForm = {
+      ...OrderFormWithDifferentPostalCodeFromSession,
+      shippingData: {
+        ...OrderFormWithDifferentPostalCodeFromSession.shippingData,
+        selectedAddresses: [{ ...selectedAddress, geoCoordinates: [] }],
+      },
+    }
+
+    const result = shouldUpdateShippingData(orderForm, mockSession)
+
+    expect(result).toEqual({ updateShipping: true, addressChanged: true })
+  })
 })
