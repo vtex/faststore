@@ -12,6 +12,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
 
 **Note:** Version bump only for package faststore
+## [4.10.3](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3) (2026-10-29)
+
+
+- **api:** avoid shippingData update loop when orderForm address has no geoCoordinates ([#3554](https://github.com/vtex/faststore/issues/3554)) ([0cea2ce](https://github.com/vtex/faststore/commit/0cea2ce952f97f6572c6ac1f6e9b005cfbaa46ac))
 
 ## [4.10.2](https://github.com/vtex/faststore/compare/v4.10.2-dev.0...v4.10.2) (2026-10-29)
 

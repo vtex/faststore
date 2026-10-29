@@ -8,6 +8,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 **Note:** Version bump only for package @faststore/ui
 
 ## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
+## [4.10.3](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3) (2026-10-29)
 
 **Note:** Version bump only for package @faststore/ui
 
