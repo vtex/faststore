@@ -640,6 +640,38 @@ const cartWhenSalesChannelAdoptedOrNull = (
   )
 }
 
+/**
+ * Cart for a validation that wrote nothing. With `preserveCartLines`, the
+ * browser may still hold Checkout lines renewed meanwhile: hand it the current
+ * ones, or its next validation would not find them.
+ */
+const cartWhenItemsUnchanged = (
+  order: IStoreOrder,
+  form: OrderForm,
+  skuLoader: GraphqlContext['loaders']['skuLoader'],
+  shouldSplitItem: boolean | null | undefined,
+  adoptedSalesChannel: string | null,
+  preserveLines: boolean
+) => {
+  if (preserveLines && !equals(order, form, preserveLines)) {
+    return orderFormToCart(
+      form,
+      skuLoader,
+      shouldSplitItem,
+      adoptedSalesChannel,
+      preserveLines
+    )
+  }
+
+  return cartWhenSalesChannelAdoptedOrNull(
+    form,
+    skuLoader,
+    shouldSplitItem,
+    adoptedSalesChannel,
+    preserveLines
+  )
+}
+
 /** Item changes that bring the orderForm in line with the browser cart. */
 const getItemChanges = (
   acceptedOffer: IStoreOffer[],
@@ -858,20 +890,10 @@ export const validateCart = async (
     : { updateShipping: false }
 
   // If there are no item/shipping changes: still return the cart when we
-  // adopted the orderForm SC so the client can align `fs::session`, or when
-  // the browser holds Checkout lines that were renewed meanwhile.
+  // adopted the orderForm SC so the client can align `fs::session`.
   if (changes.length === 0 && !updateShipping) {
-    if (preserveLines && !equals(order, orderForm, preserveLines)) {
-      return orderFormToCart(
-        orderForm,
-        skuLoader,
-        shouldSplitItem,
-        adoptedSalesChannel,
-        preserveLines
-      )
-    }
-
-    return cartWhenSalesChannelAdoptedOrNull(
+    return cartWhenItemsUnchanged(
+      order,
       orderForm,
       skuLoader,
       shouldSplitItem,
