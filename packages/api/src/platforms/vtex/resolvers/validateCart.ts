@@ -216,7 +216,7 @@ const equals = (
 
   const orderFormItems = orderForm.items
     .map(preserveLines ? orderFormItemToLineOffer : orderFormItemToOffer)
-    .map(pick)
+    .map((item, index) => pick(item, index))
   const storeOrderItems = storeOrder.acceptedOffer.map(pick)
 
   const isSameOrder = storeOrder.orderNumber === orderForm.orderFormId
@@ -603,6 +603,81 @@ const cartWhenSalesChannelAdoptedOrNull = (
   )
 }
 
+/** Item changes that bring the orderForm in line with the browser cart. */
+const getItemChanges = (
+  acceptedOffer: IStoreOffer[],
+  orderForm: OrderForm,
+  preserveLines: boolean
+) => {
+  // Step2: Process items from both browser and checkout so they have the same shape
+  const originOffers = orderForm.items.map(
+    preserveLines ? orderFormItemToLineOffer : orderFormItemToOffer
+  )
+  const browserItemsById = groupById(
+    preserveLines
+      ? assignCheckoutLines(acceptedOffer, originOffers, orderForm.items)
+      : acceptedOffer.map(withoutLine)
+  )
+  const originItemsById = groupById(originOffers)
+  const originItems = Array.from(originItemsById.entries()) // items on the VTEX platform backend
+  const browserItems = Array.from(browserItemsById.entries()) // items on the user's browser
+
+  // Step3: Compute delta changes
+  const { itemsToAdd, itemsToUpdate } = browserItems.reduce(
+    (acc, [id, items]) => {
+      const maybeOriginItem = originItemsById.get(id)
+
+      // Adding new items to cart
+      if (!maybeOriginItem) {
+        items.forEach((item) => acc.itemsToAdd.push(item))
+
+        return acc
+      }
+
+      // Update existing items
+      const [head, ...tail] = maybeOriginItem
+
+      // With preserveCartLines, look at this line only: a unit of the same SKU
+      // that has no services must still accept quantity edits.
+      const isAssembly = preserveLines
+        ? isAssemblyLine(orderForm.items, (head as Indexed<IStoreOffer>).index)
+        : hasParentItem(orderForm.items, head.itemOffered.sku) ||
+          hasChildItem(orderForm.items, head.itemOffered.sku)
+
+      if (isAssembly) {
+        acc.itemsToUpdate.push(head)
+
+        return acc
+      }
+
+      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
+
+      // set total quantity to first item
+      acc.itemsToUpdate.push({
+        ...head,
+        quantity: totalQuantity,
+      })
+
+      // Remove all the rest
+      tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
+
+      return acc
+    },
+    {
+      itemsToAdd: [] as IStoreOffer[],
+      itemsToUpdate: [] as IStoreOffer[],
+    }
+  )
+
+  const itemsToDelete = originItems
+    .filter(([id]) => !browserItemsById.has(id))
+    .flatMap(([, items]) => items.map((item) => ({ ...item, quantity: 0 })))
+
+  return [...itemsToAdd, ...itemsToUpdate, ...itemsToDelete].map(
+    offerToOrderItemInput
+  )
+}
+
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
@@ -721,73 +796,7 @@ export const validateCart = async (
     !isUrlSalesChannel
   )
 
-  // Step2: Process items from both browser and checkout so they have the same shape
-  const originOffers = orderForm.items.map(
-    preserveLines ? orderFormItemToLineOffer : orderFormItemToOffer
-  )
-  const browserItemsById = groupById(
-    preserveLines
-      ? assignCheckoutLines(acceptedOffer, originOffers, orderForm.items)
-      : acceptedOffer.map(withoutLine)
-  )
-  const originItemsById = groupById(originOffers)
-  const originItems = Array.from(originItemsById.entries()) // items on the VTEX platform backend
-  const browserItems = Array.from(browserItemsById.entries()) // items on the user's browser
-
-  // Step3: Compute delta changes
-  const { itemsToAdd, itemsToUpdate } = browserItems.reduce(
-    (acc, [id, items]) => {
-      const maybeOriginItem = originItemsById.get(id)
-
-      // Adding new items to cart
-      if (!maybeOriginItem) {
-        items.forEach((item) => acc.itemsToAdd.push(item))
-
-        return acc
-      }
-
-      // Update existing items
-      const [head, ...tail] = maybeOriginItem
-
-      // With preserveCartLines, look at this line only: a unit of the same SKU
-      // that has no services must still accept quantity edits.
-      const isAssembly = preserveLines
-        ? isAssemblyLine(orderForm.items, (head as Indexed<IStoreOffer>).index)
-        : hasParentItem(orderForm.items, head.itemOffered.sku) ||
-          hasChildItem(orderForm.items, head.itemOffered.sku)
-
-      if (isAssembly) {
-        acc.itemsToUpdate.push(head)
-
-        return acc
-      }
-
-      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
-
-      // set total quantity to first item
-      acc.itemsToUpdate.push({
-        ...head,
-        quantity: totalQuantity,
-      })
-
-      // Remove all the rest
-      tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
-
-      return acc
-    },
-    {
-      itemsToAdd: [] as IStoreOffer[],
-      itemsToUpdate: [] as IStoreOffer[],
-    }
-  )
-
-  const itemsToDelete = originItems
-    .filter(([id]) => !browserItemsById.has(id))
-    .flatMap(([, items]) => items.map((item) => ({ ...item, quantity: 0 })))
-
-  const changes = [...itemsToAdd, ...itemsToUpdate, ...itemsToDelete].map(
-    offerToOrderItemInput
-  )
+  const changes = getItemChanges(acceptedOffer, orderForm, preserveLines)
 
   // Check if shippingData needs to be updated
   const { updateShipping } = session
