@@ -7,7 +7,11 @@ export {
   stringify as stringifyCacheControl,
   type CacheControl,
 } from './directives/cacheControl'
-export { GraphqlVtexContextFactory, GraphqlVtexSchema } from './platforms/vtex'
+export {
+  GraphqlVtexContextFactory,
+  GraphqlVtexSchema,
+  platformTypeDefs,
+} from './platforms/vtex'
 export { typeDefs } from './platforms/vtex/typeDefs'
 export { validateUserAuthentication } from './platforms/vtex/utils/auth'
 export { getAuthCookie } from './platforms/vtex/utils/cookies'

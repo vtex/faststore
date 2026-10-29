@@ -1,7 +1,12 @@
 import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils'
-import { defaultFieldResolver, type GraphQLSchema } from 'graphql'
+import {
+  defaultFieldResolver,
+  type GraphQLFieldResolver,
+  type GraphQLSchema,
+} from 'graphql'
 
 import type { Directive } from './index'
+import { hasAppliedDirective, markAppliedDirective } from './applied'
 
 const NAME = 'cacheControl'
 
@@ -54,11 +59,20 @@ const directive: Directive = {
           | undefined
 
         if (cacheControl) {
+          if (hasAppliedDirective(fieldConfig.resolve, NAME)) {
+            return fieldConfig
+          }
+
           const { sMaxAge, staleWhileRevalidate, scope } = cacheControl
 
           const resolver = fieldConfig.resolve
 
-          fieldConfig.resolve = (obj, args, ctx, info) => {
+          const resolve: GraphQLFieldResolver<any, any> = (
+            obj,
+            args,
+            ctx,
+            info
+          ) => {
             ctx.cacheControl = {
               sMaxAge: min(ctx.cacheControl?.sMaxAge, sMaxAge),
               staleWhileRevalidate: min(
@@ -70,6 +84,8 @@ const directive: Directive = {
 
             return (resolver ?? defaultFieldResolver)(obj, args, ctx, info)
           }
+
+          fieldConfig.resolve = markAppliedDirective(resolve, resolver, NAME)
         }
 
         return fieldConfig

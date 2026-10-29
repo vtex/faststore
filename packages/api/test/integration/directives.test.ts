@@ -4,10 +4,19 @@ import type { GraphQLSchema } from 'graphql'
 import { execute, parse } from 'graphql'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { GraphqlVtexSchema, UnauthorizedError } from '../../src'
+import {
+  GraphqlVtexSchema,
+  UnauthorizedError,
+  platformTypeDefs,
+} from '../../src'
+import { appliedDirectiveCount } from '../../src/directives/applied'
 
 const storeTypeDefs = /* GraphQL */ `
   type ProbeObject {
+    secret: String @auth
+  }
+
+  type ProbeOrder {
     secret: String @auth
   }
 
@@ -19,6 +28,7 @@ const storeTypeDefs = /* GraphQL */ `
       @auth
       @cacheControl(scope: "private", sMaxAge: 7, staleWhileRevalidate: 11)
     probeObject: ProbeObject
+    probeOrders: [ProbeOrder!]!
   }
 `
 
@@ -28,6 +38,11 @@ const storeResolvers = {
     probeCache: vi.fn(() => 'cache-ok'),
     probeAuthCache: vi.fn(() => 'auth-cache-ok'),
     probeObject: vi.fn(() => ({ secret: 'parent-value' })),
+    probeOrders: vi.fn(() => [
+      { secret: 'order-1' },
+      { secret: 'order-2' },
+      { secret: 'order-3' },
+    ]),
   },
 }
 
@@ -36,7 +51,7 @@ const validate = vi.fn()
 /** Builds the final schema the same way `getFinalAPISchema` does in `@faststore/core`. */
 const buildStoreSchema = () => {
   const storeSchema = makeExecutableSchema({
-    typeDefs: mergeTypeDefs([GraphqlVtexSchema(), storeTypeDefs]),
+    typeDefs: mergeTypeDefs([platformTypeDefs, storeTypeDefs]),
     resolvers: storeResolvers,
   })
 
@@ -54,6 +69,7 @@ const createRunner =
       OTEL_ENABLED: false,
       account: 'storeframework',
       headers: {},
+      storage: {},
       clients: { commerce: { vtexid: { validate } } },
     }
 
@@ -138,6 +154,21 @@ describe('directives on store schema extensions', () => {
     })
   })
 
+  test('@auth validates the session once for every protected field in the request', async () => {
+    const { result } = await run(
+      '{ probeAuth validateUser { isValid } probeOrders { secret } }',
+      { authenticated: true }
+    )
+
+    expect(result.errors).toBeUndefined()
+    expect(result.data?.probeOrders).toEqual([
+      { secret: 'order-1' },
+      { secret: 'order-2' },
+      { secret: 'order-3' },
+    ])
+    expect(validate).toHaveBeenCalledTimes(1)
+  })
+
   test('@auth runs before @cacheControl on the same field', async () => {
     const { result, ctx } = await run('{ probeAuthCache }', {
       authenticated: false,
@@ -146,6 +177,27 @@ describe('directives on store schema extensions', () => {
     expect(result.errors?.[0]?.originalError).toBeInstanceOf(UnauthorizedError)
     expect(storeResolvers.Query.probeAuthCache).not.toHaveBeenCalled()
     expect(ctx.cacheControl).toBeUndefined()
+  })
+})
+
+describe('directives already applied on mergeSchema', () => {
+  test('does not wrap a second time', async () => {
+    const schema = GraphqlVtexSchema(GraphqlVtexSchema(buildStoreSchema()))
+    const fields = schema.getQueryType()?.getFields()
+
+    expect(appliedDirectiveCount(fields?.probeAuth.resolve)).toBe(1)
+    expect(appliedDirectiveCount(fields?.probeCache.resolve)).toBe(1)
+    expect(appliedDirectiveCount(fields?.probeAuthCache.resolve)).toBe(2)
+    expect(appliedDirectiveCount(fields?.validateUser.resolve)).toBe(2)
+
+    const { result } = await createRunner(schema)(
+      '{ validateUser { isValid } }',
+      { authenticated: true }
+    )
+
+    expect(result.errors).toBeUndefined()
+    expect(result.data?.validateUser).toEqual({ isValid: true })
+    expect(validate).toHaveBeenCalledTimes(1)
   })
 })
 
