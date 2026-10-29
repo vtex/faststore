@@ -59,16 +59,6 @@ const checkGeoCoordinates = (
   address: CheckoutAddress | null,
   geoCoordinates: IStoreGeoCoordinates | null | undefined
 ) => {
-  // geoCoordinates is optional in the Checkout API and is returned as an empty
-  // array when the address was saved without them (e.g. a full address sent by
-  // a headless checkout). Since Checkout does not geocode those addresses, an
-  // empty value would never match the session and would make validateCart
-  // resend shippingData on every call. Address changes are still detected by
-  // checkPostalCode.
-  if (address && !address.geoCoordinates?.length) {
-    return false
-  }
-
   return (
     typeof geoCoordinates?.latitude === 'number' &&
     typeof geoCoordinates?.longitude === 'number' &&
