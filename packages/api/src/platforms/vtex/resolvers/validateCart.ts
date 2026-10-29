@@ -139,6 +139,23 @@ const withLine = <T extends IStoreOffer>(offer: T, lineId: string): T => ({
   },
 })
 
+/**
+ * A browser cart saved while `preserveCartLines` was on still carries `LINE`
+ * properties after the flag is turned off. They must not split its ids.
+ */
+const withoutLine = <T extends IStoreOffer>(offer: T): T =>
+  offer.itemOffered.additionalProperty?.some(isLine)
+    ? {
+        ...offer,
+        itemOffered: {
+          ...offer.itemOffered,
+          additionalProperty: offer.itemOffered.additionalProperty.filter(
+            (value) => !isLine(value)
+          ),
+        },
+      }
+    : offer
+
 const orderFormItemToLineOffer = (
   item: OrderFormItem,
   index?: number
@@ -174,10 +191,16 @@ const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer[]> =>
     return acc
   }, new Map<string, IStoreOffer[]>())
 
-const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
+const equals = (
+  storeOrder: IStoreOrder,
+  orderForm: OrderForm,
+  preserveLines = false
+) => {
   // Omit priceToken: it exists on the browser payload but not on orderForm items.
   // Compare the service segment explicitly: a browser line claiming a service
-  // Checkout does not have must not be reported as "in sync".
+  // Checkout does not have must not be reported as "in sync". Same for the
+  // Checkout line: a browser holding a `uniqueId` Checkout no longer has must
+  // get the new ids, or its next validation adds that line again.
   const pick = (
     { priceToken: _, ...item }: Indexed<IStoreOffer>,
     index: number
@@ -187,10 +210,13 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
       sku: item.itemOffered.sku,
     },
     services: getServiceSegment(item),
+    line: getLineId(item),
     index,
   })
 
-  const orderFormItems = orderForm.items.map(orderFormItemToOffer).map(pick)
+  const orderFormItems = orderForm.items
+    .map(preserveLines ? orderFormItemToLineOffer : orderFormItemToOffer)
+    .map(pick)
   const storeOrderItems = storeOrder.acceptedOffer.map(pick)
 
   const isSameOrder = storeOrder.orderNumber === orderForm.orderFormId
@@ -702,7 +728,7 @@ export const validateCart = async (
   const browserItemsById = groupById(
     preserveLines
       ? assignCheckoutLines(acceptedOffer, originOffers, orderForm.items)
-      : acceptedOffer
+      : acceptedOffer.map(withoutLine)
   )
   const originItemsById = groupById(originOffers)
   const originItems = Array.from(originItemsById.entries()) // items on the VTEX platform backend
@@ -845,7 +871,7 @@ export const validateCart = async (
   )
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
-  if (equals(order, updatedOrderForm) && equalMessages) {
+  if (equals(order, updatedOrderForm, preserveLines) && equalMessages) {
     return cartWhenSalesChannelAdoptedOrNull(
       updatedOrderForm,
       skuLoader,

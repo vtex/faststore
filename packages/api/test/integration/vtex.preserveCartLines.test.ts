@@ -78,7 +78,11 @@ const mockCheckout = (
     }
 
     if (url === ITEMS_URL) {
-      patches.push(JSON.parse(String(init?.body)))
+      if (typeof init?.body !== 'string') {
+        throw new Error('PATCH /items called without a body')
+      }
+
+      patches.push(JSON.parse(init.body))
       return afterItems
     }
 
@@ -128,20 +132,39 @@ const lineProperty = (uniqueId: string) => ({
 })
 
 /** Browser copy of a Checkout line, as FastStore returned it with the flag on. */
-const browserUnit = (item: OrderFormItem, quantity = item.quantity) => ({
-  ...browserLine({
+const browserUnit = (item: OrderFormItem, quantity = item.quantity) => {
+  const line = browserLine({
     quantity,
-    additionalProperty: [lineProperty(item.uniqueId)] as any,
-  }),
-  itemOffered: {
-    ...browserLine().itemOffered,
-    sku: item.id,
     additionalProperty: [lineProperty(item.uniqueId)],
-  },
-})
+  })
+
+  return { ...line, itemOffered: { ...line.itemOffered, sku: item.id } }
+}
+
+type PropertyValue = ReturnType<typeof lineProperty>
+
+/** Selection of `ValidateCartServicesMutation` these tests read. */
+type AcceptedOffer = {
+  quantity: number
+  itemOffered: { sku: string; additionalProperty: PropertyValue[] }
+}
+
+type ValidateCartData = {
+  validateCart: { order: { acceptedOffer: AcceptedOffer[] } } | null
+}
 
 const acceptedOffer = (response: Awaited<ReturnType<typeof execute>>) =>
-  (response.data?.validateCart as any)?.order?.acceptedOffer as any[]
+  (response.data as ValidateCartData | null | undefined)?.validateCart?.order
+    .acceptedOffer ?? []
+
+const isLineProperty = ({ valueReference }: PropertyValue) =>
+  valueReference === 'LINE'
+
+const lineIdsOf = (offers: AcceptedOffer[]) =>
+  offers.map(
+    ({ itemOffered }) =>
+      itemOffered.additionalProperty.find(isLineProperty)?.propertyID
+  )
 
 describe('`validateCart` without `preserveCartLines` (default)', () => {
   test('still merges units of one SKU into a single line', async () => {
@@ -154,11 +177,9 @@ describe('`validateCart` without `preserveCartLines` (default)', () => {
     const offers = acceptedOffer(response)
     expect(offers).toHaveLength(1)
     expect(offers[0].quantity).toBe(2)
-    expect(
-      offers[0].itemOffered.additionalProperty.some(
-        ({ valueReference }: any) => valueReference === 'LINE'
-      )
-    ).toBe(false)
+    expect(offers[0].itemOffered.additionalProperty.some(isLineProperty)).toBe(
+      false
+    )
   })
 
   test('collapses a manual split when the browser echoes it', async () => {
@@ -171,6 +192,21 @@ describe('`validateCart` without `preserveCartLines` (default)', () => {
       { id: SKU, index: 0, quantity: 2 },
       { id: SKU, index: 1, quantity: 0 },
     ])
+  })
+
+  test('ignores line ids left by a browser cart saved with the flag on', async () => {
+    const run = await createRunner(false)
+    const items = [unit('u1', { quantity: 2 })]
+    const patches = mockCheckout(freshOrderForm(items))
+
+    const response = await run({
+      cart: browserCart([browserUnit(unit('u1')), browserUnit(unit('u2'))]),
+    })
+
+    // Updated in place: not re-added as new lines nor removed.
+    expect(changes(patches[0])).toEqual([{ id: SKU, index: 0, quantity: 2 }])
+    // The browser gets the cart back without the line ids.
+    expect(lineIdsOf(acceptedOffer(response))).toEqual([undefined])
   })
 })
 
@@ -188,13 +224,7 @@ describe('`validateCart` with `preserveCartLines`', () => {
 
       // The browser builds CartItem.id from additionalProperty[].propertyID,
       // so the units get different ids without client changes.
-      const lineIds = offers.map(
-        ({ itemOffered }) =>
-          itemOffered.additionalProperty.find(
-            ({ valueReference }: any) => valueReference === 'LINE'
-          )?.propertyID
-      )
-      expect(lineIds).toEqual(['LINE:u1', 'LINE:u2'])
+      expect(lineIdsOf(offers)).toEqual(['LINE:u1', 'LINE:u2'])
     })
 
     test('echoing the cart keeps both lines and reports it in sync', async () => {
@@ -279,6 +309,24 @@ describe('`validateCart` with `preserveCartLines`', () => {
       const body = JSON.stringify(patches[0])
       expect(body).not.toContain('LINE')
       expect(body).not.toContain('u1')
+    })
+
+    test('returns the cart when Checkout changed a line uniqueId', async () => {
+      const run = await createRunner(true)
+      const items = manualSplit()
+      mockCheckout(
+        freshOrderForm(items),
+        freshOrderForm([items[0], unit('u4')])
+      )
+
+      const response = await run({
+        cart: browserCart(items.map((item) => browserUnit(item))),
+      })
+
+      // Returning null would keep `u2` in the browser, and the next
+      // validation would add it again as a new line.
+      expect(response.errors).toBeUndefined()
+      expect(lineIdsOf(acceptedOffer(response))).toEqual(['LINE:u1', 'LINE:u4'])
     })
   })
 
