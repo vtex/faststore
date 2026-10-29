@@ -1,6 +1,10 @@
+import { mergeTypeDefs } from '@graphql-tools/merge'
 import { mergeSchemas } from '@graphql-tools/schema'
 import { type GraphQLSchema, isSchema } from 'graphql'
-import { withDirectives } from '../../directives'
+import {
+  applyDirectives,
+  executableSchemaWithDirectiveDefinitions,
+} from '../../directives'
 import authDirective from '../../directives/auth'
 import cacheControlDirective from '../../directives/cacheControl'
 import { ResolverTrace } from '../../observability/telemetry'
@@ -44,6 +48,12 @@ export interface GraphqlContext {
       string,
       Promise<import('./clients/catalog').LocalizedProductEntry | null>
     >
+    /**
+     * In-flight shopper validation for this request. Every `@auth` field
+     * awaits the same promise, so a list of protected fields does not call
+     * VTEX ID once per item.
+     */
+    userAuthentication?: Promise<void>
   }
   headers: Record<string, string>
   account: string
@@ -99,19 +109,37 @@ export function getResolvers() {
   return finalResolvers as typeof resolvers
 }
 
+// Array order is the composition order. `auth` stays last so its wrapper is
+// the outermost and runs before `cacheControl` writes a cache policy.
+const directives = [cacheControlDirective, authDirective]
+
+/**
+ * Native type definitions plus the `@auth` and `@cacheControl` definitions,
+ * with no resolvers and no transformers. Use this when only the SDL is
+ * needed (merging a store schema, generating types). `GraphqlVtexSchema`
+ * applies the transformers.
+ */
+export const platformTypeDefs = mergeTypeDefs([
+  ...directives.map((directive) => directive.typeDefs),
+  typeDefs,
+])
+
 export function GraphqlVtexSchema(mergeSchema?: GraphQLSchema) {
-  const withCacheControl = withDirectives([
-    cacheControlDirective,
-    authDirective,
-  ])
+  const platformSchema = executableSchemaWithDirectiveDefinitions(
+    directives,
+    getResolvers(),
+    typeDefs
+  )
 
-  const platformSchema = withCacheControl(getResolvers(), typeDefs)
+  // Directives must be applied once, after merging: transforming the native
+  // schema first leaves store fields unwrapped, and transforming the store
+  // schema first overrides native resolvers with wrappers around nothing.
+  // A mergeSchema whose resolvers are already wrapped is left alone; see
+  // `directives/applied.ts`.
+  const schema =
+    mergeSchema && isSchema(mergeSchema)
+      ? mergeSchemas({ schemas: [platformSchema, mergeSchema] })
+      : platformSchema
 
-  if (mergeSchema && isSchema(mergeSchema)) {
-    return mergeSchemas({
-      schemas: [platformSchema, mergeSchema],
-    })
-  }
-
-  return platformSchema
+  return applyDirectives(schema, directives)
 }

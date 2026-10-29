@@ -31,7 +31,7 @@ export const getWithAppKeyAndToken = () => {
  * Utility function to validate user authentication
  * Centralized validation logic for all account-related resolvers
  */
-export const validateUserAuthentication = async (
+const validateUserAuthenticationOnce = async (
   ctx: GraphqlContext
 ): Promise<void> => {
   const {
@@ -58,4 +58,19 @@ export const validateUserAuthentication = async (
     // For any other error, throw UnauthorizedError as it likely needs token refresh
     throw new UnauthorizedError('Authentication required')
   }
+}
+
+/**
+ * Validates the shopper token once per request. Later `@auth` fields in the
+ * same operation await the promise stored on `ctx.storage`.
+ */
+export const validateUserAuthentication = (
+  ctx: GraphqlContext
+): Promise<void> => {
+  if (!ctx.storage) {
+    return validateUserAuthenticationOnce(ctx)
+  }
+
+  return (ctx.storage.userAuthentication ??=
+    validateUserAuthenticationOnce(ctx))
 }
