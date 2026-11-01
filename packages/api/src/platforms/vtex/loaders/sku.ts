@@ -26,7 +26,9 @@ export const getSkuLoader = ({ flags }: Options, clients: Clients) => {
     const skuBySkuId = products.reduce(
       (acc, product) => {
         for (const sku of product.items) {
-          acc[sku.itemId] = enhanceSku(sku, product)
+          if (skuIds.includes(sku.itemId)) {
+            acc[sku.itemId] = enhanceSku(sku, product)
+          }
         }
 
         return acc
