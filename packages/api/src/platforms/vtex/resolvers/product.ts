@@ -18,6 +18,7 @@ import { bestOfferFirst } from '../utils/productStock'
 import {
   attachmentToPropertyValue,
   attributeToPropertyValue,
+  lineToPropertyValue,
   serviceToPropertyValue,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
@@ -30,6 +31,8 @@ export type Root = QueryProduct & {
   attachmentsValues?: Attachment[]
   /** Services (Checkout `bundleItems`) applied to the cart line; cart context only. */
   servicesValues?: OrderFormBundleItem[]
+  /** Checkout line `uniqueId`; cart context only, with `preserveCartLines`. */
+  lineId?: string
   unitMultiplier: number
 }
 
@@ -286,6 +289,7 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     attachmentsValues = [],
     attributes = [],
     servicesValues = [],
+    lineId,
   }) => {
     const propertyValueSpecifications = specifications.flatMap(
       ({ name, values }) =>
@@ -309,6 +313,7 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
       ...propertyValueAttachments,
       ...propertyValueAttributes,
       ...propertyValueServices,
+      ...(lineId ? [lineToPropertyValue(lineId)] : []),
     ]
   },
   hasSpecifications: ({ isVariantOf }) =>

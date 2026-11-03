@@ -12,6 +12,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
 
 **Note:** Version bump only for package @faststore/api
+# [4.11.0](https://github.com/vtex/faststore/compare/v4.10.3...v4.11.0) (2026-11-03)
+
+
+- **api:** keep the cart when an assembly child SKU is missing from Search ([e0cc89b](https://github.com/vtex/faststore/commit/e0cc89b6c173d115cccd3ddbefb831d5fe8ac547))
+- **api:** let assembly parents follow the browser quantity with preserveCartLines ([c085460](https://github.com/vtex/faststore/commit/c085460920b42acace57058565189e0ab0278853))
+- **api:** return the cart when a Checkout line id changes with preserveCartLines ([2d8ee07](https://github.com/vtex/faststore/commit/2d8ee07c1d79054250bee10aeac356c9d7202411))
+- **api:** stop the validateCart loop when Checkout renews split line ids ([e8b2377](https://github.com/vtex/faststore/commit/e8b2377c4857e23ff744681885ac440cf9f4c75f))
+
+### Features
+
+- **api:** add preserveCartLines flag to keep Checkout cart lines apart ([4151603](https://github.com/vtex/faststore/commit/41516034fd5bee6250b4e5dc0db51a105ceb64a1))
+
+## [4.10.3](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3) (2026-10-29)
+
+
+- **api:** avoid shippingData update loop when orderForm address has no geoCoordinates ([#3554](https://github.com/vtex/faststore/issues/3554)) ([0cea2ce](https://github.com/vtex/faststore/commit/0cea2ce952f97f6572c6ac1f6e9b005cfbaa46ac))
 
 ## [4.10.2](https://github.com/vtex/faststore/compare/v4.10.2-dev.0...v4.10.2) (2026-10-29)
 
