@@ -42,16 +42,35 @@ export default function SearchWrapper({
   })
 
   const redirectUrl = pageProductGalleryData?.redirect?.url
-  const lastRedirectedUrl = useRef<string | null>(null)
+  const lastRedirect = useRef<{ url: string } | null>(null)
 
   // Intelligent Search redirects must run in an effect — calling router.replace
   // during render re-fires on every state update (e.g. scrollRestoration's
   // resetInfiniteScroll) and loops until the tab hangs.
   useEffect(() => {
-    if (!redirectUrl || lastRedirectedUrl.current === redirectUrl) return
+    if (!redirectUrl) {
+      lastRedirect.current = null
+      return
+    }
 
-    lastRedirectedUrl.current = redirectUrl
-    void router.replace(redirectUrl)
+    if (lastRedirect.current?.url === redirectUrl) return
+
+    const redirect = { url: redirectUrl }
+    lastRedirect.current = redirect
+
+    const clearFailedRedirect = () => {
+      // An older navigation must not clear a newer attempt, even to the same URL.
+      if (lastRedirect.current === redirect) {
+        lastRedirect.current = null
+      }
+    }
+
+    router
+      .replace(redirectUrl)
+      .then((completed) => {
+        if (!completed) clearFailedRedirect()
+      })
+      .catch(clearFailedRedirect)
   }, [redirectUrl, router])
 
   const emptySearchProps = storeConfig.experimental.enableSearchSSR
