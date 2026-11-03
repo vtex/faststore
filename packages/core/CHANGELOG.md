@@ -8,6 +8,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 **Note:** Version bump only for package @faststore/core
 
 ## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
+# [4.11.0](https://github.com/vtex/faststore/compare/v4.10.3...v4.11.0) (2026-11-03)
+
+### Features
+
+- **api:** add preserveCartLines flag to keep Checkout cart lines apart ([4151603](https://github.com/vtex/faststore/commit/41516034fd5bee6250b4e5dc0db51a105ceb64a1))
+
+## [4.10.3](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3) (2026-10-29)
 
 **Note:** Version bump only for package @faststore/core
 

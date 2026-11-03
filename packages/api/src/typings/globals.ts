@@ -43,6 +43,14 @@ export interface Options {
 export interface FeatureFlags {
   enableOrderFormSync?: boolean
   enableUnavailableItemsOnCart?: boolean
+  /**
+   * Keep every Checkout cart line as its own FastStore cart line, matched by
+   * the line's `uniqueId`. Use it when Checkout keeps units of one SKU apart
+   * (manual `/split`, assembly options) before they differ in attachments or
+   * services. Off by default: lines are then merged by SKU, seller,
+   * attachments and services, which also merges promotion splits.
+   */
+  preserveCartLines?: boolean
 }
 
 export type Resolver<

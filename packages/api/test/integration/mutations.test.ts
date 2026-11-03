@@ -181,12 +181,14 @@ test('`validateCart` mutation should return the full order when an invalid cart 
 
   const response = await run(ValidateCartMutation, { cart: InvalidCart })
 
-  // When cart is invalid:
+  // The orderForm etag is stale, so Checkout's cart is returned:
   // 1. GET orderForm
-  // 2. PATCH items (update cart items)
-  // 3. PUT customData (set etag after update)
-  // 4. GET product_search (load SKUs)
-  expect(mockedFetch).toHaveBeenCalledTimes(4)
+  // 2. GET product_search x5 (orderForm lines, loaded before the etag is written)
+  // 3. PUT customData (set etag)
+  // 4. GET product_search (lines of the customData response, which this
+  //    fixture returns with different items)
+  // 5. GET saleschannel
+  expect(mockedFetch).toHaveBeenCalledTimes(9)
 
   expect(response).toMatchSnapshot()
 })
