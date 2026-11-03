@@ -18,6 +18,7 @@ import {
   attachmentToPropertyValue,
   getPropertyId,
   getServiceKey,
+  lineToPropertyValue,
   serviceToPropertyValue,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
@@ -51,6 +52,16 @@ const isAttachment = (value: IStorePropertyValue) =>
 const isService = (value: IStorePropertyValue) =>
   value.valueReference === VALUE_REFERENCES.service
 
+const isLine = (value: IStorePropertyValue) =>
+  value.valueReference === VALUE_REFERENCES.line
+
+/** Checkout line (`uniqueId`) the offer mirrors; only with `preserveCartLines`. */
+const getLineId = (item: IStoreOffer) => {
+  const line = item.itemOffered.additionalProperty?.find(isLine)
+
+  return typeof line?.value === 'string' ? line.value : undefined
+}
+
 /** Sorted keys of the services applied to a line; independent of their order. */
 const getServiceKeys = (item: IStoreOffer) =>
   (item.itemOffered.additionalProperty ?? [])
@@ -70,7 +81,8 @@ const getServiceSegment = (item: IStoreOffer) => {
   return keys.length > 0 ? `services:${keys.join('-')}` : undefined
 }
 
-const getId = (item: IStoreOffer) =>
+/** Identity of a line without its Checkout line: what units of a SKU share. */
+const getBaseId = (item: IStoreOffer) =>
   [
     item.itemOffered.sku,
     item.seller.identifier,
@@ -83,6 +95,16 @@ const getId = (item: IStoreOffer) =>
   ]
     .filter(Boolean)
     .join('::')
+
+/**
+ * The Checkout line segment is present only with `preserveCartLines`, so ids
+ * of every other store are unchanged.
+ */
+const getId = (item: IStoreOffer) => {
+  const lineId = getLineId(item)
+
+  return lineId ? `${getBaseId(item)}::line:${lineId}` : getBaseId(item)
+}
 
 const orderFormItemToOffer = (
   item: OrderFormItem,
@@ -104,6 +126,42 @@ const orderFormItemToOffer = (
   index,
 })
 
+const withLine = <T extends IStoreOffer>(offer: T, lineId: string): T => ({
+  ...offer,
+  itemOffered: {
+    ...offer.itemOffered,
+    additionalProperty: [
+      ...(offer.itemOffered.additionalProperty ?? []).filter(
+        (value) => !isLine(value)
+      ),
+      lineToPropertyValue(lineId),
+    ],
+  },
+})
+
+/**
+ * A browser cart saved while `preserveCartLines` was on still carries `LINE`
+ * properties after the flag is turned off. They must not split its ids.
+ */
+const withoutLine = <T extends IStoreOffer>(offer: T): T =>
+  offer.itemOffered.additionalProperty?.some(isLine)
+    ? {
+        ...offer,
+        itemOffered: {
+          ...offer.itemOffered,
+          additionalProperty: offer.itemOffered.additionalProperty.filter(
+            (value) => !isLine(value)
+          ),
+        },
+      }
+    : offer
+
+const orderFormItemToLineOffer = (
+  item: OrderFormItem,
+  index?: number
+): Indexed<IStoreOffer> =>
+  withLine(orderFormItemToOffer(item, index), item.uniqueId)
+
 const offerToOrderItemInput = (
   offer: Indexed<IStoreOffer>
 ): OrderFormInputItem => ({
@@ -120,7 +178,7 @@ const offerToOrderItemInput = (
   ...(offer.priceToken ? { priceToken: offer.priceToken } : {}),
 })
 
-const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer[]> =>
+const groupById = <T extends IStoreOffer>(offers: T[]): Map<string, T[]> =>
   offers.reduce((acc, item) => {
     const id = getId(item)
 
@@ -131,12 +189,18 @@ const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer[]> =>
     acc.get(id)?.push(item)
 
     return acc
-  }, new Map<string, IStoreOffer[]>())
+  }, new Map<string, T[]>())
 
-const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
+const equals = (
+  storeOrder: IStoreOrder,
+  orderForm: OrderForm,
+  preserveLines = false
+) => {
   // Omit priceToken: it exists on the browser payload but not on orderForm items.
   // Compare the service segment explicitly: a browser line claiming a service
-  // Checkout does not have must not be reported as "in sync".
+  // Checkout does not have must not be reported as "in sync". Same for the
+  // Checkout line: a browser holding a `uniqueId` Checkout no longer has must
+  // get the new ids, or its next validation adds that line again.
   const pick = (
     { priceToken: _, ...item }: Indexed<IStoreOffer>,
     index: number
@@ -146,10 +210,13 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
       sku: item.itemOffered.sku,
     },
     services: getServiceSegment(item),
+    line: getLineId(item),
     index,
   })
 
-  const orderFormItems = orderForm.items.map(orderFormItemToOffer).map(pick)
+  const orderFormItems = orderForm.items
+    .map(preserveLines ? orderFormItemToLineOffer : orderFormItemToOffer)
+    .map((item, index) => pick(item, index))
   const storeOrderItems = storeOrder.acceptedOffer.map(pick)
 
   const isSameOrder = storeOrder.orderNumber === orderForm.orderFormId
@@ -173,7 +240,81 @@ function hasParentItem(items: OrderFormItem[], itemId: string) {
   )
 }
 
-const joinItems = (form: OrderForm) => {
+/** A line with assembly option children (by cart index). */
+const isAssemblyParent = (items: OrderFormItem[], index?: number) =>
+  index !== undefined && items.some((item) => item.parentItemIndex === index)
+
+/** An assembly option parent, or one of its children (by cart index). */
+const isAssemblyLine = (items: OrderFormItem[], index?: number) =>
+  index !== undefined &&
+  (items[index]?.parentItemIndex != null || isAssemblyParent(items, index))
+
+/**
+ * With `preserveCartLines`, map each browser line to a Checkout line.
+ *
+ * Checkout gives a line it split off itself (e.g. the unserviced units next to
+ * a serviced one) a new `uniqueId` on every recalculation. A browser line whose
+ * Checkout line is gone takes over a line of the same SKU no browser line
+ * claims, so it is not added again while its replacement is removed.
+ *
+ * A browser line without a Checkout line is a unit the shopper just added. Fold
+ * it into the first Checkout line of the same SKU that is not part of an
+ * assembly, as FastStore does without the flag. If there is none, it stays new
+ * and Checkout adds it as its own line.
+ */
+const assignCheckoutLines = (
+  offers: IStoreOffer[],
+  originOffers: Indexed<IStoreOffer>[],
+  items: OrderFormItem[]
+) => {
+  const originLineIds = new Set(originOffers.map(getLineId))
+  const claimed = new Set(
+    offers.map(getLineId).filter((lineId) => originLineIds.has(lineId))
+  )
+  const isFreeLine = (origin: Indexed<IStoreOffer>, baseId: string) =>
+    getBaseId(origin) === baseId && !isAssemblyLine(items, origin.index)
+
+  const remapped = offers.map((offer) => {
+    const lineId = getLineId(offer)
+
+    if (!lineId || originLineIds.has(lineId)) {
+      return offer
+    }
+
+    const baseId = getBaseId(offer)
+    const target = originOffers.find(
+      (origin) => isFreeLine(origin, baseId) && !claimed.has(getLineId(origin))
+    )
+    const targetLineId = target && getLineId(target)
+
+    if (!targetLineId) {
+      return withoutLine(offer)
+    }
+
+    claimed.add(targetLineId)
+
+    return withLine(offer, targetLineId)
+  })
+
+  return remapped.map((offer) => {
+    if (getLineId(offer)) {
+      return offer
+    }
+
+    const baseId = getBaseId(offer)
+    const target = originOffers.find((origin) => isFreeLine(origin, baseId))
+    const targetLineId = target && getLineId(target)
+
+    return targetLineId ? withLine(offer, targetLineId) : offer
+  })
+}
+
+const joinItems = (form: OrderForm, preserveLines = false) => {
+  // Checkout already decided which units are separate lines: keep them.
+  if (preserveLines) {
+    return form
+  }
+
   const itemsById = form.items.reduce(
     (acc, item, idx) => {
       const id =
@@ -237,7 +378,8 @@ const orderFormToCart = async (
   form: OrderForm,
   skuLoader: GraphqlContext['loaders']['skuLoader'],
   shouldSplitItem?: boolean | null,
-  adoptedSalesChannel?: string | null
+  adoptedSalesChannel?: string | null,
+  preserveLines = false
 ) => {
   return {
     order: {
@@ -245,6 +387,7 @@ const orderFormToCart = async (
       acceptedOffer: form.items.map(async (item) => ({
         ...item,
         product: await loadCartSku(item, skuLoader),
+        ...(preserveLines ? { lineId: item.uniqueId } : {}),
       })),
       shouldSplitItem,
       ...(adoptedSalesChannel ? { salesChannel: adoptedSalesChannel } : {}),
@@ -481,13 +624,144 @@ const cartWhenSalesChannelAdoptedOrNull = (
   form: OrderForm,
   skuLoader: GraphqlContext['loaders']['skuLoader'],
   shouldSplitItem: boolean | null | undefined,
-  adoptedSalesChannel: string | null
+  adoptedSalesChannel: string | null,
+  preserveLines = false
 ) => {
   if (!adoptedSalesChannel) {
     return null
   }
 
-  return orderFormToCart(form, skuLoader, shouldSplitItem, adoptedSalesChannel)
+  return orderFormToCart(
+    form,
+    skuLoader,
+    shouldSplitItem,
+    adoptedSalesChannel,
+    preserveLines
+  )
+}
+
+/**
+ * Cart for a validation that wrote nothing. With `preserveCartLines`, the
+ * browser may still hold Checkout lines renewed meanwhile: hand it the current
+ * ones, or its next validation would not find them.
+ */
+const cartWhenItemsUnchanged = (
+  order: IStoreOrder,
+  form: OrderForm,
+  skuLoader: GraphqlContext['loaders']['skuLoader'],
+  shouldSplitItem: boolean | null | undefined,
+  adoptedSalesChannel: string | null,
+  preserveLines: boolean
+) => {
+  if (preserveLines && !equals(order, form, preserveLines)) {
+    return orderFormToCart(
+      form,
+      skuLoader,
+      shouldSplitItem,
+      adoptedSalesChannel,
+      preserveLines
+    )
+  }
+
+  return cartWhenSalesChannelAdoptedOrNull(
+    form,
+    skuLoader,
+    shouldSplitItem,
+    adoptedSalesChannel,
+    preserveLines
+  )
+}
+
+/** Item changes that bring the orderForm in line with the browser cart. */
+const getItemChanges = (
+  acceptedOffer: IStoreOffer[],
+  orderForm: OrderForm,
+  preserveLines: boolean
+) => {
+  // Step2: Process items from both browser and checkout so they have the same shape
+  const originOffers = orderForm.items.map(
+    preserveLines ? orderFormItemToLineOffer : orderFormItemToOffer
+  )
+  const browserItemsById = groupById(
+    preserveLines
+      ? assignCheckoutLines(acceptedOffer, originOffers, orderForm.items)
+      : acceptedOffer.map(withoutLine)
+  )
+  const originItemsById = groupById(originOffers)
+  const originItems = Array.from(originItemsById.entries()) // items on the VTEX platform backend
+  const browserItems = Array.from(browserItemsById.entries()) // items on the user's browser
+
+  // Step3: Compute delta changes
+  const { itemsToAdd, itemsToUpdate } = browserItems.reduce(
+    (acc, [id, items]) => {
+      const maybeOriginItem = originItemsById.get(id)
+
+      // Adding new items to cart
+      if (!maybeOriginItem) {
+        items.forEach((item) => acc.itemsToAdd.push(item))
+
+        return acc
+      }
+
+      // Update existing items
+      const [head, ...tail] = maybeOriginItem
+
+      // With preserveCartLines, look at this line only: a unit of the same SKU
+      // that has no services must still accept quantity edits.
+      const isAssembly = preserveLines
+        ? isAssemblyLine(orderForm.items, head.index)
+        : hasParentItem(orderForm.items, head.itemOffered.sku) ||
+          hasChildItem(orderForm.items, head.itemOffered.sku)
+
+      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
+
+      // An assembly parent follows the shopper's quantity, as on Checkout,
+      // which scales its children along. Children keep Checkout's quantity.
+      if (isAssembly) {
+        acc.itemsToUpdate.push(
+          preserveLines && isAssemblyParent(orderForm.items, head.index)
+            ? { ...head, quantity: totalQuantity }
+            : head
+        )
+
+        return acc
+      }
+
+      // set total quantity to first item
+      acc.itemsToUpdate.push({
+        ...head,
+        quantity: totalQuantity,
+      })
+
+      // Remove all the rest
+      tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
+
+      return acc
+    },
+    {
+      itemsToAdd: [] as Indexed<IStoreOffer>[],
+      itemsToUpdate: [] as Indexed<IStoreOffer>[],
+    }
+  )
+
+  const itemsToDelete = originItems
+    .filter(([id]) => !browserItemsById.has(id))
+    .flatMap(([, items]) => items.map((item) => ({ ...item, quantity: 0 })))
+
+  // Any items write makes Checkout recalculate, which renews the `uniqueId` of
+  // lines it split off itself. With preserveCartLines, writing lines that did
+  // not change would hand the browser new ids on every validation, forever.
+  const changedItems = preserveLines
+    ? itemsToUpdate.filter(
+        (item) =>
+          item.index === undefined ||
+          orderForm.items[item.index]?.quantity !== item.quantity
+      )
+    : itemsToUpdate
+
+  return [...itemsToAdd, ...changedItems, ...itemsToDelete].map(
+    offerToOrderItemInput
+  )
 }
 
 /**
@@ -516,6 +790,7 @@ export const validateCart = async (
     clients: { commerce },
     loaders: { skuLoader },
   } = ctx
+  const preserveLines = Boolean(ctx.storage.flags?.preserveCartLines)
 
   const channel = session?.channel
   const locale = session?.locale
@@ -586,13 +861,14 @@ export const validateCart = async (
       orderForm,
       commerce,
       sessionJwt
-    ).then(joinItems)
+    ).then((form) => joinItems(form, preserveLines))
     if (orderNumber) {
       return orderFormToCart(
         newOrderForm,
         skuLoader,
         shouldSplitItem,
-        adoptedSalesChannel
+        adoptedSalesChannel,
+        preserveLines
       )
     }
   }
@@ -606,62 +882,7 @@ export const validateCart = async (
     !isUrlSalesChannel
   )
 
-  // Step2: Process items from both browser and checkout so they have the same shape
-  const browserItemsById = groupById(acceptedOffer)
-  const originItemsById = groupById(orderForm.items.map(orderFormItemToOffer))
-  const originItems = Array.from(originItemsById.entries()) // items on the VTEX platform backend
-  const browserItems = Array.from(browserItemsById.entries()) // items on the user's browser
-
-  // Step3: Compute delta changes
-  const { itemsToAdd, itemsToUpdate } = browserItems.reduce(
-    (acc, [id, items]) => {
-      const maybeOriginItem = originItemsById.get(id)
-
-      // Adding new items to cart
-      if (!maybeOriginItem) {
-        items.forEach((item) => acc.itemsToAdd.push(item))
-
-        return acc
-      }
-
-      // Update existing items
-      const [head, ...tail] = maybeOriginItem
-
-      if (
-        hasParentItem(orderForm.items, head.itemOffered.sku) ||
-        hasChildItem(orderForm.items, head.itemOffered.sku)
-      ) {
-        acc.itemsToUpdate.push(head)
-
-        return acc
-      }
-
-      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
-
-      // set total quantity to first item
-      acc.itemsToUpdate.push({
-        ...head,
-        quantity: totalQuantity,
-      })
-
-      // Remove all the rest
-      tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
-
-      return acc
-    },
-    {
-      itemsToAdd: [] as IStoreOffer[],
-      itemsToUpdate: [] as IStoreOffer[],
-    }
-  )
-
-  const itemsToDelete = originItems
-    .filter(([id]) => !browserItemsById.has(id))
-    .flatMap(([, items]) => items.map((item) => ({ ...item, quantity: 0 })))
-
-  const changes = [...itemsToAdd, ...itemsToUpdate, ...itemsToDelete].map(
-    offerToOrderItemInput
-  )
+  const changes = getItemChanges(acceptedOffer, orderForm, preserveLines)
 
   // Check if shippingData needs to be updated
   const { updateShipping } = session
@@ -671,11 +892,13 @@ export const validateCart = async (
   // If there are no item/shipping changes: still return the cart when we
   // adopted the orderForm SC so the client can align `fs::session`.
   if (changes.length === 0 && !updateShipping) {
-    return cartWhenSalesChannelAdoptedOrNull(
+    return cartWhenItemsUnchanged(
+      order,
       orderForm,
       skuLoader,
       shouldSplitItem,
-      adoptedSalesChannel
+      adoptedSalesChannel,
+      preserveLines
     )
   }
 
@@ -736,7 +959,7 @@ export const validateCart = async (
     })
     // update orderForm etag so we know last time we touched this orderForm
     .then((form: OrderForm) => setOrderFormEtag(form, commerce, sessionJwt))
-    .then(joinItems)
+    .then((form) => joinItems(form, preserveLines))
 
   const equalMessages = deepEquals(
     orderForm.messages,
@@ -744,12 +967,13 @@ export const validateCart = async (
   )
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
-  if (equals(order, updatedOrderForm) && equalMessages) {
+  if (equals(order, updatedOrderForm, preserveLines) && equalMessages) {
     return cartWhenSalesChannelAdoptedOrNull(
       updatedOrderForm,
       skuLoader,
       shouldSplitItem,
-      adoptedSalesChannel
+      adoptedSalesChannel,
+      preserveLines
     )
   }
 
@@ -758,6 +982,7 @@ export const validateCart = async (
     updatedOrderForm,
     skuLoader,
     shouldSplitItem,
-    adoptedSalesChannel
+    adoptedSalesChannel,
+    preserveLines
   )
 }
