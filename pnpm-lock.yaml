@@ -492,6 +492,9 @@ importers:
       "@types/jest":
         specifier: 29.1.0
         version: 29.1.0
+      "@types/react-dom":
+        specifier: 18.2.21
+        version: 18.2.21
       axe-core:
         specifier: ^4.8.1
         version: 4.9.1
