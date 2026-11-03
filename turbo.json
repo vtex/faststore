@@ -5,7 +5,8 @@
     "NODE_ENV",
     "DISABLE_3P_SCRIPTS",
     "CMS_DATA",
-    "DISCOVERY_DEBUG"
+    "DISCOVERY_DEBUG",
+    "CI_NODE_VERSION"
   ],
   "tasks": {
     "site#build": {
