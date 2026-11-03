@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.11.1-dev.0](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1-dev.0) (2026-11-03)
+
+## [4.10.3-dev.1](https://github.com/vtex/faststore/compare/v4.10.3-dev.0...v4.10.3-dev.1) (2026-10-29)
+
+## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
+
+### Bug Fixes
+
+- **api:** avoid shippingData update loop when orderForm address has no geoCoordinates ([0f883a1](https://github.com/vtex/faststore/commit/0f883a14f6fe2d047cb64083f200577f441237af))
+
 ## [4.10.3-dev.1](https://github.com/vtex/faststore/compare/v4.10.3-dev.0...v4.10.3-dev.1) (2026-10-29)
 
 ### Bug Fixes
@@ -12,8 +22,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
 
 **Note:** Version bump only for package @faststore/api
-# [4.11.0](https://github.com/vtex/faststore/compare/v4.10.3...v4.11.0) (2026-11-03)
 
+# [4.11.0](https://github.com/vtex/faststore/compare/v4.10.3...v4.11.0) (2026-11-03)
 
 - **api:** keep the cart when an assembly child SKU is missing from Search ([e0cc89b](https://github.com/vtex/faststore/commit/e0cc89b6c173d115cccd3ddbefb831d5fe8ac547))
 - **api:** let assembly parents follow the browser quantity with preserveCartLines ([c085460](https://github.com/vtex/faststore/commit/c085460920b42acace57058565189e0ab0278853))
@@ -25,7 +35,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **api:** add preserveCartLines flag to keep Checkout cart lines apart ([4151603](https://github.com/vtex/faststore/commit/41516034fd5bee6250b4e5dc0db51a105ceb64a1))
 
 ## [4.10.3](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3) (2026-10-29)
-
 
 - **api:** avoid shippingData update loop when orderForm address has no geoCoordinates ([#3554](https://github.com/vtex/faststore/issues/3554)) ([0cea2ce](https://github.com/vtex/faststore/commit/0cea2ce952f97f6572c6ac1f6e9b005cfbaa46ac))
 
