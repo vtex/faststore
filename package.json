@@ -27,7 +27,7 @@
   },
   "version": "0.0.0",
   "volta": {
-    "node": "24.13.0",
+    "node": "22.23.4",
     "yarn": "1.19.1"
   },
   "dependencies": {},
