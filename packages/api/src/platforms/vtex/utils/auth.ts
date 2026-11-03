@@ -71,6 +71,7 @@ export const validateUserAuthentication = (
     return validateUserAuthenticationOnce(ctx)
   }
 
-  return (ctx.storage.userAuthentication ??=
-    validateUserAuthenticationOnce(ctx))
+  ctx.storage.userAuthentication ??= validateUserAuthenticationOnce(ctx)
+
+  return ctx.storage.userAuthentication
 }
