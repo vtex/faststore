@@ -1,5 +1,5 @@
 import { saveFile } from './file'
-import { GraphqlVtexSchema } from '@faststore/api'
+import { platformTypeDefs } from '@faststore/api'
 import {
   generate as codegenGenerate,
   type CodegenConfig,
@@ -174,7 +174,9 @@ export function resolveStoreRoot(rootPath: string) {
 }
 
 async function generateSchemaFile(rootPath: string) {
-  const faststoreSchema = printSchemaWithDirectives(GraphqlVtexSchema())
+  const faststoreSchema = printSchemaWithDirectives(
+    buildASTSchema(platformTypeDefs)
+  )
 
   const getMergedSchema = async () => {
     const root = resolveStoreRoot(rootPath)
