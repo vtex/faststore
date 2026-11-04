@@ -142,7 +142,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.100.9
+        specifier: ^3.100.10
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -11087,6 +11087,7 @@ packages:
         integrity: sha512-ahwimsC23ICE4kPl9xTBjKB4inbRaeLyZeRunC/1Jy/Z6X8tv22MEAjK+KBOMSVLaqXPTTmd8638waVIKLGx2w==,
       }
     engines: { node: ">=8.0.0" }
+    deprecated: Renamed to @heroku/http-call — please install @heroku/http-call instead.
 
   http-errors@1.8.0:
     resolution:

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.10](https://github.com/vtex/faststore/compare/v3.100.9...v3.100.10) (2026-11-04)
+
+### Bug Fixes
+
+- prevent IS redirect hang in 3.x ([#3538](https://github.com/vtex/faststore/issues/3538)) ([8b30c48](https://github.com/vtex/faststore/commit/8b30c4868f2e38cb61ab5c15494e17015395b273)), closes [#3437](https://github.com/vtex/faststore/issues/3437) [#3437](https://github.com/vtex/faststore/issues/3437) [#3437](https://github.com/vtex/faststore/issues/3437)
+
 ## [3.100.9](https://github.com/vtex/faststore/compare/v3.100.8...v3.100.9) (2026-10-28)
 
 **Note:** Version bump only for package @faststore/core
