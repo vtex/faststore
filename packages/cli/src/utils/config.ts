@@ -30,6 +30,53 @@ export function isMyAccountEnabled(config?: MyAccountConfig | null): boolean {
 }
 
 /**
+ * Minimal config shape consumed when deciding which native sections to hide
+ * from the CMS Admin section picker.
+ */
+type DisabledSectionsConfig = {
+  contentSource?: {
+    disabledSections?: unknown
+  }
+}
+
+/**
+ * Section names listed in `contentSource.disabledSections` of the store config.
+ * `cms-sync` hides them from the CMS Admin section picker (legacy `name` in
+ * sections.json, CP `$componentKey`). Non-string and empty entries are ignored
+ * with a warning and duplicates are removed. Defaults to an empty list when
+ * absent, or with a warning when the value is not an array.
+ */
+export function getDisabledSections(
+  config?: DisabledSectionsConfig | null
+): string[] {
+  const disabledSections = config?.contentSource?.disabledSections
+
+  if (disabledSections === undefined || disabledSections === null) {
+    return []
+  }
+
+  if (!Array.isArray(disabledSections)) {
+    logger.warn(
+      `${chalk.yellow('warning')} - contentSource.disabledSections must be an array of section names. Ignoring ${JSON.stringify(disabledSections)}.`
+    )
+    return []
+  }
+
+  const names = disabledSections.filter(
+    (name): name is string => typeof name === 'string' && name.length > 0
+  )
+
+  if (names.length !== disabledSections.length) {
+    const invalid = disabledSections.filter((name) => !names.includes(name))
+    logger.warn(
+      `${chalk.yellow('warning')} - contentSource.disabledSections must only contain non-empty strings. Ignoring ${invalid.map((name) => JSON.stringify(name)).join(', ')}.`
+    )
+  }
+
+  return Array.from(new Set(names))
+}
+
+/**
  * Resolves the store's contentSource.type to a supported CMS flow.
  * Absent or CMS → legacy Headless CMS; CP → Content Platform schema publish.
  */

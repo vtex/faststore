@@ -109,6 +109,17 @@ FastStore currently supports two CMS content sources. The flow depends on which 
 2. For new content types, add them to `cms/faststore/content-types.json`
 3. Run `pnpm faststore cms-sync` to push changes to the CMS
 
+To hide native sections from the CMS Admin section picker, list their names in the store's `discovery.config.js`:
+
+```js
+contentSource: {
+  type: 'CMS',
+  disabledSections: ['Hero', 'Newsletter'],
+},
+```
+
+`cms-sync` removes them from the generated `.faststore/cms/<project>/sections.json` after the plugin and store sections are merged, so disabling a section wins over overriding it. Names that match no section are logged as warnings. The storefront still renders these sections, so published content that uses them keeps working. The CMS Admin, however, may reject or drop such a section when a page that contains it is edited and saved, so remove a section from existing pages before disabling it.
+
 #### CMS (new)
 
 Schemas are defined as individual `.jsonc` files instead of a single `sections.json`.
@@ -136,6 +147,8 @@ yarn cms-sync
 Before running anything in CP mode, `cms-sync` checks that the `vtex` toolbelt is installed and that you are logged into your store's account (`api.storeId` in `discovery.config.js`); otherwise it stops with a hint to run `vtex login <account>` / `vtex switch <account>`. The toolbelt is interactive: `generate-schema` asks you to confirm when one of your definitions overrides a base one, and `upload-schema` asks for the version to publish — answer the prompts in your terminal.
 
 If `experimental.enableFaststoreMyAccount` is enabled, `cms-sync` also merges the core My Account schemas (shipped in `@faststore/core`) into the generated schema. These schemas are intentionally excluded from the published base schema (so they are not in the Schema Registry). The command performs a file-level merge of the core My Account JSONC with your own `cms/faststore/{components,pages}` into a temporary staging directory under your store's `.faststore/` (your files override core on name collision), runs a single `generate-schema`/`upload-schema` over it, announces the merge, and removes the staging directory afterwards.
+
+`contentSource.disabledSections` also works in CP mode, using each component's `$componentKey` (for example `['Hero', 'Newsletter']`). The base schema allows every component in every content-type, so `cms-sync` stages an override of each core content-type whose `sections` lists every core, My Account and store component except the disabled ones. Your own content-types that use `$ALLOW_ALL_COMPONENTS` (directly, or by extending `base-page-template` without declaring `sections`) are restricted the same way, and your definition of a core content-type still wins over the generated one. Content-types that declare their own `sections` list are not changed. `generate-schema` asks you to confirm overriding the core content-types. These overrides are built from the installed `@faststore/core`, so the core content-types become part of your store's schema: run `cms-sync` again after upgrading `@faststore/core` to pick up its content-type changes. `cms-sync` stops with an error if a schema file cannot be parsed (including files saved with a UTF-8 BOM), instead of silently dropping a section. Existing pages that use a disabled section behave as described for the legacy flow above.
 
 **FastStore Core team** (publishing the base schema with the core layer):
 
