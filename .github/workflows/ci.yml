@@ -11,9 +11,14 @@ jobs:
     name: FastStore
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20, 22]
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      CI_NODE_VERSION: ${{ matrix.node-version }}
 
     steps:
       - name: Check out code
@@ -29,7 +34,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: pnpm i
@@ -47,6 +52,7 @@ jobs:
         run: pnpm test
 
       - name: Publish to Chromatic
+        if: matrix.node-version == 22
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
