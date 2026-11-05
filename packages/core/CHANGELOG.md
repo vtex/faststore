@@ -23,6 +23,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
 
+## [4.11.1](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1) (2026-11-05)
+
+
 # [4.11.0](https://github.com/vtex/faststore/compare/v4.10.3...v4.11.0) (2026-11-03)
 
 ### Features

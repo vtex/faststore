@@ -56,7 +56,6 @@ export type Scalars = {
    */
   FormattedVariants: { input: any; output: any; }
   JSONObject: { input: any; output: any; }
-  /** A string or the string representation of an object (a stringified object). */
   ObjectOrString: { input: any; output: any; }
   /**
    * Example:

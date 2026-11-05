@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [4.11.1-dev.1](https://github.com/vtex/faststore/compare/v4.11.1-dev.0...v4.11.1-dev.1) (2026-11-04)
+## [4.11.1](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1) (2026-11-05)
+
+**Note:** Version bump only for package @faststore/sdk
+
+# [4.11.0](https://github.com/vtex/faststore/compare/v4.10.3...v4.11.0) (2026-11-03)
 
 **Note:** Version bump only for package @faststore/sdk
 
