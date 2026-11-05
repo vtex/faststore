@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.11.1](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1) (2026-11-05)
+
+### Bug Fixes
+
+- align My Account CLI templates with the isB2BBuyer prop ([7c38ff2](https://github.com/vtex/faststore/commit/7c38ff26a432f6cb511923c5a99c08abf4b4375b))
+
 # [4.11.0](https://github.com/vtex/faststore/compare/v4.10.3...v4.11.0) (2026-11-03)
 
 ### Bug Fixes
