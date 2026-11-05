@@ -469,6 +469,14 @@ import { Layout } from "@faststore/core"; // in other packages
 - Follows Conventional Commits for changelogs
 - Semantic versioning
 
+## Cursor Cloud specific instructions
+
+- Node `>=20` (`engines` in the packages). CI pins `24.13.0`. The default image Node 22 is enough. Activate the pinned package manager with `corepack enable` and `corepack prepare pnpm@10.28.0 --activate` (`packageManager` in the root `package.json`).
+- Bootstrap with `pnpm install --frozen-lockfile`, then `pnpm build`. Library packages import `dist/`, and `@faststore/core` codegen depends on a built `@faststore/cli`. `pnpm test` and `pnpm lint` are the CI checks. No VTEX secrets are required for unit tests, the CLI, Storybook, or the default `storeframework` storefront.
+- pnpm 10 does not run dependency lifecycle scripts unless they are allowlisted. Optional platform packages (esbuild, swc) still install, and `pnpm build` succeeds without approving scripts. `sharp@0.32.6` will not download its binary until that script is approved.
+- Long-running dev servers: Storybook is `pnpm --filter @faststore/storybook exec storybook dev -p 6006 --host 0.0.0.0` (http://127.0.0.1:6006). The reference storefront is `pnpm turbo run dev --filter=@faststore/core` (http://127.0.0.1:3000; the script runs GraphQL codegen, then Next.js). Health check: `GET /api/health/live`. A real catalog call is `POST /api/graphql` with `search(first: 3, term: "mouse")`.
+- Homepage and search render against the public VTEX account in `packages/core/discovery.config.default.js`. Product detail routes (`/[slug]/p`) currently return 500 in dev because `getStaticProps` passes `settings: cmsPage.settings` and CMS `settings` is `undefined`, which Next.js cannot serialize. That is an application bug, not a missing secret or install step.
+
 ---
 
 **Maintained by:** FS Discovery Team
