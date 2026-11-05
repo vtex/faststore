@@ -7,6 +7,7 @@ import {
   isValidLocale,
 } from 'src/utils/localization/bindingPaths'
 
+import { CspService } from './server/csp'
 import { PasswordProtectionService } from './server/password-protection-service'
 
 type RewriteRule = {
@@ -42,6 +43,8 @@ function generateRewriteRules(): RewriteRule[] {
 const DATA_ROUTE_RE = /^\/_next\/data\/[^/]+\/([^/]+)\/(.+)$/
 
 const rewriteRules = generateRewriteRules()
+// One instance per process: it holds the last built CSP headers.
+const cspService = new CspService()
 const subdomainBindings = getSubdomainBindings()
 const shouldValidateHostname = process.env.NODE_ENV === 'production'
 const validLocales = new Set(
@@ -206,6 +209,10 @@ export async function proxy(request: NextRequest) {
   for (const cookie of storeProtectionResult.response.cookies.getAll()) {
     response.cookies.set(cookie)
   }
+
+  // Pass-through branch only: never on the unlock redirect or on errors.
+  // Fails open, so it never throws.
+  await cspService.apply(response, storeConfig.api.storeId)
 
   return response
 }
