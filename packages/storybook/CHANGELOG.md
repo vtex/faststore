@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.11](https://github.com/vtex/faststore/compare/v3.100.10...v3.100.11) (2026-11-05)
+
+**Note:** Version bump only for package @faststore/storybook
+
 ## [3.99.5](https://github.com/vtex/faststore/compare/v3.99.4...v3.99.5) (2026-05-15)
 
 **Note:** Version bump only for package @faststore/storybook

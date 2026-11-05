@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.11](https://github.com/vtex/faststore/compare/v3.100.10...v3.100.11) (2026-11-05)
+
+### Bug Fixes
+
+- **core:** bump sharp to 0.35.5 ([227f566](https://github.com/vtex/faststore/commit/227f566d630ebf8e46ad110fc87bfec37208dbb1))
+
 ## [3.100.10](https://github.com/vtex/faststore/compare/v3.100.9...v3.100.10) (2026-11-04)
 
 ### Bug Fixes
