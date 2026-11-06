@@ -250,8 +250,6 @@ export const getStaticProps: GetStaticProps<
       type: 'plp',
       key: slug,
     },
-    // ISR window for the PLP, mirroring the PDP's `experimental.revalidate`.
-    // Without it the first page of products is frozen until the next deploy.
     revalidate:
       (storeConfig as StoreConfig).experimental.revalidatePLP ?? false,
   }
