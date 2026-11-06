@@ -31,9 +31,9 @@ export const isSearchSort = (x: string): x is SearchSort =>
   sortKeys.has(x as any) || customSortKeys.has(x)
 
 export const removeFacet = (facets: Facet[], facet: Facet): Facet[] => {
-  const { value } = facet
+  const { key, value } = facet
 
-  const index = facets.findIndex((x) => x.value === value)
+  const index = facets.findIndex((x) => x.key === key && x.value === value)
 
   if (index < 0) {
     throw new SDKError(`Cannot remove ${value} from search params`)
