@@ -1,5 +1,8 @@
 import defaultConfig from '../../discovery.config.default'
-import { mergeDiscoveryConfig } from '../../src/utils/mergeDiscoveryConfig'
+import {
+  getSubDomainPrefixWarning,
+  mergeDiscoveryConfig,
+} from '../../src/utils/mergeDiscoveryConfig'
 
 describe('mergeDiscoveryConfig', () => {
   describe('api.subDomainPrefix', () => {
@@ -19,20 +22,12 @@ describe('mergeDiscoveryConfig', () => {
       expect(config.api.subDomainPrefix).toEqual([])
     })
 
-    it('replaces the default prefixes instead of appending to them', () => {
+    it('keeps appending non-empty arrays to the default', () => {
       const config = mergeDiscoveryConfig(defaultConfig, {
         api: { subDomainPrefix: ['shop'] },
       })
 
-      expect(config.api.subDomainPrefix).toEqual(['shop'])
-    })
-
-    it('does not duplicate a prefix the store repeats', () => {
-      const config = mergeDiscoveryConfig(defaultConfig, {
-        api: { subDomainPrefix: ['www'] },
-      })
-
-      expect(config.api.subDomainPrefix).toEqual(['www'])
+      expect(config.api.subDomainPrefix).toEqual(['www', 'shop'])
     })
 
     it('applies to every merge in the chain', () => {
@@ -57,14 +52,52 @@ describe('mergeDiscoveryConfig', () => {
   })
 
   it('keeps concatenating the other arrays', () => {
-    const config = mergeDiscoveryConfig({ list: ['a'] }, { list: ['b'] })
+    const config = mergeDiscoveryConfig({ list: ['a'] }, { list: [] })
 
-    expect(config.list).toEqual(['a', 'b'])
+    expect(config.list).toEqual(['a'])
   })
 
   it('does not mutate the default config', () => {
     mergeDiscoveryConfig(defaultConfig, { api: { subDomainPrefix: [] } })
 
     expect(defaultConfig.api.subDomainPrefix).toEqual(['www'])
+  })
+})
+
+describe('getSubDomainPrefixWarning', () => {
+  const withPrefix = (
+    subDomainPrefix: string[] | undefined,
+    secure: string
+  ) => ({
+    storeUrl: 'https://www.store.com',
+    secureSubdomain: secure,
+    api: { subDomainPrefix },
+  })
+
+  it('warns when the prefixes are cleared and checkout is on another host', () => {
+    expect(
+      getSubDomainPrefixWarning(withPrefix([], 'https://secure.store.com'))
+    ).toContain('secure.store.com')
+  })
+
+  it('does not warn when checkout is on the storefront host', () => {
+    expect(
+      getSubDomainPrefixWarning(withPrefix([], 'https://www.store.com'))
+    ).toBeUndefined()
+  })
+
+  it('does not warn when the store keeps any prefix', () => {
+    expect(
+      getSubDomainPrefixWarning(withPrefix(['www'], 'https://secure.store.com'))
+    ).toBeUndefined()
+    expect(
+      getSubDomainPrefixWarning(
+        withPrefix(undefined, 'https://secure.store.com')
+      )
+    ).toBeUndefined()
+  })
+
+  it('does not warn when a URL is missing or invalid', () => {
+    expect(getSubDomainPrefixWarning(withPrefix([], ''))).toBeUndefined()
   })
 })

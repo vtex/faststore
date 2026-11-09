@@ -1,6 +1,12 @@
 // @ts-check
 const path = require('path')
 const storeConfig = require('./discovery.config')
+const {
+  getSubDomainPrefixWarning,
+} = require('./src/utils/mergeDiscoveryConfig')
+
+const subDomainPrefixWarning = getSubDomainPrefixWarning(storeConfig)
+if (subDomainPrefixWarning) console.warn(subDomainPrefixWarning)
 
 /**
  * @type {import('next').NextConfig}
