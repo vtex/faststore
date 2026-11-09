@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.12](https://github.com/vtex/faststore/compare/v3.100.11...v3.100.12) (2026-11-09)
+
+### Bug Fixes
+
+- **core:** let the store config override api.subDomainPrefix ([3a7fc56](https://github.com/vtex/faststore/commit/3a7fc56c82d948a96cf7caaf30ceeeb9e06a2f17))
+- **core:** move the subDomainPrefix warning to its own module ([1089003](https://github.com/vtex/faststore/commit/1089003c5ec4e02b49e9d5517debb970dde20d36))
+- **core:** only let an empty subDomainPrefix replace the default ([ad9569a](https://github.com/vtex/faststore/commit/ad9569a1136b3ce1d8cc424d1ea81d823bda9805))
+- **core:** scope the subDomainPrefix override to api and warn on invalid URLs ([a364048](https://github.com/vtex/faststore/commit/a364048def174f2a987ed4cef5571272cdfaf9ce))
+- **core:** use a Set for the overridden discovery config keys ([48e1db6](https://github.com/vtex/faststore/commit/48e1db6b5c20783f99a1ccf421d12b602476a8b1))
+
 ## [3.100.11](https://github.com/vtex/faststore/compare/v3.100.10...v3.100.11) (2026-11-05)
 
 ### Bug Fixes
