@@ -1,23 +1,23 @@
 const deepmerge = require('deepmerge')
 
-// deepmerge concatenates arrays, so the default `api.subDomainPrefix: ['www']`
-// is always kept. An empty array is how a store asks for no prefix to be
-// stripped, so it replaces the default. Any other value is still appended to
-// the default, as before, to keep the current behavior of existing stores.
-const mergeSubDomainPrefix = (target, source) =>
-  Array.isArray(source) && source.length === 0
-    ? source
-    : deepmerge(target, source)
-
 /**
  * Merges discovery configs like `deepmerge`, except that an empty
- * `subDomainPrefix` replaces the default instead of being appended to it.
+ * `api.subDomainPrefix` replaces the default instead of being appended to it.
+ *
+ * deepmerge concatenates arrays, so the default `['www']` is always kept. An
+ * empty array is how a store asks for no prefix to be stripped from the host
+ * sent to Checkout. Any other value is still appended to the default, as
+ * before, to keep the current behavior of existing stores.
  */
 function mergeDiscoveryConfig(target, source) {
-  return deepmerge(target, source, {
-    customMerge: (key) =>
-      key === 'subDomainPrefix' ? mergeSubDomainPrefix : undefined,
-  })
+  const merged = deepmerge(target, source)
+  const subDomainPrefix = source?.api?.subDomainPrefix
+
+  if (Array.isArray(subDomainPrefix) && subDomainPrefix.length === 0) {
+    merged.api.subDomainPrefix = []
+  }
+
+  return merged
 }
 
 const getHostname = (url) => {
@@ -38,6 +38,17 @@ function getSubDomainPrefixWarning(config) {
 
   if (!Array.isArray(prefixes) || prefixes.length > 0) {
     return undefined
+  }
+
+  const invalidUrls = ['storeUrl', 'secureSubdomain'].filter(
+    (key) => config[key] && !getHostname(config[key])
+  )
+
+  if (invalidUrls.length > 0) {
+    return (
+      `[FastStore] api.subDomainPrefix is [], but ${invalidUrls.join(' and ')} could not be parsed as a URL, ` +
+      `so it was not possible to check where Checkout cookies are sent. Use a full URL (e.g. https://www.store.com).`
+    )
   }
 
   const storeHost = getHostname(config.storeUrl)
