@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "4.10.1",
+  "version": "4.11.3-dev.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
     "dev": "pnpm run generate && next dev"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.9.0"
   },
   "publishConfig": {
     "access": "public"
@@ -84,7 +84,6 @@
     "react-intersection-observer": "catalog:",
     "sass": "^1.97.0",
     "sass-loader": "^12.6.0",
-    "sharp": "^0.32.6",
     "style-loader": "^3.3.1",
     "swr": "^2.2.5",
     "use-sync-external-store": "^1.6.0"

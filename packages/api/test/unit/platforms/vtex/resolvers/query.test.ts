@@ -359,6 +359,7 @@ function makeProductCtx({
   getLocalizedProduct = vi.fn(),
   pagetype = vi.fn(),
   fetchProduct = vi.fn(),
+  cookie,
 }: {
   localizationEnabled?: boolean
   locale?: string
@@ -368,8 +369,10 @@ function makeProductCtx({
   getLocalizedProduct?: (...args: any[]) => Promise<any>
   pagetype?: (...args: any[]) => Promise<any>
   fetchProduct?: (...args: any[]) => Promise<any>
+  cookie?: string
 } = {}) {
   return {
+    headers: { cookie },
     storage: { locale },
     discoveryConfig: {
       localization: localizationEnabled
@@ -662,6 +665,73 @@ describe('Query.product', () => {
       expect(pagetype).not.toHaveBeenCalled()
     })
   })
+
+  describe('contract assortment', () => {
+    const contractCookie = `vtex_segment=${Buffer.from(
+      JSON.stringify({ facets: 'productClusterIds=137;' })
+    ).toString('base64')}`
+
+    const inAssortment = [{ id: '137', name: 'Contract' }]
+    const outOfAssortment = [{ id: '10', name: 'Other' }]
+
+    it('returns the product when it belongs to the contract assortment', async () => {
+      const sku = makeSku({ productClusters: inAssortment })
+      const load = vi.fn().mockResolvedValue(sku)
+      const ctx = makeProductCtx({ load, cookie: contractCookie })
+
+      const result = await callProduct([{ key: 'id', value: '100' }], ctx)
+
+      expect(result).toBe(sku)
+    })
+
+    it('throws NotFoundError when the product is outside the contract assortment', async () => {
+      const load = vi
+        .fn()
+        .mockResolvedValue(makeSku({ productClusters: outOfAssortment }))
+      const pagetype = vi.fn()
+      const ctx = makeProductCtx({ load, pagetype, cookie: contractCookie })
+
+      await expect(
+        callProduct(
+          [
+            { key: 'id', value: '100' },
+            { key: 'slug', value: 'blue-shirt-100' },
+          ],
+          ctx
+        )
+      ).rejects.toMatchObject({ extensions: { type: 'NotFoundError' } })
+      expect(pagetype).not.toHaveBeenCalled()
+    })
+
+    it('checks products resolved through the slug fallback too', async () => {
+      const load = vi.fn().mockRejectedValue(new NotFoundError('no sku'))
+      const pagetype = vi
+        .fn()
+        .mockResolvedValue({ pageType: 'Product', id: 55 })
+      const fetchProduct = vi
+        .fn()
+        .mockResolvedValue(
+          makeSearchProduct({ productClusters: outOfAssortment })
+        )
+      const ctx = makeProductCtx({
+        load,
+        pagetype,
+        fetchProduct,
+        cookie: contractCookie,
+      })
+
+      await expect(
+        callProduct(
+          [
+            { key: 'id', value: '999' },
+            { key: 'slug', value: 'blue-shirt-999' },
+          ],
+          ctx
+        )
+      ).rejects.toMatchObject({ extensions: { type: 'NotFoundError' } })
+      expect(fetchProduct).toHaveBeenCalled()
+    })
+  })
 })
 
 describe('Query.accountProfile', () => {
@@ -669,13 +739,14 @@ describe('Query.accountProfile', () => {
 
   const makeRepCtx = ({
     customerId = 'contract-1',
-  }: { customerId?: string }) => {
+    claims = { unitId: 'unit-1' },
+  }: { customerId?: string; claims?: Record<string, unknown> }) => {
     const getContractById = vi.fn()
     const getUserById = vi.fn()
     const sessionMock = vi.fn()
 
     const jwtPayload = Buffer.from(
-      JSON.stringify({ userId: 'user-1', isRepresentative: true, customerId })
+      JSON.stringify({ userId: 'user-1', customerId, ...claims })
     ).toString('base64url')
     const token = `header.${jwtPayload}.signature`
 
@@ -715,11 +786,13 @@ describe('Query.accountProfile', () => {
     })
   })
 
-  it('does not throw and skips the CL lookup when no contract id is available anywhere', async () => {
-    const { ctx, getContractById, sessionMock } = makeRepCtx({ customerId: '' })
+  it('returns the user profile for a unit member without any contract', async () => {
+    const { ctx, getContractById, getUserById, sessionMock } = makeRepCtx({
+      customerId: '',
+    })
     sessionMock.mockResolvedValue({
       namespaces: {
-        profile: null,
+        profile: { id: { value: 'profile-1' } },
         authentication: null,
         shopper: {
           firstName: { value: 'Joao' },
@@ -727,11 +800,59 @@ describe('Query.accountProfile', () => {
         },
       },
     })
+    getUserById.mockResolvedValue({
+      id: 'user-1',
+      name: 'Joao Caetano',
+      email: 'joao@example.com',
+    })
 
     const result = await accountProfile(null, null, ctx)
 
     expect(getContractById).not.toHaveBeenCalled()
-    expect(result).toEqual({ name: 'Joao Caetano', email: '', id: '' })
+    expect(result).toEqual({
+      name: 'Joao Caetano',
+      email: 'joao@example.com',
+      id: 'user-1',
+    })
+  })
+
+  it('takes the contract from the session when the token has none', async () => {
+    const { ctx, getContractById, sessionMock } = makeRepCtx({
+      customerId: '',
+    })
+    sessionMock.mockResolvedValue({
+      namespaces: {
+        profile: null,
+        authentication: null,
+        shopper: { activeContractId: { value: 'contract-2' } },
+      },
+    })
+    getContractById.mockResolvedValue({ corporateName: 'Corp Y' })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(getContractById).toHaveBeenCalledWith({ contractId: 'contract-2' })
+    expect(result).toEqual({ name: 'Corp Y', email: '', id: 'contract-2' })
+  })
+
+  it('treats non-string unit and contract claims as missing', async () => {
+    const { ctx, getUserById, sessionMock } = makeRepCtx({
+      claims: { unitId: 42, customerId: { id: 'contract-1' } },
+    })
+    getUserById.mockResolvedValue({
+      id: 'user-1',
+      name: 'Shopper',
+      email: 'shopper@example.com',
+    })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(sessionMock).not.toHaveBeenCalled()
+    expect(result).toEqual({
+      name: 'Shopper',
+      email: 'shopper@example.com',
+      id: 'user-1',
+    })
   })
 
   it('does not fail the field when getContractById throws', async () => {
@@ -780,6 +901,41 @@ describe('Query.accountProfile', () => {
       name: 'Corp X',
       email: 'x@y.com',
       id: 'contract-1',
+    })
+  })
+
+  it('returns the contract for a unit member without the isRepresentative flag', async () => {
+    const { ctx, getContractById, getUserById, sessionMock } = makeRepCtx({
+      claims: { unitId: 'unit-1', isRepresentative: false },
+    })
+    sessionMock.mockResolvedValue({
+      namespaces: { profile: null, authentication: null, shopper: null },
+    })
+    getContractById.mockResolvedValue({ corporateName: 'Corp X' })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(getUserById).not.toHaveBeenCalled()
+    expect(result).toEqual({ name: 'Corp X', email: '', id: 'contract-1' })
+  })
+
+  it('returns the user profile when the token has no unit, even if flagged as representative', async () => {
+    const { ctx, getUserById, sessionMock } = makeRepCtx({
+      claims: { isRepresentative: true },
+    })
+    getUserById.mockResolvedValue({
+      id: 'user-1',
+      name: 'Shopper',
+      email: 'shopper@example.com',
+    })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(sessionMock).not.toHaveBeenCalled()
+    expect(result).toEqual({
+      name: 'Shopper',
+      email: 'shopper@example.com',
+      id: 'user-1',
     })
   })
 })

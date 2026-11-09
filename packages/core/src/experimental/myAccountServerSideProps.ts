@@ -10,7 +10,7 @@ import {
   type GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { getIsB2BBuyer } from 'src/sdk/account/getIsB2BBuyer'
 import { execute } from 'src/server'
 
 import { validateUser } from 'src/sdk/account/validateUser'
@@ -23,7 +23,7 @@ import storeConfig from '../../discovery.config'
 export type MyAccountProps = {
   globalSections: GlobalSectionsData
   accountName: string
-  isRepresentative?: boolean
+  isB2BBuyer?: boolean
 }
 
 const query = gql(`
@@ -77,7 +77,7 @@ const getServerSidePropsBase: GetServerSideProps<
     return { redirect }
   }
 
-  const isRepresentative = getIsRepresentative({
+  const isB2BBuyer = getIsB2BBuyer({
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
   })
@@ -115,7 +115,7 @@ const getServerSidePropsBase: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       accountName: account.data?.accountProfile?.name ?? '',
-      isRepresentative,
+      isB2BBuyer,
     },
   }
 }

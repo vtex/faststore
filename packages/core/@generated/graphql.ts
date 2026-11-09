@@ -56,7 +56,6 @@ export type Scalars = {
    */
   FormattedVariants: { input: any; output: any; }
   JSONObject: { input: any; output: any; }
-  /** A string or the string representation of an object (a stringified object). */
   ObjectOrString: { input: any; output: any; }
   /**
    * Example:
@@ -1307,6 +1306,7 @@ export type StoreB2B = {
   contractName: Maybe<Scalars['String']['output']>;
   customerId: Scalars['String']['output'];
   firstName: Maybe<Scalars['String']['output']>;
+  /** @deprecated Always true when `b2b` is set: a B2B session is identified by `unitId` and `customerId`. Check that `b2b` is not null instead. Scheduled for removal in the next major. */
   isRepresentative: Maybe<Scalars['Boolean']['output']>;
   lastName: Maybe<Scalars['String']['output']>;
   organizationManager: Maybe<Scalars['Boolean']['output']>;

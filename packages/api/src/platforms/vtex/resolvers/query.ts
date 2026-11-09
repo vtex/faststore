@@ -44,6 +44,7 @@ import {
   resolveActiveContractIdFromSession,
   resolveDefaultContractId,
 } from '../utils/contract'
+import { assertProductInContractAssortment } from '../utils/contractAssortment'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
 import { enhanceSku, type EnhancedSku } from '../utils/enhanceSku'
@@ -59,6 +60,10 @@ import { getCatalogLocale, isLocalizationEnabled } from '../utils/localization'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { slugify } from '../utils/slugify'
 import { resolveSort } from '../utils/sort'
+import {
+  firstNonBlank,
+  resolveB2bUnitId,
+} from '../utils/validateSessionHelpers'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
 import { getOrderEntryOperation } from './getOrderEntryOperation'
@@ -202,25 +207,35 @@ export const Query = {
       loaders: { skuLoader },
     } = ctx
 
-    try {
-      const skuId = id ?? slug?.split('-').pop() ?? ''
+    const loadSku = async () => {
+      try {
+        const skuId = id ?? slug?.split('-').pop() ?? ''
 
-      if (!isValidSkuId(skuId)) {
-        throw new Error(INVALID_SKU_ID_ERROR)
+        if (!isValidSkuId(skuId)) {
+          throw new Error(INVALID_SKU_ID_ERROR)
+        }
+
+        const sku = await skuLoader.load(skuId)
+
+        await assertSkuMatchesSlug(ctx, sku, slug, locale)
+
+        return sku
+      } catch (err) {
+        if (!shouldFallbackToProductRoute(err)) {
+          throw err
+        }
+
+        return fetchProductBySlugFallback(ctx, slug)
       }
-
-      const sku = await skuLoader.load(skuId)
-
-      await assertSkuMatchesSlug(ctx, sku, slug, locale)
-
-      return sku
-    } catch (err) {
-      if (!shouldFallbackToProductRoute(err)) {
-        throw err
-      }
-
-      return fetchProductBySlugFallback(ctx, slug)
     }
+
+    const sku = await loadSku()
+
+    // Runs outside `loadSku` so its NotFoundError is not swallowed by the
+    // slug fallback, which would refetch and return the same product.
+    assertProductInContractAssortment(ctx, sku)
+
+    return sku
   },
   collection: (
     _: unknown,
@@ -871,8 +886,8 @@ export const Query = {
       orgUnit: authentication?.unitName?.value ?? '',
     }
   },
-  // If isRepresentative, return b2b information.
-  // If not, return b2c user information
+  // Buyers with an organizational unit and a contract get the contract
+  // information. Everyone else gets the b2c user information.
   accountProfile: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
     const {
       account,
@@ -886,7 +901,7 @@ export const Query = {
       return null
     }
 
-    if (jwt?.isRepresentative) {
+    if (resolveB2bUnitId(null, jwt.unitId)) {
       const sessionData = await commerce.session('').catch(() => null)
 
       if (!sessionData) {
@@ -897,13 +912,14 @@ export const Query = {
       const shopper = sessionData.namespaces.shopper ?? null
       const authentication = sessionData.namespaces.authentication ?? null
 
-      const contractId =
-        resolveActiveContractIdFromSession(sessionData) ||
-        jwt?.customerId?.trim() ||
-        ''
+      const contractId = firstNonBlank(
+        shopper?.activeContractId?.value,
+        authentication?.customerId?.value,
+        jwt.customerId
+      )
 
-      let contract = null
       if (contractId) {
+        let contract = null
         try {
           contract = await commerce.masterData.getContractById({ contractId })
         } catch (err) {
@@ -912,23 +928,21 @@ export const Query = {
             err
           )
         }
-      }
 
-      const shopperName =
-        `${(shopper?.firstName?.value ?? '').trim()} ${(shopper?.lastName?.value ?? '').trim()}`.trim()
-      const name =
-        resolveActiveContractDisplayName(contract, profile) || shopperName
+        const shopperName =
+          `${(shopper?.firstName?.value ?? '').trim()} ${(shopper?.lastName?.value ?? '').trim()}`.trim()
+        const name =
+          resolveActiveContractDisplayName(contract, profile) || shopperName
 
-      return {
-        name: name || '',
-        email:
-          profile?.email?.value || authentication?.storeUserEmail?.value || '',
-        id:
-          profile?.id?.value ||
-          authentication?.customerId?.value ||
-          jwt?.customerId?.trim() ||
-          '',
-        // createdAt: '',
+        return {
+          name: name || '',
+          email:
+            profile?.email?.value ||
+            authentication?.storeUserEmail?.value ||
+            '',
+          id: profile?.id?.value || contractId,
+          // createdAt: '',
+        }
       }
     }
 

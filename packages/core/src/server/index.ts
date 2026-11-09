@@ -15,6 +15,7 @@ import {
   GraphqlVtexContextFactory,
   GraphqlVtexSchema,
   isFastStoreError,
+  platformTypeDefs,
 } from '@faststore/api'
 import { OTELAPI } from '@faststore/diagnostics'
 import { loadFilesSync } from '@graphql-tools/load-files'
@@ -57,10 +58,11 @@ function loadGeneratedSchema(): TypeSource {
 }
 
 export function getFinalAPISchema() {
-  const finalTypeDefs = mergeTypeDefs([
-    GraphqlVtexSchema(),
-    loadGeneratedSchema(),
-  ])
+  // `platformTypeDefs` is the native SDL plus the directive definitions.
+  // Building `GraphqlVtexSchema()` here would run the transformers and throw
+  // the result away: this value is only merged as type definitions, and the
+  // call below applies the transformers once.
+  const finalTypeDefs = mergeTypeDefs([platformTypeDefs, loadGeneratedSchema()])
 
   const schema = makeExecutableSchema({
     typeDefs: finalTypeDefs,

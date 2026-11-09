@@ -9,14 +9,23 @@ import { GraphQLError } from 'graphql'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import discoveryConfig from '../../../discovery.config'
 import handler from '../../../src/pages/api/graphql'
 import { execute } from '../../../src/server'
+import { shouldForceRefreshTokenForValidateSession } from '../../../src/utils/validateSessionRefreshToken'
 
 vi.mock('../../../src/server', () => ({
   execute: vi.fn(),
 }))
 
+vi.mock('../../../src/utils/validateSessionRefreshToken', () => ({
+  shouldForceRefreshTokenForValidateSession: vi.fn(),
+}))
+
 const mockedExecute = vi.mocked(execute)
+const mockedShouldForceRefreshToken = vi.mocked(
+  shouldForceRefreshTokenForValidateSession
+)
 
 const createResponse = ({ headersSent = false } = {}) => {
   const res = {
@@ -227,5 +236,171 @@ describe('/api/graphql request handling', () => {
     )
     expect(res.status).toHaveBeenCalledWith(500)
     expect(res.end).toHaveBeenCalled()
+  })
+})
+
+describe('/api/graphql ValidateSession refresh-token bypass', () => {
+  const originalRefreshToken = discoveryConfig.experimental.refreshToken
+
+  const createValidateSessionRequest = (
+    host: string,
+    extraHeaders: Record<string, string> = {}
+  ) =>
+    ({
+      method: 'GET',
+      url: '/api/graphql',
+      headers: { host, ...extraHeaders },
+      query: {
+        operationName: 'ValidateSession',
+        operationHash: 'hash',
+        variables: JSON.stringify({ session: {} }),
+      },
+    }) as unknown as NextApiRequest
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+    discoveryConfig.experimental.refreshToken = true
+    mockedShouldForceRefreshToken.mockReturnValue(true)
+    mockedExecute.mockResolvedValue({
+      data: { validateSession: null },
+      errors: undefined,
+      extensions: { cookies: new Map(), cacheControl: undefined },
+    } as never)
+  })
+
+  afterEach(() => {
+    discoveryConfig.experimental.refreshToken = originalRefreshToken
+  })
+
+  it.each([
+    'localhost:3000',
+    '127.0.0.1:3000',
+    'brandless-abc123.preview.vtex.app',
+  ])('does not force a 401 on %s', async (host) => {
+    const res = createResponse()
+    await handler(createValidateSessionRequest(host), res)
+
+    expect(mockedShouldForceRefreshToken).not.toHaveBeenCalled()
+    expect(res.status).not.toHaveBeenCalledWith(401)
+    expect(mockedExecute).toHaveBeenCalled()
+  })
+
+  it('does not force a 401 on a preview behind the ingress', async () => {
+    const res = createResponse()
+    await handler(
+      createValidateSessionRequest('faststore-internal:3000', {
+        'x-forwarded-host': 'brandless-abc123.preview.vtex.app',
+      }),
+      res
+    )
+
+    expect(mockedShouldForceRefreshToken).not.toHaveBeenCalled()
+    expect(res.status).not.toHaveBeenCalledWith(401)
+    expect(mockedExecute).toHaveBeenCalled()
+  })
+
+  it.each(['brandless.vtex.app', 'brandless.fast.store'])(
+    'forces a 401 on the production host %s',
+    async (host) => {
+      const res = createResponse()
+      await handler(createValidateSessionRequest(host), res)
+
+      expect(res.status).toHaveBeenCalledWith(401)
+      expect(mockedExecute).not.toHaveBeenCalled()
+    }
+  )
+})
+
+describe('/api/graphql success cache-control', () => {
+  const originalGraphqlCacheControl =
+    discoveryConfig.experimental.graphqlCacheControl
+
+  const mockExecuteWithCacheControl = (cacheControl?: unknown) => {
+    mockedExecute.mockResolvedValue({
+      data: {},
+      errors: undefined,
+      extensions: { cookies: new Map(), cacheControl },
+    } as never)
+  }
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  afterEach(() => {
+    discoveryConfig.experimental.graphqlCacheControl =
+      originalGraphqlCacheControl
+  })
+
+  it('uses the cache-control collected while executing the operation', async () => {
+    mockExecuteWithCacheControl({ scope: 'public', sMaxAge: 120 })
+
+    const res = createResponse()
+    await handler(createRequest(), res)
+
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'cache-control',
+      'public, s-maxage=120, stale-while-revalidate=0'
+    )
+  })
+
+  it('makes collected cache-control private when there is an auth cookie', async () => {
+    mockExecuteWithCacheControl({ scope: 'public', sMaxAge: 120 })
+
+    const req = createRequest()
+    req.headers.cookie = 'VtexIdclientAutCookie_store=jwt'
+    const res = createResponse()
+    await handler(req, res)
+
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'cache-control',
+      'private, s-maxage=120, stale-while-revalidate=0'
+    )
+  })
+
+  it('falls back to the default max-age for GET queries without collected cache-control', async () => {
+    discoveryConfig.experimental.graphqlCacheControl = {
+      maxAge: 0,
+      staleWhileRevalidate: 0,
+    }
+    mockExecuteWithCacheControl()
+
+    const res = createResponse()
+    await handler(createRequest(), res)
+
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'cache-control',
+      'public, s-maxage=300, stale-while-revalidate=3600'
+    )
+  })
+
+  it('uses the configured max-age and stale-while-revalidate for GET queries', async () => {
+    discoveryConfig.experimental.graphqlCacheControl = {
+      maxAge: 60,
+      staleWhileRevalidate: 30,
+    }
+    mockExecuteWithCacheControl()
+
+    const req = createRequest()
+    req.headers.cookie = 'VtexIdclientAutCookie_store=jwt'
+    const res = createResponse()
+    await handler(req, res)
+
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'cache-control',
+      'private, s-maxage=60, stale-while-revalidate=30'
+    )
+  })
+
+  it('does not cache operations that are not GET queries', async () => {
+    mockExecuteWithCacheControl()
+
+    const res = createResponse()
+    await handler(createRequest('SubscribeToNewsletter'), res)
+
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'cache-control',
+      'no-cache, no-store'
+    )
   })
 })

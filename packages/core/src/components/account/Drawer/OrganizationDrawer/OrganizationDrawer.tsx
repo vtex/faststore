@@ -23,7 +23,7 @@ type OrganizationDrawerView = 'menu' | 'switch'
 type OrganizationDrawerProps = {
   isOpen: boolean
   closeDrawer: () => void
-  isRepresentative: boolean
+  isB2BBuyer: boolean
   /** Open straight into the contract switcher (My Account "Switch" button). */
   initialView?: OrganizationDrawerView
 }
@@ -142,7 +142,7 @@ export const doLogout = async (_event?: unknown) => {
 export const OrganizationDrawer = ({
   isOpen,
   closeDrawer,
-  isRepresentative,
+  isB2BBuyer,
   initialView = 'menu',
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
@@ -210,7 +210,7 @@ export const OrganizationDrawer = ({
               }
             />
             <OrganizationDrawerBody
-              isRepresentative={isRepresentative}
+              isB2BBuyer={isB2BBuyer}
               isOrgMember={isOrgMember}
             />
           </div>

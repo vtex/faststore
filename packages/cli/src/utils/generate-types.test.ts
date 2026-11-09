@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { buildSchema, Kind } from 'graphql'
+import { Kind, parse } from 'graphql'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 
 import genTsTypes, {
@@ -15,7 +15,7 @@ import genTsTypes, {
 // irrelevant here: the store extension is what the generated types are
 // checked for.
 vi.mock('@faststore/api', () => ({
-  GraphqlVtexSchema: () => buildSchema('type Query { ping: Boolean }'),
+  platformTypeDefs: parse('type Query { ping: Boolean }'),
 }))
 
 // creates <root>/src/graphql/thirdParty/typeDefs/hello.graphql in a fresh

@@ -11,17 +11,17 @@ vi.mock(
   () => ({
     OrganizationSignInButton: ({
       icon,
-      isRepresentative,
+      isB2BBuyer,
     }: {
       icon: { alt: string; icon: string }
-      isRepresentative?: boolean
+      isB2BBuyer?: boolean
     }) => (
       <button
         type="button"
         data-testid="organization-signin"
         data-icon={icon.alt}
       >
-        {isRepresentative ? 'Representative' : 'Not representative'}
+        {isB2BBuyer ? 'B2B buyer' : 'Not a B2B buyer'}
       </button>
     ),
   })
@@ -85,7 +85,7 @@ describe('NavbarAccountArea', () => {
       <NavbarAccountArea
         isSignInResolved
         isOrganizationEnabled
-        isRepresentative
+        isB2BBuyer
         signInButton={signInButton}
         ButtonSignIn={ButtonSignInStub}
         skeletonAttr="data-fs-navbar-signin-skeleton"
@@ -93,7 +93,7 @@ describe('NavbarAccountArea', () => {
     )
 
     expect(screen.getByTestId('organization-signin')).toHaveTextContent(
-      'Representative'
+      'B2B buyer'
     )
     expect(screen.queryByTestId('storefront-signin')).toBeNull()
   })

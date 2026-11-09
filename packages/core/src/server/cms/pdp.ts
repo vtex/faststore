@@ -58,11 +58,16 @@ const getPDPFromCmsEnvData = async (
 
   const template = findBestPDPTemplate(pages, product)
 
-  return getPage<PDPContentType>({
-    contentType: 'pdp',
-    documentId: template.documentId as string,
-    versionId: template.versionId,
-  })
+  // The template locator comes from the build-time CMS data, never from a
+  // preview, so the fetched document can be shared across page generations.
+  return getPage<PDPContentType>(
+    {
+      contentType: 'pdp',
+      documentId: template.documentId as string,
+      versionId: template.versionId,
+    },
+    { cache: true }
+  )
 }
 
 const getPDPFromCms = async (

@@ -23,7 +23,7 @@ import { default as BeforeSection } from 'src/customizations/src/myAccount/exten
 import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 import type { AccountUserDetailsPageData } from 'src/sdk/account/accountPageContext'
 import type { AccountNavigationLabels } from 'src/sdk/account/getMyAccountRoutes'
-import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { getIsB2BBuyer } from 'src/sdk/account/getIsB2BBuyer'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
@@ -50,7 +50,7 @@ export default function Page({
   navigationLabels,
   accountPageData,
   accountName,
-  isRepresentative,
+  isB2BBuyer,
 }: UserDetailsPageProps) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
@@ -67,7 +67,7 @@ export default function Page({
         <NextSeo noindex nofollow />
 
         <Layout
-          isRepresentative={isRepresentative}
+          isB2BBuyer={isB2BBuyer}
           accountName={accountName}
           navigationLabels={navigationLabels}
         >
@@ -105,7 +105,7 @@ const getServerSidePropsBase: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isRepresentative = getIsRepresentative({
+  const isB2BBuyer = getIsB2BBuyer({
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
   })
@@ -118,7 +118,7 @@ const getServerSidePropsBase: GetServerSideProps<
     return { redirect }
   }
 
-  if (!isRepresentative) {
+  if (!isB2BBuyer) {
     return {
       redirect: {
         destination: localizeRedirectDestination('/pvt/account', context),
@@ -209,7 +209,7 @@ const getServerSidePropsBase: GetServerSideProps<
         },
       },
       pageSections,
-      isRepresentative,
+      isB2BBuyer,
     },
   }
 }

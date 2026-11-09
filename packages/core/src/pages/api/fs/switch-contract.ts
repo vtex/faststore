@@ -1,9 +1,17 @@
 import { parse } from 'cookie'
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
+import { isIP } from 'node:net'
 
 import storeConfig from 'discovery.config'
 import { expireCookieServer, getCookieDomains } from 'src/utils/clearCookies'
+import { getCheckoutParentDomain } from 'src/utils/getCheckoutParentDomain'
 import { getRequestHostname } from 'src/utils/getRequestHostname'
+import {
+  isCookieSafeHostname,
+  isHostAllowed,
+  removeCookieDomain,
+  singleForwardedHost,
+} from 'src/utils/trustedForwardedHost'
 
 /**
  * Cookies holding the checkout orderForm of the previous commercial context.
@@ -42,19 +50,6 @@ const isAuthCookie = (cookie: unknown): cookie is VtexAuthCookie => {
   return Boolean(candidate?.Name?.trim() && candidate?.Value)
 }
 
-const isSecureRequest = (request: NextApiRequest): boolean => {
-  const forwarded = request.headers['x-forwarded-proto']
-  const proto = Array.isArray(forwarded) ? forwarded[0] : forwarded
-
-  if (proto) {
-    return proto.split(',')[0].trim() === 'https'
-  }
-
-  const hostname = getRequestHostname(request.headers.host)
-
-  return hostname !== 'localhost' && hostname !== '127.0.0.1'
-}
-
 /**
  * A non-positive `expiresIn` would turn into `Max-Age=0`, which expires the
  * credential the response is supposed to install — logging the buyer out while
@@ -67,24 +62,175 @@ const resolveMaxAge = (expiresIn: unknown): number =>
     : DEFAULT_AUTH_COOKIE_MAX_AGE
 
 /**
- * Mirrors the attributes the storefront used to write via `document.cookie`.
- * `HttpOnly` is deliberately left out: the cookie lives on a domain shared
- * with VTEX's own checkout, so hardening it is a separate, explicitly tested
- * change.
+ * Uses the forwarded protocol when a proxy sets it, otherwise the connection
+ * itself. A non-local hostname alone does not imply https: a `Secure` cookie
+ * sent over plain http is dropped by the browser while the route reports
+ * success.
+ */
+const isSecureRequest = (request: NextApiRequest): boolean => {
+  const forwarded = request.headers['x-forwarded-proto']
+  const proto = Array.isArray(forwarded) ? forwarded[0] : forwarded
+
+  if (proto) {
+    return proto.split(',')[0].trim() === 'https'
+  }
+
+  const socket = request.socket
+  return Boolean(socket && 'encrypted' in socket && socket.encrypted)
+}
+
+/**
+ * Every parent of `hostname` with at least two labels, closest first:
+ * `a.b.store.com` gives `b.store.com` and `store.com`. A parent that is a
+ * public suffix (e.g. `com.br`) is rejected by the browser, so expiring a
+ * cookie there is a no-op.
+ */
+const getParentDomains = (hostname: string): string[] => {
+  const labels = hostname.split('.')
+
+  return labels
+    .slice(1, -1)
+    .map((_, index) => labels.slice(index + 1).join('.'))
+}
+
+/**
+ * Hosts where the auth cookies stay host-only: WebOps previews, whose ingress
+ * does not pass the browser host in `Host`, and local development.
+ * `{account}.vtex.app` is a production domain that receives the browser host,
+ * so it gets a Domain like any custom domain. `/api/graphql` keeps its wider
+ * `.vtex.app` list for the cookies it relays from upstream.
+ */
+const HOST_ONLY_AUTH_COOKIE_SUFFIXES = [
+  'localhost',
+  '.localhost',
+  '.preview.vtex.app',
+]
+
+const isHostOnlyCookieHost = (hostname: string | null): boolean =>
+  !!hostname && isHostAllowed(hostname, HOST_ONLY_AUTH_COOKIE_SUFFIXES)
+
+/**
+ * Domain for the auth cookies, or `undefined` to write them host-only.
+ *
+ * Previews and local hosts stay host-only: behind the preview ingress `Host`
+ * is not the host the browser requested, and a mismatched Domain makes the browser drop
+ * the cookie while the route reports success. `x-forwarded-host` only decides
+ * that the cookie is host-only; it never chooses the Domain. IP literals and
+ * hosts that cannot be written verbatim into the attribute (including a
+ * trailing-dot FQDN) are host-only too.
+ */
+const resolveAuthCookieDomain = (
+  request: NextApiRequest
+): string | undefined => {
+  const hostname = getRequestHostname(request.headers.host)
+  const forwardedHost = getRequestHostname(
+    singleForwardedHost(request.headers['x-forwarded-host'])
+  )
+
+  if (
+    !hostname ||
+    isHostOnlyCookieHost(hostname) ||
+    isHostOnlyCookieHost(forwardedHost) ||
+    isIP(hostname) !== 0 ||
+    hostname.endsWith('.') ||
+    !isCookieSafeHostname(hostname)
+  ) {
+    return undefined
+  }
+
+  return hostname
+}
+
+/**
+ * Mirrors the attributes VTEX ID uses when it sets these cookies at login and
+ * refresh (`Domain=<host>; Path=/; Secure; SameSite=None; HttpOnly`).
+ *
+ * Browsers tell cookies apart by name, domain and path, and a cookie with a
+ * Domain attribute never matches a host-only one. Writing the contract token
+ * host-only would sit next to VTEX ID's cookie instead of replacing it, leaving
+ * two `VtexIdclientAutCookie_<account>` with different contracts. Each reader
+ * then picks a different one. Any host-only copy left by earlier versions is
+ * expired in the same batch.
+ *
+ * VTEX ID's refresh also writes the cookie on the parent domain (e.g.
+ * `Domain=store.com` for `www.store.com`). Parent copies are expired, so the
+ * only auth cookie left holds the switched contract. The exception is the
+ * parent shared with a checkout on a sibling host (`secure.store.com`): the
+ * token is written there too, with the same value as the host copy, so
+ * checkout keeps the session after the switch.
+ *
+ * The Domain-scoped cookie is always `Secure`, like VTEX ID's, because the
+ * forwarded protocol is not reliable behind the CDN. The host-only fallback
+ * follows the request protocol so plain-http local hosts keep working.
  */
 const buildAuthCookies = (
   payload: SwitchPropertiesResponse,
+  domain: string | undefined,
   secure: boolean
 ): string[] => {
-  const maxAge = resolveMaxAge(payload.expiresIn)
-  const secureAttr = secure ? '; Secure' : ''
+  const checkoutParent = domain ? getCheckoutParentDomain(domain) : undefined
+  const staleScopes: Array<string | undefined> = domain
+    ? [
+        undefined,
+        ...getParentDomains(domain).filter(
+          (parent) => parent !== checkoutParent
+        ),
+      ]
+    : []
+  const writeScopes = checkoutParent ? [domain, checkoutParent] : [domain]
+  const attributes = (scope: string | undefined) =>
+    [
+      scope && `Domain=${scope}`,
+      'Path=/',
+      `Max-Age=${resolveMaxAge(payload.expiresIn)}`,
+      'HttpOnly',
+      (scope || secure) && 'Secure',
+      `SameSite=${scope ? 'None' : 'Lax'}`,
+    ]
+      .filter(Boolean)
+      .join('; ')
 
   return [payload.authCookie, payload.accountAuthCookie]
     .filter(isAuthCookie)
-    .map(
-      (cookie) =>
-        `${cookie.Name}=${cookie.Value}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secureAttr}`
-    )
+    .flatMap((cookie) => [
+      ...staleScopes.map((staleDomain) =>
+        expireCookieServer({
+          name: cookie.Name,
+          path: '/',
+          domain: staleDomain,
+        })
+      ),
+      ...writeScopes.map(
+        (scope) => `${cookie.Name}=${cookie.Value}; ${attributes(scope)}`
+      ),
+    ])
+}
+
+/**
+ * `switch-properties` also issues `vid_rt` (the refresh token) on the
+ * Authenticator refresh paths. It is called server-side on
+ * `<account>.myvtex.com`, so its Domain points there and the browser would
+ * reject it. Re-scope it like the auth cookies so the next B2B refresh, which
+ * goes through the Authenticator route, finds it.
+ *
+ * Only relayed with `experimental.refreshToken` on: otherwise nothing uses it,
+ * and `/api/fs/logout` does not expire it either, so it would outlive logout.
+ */
+const relayRefreshTokenCookies = (
+  headers: Headers | undefined,
+  domain: string | undefined
+): string[] => {
+  if (!storeConfig.experimental?.refreshToken) {
+    return []
+  }
+
+  return (headers?.getSetCookie?.() ?? [])
+    .filter((cookie) => cookie.trimStart().startsWith('vid_rt='))
+    .map((cookie) => {
+      const hostOnly = removeCookieDomain(cookie)
+
+      return domain ? `${hostOnly}; Domain=${domain}` : hostOnly
+    })
 }
 
 const buildOrderFormExpiryCookies = (request: NextApiRequest): string[] => {
@@ -167,8 +313,11 @@ const handler: NextApiHandler<SwitchContractResponse> = async (
       return
     }
 
+    const domain = resolveAuthCookieDomain(request)
+
     response.setHeader('Set-Cookie', [
-      ...buildAuthCookies(payload, isSecureRequest(request)),
+      ...buildAuthCookies(payload, domain, isSecureRequest(request)),
+      ...relayRefreshTokenCookies(switchResponse.headers, domain),
       ...buildOrderFormExpiryCookies(request),
     ])
 

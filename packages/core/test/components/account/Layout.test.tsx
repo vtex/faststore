@@ -60,7 +60,7 @@ describe('Layout', () => {
     mockUseSession.mockReturnValue({ b2b: { unitId: 'unit-1' } })
 
     render(
-      <Layout accountName="Jane Doe" isRepresentative={false}>
+      <Layout accountName="Jane Doe" isB2BBuyer={false}>
         content
       </Layout>
     )

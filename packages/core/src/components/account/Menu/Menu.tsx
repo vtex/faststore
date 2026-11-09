@@ -79,7 +79,7 @@ const Menu = ({ avatarImageUrl, accountName, items }: MenuProps) => {
         <OrganizationDrawer
           isOpen
           closeDrawer={() => setIsSwitcherOpen(false)}
-          isRepresentative={Boolean(b2b?.isRepresentative)}
+          isB2BBuyer={Boolean(b2b)}
           initialView="switch"
         />
       )}

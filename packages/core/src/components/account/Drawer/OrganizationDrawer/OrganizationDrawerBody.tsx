@@ -9,13 +9,13 @@ import {
   getMyAccountRoutes,
 } from 'src/sdk/account/getMyAccountRoutes'
 
-const ROUTES_ONLY_FOR_REPRESENTATIVE = [USER_DETAILS_ROUTE]
+const ROUTES_ONLY_FOR_B2B_BUYERS = new Set<string>([USER_DETAILS_ROUTE])
 
 export const OrganizationDrawerBody = ({
-  isRepresentative,
+  isB2BBuyer,
   isOrgMember,
 }: {
-  isRepresentative: boolean
+  isB2BBuyer: boolean
   isOrgMember: boolean
 }) => {
   const navigationLabels = useAccountNavigationLabels()
@@ -26,11 +26,9 @@ export const OrganizationDrawerBody = ({
   })
 
   const routes = (
-    isRepresentative
+    isB2BBuyer
       ? menuItems
-      : menuItems.filter(
-          ({ route }) => !ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)
-        )
+      : menuItems.filter(({ route }) => !ROUTES_ONLY_FOR_B2B_BUYERS.has(route))
   ).filter(
     ({ route }) => isOrgMember || !ROUTES_ONLY_FOR_B2B_MEMBERS.includes(route)
   )

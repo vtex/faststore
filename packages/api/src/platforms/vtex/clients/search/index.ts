@@ -2,6 +2,7 @@ import pLimit from 'p-limit'
 import type { Options } from '../../../../typings/globals'
 
 import type { GraphqlContext } from '../../'
+import { isNotFoundError } from '../../../errors'
 import { getWithCookie } from '../../utils/cookies'
 import type { SelectedFacet } from '../../utils/facets'
 import { isLocalizationEnabled } from '../../utils/localization'
@@ -65,6 +66,12 @@ export interface ProductsByIdentifierArgs {
   values: string[]
   showInvisibleItems?: boolean
   hideUnavailableItems?: boolean
+  /**
+   * Rethrow upstream failures (5xx, timeouts, network) instead of dropping the
+   * product, so callers can tell a failure from a product that does not exist.
+   * A not-found answer is still dropped.
+   */
+  throwOnUpstreamError?: boolean
 }
 
 export interface PickupPointAvailabilityArgs {
@@ -214,6 +221,7 @@ export const IntelligentSearch = (
     values,
     showInvisibleItems,
     hideUnavailableItems: hideUnavailable,
+    throwOnUpstreamError = false,
   }: ProductsByIdentifierArgs): Promise<Product[]> => {
     const limit = pLimit(PRODUCTS_BY_IDENTIFIER_CONCURRENCY)
 
@@ -227,7 +235,11 @@ export const IntelligentSearch = (
               hideUnavailableItems: hideUnavailable,
               showInvisibleItems,
             })
-          } catch {
+          } catch (error) {
+            if (throwOnUpstreamError && !isNotFoundError(error)) {
+              throw error
+            }
+
             return null
           }
         })

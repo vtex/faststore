@@ -22,7 +22,7 @@ import { default as BeforeSection } from 'src/customizations/src/myAccount/exten
 import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 import type { AccountOrdersListPageData } from 'src/sdk/account/accountPageContext'
 import type { AccountNavigationLabels } from 'src/sdk/account/getMyAccountRoutes'
-import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { getIsB2BBuyer } from 'src/sdk/account/getIsB2BBuyer'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { extractAccountNavigationData } from 'src/server/cms/myAccountDefaultSections'
@@ -52,7 +52,7 @@ export default function ListOrdersPage({
   navigationLabels,
   accountPageData,
   accountName,
-  isRepresentative,
+  isB2BBuyer,
 }: ListOrdersPageProps) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
@@ -69,7 +69,7 @@ export default function ListOrdersPage({
         <NextSeo noindex nofollow />
 
         <Layout
-          isRepresentative={isRepresentative}
+          isB2BBuyer={isB2BBuyer}
           accountName={accountName}
           navigationLabels={navigationLabels}
         >
@@ -132,7 +132,7 @@ const getServerSidePropsBase: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isRepresentative = getIsRepresentative({
+  const isB2BBuyer = getIsB2BBuyer({
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
   })
@@ -265,7 +265,7 @@ const getServerSidePropsBase: GetServerSideProps<
         },
       },
       pageSections,
-      isRepresentative,
+      isB2BBuyer,
     },
   }
 }

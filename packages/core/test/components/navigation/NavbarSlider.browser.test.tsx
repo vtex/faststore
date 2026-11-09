@@ -120,10 +120,10 @@ describe('NavbarSlider', () => {
     )
   })
 
-  it('forwards isSignInResolved=true and isOrganizationEnabled once the B2B representative session resolves', () => {
+  it('forwards isSignInResolved=true and isOrganizationEnabled once the B2B session resolves', () => {
     mockStoreConfig.experimental.enableFaststoreMyAccount = true
     mockUseSession.mockReturnValue({
-      b2b: { isRepresentative: true },
+      b2b: { unitId: 'unit-1', customerId: 'contract-1' },
       isSessionReady: true,
       hasValidated: true,
     })
@@ -134,7 +134,7 @@ describe('NavbarSlider', () => {
       expect.objectContaining({
         isSignInResolved: true,
         isOrganizationEnabled: true,
-        isRepresentative: true,
+        isB2BBuyer: true,
       })
     )
 

@@ -6,9 +6,12 @@ import { OrganizationDrawer } from '../OrganizationDrawer/OrganizationDrawer'
 
 export const OrganizationSignInButton = ({
   icon: { alt, icon },
+  isB2BBuyer,
   isRepresentative,
 }: {
   icon: { alt: string; icon: string }
+  isB2BBuyer?: boolean
+  /** @deprecated Use `isB2BBuyer`. */
   isRepresentative?: boolean
 }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -50,7 +53,7 @@ export const OrganizationSignInButton = ({
         <OrganizationDrawer
           isOpen={isOpen}
           closeDrawer={closeDrawer}
-          isRepresentative={isRepresentative}
+          isB2BBuyer={Boolean(isB2BBuyer ?? isRepresentative)}
         />
       )}
     </>
