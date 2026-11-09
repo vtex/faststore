@@ -21,6 +21,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [4.11.1-dev.1](https://github.com/vtex/faststore/compare/v4.11.1-dev.0...v4.11.1-dev.1) (2026-11-04)
 
+## [4.11.2](https://github.com/vtex/faststore/compare/v4.11.1...v4.11.2) (2026-11-09)
+
+
 ## [4.11.1](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1) (2026-11-05)
 
 **Note:** Version bump only for package @faststore/sdk
