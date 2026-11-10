@@ -91,6 +91,10 @@ const toPage = (pages: string[][], scroll?: string) => {
   }
 }
 
+// The single widening cast below is intentional: the object literal is still
+// structurally checked against the product type, so a typo in a fixture key
+// fails the typecheck instead of being accepted silently (unlike
+// `as unknown as ...`).
 const toProduct = (...breadcrumb: string[]) =>
   ({
     breadcrumbList: {
@@ -100,7 +104,7 @@ const toProduct = (...breadcrumb: string[]) =>
         position: index + 1,
       })),
     },
-  }) as unknown as Parameters<ContentService['getPdpContent']>[0]
+  }) as Parameters<ContentService['getPdpContent']>[0]
 
 function createFakeClientCP(pages: string[][]) {
   return {
@@ -269,7 +273,7 @@ describe('ContentService', () => {
       expect(listedPage).not.toHaveProperty('storeId')
     })
 
-    it('shares one list and entry fetch across concurrent PLPs with different slugs', async () => {
+    it('shares one listEntriesWithContent fetch across concurrent PLPs with different slugs', async () => {
       const { service, clientCP } = createServiceWithClient()
 
       const [collectionPage, otherPage, unknownPage] = await Promise.all([
@@ -452,27 +456,6 @@ describe('ContentService', () => {
       expect(clientCP.getEntry).not.toHaveBeenCalled()
     })
 
-    it('skips and warns about an entry listed without content', async () => {
-      const { service, clientCP } = createServiceWithClient([
-        ['collection', 'other'],
-      ])
-      clientCP.listEntriesWithContent.mockResolvedValueOnce({
-        entries: [
-          toEntry('collection') as ReturnType<typeof toEntryWithContent>,
-          toEntryWithContent('other'),
-        ],
-        scroll: null,
-      })
-
-      const { data } = await service.getMultipleContent({ contentType: 'plp' })
-
-      expect(data.map((entry) => entry.id)).toEqual(['other'])
-      expect(console.warn).toHaveBeenCalledWith(
-        expect.stringContaining('without content'),
-        'collection'
-      )
-    })
-
     describe('PDP', () => {
       it('skips the product slug lookup and matches a template from the list', async () => {
         const { service, clientCP } = createServiceWithClient([
@@ -556,6 +539,28 @@ describe('ContentService', () => {
       for (const result of results) {
         expect(result.sections).toEqual([{ name: 'Generic' }])
       }
+    })
+
+    it('warns without naming one list method when the pagination cap is hit', async () => {
+      // 26 pages exceed the MAX_PAGES cap of 25, so the service stops
+      // paginating and warns.
+      const pages = Array.from({ length: 26 }, (_, index) => [`entry-${index}`])
+      const { service, clientCP } = createServiceWithClient(pages)
+
+      const { data } = await service.getMultipleContent({
+        contentType: 'plp',
+      })
+
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(25)
+      expect(data).toHaveLength(25)
+      expect(console.warn).toHaveBeenCalledWith(
+        expect.stringContaining('pagination hit MAX_PAGES cap'),
+        expect.anything()
+      )
+      expect(console.warn).not.toHaveBeenCalledWith(
+        expect.stringContaining('listEntries pagination'),
+        expect.anything()
+      )
     })
 
     it('keeps separate entries per content type and locale', async () => {

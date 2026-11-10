@@ -162,19 +162,13 @@ export class ContentService {
       serviceParams
     )
     return {
-      data: entries.flatMap(({ content, ...entry }) => {
-        // An entry without content would otherwise become a template-less
-        // shell, which findBestPDPTemplate/findBestPLPTemplate treat as the
-        // generic template.
-        if (!content) {
-          console.warn(
-            'Content Platform entry listed without content',
-            entry.id
-          )
-          return []
-        }
-        return [this.mergeEntryWithData(entry, content as PageContentType)]
-      }),
+      // client-cp's listEntriesWithContent always sets `content`: a row the
+      // data plane returns without inline content is fetched by the client
+      // itself. The `PageContentType | EntryData` union is narrowed here since
+      // parsing is enabled (disableParse is not set).
+      data: entries.map(({ content, ...entry }) =>
+        this.mergeEntryWithData(entry, content as PageContentType)
+      ),
     }
   }
 
@@ -200,7 +194,8 @@ export class ContentService {
     } while (scroll && ++pages < MAX_PAGES)
 
     if (pages >= MAX_PAGES) {
-      console.warn('listEntries pagination hit MAX_PAGES cap', serviceParams)
+      // `listEntries` and `listEntriesWithContent` both paginate here.
+      console.warn('list pagination hit MAX_PAGES cap', serviceParams)
     }
 
     return allEntries
