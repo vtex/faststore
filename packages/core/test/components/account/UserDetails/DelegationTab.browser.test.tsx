@@ -838,7 +838,7 @@ describe('DelegationTab', () => {
       expect(refresh).not.toHaveBeenCalled()
     })
 
-    it('does not let an existing end date be cleared', () => {
+    it('lets an existing end date be cleared to make the delegation indefinite', async () => {
       renderTab()
       openEdit(0)
 
@@ -846,10 +846,11 @@ describe('DelegationTab', () => {
       fireEvent.change(end, { target: { value: '' } })
       fireEvent.click(screen.getByRole('button', { name: 'Save' }))
 
-      expect(getDrawer()).toHaveTextContent(
-        'An existing end date cannot be removed.'
-      )
-      expect(mockUpdateDelegation).not.toHaveBeenCalled()
+      await waitFor(() => expect(mockUpdateDelegation).toHaveBeenCalledTimes(1))
+      expect(mockUpdateDelegation).toHaveBeenCalledWith('del-1', {
+        startDate: null,
+        endDate: '',
+      })
     })
 
     it('blocks an end date in the past', () => {

@@ -249,10 +249,6 @@ export const DelegationDrawer = ({
       return { field: 'delegate', message: labels.delegateRequiredError }
     }
 
-    if (mode === 'edit' && delegation?.endDate && !endDate) {
-      return { field: 'endDate', message: labels.endDateRequiredError }
-    }
-
     const periodError = validatePeriod({ startDate, endDate, today })
 
     if (!periodError) {

@@ -19,6 +19,15 @@ import type {
 import { getAuthCookie, parseJwt } from '../utils/cookies'
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
+
+/**
+ * The Authenticator API requires an end date, so an open-ended delegation is
+ * stored with this far-away date. It is exposed to the storefront as `null`.
+ */
+const INDEFINITE_END_DATE = '9999-12-31'
+
+const normalizeEndDate = (endDate?: string | null) =>
+  !endDate || endDate >= INDEFINITE_END_DATE ? null : endDate
 // Safety cap for the organization users pagination.
 const MAX_CANDIDATE_PAGES = 20
 
@@ -50,7 +59,7 @@ const mapDelegation = (delegation: GranteeDelegation): StoreDelegation => ({
   granteeUsername: findIdentifier(delegation.identifiers, 'username'),
   granteeEmail: findIdentifier(delegation.identifiers, 'email'),
   startDate: delegation.startDate,
-  endDate: delegation.endDate ?? null,
+  endDate: normalizeEndDate(delegation.endDate),
 })
 
 const mapGrantedDelegation = (
@@ -61,7 +70,7 @@ const mapGrantedDelegation = (
   granterUsername: findIdentifier(delegation.identifiers, 'username'),
   granterEmail: findIdentifier(delegation.identifiers, 'email'),
   startDate: delegation.startDate,
-  endDate: delegation.endDate ?? null,
+  endDate: normalizeEndDate(delegation.endDate),
 })
 
 const validatePeriod = (startDate?: string | null, endDate?: string | null) => {
@@ -233,7 +242,7 @@ export const createDelegation = async (
     originalUserId: userId,
     delegateUserId: data.delegateUserId,
     startDate: data.startDate,
-    ...(data.endDate ? { endDate: data.endDate } : {}),
+    endDate: data.endDate || INDEFINITE_END_DATE,
   })
 
   return true
@@ -248,7 +257,10 @@ export const updateDelegation = async (
 
   validatePeriod(data?.startDate, data?.endDate)
 
-  if (!data?.startDate && !data?.endDate) {
+  // An empty string removes the end date; `null` leaves it untouched.
+  const clearsEndDate = data?.endDate === ''
+
+  if (!data?.startDate && !data?.endDate && !clearsEndDate) {
     throw new BadRequestError(
       'Nothing to update: provide startDate or endDate.'
     )
@@ -261,6 +273,7 @@ export const updateDelegation = async (
     body: {
       ...(data.startDate ? { startDate: data.startDate } : {}),
       ...(data.endDate ? { endDate: data.endDate } : {}),
+      ...(clearsEndDate ? { endDate: INDEFINITE_END_DATE } : {}),
     },
   })
 

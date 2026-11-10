@@ -251,11 +251,6 @@
       "title": "Start Date Required Error",
       "default": "Select a start date."
     },
-    "endDateRequiredError": {
-      "type": "string",
-      "title": "End Date Required Error",
-      "default": "An existing end date cannot be removed. Remove the delegate and add them again for an indefinite period."
-    },
     "endBeforeStartError": {
       "type": "string",
       "title": "End Before Start Error",

@@ -73,7 +73,10 @@ describe('listDelegations', () => {
   it('maps both lists of the authenticated buyer', async () => {
     const { ctx, delegations } = makeContext(buyer)
     delegations.list.mockResolvedValueOnce({
-      grantee: [grantee(), grantee({ delegationId: 'del-2', endDate: null })],
+      grantee: [
+        grantee(),
+        grantee({ delegationId: 'del-2', endDate: '9999-12-31' }),
+      ],
       granter: [granter(), granter({ delegationId: 'gr-2', endDate: null })],
     })
 
@@ -255,7 +258,7 @@ describe('createDelegation', () => {
     })
   })
 
-  it('omits endDate for an open-ended delegation', async () => {
+  it('sends the indefinite end date for an open-ended delegation', async () => {
     const { ctx, delegations } = makeContext(buyer)
 
     await createDelegation(
@@ -269,6 +272,7 @@ describe('createDelegation', () => {
       originalUserId: 'buyer-1',
       delegateUserId: 'user-2',
       startDate: '2026-11-10',
+      endDate: '9999-12-31',
     })
   })
 
@@ -337,6 +341,18 @@ describe('updateDelegation', () => {
     expect(delegations.update).toHaveBeenCalledWith({
       delegationId: 'del-1',
       body: { endDate: '2026-12-10' },
+    })
+  })
+
+  it('removes the end date by sending the indefinite date', async () => {
+    const { ctx, delegations } = makeContext(buyer)
+    delegations.list.mockResolvedValueOnce({ grantee: [grantee()] })
+
+    await updateDelegation(null, { id: 'del-1', data: { endDate: '' } }, ctx)
+
+    expect(delegations.update).toHaveBeenCalledWith({
+      delegationId: 'del-1',
+      body: { endDate: '9999-12-31' },
     })
   })
 

@@ -50,7 +50,6 @@ export type DelegationLabels = {
   savingLabel?: string
   delegateRequiredError?: string
   startDateRequiredError?: string
-  endDateRequiredError?: string
   endBeforeStartError?: string
   endInPastError?: string
   noCandidatesMessage?: string
@@ -110,8 +109,6 @@ export const defaultDelegationLabels: Required<DelegationLabels> = {
   savingLabel: 'Saving...',
   delegateRequiredError: 'Select a user.',
   startDateRequiredError: 'Select a start date.',
-  endDateRequiredError:
-    'An existing end date cannot be removed. Remove the delegate and add them again for an indefinite period.',
   endBeforeStartError: 'The end date cannot be earlier than the start date.',
   endInPastError: 'The end date cannot be in the past.',
   noCandidatesMessage: 'There are no users available to be added.',
