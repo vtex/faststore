@@ -33,6 +33,12 @@ import type { PreviewData } from 'src/server/content/types'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
 
+type StoreConfig = typeof storeConfig & {
+  experimental: {
+    revalidatePLP?: number
+  }
+}
+
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
 )
@@ -244,6 +250,8 @@ export const getStaticProps: GetStaticProps<
       type: 'plp',
       key: slug,
     },
+    revalidate:
+      (storeConfig as StoreConfig).experimental.revalidatePLP ?? false,
   }
 }
 
