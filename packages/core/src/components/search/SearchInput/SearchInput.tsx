@@ -1,4 +1,4 @@
-import type { CSSProperties, SetStateAction } from 'react'
+import type { CSSProperties, KeyboardEvent, SetStateAction } from 'react'
 import {
   Suspense,
   forwardRef,
@@ -6,6 +6,7 @@ import {
   useCallback,
   useDeferredValue,
   useEffect,
+  useId,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -127,6 +128,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const searchQueryDeferred = useDeferredValue(searchQuery)
     const [searchDropdownVisible, setSearchDropdownVisible] =
       useState<boolean>(false)
+    const searchDropdownId = useId()
     const [fileUploadVisible, setFileUploadVisible] = useState<boolean>(false)
     const [isUploadOpen, setIsUploadOpen] = useState(false)
     const [hasFile, setHasFile] = useState(false)
@@ -227,6 +229,41 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
       setFileUploadVisible(false)
     })
+
+    const focusSearchInput = () => {
+      searchRef.current
+        ?.querySelector<HTMLInputElement>('[data-fs-search-input-field-input]')
+        ?.focus()
+    }
+
+    const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault()
+
+        if (!searchDropdownVisible) {
+          setSearchDropdownVisible(true)
+          return
+        }
+
+        document
+          .getElementById(searchDropdownId)
+          ?.querySelector<HTMLElement>('a[href], button:not([disabled])')
+          ?.focus()
+      }
+
+      if (event.key === 'Escape' && searchDropdownVisible) {
+        event.preventDefault()
+        setSearchDropdownVisible(false)
+      }
+    }
+
+    const handleDropdownKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        focusSearchInput()
+        setSearchDropdownVisible(false)
+      }
+    }
 
     const { data, error } = useSuggestions(searchQueryDeferred)
     const terms = (data?.search.suggestions.terms ?? []).slice(
@@ -365,9 +402,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   attachmentButton?.ariaLabel ??
                   a11yLabels?.attachButtonAriaLabel,
               }}
-              onChange={(e: { target: { value: SetStateAction<string> } }) =>
+              onChange={(e: { target: { value: SetStateAction<string> } }) => {
                 setSearchQuery(e.target.value)
-              }
+                setSearchDropdownVisible(true)
+              }}
               onSubmit={(term: string) => {
                 const path = formatSearchPath({
                   term,
@@ -379,12 +417,24 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               }}
               onFocus={() => setSearchDropdownVisible(true)}
               value={searchQuery}
+              role="combobox"
+              aria-expanded={searchDropdownVisible}
+              aria-controls={
+                searchDropdownVisible ? searchDropdownId : undefined
+              }
+              aria-haspopup="dialog"
+              aria-autocomplete="list"
+              onKeyDown={handleInputKeyDown}
               {...otherProps}
             />
 
             {searchDropdownVisible && (
               <Suspense fallback={null}>
                 <SearchDropdown
+                  id={searchDropdownId}
+                  role="dialog"
+                  aria-label="Search suggestions"
+                  onKeyDown={handleDropdownKeyDown}
                   sort={sort as SearchState['sort']}
                   quickOrderSettings={quickOrderSettings}
                   onChangeCustomSearchDropdownVisible={
