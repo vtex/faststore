@@ -1,0 +1,627 @@
+@use "sass:meta";
+
+@layer components {
+  .section {
+    // Styles of the library components rendered inside the drawer.
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Overlay/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Input/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/InputField/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/organisms/SlideOver/styles.scss");
+
+    // Values taken from the approved design (proxy users prototype).
+    --delegation-border: #e3e3e3;
+    --delegation-field-border: #d6d6d6;
+    --delegation-text: #1f1f1f;
+    --delegation-text-muted: #5c5c5c;
+    --delegation-primary: #0366dd;
+    --delegation-primary-hover: #0255b8;
+    --delegation-danger: #d93025;
+    --delegation-hover-bkg: #f5f5f5;
+
+    // --------------------------------------------------------
+    // Delegation tab
+    // --------------------------------------------------------
+
+    [data-fs-delegation-header] {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    [data-fs-delegation-header-secondary] {
+      margin-top: 48px;
+    }
+
+    [data-fs-delegation-title] {
+      min-width: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      letter-spacing: -0.01em;
+    }
+
+    [data-fs-delegation-title-name] {
+      color: var(--delegation-primary);
+    }
+
+    [data-fs-delegation-add] {
+      flex-shrink: 0;
+      height: 40px;
+      padding: 0 20px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--delegation-primary);
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid var(--delegation-border);
+      border-radius: 9999px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgb(3 102 221 / 5%);
+      }
+    }
+
+    // Table (grid, one row per delegation)
+
+    [data-fs-delegation-table-head],
+    [data-fs-delegation-row] {
+      display: grid;
+      grid-template-columns: minmax(160px, 300px) 150px 150px minmax(0, 1fr) 32px;
+      align-items: center;
+      padding: 0 12px;
+    }
+
+    [data-fs-delegation-table-head] {
+      margin-bottom: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--delegation-text-muted);
+      user-select: none;
+    }
+
+    [data-fs-delegation-table-body] {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border-top: 1px solid var(--delegation-border);
+    }
+
+    [data-fs-delegation-row] {
+      min-height: 52px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--delegation-border);
+      border-radius: 0;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: var(--delegation-hover-bkg);
+        border-radius: 4px;
+      }
+    }
+
+    [data-fs-delegation-user],
+    [data-fs-delegation-date-cell] {
+      overflow: hidden;
+      font-size: 14px;
+      text-overflow: ellipsis;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    [data-fs-delegation-user] {
+      font-weight: 500;
+      color: #111827;
+    }
+
+    [data-fs-delegation-date-cell] {
+      color: var(--delegation-text-muted);
+    }
+
+    [data-fs-delegation-actions] {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    [data-fs-delegation-error-state] {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      padding: 32px 0;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    // Empty list: same divider as the table, with the message centered.
+    [data-fs-delegation-empty] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 52px;
+      padding: 8px 12px;
+      border-top: 1px solid var(--delegation-border);
+    }
+
+    [data-fs-delegation-empty-message] {
+      font-size: 14px;
+      font-weight: 500;
+      color: #9ca3af;
+      letter-spacing: -0.01em;
+    }
+
+    // Row menu (three dots)
+
+    [data-fs-delegation-menu] {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    [data-fs-delegation-menu-button],
+    [data-fs-delegation-icon-button] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      color: var(--delegation-text);
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+      border-radius: 9999px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgb(229 231 235 / 50%);
+      }
+    }
+
+    [data-fs-delegation-menu-list] {
+      position: absolute;
+      top: 36px;
+      right: 0;
+      z-index: 50;
+      width: 220px;
+      padding: 8px 0;
+      overflow: hidden;
+      background-color: #fff;
+      border: 1px solid var(--delegation-border);
+      border-radius: 8px;
+      box-shadow:
+        0 10px 15px -3px rgb(0 0 0 / 10%),
+        0 4px 6px -4px rgb(0 0 0 / 10%);
+    }
+
+    [data-fs-delegation-menu-item] {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      padding: 8px 20px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--delegation-text);
+      text-align: left;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: var(--delegation-hover-bkg);
+      }
+    }
+
+    [data-fs-delegation-menu-item-danger] {
+      color: var(--delegation-danger);
+    }
+
+    // --------------------------------------------------------
+    // Delegation drawer
+    // --------------------------------------------------------
+
+    [data-fs-delegation-drawer] {
+      display: flex;
+      flex-direction: column;
+      max-width: 100vw;
+      background-color: #fff;
+    }
+
+    [data-fs-delegation-drawer-header] {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      padding: 0 20px 0 40px;
+      border-bottom: 1px solid var(--delegation-border);
+    }
+
+    [data-fs-delegation-drawer-heading] {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      min-width: 0;
+      margin-left: 0;
+    }
+
+    [data-fs-delegation-drawer-title] {
+      overflow: hidden;
+      font-size: 20px;
+      font-weight: 600;
+      color: #111827;
+      text-overflow: ellipsis;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+
+    [data-fs-delegation-icon-button] {
+      width: 40px;
+      height: 40px;
+      color: #4b5563;
+
+      &:hover {
+        background-color: #f3f4f6;
+      }
+    }
+
+    [data-fs-delegation-drawer-body] {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+    }
+
+    [data-fs-delegation-drawer-intro] {
+      margin-bottom: 32px;
+      font-size: 14px;
+      line-height: 1.625;
+      color: #111827;
+      letter-spacing: -0.01em;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+
+    [data-fs-delegation-form] {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      width: 100%;
+      max-width: 560px;
+    }
+
+    [data-fs-delegation-field] {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    [data-fs-delegation-field-label] {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--delegation-text);
+      letter-spacing: -0.01em;
+    }
+
+    [data-fs-delegation-field-hint] {
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--delegation-text-muted);
+      letter-spacing: -0.01em;
+    }
+
+    // Searchable user selector
+
+    [data-fs-delegation-combobox] {
+      position: relative;
+    }
+
+    [data-fs-delegation-combobox-box] {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      width: 100%;
+      min-height: 56px;
+      padding: 8px 16px;
+      cursor: text;
+      background-color: #fff;
+      border: 1px solid var(--delegation-field-border);
+      border-radius: 4px;
+      transition: border-color 0.2s ease-out;
+
+      &:hover,
+      &:focus-within {
+        border-color: var(--delegation-text);
+      }
+
+      &:focus-within {
+        border-color: var(--delegation-primary);
+      }
+    }
+
+    [data-fs-delegation-combobox-input] {
+      flex: 1;
+      min-width: 80px;
+      padding: 4px 0;
+      font: inherit;
+      font-size: 14px;
+      color: var(--delegation-text);
+      letter-spacing: -0.01em;
+      background: transparent;
+      border: 0;
+      outline: none;
+
+      &::placeholder {
+        color: var(--delegation-text-muted);
+      }
+    }
+
+    [data-fs-delegation-chip] {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+      padding: 3px 4px 3px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--delegation-text);
+      letter-spacing: -0.01em;
+      user-select: none;
+      background-color: #f1f3f4;
+      border-radius: 9999px;
+    }
+
+    [data-fs-delegation-chip-remove] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      color: rgb(0 0 0 / 70%);
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+      border-radius: 9999px;
+
+      &:hover {
+        background-color: rgb(0 0 0 / 10%);
+      }
+    }
+
+    [data-fs-delegation-combobox-list] {
+      position: absolute;
+      top: calc(100% + 4px);
+      right: 0;
+      left: 0;
+      z-index: 20;
+      max-height: 260px;
+      padding: 8px 0;
+      margin: 0;
+      overflow-y: auto;
+      list-style: none;
+      background-color: #fff;
+      border: 1px solid var(--delegation-border);
+      border-radius: 8px;
+      box-shadow:
+        0 10px 15px -3px rgb(0 0 0 / 10%),
+        0 4px 6px -4px rgb(0 0 0 / 10%);
+    }
+
+    [data-fs-delegation-combobox-option] {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 16px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--delegation-hover-bkg);
+      }
+    }
+
+    [data-fs-delegation-option-primary] {
+      font-size: 14px;
+      color: var(--delegation-text);
+      letter-spacing: -0.01em;
+    }
+
+    [data-fs-delegation-option-secondary] {
+      font-size: 12px;
+      color: var(--delegation-text-muted);
+    }
+
+    // Period: start and end date side by side (InputField, native calendar)
+
+    [data-fs-delegation-period] {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    // Empty end date: the label sits centered and the native dd/mm/yyyy stays
+    // hidden until the field is focused.
+    [data-fs-delegation-end-field-empty="true"]:not(:focus-within) {
+      [data-fs-input] {
+        color: transparent;
+
+        &::-webkit-datetime-edit {
+          color: transparent;
+        }
+      }
+
+      // `[data-fs-input-field]` raises the specificity above the InputField
+      // rule that floats the label.
+      [data-fs-input-field] [data-fs-label] {
+        top: calc(50% - (var(--fs-input-field-size, 14px) / 2));
+        font-size: var(--fs-input-field-size, 14px);
+      }
+    }
+
+    [data-fs-delegation-error] {
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--delegation-danger);
+    }
+
+    // Confirmation step
+
+    [data-fs-delegation-confirm] {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--delegation-text);
+      letter-spacing: -0.01em;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+
+    [data-fs-delegation-confirm-intro] {
+      line-height: 1.625;
+    }
+
+    [data-fs-delegation-confirm-subtitle],
+    [data-fs-delegation-confirm-note] {
+      margin-top: 24px;
+      font-size: 13px;
+    }
+
+    [data-fs-delegation-confirm-warning] {
+      padding: 16px;
+      margin-top: 24px;
+      background-color: #f8f8f8;
+      border-radius: 8px;
+    }
+
+    [data-fs-delegation-confirm-list] {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-left: 20px;
+      margin-top: 10px;
+      list-style: disc;
+
+      li {
+        padding-left: 4px;
+      }
+    }
+
+    // Footer and buttons
+
+    [data-fs-delegation-drawer-footer] {
+      display: flex;
+      flex-shrink: 0;
+      gap: 12px;
+      align-items: center;
+      justify-content: flex-end;
+      min-height: 80px;
+      padding: 24px 40px calc(32px + env(safe-area-inset-bottom, 0px));
+      background-color: #fff;
+      border-top: 1px solid var(--delegation-border);
+    }
+
+    [data-fs-delegation-button] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 100px;
+      height: 40px;
+      padding: 0 32px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 0;
+      border-radius: 9999px;
+      transition: background-color 0.2s;
+
+      &:disabled {
+        color: #9ca3af;
+        cursor: not-allowed;
+        background-color: #f3f4f6;
+      }
+    }
+
+    [data-fs-delegation-spinner] {
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      border: 2px solid currentcolor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: delegation-spin 0.8s linear infinite;
+    }
+
+    [data-fs-delegation-button-variant="text"] {
+      min-width: 0;
+      padding: 0 24px;
+      color: #374151;
+      background: transparent;
+
+      &:hover:not(:disabled) {
+        background-color: #f3f4f6;
+      }
+
+      &:disabled {
+        background: transparent;
+      }
+    }
+
+    [data-fs-delegation-button-variant="primary"] {
+      color: #fff;
+      background-color: var(--delegation-primary);
+
+      &:hover:not(:disabled) {
+        background-color: var(--delegation-primary-hover);
+      }
+    }
+
+    // --------------------------------------------------------
+    // Small screens
+    // --------------------------------------------------------
+
+    @media (max-width: 480px) {
+      [data-fs-delegation-drawer-header] {
+        padding-left: 20px;
+      }
+
+      [data-fs-delegation-drawer-body] {
+        padding: 24px 20px;
+      }
+
+      [data-fs-delegation-drawer-footer] {
+        padding: 16px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+      }
+
+      [data-fs-delegation-table-head],
+      [data-fs-delegation-row] {
+        grid-template-columns: minmax(0, 1fr) 96px 96px 32px;
+      }
+
+      // The spacer column only exists to push the actions to the edge.
+      [data-fs-delegation-table-head] > span:nth-child(4),
+      [data-fs-delegation-row] > span:nth-child(4) {
+        display: none;
+      }
+    }
+  }
+}
+
+@keyframes delegation-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
