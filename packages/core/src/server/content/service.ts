@@ -98,9 +98,15 @@ export class ContentService {
     const options = this.createContentOptions(pdpParams)
 
     if (isContentPlatformSource()) {
-      const directMatch = await this.getSingleContent<PDPContentType>(pdpParams)
-      if (directMatch) {
-        return directMatch
+      // PDP entries are templates picked by findBestPDPTemplate, never by the
+      // product slug, so a slug lookup always misses. Only previews and an
+      // explicit documentId need the direct fetch.
+      if (options.isPreview || pdpParams.documentId) {
+        const directMatch =
+          await this.getSingleContent<PDPContentType>(pdpParams)
+        if (directMatch) {
+          return directMatch
+        }
       }
 
       const pages = (await this.getMultipleContent(pdpParams)).data
@@ -141,14 +147,46 @@ export class ContentService {
     serviceParams: EntryPathParams,
     isPreview: boolean
   ): Promise<{ data: PageContentType[] }> {
-    // TODO: This should be temporary until the cp data-plane have a search engine.
+    // Previews read from the control plane, which cannot return the content
+    // inline, so they still fetch each entry.
+    if (isPreview) {
+      const entries = await this.listAllPages(
+        (scroll) => this.clientCP.listEntries(serviceParams, scroll),
+        serviceParams
+      )
+      return this.fillEntriesWithData(entries, serviceParams, isPreview)
+    }
+
+    const entries = await this.listAllPages(
+      (scroll) => this.clientCP.listEntriesWithContent(serviceParams, scroll),
+      serviceParams
+    )
+    return {
+      // client-cp's listEntriesWithContent always sets `content`: a row the
+      // data plane returns without inline content is fetched by the client
+      // itself. The `PageContentType | EntryData` union is narrowed here since
+      // parsing is enabled (disableParse is not set).
+      data: entries.map(({ content, ...entry }) =>
+        this.mergeEntryWithData(entry, content as PageContentType)
+      ),
+    }
+  }
+
+  private async listAllPages<T>(
+    fetchPage: (
+      scroll?: string
+    ) => Promise<{ entries: T[]; scroll?: string | null }>,
+    serviceParams: EntryPathParams
+  ): Promise<T[]> {
+    // The data plane has no search engine yet, so every entry is listed and
+    // the template is matched here.
     const MAX_PAGES = 25
-    const allEntries: ContentEntry[] = []
+    const allEntries: T[] = []
     let scroll: string | undefined
     let pages = 0
 
     do {
-      const result = await this.clientCP.listEntries(serviceParams, scroll)
+      const result = await fetchPage(scroll)
       allEntries.push(...result.entries)
       const next = result.scroll ?? undefined
       if (next && next === scroll) break
@@ -156,10 +194,11 @@ export class ContentService {
     } while (scroll && ++pages < MAX_PAGES)
 
     if (pages >= MAX_PAGES) {
-      console.warn('listEntries pagination hit MAX_PAGES cap', serviceParams)
+      // `listEntries` and `listEntriesWithContent` both paginate here.
+      console.warn('list pagination hit MAX_PAGES cap', serviceParams)
     }
 
-    return this.fillEntriesWithData(allEntries, serviceParams, isPreview)
+    return allEntries
   }
 
   private async fillEntriesWithData(

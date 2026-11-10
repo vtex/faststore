@@ -60,6 +60,10 @@ const entryData: Record<string, Record<string, unknown>> = {
     settings: { template: { value: '/outra' } },
     sections: [{ name: 'Other' }],
   },
+  camisetas: {
+    settings: { template: { value: '/camisetas/' } },
+    sections: [{ name: 'Camisetas PDP' }],
+  },
 }
 
 const toEntry = (id: string): ContentEntry => ({
@@ -74,15 +78,49 @@ const toEntry = (id: string): ContentEntry => ({
   slug: id,
 })
 
+const toEntryWithContent = (id: string) => ({
+  ...toEntry(id),
+  content: { ...entryData[id] },
+})
+
+const toPage = (pages: string[][], scroll?: string) => {
+  const index = scroll ? Number(scroll) : 0
+  return {
+    ids: pages[index],
+    scroll: index + 1 < pages.length ? String(index + 1) : null,
+  }
+}
+
+// The single widening cast below is intentional: the object literal is still
+// structurally checked against the product type, so a typo in a fixture key
+// fails the typecheck instead of being accepted silently (unlike
+// `as unknown as ...`).
+const toProduct = (...breadcrumb: string[]) =>
+  ({
+    breadcrumbList: {
+      itemListElement: breadcrumb.map((item, index) => ({
+        item,
+        name: item,
+        position: index + 1,
+      })),
+    },
+  }) as Parameters<ContentService['getPdpContent']>[0]
+
 function createFakeClientCP(pages: string[][]) {
   return {
     listEntries: vi.fn(async (_params: EntryPathParams, scroll?: string) => {
-      const index = scroll ? Number(scroll) : 0
-      return {
-        entries: pages[index].map(toEntry),
-        scroll: index + 1 < pages.length ? String(index + 1) : null,
-      }
+      const page = toPage(pages, scroll)
+      return { entries: page.ids.map(toEntry), scroll: page.scroll }
     }),
+    listEntriesWithContent: vi.fn(
+      async (_params: EntryPathParams, scroll?: string) => {
+        const page = toPage(pages, scroll)
+        return {
+          entries: page.ids.map(toEntryWithContent),
+          scroll: page.scroll,
+        }
+      }
+    ),
     getEntry: vi.fn(async ({ entryId }: EntryPathParams) => ({
       ...entryData[entryId as string],
       createdBy: 'payload@example.com',
@@ -235,7 +273,7 @@ describe('ContentService', () => {
       expect(listedPage).not.toHaveProperty('storeId')
     })
 
-    it('shares one list and entry fetch across concurrent PLPs with different slugs', async () => {
+    it('shares one listEntriesWithContent fetch across concurrent PLPs with different slugs', async () => {
       const { service, clientCP } = createServiceWithClient()
 
       const [collectionPage, otherPage, unknownPage] = await Promise.all([
@@ -244,8 +282,9 @@ describe('ContentService', () => {
         service.getPlpContent({ slug: 'nao-existe' }, []),
       ])
 
-      expect(clientCP.listEntries).toHaveBeenCalledTimes(1)
-      expect(clientCP.getEntry).toHaveBeenCalledTimes(3)
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(1)
+      expect(clientCP.listEntries).not.toHaveBeenCalled()
+      expect(clientCP.getEntry).not.toHaveBeenCalled()
       expect(collectionPage.sections).toEqual([{ name: 'Collection' }])
       expect(otherPage.sections).toEqual([{ name: 'Other' }])
       expect(unknownPage.sections).toEqual([{ name: 'Generic' }])
@@ -257,8 +296,8 @@ describe('ContentService', () => {
       await service.getPlpContent({ slug: 'colecao' }, [])
       await service.getPlpContent({ slug: 'outra' }, [])
 
-      expect(clientCP.listEntries).toHaveBeenCalledTimes(1)
-      expect(clientCP.getEntry).toHaveBeenCalledTimes(3)
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(1)
+      expect(clientCP.getEntry).not.toHaveBeenCalled()
     })
 
     it('still prefers a direct slug match over the cached list', async () => {
@@ -271,7 +310,7 @@ describe('ContentService', () => {
       const page = await service.getPlpContent({ slug: 'colecao' }, [])
 
       expect(page.sections).toEqual([{ name: 'Direct' }])
-      expect(clientCP.listEntries).toHaveBeenCalledTimes(1)
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(1)
     })
 
     it('consumes every scroll page once', async () => {
@@ -287,9 +326,9 @@ describe('ContentService', () => {
       ])
       const { data } = await service.getMultipleContent({ contentType: 'plp' })
 
-      expect(clientCP.listEntries).toHaveBeenCalledTimes(3)
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(3)
       expect(
-        clientCP.listEntries.mock.calls.map(([, scroll]) => scroll)
+        clientCP.listEntriesWithContent.mock.calls.map(([, scroll]) => scroll)
       ).toEqual([undefined, '1', '2'])
       expect(data.map((entry) => entry.id)).toEqual([
         'generic',
@@ -305,9 +344,11 @@ describe('ContentService', () => {
       await service.getMultipleContent({ contentType: 'pdp' })
       await service.getMultipleContent({ contentType: 'pdp' })
 
-      expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(2)
       expect(
-        clientCP.listEntries.mock.calls.map(([params]) => params.contentType)
+        clientCP.listEntriesWithContent.mock.calls.map(
+          ([params]) => params.contentType
+        )
       ).toEqual(['plp', 'pdp'])
     })
 
@@ -318,9 +359,11 @@ describe('ContentService', () => {
       await service.getMultipleContent({ contentType: 'plp', locale: 'en-US' })
       await service.getMultipleContent({ contentType: 'plp', locale: 'pt-BR' })
 
-      expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(2)
       expect(
-        clientCP.listEntries.mock.calls.map(([params]) => params.locale)
+        clientCP.listEntriesWithContent.mock.calls.map(
+          ([params]) => params.locale
+        )
       ).toEqual(['pt-BR', 'en-US'])
     })
 
@@ -340,22 +383,23 @@ describe('ContentService', () => {
       await service.getMultipleContent(previewParams)
       await service.getMultipleContent({ contentType: 'plp' })
 
-      expect(clientCP.listEntries).toHaveBeenCalledTimes(3)
-      expect(clientCP.getEntry).toHaveBeenCalledTimes(3)
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(1)
+      expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
+      expect(clientCP.getEntry).not.toHaveBeenCalled()
       expect(clientCP.previewEntryById).toHaveBeenCalledTimes(6)
     })
 
     it('does not cache failures', async () => {
       const { service, clientCP } = createServiceWithClient()
       const error = new Error('Request failed with status code 500')
-      clientCP.listEntries.mockRejectedValueOnce(error)
+      clientCP.listEntriesWithContent.mockRejectedValueOnce(error)
 
       await expect(
         service.getMultipleContent({ contentType: 'plp' })
       ).rejects.toBe(error)
       const { data } = await service.getMultipleContent({ contentType: 'plp' })
 
-      expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(2)
       expect(data).toHaveLength(3)
     })
 
@@ -363,7 +407,7 @@ describe('ContentService', () => {
       vi.useFakeTimers()
       const { service, clientCP } = createServiceWithClient()
       let rejectFirst: (err: Error) => void = () => {}
-      clientCP.listEntries.mockImplementationOnce(
+      clientCP.listEntriesWithContent.mockImplementationOnce(
         () =>
           new Promise((_, reject) => {
             rejectFirst = reject
@@ -379,7 +423,7 @@ describe('ContentService', () => {
       await firstResult
       await service.getMultipleContent({ contentType: 'plp' })
 
-      expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(2)
     })
 
     it('fetches the list again after the TTL', async () => {
@@ -389,11 +433,103 @@ describe('ContentService', () => {
       await service.getMultipleContent({ contentType: 'plp' })
       vi.advanceTimersByTime(FIVE_MINUTES - 1)
       await service.getMultipleContent({ contentType: 'plp' })
-      expect(clientCP.listEntries).toHaveBeenCalledTimes(1)
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(1)
 
       vi.advanceTimersByTime(1)
       await service.getMultipleContent({ contentType: 'plp' })
-      expect(clientCP.listEntries).toHaveBeenCalledTimes(2)
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(2)
+    })
+
+    it('merges the entry metadata with its inline content', async () => {
+      const { service, clientCP } = createServiceWithClient([['collection']])
+
+      const { data } = await service.getMultipleContent({ contentType: 'plp' })
+
+      expect(data).toEqual([
+        {
+          id: 'collection',
+          name: 'collection',
+          settings: { template: { value: '/colecao' } },
+          sections: [{ name: 'Collection' }],
+        },
+      ])
+      expect(clientCP.getEntry).not.toHaveBeenCalled()
+    })
+
+    it('warns without naming one list method when the pagination cap is hit', async () => {
+      // 26 pages exceed the MAX_PAGES cap of 25, so the service stops
+      // paginating and warns.
+      const pages = Array.from({ length: 26 }, (_, index) => [`entry-${index}`])
+      const { service, clientCP } = createServiceWithClient(pages)
+
+      const { data } = await service.getMultipleContent({
+        contentType: 'plp',
+      })
+
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(25)
+      expect(data).toHaveLength(25)
+      expect(console.warn).toHaveBeenCalledWith(
+        expect.stringContaining('pagination hit MAX_PAGES cap'),
+        expect.anything()
+      )
+      expect(console.warn).not.toHaveBeenCalledWith(
+        expect.stringContaining('listEntries pagination'),
+        expect.anything()
+      )
+    })
+
+    describe('PDP', () => {
+      it('skips the product slug lookup and matches a template from the list', async () => {
+        const { service, clientCP } = createServiceWithClient([
+          ['generic', 'camisetas'],
+        ])
+
+        const page = await service.getPdpContent(
+          toProduct('/camisetas/', '/camiseta-azul-123/p'),
+          { slug: 'camiseta-azul-123' }
+        )
+
+        expect(clientCP.getEntryBySlug).not.toHaveBeenCalled()
+        expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(1)
+        expect(page.sections).toEqual([{ name: 'Camisetas PDP' }])
+      })
+
+      it('still fetches the previewed entry by id', async () => {
+        const { service, clientCP } = createServiceWithClient()
+
+        const page = await service.getPdpContent(
+          toProduct('/camiseta-azul-123/p'),
+          {
+            slug: 'camiseta-azul-123',
+            previewData: {
+              contentType: 'pdp',
+              documentId: 'collection',
+              versionId: 'version-1',
+            },
+          }
+        )
+
+        expect(clientCP.previewEntryById).toHaveBeenCalledWith(
+          expect.objectContaining({ entryId: 'collection', contentType: 'pdp' })
+        )
+        expect(clientCP.listEntriesWithContent).not.toHaveBeenCalled()
+        expect(page.sections).toEqual([{ name: 'Collection' }])
+      })
+
+      it('still fetches an explicit documentId directly', async () => {
+        const { service, clientCP } = createServiceWithClient()
+
+        const page = await service.getPdpContent(
+          toProduct('/camiseta-azul-123/p'),
+          { slug: 'camiseta-azul-123', documentId: 'other' }
+        )
+
+        expect(clientCP.getEntry).toHaveBeenCalledWith(
+          expect.objectContaining({ entryId: 'other', contentType: 'pdp' })
+        )
+        expect(clientCP.listEntriesWithContent).not.toHaveBeenCalled()
+        expect(page.sections).toEqual([{ name: 'Other' }])
+      })
     })
   })
 

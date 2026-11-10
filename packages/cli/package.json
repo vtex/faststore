@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "4.11.2",
+  "version": "4.11.3-dev.1",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "type": "module",
@@ -94,6 +94,6 @@
   ],
   "types": "dist/index.d.ts",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.9.0"
   }
 }

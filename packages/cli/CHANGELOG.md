@@ -3,19 +3,77 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [4.11.2](https://github.com/vtex/faststore/compare/v4.11.1...v4.11.2) (2026-11-09)
+## [4.11.3-dev.1](https://github.com/vtex/faststore/compare/v4.11.3-dev.0...v4.11.3-dev.1) (2026-11-10)
 
 **Note:** Version bump only for package @faststore/cli
+
+## [4.11.3-dev.0](https://github.com/vtex/faststore/compare/v4.11.2...v4.11.3-dev.0) (2026-11-09)
+
+## [4.11.2-dev.1](https://github.com/vtex/faststore/compare/v4.11.2-dev.0...v4.11.2-dev.1) (2026-11-05)
+
+## [4.11.2-dev.0](https://github.com/vtex/faststore/compare/v4.11.1...v4.11.2-dev.0) (2026-11-05)
+
+## [4.11.1-dev.1](https://github.com/vtex/faststore/compare/v4.11.1-dev.0...v4.11.1-dev.1) (2026-11-04)
+
+### Bug Fixes
+
+- **api:** apply [@auth](https://github.com/auth) and [@cache](https://github.com/cache)Control to store schema extensions ([#3524](https://github.com/vtex/faststore/issues/3524)) ([f6abd0d](https://github.com/vtex/faststore/commit/f6abd0d4f7312794a4195ce693526b539550275e)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [/github.com/vtex/faststore/pull/3524#issuecomment-6258456970](https://github.com//github.com/vtex/faststore/pull/3524/issues/issuecomment-6258456970) [#3111](https://github.com/vtex/faststore/issues/3111) [#3063](https://github.com/vtex/faststore/issues/3063)
+
+## [4.11.1-dev.0](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1-dev.0) (2026-11-03)
+
+## [4.10.3-dev.1](https://github.com/vtex/faststore/compare/v4.10.3-dev.0...v4.10.3-dev.1) (2026-10-29)
+
+## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
+
+## [4.11.2-dev.1](https://github.com/vtex/faststore/compare/v4.11.2-dev.0...v4.11.2-dev.1) (2026-11-05)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.11.2-dev.0](https://github.com/vtex/faststore/compare/v4.11.1...v4.11.2-dev.0) (2026-11-05)
+
+## [4.11.1-dev.1](https://github.com/vtex/faststore/compare/v4.11.1-dev.0...v4.11.1-dev.1) (2026-11-04)
+
+## [4.11.2](https://github.com/vtex/faststore/compare/v4.11.1...v4.11.2) (2026-11-09)
 
 ## [4.11.1](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1) (2026-11-05)
 
 ### Bug Fixes
+
+- **api:** apply [@auth](https://github.com/auth) and [@cache](https://github.com/cache)Control to store schema extensions ([#3524](https://github.com/vtex/faststore/issues/3524)) ([f6abd0d](https://github.com/vtex/faststore/commit/f6abd0d4f7312794a4195ce693526b539550275e)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [/github.com/vtex/faststore/pull/3524#issuecomment-6258456970](https://github.com//github.com/vtex/faststore/pull/3524/issues/issuecomment-6258456970) [#3111](https://github.com/vtex/faststore/issues/3111) [#3063](https://github.com/vtex/faststore/issues/3063)
+
+## [4.11.1-dev.0](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1-dev.0) (2026-11-03)
+
+## [4.10.3-dev.1](https://github.com/vtex/faststore/compare/v4.10.3-dev.0...v4.10.3-dev.1) (2026-10-29)
+
+## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
+
+## [4.11.1-dev.1](https://github.com/vtex/faststore/compare/v4.11.1-dev.0...v4.11.1-dev.1) (2026-11-04)
+
+### Bug Fixes
+
+- **api:** apply [@auth](https://github.com/auth) and [@cache](https://github.com/cache)Control to store schema extensions ([#3524](https://github.com/vtex/faststore/issues/3524)) ([f6abd0d](https://github.com/vtex/faststore/commit/f6abd0d4f7312794a4195ce693526b539550275e)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [/github.com/vtex/faststore/pull/3524#issuecomment-6258456970](https://github.com//github.com/vtex/faststore/pull/3524/issues/issuecomment-6258456970) [#3111](https://github.com/vtex/faststore/issues/3111) [#3063](https://github.com/vtex/faststore/issues/3063)
+
+## [4.11.1-dev.0](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1-dev.0) (2026-11-03)
+
+## [4.10.3-dev.1](https://github.com/vtex/faststore/compare/v4.10.3-dev.0...v4.10.3-dev.1) (2026-10-29)
+
+## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
+
+## [4.11.1](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1) (2026-11-05)
 
 - align My Account CLI templates with the isB2BBuyer prop ([7c38ff2](https://github.com/vtex/faststore/commit/7c38ff26a432f6cb511923c5a99c08abf4b4375b))
 
 # [4.11.0](https://github.com/vtex/faststore/compare/v4.10.3...v4.11.0) (2026-11-03)
 
 **Note:** Version bump only for package @faststore/cli
+
+## [4.10.3-dev.1](https://github.com/vtex/faststore/compare/v4.10.3-dev.0...v4.10.3-dev.1) (2026-10-29)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
+
+# [4.11.0](https://github.com/vtex/faststore/compare/v4.10.3...v4.11.0) (2026-11-03)
 
 ## [4.10.3](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3) (2026-10-29)
 

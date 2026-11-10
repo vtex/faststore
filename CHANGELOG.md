@@ -3,9 +3,67 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [4.11.2](https://github.com/vtex/faststore/compare/v4.11.1...v4.11.2) (2026-11-09)
+## [4.11.3-dev.1](https://github.com/vtex/faststore/compare/v4.11.3-dev.0...v4.11.3-dev.1) (2026-11-10)
+
+### Bug Fixes
+
+- **core:** fetch Content Platform list content inline and skip PDP slug lookup ([#3551](https://github.com/vtex/faststore/issues/3551)) ([75ce26d](https://github.com/vtex/faststore/commit/75ce26dfda99447db1672b54c89cc67e87c87121)), closes [#3550](https://github.com/vtex/faststore/issues/3550) [#3550](https://github.com/vtex/faststore/issues/3550)
+
+## [4.11.3-dev.0](https://github.com/vtex/faststore/compare/v4.11.2...v4.11.3-dev.0) (2026-11-09)
+
+### Bug Fixes
+
+- **core:** let the store config override api.subDomainPrefix ([e0eeb07](https://github.com/vtex/faststore/commit/e0eeb0754b5ad75e20b3fe1ef0e16d3acb5f5b3b))
+- **core:** move the subDomainPrefix warning to its own module ([cad5c20](https://github.com/vtex/faststore/commit/cad5c2084e335e7ec1e3404c6a078bd875949f86))
+- **core:** only let an empty subDomainPrefix replace the default ([e2c0c0d](https://github.com/vtex/faststore/commit/e2c0c0d1d5e5c81ed149da9adcc9b3d8cc8a2c30))
+- **core:** scope the subDomainPrefix override to api and warn on invalid URLs ([2f0e027](https://github.com/vtex/faststore/commit/2f0e0276f8d2bcd61a5047652ea6529ef127bdb9))
+- **core:** use a Set for the overridden discovery config keys ([1d74a1e](https://github.com/vtex/faststore/commit/1d74a1eb4bf42f5e1dc85b851fecb534498c060e))
+
+## [4.11.2-dev.1](https://github.com/vtex/faststore/compare/v4.11.2-dev.0...v4.11.2-dev.1) (2026-11-05)
+
+## [4.11.2-dev.0](https://github.com/vtex/faststore/compare/v4.11.1...v4.11.2-dev.0) (2026-11-05)
+
+## [4.11.1-dev.1](https://github.com/vtex/faststore/compare/v4.11.1-dev.0...v4.11.1-dev.1) (2026-11-04)
+
+### Bug Fixes
+
+- **api:** apply [@auth](https://github.com/auth) and [@cache](https://github.com/cache)Control to store schema extensions ([#3524](https://github.com/vtex/faststore/issues/3524)) ([f6abd0d](https://github.com/vtex/faststore/commit/f6abd0d4f7312794a4195ce693526b539550275e)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [/github.com/vtex/faststore/pull/3524#issuecomment-6258456970](https://github.com//github.com/vtex/faststore/pull/3524/issues/issuecomment-6258456970) [#3111](https://github.com/vtex/faststore/issues/3111) [#3063](https://github.com/vtex/faststore/issues/3063)
+
+## [4.11.1-dev.0](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1-dev.0) (2026-11-03)
+
+## [4.10.3-dev.1](https://github.com/vtex/faststore/compare/v4.10.3-dev.0...v4.10.3-dev.1) (2026-10-29)
+
+## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
+
+### Bug Fixes
+
+- **api:** avoid shippingData update loop when orderForm address has no geoCoordinates ([0f883a1](https://github.com/vtex/faststore/commit/0f883a14f6fe2d047cb64083f200577f441237af))
+
+## [4.11.2-dev.1](https://github.com/vtex/faststore/compare/v4.11.2-dev.0...v4.11.2-dev.1) (2026-11-05)
 
 **Note:** Version bump only for package faststore
+
+## [4.11.2-dev.0](https://github.com/vtex/faststore/compare/v4.11.1...v4.11.2-dev.0) (2026-11-05)
+
+## [4.11.1-dev.1](https://github.com/vtex/faststore/compare/v4.11.1-dev.0...v4.11.1-dev.1) (2026-11-04)
+
+### Bug Fixes
+
+- **api:** apply [@auth](https://github.com/auth) and [@cache](https://github.com/cache)Control to store schema extensions ([#3524](https://github.com/vtex/faststore/issues/3524)) ([f6abd0d](https://github.com/vtex/faststore/commit/f6abd0d4f7312794a4195ce693526b539550275e)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [/github.com/vtex/faststore/pull/3524#issuecomment-6258456970](https://github.com//github.com/vtex/faststore/pull/3524/issues/issuecomment-6258456970) [#3111](https://github.com/vtex/faststore/issues/3111) [#3063](https://github.com/vtex/faststore/issues/3063)
+
+## [4.11.1-dev.0](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1-dev.0) (2026-11-03)
+
+## [4.10.3-dev.1](https://github.com/vtex/faststore/compare/v4.10.3-dev.0...v4.10.3-dev.1) (2026-10-29)
+
+## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
+
+### Bug Fixes
+
+- **api:** avoid shippingData update loop when orderForm address has no geoCoordinates ([0f883a1](https://github.com/vtex/faststore/commit/0f883a14f6fe2d047cb64083f200577f441237af))
+
+## [4.11.1-dev.1](https://github.com/vtex/faststore/compare/v4.11.1-dev.0...v4.11.1-dev.1) (2026-11-04)
+
+## [4.11.2](https://github.com/vtex/faststore/compare/v4.11.1...v4.11.2) (2026-11-09)
 
 ## [4.11.1](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1) (2026-11-05)
 
@@ -17,6 +75,30 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
+- **api:** apply [@auth](https://github.com/auth) and [@cache](https://github.com/cache)Control to store schema extensions ([#3524](https://github.com/vtex/faststore/issues/3524)) ([f6abd0d](https://github.com/vtex/faststore/commit/f6abd0d4f7312794a4195ce693526b539550275e)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [/github.com/vtex/faststore/pull/3524#issuecomment-6258456970](https://github.com//github.com/vtex/faststore/pull/3524/issues/issuecomment-6258456970) [#3111](https://github.com/vtex/faststore/issues/3111) [#3063](https://github.com/vtex/faststore/issues/3063)
+
+## [4.11.1-dev.0](https://github.com/vtex/faststore/compare/v4.11.0...v4.11.1-dev.0) (2026-11-03)
+
+## [4.10.3-dev.1](https://github.com/vtex/faststore/compare/v4.10.3-dev.0...v4.10.3-dev.1) (2026-10-29)
+
+## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
+
+### Bug Fixes
+
+- **api:** avoid shippingData update loop when orderForm address has no geoCoordinates ([0f883a1](https://github.com/vtex/faststore/commit/0f883a14f6fe2d047cb64083f200577f441237af))
+
+## [4.10.3-dev.1](https://github.com/vtex/faststore/compare/v4.10.3-dev.0...v4.10.3-dev.1) (2026-10-29)
+
+### Bug Fixes
+
+- **api:** avoid shippingData update loop when orderForm address has no geoCoordinates ([0f883a1](https://github.com/vtex/faststore/commit/0f883a14f6fe2d047cb64083f200577f441237af))
+
+## [4.10.3-dev.0](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3-dev.0) (2026-10-29)
+
+**Note:** Version bump only for package faststore
+
+# [4.11.0](https://github.com/vtex/faststore/compare/v4.10.3...v4.11.0) (2026-11-03)
+
 - **api:** keep the cart when an assembly child SKU is missing from Search ([e0cc89b](https://github.com/vtex/faststore/commit/e0cc89b6c173d115cccd3ddbefb831d5fe8ac547))
 - **api:** let assembly parents follow the browser quantity with preserveCartLines ([c085460](https://github.com/vtex/faststore/commit/c085460920b42acace57058565189e0ab0278853))
 - **api:** return the cart when a Checkout line id changes with preserveCartLines ([2d8ee07](https://github.com/vtex/faststore/commit/2d8ee07c1d79054250bee10aeac356c9d7202411))
@@ -27,8 +109,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **api:** add preserveCartLines flag to keep Checkout cart lines apart ([4151603](https://github.com/vtex/faststore/commit/41516034fd5bee6250b4e5dc0db51a105ceb64a1))
 
 ## [4.10.3](https://github.com/vtex/faststore/compare/v4.10.2...v4.10.3) (2026-10-29)
-
-### Bug Fixes
 
 - **api:** avoid shippingData update loop when orderForm address has no geoCoordinates ([#3554](https://github.com/vtex/faststore/issues/3554)) ([0cea2ce](https://github.com/vtex/faststore/commit/0cea2ce952f97f6572c6ac1f6e9b005cfbaa46ac))
 
