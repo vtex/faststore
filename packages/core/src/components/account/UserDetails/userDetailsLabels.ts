@@ -9,7 +9,7 @@ export type UserDetailsSectionLabels = {
 }
 
 export const defaultUserDetailsLabels: Required<UserDetailsSectionLabels> = {
-  pageTitle: 'User details',
+  pageTitle: 'User settings',
   nameLabel: 'Name',
   usernameLabel: 'Username',
   emailLabel: 'Email',
