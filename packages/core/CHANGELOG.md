@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.11.3-dev.1](https://github.com/vtex/faststore/compare/v4.11.3-dev.0...v4.11.3-dev.1) (2026-11-10)
+
+### Bug Fixes
+
+- **core:** fetch Content Platform list content inline and skip PDP slug lookup ([#3551](https://github.com/vtex/faststore/issues/3551)) ([75ce26d](https://github.com/vtex/faststore/commit/75ce26dfda99447db1672b54c89cc67e87c87121)), closes [#3550](https://github.com/vtex/faststore/issues/3550) [#3550](https://github.com/vtex/faststore/issues/3550)
+
 ## [4.11.3-dev.0](https://github.com/vtex/faststore/compare/v4.11.2...v4.11.3-dev.0) (2026-11-09)
 
 ### Bug Fixes
