@@ -56,6 +56,7 @@ export type Scalars = {
    */
   FormattedVariants: { input: any; output: any; }
   JSONObject: { input: any; output: any; }
+  /** A string or the string representation of an object (a stringified object). */
   ObjectOrString: { input: any; output: any; }
   /**
    * Example:
@@ -448,6 +449,16 @@ export type IStoreCart = {
   order: IStoreOrder;
 };
 
+/** Input to create a delegation. The Original Shopper is always the authenticated buyer. */
+export type IStoreCreateDelegation = {
+  /** Identifier of the user elected as Delegate. */
+  delegateUserId: Scalars['String']['input'];
+  /** Last day of the delegation (`YYYY-MM-DD`). Omit for an open-ended delegation. */
+  endDate: InputMaybe<Scalars['String']['input']>;
+  /** First day of the delegation (`YYYY-MM-DD`). */
+  startDate: Scalars['String']['input'];
+};
+
 export type IStoreCurrency = {
   /** Currency code (e.g: USD). */
   code: Scalars['String']['input'];
@@ -601,6 +612,14 @@ export type IStoreSession = {
   refreshAfter: InputMaybe<Scalars['String']['input']>;
 };
 
+/** Input to change the period of a delegation. The Delegate and the owner never change. */
+export type IStoreUpdateDelegation = {
+  /** New last day of the delegation (`YYYY-MM-DD`). */
+  endDate: InputMaybe<Scalars['String']['input']>;
+  /** New first day of the delegation (`YYYY-MM-DD`). */
+  startDate: InputMaybe<Scalars['String']['input']>;
+};
+
 /** Input to the cancel order API. */
 export type IUserOrderCancel = {
   /** Customer's email. */
@@ -674,8 +693,12 @@ export type MessageInfo = {
 export type Mutation = {
   /** Cancels user order */
   cancelOrder: Maybe<UserOrderCancel>;
+  /** Creates a delegation where the authenticated buyer is the Original Shopper. */
+  createDelegation: Scalars['Boolean']['output'];
   /** Process Order Authorization */
   processOrderAuthorization: Maybe<ProcessOrderAuthorizationResponse>;
+  /** Revokes a delegation owned by the authenticated buyer. Revocation is one-way. */
+  revokeDelegation: Scalars['Boolean']['output'];
   /**
    * Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
    * Returns an operationId to poll for the operation status.
@@ -685,6 +708,8 @@ export type Mutation = {
   startRecommendationSession: Scalars['Boolean']['output'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>;
+  /** Changes the period of a delegation owned by the authenticated buyer. */
+  updateDelegation: Scalars['Boolean']['output'];
   /**
    * Uploads a file to the Order Entry Service and returns the S3 object key.
    * The file must be Base64-encoded and passed via the `data` input.
@@ -703,8 +728,18 @@ export type MutationCancelOrderArgs = {
 };
 
 
+export type MutationCreateDelegationArgs = {
+  data: IStoreCreateDelegation;
+};
+
+
 export type MutationProcessOrderAuthorizationArgs = {
   data: IProcessOrderAuthorization;
+};
+
+
+export type MutationRevokeDelegationArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -715,6 +750,12 @@ export type MutationStartOrderEntryOperationArgs = {
 
 export type MutationSubscribeToNewsletterArgs = {
   data: IPersonNewsletter;
+};
+
+
+export type MutationUpdateDelegationArgs = {
+  data: IStoreUpdateDelegation;
+  id: Scalars['ID']['input'];
 };
 
 
@@ -894,6 +935,8 @@ export type Query = {
   availableContracts: Array<StoreContract>;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /** Compares the roles of the authenticated buyer with those of a user about to be elected as Delegate. */
+  compareDelegateRoles: StoreDelegateRoleComparison;
   /**
    * Whether the current user holds the ad-hoc card platform permission, which
    * gates personal card management for Unit/Contract-affiliated buyers.
@@ -907,6 +950,16 @@ export type Query = {
   isOrganizationMember: Scalars['Boolean']['output'];
   /** Returns the list of saved credit cards for the current user. */
   listCreditCards: Maybe<SavedCardListResult>;
+  /**
+   * Returns the users of the buyer's organization who can be elected as Delegate.
+   * The authenticated buyer is never part of the result.
+   */
+  listDelegateCandidates: Array<StoreDelegateCandidate>;
+  /**
+   * Returns the delegations of the authenticated buyer: `grantee` lists who can act on their behalf
+   * (only delegations where the buyer is the Original Shopper) and `granter` lists who they can act on behalf of.
+   */
+  listDelegations: StoreDelegationsResult;
   /** Returns the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>;
   /** Returns the list of Quotes that the authenticated Buyer can view. */
@@ -963,6 +1016,11 @@ export type QueryAvailableContractsArgs = {
 
 export type QueryCollectionArgs = {
   slug: Scalars['String']['input'];
+};
+
+
+export type QueryCompareDelegateRolesArgs = {
+  delegateUserId: Scalars['String']['input'];
 };
 
 
@@ -1465,6 +1523,49 @@ export type StoreCurrency = {
   symbol: Scalars['String']['output'];
 };
 
+/** A user of the buyer's organization who can be elected as Delegate. */
+export type StoreDelegateCandidate = {
+  /** Email of the user, when available. */
+  email: Maybe<Scalars['String']['output']>;
+  /** User identifier. */
+  userId: Scalars['String']['output'];
+  /** Username of the user, when available. */
+  username: Maybe<Scalars['String']['output']>;
+};
+
+/** Result of comparing the roles of the authenticated buyer with those of a user elected as Delegate. */
+export type StoreDelegateRoleComparison = {
+  /**
+   * Whether the Delegate holds strictly fewer roles than the buyer, so the delegation grants access beyond
+   * their usual permissions. It is `false` when the roles cannot be read: it only drives a non-blocking warning.
+   */
+  hasFewerRoles: Scalars['Boolean']['output'];
+};
+
+/** A delegation granted by the authenticated buyer (the Original Shopper) to another user (the Delegate). */
+export type StoreDelegation = {
+  /** Last day of the delegation (`YYYY-MM-DD`). `null` means open-ended. */
+  endDate: Maybe<Scalars['String']['output']>;
+  /** Email of the Delegate, when available. */
+  granteeEmail: Maybe<Scalars['String']['output']>;
+  /** Identifier of the user who can act on behalf of the buyer (the Delegate). */
+  granteeUserId: Scalars['String']['output'];
+  /** Username of the Delegate, when available. */
+  granteeUsername: Maybe<Scalars['String']['output']>;
+  /** Delegation identifier. */
+  id: Scalars['ID']['output'];
+  /** First day of the delegation (`YYYY-MM-DD`). */
+  startDate: Scalars['String']['output'];
+};
+
+/** Both sides of the authenticated buyer's delegations. */
+export type StoreDelegationsResult = {
+  /** Delegations granted by the buyer: who can act on their behalf. */
+  grantee: Array<StoreDelegation>;
+  /** Delegations granted to the buyer: who they can act on behalf of. */
+  granter: Array<StoreGrantedDelegation>;
+};
+
 /** Delivery mode information. */
 export type StoreDeliveryMode = {
   /** The delivery channel information of the session. */
@@ -1540,6 +1641,22 @@ export type StoreGeoCoordinates = {
   latitude: Scalars['Float']['output'];
   /** The longitude of the geographic coordinates. */
   longitude: Scalars['Float']['output'];
+};
+
+/** A delegation granted to the authenticated buyer by another user: the buyer can act on behalf of the granter. */
+export type StoreGrantedDelegation = {
+  /** Last day of the delegation (`YYYY-MM-DD`). `null` means open-ended. */
+  endDate: Maybe<Scalars['String']['output']>;
+  /** Email of the granter, when available. */
+  granterEmail: Maybe<Scalars['String']['output']>;
+  /** Identifier of the user the buyer can act on behalf of. */
+  granterUserId: Scalars['String']['output'];
+  /** Username of the granter, when available. */
+  granterUsername: Maybe<Scalars['String']['output']>;
+  /** Delegation identifier. */
+  id: Scalars['ID']['output'];
+  /** First day of the delegation (`YYYY-MM-DD`). */
+  startDate: Scalars['String']['output'];
 };
 
 /** Image. */
@@ -2934,6 +3051,45 @@ export type CancelOrderMutationMutationVariables = Exact<{
 
 export type CancelOrderMutationMutation = { cancelOrder: { data: string | null } | null };
 
+export type ListDelegationsQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListDelegationsQueryQuery = { listDelegations: { grantee: Array<{ id: string, granteeUserId: string, granteeUsername: string | null, granteeEmail: string | null, startDate: string, endDate: string | null }>, granter: Array<{ id: string, granterUserId: string, granterUsername: string | null, granterEmail: string | null, startDate: string, endDate: string | null }> } };
+
+export type ListDelegateCandidatesQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListDelegateCandidatesQueryQuery = { listDelegateCandidates: Array<{ userId: string, username: string | null, email: string | null }> };
+
+export type CompareDelegateRolesQueryQueryVariables = Exact<{
+  delegateUserId: Scalars['String']['input'];
+}>;
+
+
+export type CompareDelegateRolesQueryQuery = { compareDelegateRoles: { hasFewerRoles: boolean } };
+
+export type CreateDelegationMutationMutationVariables = Exact<{
+  data: IStoreCreateDelegation;
+}>;
+
+
+export type CreateDelegationMutationMutation = { createDelegation: boolean };
+
+export type UpdateDelegationMutationMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  data: IStoreUpdateDelegation;
+}>;
+
+
+export type UpdateDelegationMutationMutation = { updateDelegation: boolean };
+
+export type RevokeDelegationMutationMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type RevokeDelegationMutationMutation = { revokeDelegation: boolean };
+
 export type ProcessOrderAuthorizationMutationMutationVariables = Exact<{
   data: IProcessOrderAuthorization;
 }>;
@@ -3668,6 +3824,12 @@ export const ServerSecurityDocument = {"__meta__":{"operationName":"ServerSecuri
 export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"ServerUserDetailsQuery","operationHash":"630ec1f47f2710ce3d7895e9131482641f30c837"}} as unknown as TypedDocumentString<ServerUserDetailsQueryQuery, ServerUserDetailsQueryQueryVariables>;
 export const AvailableContractsQueryDocument = {"__meta__":{"operationName":"AvailableContractsQuery","operationHash":"e9dd3c5b658d90cf6b6028837131273d3560cb32"}} as unknown as TypedDocumentString<AvailableContractsQueryQuery, AvailableContractsQueryQueryVariables>;
 export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;
+export const ListDelegationsQueryDocument = {"__meta__":{"operationName":"ListDelegationsQuery","operationHash":"01b9d1b5c4e341588b665dec16f728c685b7dd9f"}} as unknown as TypedDocumentString<ListDelegationsQueryQuery, ListDelegationsQueryQueryVariables>;
+export const ListDelegateCandidatesQueryDocument = {"__meta__":{"operationName":"ListDelegateCandidatesQuery","operationHash":"11e5461bc84eaaa2cc0f8d0f03ed6f9395152e88"}} as unknown as TypedDocumentString<ListDelegateCandidatesQueryQuery, ListDelegateCandidatesQueryQueryVariables>;
+export const CompareDelegateRolesQueryDocument = {"__meta__":{"operationName":"CompareDelegateRolesQuery","operationHash":"c7b3681314955f4ca2e445a75d4bf71d9a07eec4"}} as unknown as TypedDocumentString<CompareDelegateRolesQueryQuery, CompareDelegateRolesQueryQueryVariables>;
+export const CreateDelegationMutationDocument = {"__meta__":{"operationName":"CreateDelegationMutation","operationHash":"6ca8a28e2ff089b103b35c132ec8f40b2a81319d"}} as unknown as TypedDocumentString<CreateDelegationMutationMutation, CreateDelegationMutationMutationVariables>;
+export const UpdateDelegationMutationDocument = {"__meta__":{"operationName":"UpdateDelegationMutation","operationHash":"dfb7c1bb721b6ec6a89926f7729b444cc8ad747a"}} as unknown as TypedDocumentString<UpdateDelegationMutationMutation, UpdateDelegationMutationMutationVariables>;
+export const RevokeDelegationMutationDocument = {"__meta__":{"operationName":"RevokeDelegationMutation","operationHash":"855c23e5409b2a250e285f3475b738e501a577ab"}} as unknown as TypedDocumentString<RevokeDelegationMutationMutation, RevokeDelegationMutationMutationVariables>;
 export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operationName":"ProcessOrderAuthorizationMutation","operationHash":"8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d"}} as unknown as TypedDocumentString<ProcessOrderAuthorizationMutationMutation, ProcessOrderAuthorizationMutationMutationVariables>;
 export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
 export const StartRecommendationSessionDocument = {"__meta__":{"operationName":"StartRecommendationSession","operationHash":"1def6438c0cd87b85002411ac7326c221f192583"}} as unknown as TypedDocumentString<StartRecommendationSessionMutation, StartRecommendationSessionMutationVariables>;
