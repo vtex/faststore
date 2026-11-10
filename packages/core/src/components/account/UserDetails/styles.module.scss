@@ -9,6 +9,40 @@
     // Design Tokens
     // --------------------------------------------------------
 
+    [data-fs-user-details-tabs] {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px;
+      margin-bottom: 28px;
+      background-color: #f5f5f5;
+      border-radius: 9999px;
+    }
+
+    [data-fs-user-details-tab] {
+      height: 32px;
+      padding: 0 16px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: #5c5c5c;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+      border-radius: 9999px;
+      transition: color 0.2s, background-color 0.2s;
+
+      &:hover {
+        color: #111827;
+      }
+
+      &[aria-selected="true"] {
+        color: #111827;
+        background-color: #fff;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
+      }
+    }
+
     [data-fs-user-details-row-tags] {
       display: flex;
       flex-wrap: wrap;
