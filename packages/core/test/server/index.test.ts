@@ -81,6 +81,9 @@ const QUERIES = [
   'accountProfile',
   'validateUser',
   'availableContracts',
+  'listDelegations',
+  'listDelegateCandidates',
+  'compareDelegateRoles',
   'isOrganizationMember',
   'pickupPoints',
   'orderEntryOperation',
@@ -99,6 +102,9 @@ const MUTATIONS = [
   'uploadFileToOrderEntry',
   'startOrderEntryOperation',
   'startRecommendationSession',
+  'createDelegation',
+  'updateDelegation',
+  'revokeDelegation',
 ]
 
 describe('FastStore GraphQL Layer', () => {

@@ -1,0 +1,134 @@
+"""
+A delegation granted by the authenticated buyer (the Original Shopper) to another user (the Delegate).
+"""
+type StoreDelegation {
+  """
+  Delegation identifier.
+  """
+  id: ID!
+  """
+  Identifier of the user who can act on behalf of the buyer (the Delegate).
+  """
+  granteeUserId: String!
+  """
+  Username of the Delegate, when available.
+  """
+  granteeUsername: String
+  """
+  Email of the Delegate, when available.
+  """
+  granteeEmail: String
+  """
+  First day of the delegation (`YYYY-MM-DD`).
+  """
+  startDate: String!
+  """
+  Last day of the delegation (`YYYY-MM-DD`). `null` means open-ended.
+  """
+  endDate: String
+}
+
+"""
+A delegation granted to the authenticated buyer by another user: the buyer can act on behalf of the granter.
+"""
+type StoreGrantedDelegation {
+  """
+  Delegation identifier.
+  """
+  id: ID!
+  """
+  Identifier of the user the buyer can act on behalf of.
+  """
+  granterUserId: String!
+  """
+  Username of the granter, when available.
+  """
+  granterUsername: String
+  """
+  Email of the granter, when available.
+  """
+  granterEmail: String
+  """
+  First day of the delegation (`YYYY-MM-DD`).
+  """
+  startDate: String!
+  """
+  Last day of the delegation (`YYYY-MM-DD`). `null` means open-ended.
+  """
+  endDate: String
+}
+
+"""
+Both sides of the authenticated buyer's delegations.
+"""
+type StoreDelegationsResult {
+  """
+  Delegations granted by the buyer: who can act on their behalf.
+  """
+  grantee: [StoreDelegation!]!
+  """
+  Delegations granted to the buyer: who they can act on behalf of.
+  """
+  granter: [StoreGrantedDelegation!]!
+}
+
+"""
+A user of the buyer's organization who can be elected as Delegate.
+"""
+type StoreDelegateCandidate {
+  """
+  User identifier.
+  """
+  userId: String!
+  """
+  Username of the user, when available.
+  """
+  username: String
+  """
+  Email of the user, when available.
+  """
+  email: String
+}
+
+"""
+Result of comparing the roles of the authenticated buyer with those of a user elected as Delegate.
+"""
+type StoreDelegateRoleComparison {
+  """
+  Whether the Delegate holds strictly fewer roles than the buyer, so the delegation grants access beyond
+  their usual permissions. It is `false` when the roles cannot be read: it only drives a non-blocking warning.
+  """
+  hasFewerRoles: Boolean!
+}
+
+"""
+Input to create a delegation. The Original Shopper is always the authenticated buyer.
+"""
+input IStoreCreateDelegation {
+  """
+  Identifier of the user elected as Delegate.
+  """
+  delegateUserId: String!
+  """
+  First day of the delegation (`YYYY-MM-DD`).
+  """
+  startDate: String!
+  """
+  Last day of the delegation (`YYYY-MM-DD`). Omit for an open-ended delegation.
+  """
+  endDate: String
+}
+
+"""
+Input to change the period of a delegation. The Delegate and the owner never change.
+"""
+input IStoreUpdateDelegation {
+  """
+  New first day of the delegation (`YYYY-MM-DD`).
+  """
+  startDate: String
+  """
+  New last day of the delegation (`YYYY-MM-DD`).
+  """
+  endDate: String
+}

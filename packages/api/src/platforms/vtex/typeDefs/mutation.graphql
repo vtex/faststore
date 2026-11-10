@@ -39,4 +39,16 @@ type Mutation {
   Starts an anonymous personalization session for the current shopper.
   """
   startRecommendationSession: Boolean!
+  """
+  Creates a delegation where the authenticated buyer is the Original Shopper.
+  """
+  createDelegation(data: IStoreCreateDelegation!): Boolean! @auth
+  """
+  Changes the period of a delegation owned by the authenticated buyer.
+  """
+  updateDelegation(id: ID!, data: IStoreUpdateDelegation!): Boolean! @auth
+  """
+  Revokes a delegation owned by the authenticated buyer. Revocation is one-way.
+  """
+  revokeDelegation(id: ID!): Boolean! @auth
 }
