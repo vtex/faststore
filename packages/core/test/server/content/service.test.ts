@@ -456,6 +456,28 @@ describe('ContentService', () => {
       expect(clientCP.getEntry).not.toHaveBeenCalled()
     })
 
+    it('warns without naming one list method when the pagination cap is hit', async () => {
+      // 26 pages exceed the MAX_PAGES cap of 25, so the service stops
+      // paginating and warns.
+      const pages = Array.from({ length: 26 }, (_, index) => [`entry-${index}`])
+      const { service, clientCP } = createServiceWithClient(pages)
+
+      const { data } = await service.getMultipleContent({
+        contentType: 'plp',
+      })
+
+      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(25)
+      expect(data).toHaveLength(25)
+      expect(console.warn).toHaveBeenCalledWith(
+        expect.stringContaining('pagination hit MAX_PAGES cap'),
+        expect.anything()
+      )
+      expect(console.warn).not.toHaveBeenCalledWith(
+        expect.stringContaining('listEntries pagination'),
+        expect.anything()
+      )
+    })
+
     describe('PDP', () => {
       it('skips the product slug lookup and matches a template from the list', async () => {
         const { service, clientCP } = createServiceWithClient([
@@ -539,28 +561,6 @@ describe('ContentService', () => {
       for (const result of results) {
         expect(result.sections).toEqual([{ name: 'Generic' }])
       }
-    })
-
-    it('warns without naming one list method when the pagination cap is hit', async () => {
-      // 26 pages exceed the MAX_PAGES cap of 25, so the service stops
-      // paginating and warns.
-      const pages = Array.from({ length: 26 }, (_, index) => [`entry-${index}`])
-      const { service, clientCP } = createServiceWithClient(pages)
-
-      const { data } = await service.getMultipleContent({
-        contentType: 'plp',
-      })
-
-      expect(clientCP.listEntriesWithContent).toHaveBeenCalledTimes(25)
-      expect(data).toHaveLength(25)
-      expect(console.warn).toHaveBeenCalledWith(
-        expect.stringContaining('pagination hit MAX_PAGES cap'),
-        expect.anything()
-      )
-      expect(console.warn).not.toHaveBeenCalledWith(
-        expect.stringContaining('listEntries pagination'),
-        expect.anything()
-      )
     })
 
     it('keeps separate entries per content type and locale', async () => {
