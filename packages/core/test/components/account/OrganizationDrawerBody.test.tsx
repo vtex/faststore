@@ -41,12 +41,12 @@ describe('OrganizationDrawerBody', () => {
     expect(screen.getByText('Quotes')).toBeTruthy()
   })
 
-  it('hides User Details when not a representative, regardless of org membership', () => {
+  it('hides User settings when not a representative, regardless of org membership', () => {
     mockUseAccountNavigationLabels.mockReturnValue(undefined)
 
     render(<OrganizationDrawerBody isB2BBuyer={false} isOrgMember />)
 
-    expect(screen.queryByText('User Details')).toBeNull()
+    expect(screen.queryByText('User settings')).toBeNull()
     expect(screen.getByText('Quotes')).toBeTruthy()
   })
 })

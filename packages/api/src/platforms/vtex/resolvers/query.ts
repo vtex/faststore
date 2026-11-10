@@ -19,6 +19,11 @@ import type {
   StoreContract,
   UserOrderFromList,
 } from '../../../__generated__/schema'
+import {
+  compareDelegateRoles,
+  listDelegateCandidates,
+  listDelegations,
+} from './delegations'
 import { recommendations } from './recommendations'
 import {
   BadRequestError,
@@ -184,6 +189,9 @@ async function fetchProductBySlugFallback(
 }
 
 export const Query = {
+  listDelegations,
+  listDelegateCandidates,
+  compareDelegateRoles,
   product: async (
     _: unknown,
     { locator }: QueryProductArgs,

@@ -56,7 +56,7 @@ describe('Layout', () => {
     expect(screen.getByText('Cards')).toBeTruthy()
   })
 
-  it('hides User Details when not a representative, regardless of org membership', () => {
+  it('hides User settings when not a representative, regardless of org membership', () => {
     mockUseSession.mockReturnValue({ b2b: { unitId: 'unit-1' } })
 
     render(
@@ -65,7 +65,7 @@ describe('Layout', () => {
       </Layout>
     )
 
-    expect(screen.queryByText('User Details')).toBeNull()
+    expect(screen.queryByText('User settings')).toBeNull()
     expect(screen.getByText('Quotes')).toBeTruthy()
   })
 

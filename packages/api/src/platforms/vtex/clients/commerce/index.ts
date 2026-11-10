@@ -61,6 +61,12 @@ import type {
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
 import type { QuoteListResult, ListUserQuotesArgs } from './types/Quote'
+import type {
+  CreateDelegationBody,
+  DelegationsResponse,
+  OrgUnitUsersResponse,
+  UpdateDelegationBody,
+} from './types/Delegation'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -1143,6 +1149,87 @@ export const VtexCommerce = (
             headers,
           },
           { storeCookies }
+        )
+      },
+    },
+    delegations: {
+      list: ({ userId }: { userId: string }): Promise<DelegationsResponse> => {
+        if (!userId) {
+          throw new BadRequestError('Missing userId to list delegations.')
+        }
+
+        return fetchAPI(
+          `${base}/api/authenticator/v1/storefront/users/${encodeURIComponent(userId)}/delegations`,
+          {
+            method: 'GET',
+            headers: withBuyerAuthHeaders({
+              Accept: 'application/json',
+              'content-type': 'application/json',
+            }),
+          },
+          {}
+        )
+      },
+      create: (body: CreateDelegationBody): Promise<unknown> =>
+        fetchAPI(
+          `${base}/api/authenticator/v1/storefront/users/delegations`,
+          {
+            method: 'POST',
+            headers: withBuyerAuthHeaders({
+              Accept: 'application/json',
+              'content-type': 'application/json',
+            }),
+            body: JSON.stringify(body),
+          },
+          {}
+        ),
+      update: ({
+        delegationId,
+        body,
+      }: {
+        delegationId: string
+        body: UpdateDelegationBody
+      }): Promise<unknown> => {
+        if (!delegationId) {
+          throw new BadRequestError('Missing delegationId to update.')
+        }
+
+        return fetchAPI(
+          `${base}/api/authenticator/v1/storefront/users/delegations/${encodeURIComponent(delegationId)}`,
+          {
+            method: 'PUT',
+            headers: withBuyerAuthHeaders({
+              Accept: 'application/json',
+              'content-type': 'application/json',
+            }),
+            body: JSON.stringify(body),
+          },
+          {}
+        )
+      },
+      listOrgUnitUsers: ({
+        unitId,
+        page = 1,
+      }: {
+        unitId: string
+        page?: number
+      }): Promise<OrgUnitUsersResponse> => {
+        if (!unitId) {
+          throw new BadRequestError(
+            'Missing unitId to list organization users.'
+          )
+        }
+
+        return fetchAPI(
+          `${base}/api/vtexid/organization-units/${encodeURIComponent(unitId)}/users/from-root?an=${encodeURIComponent(account)}&page=${page}`,
+          {
+            method: 'GET',
+            headers: withBuyerAuthHeaders({
+              Accept: 'application/json',
+              'content-type': 'application/json',
+            }),
+          },
+          {}
         )
       },
     },

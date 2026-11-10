@@ -9,7 +9,7 @@
     "pageTitle": {
       "type": "string",
       "title": "Page Title",
-      "default": "User details"
+      "default": "User settings"
     },
     "nameLabel": {
       "type": "string",
@@ -40,6 +40,266 @@
       "type": "string",
       "title": "Organizational Unit Label",
       "default": "Organizational unit"
+    },
+    "detailsTabLabel": {
+      "type": "string",
+      "title": "Details Tab Label",
+      "default": "Details"
+    },
+    "delegationTabLabel": {
+      "type": "string",
+      "title": "Delegation Tab Label",
+      "default": "Delegation"
+    },
+    "delegationSectionTitle": {
+      "type": "string",
+      "title": "Delegation Section Title",
+      "default": "Users who can act on behalf of {name}"
+    },
+    "actingForSectionTitle": {
+      "type": "string",
+      "title": "Acting For Section Title",
+      "default": "Users {name} can act on behalf of"
+    },
+    "addLabel": {
+      "type": "string",
+      "title": "Add Label",
+      "default": "Add"
+    },
+    "userColumnLabel": {
+      "type": "string",
+      "title": "User Column Label",
+      "default": "User"
+    },
+    "startDateColumnLabel": {
+      "type": "string",
+      "title": "Start Date Column Label",
+      "default": "Start date"
+    },
+    "endDateColumnLabel": {
+      "type": "string",
+      "title": "End Date Column Label",
+      "default": "End date"
+    },
+    "indefiniteLabel": {
+      "type": "string",
+      "title": "Indefinite Label",
+      "default": "Indefinite"
+    },
+    "moreOptionsAria": {
+      "type": "string",
+      "title": "More Options Aria",
+      "default": "More options"
+    },
+    "editLabel": {
+      "type": "string",
+      "title": "Edit Label",
+      "default": "Edit"
+    },
+    "removeLabel": {
+      "type": "string",
+      "title": "Remove Label",
+      "default": "Remove"
+    },
+    "emptyMessage": {
+      "type": "string",
+      "title": "Empty Message",
+      "default": "No users added"
+    },
+    "loadErrorMessage": {
+      "type": "string",
+      "title": "Load Error Message",
+      "default": "We could not load your delegations."
+    },
+    "retryLabel": {
+      "type": "string",
+      "title": "Retry Label",
+      "default": "Try again"
+    },
+    "addDrawerTitle": {
+      "type": "string",
+      "title": "Add Drawer Title",
+      "default": "Add delegate"
+    },
+    "editDrawerTitle": {
+      "type": "string",
+      "title": "Edit Drawer Title",
+      "default": "Edit delegate"
+    },
+    "addDrawerDescription": {
+      "type": "string",
+      "title": "Add Drawer Description",
+      "default": "Choose someone to act on behalf of {name} for a set period, with full access to their permissions and content."
+    },
+    "delegateFieldLabel": {
+      "type": "string",
+      "title": "Delegate Field Label",
+      "default": "Select user"
+    },
+    "delegatePlaceholder": {
+      "type": "string",
+      "title": "Delegate Placeholder",
+      "default": "Search users"
+    },
+    "periodLabel": {
+      "type": "string",
+      "title": "Period Label",
+      "default": "Period"
+    },
+    "startDateFieldLabel": {
+      "type": "string",
+      "title": "Start Date Field Label",
+      "default": "Start date"
+    },
+    "endDateFieldLabel": {
+      "type": "string",
+      "title": "End Date Field Label",
+      "default": "End date"
+    },
+    "endDateHint": {
+      "type": "string",
+      "title": "End Date Hint",
+      "default": "Leave the end date empty to make this delegation indefinite"
+    },
+    "continueLabel": {
+      "type": "string",
+      "title": "Continue Label",
+      "default": "Continue"
+    },
+    "backLabel": {
+      "type": "string",
+      "title": "Back Label",
+      "default": "Back"
+    },
+    "cancelLabel": {
+      "type": "string",
+      "title": "Cancel Label",
+      "default": "Cancel"
+    },
+    "saveLabel": {
+      "type": "string",
+      "title": "Save Label",
+      "default": "Save"
+    },
+    "confirmTitle": {
+      "type": "string",
+      "title": "Confirm Title",
+      "default": "Confirm access"
+    },
+    "confirmIntro": {
+      "type": "string",
+      "title": "Confirm Intro",
+      "default": "{delegate} will be able to act on behalf of {name} from {startDate} to {endDate}."
+    },
+    "confirmIntroNoEndDate": {
+      "type": "string",
+      "title": "Confirm Intro No End Date",
+      "default": "{delegate} will be able to act on behalf of {name} from {startDate}, with no end date."
+    },
+    "confirmWhileActive": {
+      "type": "string",
+      "title": "Confirm While Active",
+      "default": "While active, {delegate} can:"
+    },
+    "confirmCapabilitySignIn": {
+      "type": "string",
+      "title": "Confirm Capability Sign In",
+      "default": "Sign in and act as {name}"
+    },
+    "confirmCapabilityData": {
+      "type": "string",
+      "title": "Confirm Capability Data",
+      "default": "Access all their content, orders, and data"
+    },
+    "confirmCapabilityPermissions": {
+      "type": "string",
+      "title": "Confirm Capability Permissions",
+      "default": "Use all their roles and permissions"
+    },
+    "confirmFewerRolesNote": {
+      "type": "string",
+      "title": "Confirm Fewer Roles Note",
+      "default": "{delegate} has fewer roles than {name}, so this grants access beyond their usual permissions."
+    },
+    "confirmRevokeNote": {
+      "type": "string",
+      "title": "Confirm Revoke Note",
+      "default": "You can revoke this access at any time."
+    },
+    "confirmLabel": {
+      "type": "string",
+      "title": "Confirm Label",
+      "default": "Confirm"
+    },
+    "confirmingLabel": {
+      "type": "string",
+      "title": "Confirming Label",
+      "default": "Confirming..."
+    },
+    "savingLabel": {
+      "type": "string",
+      "title": "Saving Label",
+      "default": "Saving..."
+    },
+    "delegateRequiredError": {
+      "type": "string",
+      "title": "Delegate Required Error",
+      "default": "Select a user."
+    },
+    "startDateRequiredError": {
+      "type": "string",
+      "title": "Start Date Required Error",
+      "default": "Select a start date."
+    },
+    "endBeforeStartError": {
+      "type": "string",
+      "title": "End Before Start Error",
+      "default": "The end date cannot be earlier than the start date."
+    },
+    "endInPastError": {
+      "type": "string",
+      "title": "End In Past Error",
+      "default": "The end date cannot be in the past."
+    },
+    "noCandidatesMessage": {
+      "type": "string",
+      "title": "No Candidates Message",
+      "default": "There are no users available to be added."
+    },
+    "removeSelectedAria": {
+      "type": "string",
+      "title": "Remove Selected Aria",
+      "default": "Remove selected user"
+    },
+    "addedToast": {
+      "type": "string",
+      "title": "Added Toast",
+      "default": "Delegate added successfully"
+    },
+    "updatedToast": {
+      "type": "string",
+      "title": "Updated Toast",
+      "default": "Delegation updated successfully"
+    },
+    "removedToast": {
+      "type": "string",
+      "title": "Removed Toast",
+      "default": "Delegate removed successfully"
+    },
+    "errorToastTitle": {
+      "type": "string",
+      "title": "Error Toast Title",
+      "default": "Something went wrong"
+    },
+    "errorToastMessage": {
+      "type": "string",
+      "title": "Error Toast Message",
+      "default": "We could not complete the action. Please try again."
+    },
+    "closeAria": {
+      "type": "string",
+      "title": "Close Aria",
+      "default": "Close"
     }
   },
   "readOnly": false,

@@ -464,6 +464,16 @@ export type IStoreCart = {
   order: IStoreOrder;
 };
 
+/** Input to create a delegation. The Original Shopper is always the authenticated buyer. */
+export type IStoreCreateDelegation = {
+  /** Identifier of the user elected as Delegate. */
+  delegateUserId: Scalars['String']['input'];
+  /** Last day of the delegation (`YYYY-MM-DD`). Omit for an open-ended delegation. */
+  endDate?: InputMaybe<Scalars['String']['input']>;
+  /** First day of the delegation (`YYYY-MM-DD`). */
+  startDate: Scalars['String']['input'];
+};
+
 export type IStoreCurrency = {
   /** Currency code (e.g: USD). */
   code: Scalars['String']['input'];
@@ -617,6 +627,14 @@ export type IStoreSession = {
   refreshAfter?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** Input to change the period of a delegation. The Delegate and the owner never change. */
+export type IStoreUpdateDelegation = {
+  /** New last day of the delegation (`YYYY-MM-DD`). */
+  endDate?: InputMaybe<Scalars['String']['input']>;
+  /** New first day of the delegation (`YYYY-MM-DD`). */
+  startDate?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** Input to the cancel order API. */
 export type IUserOrderCancel = {
   /** Customer's email. */
@@ -695,8 +713,12 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Cancels user order */
   cancelOrder?: Maybe<UserOrderCancel>;
+  /** Creates a delegation where the authenticated buyer is the Original Shopper. */
+  createDelegation: Scalars['Boolean']['output'];
   /** Process Order Authorization */
   processOrderAuthorization?: Maybe<ProcessOrderAuthorizationResponse>;
+  /** Revokes a delegation owned by the authenticated buyer. Revocation is one-way. */
+  revokeDelegation: Scalars['Boolean']['output'];
   /**
    * Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
    * Returns an operationId to poll for the operation status.
@@ -706,6 +728,8 @@ export type Mutation = {
   startRecommendationSession: Scalars['Boolean']['output'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
+  /** Changes the period of a delegation owned by the authenticated buyer. */
+  updateDelegation: Scalars['Boolean']['output'];
   /**
    * Uploads a file to the Order Entry Service and returns the S3 object key.
    * The file must be Base64-encoded and passed via the `data` input.
@@ -724,8 +748,18 @@ export type MutationCancelOrderArgs = {
 };
 
 
+export type MutationCreateDelegationArgs = {
+  data: IStoreCreateDelegation;
+};
+
+
 export type MutationProcessOrderAuthorizationArgs = {
   data: IProcessOrderAuthorization;
+};
+
+
+export type MutationRevokeDelegationArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -736,6 +770,12 @@ export type MutationStartOrderEntryOperationArgs = {
 
 export type MutationSubscribeToNewsletterArgs = {
   data: IPersonNewsletter;
+};
+
+
+export type MutationUpdateDelegationArgs = {
+  data: IStoreUpdateDelegation;
+  id: Scalars['ID']['input'];
 };
 
 
@@ -927,6 +967,8 @@ export type Query = {
   availableContracts: Array<StoreContract>;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /** Compares the roles of the authenticated buyer with those of a user about to be elected as Delegate. */
+  compareDelegateRoles: StoreDelegateRoleComparison;
   /**
    * Whether the current user holds the ad-hoc card platform permission, which
    * gates personal card management for Unit/Contract-affiliated buyers.
@@ -940,6 +982,16 @@ export type Query = {
   isOrganizationMember: Scalars['Boolean']['output'];
   /** Returns the list of saved credit cards for the current user. */
   listCreditCards?: Maybe<SavedCardListResult>;
+  /**
+   * Returns the users of the buyer's organization who can be elected as Delegate.
+   * The authenticated buyer is never part of the result.
+   */
+  listDelegateCandidates: Array<StoreDelegateCandidate>;
+  /**
+   * Returns the delegations of the authenticated buyer: `grantee` lists who can act on their behalf
+   * (only delegations where the buyer is the Original Shopper) and `granter` lists who they can act on behalf of.
+   */
+  listDelegations: StoreDelegationsResult;
   /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
   /** Returns the list of Quotes that the authenticated Buyer can view. */
@@ -996,6 +1048,11 @@ export type QueryAvailableContractsArgs = {
 
 export type QueryCollectionArgs = {
   slug: Scalars['String']['input'];
+};
+
+
+export type QueryCompareDelegateRolesArgs = {
+  delegateUserId: Scalars['String']['input'];
 };
 
 
@@ -1534,6 +1591,53 @@ export type StoreCurrency = {
   symbol: Scalars['String']['output'];
 };
 
+/** A user of the buyer's organization who can be elected as Delegate. */
+export type StoreDelegateCandidate = {
+  __typename?: 'StoreDelegateCandidate';
+  /** Email of the user, when available. */
+  email?: Maybe<Scalars['String']['output']>;
+  /** User identifier. */
+  userId: Scalars['String']['output'];
+  /** Username of the user, when available. */
+  username?: Maybe<Scalars['String']['output']>;
+};
+
+/** Result of comparing the roles of the authenticated buyer with those of a user elected as Delegate. */
+export type StoreDelegateRoleComparison = {
+  __typename?: 'StoreDelegateRoleComparison';
+  /**
+   * Whether the Delegate holds strictly fewer roles than the buyer, so the delegation grants access beyond
+   * their usual permissions. It is `false` when the roles cannot be read: it only drives a non-blocking warning.
+   */
+  hasFewerRoles: Scalars['Boolean']['output'];
+};
+
+/** A delegation granted by the authenticated buyer (the Original Shopper) to another user (the Delegate). */
+export type StoreDelegation = {
+  __typename?: 'StoreDelegation';
+  /** Last day of the delegation (`YYYY-MM-DD`). `null` means open-ended. */
+  endDate?: Maybe<Scalars['String']['output']>;
+  /** Email of the Delegate, when available. */
+  granteeEmail?: Maybe<Scalars['String']['output']>;
+  /** Identifier of the user who can act on behalf of the buyer (the Delegate). */
+  granteeUserId: Scalars['String']['output'];
+  /** Username of the Delegate, when available. */
+  granteeUsername?: Maybe<Scalars['String']['output']>;
+  /** Delegation identifier. */
+  id: Scalars['ID']['output'];
+  /** First day of the delegation (`YYYY-MM-DD`). */
+  startDate: Scalars['String']['output'];
+};
+
+/** Both sides of the authenticated buyer's delegations. */
+export type StoreDelegationsResult = {
+  __typename?: 'StoreDelegationsResult';
+  /** Delegations granted by the buyer: who can act on their behalf. */
+  grantee: Array<StoreDelegation>;
+  /** Delegations granted to the buyer: who they can act on behalf of. */
+  granter: Array<StoreGrantedDelegation>;
+};
+
 /** Delivery mode information. */
 export type StoreDeliveryMode = {
   __typename?: 'StoreDeliveryMode';
@@ -1617,6 +1721,23 @@ export type StoreGeoCoordinates = {
   latitude: Scalars['Float']['output'];
   /** The longitude of the geographic coordinates. */
   longitude: Scalars['Float']['output'];
+};
+
+/** A delegation granted to the authenticated buyer by another user: the buyer can act on behalf of the granter. */
+export type StoreGrantedDelegation = {
+  __typename?: 'StoreGrantedDelegation';
+  /** Last day of the delegation (`YYYY-MM-DD`). `null` means open-ended. */
+  endDate?: Maybe<Scalars['String']['output']>;
+  /** Email of the granter, when available. */
+  granterEmail?: Maybe<Scalars['String']['output']>;
+  /** Identifier of the user the buyer can act on behalf of. */
+  granterUserId: Scalars['String']['output'];
+  /** Username of the granter, when available. */
+  granterUsername?: Maybe<Scalars['String']['output']>;
+  /** Delegation identifier. */
+  id: Scalars['ID']['output'];
+  /** First day of the delegation (`YYYY-MM-DD`). */
+  startDate: Scalars['String']['output'];
 };
 
 /** Image. */
