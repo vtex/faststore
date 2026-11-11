@@ -50,6 +50,11 @@ export interface B2bInfo {
   savedPostalCode: string
   contractName: string
   organizationManager: boolean
+  /** Delegate acting on behalf of this user. `null` outside an impersonation session. */
+  actorId: string | null
+  actorIdentifier: string | null
+  /** Kind of actor, e.g. `buyer-delegate`. */
+  actType: string | null
 }
 
 export interface Session {
