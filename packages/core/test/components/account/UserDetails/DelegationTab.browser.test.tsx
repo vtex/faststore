@@ -22,6 +22,8 @@ const mockCreateDelegation = vi.hoisted(() => vi.fn())
 const mockUpdateDelegation = vi.hoisted(() => vi.fn())
 const mockRevokeDelegation = vi.hoisted(() => vi.fn())
 const mockPushToast = vi.hoisted(() => vi.fn())
+const mockStartSession = vi.hoisted(() => vi.fn())
+const mockUseSession = vi.hoisted(() => vi.fn())
 
 vi.mock('src/sdk/account/useDelegations', () => ({
   useDelegations: mockUseDelegations,
@@ -32,8 +34,14 @@ vi.mock('src/sdk/account/useDelegations', () => ({
   revokeDelegation: mockRevokeDelegation,
 }))
 
-vi.mock('src/sdk/session', () => ({
-  useSession: () => ({ locale: 'en-US', b2b: { unitId: 'unit-1' } }),
+vi.mock('src/sdk/session', () => ({ useSession: mockUseSession }))
+
+vi.mock('src/sdk/account/useDelegatedSession', () => ({
+  useDelegatedSession: () => ({
+    startSession: mockStartSession,
+    loading: false,
+    error: null,
+  }),
 }))
 
 vi.mock('@faststore/ui', async (importOriginal) => ({
@@ -127,6 +135,11 @@ describe('DelegationTab', () => {
     vi.useFakeTimers({ toFake: ['Date'] })
     vi.setSystemTime(new Date(2026, 10, 10, 12))
 
+    mockUseSession.mockReturnValue({
+      locale: 'en-US',
+      b2b: { unitId: 'unit-1' },
+    })
+    mockStartSession.mockResolvedValue(true)
     setDelegations()
     mockUseDelegateCandidates.mockReturnValue({
       candidates,
@@ -217,7 +230,7 @@ describe('DelegationTab', () => {
       expect(within(heading).getByText('Donald Green')).toBeInTheDocument()
     })
 
-    it('lists them read-only: no Add button and no row menu', () => {
+    it('lists them with only the Impersonate action: no Add button and no row menu', () => {
       renderTab()
 
       const table = screen.getAllByRole('table')[1]
@@ -229,13 +242,59 @@ describe('DelegationTab', () => {
       expect(within(rows[0]).getByText('Aug 8, 2026')).toBeInTheDocument()
       expect(within(rows[1]).getByText('qparker@acme.com')).toBeInTheDocument()
       expect(within(rows[1]).getByText('Indefinite')).toBeInTheDocument()
-      expect(within(table).queryByRole('button')).not.toBeInTheDocument()
+      expect(
+        within(table)
+          .getAllByRole('button')
+          .map((b) => b.textContent)
+      ).toEqual(['Impersonate', 'Impersonate'])
       expect(screen.getAllByRole('button', { name: 'Add' })).toHaveLength(1)
 
       // Only the first list (where the buyer is the Original Shopper) has menus.
       expect(
         screen.getAllByRole('button', { name: 'More options' })
       ).toHaveLength(2)
+    })
+
+    it('starts the session with the granter and the delegation', async () => {
+      renderTab()
+
+      const table = screen.getAllByRole('table')[1]
+      fireEvent.click(within(table).getAllByRole('button')[1])
+
+      await waitFor(() =>
+        expect(mockStartSession).toHaveBeenCalledWith({
+          originalUserId: 'user-8',
+          delegationId: 'gr-2',
+        })
+      )
+      expect(mockPushToast).not.toHaveBeenCalled()
+    })
+
+    it('warns when the session cannot start', async () => {
+      mockStartSession.mockResolvedValue(false)
+      renderTab()
+
+      const table = screen.getAllByRole('table')[1]
+      fireEvent.click(within(table).getAllByRole('button')[0])
+
+      await waitFor(() =>
+        expect(mockPushToast).toHaveBeenCalledWith(
+          expect.objectContaining({ status: 'ERROR' })
+        )
+      )
+    })
+
+    it('has no Impersonate action during an impersonation session', () => {
+      mockUseSession.mockReturnValue({
+        locale: 'en-US',
+        b2b: { unitId: 'unit-1', actorId: 'delegate-1' },
+      })
+      renderTab()
+
+      const table = screen.getAllByRole('table')[1]
+
+      expect(within(table).queryByRole('button')).not.toBeInTheDocument()
+      expect(within(table).getByText('pburgos')).toBeInTheDocument()
     })
 
     it('shows "No users added" when nobody is listed, keeping the other list', () => {

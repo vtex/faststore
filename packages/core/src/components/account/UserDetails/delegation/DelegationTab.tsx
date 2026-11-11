@@ -5,6 +5,7 @@ import {
   useDelegateCandidates,
   useDelegations,
 } from 'src/sdk/account/useDelegations'
+import { useDelegatedSession } from 'src/sdk/account/useDelegatedSession'
 import { useSession } from 'src/sdk/session'
 import { Icon, useUI } from '@faststore/ui'
 import { DelegationDrawer, type DelegationDrawerMode } from './DelegationDrawer'
@@ -141,6 +142,8 @@ type DelegationListRow = {
   endDate?: string | null
   /** Row actions. Omit for a read-only row. */
   actions?: ReactNode
+  /** Shown on row hover, in the free column before the actions (e.g. Impersonate). */
+  hoverAction?: ReactNode
 }
 
 type DelegationListProps = {
@@ -188,7 +191,13 @@ function DelegationList({ rows, labels, locale }: DelegationListProps) {
                 labels.indefiniteLabel
               )}
             </span>
-            <span aria-hidden="true" />
+            {row.hoverAction ? (
+              <span data-fs-delegation-hover-action role="cell">
+                {row.hoverAction}
+              </span>
+            ) : (
+              <span aria-hidden="true" />
+            )}
             <span data-fs-delegation-actions role="cell">
               {row.actions}
             </span>
@@ -204,12 +213,14 @@ export default function DelegationTab({
   labels: labelsProp,
 }: DelegationTabProps) {
   const labels = resolveDelegationLabels(labelsProp)
-  const { locale } = useSession()
+  const { locale, b2b } = useSession()
+  const canImpersonate = !b2b?.actorId
   const today = toISODate(new Date())
 
   const { pushToast } = useUI()
   const [drawer, setDrawer] = useState<DrawerState>(null)
   const removing = useRef(false)
+  const { startSession, loading: startingSession } = useDelegatedSession()
 
   const { delegations, actingFor, loading, error, refresh } = useDelegations()
   const { candidates } = useDelegateCandidates(drawer?.mode === 'add')
@@ -241,6 +252,22 @@ export default function DelegationTab({
       })
     } finally {
       removing.current = false
+    }
+  }
+
+  const impersonate = async (delegation: (typeof actingFor)[number]) => {
+    const started = await startSession({
+      originalUserId: delegation.granterUserId,
+      delegationId: delegation.id,
+    })
+
+    if (!started) {
+      pushToast({
+        title: labels.errorToastTitle,
+        status: 'ERROR',
+        message: labels.errorToastMessage,
+        icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
+      })
     }
   }
 
@@ -314,6 +341,16 @@ export default function DelegationTab({
             }),
             startDate: delegation.startDate,
             endDate: delegation.endDate,
+            hoverAction: canImpersonate ? (
+              <button
+                type="button"
+                data-fs-delegation-impersonate
+                disabled={startingSession}
+                onClick={() => void impersonate(delegation)}
+              >
+                {labels.impersonateLabel}
+              </button>
+            ) : undefined,
           }))}
           labels={labels}
           locale={locale}

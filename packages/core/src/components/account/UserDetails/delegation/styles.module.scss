@@ -105,6 +105,44 @@
       }
     }
 
+    // "Impersonate" sits in the free column before the row actions and shows on
+    // row hover or keyboard focus, and always on touch devices (no hover).
+    [data-fs-delegation-hover-action] {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 8px;
+    }
+
+    [data-fs-delegation-impersonate] {
+      height: 32px;
+      padding: 0 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--delegation-primary);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+      opacity: 0;
+      transition: opacity 0.15s;
+
+      &:disabled {
+        cursor: progress;
+      }
+    }
+
+    [data-fs-delegation-row]:hover [data-fs-delegation-impersonate],
+    [data-fs-delegation-impersonate]:focus-visible {
+      opacity: 1;
+    }
+
+    @media (hover: none) {
+      [data-fs-delegation-impersonate] {
+        opacity: 1;
+      }
+    }
+
     [data-fs-delegation-user],
     [data-fs-delegation-date-cell] {
       overflow: hidden;
@@ -615,6 +653,12 @@
       [data-fs-delegation-table-head] > span:nth-child(4),
       [data-fs-delegation-row] > span:nth-child(4) {
         display: none;
+      }
+
+      // With no spare column, the hover action takes its own line.
+      [data-fs-delegation-row] > span[data-fs-delegation-hover-action] {
+        display: flex;
+        grid-column: 1 / -1;
       }
     }
   }
