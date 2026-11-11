@@ -1,0 +1,66 @@
+// Values taken from the approved design (proxy users prototype). The z-index
+// tokens of the library only go up to 3 (`--fs-z-index-highest`), which is not
+// enough to stay above the store header, so fixed values are used here.
+$banner-color: #0366dd;
+
+.frame {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 4px $banner-color;
+}
+
+.banner {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  z-index: 1001;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  height: 44px;
+  padding: 0 6px 0 16px;
+  color: #fff;
+  letter-spacing: -0.01em;
+  background: $banner-color;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+  transform: translateX(-50%);
+}
+
+.text {
+  font-size: 13px;
+  white-space: nowrap;
+
+  strong {
+    font-weight: 600;
+  }
+
+  span {
+    font-weight: 400;
+    color: rgb(255 255 255 / 70%);
+  }
+}
+
+.return {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  background: rgb(0 0 0 / 20%);
+  border: 0;
+  border-radius: 8px;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background: rgb(0 0 0 / 30%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
