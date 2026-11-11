@@ -101,6 +101,11 @@
       "title": "Remove Label",
       "default": "Remove"
     },
+    "impersonateLabel": {
+      "type": "string",
+      "title": "Impersonate Label",
+      "default": "Impersonate"
+    },
     "emptyMessage": {
       "type": "string",
       "title": "Empty Message",

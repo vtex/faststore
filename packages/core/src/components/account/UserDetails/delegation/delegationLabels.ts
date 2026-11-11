@@ -13,6 +13,7 @@ export type DelegationLabels = {
   moreOptionsAria?: string
   editLabel?: string
   removeLabel?: string
+  impersonateLabel?: string
   emptyMessage?: string
   loadErrorMessage?: string
   retryLabel?: string
@@ -75,6 +76,7 @@ export const defaultDelegationLabels: Required<DelegationLabels> = {
   moreOptionsAria: 'More options',
   editLabel: 'Edit',
   removeLabel: 'Remove',
+  impersonateLabel: 'Impersonate',
   emptyMessage: 'No users added',
   loadErrorMessage: 'We could not load your delegations.',
   retryLabel: 'Try again',
