@@ -203,6 +203,18 @@ type StoreB2B {
   savedPostalCode: String
   contractName: String
   organizationManager: Boolean
+  """
+  Identifier of the Delegate acting on behalf of this user. `null` outside an impersonation session.
+  """
+  actorId: String
+  """
+  Username or email of the Delegate. `null` outside an impersonation session.
+  """
+  actorIdentifier: String
+  """
+  Kind of actor, e.g. `buyer-delegate`. `null` outside an impersonation session.
+  """
+  actType: String
 }
 
 input IStoreB2B {
@@ -217,6 +229,18 @@ input IStoreB2B {
   savedPostalCode: String
   contractName: String
   organizationManager: Boolean
+  """
+  Identifier of the Delegate acting on behalf of this user. `null` outside an impersonation session.
+  """
+  actorId: String
+  """
+  Username or email of the Delegate. `null` outside an impersonation session.
+  """
+  actorIdentifier: String
+  """
+  Kind of actor, e.g. `buyer-delegate`. `null` outside an impersonation session.
+  """
+  actType: String
 }
 
 """

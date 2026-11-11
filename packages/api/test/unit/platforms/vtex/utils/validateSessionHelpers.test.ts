@@ -150,6 +150,46 @@ describe('buildB2bSession', () => {
     expect(buildB2bSession(emptyArgs)).toBeNull()
   })
 
+  it('exposes the actor only in an impersonation session', () => {
+    const base = {
+      ...emptyArgs,
+      customerId: 'cust',
+      unitId: 'unit',
+    }
+
+    expect(buildB2bSession(base)).toMatchObject({
+      actorId: null,
+      actorIdentifier: null,
+      actType: null,
+    })
+
+    expect(
+      buildB2bSession({
+        ...base,
+        authentication: {
+          actorId: { value: 'delegate-1' },
+          actorIdentifier: { value: 'delegate@store.com' },
+          actType: { value: 'buyer-delegate' },
+        },
+      })
+    ).toMatchObject({
+      actorId: 'delegate-1',
+      actorIdentifier: 'delegate@store.com',
+      actType: 'buyer-delegate',
+    })
+  })
+
+  it('treats a blank actor as no actor', () => {
+    expect(
+      buildB2bSession({
+        ...emptyArgs,
+        customerId: 'cust',
+        unitId: 'unit',
+        authentication: { actorId: { value: '  ' } },
+      })
+    ).toMatchObject({ actorId: null })
+  })
+
   it('returns null with a contract but no unit', () => {
     expect(
       buildB2bSession({

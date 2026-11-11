@@ -652,7 +652,7 @@ export const VtexCommerce = (
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,shopper.availableContracts,shopper.activeContractId,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
+        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,shopper.availableContracts,shopper.activeContractId,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,authentication.actorId,authentication.actorIdentifier,authentication.actType,checkout.regionId,public.postalCode'
       )
 
       const headers: HeadersInit = withCookie({

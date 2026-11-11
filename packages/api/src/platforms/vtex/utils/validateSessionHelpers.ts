@@ -181,6 +181,9 @@ export function buildB2bSession(args: {
     unitName?: { value?: string | null } | null
     unitId?: { value?: string | null } | null
     storeUserEmail?: { value?: string | null } | null
+    actorId?: { value?: string | null } | null
+    actorIdentifier?: { value?: string | null } | null
+    actType?: { value?: string | null } | null
   } | null
   shopper: {
     firstName?: { value?: unknown } | null
@@ -220,6 +223,11 @@ export function buildB2bSession(args: {
     savedPostalCode: args.publicData?.postalCode?.value ?? '',
     contractName: resolveActiveContractDisplayName(args.contract, args.profile),
     organizationManager: args.shopper?.organizationManager?.value ?? false,
+    // Only present while a Delegate is impersonating the Original Shopper.
+    actorId: firstNonBlank(args.authentication?.actorId?.value) || null,
+    actorIdentifier:
+      firstNonBlank(args.authentication?.actorIdentifier?.value) || null,
+    actType: firstNonBlank(args.authentication?.actType?.value) || null,
   }
 }
 

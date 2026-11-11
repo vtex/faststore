@@ -445,6 +445,12 @@ export type IShippingItem = {
 };
 
 export type IStoreB2B = {
+  /** Kind of actor, e.g. `buyer-delegate`. `null` outside an impersonation session. */
+  actType?: InputMaybe<Scalars['String']['input']>;
+  /** Identifier of the Delegate acting on behalf of this user. `null` outside an impersonation session. */
+  actorId?: InputMaybe<Scalars['String']['input']>;
+  /** Username or email of the Delegate. `null` outside an impersonation session. */
+  actorIdentifier?: InputMaybe<Scalars['String']['input']>;
   contractName?: InputMaybe<Scalars['String']['input']>;
   customerId: Scalars['String']['input'];
   firstName?: InputMaybe<Scalars['String']['input']>;
@@ -1414,6 +1420,12 @@ export type StoreAuthor = {
 
 export type StoreB2B = {
   __typename?: 'StoreB2B';
+  /** Kind of actor, e.g. `buyer-delegate`. `null` outside an impersonation session. */
+  actType?: Maybe<Scalars['String']['output']>;
+  /** Identifier of the Delegate acting on behalf of this user. `null` outside an impersonation session. */
+  actorId?: Maybe<Scalars['String']['output']>;
+  /** Username or email of the Delegate. `null` outside an impersonation session. */
+  actorIdentifier?: Maybe<Scalars['String']['output']>;
   contractName?: Maybe<Scalars['String']['output']>;
   customerId: Scalars['String']['output'];
   firstName?: Maybe<Scalars['String']['output']>;

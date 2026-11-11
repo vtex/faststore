@@ -18,6 +18,10 @@ export interface Authentication {
   storeUserEmail: Value
   unitName: Value
   unitId: Value
+  /** Delegate acting on behalf of `storeUserId`. Only set in impersonation sessions. */
+  actorId?: Value
+  actorIdentifier?: Value
+  actType?: Value
 }
 
 export interface Value {
