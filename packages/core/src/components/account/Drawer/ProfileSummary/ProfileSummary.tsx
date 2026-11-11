@@ -43,7 +43,8 @@ export const ProfileSummary = ({
     >
       <div data-fs-profile-summary-header>
         <h2 data-fs-profile-summary-org-name>{orgName}</h2>
-        {showManageLink && (
+        {/* No path to the Organization Account while impersonating */}
+        {showManageLink && !b2b?.actorId && (
           <Link
             data-fs-profile-summary-org-link
             href={`/pvt/organization-account/org-unit/${b2b?.unitId}`}
