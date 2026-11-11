@@ -81,6 +81,9 @@ export const mutation = gql(`
         savedPostalCode
         contractName
         organizationManager
+        actorId
+        actorIdentifier
+        actType
       }
       marketingData {
         utmCampaign

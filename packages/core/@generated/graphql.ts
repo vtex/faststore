@@ -430,6 +430,12 @@ export type IShippingItem = {
 };
 
 export type IStoreB2B = {
+  /** Kind of actor, e.g. `buyer-delegate`. `null` outside an impersonation session. */
+  actType: InputMaybe<Scalars['String']['input']>;
+  /** Identifier of the Delegate acting on behalf of this user. `null` outside an impersonation session. */
+  actorId: InputMaybe<Scalars['String']['input']>;
+  /** Username or email of the Delegate. `null` outside an impersonation session. */
+  actorIdentifier: InputMaybe<Scalars['String']['input']>;
   contractName: InputMaybe<Scalars['String']['input']>;
   customerId: Scalars['String']['input'];
   firstName: InputMaybe<Scalars['String']['input']>;
@@ -1361,6 +1367,12 @@ export type StoreAuthor = {
 };
 
 export type StoreB2B = {
+  /** Kind of actor, e.g. `buyer-delegate`. `null` outside an impersonation session. */
+  actType: Maybe<Scalars['String']['output']>;
+  /** Identifier of the Delegate acting on behalf of this user. `null` outside an impersonation session. */
+  actorId: Maybe<Scalars['String']['output']>;
+  /** Username or email of the Delegate. `null` outside an impersonation session. */
+  actorIdentifier: Maybe<Scalars['String']['output']>;
   contractName: Maybe<Scalars['String']['output']>;
   customerId: Scalars['String']['output'];
   firstName: Maybe<Scalars['String']['output']>;
@@ -3272,7 +3284,7 @@ export type ValidateSessionMutationVariables = Exact<{
 }>;
 
 
-export type ValidateSessionMutation = { validateSession: { locale: string, channel: string | null, country: string, addressType: string | null, postalCode: string | null, city: string | null, refreshAfter: string | null, deliveryMode: { deliveryChannel: string, deliveryMethod: string, deliveryWindow: { startDate: string, endDate: string } | null } | null, geoCoordinates: { latitude: number, longitude: number } | null, currency: { code: string, symbol: string }, person: { id: string, email: string, givenName: string, familyName: string } | null, b2b: { customerId: string, isRepresentative: boolean | null, unitName: string | null, unitId: string | null, firstName: string | null, lastName: string | null, userName: string | null, userEmail: string | null, savedPostalCode: string | null, contractName: string | null, organizationManager: boolean | null } | null, marketingData: { utmCampaign: string | null, utmMedium: string | null, utmSource: string | null, utmiCampaign: string | null, utmiPage: string | null, utmiPart: string | null } | null } | null };
+export type ValidateSessionMutation = { validateSession: { locale: string, channel: string | null, country: string, addressType: string | null, postalCode: string | null, city: string | null, refreshAfter: string | null, deliveryMode: { deliveryChannel: string, deliveryMethod: string, deliveryWindow: { startDate: string, endDate: string } | null } | null, geoCoordinates: { latitude: number, longitude: number } | null, currency: { code: string, symbol: string }, person: { id: string, email: string, givenName: string, familyName: string } | null, b2b: { customerId: string, isRepresentative: boolean | null, unitName: string | null, unitId: string | null, firstName: string | null, lastName: string | null, userName: string | null, userEmail: string | null, savedPostalCode: string | null, contractName: string | null, organizationManager: boolean | null, actorId: string | null, actorIdentifier: string | null, actType: string | null } | null, marketingData: { utmCampaign: string | null, utmMedium: string | null, utmSource: string | null, utmiCampaign: string | null, utmiPage: string | null, utmiPart: string | null } | null } | null };
 
 export type ClientShippingSimulationQueryQueryVariables = Exact<{
   postalCode: Scalars['String']['input'];
@@ -3851,6 +3863,6 @@ export const ClientProfileQueryDocument = {"__meta__":{"operationName":"ClientPr
 export const ClientRecommendationsQueryDocument = {"__meta__":{"operationName":"ClientRecommendationsQuery","operationHash":"b227071b0388469d7b90d04cff4cbc11f8f134d4"}} as unknown as TypedDocumentString<ClientRecommendationsQueryQuery, ClientRecommendationsQueryQueryVariables>;
 export const ClientSearchSuggestionsQueryDocument = {"__meta__":{"operationName":"ClientSearchSuggestionsQuery","operationHash":"ee57cd392fdfde90620787c9954e2ecae47881f9"}} as unknown as TypedDocumentString<ClientSearchSuggestionsQueryQuery, ClientSearchSuggestionsQueryQueryVariables>;
 export const ClientTopSearchSuggestionsQueryDocument = {"__meta__":{"operationName":"ClientTopSearchSuggestionsQuery","operationHash":"e2385b0f11726d0068f96548f57a8dd441c064e3"}} as unknown as TypedDocumentString<ClientTopSearchSuggestionsQueryQuery, ClientTopSearchSuggestionsQueryQueryVariables>;
-export const ValidateSessionDocument = {"__meta__":{"operationName":"ValidateSession","operationHash":"8c3a5999496e227f167e9dc79697e6c478d48a9e"}} as unknown as TypedDocumentString<ValidateSessionMutation, ValidateSessionMutationVariables>;
+export const ValidateSessionDocument = {"__meta__":{"operationName":"ValidateSession","operationHash":"92977fe0f4d2b5ef3f432d88c8f542eb9551422a"}} as unknown as TypedDocumentString<ValidateSessionMutation, ValidateSessionMutationVariables>;
 export const ClientShippingSimulationQueryDocument = {"__meta__":{"operationName":"ClientShippingSimulationQuery","operationHash":"c35bad22f67f3eb34fea52bb49efa6b1da6b728d"}} as unknown as TypedDocumentString<ClientShippingSimulationQueryQuery, ClientShippingSimulationQueryQueryVariables>;
 export const ServerManyProductsQueryDocument = {"__meta__":{"operationName":"ServerManyProductsQuery","operationHash":"70b17c9c9952b20b6f11da3593f4bde185f72f16"}} as unknown as TypedDocumentString<ServerManyProductsQueryQuery, ServerManyProductsQueryQueryVariables>;
