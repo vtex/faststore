@@ -422,12 +422,192 @@
         }
       }
 
-      // Footer card (absolute, anchored inside data-fs-organization-drawer-menu)
-      [data-fs-organization-drawer-footer] {
+      // Bottom stack: the delegations block is attached on top of the footer card
+      [data-fs-organization-drawer-footer-stack] {
         position: absolute;
         right: var(--fs-spacing-6);
         bottom: var(--fs-spacing-6);
         left: var(--fs-spacing-6);
+        z-index: 1;
+      }
+
+      // Delegations (users the buyer can act on behalf of)
+      [data-fs-organization-drawer-delegations] {
+        margin: 0 8px;
+        background-color: #f8f8f8;
+        border: 1px solid #e3e3e3;
+        border-bottom: 0;
+        border-radius: 4px 4px 0 0;
+        opacity: 0.9;
+        transition: opacity 0.15s;
+
+        &:hover,
+        &:focus-within {
+          opacity: 1;
+        }
+
+        [data-fs-organization-drawer-delegations-toggle],
+        [data-fs-organization-drawer-delegations-row] {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          height: 32px;
+          padding: 0 12px;
+          font-size: 13px;
+          transition: background-color 0.15s;
+
+          &:hover {
+            background-color: #f0f0f0;
+          }
+        }
+
+        [data-fs-organization-drawer-delegations-toggle] {
+          width: 100%;
+          color: inherit;
+          cursor: pointer;
+          background: transparent;
+          border: 0;
+          border-radius: 4px 4px 0 0;
+        }
+
+        [data-fs-organization-drawer-delegations-list] {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+        }
+
+        [data-fs-organization-drawer-delegations-icon] {
+          display: flex;
+          flex-shrink: 0;
+          align-items: center;
+          justify-content: center;
+          width: 18px;
+          color: #5c5c5c;
+        }
+
+        [data-fs-organization-drawer-delegations-chevron] {
+          transition: transform 0.2s;
+        }
+
+        [data-fs-organization-drawer-delegations-chevron="true"] {
+          transform: rotate(90deg);
+        }
+
+        [data-fs-organization-drawer-delegations-name],
+        [data-fs-organization-drawer-delegations-count] {
+          display: block;
+          overflow: hidden;
+          font-weight: 500;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        [data-fs-organization-drawer-delegations-name] {
+          color: #111827;
+        }
+
+        [data-fs-organization-drawer-delegations-count] {
+          color: rgb(17 24 39 / 60%);
+        }
+
+        // Tooltip above the item (black bubble with an arrow), as in the design.
+        [data-fs-organization-drawer-delegations-tooltip] {
+          position: relative;
+          display: flex;
+          flex: 1;
+          align-items: center;
+          min-width: 0;
+          cursor: help;
+
+          &::after,
+          &::before {
+            position: absolute;
+            left: 0;
+            pointer-events: none;
+            visibility: hidden;
+            content: "";
+            opacity: 0;
+            transition: opacity 0.15s;
+          }
+
+          &::after {
+            bottom: 100%;
+            z-index: 60;
+            width: 240px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.32;
+            color: #fff;
+            text-align: left;
+            white-space: normal;
+            content: attr(data-fs-organization-drawer-delegations-tooltip);
+            background: #000;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgb(0 0 0 / 25%);
+          }
+
+          &::before {
+            bottom: 100%;
+            left: 12px;
+            z-index: 61;
+            margin-bottom: -4px;
+            border: 6px solid transparent;
+            border-top-color: #000;
+          }
+
+          &:hover::after,
+          &:hover::before {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+
+        // "Impersonate" shows on row hover or keyboard focus, and always on touch
+        // devices where there is no hover.
+        [data-fs-organization-drawer-delegations-action] {
+          flex-shrink: 0;
+          font-size: 13px;
+          font-weight: 500;
+          color: #5c5c5c;
+          cursor: pointer;
+          background: transparent;
+          border: 0;
+          opacity: 0;
+          transition: opacity 0.15s, color 0.15s;
+
+          &:hover {
+            color: #111827;
+          }
+
+          &:disabled {
+            cursor: progress;
+          }
+        }
+
+        [data-fs-organization-drawer-delegations-row]:hover [data-fs-organization-drawer-delegations-action],
+        [data-fs-organization-drawer-delegations-action]:focus-visible {
+          opacity: 1;
+        }
+
+        @media (hover: none) {
+          [data-fs-organization-drawer-delegations-action] {
+            opacity: 1;
+          }
+        }
+
+        [data-fs-organization-drawer-delegations-error] {
+          padding: 0 12px 8px;
+          margin: 0;
+          font-size: 12px;
+          color: var(--fs-color-danger-text);
+        }
+      }
+
+      // Footer card (inside the bottom stack)
+      [data-fs-organization-drawer-footer] {
+        position: relative;
         z-index: 1;
         overflow: hidden;
         background-color: var(--fs-color-neutral-0);

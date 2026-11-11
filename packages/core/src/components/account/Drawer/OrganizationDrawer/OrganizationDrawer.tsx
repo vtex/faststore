@@ -13,6 +13,7 @@ import {
 import storeConfig from '../../../../../discovery.config'
 import { ContractSwitcher } from './ContractSwitcher'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
+import { OrganizationDrawerDelegations } from './OrganizationDrawerDelegations'
 import { OrganizationDrawerFooter } from './OrganizationDrawerFooter'
 import { OrganizationDrawerHeader } from './OrganizationDrawerHeader'
 import { setReloadAfterLogoutReturn } from './useReloadAfterLogoutReturn'
@@ -161,11 +162,15 @@ export const OrganizationDrawer = ({
     `${(person?.givenName ?? '').trim()}` ||
     'Organization'
 
-  const contractUrl = b2b?.unitId
-    ? `/pvt/organization-account/org-unit/${b2b?.unitId}`
-    : null
+  const isImpersonating = Boolean(b2b?.actorId)
 
-  const isOrganizationManager = b2b?.organizationManager || false
+  const contractUrl =
+    b2b?.unitId && !isImpersonating
+      ? `/pvt/organization-account/org-unit/${b2b?.unitId}`
+      : null
+
+  const isOrganizationManager =
+    !isImpersonating && (b2b?.organizationManager || false)
   // The switcher is only meaningful for B2B buyers tied to an Organization Unit.
   // Buyers with a single (or no alternative) contract see the empty state inside
   // the switcher; we don't fetch the contract count eagerly to protect TTFB.
@@ -214,14 +219,19 @@ export const OrganizationDrawer = ({
               isOrgMember={isOrgMember}
             />
           </div>
-          <OrganizationDrawerFooter
-            orgName={b2b?.unitName ?? ''}
-            userName={b2b?.userName ?? ''}
-            userEmail={b2b?.userEmail ?? ''}
-            showManageLink={isOrganizationManager}
-            manageUrl={contractUrl ?? undefined}
-            onLogoutClick={doLogout}
-          />
+          <div data-fs-organization-drawer-footer-stack>
+            {isOrgMember && !isImpersonating && (
+              <OrganizationDrawerDelegations />
+            )}
+            <OrganizationDrawerFooter
+              orgName={b2b?.unitName ?? ''}
+              userName={b2b?.userName ?? ''}
+              userEmail={b2b?.userEmail ?? ''}
+              showManageLink={isOrganizationManager}
+              manageUrl={contractUrl ?? undefined}
+              onLogoutClick={doLogout}
+            />
+          </div>
         </div>
       )}
     </SlideOver>

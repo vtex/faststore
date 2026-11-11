@@ -71,6 +71,15 @@ vi.mock(
 )
 
 vi.mock(
+  '../../../src/components/account/Drawer/OrganizationDrawer/OrganizationDrawerDelegations',
+  () => ({
+    OrganizationDrawerDelegations: () => (
+      <div data-testid="drawer-delegations" />
+    ),
+  })
+)
+
+vi.mock(
   '../../../src/components/account/Drawer/OrganizationDrawer/OrganizationDrawerBody',
   () => ({
     OrganizationDrawerBody: () => <nav data-fs-organization-drawer-body />,
@@ -117,6 +126,44 @@ describe('OrganizationDrawer', () => {
     expect(screen.getByText('Jane Buyer')).toBeTruthy()
     expect(screen.getByRole('link', { name: /manage/i })).toBeTruthy()
     expect(screen.getByRole('button', { name: /change/i })).toBeTruthy()
+  })
+
+  it('shows the delegations block to a regular org member', () => {
+    render(
+      <OrganizationDrawer
+        isOpen
+        closeDrawer={mockCloseDrawer}
+        isB2BBuyer={false}
+      />
+    )
+
+    expect(screen.getByTestId('drawer-delegations')).toBeTruthy()
+  })
+
+  it('has no delegations nor path to the Organization Account while impersonating', () => {
+    mockUseSession.mockReturnValue({
+      b2b: {
+        unitId: 'unit-1',
+        unitName: 'Stellar Global',
+        contractName: 'Acme Contract',
+        userName: 'Jane Buyer',
+        userEmail: 'jane@example.com',
+        organizationManager: true,
+        actorId: 'delegate-1',
+      },
+      person: { givenName: 'Jane' },
+    })
+    render(
+      <OrganizationDrawer
+        isOpen
+        closeDrawer={mockCloseDrawer}
+        isB2BBuyer={false}
+      />
+    )
+
+    expect(screen.queryByTestId('drawer-delegations')).toBeNull()
+    expect(screen.queryByRole('link', { name: /manage/i })).toBeNull()
+    expect(document.querySelector('a[href*="organization-account"]')).toBeNull()
   })
 
   it('opens the contract switcher and returns to the menu on back', () => {
