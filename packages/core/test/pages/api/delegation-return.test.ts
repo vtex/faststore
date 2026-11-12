@@ -14,13 +14,7 @@ vi.mock('discovery.config', () => ({
   default: { api: { storeId: 'test-store' }, experimental: {} },
 }))
 
-import defaultHandler, {
-  createDelegationReturnHandler,
-} from '../../../src/pages/api/fs/delegation-return'
-
-// The real path is filled in once Identity publishes the Return API; the
-// handler is exercised with a stand-in so the flow is covered meanwhile.
-const handler = createDelegationReturnHandler('/api/test/delegation/return')
+import handler from '../../../src/pages/api/fs/delegation-return'
 
 const ORDER_FORM_COOKIES =
   'checkout.vtex.com=__ofid=abc123; CheckoutOrderFormOwnership=owner-1'
@@ -81,15 +75,6 @@ describe('/api/fs/delegation-return', () => {
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
-  it('answers 501 and calls nothing while Identity has no Return API wired in', async () => {
-    const { req, res } = createReqRes()
-    await defaultHandler(req, res)
-
-    expect(res.status).toHaveBeenCalledWith(501)
-    expect(fetchMock).not.toHaveBeenCalled()
-    expect(res.setHeader).not.toHaveBeenCalled()
-  })
-
   it('relays to Identity with the cookie and no redirect following', async () => {
     fetchMock.mockResolvedValue(
       okResponse({ accessToken: 'delegate-token', expiresIn: 3600 })
@@ -99,10 +84,11 @@ describe('/api/fs/delegation-return', () => {
 
     const [url, init] = fetchMock.mock.calls[0]
     expect(url).toBe(
-      'https://test-store.myvtex.com/api/test/delegation/return?an=test-store'
+      'https://test-store.myvtex.com/api/authenticator/v1/storefront/token/delegation/return?an=test-store'
     )
     expect(init.method).toBe('POST')
     expect(init.redirect).toBe('error')
+    expect(init.body).toBeUndefined()
     expect(init.headers.cookie).toContain(AUTH_COOKIE)
   })
 
