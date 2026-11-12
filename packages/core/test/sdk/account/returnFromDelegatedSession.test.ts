@@ -3,10 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 const fetchMock = vi.hoisted(() => vi.fn())
 vi.mock('isomorphic-unfetch', () => ({ default: fetchMock }))
 
-import {
-  RETURN_NOT_AVAILABLE_STATUS,
-  returnFromDelegatedSession,
-} from '../../../src/sdk/account/returnFromDelegatedSession'
+import { returnFromDelegatedSession } from '../../../src/sdk/account/returnFromDelegatedSession'
 import { DelegatedSessionError } from '../../../src/sdk/account/startDelegatedSession'
 
 const response = (ok: boolean, status: number, body?: unknown) =>
@@ -34,13 +31,12 @@ describe('returnFromDelegatedSession', () => {
     expect(init.credentials).toBe('include')
   })
 
-  it('carries the HTTP status on failure', async () => {
-    fetchMock.mockResolvedValue(response(false, RETURN_NOT_AVAILABLE_STATUS))
+  it('throws a DelegatedSessionError when the route fails', async () => {
+    fetchMock.mockResolvedValue(response(false, 502))
 
-    const error = await returnFromDelegatedSession().catch((e) => e)
-
-    expect(error).toBeInstanceOf(DelegatedSessionError)
-    expect(error.status).toBe(501)
+    await expect(returnFromDelegatedSession()).rejects.toBeInstanceOf(
+      DelegatedSessionError
+    )
   })
 
   it('fails when the route does not confirm success', async () => {

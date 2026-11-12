@@ -1,13 +1,9 @@
 import fetch from 'isomorphic-unfetch'
 
 export class DelegatedSessionError extends Error {
-  /** HTTP status of the failed route call, when there was one. */
-  status?: number
-
-  constructor(message: string, status?: number) {
+  constructor(message: string) {
     super(message)
     this.name = 'DelegatedSessionError'
-    this.status = status
   }
 }
 
