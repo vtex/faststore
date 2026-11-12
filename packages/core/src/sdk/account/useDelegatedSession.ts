@@ -37,8 +37,7 @@ export const useDelegatedSession = () => {
 
   const run = async (
     action: () => Promise<true>,
-    fallbackMessage: string,
-    onFailure?: (error: Error) => void | Promise<void>
+    fallbackMessage: string
   ): Promise<boolean> => {
     setLoading(true)
     setError(null)
@@ -49,11 +48,9 @@ export const useDelegatedSession = () => {
 
       return true
     } catch (err) {
-      const failure =
+      setError(
         err instanceof Error ? err : new DelegatedSessionError(fallbackMessage)
-
-      setError(failure)
-      await onFailure?.(failure)
+      )
 
       return false
     } finally {
@@ -70,17 +67,10 @@ export const useDelegatedSession = () => {
       'Failed to start the delegated session'
     )
 
-  /**
-   * `onFailure` receives the error after it is stored, so a caller can react
-   * to a specific status (the banner uses it for "Return not available yet").
-   */
-  const returnToDelegate = (
-    onFailure?: (error: Error) => void | Promise<void>
-  ): Promise<boolean> =>
+  const returnToDelegate = (): Promise<boolean> =>
     run(
       returnFromDelegatedSession,
-      'Failed to return from the delegated session',
-      onFailure
+      'Failed to return from the delegated session'
     )
 
   return { startSession, returnToDelegate, loading, error }

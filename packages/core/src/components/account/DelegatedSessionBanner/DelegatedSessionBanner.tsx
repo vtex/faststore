@@ -1,5 +1,3 @@
-import { RETURN_NOT_AVAILABLE_STATUS } from 'src/sdk/account/returnFromDelegatedSession'
-import { DelegatedSessionError } from 'src/sdk/account/startDelegatedSession'
 import { useDelegatedSession } from 'src/sdk/account/useDelegatedSession'
 import { useSession } from 'src/sdk/session'
 
@@ -23,29 +21,6 @@ export const DelegatedSessionBanner = () => {
   const actor = b2b.actorIdentifier || b2b.actorId
   const target = b2b.userName?.trim() || b2b.userEmail || ''
 
-  // TODO(B2BTEAM-4043): remove once Identity's Return API is wired in
-  // `delegation-return.ts`. Until then the route answers 501 and we follow the
-  // RFC workaround: logout and sign in again as the Delegate.
-  // Dynamic import: a static one would bundle the drawer stylesheet ahead of
-  // the global one and invert the CSS layer order app-wide.
-  const logoutWorkaround = async () => {
-    const { doLogout } = await import(
-      'src/components/account/Drawer/OrganizationDrawer/OrganizationDrawer'
-    )
-
-    await doLogout()
-  }
-
-  const onReturn = () =>
-    returnToDelegate(async (error) => {
-      if (
-        error instanceof DelegatedSessionError &&
-        error.status === RETURN_NOT_AVAILABLE_STATUS
-      ) {
-        await logoutWorkaround()
-      }
-    })
-
   return (
     <>
       <div className={styles.frame} aria-hidden="true" />
@@ -63,7 +38,7 @@ export const DelegatedSessionBanner = () => {
           type="button"
           className={styles.return}
           disabled={loading}
-          onClick={() => void onReturn()}
+          onClick={() => void returnToDelegate()}
         >
           Return
         </button>
