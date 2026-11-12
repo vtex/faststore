@@ -7,13 +7,20 @@ import {
   checkoutOrderFormCustomDataInvalidFetch,
   checkoutOrderFormCustomDataStaleFetch,
   checkoutOrderFormCustomDataValidFetch,
+  checkoutOrderFormCustomDataWithoutAddressFetch,
   checkoutOrderFormInvalidFetch,
   checkoutOrderFormItemsInvalidFetch,
+  checkoutOrderFormItemsWithoutAddressFetch,
+  checkoutOrderFormShippingDataFetch,
   checkoutOrderFormStaleFetch,
   checkoutOrderFormValidFetch,
+  checkoutOrderFormWithoutAddressFetch,
+  checkoutPostalCodeFetch,
   InvalidCart,
   productSearchPage1Count1Fetch,
+  SessionWithPostalCode,
   ValidateCartMutation,
+  ValidateCartWithSessionMutation,
   ValidCart,
 } from '../mocks/ValidateCartMutation'
 
@@ -160,4 +167,67 @@ test('`validateCart` mutation should return new cart when etag is stale', async 
   expect(mockedFetch).toHaveBeenCalledTimes(4)
 
   expect(response).toMatchSnapshot()
+})
+
+const getSelectedAddress = () => {
+  const [, init] = mockedFetch.mock.calls.find(
+    ([info]) => info === checkoutOrderFormShippingDataFetch.info
+  )
+
+  return JSON.parse(init.body).selectedAddresses[0]
+}
+
+test('`validateCart` mutation should send the postal code coordinates when the session has none', async () => {
+  mockedFetch.mockImplementation((info, init) =>
+    pickFetchAPICallResult(info, init, [
+      checkoutOrderFormWithoutAddressFetch,
+      checkoutOrderFormItemsWithoutAddressFetch,
+      checkoutPostalCodeFetch,
+      checkoutOrderFormShippingDataFetch,
+      checkoutOrderFormCustomDataWithoutAddressFetch,
+      salesChannelStaleFetch,
+    ])
+  )
+
+  const response = await run(ValidateCartWithSessionMutation, {
+    cart: ValidCart,
+    session: SessionWithPostalCode,
+  })
+
+  expect(response.errors).toBeUndefined()
+  expect(response.data?.validateCart).toEqual(null)
+  expect(getSelectedAddress()).toMatchObject({
+    postalCode: '05001100',
+    country: 'BRA',
+    geoCoordinates: [-46.675491333, -23.526170731],
+  })
+})
+
+test('`validateCart` mutation should still send the address when the postal code lookup fails', async () => {
+  mockedFetch.mockImplementation((info, init) => {
+    if (info === checkoutPostalCodeFetch.info) {
+      return Promise.reject(new Error('Service Unavailable'))
+    }
+
+    return pickFetchAPICallResult(info, init, [
+      checkoutOrderFormWithoutAddressFetch,
+      checkoutOrderFormItemsWithoutAddressFetch,
+      checkoutOrderFormShippingDataFetch,
+      checkoutOrderFormCustomDataWithoutAddressFetch,
+      salesChannelStaleFetch,
+    ])
+  })
+
+  const response = await run(ValidateCartWithSessionMutation, {
+    cart: ValidCart,
+    session: SessionWithPostalCode,
+  })
+
+  expect(response.errors).toBeUndefined()
+  expect(response.data?.validateCart).toEqual(null)
+  expect(getSelectedAddress()).toMatchObject({
+    postalCode: '05001100',
+    country: 'BRA',
+    geoCoordinates: [],
+  })
 })
