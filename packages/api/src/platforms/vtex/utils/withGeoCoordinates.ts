@@ -25,8 +25,13 @@ export const withGeoCoordinates = async (
     }
 
     return { ...session, geoCoordinates: { latitude, longitude } }
-  } catch {
+  } catch (error) {
     // A failed lookup must not fail the cart validation.
+    console.warn(
+      'Error while getting geo coordinates for the cart address. Sending it without coordinates.',
+      error
+    )
+
     return session
   }
 }

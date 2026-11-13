@@ -58,19 +58,64 @@ describe('withGeoCoordinates', () => {
     expect(result).toBe(sessionWithoutPostalCode)
   })
 
-  it('Should keep the session when the postal code has no coordinates', async () => {
-    const address = jest.fn().mockResolvedValue({ geoCoordinates: [] })
+  it('Should not look up when the session has no country', async () => {
+    const address = jest.fn()
+    const sessionWithoutCountry = { ...session, country: '' }
 
-    const result = await withGeoCoordinates(session, createCommerce(address))
+    const result = await withGeoCoordinates(
+      sessionWithoutCountry,
+      createCommerce(address)
+    )
 
-    expect(result).toBe(session)
+    expect(address).not.toHaveBeenCalled()
+    expect(result).toBe(sessionWithoutCountry)
   })
 
-  it('Should keep the session when the lookup fails', async () => {
-    const address = jest.fn().mockRejectedValue(new Error('timeout'))
+  it.each([
+    ['no coordinates', { geoCoordinates: [] }],
+    ['non-numeric coordinates', { geoCoordinates: ['-46.6', '-23.5'] }],
+    ['no geoCoordinates field', {}],
+  ])(
+    'Should keep the session when the postal code has %s',
+    async (_, response) => {
+      const address = jest.fn().mockResolvedValue(response)
+
+      const result = await withGeoCoordinates(session, createCommerce(address))
+
+      expect(result).toBe(session)
+    }
+  )
+
+  it('Should keep the session when the lookup returns no body', async () => {
+    const address = jest.fn().mockResolvedValue(undefined)
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
 
     const result = await withGeoCoordinates(session, createCommerce(address))
 
     expect(result).toBe(session)
+    expect(warn).toHaveBeenCalledTimes(1)
+    warn.mockRestore()
+  })
+
+  it('Should keep the session and log when the lookup fails', async () => {
+    const address = jest.fn().mockRejectedValue(new Error('timeout'))
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+
+    const result = await withGeoCoordinates(session, createCommerce(address))
+
+    expect(result).toBe(session)
+    expect(warn).toHaveBeenCalledTimes(1)
+    warn.mockRestore()
+  })
+
+  it('Should not mutate the original session', async () => {
+    const address = jest.fn().mockResolvedValue({
+      geoCoordinates: [-46.675491333, -23.526170731],
+    })
+    const original = { ...session }
+
+    await withGeoCoordinates(original, createCommerce(address))
+
+    expect(original).toEqual(session)
   })
 })

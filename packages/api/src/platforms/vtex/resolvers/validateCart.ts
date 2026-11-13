@@ -288,9 +288,9 @@ const updateOrderFormShippingData = async (
     // Check if the orderForm address matches the one from the session
     const oldAddress = getAddressOrderForm(orderForm, session, addressChanged)
 
-    const address = oldAddress
-      ? oldAddress
-      : createNewAddress(await withGeoCoordinates(session, commerce))
+    const address =
+      oldAddress ??
+      createNewAddress(await withGeoCoordinates(session, commerce))
 
     const selectedAddresses = address as SelectedAddress[]
 

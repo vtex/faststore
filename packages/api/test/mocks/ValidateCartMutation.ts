@@ -639,3 +639,34 @@ export const checkoutOrderFormCustomDataWithoutAddressFetch = {
   ...checkoutOrderFormCustomDataValidFetch,
   result: orderFormWithoutAddress,
 }
+
+const checkoutAddress = (postalCode: string) => ({
+  addressId: `address-${postalCode}`,
+  addressType: 'residential',
+  postalCode,
+  country: 'BRA',
+  geoCoordinates: [],
+})
+
+const previousAddress = checkoutAddress('05040000')
+export const addressWithSessionPostalCode = checkoutAddress('05001100')
+
+// A cart that has had another postal code, and already knows the session one
+const orderFormWithAvailableAddress = {
+  ...orderFormWithoutAddress,
+  shippingData: {
+    ...orderFormWithoutAddress.shippingData,
+    selectedAddresses: [previousAddress],
+    availableAddresses: [previousAddress, addressWithSessionPostalCode],
+  },
+}
+
+export const checkoutOrderFormWithAvailableAddressFetch = {
+  ...checkoutOrderFormWithoutAddressFetch,
+  result: orderFormWithAvailableAddress,
+}
+
+export const checkoutOrderFormItemsWithAvailableAddressFetch = {
+  ...checkoutOrderFormItemsWithoutAddressFetch,
+  result: orderFormWithAvailableAddress,
+}
