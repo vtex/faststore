@@ -1,3 +1,4 @@
+import type { CheckoutAddress } from '../../src/platforms/vtex/clients/commerce/types/OrderForm'
 import {
   OrderFormWithDifferentPostalCodeFromSession,
   OrderFormWithItems,
@@ -93,7 +94,8 @@ describe('shouldUpdateShippingData', () => {
       ...OrderFormWithSamePostalCodeFromSession,
       shippingData: {
         ...OrderFormWithSamePostalCodeFromSession.shippingData,
-        selectedAddresses: [addressWithoutGeoCoordinates],
+        // Checkout may omit the field, even though the type requires it
+        selectedAddresses: [addressWithoutGeoCoordinates as CheckoutAddress],
       },
     }
 
