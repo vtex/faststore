@@ -76,12 +76,24 @@ const createRunner = async () => {
     })
 }
 
+const checkoutAddress = (postalCode: string) => ({
+  addressId: `address-${postalCode}`,
+  addressType: 'residential',
+  postalCode,
+  country: 'BRA',
+  geoCoordinates: [],
+})
+
 /**
- * Mocks Checkout and Intelligent Search for a cart with one item and no
- * address. `postalCodeLookup` answers the postal code request.
+ * Mocks Checkout and Intelligent Search for a cart with one item, and no
+ * address unless `shippingData` is given. `postalCodeLookup` answers the
+ * postal code request.
  */
-const mockPlatform = (postalCodeLookup: () => unknown) => {
-  const initial = freshOrderForm([orderFormItem()])
+const mockPlatform = (
+  postalCodeLookup: () => unknown,
+  shippingData: unknown = null
+) => {
+  const initial = { ...freshOrderForm([orderFormItem()]), shippingData }
   const shippingDataBodies: any[] = []
 
   mockedFetch.mockImplementation((info, init) => {
@@ -111,6 +123,9 @@ const mockPlatform = (postalCodeLookup: () => unknown) => {
   return { shippingDataBodies }
 }
 
+const postalCodeLookups = () =>
+  mockedFetch.mock.calls.filter(([info]) => String(info) === POSTAL_CODE_URL)
+
 describe('`validateCart` with a session that has a postal code and no coordinates', () => {
   test('sends the postal code coordinates in the new address', async () => {
     const run = await createRunner()
@@ -125,6 +140,7 @@ describe('`validateCart` with a session that has a postal code and no coordinate
     const response = await run({ cart: browserCart([browserLine()]), session })
 
     expect(response.errors).toBeUndefined()
+    expect(postalCodeLookups()).toHaveLength(1)
     expect(shippingDataBodies).toHaveLength(1)
     expect(shippingDataBodies[0].selectedAddresses[0]).toMatchObject({
       postalCode: '05001100',
@@ -133,15 +149,72 @@ describe('`validateCart` with a session that has a postal code and no coordinate
     })
   })
 
+  test('looks up the postal code once when a delivery window sends shippingData twice', async () => {
+    const run = await createRunner()
+    const { shippingDataBodies } = mockPlatform(() => ({
+      geoCoordinates: [-46.675491333, -23.526170731],
+    }))
+
+    const response = await run({
+      cart: browserCart([browserLine()]),
+      session: {
+        ...session,
+        deliveryMode: {
+          deliveryChannel: 'delivery',
+          deliveryMethod: 'Agendada',
+          deliveryWindow: {
+            startDate: '2026-11-20T08:00:00+00:00',
+            endDate: '2026-11-20T12:00:00+00:00',
+          },
+        },
+      },
+    })
+
+    expect(response.errors).toBeUndefined()
+    expect(postalCodeLookups()).toHaveLength(1)
+    expect(shippingDataBodies).toHaveLength(2)
+    for (const body of shippingDataBodies) {
+      expect(body.selectedAddresses[0].geoCoordinates).toEqual([
+        -46.675491333, -23.526170731,
+      ])
+    }
+  })
+
+  test('reuses an orderForm address with the same postal code without a lookup', async () => {
+    const run = await createRunner()
+    const previous = checkoutAddress('05040000')
+    const sameAsSession = checkoutAddress('05001100')
+    const { shippingDataBodies } = mockPlatform(
+      () => {
+        throw new Error('The postal code must not be looked up')
+      },
+      {
+        selectedAddresses: [previous],
+        availableAddresses: [previous, sameAsSession],
+        logisticsInfo: [],
+      }
+    )
+
+    const response = await run({ cart: browserCart([browserLine()]), session })
+
+    expect(response.errors).toBeUndefined()
+    expect(postalCodeLookups()).toHaveLength(0)
+    expect(shippingDataBodies).toHaveLength(1)
+    expect(shippingDataBodies[0].selectedAddresses).toEqual([sameAsSession])
+  })
+
   test('still sends the address when the postal code lookup fails', async () => {
     const run = await createRunner()
     const { shippingDataBodies } = mockPlatform(() => {
       throw new Error('Service Unavailable')
     })
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     const response = await run({ cart: browserCart([browserLine()]), session })
 
+    warn.mockRestore()
     expect(response.errors).toBeUndefined()
+    expect(postalCodeLookups()).toHaveLength(1)
     expect(shippingDataBodies).toHaveLength(1)
     expect(shippingDataBodies[0].selectedAddresses[0]).toMatchObject({
       postalCode: '05001100',
