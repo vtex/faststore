@@ -1,11 +1,12 @@
 import type { ContentData, Locator } from '@vtex/client-cms'
-import ClientCMS from '@vtex/client-cms'
+import type ClientCMS from '@vtex/client-cms'
 
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { createPromiseCache } from 'src/server/content/promiseCache'
 import { sanitizeHost } from 'src/utils/utilities'
 import config from '../../../discovery.config'
+import { ResilientClientCMS } from './ResilientClientCMS'
 
 export type Options =
   | Locator
@@ -72,7 +73,7 @@ export const isLocator = (x: any): x is Locator =>
     typeof x.documentId === 'string' ||
     typeof x.versionId === 'string')
 
-export const clientCMS = new ClientCMS({
+export const clientCMS = new ResilientClientCMS({
   workspace: config.api.workspace,
   tenant: config.api.storeId,
   builder:
