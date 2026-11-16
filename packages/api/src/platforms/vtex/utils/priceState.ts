@@ -8,10 +8,6 @@ export interface PriceState {
   reasonKey: string | null
 }
 
-const LOGIN_REASON = 'PRICE_REQUIRES_LOGIN'
-const LOGIN_LABEL = 'Entre para ver o preço'
-const FALLBACK_LABEL = 'calculando'
-
 export const resolvePriceState = (
   source?: PriceStateSource | null
 ): PriceState => {
@@ -26,12 +22,4 @@ export const resolvePriceState = (
     available: true,
     reasonKey: null,
   }
-}
-
-export const priceReasonLabel = (reasonKey?: string | null) => {
-  if (reasonKey === LOGIN_REASON) {
-    return LOGIN_LABEL
-  }
-
-  return FALLBACK_LABEL
 }

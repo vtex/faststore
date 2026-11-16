@@ -45,7 +45,4 @@ export type Resolver<
   TReturn = any,
 > = GraphqlResolver<TRoot, TArgs, TReturn>
 
-export {
-  priceReasonLabel,
-  resolvePriceState,
-} from './platforms/vtex/utils/priceState'
+export { resolvePriceState } from './platforms/vtex/utils/priceState'

@@ -2986,6 +2986,24 @@
             }
           }
         },
+        "priceMessages": {
+          "title": "Unavailable price messages",
+          "type": "object",
+          "properties": {
+            "login": {
+              "title": "Sign-in message",
+              "description": "Shown when the price reason is PRICE_REQUIRES_LOGIN.",
+              "type": "string",
+              "default": "Sign in to see the price"
+            },
+            "generic": {
+              "title": "Generic unavailable message",
+              "description": "Shown for any other unavailable price reason.",
+              "type": "string",
+              "default": "Calculating"
+            }
+          }
+        },
         "recommendations": {
           "title": "Recommendations",
           "description": "Optional shelf of personalized product recommendations rendered inside the cart drawer, between the cart items and the order summary.",

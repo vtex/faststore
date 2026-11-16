@@ -20,7 +20,13 @@ import {
 } from '../session'
 import { syncSessionWithValidatedCart } from '../session/syncSalesChannelFromOrderForm'
 import { createValidationStore, useStore } from '../useStore'
-import { isGift as isPriceGift, lineTotal } from './priceLine'
+import {
+  isGift as isPriceGift,
+  lineTotal,
+  lineTotalWithTaxes,
+  subtotalAmount,
+} from './priceLine'
+import { applyPriceMock } from './priceMock'
 import { waitForSessionValidated } from './waitForSessionValidated'
 
 export interface CartItem
@@ -215,18 +221,25 @@ export const useCart = (
   const isValidating = useStore(validationStore)
 
   return useMemo(() => {
-    const cartTotals = cart.items.reduce(
+    const sourceItems = applyPriceMock(cart.items)
+    const cartTotals = sourceItems.reduce(
       (totals, curr) => {
         totals.total += lineTotal(curr)
-        totals.totalWithTaxes += curr.priceWithTaxes * curr.quantity
+        totals.totalWithTaxes += lineTotalWithTaxes(curr)
 
         const quantityMultiplier = useUnitMultiplier
           ? curr.quantity * (curr?.itemOffered?.unitMultiplier ?? 1)
           : curr.quantity
 
         totals.totalItems += isGift(curr) ? 0 : quantityMultiplier
-        totals.subTotal += curr.listPrice * quantityMultiplier
-        totals.subTotalWithTaxes += curr.listPriceWithTaxes * quantityMultiplier
+        totals.subTotal += subtotalAmount(
+          curr,
+          curr.listPrice * quantityMultiplier
+        )
+        totals.subTotalWithTaxes += subtotalAmount(
+          curr,
+          curr.listPriceWithTaxes * quantityMultiplier
+        )
 
         return totals
       },
@@ -244,9 +257,9 @@ export const useCart = (
       ...cartTotals,
       isValidating,
       messages: cart.messages,
-      gifts: cart.items.filter((item) => isGift(item)),
-      items: cart.items.filter((item) => !isGift(item)),
-      totalUniqueItems: cart.items.length,
+      gifts: sourceItems.filter((item) => isGift(item)),
+      items: sourceItems.filter((item) => !isGift(item)),
+      totalUniqueItems: sourceItems.length,
     }
   }, [cart, isValidating, useUnitMultiplier])
 }
