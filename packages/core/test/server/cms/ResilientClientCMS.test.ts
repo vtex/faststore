@@ -58,10 +58,7 @@ describe('ResilientClientCMS', () => {
 
   beforeEach(() => {
     cmsPageCache.clear()
-    baseFetch = jest.spyOn(
-      ClientCMS.prototype,
-      'fetch'
-    ) as unknown as typeof baseFetch
+    baseFetch = jest.spyOn(ClientCMS.prototype, 'fetch')
     warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
   })
 
@@ -168,6 +165,52 @@ describe('ResilientClientCMS', () => {
     )
     expect(baseFetch).toHaveBeenCalledTimes(1)
     expect(warn).not.toHaveBeenCalled()
+  })
+
+  it('retries when the body cannot be decoded', async () => {
+    // undici's error when `Content-Encoding` does not match the body bytes.
+    const decodingError = Object.assign(new TypeError('terminated'), {
+      cause: Object.assign(new Error('incorrect header check'), {
+        code: 'Z_DATA_ERROR',
+      }),
+    })
+    const page = listingPage(1, 1, 1)
+    baseFetch.mockRejectedValueOnce(decodingError).mockResolvedValueOnce(page)
+
+    const result = await createClient().getCMSPagesByContentType('plp')
+
+    expect(result).toEqual(page)
+    expect(baseFetch).toHaveBeenCalledTimes(2)
+    expect(warn.mock.calls[0][0]).toContain('TypeError: Z_DATA_ERROR')
+  })
+
+  it('retries a SyntaxError created in another realm', async () => {
+    const foreignSyntaxError = Object.assign(new Error('Unexpected token'), {
+      name: 'SyntaxError',
+    })
+    const page = listingPage(1, 1, 1)
+    baseFetch
+      .mockRejectedValueOnce(foreignSyntaxError)
+      .mockResolvedValueOnce(page)
+
+    const result = await createClient().getCMSPagesByContentType('plp')
+
+    expect(result).toEqual(page)
+    expect(baseFetch).toHaveBeenCalledTimes(2)
+  })
+
+  it('does not retry a connection reset while reading the body', async () => {
+    const error = Object.assign(new TypeError('terminated'), {
+      cause: Object.assign(new Error('read ECONNRESET'), {
+        code: 'ECONNRESET',
+      }),
+    })
+    baseFetch.mockRejectedValueOnce(error)
+
+    await expect(createClient().getCMSPagesByContentType('plp')).rejects.toBe(
+      error
+    )
+    expect(baseFetch).toHaveBeenCalledTimes(1)
   })
 
   describe('getCMSPage', () => {

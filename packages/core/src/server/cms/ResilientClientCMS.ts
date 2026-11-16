@@ -17,15 +17,43 @@ export class InvalidCMSResponseError extends Error {
   }
 }
 
+type ErrorShape = {
+  name?: unknown
+  type?: unknown
+  cause?: { code?: unknown }
+}
+
+/** zlib and brotli error codes raised while decompressing a response body. */
+const BODY_DECODING_ERROR_CODE = /^(Z_|ERR__ERROR_FORMAT_|ERR_BROTLI)/
+
+const decodingErrorCode = (error: unknown) => {
+  const code = (error as ErrorShape | null)?.cause?.code
+
+  return typeof code === 'string' && BODY_DECODING_ERROR_CODE.test(code)
+    ? code
+    : undefined
+}
+
 /**
- * `response.json()` throws a `SyntaxError` with the native fetch, and a
- * `FetchError` of type `invalid-json` with `node-fetch` (the fallback
- * `@vtex/client-cms` uses when there is no global fetch).
+ * Whether `error` means the response arrived but its body is unusable:
+ * - `SyntaxError`: `response.json()` with the native fetch. Checked by name so
+ *   it also matches errors created in another realm (e.g. a test vm context).
+ * - `invalid-json`: the same failure with `node-fetch`, the fallback
+ *   `@vtex/client-cms` uses when there is no global fetch.
+ * - A decoding error while reading the body, when `Content-Encoding` does not
+ *   match the bytes: undici rejects with `TypeError: terminated`, caused by a
+ *   zlib or brotli error.
  */
-const isInvalidBodyError = (error: unknown) =>
-  error instanceof SyntaxError ||
-  error instanceof InvalidCMSResponseError ||
-  (error as { type?: unknown } | null)?.type === 'invalid-json'
+const isInvalidBodyError = (error: unknown) => {
+  const { name, type } = (error ?? {}) as ErrorShape
+
+  return (
+    name === 'SyntaxError' ||
+    error instanceof InvalidCMSResponseError ||
+    type === 'invalid-json' ||
+    decodingErrorCode(error) !== undefined
+  )
+}
 
 const assertValidBody = <T>(body: T, path: string): T => {
   // Every CMS API endpoint answers with a JSON object.
@@ -54,13 +82,13 @@ export class ResilientClientCMS extends ClientCMS {
         throw error
       }
 
-      // Only the error name is logged: a JSON parse error message embeds the
-      // start of the body, which may be binary.
+      // Only the error name (and decoding error code) is logged: a JSON parse
+      // error message embeds the start of the body, which may be binary.
       const query = params?.toString()
+      const code = decodingErrorCode(error)
+      const reason = `${(error as Error).name}${code ? `: ${code}` : ''}`
       console.warn(
-        `[CMS] Invalid response body for "${path}${query ? `?${query}` : ''}" (${
-          (error as Error).name
-        }). Retrying once bypassing the cache.`
+        `[CMS] Invalid response body for "${path}${query ? `?${query}` : ''}" (${reason}). Retrying once bypassing the cache.`
       )
 
       const cacheBustingParams = new URLSearchParams(params)
