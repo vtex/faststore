@@ -65,6 +65,11 @@ const assertValidBody = <T>(body: T, path: string): T => {
 }
 
 /**
+ * How long a URL whose cache-busting retry also failed skips further retries.
+ */
+export const RETRY_COOLDOWN_MS = 60 * 1000
+
+/**
  * `ClientCMS` that retries a request once, bypassing CDN caches, when the
  * response body is not valid JSON. A single bad cached response (e.g. a
  * compressed body stored without its `Content-Encoding`) would otherwise fail
@@ -72,8 +77,16 @@ const assertValidBody = <T>(body: T, path: string): T => {
  *
  * Only the invalid-body case is retried: network errors are already retried by
  * `@vtex/client-cms`, and non-2xx responses keep failing as before.
+ *
+ * The retry reaches the origin. When the retry fails too, the origin itself is
+ * likely answering invalid bodies, so that URL fails fast without retrying for
+ * `RETRY_COOLDOWN_MS` instead of adding an uncached origin hit to every page
+ * generation.
  */
 export class ResilientClientCMS extends ClientCMS {
+  /** URL -> time until which its cache-busting retry is skipped. */
+  private readonly retryCooldownUntil = new Map<string, number>()
+
   async fetch<T>(path = '', params?: URLSearchParams): Promise<T> {
     try {
       return assertValidBody(await super.fetch<T>(path, params), path)
@@ -82,9 +95,13 @@ export class ResilientClientCMS extends ClientCMS {
         throw error
       }
 
+      const url = [path, params?.toString()].filter(Boolean).join('?')
+      if (this.isCoolingDown(url)) {
+        throw error
+      }
+
       // Only the error name (and decoding error code) is logged: a JSON parse
       // error message embeds the start of the body, which may be binary.
-      const url = [path, params?.toString()].filter(Boolean).join('?')
       const reason = [(error as Error).name, decodingErrorCode(error)]
         .filter(Boolean)
         .join(': ')
@@ -95,10 +112,42 @@ export class ResilientClientCMS extends ClientCMS {
       const cacheBustingParams = new URLSearchParams(params)
       cacheBustingParams.set(CACHE_BUST_PARAM, Date.now().toString())
 
-      return assertValidBody(
-        await super.fetch<T>(path, cacheBustingParams),
-        path
-      )
+      try {
+        return assertValidBody(
+          await super.fetch<T>(path, cacheBustingParams),
+          path
+        )
+      } catch (retryError) {
+        this.startCooldown(url)
+        throw retryError
+      }
     }
+  }
+
+  private isCoolingDown(url: string) {
+    const until = this.retryCooldownUntil.get(url)
+
+    if (until === undefined) {
+      return false
+    }
+
+    if (until > Date.now()) {
+      return true
+    }
+
+    this.retryCooldownUntil.delete(url)
+    return false
+  }
+
+  private startCooldown(url: string) {
+    const now = Date.now()
+
+    // Drop expired entries so URLs that are never requested again do not pile
+    // up for the lifetime of the process.
+    this.retryCooldownUntil.forEach((until, key) => {
+      if (until <= now) this.retryCooldownUntil.delete(key)
+    })
+
+    this.retryCooldownUntil.set(url, now + RETRY_COOLDOWN_MS)
   }
 }

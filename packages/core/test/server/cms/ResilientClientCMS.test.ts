@@ -12,6 +12,7 @@ import {
 import { clientCMS, cmsPageCache, getCMSPage } from '../../../src/server/cms'
 import {
   CACHE_BUST_PARAM,
+  RETRY_COOLDOWN_MS,
   ResilientClientCMS,
 } from '../../../src/server/cms/ResilientClientCMS'
 
@@ -211,6 +212,64 @@ describe('ResilientClientCMS', () => {
       error
     )
     expect(baseFetch).toHaveBeenCalledTimes(1)
+  })
+
+  describe('retry cooldown', () => {
+    it('fails fast for a URL whose retry also failed', async () => {
+      const client = createClient()
+      baseFetch.mockRejectedValue(invalidJSON())
+
+      await expect(
+        client.getCMSPagesByContentType('plp')
+      ).rejects.toBeInstanceOf(SyntaxError)
+      expect(baseFetch).toHaveBeenCalledTimes(2)
+
+      await expect(
+        client.getCMSPagesByContentType('plp')
+      ).rejects.toBeInstanceOf(SyntaxError)
+      expect(baseFetch).toHaveBeenCalledTimes(3)
+      expect(warn).toHaveBeenCalledTimes(1)
+    })
+
+    it('still retries other URLs', async () => {
+      const client = createClient()
+      const page = listingPage(2, 10, 20)
+      baseFetch
+        .mockRejectedValueOnce(invalidJSON())
+        .mockRejectedValueOnce(invalidJSON())
+        .mockRejectedValueOnce(invalidJSON())
+        .mockResolvedValueOnce(page)
+
+      await expect(
+        client.getCMSPagesByContentType('plp')
+      ).rejects.toBeInstanceOf(SyntaxError)
+      await expect(
+        client.getCMSPagesByContentType('plp', { page: 2 })
+      ).resolves.toEqual(page)
+      expect(baseFetch).toHaveBeenCalledTimes(4)
+    })
+
+    it('retries the URL again after the cooldown', async () => {
+      const now = jest.spyOn(Date, 'now').mockReturnValue(1_000_000)
+      const client = createClient()
+      const page = listingPage(1, 1, 1)
+      baseFetch
+        .mockRejectedValueOnce(invalidJSON())
+        .mockRejectedValueOnce(invalidJSON())
+        .mockRejectedValueOnce(invalidJSON())
+        .mockResolvedValueOnce(page)
+
+      await expect(
+        client.getCMSPagesByContentType('plp')
+      ).rejects.toBeInstanceOf(SyntaxError)
+
+      now.mockReturnValue(1_000_000 + RETRY_COOLDOWN_MS)
+
+      await expect(client.getCMSPagesByContentType('plp')).resolves.toEqual(
+        page
+      )
+      expect(baseFetch).toHaveBeenCalledTimes(4)
+    })
   })
 
   describe('getCMSPage', () => {
