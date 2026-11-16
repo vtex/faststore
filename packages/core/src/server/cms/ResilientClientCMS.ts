@@ -84,11 +84,12 @@ export class ResilientClientCMS extends ClientCMS {
 
       // Only the error name (and decoding error code) is logged: a JSON parse
       // error message embeds the start of the body, which may be binary.
-      const query = params?.toString()
-      const code = decodingErrorCode(error)
-      const reason = `${(error as Error).name}${code ? `: ${code}` : ''}`
+      const url = [path, params?.toString()].filter(Boolean).join('?')
+      const reason = [(error as Error).name, decodingErrorCode(error)]
+        .filter(Boolean)
+        .join(': ')
       console.warn(
-        `[CMS] Invalid response body for "${path}${query ? `?${query}` : ''}" (${reason}). Retrying once bypassing the cache.`
+        `[CMS] Invalid response body for "${url}" (${reason}). Retrying once bypassing the cache.`
       )
 
       const cacheBustingParams = new URLSearchParams(params)
