@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.11.4-dev.1](https://github.com/vtex/faststore/compare/v4.11.4-dev.0...v4.11.4-dev.1) (2026-11-16)
+
+### Bug Fixes
+
+- **api:** send postal code coordinates when creating the cart address ([#3586](https://github.com/vtex/faststore/issues/3586)) ([52d6572](https://github.com/vtex/faststore/commit/52d6572e06c6f62a9ea525af28a69d92dd2d54eb))
+
 ## [4.11.4-dev.0](https://github.com/vtex/faststore/compare/v4.11.3...v4.11.4-dev.0) (2026-11-10)
 
 **Note:** Version bump only for package @faststore/api
