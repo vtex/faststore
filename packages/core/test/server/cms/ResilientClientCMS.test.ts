@@ -160,6 +160,52 @@ describe('ResilientClientCMS', () => {
     expect(warn).not.toHaveBeenCalled()
   })
 
+  it('retries when the body cannot be decoded', async () => {
+    // undici's error when `Content-Encoding` does not match the body bytes.
+    const decodingError = Object.assign(new TypeError('terminated'), {
+      cause: Object.assign(new Error('incorrect header check'), {
+        code: 'Z_DATA_ERROR',
+      }),
+    })
+    const page = listingPage(1, 1, 1)
+    baseFetch.mockRejectedValueOnce(decodingError).mockResolvedValueOnce(page)
+
+    const result = await createClient().getCMSPagesByContentType('plp')
+
+    expect(result).toEqual(page)
+    expect(baseFetch).toHaveBeenCalledTimes(2)
+    expect(warn.mock.calls[0][0]).toContain('TypeError: Z_DATA_ERROR')
+  })
+
+  it('retries a SyntaxError created in another realm', async () => {
+    const foreignSyntaxError = Object.assign(new Error('Unexpected token'), {
+      name: 'SyntaxError',
+    })
+    const page = listingPage(1, 1, 1)
+    baseFetch
+      .mockRejectedValueOnce(foreignSyntaxError)
+      .mockResolvedValueOnce(page)
+
+    const result = await createClient().getCMSPagesByContentType('plp')
+
+    expect(result).toEqual(page)
+    expect(baseFetch).toHaveBeenCalledTimes(2)
+  })
+
+  it('does not retry a connection reset while reading the body', async () => {
+    const error = Object.assign(new TypeError('terminated'), {
+      cause: Object.assign(new Error('read ECONNRESET'), {
+        code: 'ECONNRESET',
+      }),
+    })
+    baseFetch.mockRejectedValueOnce(error)
+
+    await expect(createClient().getCMSPagesByContentType('plp')).rejects.toBe(
+      error
+    )
+    expect(baseFetch).toHaveBeenCalledTimes(1)
+  })
+
   describe('getCMSPage', () => {
     // Page 1 says there are 25 items, so pages 2 and 3 are fetched in
     // parallel. Page 2 answers with an invalid body the first time.
