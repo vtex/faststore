@@ -15,6 +15,7 @@ import type { AnalyticsItem } from 'src/sdk/analytics/types'
 import type { CartItem as ICartItem } from 'src/sdk/cart'
 import { cartStore } from 'src/sdk/cart'
 import { useRemoveButton } from 'src/sdk/cart/useRemoveButton'
+import { formatCartLinePrice } from 'src/sdk/cart/priceLine'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 
@@ -110,7 +111,8 @@ function CartItem({
       price={{
         value: price,
         listPrice: useUnitMultiplier ? listPrice * unitMultiplier : listPrice,
-        formatter: useFormattedPrice,
+        formatter: (value) =>
+          formatCartLinePrice(item, useFormattedPrice(value)),
       }}
       quantity={item.quantity}
       onQuantityChange={onQuantityChange}
