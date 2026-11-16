@@ -20,13 +20,15 @@ import {
 } from '../session'
 import { syncSessionWithValidatedCart } from '../session/syncSalesChannelFromOrderForm'
 import { createValidationStore, useStore } from '../useStore'
+import { isGift as isPriceGift, lineTotal } from './priceLine'
 import { waitForSessionValidated } from './waitForSessionValidated'
 
 export interface CartItem
   extends SDKCartItem,
-    Omit<CartItemFragment, 'isGift' | 'priceToken'> {
+    Omit<CartItemFragment, 'isGift' | 'priceToken' | 'priceState'> {
   isGift?: boolean | null
   priceToken?: string | null
+  priceState?: CartItemFragment['priceState']
 }
 
 export interface Cart extends SDKCart<CartItem> {
@@ -67,6 +69,10 @@ export const ValidateCartMutation = gql(`
     listPriceWithTaxes
     isGift
     priceToken
+    priceState {
+      available
+      reasonKey
+    }
     itemOffered {
       ...CartProductItem
     }
@@ -106,7 +112,8 @@ const isGift = (item: CartItem) => {
   if (storeConfig.experimental?.useIsGiftFromOrderForm) {
     return item?.isGift ?? false
   }
-  return item.price === 0
+
+  return isPriceGift(item)
 }
 
 const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
@@ -210,7 +217,7 @@ export const useCart = (
   return useMemo(() => {
     const cartTotals = cart.items.reduce(
       (totals, curr) => {
-        totals.total += curr.price * curr.quantity
+        totals.total += lineTotal(curr)
         totals.totalWithTaxes += curr.priceWithTaxes * curr.quantity
 
         const quantityMultiplier = useUnitMultiplier
