@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.13](https://github.com/vtex/faststore/compare/v3.100.12...v3.100.13) (2026-11-16)
+
+### Bug Fixes
+
+- **api:** avoid shippingData update loop when orderForm address has no geoCoordinates ([#3588](https://github.com/vtex/faststore/issues/3588)) ([3a4f921](https://github.com/vtex/faststore/commit/3a4f9210236c8310883349450107ac8ea9926f72)), closes [#3554](https://github.com/vtex/faststore/issues/3554) [#3564](https://github.com/vtex/faststore/issues/3564) [#3554](https://github.com/vtex/faststore/issues/3554) [#3554](https://github.com/vtex/faststore/issues/3554) [#3554](https://github.com/vtex/faststore/issues/3554) [#3564](https://github.com/vtex/faststore/issues/3564) [#3585](https://github.com/vtex/faststore/issues/3585)
+- **api:** send postal code coordinates when creating the cart address ([#3585](https://github.com/vtex/faststore/issues/3585)) ([36c166d](https://github.com/vtex/faststore/commit/36c166d5ce7559123c205bb91ba65a1aad090710)), closes [#3554](https://github.com/vtex/faststore/issues/3554) [#3564](https://github.com/vtex/faststore/issues/3564)
+
 ## [3.100.12](https://github.com/vtex/faststore/compare/v3.100.11...v3.100.12) (2026-11-09)
 
 ### Bug Fixes
