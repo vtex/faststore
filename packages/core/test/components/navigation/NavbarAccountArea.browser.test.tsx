@@ -172,6 +172,43 @@ describe('NavbarAccountArea', () => {
       expect(screen.queryByText('Sign up')).toBeNull()
     })
 
+    it('does not render "Sign up" when it is disabled in the CMS', () => {
+      render(
+        <NavbarAccountArea
+          isSignInResolved
+          isOrganizationEnabled={false}
+          isSignedIn={false}
+          signInButton={{
+            ...signInButton,
+            signUp: { enabled: false, label: 'Sign up', url: '/register' },
+          }}
+          ButtonSignIn={ButtonSignInStub}
+          skeletonAttr="data-fs-navbar-signin-skeleton"
+        />
+      )
+
+      expect(screen.queryByText('Sign up')).toBeNull()
+      expect(screen.getByTestId('storefront-signin')).toBeInTheDocument()
+    })
+
+    it('renders "Sign up" when it is explicitly enabled in the CMS', () => {
+      render(
+        <NavbarAccountArea
+          isSignInResolved
+          isOrganizationEnabled={false}
+          isSignedIn={false}
+          signInButton={{
+            ...signInButton,
+            signUp: { enabled: true, label: 'Sign up', url: '/register' },
+          }}
+          ButtonSignIn={ButtonSignInStub}
+          skeletonAttr="data-fs-navbar-signin-skeleton"
+        />
+      )
+
+      expect(screen.getByRole('link', { name: 'Sign up' })).toBeInTheDocument()
+    })
+
     it('does not render "Sign up" when it is not configured', () => {
       render(
         <NavbarAccountArea

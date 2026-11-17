@@ -2691,9 +2691,14 @@
             },
             "signUp": {
               "title": "Sign up",
-              "description": "Optional entry shown next to Sign in for signed-out visitors. Leave the label or the URL empty to hide it.",
+              "description": "Optional entry shown next to Sign in for signed-out visitors, usually pointing to the organization registration.",
               "type": "object",
               "properties": {
+                "enabled": {
+                  "title": "Display Sign up button?",
+                  "type": "boolean",
+                  "default": true
+                },
                 "label": {
                   "title": "Label",
                   "type": "string",

@@ -127,6 +127,8 @@ export interface NavbarProps {
     myAccountLabel: string
     /** Optional "Sign up" entry shown next to "Sign in" for signed-out visitors. */
     signUp?: {
+      /** When `false` the button is hidden. Treated as enabled when absent. */
+      enabled?: boolean
       label: string
       url: string
     }
