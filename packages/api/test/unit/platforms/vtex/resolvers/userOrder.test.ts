@@ -111,7 +111,7 @@ describe('Query.userOrder', () => {
     expect(result.shopper).toEqual(emptyShopper)
     expect(warn).toHaveBeenCalledWith(
       expect.stringContaining(baseOrder.orderId),
-      { status: undefined, message: 'MasterData down' }
+      { status: undefined, type: 'Error' }
     )
     warn.mockRestore()
   })
@@ -181,7 +181,7 @@ describe('Query.userOrder', () => {
     expect(result.ruleForAuthorization).toBeNull()
     expect(warn).toHaveBeenCalledWith(
       expect.stringContaining('commercial authorization'),
-      { status: 500, message: 'boom' }
+      { status: 500, type: 'InternalServerError' }
     )
     warn.mockRestore()
   })

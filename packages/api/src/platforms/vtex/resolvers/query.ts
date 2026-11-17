@@ -186,11 +186,12 @@ async function fetchProductBySlugFallback(
 
 /**
  * Safe subset of a failed lookup's error for logging: the HTTP status and
- * message only, never the raw error object.
+ * error type only. The message is left out because fetchAPI fills it with
+ * the raw upstream response body, which may carry customer data.
  */
 const describeLookupError = (err: unknown) => ({
   status: (err as FastStoreError)?.extensions?.status,
-  message: (err as Error)?.message,
+  type: (err as FastStoreError)?.extensions?.type ?? (err as Error)?.name,
 })
 
 export const Query = {
