@@ -624,11 +624,20 @@ export const Query = {
         ruleForAuthorization = extractRuleForAuthorization(commercialAuth)
       } catch (err: any) {}
 
-      const shopperSearch =
-        (await commerce.masterData.getShopperById({
-          userId: order.purchaseAgentData?.purchaseAgents?.[0]?.userId ?? '',
-        })) ?? []
-      const shopper = shopperSearch[0] ?? {}
+      /**
+       * Orders not placed through the B2B checkout (e.g. headless order
+       * ingestion) have no purchase agent. The shopper only feeds the
+       * "Ordered by" card, so a missing agent or a failed lookup must not
+       * fail the whole order.
+       */
+      const purchaseAgentUserId =
+        order.purchaseAgentData?.purchaseAgents?.[0]?.userId
+      const shopperSearch = purchaseAgentUserId
+        ? await commerce.masterData
+            .getShopperById({ userId: purchaseAgentUserId })
+            .catch(() => null)
+        : null
+      const shopper = shopperSearch?.[0]
 
       return {
         orderId: order.orderId,
