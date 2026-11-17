@@ -12,6 +12,7 @@ import {
 import { clientCMS, cmsPageCache, getCMSPage } from '../../../src/server/cms'
 import {
   CACHE_BUST_PARAM,
+  CACHE_BUST_WINDOW_MS,
   RETRY_COOLDOWN_MS,
   ResilientClientCMS,
 } from '../../../src/server/cms/ResilientClientCMS'
@@ -212,6 +213,50 @@ describe('ResilientClientCMS', () => {
       error
     )
     expect(baseFetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('retries when a brotli body cannot be decoded', async () => {
+    // Node's brotli decoder codes start with `ERR__ERROR_` (double underscore).
+    const decodingError = Object.assign(new TypeError('terminated'), {
+      cause: Object.assign(new Error('Decompression failed'), {
+        code: 'ERR__ERROR_FORMAT_PADDING_1',
+      }),
+    })
+    const page = listingPage(1, 1, 1)
+    baseFetch.mockRejectedValueOnce(decodingError).mockResolvedValueOnce(page)
+
+    const result = await createClient().getCMSPagesByContentType('plp')
+
+    expect(result).toEqual(page)
+    expect(baseFetch).toHaveBeenCalledTimes(2)
+    expect(warn.mock.calls[0][0]).toContain(
+      'TypeError: ERR__ERROR_FORMAT_PADDING_1'
+    )
+  })
+
+  it('reuses the cache-busting value within a window', async () => {
+    const now = jest
+      .spyOn(Date, 'now')
+      .mockReturnValue(10 * CACHE_BUST_WINDOW_MS)
+    const client = createClient()
+    const page = listingPage(1, 1, 1)
+    baseFetch
+      .mockRejectedValueOnce(invalidJSON())
+      .mockResolvedValueOnce(page)
+      .mockRejectedValueOnce(invalidJSON())
+      .mockResolvedValueOnce(page)
+      .mockRejectedValueOnce(invalidJSON())
+      .mockResolvedValueOnce(page)
+
+    await client.getCMSPagesByContentType('plp')
+    now.mockReturnValue(11 * CACHE_BUST_WINDOW_MS - 1)
+    await client.getCMSPagesByContentType('plp')
+    now.mockReturnValue(11 * CACHE_BUST_WINDOW_MS)
+    await client.getCMSPagesByContentType('plp')
+
+    expect(paramsOfCall(1)?.get(CACHE_BUST_PARAM)).toBe('10')
+    expect(paramsOfCall(3)?.get(CACHE_BUST_PARAM)).toBe('10')
+    expect(paramsOfCall(5)?.get(CACHE_BUST_PARAM)).toBe('11')
   })
 
   describe('retry cooldown', () => {
