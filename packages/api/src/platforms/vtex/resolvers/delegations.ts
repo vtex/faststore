@@ -87,10 +87,20 @@ const validatePeriod = (startDate?: string | null, endDate?: string | null) => {
   }
 }
 
+const today = () => new Date().toISOString().slice(0, 10)
+
+/**
+ * A delegation is still relevant while it ends today or later. Open-ended
+ * delegations are stored with `INDEFINITE_END_DATE`, so they always qualify.
+ */
+const isActiveOrScheduled = (delegation: GranteeDelegation) =>
+  (delegation.endDate ?? INDEFINITE_END_DATE) >= today()
+
 /**
  * Guarantees that the delegation belongs to the authenticated buyer (listed in
  * their `grantee` list, i.e. they are the Original Shopper) before any change,
- * even if the id was forged.
+ * even if the id was forged. Returns the matching row so callers can validate
+ * changes against the stored values.
  */
 const assertOwnDelegation = async (
   ctx: GraphqlContext,
@@ -102,13 +112,15 @@ const assertOwnDelegation = async (
   }
 
   const response = await ctx.clients.commerce.delegations.list({ userId })
-  const owned = (response?.grantee ?? []).some(
+  const owned = (response?.grantee ?? []).find(
     (delegation) => delegation.delegationId === delegationId
   )
 
   if (!owned) {
     throw new ForbiddenError('The delegation does not belong to the user.')
   }
+
+  return owned
 }
 
 export const listDelegations = async (
@@ -198,9 +210,10 @@ export const compareDelegateRoles = async (
     readRoles(delegateUserId, 'delegate'),
   ])
 
-  // The warning is informative only: when a side cannot be read, say nothing.
+  // The warning is informative only: when a side cannot be read, no warning is
+  // raised, and `roleCheckAvailable` tells that apart from "same roles".
   if (!buyerRoles?.Roles || !delegateRoles?.Roles) {
-    return { hasFewerRoles: false }
+    return { hasFewerRoles: false, roleCheckAvailable: false }
   }
 
   const buyerRoleIds = new Set(buyerRoles.Roles.map((role) => role.Id))
@@ -211,7 +224,7 @@ export const compareDelegateRoles = async (
     delegateRoleIds.size < buyerRoleIds.size &&
     [...delegateRoleIds].every((id) => buyerRoleIds.has(id))
 
-  return { hasFewerRoles: isStrictSubset }
+  return { hasFewerRoles: isStrictSubset, roleCheckAvailable: true }
 }
 
 export const createDelegation = async (
@@ -236,6 +249,22 @@ export const createDelegation = async (
   }
 
   validatePeriod(data.startDate, data.endDate)
+
+  // One entry per Delegate at a time: the client picker already hides users
+  // with an active or scheduled delegation, but it is enforced here too so a
+  // direct GraphQL call (or a second open tab) cannot create a duplicate.
+  const existing = await ctx.clients.commerce.delegations.list({ userId })
+  const alreadyDelegated = (existing?.grantee ?? []).some(
+    (delegation) =>
+      delegation.granteeUserId === data.delegateUserId &&
+      isActiveOrScheduled(delegation)
+  )
+
+  if (alreadyDelegated) {
+    throw new BadRequestError(
+      'The user already has an active or scheduled delegation for this delegate.'
+    )
+  }
 
   await ctx.clients.commerce.delegations.create({
     organizationUnitId: unitId,
@@ -266,7 +295,14 @@ export const updateDelegation = async (
     )
   }
 
-  await assertOwnDelegation(ctx, userId, id)
+  const current = await assertOwnDelegation(ctx, userId, id)
+
+  // Validate the merged period (stored value + the changed one), so sending
+  // only one of the dates cannot leave endDate earlier than startDate.
+  validatePeriod(
+    data.startDate || current.startDate,
+    clearsEndDate ? null : data.endDate || normalizeEndDate(current.endDate)
+  )
 
   await ctx.clients.commerce.delegations.update({
     delegationId: id,

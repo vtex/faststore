@@ -1610,6 +1610,11 @@ export type StoreDelegateRoleComparison = {
    * their usual permissions. It is `false` when the roles cannot be read: it only drives a non-blocking warning.
    */
   hasFewerRoles: Scalars['Boolean']['output'];
+  /**
+   * Whether the roles of both users could be read. When `false`, `hasFewerRoles` is not conclusive, so it
+   * must not be read as "same roles".
+   */
+  roleCheckAvailable: Scalars['Boolean']['output'];
 };
 
 /** A delegation granted by the authenticated buyer (the Original Shopper) to another user (the Delegate). */

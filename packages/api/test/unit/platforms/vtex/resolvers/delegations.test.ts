@@ -480,7 +480,10 @@ describe('compareDelegateRoles', () => {
 
     await expect(
       compareDelegateRoles(null, { delegateUserId: 'user-2' }, ctx)
-    ).resolves.toEqual({ hasFewerRoles: true })
+    ).resolves.toEqual({
+      hasFewerRoles: true,
+      roleCheckAvailable: true,
+    })
     expect(licenseManager.getUserRoles).toHaveBeenCalledWith({
       userId: 'buyer-1',
     })
@@ -494,7 +497,10 @@ describe('compareDelegateRoles', () => {
 
     await expect(
       compareDelegateRoles(null, { delegateUserId: 'user-2' }, ctx)
-    ).resolves.toEqual({ hasFewerRoles: false })
+    ).resolves.toEqual({
+      hasFewerRoles: false,
+      roleCheckAvailable: true,
+    })
   })
 
   it('does not flag a Delegate with broader roles', async () => {
@@ -502,7 +508,10 @@ describe('compareDelegateRoles', () => {
 
     await expect(
       compareDelegateRoles(null, { delegateUserId: 'user-2' }, ctx)
-    ).resolves.toEqual({ hasFewerRoles: false })
+    ).resolves.toEqual({
+      hasFewerRoles: false,
+      roleCheckAvailable: true,
+    })
   })
 
   it('does not flag a Delegate with fewer but different roles', async () => {
@@ -510,7 +519,10 @@ describe('compareDelegateRoles', () => {
 
     await expect(
       compareDelegateRoles(null, { delegateUserId: 'user-2' }, ctx)
-    ).resolves.toEqual({ hasFewerRoles: false })
+    ).resolves.toEqual({
+      hasFewerRoles: false,
+      roleCheckAvailable: true,
+    })
   })
 
   it('flags a Delegate with no roles when the buyer has some', async () => {
@@ -518,19 +530,28 @@ describe('compareDelegateRoles', () => {
 
     await expect(
       compareDelegateRoles(null, { delegateUserId: 'user-2' }, ctx)
-    ).resolves.toEqual({ hasFewerRoles: true })
+    ).resolves.toEqual({
+      hasFewerRoles: true,
+      roleCheckAvailable: true,
+    })
   })
 
-  it('says nothing when the roles of either side cannot be read', async () => {
+  it('reports the check as unavailable when the roles of either side cannot be read', async () => {
     const failing = setup(roles(1, 2), new Error('forbidden'))
     const missing = setup({ Email: 'x' }, roles(1))
 
     await expect(
       compareDelegateRoles(null, { delegateUserId: 'user-2' }, failing.ctx)
-    ).resolves.toEqual({ hasFewerRoles: false })
+    ).resolves.toEqual({
+      hasFewerRoles: false,
+      roleCheckAvailable: false,
+    })
     await expect(
       compareDelegateRoles(null, { delegateUserId: 'user-2' }, missing.ctx)
-    ).resolves.toEqual({ hasFewerRoles: false })
+    ).resolves.toEqual({
+      hasFewerRoles: false,
+      roleCheckAvailable: false,
+    })
   })
 
   it.each([
