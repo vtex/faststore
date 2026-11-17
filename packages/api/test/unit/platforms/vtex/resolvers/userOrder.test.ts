@@ -1,5 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
 
+import {
+  FastStoreError,
+  NotFoundError,
+} from '../../../../../src/platforms/errors'
 import { Query } from '../../../../../src/platforms/vtex/resolvers/query'
 
 const makeCtx = (order: Record<string, unknown>) => {
@@ -11,7 +15,7 @@ const makeCtx = (order: Record<string, unknown>) => {
           userOrder: vi.fn().mockResolvedValue(order),
           getCommercialAuthorizationsByOrderId: vi
             .fn()
-            .mockRejectedValue(new Error('Not Found')),
+            .mockRejectedValue(new NotFoundError('Not Found')),
         },
         masterData: { getShopperById },
       },
@@ -107,7 +111,7 @@ describe('Query.userOrder', () => {
     expect(result.shopper).toEqual(emptyShopper)
     expect(warn).toHaveBeenCalledWith(
       expect.stringContaining(baseOrder.orderId),
-      error
+      { status: undefined, message: 'MasterData down' }
     )
     warn.mockRestore()
   })
@@ -159,5 +163,36 @@ describe('Query.userOrder', () => {
     })
     expect(result.canProcessOrderAuthorization).toBe(true)
     expect(result.shopper.firstName).toBe('Ada')
+  })
+
+  it('logs commercial authorization failures other than 404', async () => {
+    const { ctx } = makeCtx(baseOrder)
+    ctx.clients.commerce.oms.getCommercialAuthorizationsByOrderId.mockRejectedValueOnce(
+      new FastStoreError({ status: 500, type: 'InternalServerError' }, 'boom')
+    )
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    const result = await Query.userOrder(
+      null,
+      { orderId: baseOrder.orderId },
+      ctx
+    )
+
+    expect(result.ruleForAuthorization).toBeNull()
+    expect(warn).toHaveBeenCalledWith(
+      expect.stringContaining('commercial authorization'),
+      { status: 500, message: 'boom' }
+    )
+    warn.mockRestore()
+  })
+
+  it('does not log when the order has no commercial authorization (404)', async () => {
+    const { ctx } = makeCtx(baseOrder)
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    await Query.userOrder(null, { orderId: baseOrder.orderId }, ctx)
+
+    expect(warn).not.toHaveBeenCalled()
+    warn.mockRestore()
   })
 })

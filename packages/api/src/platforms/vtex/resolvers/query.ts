@@ -22,6 +22,7 @@ import type {
 import { recommendations } from './recommendations'
 import {
   BadRequestError,
+  type FastStoreError,
   ForbiddenError,
   NotFoundError,
   isForbiddenError,
@@ -182,6 +183,15 @@ async function fetchProductBySlugFallback(
 
   return enhanceSku(pickBestSku(product.items), product)
 }
+
+/**
+ * Safe subset of a failed lookup's error for logging: the HTTP status and
+ * message only, never the raw error object.
+ */
+const describeLookupError = (err: unknown) => ({
+  status: (err as FastStoreError)?.extensions?.status,
+  message: (err as Error)?.message,
+})
 
 export const Query = {
   product: async (
@@ -615,14 +625,22 @@ export const Query = {
 
       const [ruleForAuthorization, shopperSearch] = await Promise.all([
         /**
-         * This endpoint could return a 404 error if has not an authorization
-         * for the order, so we catch the error and return null
-         * instead of throwing an error.
+         * This endpoint returns 404 when the order has no authorization, so
+         * any failure resolves to null instead of failing the order. Only
+         * failures other than 404 are logged.
          */
         commerce.oms
           .getCommercialAuthorizationsByOrderId({ orderId })
           .then(extractRuleForAuthorization)
-          .catch((): ProcessOrderAuthorizationRule | null => null),
+          .catch((err): ProcessOrderAuthorizationRule | null => {
+            if (!isNotFoundError(err)) {
+              console.warn(
+                `[userOrder] failed to load the commercial authorization for order ${orderId}:`,
+                describeLookupError(err)
+              )
+            }
+            return null
+          }),
         /**
          * Orders not placed through the B2B checkout (e.g. headless order
          * ingestion) have no purchase agent. The shopper only feeds the
@@ -635,7 +653,7 @@ export const Query = {
               .catch((err) => {
                 console.warn(
                   `[userOrder] failed to load the shopper for order ${orderId}:`,
-                  err
+                  describeLookupError(err)
                 )
                 return null
               })
