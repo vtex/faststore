@@ -632,7 +632,13 @@ export const Query = {
         purchaseAgentUserId
           ? commerce.masterData
               .getShopperById({ userId: purchaseAgentUserId })
-              .catch(() => null)
+              .catch((err) => {
+                console.warn(
+                  `[userOrder] failed to load the shopper for order ${orderId}:`,
+                  err
+                )
+                return null
+              })
           : null,
       ])
       const shopper = shopperSearch?.[0]

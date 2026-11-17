@@ -88,12 +88,14 @@ describe('Query.userOrder', () => {
     })
   })
 
-  it('still resolves the order when the shopper lookup fails', async () => {
+  it('still resolves the order and logs when the shopper lookup fails', async () => {
     const { ctx, getShopperById } = makeCtx({
       ...baseOrder,
       purchaseAgentData: { purchaseAgents: [{ userId: 'user-1' }] },
     })
-    getShopperById.mockRejectedValueOnce(new Error('MasterData down'))
+    const error = new Error('MasterData down')
+    getShopperById.mockRejectedValueOnce(error)
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     const result = await Query.userOrder(
       null,
@@ -103,5 +105,59 @@ describe('Query.userOrder', () => {
 
     expect(result.orderId).toBe(baseOrder.orderId)
     expect(result.shopper).toEqual(emptyShopper)
+    expect(warn).toHaveBeenCalledWith(
+      expect.stringContaining(baseOrder.orderId),
+      error
+    )
+    warn.mockRestore()
+  })
+
+  it('falls back to an empty shopper when the search finds no record', async () => {
+    const { ctx, getShopperById } = makeCtx({
+      ...baseOrder,
+      purchaseAgentData: { purchaseAgents: [{ userId: 'user-1' }] },
+    })
+    getShopperById.mockResolvedValueOnce([])
+
+    const result = await Query.userOrder(
+      null,
+      { orderId: baseOrder.orderId },
+      ctx
+    )
+
+    expect(result.shopper).toEqual(emptyShopper)
+  })
+
+  it('returns the pending authorization rule alongside the shopper', async () => {
+    const { ctx, getShopperById } = makeCtx({
+      ...baseOrder,
+      status: 'waiting-for-authorization',
+      purchaseAgentData: { purchaseAgents: [{ userId: 'user-1' }] },
+    })
+    const rule = { id: 'rule-1', status: 'pending', isUserNextAuthorizer: true }
+    ctx.clients.commerce.oms.getCommercialAuthorizationsByOrderId.mockResolvedValueOnce(
+      {
+        id: 'auth-1',
+        status: 'pending',
+        dimensionStatus: [
+          { id: 'dim-1', status: 'pending', ruleCollection: [rule] },
+        ],
+      }
+    )
+    getShopperById.mockResolvedValueOnce([{ firstName: 'Ada' }])
+
+    const result = await Query.userOrder(
+      null,
+      { orderId: baseOrder.orderId },
+      ctx
+    )
+
+    expect(result.ruleForAuthorization).toEqual({
+      rule,
+      orderAuthorizationId: 'auth-1',
+      dimensionId: 'dim-1',
+    })
+    expect(result.canProcessOrderAuthorization).toBe(true)
+    expect(result.shopper.firstName).toBe('Ada')
   })
 })
