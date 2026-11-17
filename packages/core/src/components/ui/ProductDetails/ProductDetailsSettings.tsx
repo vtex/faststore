@@ -144,7 +144,9 @@ function ProductDetailsSettings({
             <QuantitySelector.Component
               min={1}
               max={10}
-              unitMultiplier={useUnitMultiplier ? unitMultiplier : 1}
+              unitMultiplier={
+                useUnitMultiplier ? (unitMultiplier ?? undefined) : 1
+              }
               useUnitMultiplier={useUnitMultiplier}
               {...QuantitySelector.props}
               // Dynamic props shouldn't be overridable

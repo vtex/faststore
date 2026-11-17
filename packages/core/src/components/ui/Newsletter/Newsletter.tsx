@@ -12,7 +12,7 @@ import type { NewsletterProps as SectionNewsletterProps } from 'src/components/s
 export type NewsletterProps = SectionNewsletterProps
 
 function Newsletter({
-  icon: { icon, alt: iconAlt },
+  icon: iconProp,
   title,
   description,
   privacyPolicy,
@@ -60,29 +60,31 @@ function Newsletter({
       if (data?.subscribeToNewsletter?.id) {
         pushToast({
           ...toastSubscribe,
+          message: toastSubscribe?.message ?? '',
           status: 'INFO',
           icon: (
             <ToastIconSuccess.Component
               width={30}
               height={30}
               {...ToastIconSuccess.props}
-              name={toastSubscribe.icon ?? ToastIconSuccess.props.name}
+              name={toastSubscribe?.icon ?? ToastIconSuccess.props.name ?? ''}
             />
           ),
         })
 
-        formRef.current.reset()
+        formRef.current?.reset()
       }
     } catch (error) {
       pushToast({
         ...toastSubscribeError,
+        message: toastSubscribeError?.message ?? '',
         status: 'ERROR',
         icon: (
           <ToastIconError.Component
             width={30}
             height={30}
             {...ToastIconError.props}
-            name={toastSubscribe.icon ?? ToastIconError.props.name}
+            name={toastSubscribe?.icon ?? ToastIconError.props.name ?? ''}
           />
         ),
       })
@@ -91,7 +93,7 @@ function Newsletter({
 
   return (
     <NewsletterWrapper.Component
-      card={card}
+      card={card ?? false}
       colorVariant={colorVariant}
       {...NewsletterWrapper.props}
     >
@@ -108,8 +110,8 @@ function Newsletter({
               width={32}
               height={32}
               {...HeaderIcon.props}
-              name={icon ?? HeaderIcon.props.name}
-              aria-label={iconAlt ?? HeaderIcon.props['aria-label']}
+              name={iconProp?.icon ?? HeaderIcon.props.name ?? ''}
+              aria-label={iconProp?.alt ?? HeaderIcon.props['aria-label']}
             />
           }
           {...NewsletterHeader.props}
@@ -118,21 +120,21 @@ function Newsletter({
         <NewsletterContent.Component {...NewsletterContent.props}>
           {displayNameInput && (
             <InputFieldName.Component
-              id="newsletter-name"
               required
               {...(InputFieldName.props as InputFieldProps)}
-              label={nameInputLabel ?? InputFieldName.props.label}
+              id={InputFieldName.props.id ?? 'newsletter-name'}
+              label={nameInputLabel ?? InputFieldName.props.label ?? ''}
               // Dynamic props shouldn't be overridable
               // This decision can be reviewed later if needed
               inputRef={nameInputRef}
             />
           )}
           <InputFieldEmail.Component
-            id="newsletter-email"
             type="email"
             required
             {...(InputFieldEmail.props as InputFieldProps)}
-            label={emailInputLabel ?? InputFieldEmail.props.label}
+            id={InputFieldEmail.props.id ?? 'newsletter-email'}
+            label={emailInputLabel ?? InputFieldEmail.props.label ?? ''}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
             inputRef={emailInputRef}

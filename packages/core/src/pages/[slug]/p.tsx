@@ -220,7 +220,7 @@ function Page({
     globalSectionsProp ?? {}
   const context = {
     data: {
-      ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
+      ...deepmerge(server, client ?? {}, { arrayMerge: overwriteMerge }),
       isValidating: isValidating || isLeavingForNotFound,
     },
     globalSettings,
@@ -443,7 +443,7 @@ export const getStaticProps: GetStaticProps<
         locator: [
           { key: 'slug', value: slug },
           { key: 'channel', value: getChannelForLocale(locale) },
-          { key: 'locale', value: locale },
+          { key: 'locale', value: locale as string },
         ],
       },
       operation: query,

@@ -1,3 +1,5 @@
+import type { FormEvent } from 'react'
+
 import type { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore/ui'
 
 import { useShippingSimulation } from 'src/sdk/shipping/useShippingSimulation'
@@ -56,17 +58,20 @@ export default function ShippingSimulation({
       .filter(Boolean)
       .join(' / ') ?? ''
 
-  const options = shippingSimulation?.logisticsInfo?.[0]?.slas ?? []
+  const options = (shippingSimulation?.logisticsInfo?.[0]?.slas ??
+    []) as UIShippingSimulationProps['options']
 
   return (
     <ShippingSimulationWrapper.Component
-      formatter={formatter}
-      onInput={handleOnInput}
+      formatter={formatter!}
+      onInput={handleOnInput as (event: FormEvent<HTMLInputElement>) => void}
       onSubmit={handleSubmit}
       onClear={handleOnClear}
       location={location}
       options={options}
-      address={shippingSimulation?.address}
+      address={
+        shippingSimulation?.address as UIShippingSimulationProps['address']
+      }
       displayClearButton={displayClearButton}
       errorMessage={errorMessage}
       postalCode={postalCode}

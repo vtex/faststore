@@ -42,7 +42,7 @@ const setPreviewAndRedirect = (
     maxAge: 3600,
   }
 
-  if (!isBranchPreview(previewSessionData as PreviewData)) {
+  if (!isBranchPreview(previewSessionData as unknown as PreviewData)) {
     options.path = redirectPath.split('?')[0]
   }
 

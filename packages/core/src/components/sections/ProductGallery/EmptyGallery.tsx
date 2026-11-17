@@ -29,7 +29,7 @@ function EmptyGallery({ title, firstButton, secondButton }: EmptyGalleryProps) {
         variant="secondary"
         icon={
           <UIIcon
-            name={firstButton?.icon}
+            name={firstButton?.icon ?? ''}
             width={18}
             height={18}
             weight="bold"
@@ -44,7 +44,7 @@ function EmptyGallery({ title, firstButton, secondButton }: EmptyGalleryProps) {
         variant="secondary"
         icon={
           <UIIcon
-            name={secondButton?.icon}
+            name={secondButton?.icon ?? ''}
             width={18}
             height={18}
             weight="bold"

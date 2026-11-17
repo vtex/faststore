@@ -171,10 +171,10 @@ function FilterSlider({
           {shouldDisplayDeliveryButton && (
             <UIFilterFacets
               key={`${testId}-delivery-0`}
-              testId={testId}
+              testId={testId ?? ''}
               index={0}
               type=""
-              label={labelsMap[SHIPPING_FACET_KEY]}
+              label={labelsMap[SHIPPING_FACET_KEY] ?? ''}
               description={
                 deliveryPromiseSettings?.deliveryMethods?.description
               }
@@ -235,7 +235,7 @@ function FilterSlider({
                             }}
                             selected={item.selected}
                             value={item.value}
-                            quantity={item.quantity}
+                            quantity={item.quantity ?? undefined}
                             facetKey={facet.key}
                             label={
                               isDeliveryMethodFacet ? (
@@ -267,7 +267,7 @@ function FilterSlider({
                     formatter={
                       facet.key.toLowerCase() === 'price'
                         ? useFormattedPrice
-                        : undefined
+                        : (undefined as unknown as (value: number) => string)
                     }
                     minLabel={filterFacetRangeSettings?.minLabel}
                     maxLabel={filterFacetRangeSettings?.maxLabel}

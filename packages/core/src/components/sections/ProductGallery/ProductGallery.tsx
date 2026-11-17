@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 import ProductGallery, {
   type ProductGalleryProps,
 } from '../../ui/ProductGallery/ProductGallery'
@@ -71,8 +72,10 @@ function ProductGallerySection({
 
 ProductGallerySection.$componentKey = 'ProductGallery'
 
-const OverridableProductGallery = getOverridableSection<
-  typeof ProductGallerySection
->('ProductGallery', ProductGallerySection, ProductGalleryDefaultComponents)
+const OverridableProductGallery = getOverridableSection<ComponentType<any>>(
+  'ProductGallery',
+  ProductGallerySection,
+  ProductGalleryDefaultComponents
+) as typeof ProductGallerySection
 
 export default OverridableProductGallery

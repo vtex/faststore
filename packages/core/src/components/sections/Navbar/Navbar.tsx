@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import Section from '../Section'
 
@@ -225,10 +226,10 @@ function NavbarSection({
 
 NavbarSection.$componentKey = 'Navbar'
 
-const OverridableNavbar = getOverridableSection<typeof NavbarSection>(
+const OverridableNavbar = getOverridableSection<ComponentType<any>>(
   'Navbar',
   NavbarSection,
   NavbarDefaultComponents
-)
+) as typeof NavbarSection
 
 export default OverridableNavbar

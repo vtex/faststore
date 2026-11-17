@@ -1,5 +1,5 @@
 import type { Locator, Section } from '@vtex/client-cms'
-import type { GetServerSideProps } from 'next'
+import type { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { Layout } from 'src/components/account'
@@ -210,7 +210,9 @@ const getServerSidePropsBase: GetServerSideProps<
   if (!organizationMemberResult?.data?.isOrganizationMember) {
     return {
       redirect: {
-        destination: `/pvt/account/403?from=${encodeURIComponent('/pvt/account/quotes')}`,
+        destination: `/pvt/account/403?from=${encodeURIComponent(
+          '/pvt/account/quotes'
+        )}`,
         permanent: false,
       },
     }
@@ -278,6 +280,7 @@ const getServerSidePropsBase: GetServerSideProps<
   }
 }
 
-export const getServerSideProps = withLocaleValidationSSR(
-  getServerSidePropsBase
-)
+export const getServerSideProps = withLocaleValidationSSR<
+  MyAccountProps,
+  GetServerSidePropsContext<Record<string, string>, Locator>
+>(getServerSidePropsBase)

@@ -21,7 +21,7 @@ export type SortOptions = {
 }
 
 function getSortOptions(
-  sortOptionsLabels: Record<SortOptionsValue, string>
+  sortOptionsLabels: Partial<Record<SortOptionsValue, string>>
 ): SortOptions[] {
   const { productByName = '', productByPrice = '' } = sortOptionsLabels
   return [
@@ -103,7 +103,7 @@ function ProductComparisonSidebar(props: UIProductComparisonSidebarProps) {
         hasSpecifications: product.hasSpecifications,
         skuSpecifications,
       }
-    })
+    }) as IProductComparison[]
 
     handleProductsComparison(formattedData)
   }
@@ -174,13 +174,13 @@ function ProductComparisonSidebar(props: UIProductComparisonSidebarProps) {
 
   return (
     <UIProductComparisonSidebar
-      handleProductToBuy={setProductIdToBuy}
-      setPendingEvent={setPendingEvent}
       sortOptions={getSortOptions({
         productByName: sortOptionsLabels?.productByName,
         productByPrice: sortOptionsLabels?.productByPrice,
       })}
       {...props}
+      handleProductToBuy={setProductIdToBuy}
+      setPendingEvent={setPendingEvent}
     />
   )
 }

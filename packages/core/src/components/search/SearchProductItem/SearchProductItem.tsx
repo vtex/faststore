@@ -47,9 +47,8 @@ function SearchProductItem({
   onChangeCustomSearchDropdownVisible,
   ...otherProps
 }: SearchProductItemProps) {
-  const {
-    values: { term, onSearchSelection },
-  } = useSearch()
+  const { values } = useSearch()
+  const { term, onSearchSelection } = values!
   const { pushToast } = useUI()
 
   const { __experimentalSKUMatrixSidebar: UISKUMatrixSidebar } =
@@ -113,7 +112,8 @@ function SearchProductItem({
   const hasVariants = useMemo(
     () =>
       Boolean(
-        Object.keys(product.isVariantOf.skuVariants.allVariantsByName).length
+        Object.keys(product.isVariantOf.skuVariants?.allVariantsByName ?? {})
+          .length
       ),
 
     [product]
@@ -168,11 +168,14 @@ function SearchProductItem({
           })
         }
         quickOrder={{
-          enabled: quickOrderSettings?.quickOrder,
-          outOfStockLabel: quickOrderSettings?.outOfStockLabel,
+          enabled: quickOrderSettings?.quickOrder ?? false,
+          outOfStockLabel: quickOrderSettings?.outOfStockLabel ?? '',
           availability: !outOfStock,
           hasVariants,
-          buyProps,
+          buyProps: buyProps as typeof buyProps & {
+            'data-sku': string
+            'data-seller': string
+          },
           quantity,
           onChangeQuantity: setQuantity,
           max: offersQuantity,
@@ -190,7 +193,9 @@ function SearchProductItem({
                     columns={quickOrderSettings?.skuMatrix.columns}
                     product={product}
                     status={(status: string | null) =>
-                      onChangeCustomSearchDropdownVisible(status === 'visible')
+                      onChangeCustomSearchDropdownVisible?.(
+                        status === 'visible'
+                      )
                     }
                     invalidQuantityToastLabels={
                       quickOrderSettings?.invalidQuantityToastLabels

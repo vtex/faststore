@@ -27,7 +27,11 @@ type FormattedVariantProduct = {
   inventory: number
   selectedCount: number
   availability: string
-  offers: ClientAllVariantProductsQueryQuery['product']['isVariantOf']['skuVariants']['allVariantProducts'][0]['offers']
+  offers: NonNullable<
+    NonNullable<
+      ClientAllVariantProductsQueryQuery['product']['isVariantOf']['skuVariants']
+    >['allVariantProducts']
+  >[0]['offers']
   price: number
   listPrice: number
   priceWithTaxes: number
@@ -69,7 +73,7 @@ export const useAllVariantProducts = <
       doNotRun: !enabled,
       onSuccess: (data: ClientAllVariantProductsQueryQuery) => {
         const formattedData =
-          data.product.isVariantOf.skuVariants.allVariantProducts.map(
+          data.product.isVariantOf.skuVariants!.allVariantProducts!.map(
             (item) => {
               const specifications = item.additionalProperty.reduce<{
                 [key: string]: any

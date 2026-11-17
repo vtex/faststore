@@ -75,7 +75,7 @@ function PaymentFlagsIcon({ payment }: PaymentFlagsIconProps) {
         slug = 'cash'
         break
       default:
-        slug = paymentSystemName.toLowerCase().split(' ')[0]
+        slug = paymentSystemName?.toLowerCase().split(' ')[0] ?? ''
         break
     }
 

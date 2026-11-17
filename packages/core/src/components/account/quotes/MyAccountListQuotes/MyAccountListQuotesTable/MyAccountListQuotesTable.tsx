@@ -145,7 +145,7 @@ export default function MyAccountListQuotesTable({
   return (
     <>
       <div data-fs-quotes-list>
-        {listQuotes.list.map((item) => {
+        {listQuotes?.list.map((item) => {
           const relativeExpiry = getRelativeExpiry(item.expiresAt, labels)
           const formattedAmount = formatAmount(
             item.amount,

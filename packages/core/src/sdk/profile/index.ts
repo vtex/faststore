@@ -21,7 +21,7 @@ export const query = gql(`
 
 export const getAddresses = async (id: string) => {
   const data = await request<Query, Variables>(query, { id })
-  return data.profile.addresses
+  return data!.profile!.addresses
 }
 
 export const getSavedAddress = async (id: string) => {

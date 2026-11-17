@@ -186,11 +186,24 @@ const LocalizationSelectorContent = ({
 /**
  * Helper function to get error message for display
  */
+const errorMessageKeyByType: Record<
+  BindingSelectorError['type'],
+  keyof LocalizationSelectorErrorMessages
+> = {
+  'no-binding-found': 'noBindingFound',
+  'invalid-url': 'invalidUrl',
+  'no-currencies': 'noCurrencies',
+}
+
 function getErrorMessage(
   error: BindingSelectorError,
   errorMessages?: LocalizationSelectorErrorMessages
 ): string {
-  return errorMessages?.[error.type] ?? errorMessages?.defaultError ?? ''
+  return (
+    errorMessages?.[errorMessageKeyByType[error.type]] ??
+    errorMessages?.defaultError ??
+    ''
+  )
 }
 
 function LocalizationSelector({

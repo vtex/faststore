@@ -1,19 +1,21 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { validateLocaleForHostname } from './validateLocaleForHostname'
 
-type ServerPropsHandler<P> = (
-  context: GetServerSidePropsContext
-) => Promise<GetServerSidePropsResult<P>>
+type ServerPropsHandler<
+  P,
+  C extends GetServerSidePropsContext = GetServerSidePropsContext,
+> = (context: C) => Promise<GetServerSidePropsResult<P>>
 
 /**
  * Higher Order Function that validates locale binding before executing getServerSideProps
  * @param getServerSidePropsFn - The original getServerSideProps function
  * @returns getServerSideProps function with locale binding validation
  */
-export function withLocaleValidationSSR<P extends Record<string, any>>(
-  getServerSidePropsFn: ServerPropsHandler<P>
-): ServerPropsHandler<P> {
-  return async (context: GetServerSidePropsContext) => {
+export function withLocaleValidationSSR<
+  P extends Record<string, any>,
+  C extends GetServerSidePropsContext = GetServerSidePropsContext,
+>(getServerSidePropsFn: ServerPropsHandler<P, C>): ServerPropsHandler<P, C> {
+  return async (context: C) => {
     const { locale, req } = context
 
     const hostname = req.headers.host || ''

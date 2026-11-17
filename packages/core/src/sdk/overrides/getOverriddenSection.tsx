@@ -63,11 +63,18 @@ export function getOverriddenSection<
   const { Section, ...rest } = override
 
   /** This type wizardry is here because the props won't behave correctly if nothing is done */
-  const OverridableSection = Section as ComponentType<ComponentProps<Section>>
+  const OverridableSection = Section as unknown as ComponentType<
+    Record<string, unknown>
+  >
 
-  return function OverriddenSection(
-    props: ComponentProps<typeof OverridableSection>
-  ) {
-    return <OverridableSection {...props} {...{ __overrides: rest }} />
+  return function OverriddenSection(props: ComponentProps<Section>) {
+    return (
+      <OverridableSection
+        {...({
+          ...props,
+          __overrides: rest,
+        } as unknown as Record<string, unknown>)}
+      />
+    )
   }
 }

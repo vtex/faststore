@@ -124,7 +124,7 @@ function RegionModal(regionModalProps: RegionModalProps) {
           inputLabel={inputFieldLabel}
           errorMessage={regionError}
           idkPostalCodeLinkProps={
-            idkPostalCodeLinkTo ? idkPostalCodeLinkProps : null
+            idkPostalCodeLinkTo ? idkPostalCodeLinkProps : undefined
           }
           onInput={(e) => {
             regionError !== '' && setRegionError('')

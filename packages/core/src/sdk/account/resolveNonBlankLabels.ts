@@ -13,7 +13,7 @@ export function resolveNonBlankLabels<T extends Record<string, string>>(
     const value = overrides[key]
 
     if (typeof value === 'string' && value.trim().length > 0) {
-      resolved[key] = value
+      resolved[key] = value as T[keyof T]
     }
   }
 

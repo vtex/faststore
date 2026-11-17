@@ -123,7 +123,7 @@ const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
 const validateCart = async (cart: Cart): Promise<Cart | null> => {
   await waitForSessionValidated(hasValidatedSessionStore)
 
-  const { validateCart: validated = null } = await request<
+  const { validateCart: validated = null } = (await request<
     ValidateCartMutationMutation,
     ValidateCartMutationMutationVariables
   >(ValidateCartMutation, {
@@ -160,7 +160,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
         ),
       },
     },
-  })
+  }))!
 
   syncSessionWithValidatedCart(
     {
@@ -174,7 +174,8 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
   )
 
   return (
-    validated && {
+    validated &&
+    ({
       id: validated.order.orderNumber,
       items: validated.order.acceptedOffer.map((item) => ({
         ...item,
@@ -182,7 +183,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
       })),
       messages: validated.messages,
       shouldSplitItem: validated.order.shouldSplitItem,
-    }
+    } as Cart)
   )
 }
 

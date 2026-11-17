@@ -48,7 +48,7 @@ function PickupPointCards({
   errorMessage: {
     title: regionErrorMessage,
     description: regionErrorHelperMessage,
-  },
+  } = {},
   choosePickupPointAriaLabel,
 }: PickupPointCardsProps) {
   if (regionErrorMessage) {
@@ -87,7 +87,11 @@ function PickupPointCards({
       >
         {pickupPoints?.map((item) => (
           <li data-fs-pickup-point-cards-item key={item.id}>
-            <UIRadioOption value={item.id} label={item.name} onClick={onChange}>
+            <UIRadioOption
+              value={item.id}
+              label={item.name ?? ''}
+              onClick={onChange}
+            >
               <PickupPointCard store={item} />
             </UIRadioOption>
           </li>

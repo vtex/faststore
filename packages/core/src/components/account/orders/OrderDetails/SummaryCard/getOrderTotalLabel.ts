@@ -1,19 +1,21 @@
 import type { OrderSummarySectionLabels } from '../orderDetailsLabels'
 
-const TOTAL_LABEL_KEYS = {
+const TOTAL_LABEL_KEYS: Partial<
+  Record<string, keyof OrderSummarySectionLabels>
+> = {
   items: 'itemsTotalLabel',
   discounts: 'discountsTotalLabel',
   shipping: 'shippingTotalLabel',
   tax: 'taxTotalLabel',
   change: 'changeTotalLabel',
   interest: 'interestLabel',
-} as const satisfies Record<string, keyof OrderSummarySectionLabels>
+}
 
 export function getOrderTotalLabel(
-  total: { id: string; name: string },
+  total: { id?: string | null; name?: string | null },
   labels: Required<OrderSummarySectionLabels>
 ): string {
-  const labelKey = TOTAL_LABEL_KEYS[total.id.toLowerCase()]
+  const labelKey = TOTAL_LABEL_KEYS[(total.id ?? '').toLowerCase()]
 
-  return labelKey ? labels[labelKey] : total.name
+  return labelKey ? labels[labelKey] : (total.name ?? '')
 }

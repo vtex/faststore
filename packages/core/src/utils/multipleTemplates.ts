@@ -137,7 +137,7 @@ export function normalizePDPTemplate(templateValue: string) {
 
 // Returns an array of slugs without the number at the end ("-{number}/p") at each interaction if it matches, otherwise returns the slug as is.
 const getSlugsWithoutSkuIdFromPDP = (slug: string) => {
-  const slugs = []
+  const slugs: string[] = []
   let currentSlug = slug
   let match = currentSlug.match(/-\d+\/p$/)
 

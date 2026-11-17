@@ -83,11 +83,11 @@ export class ContentService {
       if (!pages?.length) throw new MissingContentError(options.cmsOptions)
       return findBestPLPTemplate(
         pages as Partial<PLPContentType>[],
-        options.slug,
+        options.slug!,
         rewrites
       ) as PLPContentType
     }
-    return getPLP(options.slug, options.cmsOptions as Locator, rewrites)
+    return getPLP(options.slug!, options.cmsOptions as Locator, rewrites)
   }
 
   async getPdpContent(
@@ -133,6 +133,8 @@ export class ContentService {
       if (isNotFoundError(err)) console.warn('Content not found', err)
       else throw err
     }
+
+    return undefined as unknown as T
   }
 
   private getCachedContentList(
@@ -355,7 +357,7 @@ export class ContentService {
     const { slug: _, locale: __, ...previewLocator } = previewData ?? {}
 
     return {
-      contentType,
+      contentType: contentType as string,
       ...(isContentPreview ? previewLocator : {}),
       ...(isBranchPreview && {
         versionId: previewData?.versionId,

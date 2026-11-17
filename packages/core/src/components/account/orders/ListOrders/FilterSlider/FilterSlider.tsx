@@ -152,7 +152,7 @@ function FilterSlider({
           const dateFrom = dateRangeFacet?.value?.from?.trim?.()
           const dateTo = dateRangeFacet?.value?.to?.trim?.()
 
-          const dateFacets = []
+          const dateFacets: { key: string; value: string }[] = []
           if (dateFrom) {
             dateFacets.push({ key: 'dateInitial', value: dateFrom })
           }
@@ -164,7 +164,7 @@ function FilterSlider({
 
           handleFilterChange({
             selectedFacets,
-            text: searchInputRef.current?.inputRef.value,
+            text: searchInputRef?.current?.inputRef?.value ?? '',
           })
         },
         disabled: disabled,

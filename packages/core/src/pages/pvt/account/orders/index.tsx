@@ -1,5 +1,5 @@
 import type { Locator, Section } from '@vtex/client-cms'
-import type { GetServerSideProps } from 'next'
+import type { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { Layout } from 'src/components/account'
@@ -162,7 +162,7 @@ const getServerSidePropsBase: GetServerSideProps<
     (Array.isArray(context.query.status)
       ? context.query.status
       : [context.query.status]
-    ).filter(Boolean) || []
+    ).filter((value): value is string => Boolean(value)) || []
   const dateInitial = (context.query.dateInitial as string | undefined) || ''
   const dateFinal = (context.query.dateFinal as string | undefined) || ''
   const text = (context.query.text as string | undefined) || ''
@@ -252,10 +252,10 @@ const getServerSidePropsBase: GetServerSideProps<
       navigationLabels: navigationData as AccountNavigationLabels,
       accountPageData: {
         listOrders: listOrders.data.listUserOrders,
-        total: listOrders.data.listUserOrders.paging.total,
-        perPage: listOrders.data.listUserOrders.paging.perPage,
+        total: listOrders.data.listUserOrders!.paging!.total!,
+        perPage: listOrders.data.listUserOrders!.paging!.perPage!,
         filters: {
-          page: listOrders.data.listUserOrders.paging.currentPage ?? page,
+          page: listOrders.data.listUserOrders!.paging!.currentPage ?? page,
           status,
           dateInitial,
           dateFinal,
@@ -270,6 +270,7 @@ const getServerSidePropsBase: GetServerSideProps<
   }
 }
 
-export const getServerSideProps = withLocaleValidationSSR(
-  getServerSidePropsBase
-)
+export const getServerSideProps = withLocaleValidationSSR<
+  ListOrdersPageProps,
+  GetServerSidePropsContext<Record<string, string>, Locator>
+>(getServerSidePropsBase)

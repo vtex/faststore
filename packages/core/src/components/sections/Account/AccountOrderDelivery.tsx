@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react'
 import DeliveryCard from 'src/components/account/orders/OrderDetails/DeliveryCard'
 import { DeliveryOptionAccordion } from 'src/components/account/orders/OrderDetails/DeliveryOptionAccordion'
 import {
@@ -25,28 +26,32 @@ const AccountOrderDelivery = (props: AccountOrderDeliveryProps) => {
     return null
   }
 
+  const { deliveryOptionsData } = order
+
   return (
     <Section className="section-account-order-delivery">
       <DeliveryCard
         deliveryOptionsData={
-          order.deliveryOptionsData as UserOrderDeliveryOptionsData
+          deliveryOptionsData as UserOrderDeliveryOptionsData
         }
         fields={
-          order.customFields?.find((field) => field.type === 'address')
-            ?.fields || []
+          (order.customFields?.find((field) => field?.type === 'address')
+            ?.fields || []) as ComponentProps<typeof DeliveryCard>['fields']
         }
         title={labels.deliveryTitle}
         labels={labels}
       />
-      {order.deliveryOptionsData.deliveryOptions.map((option) => (
+      {deliveryOptionsData.deliveryOptions?.map((option) => (
         <DeliveryOptionAccordion
-          key={getDeliveryOptionKey(option)}
+          key={getDeliveryOptionKey(option ?? {})}
           deliveryOption={option as UserOrderDeliveryOption}
-          contact={order.deliveryOptionsData.contact}
-          currencyCode={order.storePreferencesData.currencyCode}
-          customFields={order.customFields.filter(
-            (field) => field.type === 'item'
-          )}
+          contact={deliveryOptionsData.contact}
+          currencyCode={order.storePreferencesData?.currencyCode ?? ''}
+          customFields={
+            order.customFields?.filter(
+              (field) => field?.type === 'item'
+            ) as ComponentProps<typeof DeliveryOptionAccordion>['customFields']
+          }
           labels={labels}
         />
       ))}

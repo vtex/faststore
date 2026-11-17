@@ -10,7 +10,7 @@ export const prefetchQuery = <Data, Variables = Record<string, unknown>>(
   variables: Variables,
   { cache, ...options }: Partial<RequestOptions> & { cache: Cache }
 ) => {
-  const key = getKey(operation['__meta__']['operationName'], variables)
+  const key = getKey(operation['__meta__']!['operationName'], variables)
 
   if (cache.get(key)) {
     return

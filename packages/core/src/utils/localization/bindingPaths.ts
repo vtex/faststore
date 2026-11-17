@@ -292,7 +292,13 @@ export function getChannelForLocale(locale: string | undefined): string {
     return filterChannel(defaultChannel)
   }
 
-  const localeConfig = (storeConfig.localization.locales ?? {})[locale]
+  const localeConfig = (
+    (storeConfig.localization.locales ?? {}) as Record<
+      string,
+      | (typeof storeConfig)['localization']['locales'][keyof (typeof storeConfig)['localization']['locales']]
+      | undefined
+    >
+  )[locale]
 
   if (!localeConfig?.bindings?.length) {
     return filterChannel(defaultChannel)

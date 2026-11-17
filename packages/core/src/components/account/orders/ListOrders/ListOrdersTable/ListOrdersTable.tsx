@@ -19,7 +19,7 @@ import {
 const MAX_ITEM_FIELDS = 5
 const MAX_ORDER_FIELDS = 5
 
-function formatOrderDate(date: string, locale: string) {
+function formatOrderDate(date: string, locale: string | undefined) {
   return new Date(date).toLocaleDateString(locale, {
     year: 'numeric',
     month: '2-digit',
@@ -129,22 +129,28 @@ export default function ListOrdersTable({
     <>
       <table data-fs-list-orders-table>
         <tbody data-fs-list-orders-table-body>
-          {listOrders.list.map((item) => {
-            const orderLevel =
-              item?.customFields?.find(({ type }) => type === 'order')?.value ||
-              []
-            const itemLevel =
-              item?.customFields?.find(({ type }) => type === 'item')?.value ||
-              []
+          {listOrders?.list?.map((item) => {
+            if (!item) {
+              return null
+            }
+
+            const orderLevel = (
+              item.customFields?.find((field) => field?.type === 'order')
+                ?.value || []
+            ).filter((value): value is string => value !== null)
+            const itemLevel = (
+              item.customFields?.find((field) => field?.type === 'item')
+                ?.value || []
+            ).filter((value): value is string => value !== null)
 
             const hasOrderOrItemCustomFields =
               (orderLevel && orderLevel.length > 0) ||
               (itemLevel && itemLevel.length > 0)
 
             const isItemFieldsExpanded =
-              expandedRows[item.orderId]?.item || false
+              expandedRows[item.orderId ?? '']?.item || false
             const isOrderFieldsExpanded =
-              expandedRows[item.orderId]?.order || false
+              expandedRows[item.orderId ?? '']?.order || false
 
             const {
               displayed: displayedItemLevel,
@@ -171,7 +177,10 @@ export default function ListOrdersTable({
             const creationDate = item.creationDate
               ? formatOrderDate(item.creationDate, locale)
               : '-'
-            const totalPrice = formatPrice(item.totalValue, item.currencyCode)
+            const totalPrice = formatPrice(
+              item.totalValue ?? 0,
+              item.currencyCode ?? ''
+            )
             const deliveryBy = item.ShippingEstimatedDate
               ? `${labels.deliveryByLabel} ${formatOrderDate(
                   item.ShippingEstimatedDate,
@@ -278,7 +287,7 @@ export default function ListOrdersTable({
                               viewAllLabel={labels.viewAllLabel}
                               viewLessLabel={labels.viewLessLabel}
                               onToggle={() =>
-                                handleToggle(item.orderId, 'order')
+                                handleToggle(item.orderId ?? '', 'order')
                               }
                             />
                           )}
@@ -316,7 +325,7 @@ export default function ListOrdersTable({
                               viewAllLabel={labels.viewAllLabel}
                               viewLessLabel={labels.viewLessLabel}
                               onToggle={() =>
-                                handleToggle(item.orderId, 'item')
+                                handleToggle(item.orderId ?? '', 'item')
                               }
                             />
                           )}
@@ -328,8 +337,8 @@ export default function ListOrdersTable({
 
                 <td data-fs-list-orders-table-cell>
                   <StatusBadge
-                    status={item.status}
-                    statusFallback={item.statusDescription}
+                    status={item.status ?? ''}
+                    statusFallback={item.statusDescription ?? undefined}
                     statusLabels={statusLabels}
                   />
                   {!isDesktop && <p>{deliveryBy}</p>}

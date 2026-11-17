@@ -31,7 +31,7 @@ export const getBaseDomain = (urls: string[]) => {
 
   const minLength = Math.min(...splitHostnames.map((parts) => parts.length))
 
-  const commonParts = []
+  const commonParts: string[] = []
   for (let i = 0; i < minLength; i++) {
     const partSet = new Set(splitHostnames.map((parts) => parts[i]))
     if (partSet.size === 1) {

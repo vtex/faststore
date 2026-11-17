@@ -5,7 +5,7 @@ import ThirdPartyScriptsPluginsOverrides from 'src/plugins/overrides/ThirdPartyS
 import WebFontsOverridesPlugins from 'src/plugins/overrides/WebFonts'
 
 const Components = {
-  WebFonts: CoreWebFonts,
+  ...{ WebFonts: CoreWebFonts },
 
   ...ThirdPartyScriptsPluginsOverrides.components,
   ...WebFontsOverridesPlugins.components,

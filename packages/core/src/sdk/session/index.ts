@@ -188,14 +188,16 @@ export const validateSession = async (session: Session) => {
       search: window.location.search,
     })
 
-    return data.validateSession
+    return data!.validateSession as Session
   } catch (error) {
-    if (error?.status === 401 && canRefreshToken()) {
+    if ((error as { status?: number })?.status === 401 && canRefreshToken()) {
       const refreshed = await handleRefreshToken(session)
       if (refreshed) {
         sessionStore.set(refreshed)
       }
     }
+
+    return null
   }
 }
 

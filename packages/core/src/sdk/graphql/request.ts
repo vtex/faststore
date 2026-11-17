@@ -31,7 +31,7 @@ const baseRequest = async <V = any, D = any>(
   endpoint: string,
   { operation, variables, fetchOptions, value }: BaseRequestOptions<V>
 ): Promise<GraphQLResponse<D>> => {
-  const { operationName, operationHash } = operation['__meta__']
+  const { operationName, operationHash } = operation['__meta__']!
 
   // Uses method from fetchOptions.
   // If no one is passed, figure out with via heuristic
@@ -57,7 +57,7 @@ const GETRequest = <Variables>({
   endpoint,
   value,
 }: BaseRequestOptions<Variables> & { endpoint: string }) => {
-  const { operationName, operationHash } = operation['__meta__']
+  const { operationName, operationHash } = operation['__meta__']!
   const params = new URLSearchParams({
     operationName,
     operationHash,
@@ -81,7 +81,7 @@ const POSTRequest = <Variables>({
   endpoint,
   value,
 }: BaseRequestOptions<Variables> & { endpoint: string }) => {
-  const { operationName, operationHash } = operation['__meta__']
+  const { operationName, operationHash } = operation['__meta__']!
   const params = new URLSearchParams({
     operationName,
     operationHash,

@@ -23,7 +23,7 @@ const AccountOrderBudgets = (props: AccountOrderBudgetsProps) => {
     <Section className="section-account-order-budgets">
       <BudgetsCard
         budgetData={order.budgetData}
-        currencyCode={order.storePreferencesData.currencyCode}
+        currencyCode={order.storePreferencesData?.currencyCode ?? ''}
         labels={labels}
       />
     </Section>

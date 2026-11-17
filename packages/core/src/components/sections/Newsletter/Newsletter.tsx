@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 import type {
   NewsletterProps as UINewsletterProps,
   NewsletterAddendumProps as UINewsletterAddendumProps,
@@ -115,10 +116,10 @@ function Newsletter({
 
 Newsletter.$componentKey = 'Newsletter'
 
-const OverridableNewsletter = getOverridableSection<typeof Newsletter>(
+const OverridableNewsletter = getOverridableSection<ComponentType<any>>(
   'Newsletter',
   Newsletter,
   NewsletterDefaultComponents
-)
+) as typeof Newsletter
 
 export default OverridableNewsletter

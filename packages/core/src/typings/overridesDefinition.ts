@@ -61,6 +61,8 @@ type PickType<T, K extends AllKeys<T>> = T extends { [k in K]?: any }
   ? T[K]
   : undefined
 
+// `getSectionOverrides` always assigns both `Component` and `props`,
+// so the merged type strips `undefined` from each union member.
 export type Merge<T> = {
-  [k in AllKeys<T>]: PickType<T, k>
+  [k in AllKeys<T>]-?: NonNullable<PickType<T, k>>
 }

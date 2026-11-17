@@ -76,7 +76,7 @@ export function useOrderEntryUpload(): UseOrderEntryUploadReturn {
         },
       })
 
-      return data.uploadFileToOrderEntry?.objectKey ?? null
+      return data?.uploadFileToOrderEntry?.objectKey ?? null
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : 'Failed to upload file'

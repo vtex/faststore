@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react'
 import OrderedByCard from 'src/components/account/orders/OrderDetails/OrderedByCard'
 import {
   type OrderOrderedBySectionLabels,
@@ -23,8 +24,14 @@ const AccountOrderOrderedBy = ({
   return (
     <Section className="section-account-order-ordered-by">
       <OrderedByCard
-        clientProfileData={order.clientProfileData}
-        shopper={order.shopper}
+        clientProfileData={
+          order.clientProfileData as ComponentProps<
+            typeof OrderedByCard
+          >['clientProfileData']
+        }
+        shopper={
+          order.shopper as ComponentProps<typeof OrderedByCard>['shopper']
+        }
         title={orderedByTitle}
       />
     </Section>

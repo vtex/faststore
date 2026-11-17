@@ -10,7 +10,7 @@ function Document() {
   const includeGTM = typeof gtmContainerId === 'string'
   const includeVTEX = storeConfig.platform === 'vtex'
   const enableScriptsLogs = storeConfig.experimental?.enableScriptsLogs === true
-  const forwards = []
+  const forwards: string[] = []
   if (includeVTEX) forwards.push('sendrc')
 
   return (

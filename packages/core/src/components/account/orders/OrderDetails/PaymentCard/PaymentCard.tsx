@@ -8,22 +8,25 @@ import {
   resolveOrderPaymentLabels,
 } from '../orderDetailsLabels'
 
-export type OrderPaymentData =
-  ServerOrderDetailsQueryQuery['userOrder']['paymentData']
-export type OrderPaymentDataTransaction =
-  OrderPaymentData['transactions'][number]
-export type OrderPaymentDataTransactionPayment =
-  OrderPaymentDataTransaction['payments'][number]
+export type OrderPaymentData = NonNullable<
+  NonNullable<ServerOrderDetailsQueryQuery['userOrder']>['paymentData']
+>
+export type OrderPaymentDataTransaction = NonNullable<
+  NonNullable<OrderPaymentData['transactions']>[number]
+>
+export type OrderPaymentDataTransactionPayment = NonNullable<
+  NonNullable<OrderPaymentDataTransaction['payments']>[number]
+>
 
 interface PaymentCardProps {
-  paymentData?: OrderPaymentData
+  paymentData?: OrderPaymentData | null
   currencyCode: string
   allowCancellation?: boolean
   labels?: OrderPaymentSectionLabels
 }
 
 const getPaymentMethodInfo = (
-  payment: OrderPaymentDataTransaction['payments'][number],
+  payment: OrderPaymentDataTransactionPayment,
   labels: Required<OrderPaymentSectionLabels>
 ) => {
   const baseInfo = {
@@ -64,10 +67,12 @@ const getPaymentMethodInfo = (
   }
 }
 
-const getBankInvoiceUrl = (transactions: OrderPaymentDataTransaction[]) => {
-  for (const transaction of transactions) {
-    for (const payment of transaction.payments) {
-      if (payment.url) {
+const getBankInvoiceUrl = (
+  transactions: OrderPaymentData['transactions'] | undefined
+) => {
+  for (const transaction of transactions ?? []) {
+    for (const payment of transaction?.payments ?? []) {
+      if (payment?.url) {
         return payment.url.replace('{Installment}', '1')
       }
     }
@@ -92,7 +97,11 @@ function PaymentCard({
   return (
     <Card title={labels.paymentTitle} data-fs-order-payment-card>
       <div data-fs-payment-details>
-        {paymentData?.transactions[0]?.payments.map((payment) => {
+        {paymentData?.transactions?.[0]?.payments?.map((payment) => {
+          if (!payment) {
+            return null
+          }
+
           const methodInfo = getPaymentMethodInfo(payment, labels)
           // Check if redemptionCode exists on payment
           const hasRedemptionCode =
@@ -109,22 +118,22 @@ function PaymentCard({
                   {hasRedemptionCode ? (
                     <span>
                       {payment.redemptionCode} -{' '}
-                      {formatPrice(payment.value, currencyCode)}
+                      {formatPrice(payment.value ?? 0, currencyCode)}
                     </span>
-                  ) : payment.installments > 1 ? (
+                  ) : (payment.installments ?? 0) > 1 ? (
                     <span>
                       {labels.installmentCopy
                         .replace('{count}', String(payment.installments))
                         .replace(
                           '{value}',
                           formatPrice(
-                            payment.value / payment.installments,
+                            (payment.value ?? 0) / (payment.installments ?? 1),
                             currencyCode
                           )
                         )}
                     </span>
                   ) : (
-                    <span>{formatPrice(payment.value, currencyCode)}</span>
+                    <span>{formatPrice(payment.value ?? 0, currencyCode)}</span>
                   )}
                 </div>
               </div>

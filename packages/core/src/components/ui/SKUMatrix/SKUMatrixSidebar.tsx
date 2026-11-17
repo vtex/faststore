@@ -24,7 +24,7 @@ const ImageComponent: UISKUMatrixSidebarProps['ImageComponent'] = ({
 
 function SKUMatrixSidebar(props: SKUMatrixProps) {
   const { data } = usePDP()
-  const product = props.product ?? data.product
+  const product = props.product ?? data!.product
 
   const { allVariantProducts, isOpen, setAllVariantProducts } = useSKUMatrix()
   const { isValidating } = useAllVariantProducts(
@@ -93,15 +93,17 @@ function SKUMatrixSidebar(props: SKUMatrixProps) {
       }
     })
 
-  const buyProps = useBuyButton(buyButtonProps)
+  const buyProps = useBuyButton(
+    buyButtonProps as Parameters<typeof useBuyButton>[0]
+  )
 
   return (
     <UISKUMatrixSidebar
-      buyProps={buyProps}
       title={product.isVariantOf.name ?? ''}
       loading={isValidating}
-      ImageComponent={ImageComponent}
       {...props}
+      buyProps={buyProps as UISKUMatrixSidebarProps['buyProps']}
+      ImageComponent={ImageComponent}
     />
   )
 }

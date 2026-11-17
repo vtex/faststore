@@ -62,7 +62,7 @@ const Footer = ({
         <UIFooterNavigation>
           <FooterLinks links={footerLinks} />
           <FooterSocial
-            title={footerSocialTitle}
+            title={footerSocialTitle ?? ''}
             links={footerSocial.socialLinks}
           />
         </UIFooterNavigation>
@@ -73,7 +73,7 @@ const Footer = ({
 
           {showPaymentMethods && (
             <UIPaymentMethods
-              flagList={paymentMethods}
+              flagList={paymentMethods ?? []}
               title={<p>{acceptedPaymentMethodsTitle}</p>}
             />
           )}

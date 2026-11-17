@@ -28,7 +28,9 @@ interface Step {
 
 interface StatusCardProps {
   status: OrderStatusKey
-  creationDate: ServerOrderDetailsQueryQuery['userOrder']['creationDate']
+  creationDate: NonNullable<
+    ServerOrderDetailsQueryQuery['userOrder']
+  >['creationDate']
   labels?: OrderStatusSectionLabels
   statusLabels?: OrderStatusCmsLabels
 }

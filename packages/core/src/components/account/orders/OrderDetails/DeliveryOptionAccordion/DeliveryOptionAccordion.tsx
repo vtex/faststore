@@ -29,13 +29,13 @@ interface DeliveryOptionAccordionProps {
   labels?: OrderDeliverySectionLabels
   customFields?: Array<{
     type: string
-    id: string
+    id: string | null
     fields?: Array<{
       name: string
       value: string
-      refId?: string
-    }>
-  }>
+      refId?: string | null
+    } | null> | null
+  } | null> | null
 }
 
 function DeliveryOptionAccordion({
@@ -58,7 +58,10 @@ function DeliveryOptionAccordion({
     String(deliveryOption.quantityOfDifferentItems)
   )
 
-  const summary = `${itemCount} – ${labels.totalLabel} ${formatPrice(deliveryOption.total ?? 0, currencyCode)}`
+  const summary = `${itemCount} – ${labels.totalLabel} ${formatPrice(
+    deliveryOption.total ?? 0,
+    currencyCode
+  )}`
 
   const onChange = (index: number) => {
     if (indicesExpanded.has(index)) {
@@ -85,16 +88,20 @@ function DeliveryOptionAccordion({
           />
           <DeliveryOptionAccordionProducts>
             {deliveryOption.items?.map((item, index) => {
+              if (!item) {
+                return null
+              }
+
               const tax = (item.tax ?? 0) + (item.taxPriceTagsTotal ?? 0)
               return (
                 <DeliveryOptionAccordionProduct
                   key={index}
                   image={item.imageUrl || ''}
-                  quantity={item.quantity}
-                  name={item.name}
+                  quantity={item.quantity ?? 0}
+                  name={item.name ?? ''}
                   field={
-                    customFields?.find((cf) => cf.id === item.uniqueId)
-                      ?.fields?.[0]
+                    customFields?.find((cf) => cf?.id === item.uniqueId)
+                      ?.fields?.[0] ?? undefined
                   }
                   price={formatPrice(item.sellingPrice ?? 0, currencyCode)}
                   tax={formatPrice(tax, currencyCode)}

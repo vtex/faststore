@@ -4,20 +4,24 @@ import Card from '../../../components/Card'
 interface OrderedByCardProps {
   title?: string
   clientProfileData: Pick<
-    ServerOrderDetailsQueryQuery['userOrder']['clientProfileData'],
+    NonNullable<
+      NonNullable<
+        ServerOrderDetailsQueryQuery['userOrder']
+      >['clientProfileData']
+    >,
     | 'firstName'
     | 'lastName'
     | 'email'
     | 'phone'
     | 'corporateName'
     | 'isCorporate'
-  >
+  > | null
   shopper: {
-    firstName: string
-    lastName: string
-    email: string
-    phone: string
-  }
+    firstName: string | null
+    lastName: string | null
+    email: string | null
+    phone: string | null
+  } | null
 }
 
 function OrderedByCard({

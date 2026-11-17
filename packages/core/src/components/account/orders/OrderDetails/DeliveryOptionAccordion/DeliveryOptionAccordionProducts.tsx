@@ -9,7 +9,7 @@ interface DeliveryOptionAccordionProductProps {
   field?: {
     name: string
     value: string
-    refId?: string
+    refId?: string | null
   }
   price: string
   tax: string

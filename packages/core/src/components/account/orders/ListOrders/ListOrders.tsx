@@ -151,7 +151,9 @@ export default function ListOrders({
   const { resolveLink } = useLink()
   const ordersHref = resolveLink(ORDERS_PATH) ?? ORDERS_PATH
   const { isDesktop } = useScreenResize()
-  const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
+  const searchInputRef = useRef(
+    null
+  ) as unknown as MutableRefObject<SearchInputFieldRef>
 
   // Set the initial value of the search input field based on server values
   useEffect(() => {
@@ -202,7 +204,7 @@ export default function ListOrders({
   const { openFilter, filter: displayFilter } = useUI()
 
   const hasFilters = hasActiveFilters(filters)
-  const isEmpty = listOrders.list.length === 0
+  const isEmpty = (listOrders?.list?.length ?? 0) === 0
 
   return (
     <div className={styles.page}>
@@ -214,15 +216,15 @@ export default function ListOrders({
             data-fs-search-input-field-list-orders
             placeholder={labels.searchPlaceholder}
             onBlur={(_) => {
-              handleSearchChange(searchInputRef.current.inputRef.value)
+              handleSearchChange(searchInputRef.current.inputRef?.value ?? '')
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                handleSearchChange(searchInputRef.current.inputRef.value)
+                handleSearchChange(searchInputRef.current.inputRef?.value ?? '')
               }
             }}
             onSubmit={(_) => {
-              handleSearchChange(searchInputRef.current.inputRef.value)
+              handleSearchChange(searchInputRef.current.inputRef?.value ?? '')
             }}
           />
           <Button
@@ -271,7 +273,9 @@ export default function ListOrders({
           window.location.href = ordersHref
         }}
         onRemoveFilter={(key, value) => {
-          const { page, clientEmail, ...updatedFilters } = { ...filters }
+          const { page, clientEmail, ...updatedFilters } = {
+            ...filters,
+          } as Partial<ListOrdersProps['filters']>
 
           if (key === 'status' && Array.isArray(updatedFilters[key])) {
             updatedFilters[key] = updatedFilters[key].filter(

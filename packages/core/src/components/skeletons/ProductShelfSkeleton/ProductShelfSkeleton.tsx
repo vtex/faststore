@@ -23,7 +23,7 @@ function ProductShelfSkeleton({
   return loading ? (
     <UIProductShelf data-fs-product-shelf-skeleton>
       <ProductShelfItems>
-        {Array.from({ length: itemsPerPage }, (_, index) => (
+        {Array.from({ length: itemsPerPage ?? 0 }, (_, index) => (
           <ProductShelfItem key={String(index)}>
             <ProductCardSkeleton aspectRatio={aspectRatio} sectioned bordered />
           </ProductShelfItem>

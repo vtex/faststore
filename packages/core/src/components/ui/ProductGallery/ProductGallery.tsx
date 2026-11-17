@@ -143,7 +143,7 @@ function ProductGallery({
   const context = usePage<SearchPageContext | PLPContext>()
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
-  const { next, prev } = useDelayedPagination(totalCount)
+  const { next, prev } = useDelayedPagination(totalCount ?? 0)
 
   const [showComparisonProducts, setShowComparisonProducts] =
     useState<boolean>(false)
@@ -237,7 +237,7 @@ function ProductGallery({
             {productComparison?.enabled && (
               <ToggleField.Component
                 id="toggle-field-comparison"
-                label={productComparison?.labels?.compareButton}
+                label={productComparison?.labels?.compareButton ?? ''}
                 checked={showComparisonProducts}
                 onChange={() =>
                   setShowComparisonProducts(!showComparisonProducts)
@@ -280,7 +280,8 @@ function ProductGallery({
                       {...FilterIcon.props}
                       name={
                         filterCmsData?.mobileOnly?.filterButton?.icon?.icon ??
-                        FilterIcon.props.name
+                        FilterIcon.props.name ??
+                        ''
                       }
                       aria-label={
                         filterCmsData?.mobileOnly?.filterButton?.icon?.alt ??
@@ -324,7 +325,9 @@ function ProductGallery({
                       weight="bold"
                       {...PrevIcon.props}
                       name={
-                        previousPageButton?.icon?.icon ?? PrevIcon.props.name
+                        previousPageButton?.icon?.icon ??
+                        PrevIcon.props.name ??
+                        ''
                       }
                       aria-label={
                         previousPageButton?.icon?.alt ??
@@ -364,7 +367,7 @@ function ProductGallery({
                   >
                     <ProductGalleryPage
                       page={page}
-                      title={title}
+                      title={title ?? ''}
                       productCard={productCard}
                       itemsPerPage={itemsPerPage}
                       firstPage={pages[0]}
@@ -415,7 +418,7 @@ function ProductGallery({
                   productComparison?.labels?.technicalInformation?.description,
               }}
               overlayProps={{ className: styles.section }}
-              {...productComparison.labels.sidebarComponent}
+              {...productComparison?.labels?.sidebarComponent}
             />
             <ProductComparisonToolbar.Component
               selectionWarningLabel={

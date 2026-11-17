@@ -79,7 +79,7 @@ function PageProvider({
 }
 
 export function usePage<T extends PageProviderContext>(): T {
-  const { context } = useContext(PageContext)
+  const { context } = useContext(PageContext)!
 
   if (context == null) {
     throw new Error('Missing Overrides context on React tree')

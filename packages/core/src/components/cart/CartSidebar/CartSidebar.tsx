@@ -61,7 +61,7 @@ const OrderSummary = dynamic(
 )
 // Kept in its own chunk so stores without a mini cart shelf never download the
 // shelf or the product card/carousel styles it pulls in.
-const CartRecommendationShelf = dynamic(
+const CartRecommendationShelf = dynamic<CartRecommendationShelfProps>(
   () =>
     import(
       /* webpackChunkName: "CartRecommendationShelf" */ '../CartRecommendationShelf'
@@ -155,20 +155,22 @@ export interface CartSidebarProps {
 
 function CartSidebar({
   title,
-  alert: {
-    icon: { icon: alertIcon, alt: alertIconAlt },
-    text: alertText,
-  },
+  alert,
   emptyCart,
   checkoutButton: {
     label: checkoutLabel,
     loadingLabel: checkoutLoadingLabel,
-    icon: { icon: checkoutButtonIcon, alt: checkoutButtonIconAlt },
+    icon: checkoutButtonIconProps,
   },
   quantitySelector,
   taxesConfiguration,
   recommendations,
 }: Readonly<CartSidebarProps>) {
+  const alertIcon = alert?.icon?.icon ?? ''
+  const alertIconAlt = alert?.icon?.alt ?? ''
+  const alertText = alert?.text
+  const checkoutButtonIcon = checkoutButtonIconProps?.icon ?? ''
+  const checkoutButtonIconAlt = checkoutButtonIconProps?.alt ?? ''
   const btnProps = useCheckoutButton()
   const {
     items,
@@ -179,7 +181,9 @@ function CartSidebar({
     total,
     subTotalWithTaxes,
     totalWithTaxes,
-  } = useCart({ useUnitMultiplier: quantitySelector?.useUnitMultiplier })
+  } = useCart({
+    useUnitMultiplier: quantitySelector?.useUnitMultiplier ?? false,
+  })
   const { cart: displayCart, closeCart } = useUI()
   const { fadeOut } = useFadeEffect()
   const { sendViewCartEvent } = useViewCartEvent()

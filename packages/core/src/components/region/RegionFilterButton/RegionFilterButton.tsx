@@ -36,7 +36,7 @@ function RegionFilterButton({
       size="small"
       icon={
         <UIIcon
-          name={filterByPickupPointIcon}
+          name={filterByPickupPointIcon ?? ''}
           width={18}
           height={18}
           weight="bold"

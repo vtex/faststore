@@ -89,7 +89,7 @@ function CartItem({
   )
 
   const skuActiveVariants =
-    item.itemOffered.isVariantOf.skuVariants.activeVariations
+    item.itemOffered.isVariantOf.skuVariants?.activeVariations ?? {}
   const activeVariations = Object.keys(skuActiveVariants).map((key) => ({
     label: key,
     option: skuActiveVariants[key],
@@ -117,7 +117,7 @@ function CartItem({
       removeBtnProps={btnProps}
       data-sku={item.itemOffered.sku}
       data-seller={item.seller.identifier}
-      unitMultiplier={item.itemOffered.unitMultiplier}
+      unitMultiplier={item.itemOffered.unitMultiplier ?? undefined}
       useUnitMultiplier={useUnitMultiplier}
     >
       <UICartItemImage>

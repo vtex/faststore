@@ -7,8 +7,8 @@ export interface MoreInformationCardProps {
   fields: Array<{
     name: string
     value: string
-    refId?: string
-  }>
+    refId?: string | null
+  } | null>
 }
 
 function MoreInformationCard({
@@ -19,11 +19,11 @@ function MoreInformationCard({
     <Card title={title} data-fs-order-more-information-card>
       <div data-fs-order-more-information-card-content>
         {fields.map((item) => (
-          <div key={item.name} data-fs-order-more-information-card-item>
+          <div key={item?.name} data-fs-order-more-information-card-item>
             <p data-fs-order-more-information-card-title>
-              {camelCaseToTitle(item.name)}
+              {camelCaseToTitle(item?.name ?? '')}
             </p>
-            <p data-fs-order-more-information-card-value>{item.value}</p>
+            <p data-fs-order-more-information-card-value>{item?.value}</p>
           </div>
         ))}
       </div>

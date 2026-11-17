@@ -48,7 +48,7 @@ const createEmptySimulation = () =>
     shippingSimulation: undefined,
   }) as State
 
-const reducer = (state: State, action: Action) => {
+const reducer = (state: State, action: Action): State => {
   const { type } = action
 
   switch (type) {
@@ -67,7 +67,7 @@ const reducer = (state: State, action: Action) => {
         shippingSimulation: {
           ...state.shippingSimulation,
           ...payload.shippingSimulation,
-        },
+        } as State['shippingSimulation'],
       }
     }
 
@@ -138,7 +138,7 @@ export const useShippingSimulation = ({
         postalCode: sessionPostalCode ?? '',
         items: [shippingItemParsed],
       })
-      const shippingSimulation = data.shipping
+      const shippingSimulation = data!.shipping
 
       dispatch({
         type: 'update',
@@ -163,7 +163,7 @@ export const useShippingSimulation = ({
         postalCode: shippingPostalCode ?? '',
         items: [shippingItem],
       })
-      const shippingSimulation = data.shipping
+      const shippingSimulation = data!.shipping
 
       dispatch({
         type: 'update',
