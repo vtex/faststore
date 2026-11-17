@@ -40,4 +40,19 @@ describe('toRevalidate', () => {
     expect(toRevalidate(value, KEY)).toBe(false)
     expect(warn).toHaveBeenCalledWith(expect.stringContaining(KEY))
   })
+
+  it('prints the received value in the warning', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    toRevalidate('300', KEY)
+    toRevalidate(Number.NaN, KEY)
+    toRevalidate({ seconds: 300 }, KEY)
+
+    expect(warn).toHaveBeenNthCalledWith(1, expect.stringContaining('"300"'))
+    expect(warn).toHaveBeenNthCalledWith(2, expect.stringContaining(': NaN.'))
+    expect(warn).toHaveBeenNthCalledWith(
+      3,
+      expect.stringContaining('{"seconds":300}')
+    )
+  })
 })

@@ -16,8 +16,15 @@ export function toRevalidate(value: unknown, key: string): number | false {
   }
 
   if (value !== false && value !== undefined && value !== null) {
+    // JSON.stringify prints NaN and Infinity as `null` and throws on bigints,
+    // so those are interpolated directly.
+    const received =
+      typeof value === 'number' || typeof value === 'bigint'
+        ? `${value}`
+        : JSON.stringify(value)
+
     console.warn(
-      `[FastStore] Invalid ${key}: ${String(value)}. Expected a positive integer number of seconds or false. The page will be cached until the next deploy.`
+      `[FastStore] Invalid ${key}: ${received}. Expected a positive integer number of seconds or false. The page will be cached until the next deploy.`
     )
   }
 
