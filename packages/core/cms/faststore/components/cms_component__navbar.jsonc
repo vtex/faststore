@@ -717,6 +717,23 @@
           "title": "My Account Label",
           "type": "string",
           "default": "My account"
+        },
+        "signUp": {
+          "title": "Sign up",
+          "description": "Optional entry shown next to Sign in for signed-out visitors. Leave the label or the URL empty to hide it.",
+          "type": "object",
+          "properties": {
+            "label": {
+              "title": "Label",
+              "type": "string",
+              "default": "Sign up"
+            },
+            "url": {
+              "title": "URL",
+              "type": "string",
+              "default": ""
+            }
+          }
         }
       }
     },
