@@ -197,7 +197,7 @@ module.exports = {
     // ISR window (seconds) for notFound PDP/PLP paths.
     revalidate404: 60 * 5, // 5 minutes
     // ISR window (seconds) for PLPs served by `[...slug]`. `false` (default)
-    // caches the page until the next deploy. Set a number, e.g. 60 * 5, to
+    // caches the page until the next deploy. Set a positive integer to
     // refresh the server-rendered first page (price, stock, order).
     revalidatePLP: false,
     enableSearchSSR: false,
