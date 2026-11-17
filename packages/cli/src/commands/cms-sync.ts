@@ -10,21 +10,24 @@ import {
   type ResolvedContentSource,
 } from '../utils/config'
 import {
-  cleanupMyAccountMergeDir,
+  type CpMerge,
+  cleanupCpMergeDir,
   errorNoCustomization,
   generateAndUploadSchema,
   getCpSchemaOutputPath,
   getExistingCpDirs,
-  type MyAccountMerge,
-  prepareMyAccountMergeDir,
+  hasPluginCpSchema,
+  prepareCpMergeDir,
 } from '../utils/cp-schema'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { mergeCMSFiles } from '../utils/hcms'
 import { logger } from '../utils/logger'
+import type { Plugin } from '../utils/plugins'
 import { assertVtexReadyForAccount } from '../utils/vtex'
 
 type StoreConfig = {
+  plugins?: Plugin[]
   api?: {
     storeId?: string
   }
@@ -128,15 +131,27 @@ export default class CmsSync extends Command {
   }) {
     assertVtexReadyForAccount(storeConfig?.api?.storeId)
 
-    let merge: MyAccountMerge | undefined
+    const includeMyAccount = isMyAccountEnabled(storeConfig)
+    const plugins = storeConfig?.plugins ?? []
+    const includePlugins = hasPluginCpSchema(basePath, plugins)
 
-    if (isMyAccountEnabled(storeConfig)) {
-      logger.info(
-        `${chalk.blue('[Info]')} - Merging My Account sections and content-types into the schema`
-      )
+    let merge: CpMerge | undefined
+
+    if (includeMyAccount || includePlugins) {
+      if (includeMyAccount) {
+        logger.info(
+          `${chalk.blue('[Info]')} - Merging My Account sections and content-types into the schema`
+        )
+      }
+      if (includePlugins) {
+        logger.info(
+          `${chalk.blue('[Info]')} - Merging plugin CMS schemas into the schema`
+        )
+      }
       // The merge dir already contains the store's own customizations merged
-      // with the core My Account schemas, so it replaces the raw store dirs.
-      merge = prepareMyAccountMergeDir(basePath)
+      // with the core My Account and plugin schemas, so it replaces the raw
+      // store dirs.
+      merge = prepareCpMergeDir({ basePath, includeMyAccount, plugins })
     }
 
     const dirs = merge ? merge.dirs : getExistingCpDirs(basePath)
@@ -154,7 +169,7 @@ export default class CmsSync extends Command {
     let cleanup: (() => void) | undefined
     if (merge) {
       const { mergeDir } = merge
-      cleanup = () => cleanupMyAccountMergeDir(mergeDir)
+      cleanup = () => cleanupCpMergeDir(mergeDir)
       process.once('exit', cleanup)
     }
 
