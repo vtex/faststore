@@ -96,10 +96,11 @@ export const RETRY_COOLDOWN_MS = CACHE_BUST_WINDOW_MS
  * Only the invalid-body case is retried: network errors are already retried by
  * `@vtex/client-cms`, and non-2xx responses keep failing as before.
  *
- * The retry reaches the origin. When the retry fails too, the origin itself is
- * likely answering invalid bodies, so that URL fails fast without retrying for
- * `RETRY_COOLDOWN_MS` instead of adding an uncached origin hit to every page
- * generation.
+ * The retry reaches the origin. When the retry fails too, for any reason (an
+ * invalid body, a 5xx, a network error), the origin itself is likely unhealthy,
+ * so that URL fails fast without retrying for `RETRY_COOLDOWN_MS` instead of
+ * adding an uncached origin hit to every page generation. Skipping the retry
+ * only falls back to the behavior without this class.
  */
 export class ResilientClientCMS extends ClientCMS {
   /** URL -> time until which its cache-busting retry is skipped. */
@@ -139,6 +140,8 @@ export class ResilientClientCMS extends ClientCMS {
           path
         )
       } catch (retryError) {
+        // Any retry failure backs off, not only another invalid body: a 5xx or
+        // network error from the origin is also a reason not to add load.
         this.startCooldown(url)
         throw retryError
       }

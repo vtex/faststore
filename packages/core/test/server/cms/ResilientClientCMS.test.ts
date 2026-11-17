@@ -267,6 +267,23 @@ describe('ResilientClientCMS', () => {
       expect(warn).toHaveBeenCalledTimes(1)
     })
 
+    it('also backs off when the retry fails with another error', async () => {
+      const client = createClient()
+      const originError = new Error('Error while fetching')
+      baseFetch
+        .mockRejectedValueOnce(invalidJSON())
+        .mockRejectedValueOnce(originError)
+        .mockRejectedValueOnce(invalidJSON())
+
+      await expect(client.getCMSPagesByContentType('plp')).rejects.toBe(
+        originError
+      )
+      await expect(
+        client.getCMSPagesByContentType('plp')
+      ).rejects.toBeInstanceOf(SyntaxError)
+      expect(baseFetch).toHaveBeenCalledTimes(3)
+    })
+
     it('still retries other URLs', async () => {
       const client = createClient()
       const page = listingPage(2, 10, 20)
