@@ -1,5 +1,7 @@
+import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   allNewCustomContentTypes,
   allNewCustomSections,
@@ -14,9 +16,11 @@ import {
 import { withBasePath } from './directory'
 import {
   dedupeAndMergeDefinitions,
+  filterDisabledSections,
   mergeCMSFile,
   splitCustomDefinitions,
 } from './hcms'
+import { logger } from './logger'
 
 const fsExtraMocked = vi.hoisted(() => ({
   mkdirSync: vi.fn(),
@@ -27,10 +31,14 @@ const fsExtraMocked = vi.hoisted(() => ({
 
 const pluginsMock = vi.hoisted(() => ({
   getPluginsList: vi.fn(),
+  getPluginName: vi.fn((plugin: string) => plugin),
 }))
 
 vi.mock('fs-extra', () => ({ default: fsExtraMocked }))
 vi.mock('./plugins', () => pluginsMock)
+vi.mock('@inquirer/prompts', () => ({
+  confirm: vi.fn().mockResolvedValue(true),
+}))
 
 describe('mergeCMSFile', () => {
   it("should create a resulting file that contains all core definitions if a custom definitions file doesn't exist", async () => {
@@ -59,6 +67,176 @@ describe('mergeCMSFile', () => {
       path.join(tmpCMSDir('faststore-3'), 'sections.json'),
       JSON.stringify(coreSections)
     )
+  })
+})
+
+describe('mergeCMSFile with contentSource.disabledSections', () => {
+  let storeDir: string
+  let files: Record<string, string>
+
+  function writeStoreConfig(disabledSections: unknown) {
+    fs.writeFileSync(
+      path.join(storeDir, 'discovery.config.js'),
+      `module.exports = ${JSON.stringify({
+        contentSource: { project: 'faststore', disabledSections },
+      })}`
+    )
+  }
+
+  function writtenDefinitions(fileName: string) {
+    const call = fsExtraMocked.writeFileSync.mock.calls.find(([filePath]) =>
+      String(filePath).endsWith(fileName)
+    )
+
+    return JSON.parse(call?.[1] as string)
+  }
+
+  beforeEach(() => {
+    storeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-hcms-'))
+    files = {
+      [path.join(withBasePath(storeDir).coreCMSDir, 'sections.json')]:
+        JSON.stringify(coreSections),
+      [path.join(withBasePath(storeDir).coreCMSDir, 'content-types.json')]:
+        JSON.stringify(coreContentTypes),
+    }
+
+    fsExtraMocked.existsSync.mockImplementation(
+      (filePath: string) => filePath in files
+    )
+    fsExtraMocked.readFileSync.mockImplementation(
+      (filePath: string) => files[filePath]
+    )
+    fsExtraMocked.writeFileSync.mockClear()
+    pluginsMock.getPluginsList.mockResolvedValue([])
+
+    vi.spyOn(logger, 'info').mockImplementation(() => {})
+    vi.spyOn(logger, 'warn').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    fsExtraMocked.existsSync.mockReset()
+    fsExtraMocked.readFileSync.mockReset()
+    vi.restoreAllMocks()
+    fs.rmSync(storeDir, { recursive: true, force: true })
+  })
+
+  it('removes disabled sections and warns about names that match nothing', async () => {
+    writeStoreConfig(['Hero', 'Heroo'])
+
+    await mergeCMSFile('sections.json', storeDir)
+
+    expect(writtenDefinitions('sections.json')).toEqual(
+      coreSections.filter(({ name }) => name !== 'Hero')
+    )
+    expect(logger.info).toHaveBeenCalledWith(
+      expect.stringContaining('Hiding disabled sections from the CMS: Hero')
+    )
+    expect(logger.warn).toHaveBeenCalledTimes(1)
+    expect(logger.warn).toHaveBeenCalledWith(
+      expect.stringContaining('no section named "Heroo"')
+    )
+  })
+
+  it('keeps every section when disabledSections is empty', async () => {
+    writeStoreConfig([])
+
+    await mergeCMSFile('sections.json', storeDir)
+
+    expect(writtenDefinitions('sections.json')).toEqual(coreSections)
+    expect(logger.info).not.toHaveBeenCalled()
+    expect(logger.warn).not.toHaveBeenCalled()
+  })
+
+  it('hides a section even when the store overrides it', async () => {
+    writeStoreConfig(['Hero'])
+    files[path.join(withBasePath(storeDir).userCMSDir, 'sections.json')] =
+      JSON.stringify(sectionDuplicates)
+
+    await mergeCMSFile('sections.json', storeDir)
+
+    const sections = writtenDefinitions('sections.json')
+    expect(sections.map(({ name }: { name: string }) => name)).not.toContain(
+      'Hero'
+    )
+    // The other override still applies.
+    expect(sections).toContainEqual(sectionDuplicates[0])
+  })
+
+  it('hides a section provided by a plugin', async () => {
+    writeStoreConfig(['PluginBanner'])
+    pluginsMock.getPluginsList.mockResolvedValue(['my-plugin'])
+    files[
+      withBasePath(storeDir).getPackagePath(
+        'my-plugin',
+        'cms',
+        'faststore',
+        'sections.json'
+      )
+    ] = JSON.stringify([{ name: 'PluginBanner', schema: {} }])
+
+    await mergeCMSFile('sections.json', storeDir)
+
+    expect(writtenDefinitions('sections.json')).toEqual(coreSections)
+    expect(logger.warn).not.toHaveBeenCalled()
+  })
+
+  it('never filters content-types.json', async () => {
+    writeStoreConfig(['Error 404', 'Hero'])
+
+    await mergeCMSFile('content-types.json', storeDir)
+
+    expect(writtenDefinitions('content-types.json')).toEqual(coreContentTypes)
+    expect(logger.warn).not.toHaveBeenCalled()
+  })
+})
+
+describe('filterDisabledSections', () => {
+  it('returns every section when the list is empty', () => {
+    expect(filterDisabledSections(coreSections, [])).toEqual({
+      sections: coreSections,
+      hidden: [],
+      unknown: [],
+    })
+  })
+
+  it('removes the listed sections', () => {
+    expect(filterDisabledSections(coreSections, ['Hero', 'Search'])).toEqual({
+      sections: coreSections.filter(
+        ({ name }) => name !== 'Hero' && name !== 'Search'
+      ),
+      hidden: ['Hero', 'Search'],
+      unknown: [],
+    })
+  })
+
+  it('reports names that match no section', () => {
+    expect(filterDisabledSections(coreSections, ['Hero', 'Heroo'])).toEqual({
+      sections: coreSections.filter(({ name }) => name !== 'Hero'),
+      hidden: ['Hero'],
+      unknown: ['Heroo'],
+    })
+  })
+
+  it('removes an overridden section', () => {
+    const overridden = dedupeAndMergeDefinitions(
+      coreSections,
+      sectionDuplicates,
+      'name'
+    )
+
+    const { sections, hidden } = filterDisabledSections(overridden, ['Hero'])
+
+    expect(sections.map(({ name }) => name)).not.toContain('Hero')
+    expect(sections).toContainEqual(sectionDuplicates[0])
+    expect(hidden).toEqual(['Hero'])
+  })
+
+  it('removes a section added by a plugin or the store', () => {
+    const merged = [...coreSections, ...allNewCustomSections]
+
+    expect(
+      filterDisabledSections(merged, ['MembershipsAccordion']).sections
+    ).toEqual([...coreSections, allNewCustomSections[1]])
   })
 })
 
