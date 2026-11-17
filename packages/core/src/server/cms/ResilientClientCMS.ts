@@ -8,6 +8,14 @@ import ClientCMS from '@vtex/client-cms'
  */
 export const CACHE_BUST_PARAM = 'cb'
 
+/**
+ * The cache-busting value changes once per window instead of per request, so
+ * retries for the same URL within a window share one CDN cache entry: at most
+ * one of them reaches the origin, instead of every page generation causing a
+ * new cache miss while the bad response stays cached under the original URL.
+ */
+export const CACHE_BUST_WINDOW_MS = 60 * 1000
+
 export class InvalidCMSResponseError extends Error {
   constructor(path: string) {
     super(`Invalid CMS API response body for "${path}"`)
@@ -23,8 +31,13 @@ type ErrorShape = {
   cause?: { code?: unknown }
 }
 
-/** zlib and brotli error codes raised while decompressing a response body. */
-const BODY_DECODING_ERROR_CODE = /^(Z_|ERR__ERROR_FORMAT_|ERR_BROTLI)/
+/**
+ * Error codes Node raises while decompressing a response body: zlib (gzip,
+ * deflate) uses `Z_*` (e.g. `Z_DATA_ERROR`, `Z_BUF_ERROR`), and brotli uses
+ * `ERR_` + the decoder error name, which itself starts with an underscore (e.g.
+ * `ERR__ERROR_FORMAT_PADDING_1`). The double underscore is not a typo.
+ */
+const BODY_DECODING_ERROR_CODE = /^(Z_|ERR__ERROR_)/
 
 const decodingErrorCode = (error: unknown) => {
   const code = (error as ErrorShape | null)?.cause?.code
@@ -110,7 +123,10 @@ export class ResilientClientCMS extends ClientCMS {
       )
 
       const cacheBustingParams = new URLSearchParams(params)
-      cacheBustingParams.set(CACHE_BUST_PARAM, Date.now().toString())
+      cacheBustingParams.set(
+        CACHE_BUST_PARAM,
+        Math.floor(Date.now() / CACHE_BUST_WINDOW_MS).toString()
+      )
 
       try {
         return assertValidBody(
