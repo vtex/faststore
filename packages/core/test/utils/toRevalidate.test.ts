@@ -17,6 +17,8 @@ describe('toRevalidate', () => {
   it('returns false for values Next.js would reject', () => {
     expect(toRevalidate(0)).toBe(false)
     expect(toRevalidate(-60)).toBe(false)
+    expect(toRevalidate(90.5)).toBe(false)
+    expect(toRevalidate(0.5)).toBe(false)
     expect(toRevalidate(Number.NaN)).toBe(false)
     expect(toRevalidate(Number.POSITIVE_INFINITY)).toBe(false)
     expect(toRevalidate('300')).toBe(false)
