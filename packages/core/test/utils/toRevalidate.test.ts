@@ -52,7 +52,18 @@ describe('toRevalidate', () => {
     expect(warn).toHaveBeenNthCalledWith(2, expect.stringContaining(': NaN.'))
     expect(warn).toHaveBeenNthCalledWith(
       3,
-      expect.stringContaining('{"seconds":300}')
+      expect.stringContaining('a value of type object')
     )
+  })
+
+  it('does not throw for values JSON.stringify rejects', () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    const circular: Record<string, unknown> = {}
+    circular.self = circular
+
+    expect(toRevalidate(circular, KEY)).toBe(false)
+    expect(toRevalidate({ seconds: BigInt(300) }, KEY)).toBe(false)
+    expect(toRevalidate(BigInt(300), KEY)).toBe(false)
   })
 })

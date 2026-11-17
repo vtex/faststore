@@ -16,12 +16,7 @@ export function toRevalidate(value: unknown, key: string): number | false {
   }
 
   if (value !== false && value !== undefined && value !== null) {
-    // JSON.stringify prints NaN and Infinity as `null` and throws on bigints,
-    // so those are interpolated directly.
-    const received =
-      typeof value === 'number' || typeof value === 'bigint'
-        ? `${value}`
-        : JSON.stringify(value)
+    const received = describeValue(value)
 
     console.warn(
       `[FastStore] Invalid ${key}: ${received}. Expected a positive integer number of seconds or false. The page will be cached until the next deploy.`
@@ -29,4 +24,22 @@ export function toRevalidate(value: unknown, key: string): number | false {
   }
 
   return false
+}
+
+/**
+ * Describes a config value for a warning without ever throwing: objects can
+ * be circular or hold bigints, which JSON.stringify rejects, so only their
+ * type is printed.
+ */
+function describeValue(value: unknown): string {
+  switch (typeof value) {
+    case 'number':
+    case 'bigint':
+    case 'boolean':
+      return `${value}`
+    case 'string':
+      return JSON.stringify(value)
+    default:
+      return `a value of type ${typeof value}`
+  }
 }
