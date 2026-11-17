@@ -878,7 +878,7 @@
                 "url": {
                   "title": "URL",
                   "type": "string",
-                  "default": ""
+                  "default": "/register"
                 }
               }
             }
