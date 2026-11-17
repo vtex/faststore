@@ -6,11 +6,16 @@ import path from 'node:path'
 import ora from 'ora'
 
 import { pathToFileURL } from 'node:url'
+import { resolvePackageBin } from './binPaths'
 import { createNextJsPages } from './createNextjsPages'
 import { installDependencies } from './dependencies'
 import { withBasePath } from './directory'
 import { logger } from './logger'
 import { installPlugins } from './plugins'
+import {
+  prepareStorefrontTsConfig,
+  shouldCopyToStorefront,
+} from './storefrontCopy'
 
 const {
   copyFileSync,
@@ -28,14 +33,6 @@ interface GenerateOptions {
   setup?: boolean
   basePath: string
 }
-
-// package.json is copied manually after filtering its content
-const ignorePaths = [
-  'package.json',
-  'node_modules',
-  'cypress.config.ts',
-  'base.jsonc', // CP special file, it must not be copied to the merchants' temp dir
-]
 
 function createTmpFolder(basePath: string) {
   const { tmpDir, tmpFolderName } = withBasePath(basePath)
@@ -57,6 +54,12 @@ function createTmpFolder(basePath: string) {
 }
 
 /**
+ * Characters double quotes do not neutralise: `sh` still expands `$` and
+ * backticks, a `"` ends the quoting, and `cmd.exe` expands `%VAR%`.
+ */
+const UNQUOTABLE_CHARS = /["$`%]/
+
+/**
  * Builds the `.faststore/package.json` from `@faststore/core`'s manifest.
  * Strips `exports` and `packageManager` (the latter is pinned to pnpm and
  * breaks Yarn/Corepack on consumer stores).
@@ -68,7 +71,8 @@ function createTmpFolder(basePath: string) {
  */
 export function buildFaststorePackageJson(
   coreManifest: Record<string, unknown>,
-  voltaConfig?: Record<string, unknown>
+  voltaConfig?: Record<string, unknown>,
+  nextBin?: string
 ): Record<string, unknown> {
   const {
     exports: _exports,
@@ -79,6 +83,26 @@ export function buildFaststorePackageJson(
   const existingScripts =
     (rest.scripts as Record<string, string> | undefined) ?? {}
 
+  /**
+   * Invoking Next through the path resolved from `@faststore/core` rather than
+   * by name, so a copy that won the root `.bin` link cannot answer instead. On
+   * a monorepo where another module pins an older major, that copy is a
+   * different Next than the one core was built against, and it rejects the
+   * flags below outright. Falls back to the bare command when resolution fails,
+   * which leaves the previous PATH-based behaviour in place.
+   *
+   * `nextBin` is relative to `.faststore`, which is where these scripts run.
+   * It can still leave the project: the binary is resolved through its
+   * realpath, so when `next` is a symlink target elsewhere on disk the relative
+   * path climbs out of `.faststore` and keeps every directory it does not share
+   * with it — spaces included. The path is wrapped in double quotes, since they
+   * are the quoting both `sh` and `cmd.exe` understand. A character those quotes
+   * cannot protect drops the path and uses the bare command, including when a
+   * caller passes `nextBin` without going through `relativeNextBin`.
+   */
+  const next =
+    nextBin && !UNQUOTABLE_CHARS.test(nextBin) ? `node "${nextBin}"` : 'next'
+
   return {
     ...rest,
     name: 'dot-faststore',
@@ -86,14 +110,40 @@ export function buildFaststorePackageJson(
     scripts: {
       ...existingScripts,
       generate: 'faststore generate',
-      build: 'next build --webpack',
-      serve: 'next serve',
-      dev: 'next dev --webpack',
-      'dev-only': 'next dev --webpack',
+      build: `${next} build --webpack`,
+      serve: `${next} serve`,
+      dev: `${next} dev --webpack`,
+      'dev-only': `${next} dev --webpack`,
       predev: 'na run partytown',
       prebuild: 'na run partytown',
     },
   }
+}
+
+/**
+ * The Next executable `@faststore/core` resolves, expressed relative to the
+ * `.faststore` directory its scripts run from. Returns undefined when it cannot
+ * be resolved, when no relative path exists — a different Windows drive — or
+ * when the path holds a character the script's double quotes cannot protect,
+ * so the caller falls back to the bare command.
+ */
+export function relativeNextBin(
+  coreDir: string,
+  tmpDir: string
+): string | undefined {
+  const nextBin = resolvePackageBin('next/dist/bin/next', coreDir)
+
+  if (!nextBin) {
+    return undefined
+  }
+
+  const relative = path.relative(tmpDir, nextBin).replaceAll('\\', '/')
+
+  return relative &&
+    !path.isAbsolute(relative) &&
+    !UNQUOTABLE_CHARS.test(relative)
+    ? relative
+    : undefined
 }
 
 /**
@@ -135,7 +185,8 @@ function filterAndCopyPackageJson(basePath: string) {
 
   const filteredFileContent = buildFaststorePackageJson(
     coreManifest,
-    voltaConfig
+    voltaConfig,
+    relativeNextBin(coreDir, tmpDir)
   )
 
   writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {
@@ -163,24 +214,23 @@ function disableTsConfigStrictRules(basePath: string) {
     tsConfig.compilerOptions[strictRule] = false
   })
 
-  writeJsonSync(path.join(tmpDir, 'tsconfig.json'), tsConfig, {
-    spaces: 2,
-  })
+  writeJsonSync(
+    path.join(tmpDir, 'tsconfig.json'),
+    prepareStorefrontTsConfig(tsConfig),
+    {
+      spaces: 2,
+    }
+  )
 }
 
-function copyCoreFiles(basePath: string) {
+export function copyCoreFiles(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)
 
   try {
     copySync(coreDir, tmpDir, {
       dereference: true,
       filter(src) {
-        const fileOrDirName = path.basename(src)
-        const shouldCopy = fileOrDirName
-          ? !ignorePaths.includes(fileOrDirName)
-          : true
-
-        return shouldCopy
+        return shouldCopyToStorefront(src)
       },
     })
 
@@ -521,15 +571,25 @@ async function checkDependencies(basePath: string, packagesToCheck: string[]) {
   })
 }
 
-function updateNextConfig(basePath: string) {
+export function updateNextConfig(basePath: string) {
   const { tmpDir } = withBasePath(basePath)
 
   const nextConfigPath = path.join(tmpDir, 'next.config.js')
 
   let nextConfigData = String(readFileSync(nextConfigPath))
+  // process.cwd() returns backslashes on Windows; next.config.js is later
+  // parsed as JS source, where an unescaped backslash inside a string
+  // literal is read as an escape sequence (e.g. `\f` becomes a form feed),
+  // corrupting the path. Forward slashes are valid on Windows too, and
+  // match the same normalization already applied to nextBin below.
+  // JSON.stringify (rather than wrapping in a template literal by hand)
+  // also escapes quotes, so a path containing an apostrophe (e.g. a
+  // Windows username like `C:\Users\O'Brien\...`) doesn't terminate the
+  // string literal early and produce invalid JS.
+  const normalizedCwd = process.cwd().replaceAll('\\', '/')
   nextConfigData = nextConfigData.replace(
     /outputFileTracingRoot\:\s+(.*),/,
-    `outputFileTracingRoot: '${process.cwd()}',`
+    `outputFileTracingRoot: ${JSON.stringify(normalizedCwd)},`
   )
 
   writeFileSync(nextConfigPath, nextConfigData)
@@ -618,7 +678,7 @@ async function enableSearchSSR(basePath: string) {
   }
 
   const { tmpDir } = withBasePath(basePath)
-  const searchPagePath = path.join(tmpDir, 'src', 'pages', 's.tsx')
+  const searchPagePath = path.join(tmpDir, 'src', 'pages', 's', 'index.tsx')
   const searchPageData = String(readFileSync(searchPagePath))
 
   const searchPageWithSSR = searchPageData.replaceAll(

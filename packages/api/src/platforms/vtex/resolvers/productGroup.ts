@@ -1,4 +1,5 @@
 import type { GraphqlResolver } from '..'
+import type { PromiseType } from '../../../typings/globals'
 import { enhanceSku } from '../utils/enhanceSku'
 import { VALUE_REFERENCES } from '../utils/propertyValue'
 import type { StoreProduct } from './product'
@@ -11,6 +12,7 @@ export const StoreProductGroup: Record<string, GraphqlResolver<Root>> = {
   hasVariant: (root) =>
     root.isVariantOf.items.map((item) => enhanceSku(item, root.isVariantOf)),
   productGroupID: ({ isVariantOf }) => isVariantOf.productId,
+  productClusters: ({ isVariantOf }) => isVariantOf.productClusters ?? [],
   name: (root) => root.isVariantOf.productName,
   skuVariants: (root) => root,
   additionalProperty: ({ isVariantOf: { specificationGroups } }) =>

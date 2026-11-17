@@ -39,6 +39,9 @@ module.exports = {
     showSponsored: false,
     incrementAddress: true,
     enableUnavailableItemsOnCart: false,
+    // Keep each Checkout cart line (e.g. units split with `/split` or by
+    // assembly options) as its own cart line instead of merging by SKU.
+    preserveCartLines: false,
   },
 
   // Default session
@@ -202,6 +205,11 @@ module.exports = {
     },
     refreshToken: false,
     scrollRestoration: false,
+    // Opt-in flag for VTEX Recommendations. When enabled, Layout starts the
+    // personalization session on every page. When disabled (default), the
+    // session starts only as a RecommendationShelf fallback when userId is
+    // missing.
+    enableRecommendations: false,
     /** Package names to transpile (e.g. ['@vtex/components']). Use a non-empty list to enable Next.js transpilation. */
     transpilePackages: [],
   },

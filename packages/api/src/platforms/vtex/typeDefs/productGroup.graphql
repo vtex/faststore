@@ -11,6 +11,10 @@ type StoreProductGroup {
   """
   productGroupID: String!
   """
+  Product clusters (collections) the product group belongs to.
+  """
+  productClusters: [StoreProductCluster!]!
+  """
   Product group name.
   """
   name: String!
@@ -24,4 +28,18 @@ type StoreProductGroup {
   components.
   """
   skuVariants: SkuVariants
+}
+
+"""
+A product cluster (collection) associated with a product group.
+"""
+type StoreProductCluster {
+  """
+  Product cluster ID.
+  """
+  id: String!
+  """
+  Product cluster name.
+  """
+  name: String!
 }

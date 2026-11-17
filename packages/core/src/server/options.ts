@@ -13,6 +13,7 @@ export const apiOptions: APIOptions = {
   showSponsored: storeConfig.api.showSponsored,
   simulationBehavior: (storeConfig.api as Record<string, any>)
     .simulationBehavior,
+  customSortMap: (storeConfig.api as Record<string, any>).customSortMap,
   incrementAddress: storeConfig.api.incrementAddress,
   channel: storeConfig.session.channel,
   locale: storeConfig.session.locale,
@@ -20,6 +21,7 @@ export const apiOptions: APIOptions = {
     enableOrderFormSync: true,
     enableUnavailableItemsOnCart:
       storeConfig.api?.enableUnavailableItemsOnCart ?? false,
+    preserveCartLines: storeConfig.api?.preserveCartLines ?? false,
   },
   version,
   // feature flag default to false as it should not emit traces/logs yet

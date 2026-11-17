@@ -1,9 +1,12 @@
-import type { Locator } from '@vtex/client-cms'
+import type { Locator, Section } from '@vtex/client-cms'
 import type { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { Layout } from 'src/components/account'
-import RenderSections from 'src/components/cms/RenderSections'
+import RenderSections, {
+  RenderSectionsBase,
+} from 'src/components/cms/RenderSections'
+import ACCOUNT_COMPONENTS from 'src/components/cms/account/Components'
 import GLOBAL_COMPONENTS from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
@@ -22,15 +25,18 @@ import { ServerAccountPageQueryDocument } from '@generated/graphql'
 import AfterSection from 'src/customizations/src/myAccount/extensions/quotes/after'
 import BeforeSection from 'src/customizations/src/myAccount/extensions/quotes/before'
 import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
+import type { AccountQuotesPageData } from 'src/sdk/account/accountPageContext'
+import type { AccountNavigationLabels } from 'src/sdk/account/getMyAccountRoutes'
+import { getIsB2BBuyer } from 'src/sdk/account/getIsB2BBuyer'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { extractAccountNavigationData } from 'src/server/cms/myAccountDefaultSections'
+import { fetchMyAccountPageContent } from 'src/server/cms/fetchMyAccountPageContent'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 import storeConfig from 'discovery.config'
-import { MyAccountListQuotes } from 'src/components/account/quotes/MyAccountListQuotes'
-import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
-import PageProvider from 'src/sdk/overrides/PageProvider'
 import { extractStatusFromError } from 'src/utils/utilities'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -39,44 +45,43 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 type ListQuotesPageProps = {
-  listQuotes: ServerListQuotesQueryQuery['listUserQuotes']
-  total: number
-  perPage: number
-  filters: {
-    page: number
-    status: string[]
-    createdAtFrom: string
-    createdAtTo: string
-    expiresAtFrom: string
-    expiresAtTo: string
-    label: string
-  }
+  pageSections: Section[]
+  navigationLabels: AccountNavigationLabels
+  accountPageData: AccountQuotesPageData
 } & MyAccountProps
 
 export default function ListQuotesPage({
   globalSections: globalSectionsProp,
+  pageSections,
+  navigationLabels,
+  accountPageData,
   accountName,
-  listQuotes,
-  total,
-  perPage,
-  filters,
-  isRepresentative,
+  isB2BBuyer,
 }: ListQuotesPageProps) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
 
   return (
-    <PageProvider context={{ globalSettings }}>
+    <PageProvider
+      context={{
+        globalSettings,
+        accountPageData,
+        navigationLabels,
+      }}
+    >
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <Layout isRepresentative={isRepresentative} accountName={accountName}>
+        <Layout
+          isB2BBuyer={isB2BBuyer}
+          accountName={accountName}
+          navigationLabels={navigationLabels}
+        >
           <BeforeSection />
-          <MyAccountListQuotes
-            listQuotes={listQuotes}
-            filters={filters}
-            perPage={perPage}
-            total={total}
+          <RenderSectionsBase
+            skipLazyLoading
+            sections={pageSections}
+            components={ACCOUNT_COMPONENTS}
           />
           <AfterSection />
         </Layout>
@@ -113,11 +118,11 @@ const organizationMemberQuery = gql(`
 `)
 
 const getServerSidePropsBase: GetServerSideProps<
-  MyAccountProps,
+  ListQuotesPageProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isRepresentative = getIsRepresentative({
+  const isB2BBuyer = getIsB2BBuyer({
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
   })
@@ -157,6 +162,7 @@ const getServerSidePropsBase: GetServerSideProps<
   const label = (context.query.label as string | undefined) || ''
 
   const [
+    pageContent,
     listQuotesResult,
     accountProfileResult,
     organizationMemberResult,
@@ -164,6 +170,11 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsHeader,
     globalSectionsFooter,
   ] = await Promise.all([
+    fetchMyAccountPageContent(
+      'myAccountQuotes',
+      contentContext,
+      '/pvt/account/quotes'
+    ),
     execute<ServerListQuotesQueryQueryVariables, ServerListQuotesQueryQuery>(
       {
         variables: {
@@ -199,7 +210,9 @@ const getServerSidePropsBase: GetServerSideProps<
   if (!organizationMemberResult?.data?.isOrganizationMember) {
     return {
       redirect: {
-        destination: `/pvt/account/403?from=${encodeURIComponent('/pvt/account/quotes')}`,
+        destination: `/pvt/account/403?from=${encodeURIComponent(
+          '/pvt/account/quotes'
+        )}`,
         permanent: false,
       },
     }
@@ -232,6 +245,10 @@ const getServerSidePropsBase: GetServerSideProps<
     }
   }
 
+  const { pageSections, navigationData } = extractAccountNavigationData(
+    pageContent.sections
+  )
+
   const globalSectionsResult = injectGlobalSections({
     globalSections,
     globalSectionsHeader,
@@ -242,19 +259,23 @@ const getServerSidePropsBase: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       accountName: accountProfileResult?.data?.accountProfile?.name ?? '',
-      listQuotes: listQuotesResult.data.listUserQuotes,
-      total: listQuotesResult.data.listUserQuotes.paging.total,
-      perPage: listQuotesResult.data.listUserQuotes.paging.perPage,
-      filters: {
-        page: listQuotesResult.data.listUserQuotes.paging.currentPage ?? page,
-        status,
-        createdAtFrom,
-        createdAtTo,
-        expiresAtFrom,
-        expiresAtTo,
-        label,
+      navigationLabels: navigationData as AccountNavigationLabels,
+      accountPageData: {
+        listQuotes: listQuotesResult.data.listUserQuotes,
+        total: listQuotesResult.data.listUserQuotes.paging.total,
+        perPage: listQuotesResult.data.listUserQuotes.paging.perPage,
+        filters: {
+          page: listQuotesResult.data.listUserQuotes.paging.currentPage ?? page,
+          status,
+          createdAtFrom,
+          createdAtTo,
+          expiresAtFrom,
+          expiresAtTo,
+          label,
+        },
       },
-      isRepresentative,
+      pageSections,
+      isB2BBuyer,
     },
   }
 }

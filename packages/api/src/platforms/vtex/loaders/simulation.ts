@@ -1,5 +1,6 @@
 import DataLoader from 'dataloader'
 import pLimit from 'p-limit'
+import type { Options } from '../../../typings/globals'
 
 import type { Clients } from '../clients'
 import type {

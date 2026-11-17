@@ -1,10 +1,15 @@
 import { existsSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     globals: false,
+    // Kept here rather than as a CLI argument: as a script argument it relies
+    // on the shell expanding the glob, which cmd.exe does not do — vitest then
+    // takes it as a literal filter and matches nothing on Windows
+    include: ['src/**/*.test.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
@@ -14,7 +19,15 @@ export default defineConfig({
     },
   },
   resolve: {
-    alias: {},
+    // graphql ships both CJS and ESM builds and checks `instanceof` across
+    // them. Externalized deps (@graphql-tools/*) load the CJS build, so make
+    // the code under test use the same one instead of Vite's ESM pick.
+    alias: [
+      {
+        find: /^graphql$/,
+        replacement: createRequire(import.meta.url).resolve('graphql'),
+      },
+    ],
   },
   plugins: [
     {

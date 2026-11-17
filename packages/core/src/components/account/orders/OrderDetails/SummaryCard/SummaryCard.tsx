@@ -4,6 +4,7 @@ import {
   type OrderSummarySectionLabels,
   resolveOrderSummaryLabels,
 } from '../orderDetailsLabels'
+import { getOrderTotalLabel } from './getOrderTotalLabel'
 
 // Interface for order totals (items, shipping, discounts)
 // TODO: Use type from API
@@ -73,10 +74,12 @@ function SummaryCard({
         value: surchargeAmount,
       }
 
-      return [...(totals ?? []), interestLineItem]
+      return [...(totals ?? []), interestLineItem].filter(
+        (total) => total != null
+      )
     }
 
-    return totals ?? []
+    return (totals ?? []).filter((total) => total != null)
   }
 
   const displayTotals = getDisplayTotals()
@@ -89,9 +92,9 @@ function SummaryCard({
   return (
     <Card title={labels.summaryTitle} data-fs-order-summary-card>
       {displayTotals.map((total) => (
-        <div key={total?.id} data-fs-order-summary-item>
-          <span>{total?.name}</span>
-          <span>{formatPrice(total?.value ?? 0, currencyCode)}</span>
+        <div key={total.id} data-fs-order-summary-item>
+          <span>{getOrderTotalLabel(total, labels)}</span>
+          <span>{formatPrice(total.value ?? 0, currencyCode)}</span>
         </div>
       ))}
       <div data-fs-order-summary-item data-fs-order-summary-total>

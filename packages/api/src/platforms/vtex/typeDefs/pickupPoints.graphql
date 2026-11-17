@@ -73,7 +73,10 @@ type PickupPoints {
   """
   pickupPointDistances: [PickupPointDistance]
   """
-  Hash of the pickup points data.
+  Not returned by Intelligent Search pickup-point-availability. Always null.
   """
   pickupPointsHash: String
+    @deprecated(
+      reason: "Not returned by Intelligent Search pickup-point-availability. Always null."
+    )
 }

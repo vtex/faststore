@@ -1,6 +1,14 @@
 import { Button } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
-import { quoteStatusMap, type QuoteStatusKey } from 'src/utils/quoteStatus'
+import {
+  getLocalizedQuoteStatusMap,
+  type QuoteStatusCmsLabels,
+} from 'src/utils/quoteStatus'
+import type { MyAccountListQuotesSectionLabels } from '../quotesLabels'
+import {
+  pickQuoteStatusCmsLabels,
+  resolveMyAccountListQuotesLabels,
+} from '../quotesLabels'
 import { formatFilterDate } from '../quoteFilters'
 
 type MyAccountQuotesSelectedTagsProps = Readonly<{
@@ -21,34 +29,42 @@ type MyAccountQuotesSelectedTagsProps = Readonly<{
       | 'expiresAtTo',
     value: string
   ) => void
+  labels?: MyAccountListQuotesSectionLabels
 }>
 
 function formatDateRangeLabel(
   from: string | undefined,
   to: string | undefined,
-  locale: string
+  locale: string,
+  labels: Required<MyAccountListQuotesSectionLabels>
 ) {
   if (from && to) {
-    return `${formatFilterDate(from, locale)} to ${formatFilterDate(to, locale)}`
+    return `${formatFilterDate(from, locale)} ${labels.dateRangeSeparatorLabel} ${formatFilterDate(to, locale)}`
   }
   if (from) {
-    return `from ${formatFilterDate(from, locale)}`
+    return `${labels.dateRangeFromLabel} ${formatFilterDate(from, locale)}`
   }
-  return `to ${formatFilterDate(to!, locale)}`
+  return `${labels.dateRangeToLabel} ${formatFilterDate(to!, locale)}`
 }
 
 function Tags({
   filters,
   onRemoveFilter,
-}: Pick<MyAccountQuotesSelectedTagsProps, 'filters' | 'onRemoveFilter'>) {
+  labels,
+  statusCmsLabels,
+}: Pick<MyAccountQuotesSelectedTagsProps, 'filters' | 'onRemoveFilter'> & {
+  labels: Required<MyAccountListQuotesSectionLabels>
+  statusCmsLabels?: QuoteStatusCmsLabels
+}) {
   const { locale } = useSession()
   const { createdAtFrom, createdAtTo, expiresAtFrom, expiresAtTo, status } =
     filters
+  const statusMap = getLocalizedQuoteStatusMap(statusCmsLabels)
 
   const createdTag = (createdAtFrom || createdAtTo) && (
     <div key="created-date-range" data-fs-list-orders-selected-tag>
       <span data-fs-list-orders-selected-tag-label>
-        {`Created: ${formatDateRangeLabel(createdAtFrom, createdAtTo, locale)}`}
+        {`${labels.createdTagLabel}: ${formatDateRangeLabel(createdAtFrom, createdAtTo, locale, labels)}`}
       </span>
       <button
         data-fs-list-orders-selected-tag-clear
@@ -62,7 +78,7 @@ function Tags({
   const expiresTag = (expiresAtFrom || expiresAtTo) && (
     <div key="expires-date-range" data-fs-list-orders-selected-tag>
       <span data-fs-list-orders-selected-tag-label>
-        {`Expires: ${formatDateRangeLabel(expiresAtFrom, expiresAtTo, locale)}`}
+        {`${labels.expiresTagLabel}: ${formatDateRangeLabel(expiresAtFrom, expiresAtTo, locale, labels)}`}
       </span>
       <button
         data-fs-list-orders-selected-tag-clear
@@ -75,7 +91,7 @@ function Tags({
 
   const statusTags = (status || []).map((value) => (
     <div key={`status-${value}`} data-fs-list-orders-selected-tag>
-      <span>{quoteStatusMap[value as QuoteStatusKey]?.label ?? value}</span>
+      <span>{statusMap[value as keyof typeof statusMap]?.label ?? value}</span>
       <button
         data-fs-list-orders-selected-tag-clear
         onClick={() => onRemoveFilter('status', value)}
@@ -98,7 +114,10 @@ function MyAccountQuotesSelectedTags({
   filters,
   onClearAll,
   onRemoveFilter,
+  labels: labelsProp,
 }: MyAccountQuotesSelectedTagsProps) {
+  const labels = resolveMyAccountListQuotesLabels(labelsProp)
+  const statusCmsLabels = pickQuoteStatusCmsLabels(labelsProp)
   const hasFilters = Object.entries(filters).some(([, values]) =>
     Array.isArray(values) ? values.length > 0 : Boolean(values)
   )
@@ -107,14 +126,19 @@ function MyAccountQuotesSelectedTags({
     <>
       {hasFilters && (
         <div data-fs-list-orders-selected-tags>
-          <Tags filters={filters} onRemoveFilter={onRemoveFilter} />
+          <Tags
+            filters={filters}
+            onRemoveFilter={onRemoveFilter}
+            labels={labels}
+            statusCmsLabels={statusCmsLabels}
+          />
           <Button
             variant="tertiary"
             size="small"
             data-fs-list-orders-selected-tags-clear-all-button
             onClick={onClearAll}
           >
-            Clear All
+            {labels.clearAllLabel}
           </Button>
         </div>
       )}

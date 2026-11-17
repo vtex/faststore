@@ -141,6 +141,13 @@ import { Icon } from '@faststore/ui'
 
 This project uses icons from [Phosphor Icons](https://phosphoricons.com/).
 
+## Discovery config merge
+
+`discovery.config.js` merges the default config with the store's through `mergeDiscoveryConfig` (`src/utils/mergeDiscoveryConfig.js`), which works like `deepmerge`: arrays are concatenated. The one exception is `api.subDomainPrefix`:
+
+- Not set, or any non-empty value: appended to the default `['www']`, so `www.` is always stripped from the host sent to Checkout.
+- `[]`: replaces the default, so no prefix is stripped and Checkout cookies are set on the storefront host (e.g. `www.store.com`) instead of the root domain. A Checkout served from another host (`secureSubdomain`) does not receive them, and `next.config.js` warns about that setup.
+
 ## Tests
 
 `@faststore/core` separates tests by environment:

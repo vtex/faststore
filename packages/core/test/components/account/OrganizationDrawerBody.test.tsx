@@ -27,7 +27,7 @@ describe('OrganizationDrawerBody', () => {
   it('hides the Quotes route when the user is not an org member', () => {
     mockUseAccountNavigationLabels.mockReturnValue(undefined)
 
-    render(<OrganizationDrawerBody isRepresentative isOrgMember={false} />)
+    render(<OrganizationDrawerBody isB2BBuyer isOrgMember={false} />)
 
     expect(screen.queryByText('Quotes')).toBeNull()
     expect(screen.getByText('Profile')).toBeTruthy()
@@ -36,7 +36,7 @@ describe('OrganizationDrawerBody', () => {
   it('shows the Quotes route when the user belongs to an org unit', () => {
     mockUseAccountNavigationLabels.mockReturnValue(undefined)
 
-    render(<OrganizationDrawerBody isRepresentative isOrgMember />)
+    render(<OrganizationDrawerBody isB2BBuyer isOrgMember />)
 
     expect(screen.getByText('Quotes')).toBeTruthy()
   })
@@ -44,7 +44,7 @@ describe('OrganizationDrawerBody', () => {
   it('hides User Details when not a representative, regardless of org membership', () => {
     mockUseAccountNavigationLabels.mockReturnValue(undefined)
 
-    render(<OrganizationDrawerBody isRepresentative={false} isOrgMember />)
+    render(<OrganizationDrawerBody isB2BBuyer={false} isOrgMember />)
 
     expect(screen.queryByText('User Details')).toBeNull()
     expect(screen.getByText('Quotes')).toBeTruthy()

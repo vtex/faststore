@@ -19,6 +19,16 @@ describe('myAccountCmsPageTemplate', () => {
     expect(output).not.toContain('AfterSection')
   })
 
+  it('passes the B2B buyer flag to Layout using the core prop name', () => {
+    const output = myAccountCmsPageTemplate({
+      contentType: 'myAccountWishlist',
+      routePath: '/pvt/account/wishlist',
+    })
+
+    expect(output).toContain('isB2BBuyer={isB2BBuyer}')
+    expect(output).not.toContain('isRepresentative')
+  })
+
   it('emits Mode B output with DynamicPage', () => {
     const output = myAccountCmsPageTemplate({
       contentType: 'myAccountWishlist',

@@ -74,11 +74,16 @@ const getPLPFromCmsEnvData = async (
 
   const template = findBestPLPTemplate(pages, slug, rewrites)
 
-  return getPage<PLPContentType>({
-    contentType: 'plp',
-    documentId: template.documentId as string,
-    versionId: template.versionId,
-  })
+  // The template locator comes from the build-time CMS data, never from a
+  // preview, so the fetched document can be shared across page generations.
+  return getPage<PLPContentType>(
+    {
+      contentType: 'plp',
+      documentId: template.documentId as string,
+      versionId: template.versionId,
+    },
+    { cache: true }
+  )
 }
 
 export const getPLPFromCms = async (

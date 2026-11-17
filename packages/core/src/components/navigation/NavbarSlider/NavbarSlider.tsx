@@ -1,4 +1,4 @@
-import { Skeleton as UISkeleton, useFadeEffect, useUI } from '@faststore/ui'
+import { useFadeEffect, useUI } from '@faststore/ui'
 import { Suspense } from 'react'
 
 import storeConfig from 'discovery.config'
@@ -9,10 +9,11 @@ import LocalizationButton from 'src/components/ui/LocalizationButton'
 import Logo from 'src/components/ui/Logo'
 
 import type { NavbarProps } from '../Navbar'
+import { NavbarAccountArea } from '../Navbar/NavbarAccountArea'
 
-import { OrganizationSignInButton } from 'src/components/account/Drawer/OrganizationSignInButton'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
+import { isSignInAreaResolved } from 'src/sdk/session/isSignInAreaResolved'
 import styles from './section.module.scss'
 
 interface NavbarSliderProps {
@@ -44,13 +45,17 @@ function NavbarSlider({
 
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
-  const { b2b, isSessionReady } = useSession()
+  const { b2b, isSessionReady, hasValidated } = useSession()
+  const isSignInResolved = isSignInAreaResolved({
+    isSessionReady,
+    hasValidated,
+  })
 
   const isFaststoreMyAccountEnabled =
     storeConfig.experimental?.enableFaststoreMyAccount
 
-  const isRepresentative = b2b?.isRepresentative
-  const isOrganizationEnabled = isFaststoreMyAccountEnabled && isRepresentative
+  const isB2BBuyer = Boolean(b2b)
+  const isOrganizationEnabled = isFaststoreMyAccountEnabled && isB2BBuyer
 
   const isLocalizationEnabled =
     storeConfig.localization?.enabled &&
@@ -84,21 +89,14 @@ function NavbarSlider({
       </NavbarSliderContent.Component>
       <NavbarSliderFooter.Component {...NavbarSliderFooter.props}>
         <Suspense fallback={<ButtonSignInFallback />}>
-          {isSessionReady ? (
-            isOrganizationEnabled ? (
-              <OrganizationSignInButton
-                icon={signInButton.icon}
-                isRepresentative={isRepresentative}
-              />
-            ) : (
-              <ButtonSignIn.Component {...signInButton} />
-            )
-          ) : (
-            <UISkeleton
-              data-fs-navbar-slider-signin-skeleton
-              size={{ width: '140px', height: '2.5rem' }}
-            />
-          )}
+          <NavbarAccountArea
+            isSignInResolved={isSignInResolved}
+            isOrganizationEnabled={isOrganizationEnabled}
+            isB2BBuyer={isB2BBuyer}
+            signInButton={signInButton}
+            ButtonSignIn={ButtonSignIn}
+            skeletonAttr="data-fs-navbar-slider-signin-skeleton"
+          />
         </Suspense>
         {isLocalizationEnabled && (
           <LocalizationButton

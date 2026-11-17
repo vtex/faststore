@@ -1,4 +1,5 @@
 import type { GraphqlResolver } from '..'
+import type { PromiseType } from '../../../typings/globals'
 import type { StoreOffer } from './offer'
 
 export type Root = PromiseType<ReturnType<typeof StoreOffer.seller>>

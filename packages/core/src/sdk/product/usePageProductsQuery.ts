@@ -69,6 +69,69 @@ export const query = gql(`
 
 const getKey = (object: any) => JSON.stringify(object)
 
+const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
+
+/**
+ * Cache-only keys that scope gallery pages to the shopper context. They make
+ * the local cache comparison (and the SWR key) miss when a page was loaded for
+ * another context (e.g. the anonymous SSG page). They are not declared by the
+ * operation, so the API ignores them, but they are still sent with the
+ * variables, which go in the URL because this query is a GET operation.
+ * - `_postalCode`: pages are invalidated on region change. Only applied when
+ *   deliveryPromise is enabled to avoid unnecessary cache fragmentation.
+ * - `_contract`: the B2B contract assortment is applied server-side from the
+ *   session cookie, so it never shows up in the query variables. Keyed off
+ *   the presence of a `b2b` session (not `customerId`'s value) because
+ *   `customerId` can resolve to an empty string for a legitimate B2B buyer
+ *   (see `buildB2bSession` in `@faststore/api`). The fallback chain still
+ *   forces the re-fetch for them: the real `customerId`, when present, keeps
+ *   invalidating the cache on contract switch; otherwise the organizational
+ *   unit (`unitId`) tells buyers of different units apart; a generic marker is
+ *   the last resort. Since the value ends up in the URL, it is hashed so the
+ *   raw contract or unit id is not written to access, CDN or RUM logs as is.
+ *   These ids are not secrets (the session already hands them to the
+ *   browser), so the hash is cosmetic, not a privacy control: it is unkeyed
+ *   and a guessable id can be recovered from it. The URL still differs per
+ *   contract, so a contract page is never served from the anonymous page's
+ *   cache entry.
+ */
+const getShopperScope = ({
+  postalCode,
+  contract,
+}: {
+  postalCode?: string | null
+  contract?: string | null
+}) => ({
+  ...(isDeliveryPromiseEnabled && { _postalCode: postalCode ?? '' }),
+  ...(contract && { _contract: hashContractScope(contract) }),
+})
+
+/** The id a B2B session is scoped by, or `null` outside a B2B session. */
+const getContractScope = (
+  b2b?: { customerId?: string | null; unitId?: string | null } | null
+) => (b2b ? b2b.customerId || b2b.unitId || 'b2b' : null)
+
+/**
+ * 53-bit string hash (cyrb53): wide enough that two contracts in the same
+ * browser never share a cache key in practice, without exposing the raw id.
+ */
+export function hashContractScope(value: string) {
+  let h1 = 0xdeadbeef
+  let h2 = 0x41c6ce57
+  for (const char of value) {
+    const code = char.codePointAt(0) ?? 0
+    h1 = Math.imul(h1 ^ code, 2654435761)
+    h2 = Math.imul(h2 ^ code, 1597334677)
+  }
+  h1 =
+    Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^
+    Math.imul(h2 ^ (h2 >>> 13), 3266489909)
+  h2 =
+    Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^
+    Math.imul(h1 ^ (h1 >>> 13), 3266489909)
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36)
+}
+
 interface UseCreateUseGalleryPageProps {
   initialPages: ClientManyProductsQueryWithSearchIdQuery
   serverManyProductsVariables: ClientManyProductsQueryWithSearchIdQueryVariables
@@ -82,21 +145,17 @@ export const useCreateUseGalleryPage = (
 ) => {
   const initialPages = params?.initialPages?.search ? [params.initialPages] : []
 
-  // Seed the cache with the same region-aware key shape that useGalleryPage uses,
-  // so hasSameVariables correctly matches on first mount and avoids an unnecessary
-  // re-fetch of the SSR-loaded page.
-  const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
+  // Seed the cache with the same key shape that useGalleryPage uses, so
+  // hasSameVariables matches on first mount and avoids an unnecessary re-fetch
+  // of the SSR-loaded page. The SSG page is built without a buyer, so it is
+  // seeded without a contract: B2B buyers re-fetch it with their assortment.
   const { postalCode } = useSession()
   const initialVariables = params?.serverManyProductsVariables
     ? [
-        getKey(
-          isDeliveryPromiseEnabled
-            ? {
-                ...params.serverManyProductsVariables,
-                _postalCode: postalCode ?? '',
-              }
-            : params.serverManyProductsVariables
-        ),
+        getKey({
+          ...params.serverManyProductsVariables,
+          ...getShopperScope({ postalCode }),
+        }),
       ]
     : []
 
@@ -113,7 +172,7 @@ export const useCreateUseGalleryPage = (
       itemsPerPage,
     } = useSearch()
 
-    const { postalCode, isValidating: isSessionValidating } = useSession()
+    const { postalCode, b2b, isValidating: isSessionValidating } = useSession()
 
     const localizedVariables = useLocalizedVariables({
       first: itemsPerPage,
@@ -123,15 +182,15 @@ export const useCreateUseGalleryPage = (
       selectedFacets,
     })
 
-    // Include postalCode in the cache key so pages are invalidated on region change.
-    // _postalCode is not sent to the API — it only affects the local cache comparison.
-    // Only applied when deliveryPromise is enabled to avoid unnecessary cache fragmentation.
+    // Keyed on the contract id, not the `b2b` object, which is rebuilt on
+    // every session update.
+    const contract = getContractScope(b2b)
     const localizedVariablesWithRegion = useMemo(
-      () =>
-        isDeliveryPromiseEnabled
-          ? { ...localizedVariables, _postalCode: postalCode ?? '' }
-          : localizedVariables,
-      [localizedVariables, postalCode]
+      () => ({
+        ...localizedVariables,
+        ...getShopperScope({ postalCode, contract }),
+      }),
+      [localizedVariables, postalCode, contract]
     )
 
     const hasSameVariables = deepEquals(

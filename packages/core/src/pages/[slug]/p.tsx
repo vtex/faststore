@@ -3,6 +3,7 @@ import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import type { ComponentType } from 'react'
 
 import { gql } from '@generated'
@@ -28,6 +29,11 @@ import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 import { getComponentKey } from 'src/utils/cms'
 import { getChannelForLocale } from 'src/utils/localization/bindingPaths'
+import { buildHreflangLinks } from 'src/utils/localization/hreflang'
+import {
+  toProductJsonLdIdentifiers,
+  toProductJsonLdOffer,
+} from 'src/utils/productJsonLd'
 
 import storeConfig from 'discovery.config'
 import {
@@ -38,6 +44,7 @@ import { LocalizedProductProvider } from 'src/sdk/localization/LocalizedProductC
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
+import { useProductNotFoundRedirect } from 'src/sdk/product/useProductNotFoundRedirect'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import { injectGlobalSections } from 'src/server/cms/global'
 import type { PDPContentType } from 'src/server/cms/pdp'
@@ -79,14 +86,18 @@ const OG_PRODUCT_CONDITION_BY_SCHEMA: Record<string, string> = {
   'https://schema.org/UsedCondition': 'used',
 }
 
-type Props = PDPContentType & {
+type Props = {
+  sections: PDPContentType['sections']
+  settings: PDPContentType['settings']
   data: ServerProductQueryQuery
   globalSections: GlobalSectionsData
+  offers: ReturnType<typeof toProductJsonLdOffer>
   meta: {
     title: string
     description: string
     canonical: string
   }
+  key: string
 }
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
@@ -95,47 +106,6 @@ const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 
 const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
   .enableClientOffer
-
-function buildHreflangLinks(
-  storeConfig: StoreConfig,
-  otherLocales: Array<{ locale: string; slug: string }> | null | undefined
-): Array<{ rel: string; hrefLang: string; href: string }> {
-  if (!storeConfig.localization?.enabled || !otherLocales?.length) return []
-
-  const locales = storeConfig.localization.locales
-  const baseStoreUrl = storeConfig.storeUrl.replace(/\/$/, '')
-  const defaultLocale = storeConfig.localization.defaultLocale
-  const links: Array<{ rel: string; hrefLang: string; href: string }> = []
-
-  for (const { locale, slug } of otherLocales) {
-    const bindingUrl =
-      locales?.[locale as keyof typeof locales]?.bindings?.[0]?.url
-    if (typeof bindingUrl === 'string' && bindingUrl.length > 0) {
-      links.push({
-        rel: 'alternate',
-        hrefLang: locale,
-        href: `${bindingUrl.replace(/\/$/, '')}/${slug}/p`,
-      })
-    }
-  }
-
-  // PREMISE: the default locale is served at the store root (no locale prefix),
-  // which is how Next.js i18n sub-path routing works — the `defaultLocale` has no
-  // prefix while other locales live under `/{locale}`. Hence `x-default` points to
-  // `${storeUrl}/{slug}/p`. If a store ever serves its default locale under a path
-  // prefix or a dedicated domain instead of the root, this href must be derived
-  // from that locale's binding URL instead of `storeUrl`.
-  const defaultEntry = otherLocales.find((e) => e.locale === defaultLocale)
-  if (defaultEntry) {
-    links.push({
-      rel: 'alternate',
-      hrefLang: 'x-default',
-      href: `${baseStoreUrl}/${defaultEntry.slug}/p`,
-    })
-  }
-
-  return links
-}
 
 // With client-side offer enabled, `useOffer` only refreshes price aggregates —
 // it does not rebuild the per-seller array the buy button reads. Keep that array
@@ -162,6 +132,7 @@ function Page({
   meta,
 }: Props) {
   const { currency } = useSession()
+  const router = useRouter()
 
   const { product } = server
   const {
@@ -197,22 +168,25 @@ function Page({
 
   // hreflang alternate links for multi-locale stores
   const hreflangLinks = buildHreflangLinks(
-    storeConfig as StoreConfig,
-    server.product.otherLocales
+    server.product.otherLocales,
+    router.locale,
+    '/p'
   )
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
+    const storeURL = getStoreURL(router.locale).replace(/\/$/, '')
+
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
-        const pageUrl = getStoreURL() + pathname
+        const pageUrl = storeURL + pathname
 
         return { name, position, item: pageUrl }
       }
     )
   }
 
-  const { client, isValidating } = isClientOfferEnabled
+  const { client, isValidating, clientError } = isClientOfferEnabled
     ? (() => {
         const offer = useOffer({ skuId: product.sku })
         return {
@@ -222,6 +196,11 @@ function Page({
             },
           },
           isValidating: offer.isValidating,
+          // This mode reads the offer straight from Intelligent Search and
+          // never runs `ClientProductQuery`, where the B2B contract assortment
+          // is checked, so there is no not-found to redirect on. Supporting
+          // the redirect here is out of scope for now.
+          clientError: undefined,
         }
       })()
     : (() => {
@@ -231,15 +210,18 @@ function Page({
         return {
           client: productQuery.data,
           isValidating: productQuery.isValidating,
+          clientError: productQuery.error,
         }
       })()
+
+  const isLeavingForNotFound = useProductNotFoundRedirect(clientError)
 
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
   const context = {
     data: {
       ...deepmerge(server, client ?? {}, { arrayMerge: overwriteMerge }),
-      isValidating,
+      isValidating: isValidating || isLeavingForNotFound,
     },
     globalSettings,
   } as PDPContext
@@ -314,7 +296,7 @@ function Page({
               ]
             : []),
         ]}
-        additionalLinkTags={hreflangLinks}
+        languageAlternates={hreflangLinks}
         titleTemplate={titleTemplate}
       />
 
@@ -329,11 +311,11 @@ function Page({
         description={description}
         brand={product.brand.name}
         sku={product.sku}
-        gtin={product.gtin}
-        mpn={product.mpn}
-        releaseDate={product.releaseDate}
+        // Omits empty identifiers and normalizes releaseDate to ISO 8601; see
+        // toProductJsonLdIdentifiers.
+        {...toProductJsonLdIdentifiers(product)}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
-        offers={offers}
+        {...(offers && { offers })}
         {...(itemListElements.length !== 0 && {
           category: itemListElements[0].name,
         })}
@@ -350,7 +332,10 @@ function Page({
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <LocalizedProductProvider otherLocales={server.product.otherLocales}>
+      <LocalizedProductProvider
+        otherLocales={server.product.otherLocales}
+        defaultLocaleSlug={server.product.defaultLocaleSlug}
+      >
         <PageProvider context={context}>
           <RenderSections
             sections={sections}
@@ -425,6 +410,8 @@ const query = gql(`
         locale
         slug
       }
+
+      defaultLocaleSlug
 
       ...ProductDetailsFragment_product
     }
@@ -505,23 +492,17 @@ export const getStaticProps: GetStaticProps<
   const { seo } = data.product
   const title = seo.title
   const description = seo.description
-  const canonical = `${getStoreURL()}${seo.canonical}`
+  // Without the locale, static rendering has no request to match a binding
+  // against and falls back to the default locale, so a localized PDP would
+  // point its canonical at the default locale's prefix.
+  const canonical = `${getStoreURL(locale).replace(/\/$/, '')}${seo.canonical}`
 
   const meta = { title, description, canonical }
 
-  let offer = {}
-
-  if (data.product.offers.offers.length > 0) {
-    const { listPrice, ...offerData } = data.product.offers.offers[0]
-
-    offer = offerData
-  }
-
-  const offers = {
-    ...offer,
+  const offers = toProductJsonLdOffer(data.product.offers.offers[0], {
     priceCurrency: data.product.offers.priceCurrency,
     url: canonical,
-  }
+  })
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,
@@ -532,7 +513,8 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       data,
-      ...cmsPage,
+      sections: cmsPage.sections,
+      settings: cmsPage.settings,
       meta,
       offers,
       globalSections: globalSectionsResult,

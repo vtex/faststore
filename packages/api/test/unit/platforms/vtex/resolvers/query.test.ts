@@ -12,6 +12,11 @@ const makeCtx = () =>
     clients: {
       commerce: {
         session,
+        storeFront: {
+          attachedContracts: vi.fn().mockResolvedValue({
+            contracts: [{ id: 'contract-2' }, { id: 'contract-1' }],
+          }),
+        },
       },
     },
   }) as any
@@ -60,24 +65,29 @@ describe('Query.availableContracts', () => {
   })
 
   it('forbids listing contracts for a different organization unit', async () => {
+    const ctx = makeCtx()
     await expect(
-      availableContracts(null, { orgUnitId: 'other-unit' }, makeCtx())
+      availableContracts(null, { orgUnitId: 'other-unit' }, ctx)
     ).rejects.toThrow(/not allowed/i)
     expect(session).toHaveBeenCalledTimes(1)
+    // Governance check must short-circuit before the default-contract lookup.
+    expect(
+      ctx.clients.commerce.storeFront.attachedContracts
+    ).not.toHaveBeenCalled()
   })
 
   it('lists session contracts and flags the current one', async () => {
-    const result = await availableContracts(
-      null,
-      { orgUnitId: 'unit-1' },
-      makeCtx()
-    )
+    const ctx = makeCtx()
+    const result = await availableContracts(null, { orgUnitId: 'unit-1' }, ctx)
 
     expect(session).toHaveBeenCalledTimes(1)
+    expect(
+      ctx.clients.commerce.storeFront.attachedContracts
+    ).toHaveBeenCalledWith('unit-1')
     expect(result).toEqual([
-      { id: 'a', corporateName: 'Corp A', isActive: false },
-      { id: 'b', corporateName: 'Corp B', isActive: true },
-      { id: 'c', corporateName: 'Corp C', isActive: false },
+      { id: 'a', corporateName: 'Corp A', isActive: false, isDefault: false },
+      { id: 'b', corporateName: 'Corp B', isActive: true, isDefault: false },
+      { id: 'c', corporateName: 'Corp C', isActive: false, isDefault: false },
     ])
   })
 
@@ -119,7 +129,7 @@ describe('Query.availableContracts', () => {
     )
 
     expect(result).toEqual([
-      { id: 'a', corporateName: 'Corp A', isActive: true },
+      { id: 'a', corporateName: 'Corp A', isActive: true, isDefault: false },
     ])
   })
 
@@ -159,8 +169,8 @@ describe('Query.availableContracts', () => {
     )
 
     expect(result).toEqual([
-      { id: 'a', corporateName: 'Corp A', isActive: false },
-      { id: 'c', corporateName: 'Corp C', isActive: true },
+      { id: 'a', corporateName: 'Corp A', isActive: false, isDefault: false },
+      { id: 'c', corporateName: 'Corp C', isActive: true, isDefault: false },
     ])
   })
 
@@ -223,8 +233,95 @@ describe('Query.availableContracts', () => {
     const result = await availableContracts(null, { orgUnitId: 'unit-1' }, ctx)
 
     expect(result).toEqual([
-      { id: 'jwt-contract', corporateName: 'JWT Corp', isActive: true },
+      {
+        id: 'jwt-contract',
+        corporateName: 'JWT Corp',
+        isActive: true,
+        isDefault: false,
+      },
     ])
+  })
+
+  it('flags the unit default from the store-front attached list', async () => {
+    session.mockResolvedValueOnce({
+      namespaces: {
+        authentication: { unitId: { value: 'unit-1' } },
+        shopper: {
+          availableContracts: {
+            value: [
+              {
+                customerId: 'contract-1',
+                contractName: 'Corp One',
+                isActive: true,
+                isCurrent: false,
+              },
+              {
+                customerId: 'contract-2',
+                contractName: 'Corp Two',
+                isActive: true,
+                isCurrent: false,
+              },
+            ],
+          },
+        },
+      },
+    })
+
+    const result = await availableContracts(
+      null,
+      { orgUnitId: 'unit-1' },
+      makeCtx()
+    )
+    expect(
+      result.find((c: { id: string }) => c.id === 'contract-2')?.isDefault
+    ).toBe(true)
+    expect(
+      result.find((c: { id: string }) => c.id === 'contract-1')?.isDefault
+    ).toBe(false)
+  })
+
+  it('degrades to isDefault=false when the attached list fails', async () => {
+    session.mockResolvedValueOnce({
+      namespaces: {
+        authentication: { unitId: { value: 'unit-1' } },
+        shopper: {
+          availableContracts: {
+            value: [
+              {
+                customerId: 'contract-1',
+                contractName: 'Corp One',
+                isActive: true,
+                isCurrent: false,
+              },
+              {
+                customerId: 'contract-2',
+                contractName: 'Corp Two',
+                isActive: true,
+                isCurrent: false,
+              },
+            ],
+          },
+        },
+      },
+    })
+
+    const ctx = makeCtx()
+    const lookupError = new Error('boom')
+    ctx.clients.commerce.storeFront.attachedContracts.mockRejectedValueOnce(
+      lookupError
+    )
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    const result = await availableContracts(null, { orgUnitId: 'unit-1' }, ctx)
+
+    expect(
+      result.every((c: { isDefault: boolean }) => c.isDefault === false)
+    ).toBe(true)
+    expect(warnSpy).toHaveBeenCalledWith(
+      'availableContracts: default contract lookup failed',
+      lookupError
+    )
+    warnSpy.mockRestore()
   })
 })
 
@@ -262,6 +359,7 @@ function makeProductCtx({
   getLocalizedProduct = vi.fn(),
   pagetype = vi.fn(),
   fetchProduct = vi.fn(),
+  cookie,
 }: {
   localizationEnabled?: boolean
   locale?: string
@@ -271,8 +369,10 @@ function makeProductCtx({
   getLocalizedProduct?: (...args: any[]) => Promise<any>
   pagetype?: (...args: any[]) => Promise<any>
   fetchProduct?: (...args: any[]) => Promise<any>
+  cookie?: string
 } = {}) {
   return {
+    headers: { cookie },
     storage: { locale },
     discoveryConfig: {
       localization: localizationEnabled
@@ -565,6 +665,73 @@ describe('Query.product', () => {
       expect(pagetype).not.toHaveBeenCalled()
     })
   })
+
+  describe('contract assortment', () => {
+    const contractCookie = `vtex_segment=${Buffer.from(
+      JSON.stringify({ facets: 'productClusterIds=137;' })
+    ).toString('base64')}`
+
+    const inAssortment = [{ id: '137', name: 'Contract' }]
+    const outOfAssortment = [{ id: '10', name: 'Other' }]
+
+    it('returns the product when it belongs to the contract assortment', async () => {
+      const sku = makeSku({ productClusters: inAssortment })
+      const load = vi.fn().mockResolvedValue(sku)
+      const ctx = makeProductCtx({ load, cookie: contractCookie })
+
+      const result = await callProduct([{ key: 'id', value: '100' }], ctx)
+
+      expect(result).toBe(sku)
+    })
+
+    it('throws NotFoundError when the product is outside the contract assortment', async () => {
+      const load = vi
+        .fn()
+        .mockResolvedValue(makeSku({ productClusters: outOfAssortment }))
+      const pagetype = vi.fn()
+      const ctx = makeProductCtx({ load, pagetype, cookie: contractCookie })
+
+      await expect(
+        callProduct(
+          [
+            { key: 'id', value: '100' },
+            { key: 'slug', value: 'blue-shirt-100' },
+          ],
+          ctx
+        )
+      ).rejects.toMatchObject({ extensions: { type: 'NotFoundError' } })
+      expect(pagetype).not.toHaveBeenCalled()
+    })
+
+    it('checks products resolved through the slug fallback too', async () => {
+      const load = vi.fn().mockRejectedValue(new NotFoundError('no sku'))
+      const pagetype = vi
+        .fn()
+        .mockResolvedValue({ pageType: 'Product', id: 55 })
+      const fetchProduct = vi
+        .fn()
+        .mockResolvedValue(
+          makeSearchProduct({ productClusters: outOfAssortment })
+        )
+      const ctx = makeProductCtx({
+        load,
+        pagetype,
+        fetchProduct,
+        cookie: contractCookie,
+      })
+
+      await expect(
+        callProduct(
+          [
+            { key: 'id', value: '999' },
+            { key: 'slug', value: 'blue-shirt-999' },
+          ],
+          ctx
+        )
+      ).rejects.toMatchObject({ extensions: { type: 'NotFoundError' } })
+      expect(fetchProduct).toHaveBeenCalled()
+    })
+  })
 })
 
 describe('Query.accountProfile', () => {
@@ -572,13 +739,14 @@ describe('Query.accountProfile', () => {
 
   const makeRepCtx = ({
     customerId = 'contract-1',
-  }: { customerId?: string }) => {
+    claims = { unitId: 'unit-1' },
+  }: { customerId?: string; claims?: Record<string, unknown> }) => {
     const getContractById = vi.fn()
     const getUserById = vi.fn()
     const sessionMock = vi.fn()
 
     const jwtPayload = Buffer.from(
-      JSON.stringify({ userId: 'user-1', isRepresentative: true, customerId })
+      JSON.stringify({ userId: 'user-1', customerId, ...claims })
     ).toString('base64url')
     const token = `header.${jwtPayload}.signature`
 
@@ -618,11 +786,13 @@ describe('Query.accountProfile', () => {
     })
   })
 
-  it('does not throw and skips the CL lookup when no contract id is available anywhere', async () => {
-    const { ctx, getContractById, sessionMock } = makeRepCtx({ customerId: '' })
+  it('returns the user profile for a unit member without any contract', async () => {
+    const { ctx, getContractById, getUserById, sessionMock } = makeRepCtx({
+      customerId: '',
+    })
     sessionMock.mockResolvedValue({
       namespaces: {
-        profile: null,
+        profile: { id: { value: 'profile-1' } },
         authentication: null,
         shopper: {
           firstName: { value: 'Joao' },
@@ -630,11 +800,59 @@ describe('Query.accountProfile', () => {
         },
       },
     })
+    getUserById.mockResolvedValue({
+      id: 'user-1',
+      name: 'Joao Caetano',
+      email: 'joao@example.com',
+    })
 
     const result = await accountProfile(null, null, ctx)
 
     expect(getContractById).not.toHaveBeenCalled()
-    expect(result).toEqual({ name: 'Joao Caetano', email: '', id: '' })
+    expect(result).toEqual({
+      name: 'Joao Caetano',
+      email: 'joao@example.com',
+      id: 'user-1',
+    })
+  })
+
+  it('takes the contract from the session when the token has none', async () => {
+    const { ctx, getContractById, sessionMock } = makeRepCtx({
+      customerId: '',
+    })
+    sessionMock.mockResolvedValue({
+      namespaces: {
+        profile: null,
+        authentication: null,
+        shopper: { activeContractId: { value: 'contract-2' } },
+      },
+    })
+    getContractById.mockResolvedValue({ corporateName: 'Corp Y' })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(getContractById).toHaveBeenCalledWith({ contractId: 'contract-2' })
+    expect(result).toEqual({ name: 'Corp Y', email: '', id: 'contract-2' })
+  })
+
+  it('treats non-string unit and contract claims as missing', async () => {
+    const { ctx, getUserById, sessionMock } = makeRepCtx({
+      claims: { unitId: 42, customerId: { id: 'contract-1' } },
+    })
+    getUserById.mockResolvedValue({
+      id: 'user-1',
+      name: 'Shopper',
+      email: 'shopper@example.com',
+    })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(sessionMock).not.toHaveBeenCalled()
+    expect(result).toEqual({
+      name: 'Shopper',
+      email: 'shopper@example.com',
+      id: 'user-1',
+    })
   })
 
   it('does not fail the field when getContractById throws', async () => {
@@ -683,6 +901,143 @@ describe('Query.accountProfile', () => {
       name: 'Corp X',
       email: 'x@y.com',
       id: 'contract-1',
+    })
+  })
+
+  it('returns the contract for a unit member without the isRepresentative flag', async () => {
+    const { ctx, getContractById, getUserById, sessionMock } = makeRepCtx({
+      claims: { unitId: 'unit-1', isRepresentative: false },
+    })
+    sessionMock.mockResolvedValue({
+      namespaces: { profile: null, authentication: null, shopper: null },
+    })
+    getContractById.mockResolvedValue({ corporateName: 'Corp X' })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(getUserById).not.toHaveBeenCalled()
+    expect(result).toEqual({ name: 'Corp X', email: '', id: 'contract-1' })
+  })
+
+  it('returns the user profile when the token has no unit, even if flagged as representative', async () => {
+    const { ctx, getUserById, sessionMock } = makeRepCtx({
+      claims: { isRepresentative: true },
+    })
+    getUserById.mockResolvedValue({
+      id: 'user-1',
+      name: 'Shopper',
+      email: 'shopper@example.com',
+    })
+
+    const result = await accountProfile(null, null, ctx)
+
+    expect(sessionMock).not.toHaveBeenCalled()
+    expect(result).toEqual({
+      name: 'Shopper',
+      email: 'shopper@example.com',
+      id: 'user-1',
+    })
+  })
+})
+
+describe('Query.pickupPoints', () => {
+  const pickupPoints = (Query as any).pickupPoints
+
+  it('loads availability from intelligent search and keeps the pickup id', async () => {
+    const pickupPointAvailability = vi.fn().mockResolvedValue({
+      pickupPointDistances: [
+        { pickupId: 'vendemo_1', pickupName: 'Botafogo', isActive: true },
+      ],
+    })
+    const ctx = {
+      clients: {
+        search: { pickupPointAvailability },
+      },
+    }
+
+    const result = await pickupPoints(
+      null,
+      {
+        postalCode: '22271020',
+        country: 'BRA',
+        geoCoordinates: { latitude: -22.95, longitude: -43.19 },
+      },
+      ctx
+    )
+
+    expect(pickupPointAvailability).toHaveBeenCalledWith({
+      postalCode: '22271020',
+      country: 'BRA',
+      coordinates: '-43.19,-22.95',
+    })
+    expect(result).toEqual({
+      pickupPointDistances: [
+        { pickupId: 'vendemo_1', pickupName: 'Botafogo', isActive: true },
+      ],
+      pickupPointsHash: null,
+    })
+  })
+
+  it('omits coordinates when the caller only sends a postal code', async () => {
+    const pickupPointAvailability = vi.fn().mockResolvedValue(null)
+    const ctx = {
+      clients: { search: { pickupPointAvailability } },
+    }
+
+    const result = await pickupPoints(
+      null,
+      { postalCode: '22041080', country: 'BRA' },
+      ctx
+    )
+
+    expect(pickupPointAvailability).toHaveBeenCalledWith({
+      postalCode: '22041080',
+      country: 'BRA',
+      coordinates: undefined,
+    })
+    expect(result).toEqual({
+      pickupPointDistances: [],
+      pickupPointsHash: null,
+    })
+  })
+
+  it('applies the shopper sales channel before listing pickup points', async () => {
+    let seenSalesChannel: string | undefined
+    const ctx = {
+      clients: {
+        search: {
+          pickupPointAvailability: vi.fn().mockImplementation(async () => {
+            seenSalesChannel = ctx.storage.channel.salesChannel
+            return { pickupPointDistances: [] }
+          }),
+        },
+      },
+      storage: {
+        channel: {
+          seller: '',
+          regionId: '',
+          salesChannel: '1',
+          hasOnlyDefaultSalesChannel: true,
+        },
+      },
+    }
+
+    await pickupPoints(
+      null,
+      {
+        postalCode: '01310100',
+        country: 'BRA',
+        channel: JSON.stringify({ salesChannel: '2', regionId: 'region-2' }),
+      },
+      ctx
+    )
+
+    expect(seenSalesChannel).toBe('2')
+    expect(ctx.storage.channel.regionId).toBe('region-2')
+    expect(ctx.clients.search.pickupPointAvailability).toHaveBeenCalledWith({
+      postalCode: '01310100',
+      country: 'BRA',
+      coordinates: undefined,
     })
   })
 })

@@ -107,7 +107,6 @@ export async function resolveJwtClaims(
   }
 
   return {
-    isRepresentative: isValidJwt ? Boolean(jwt?.isRepresentative) : false,
     customerId: isValidJwt ? jwt?.customerId : undefined,
     unitId: isValidJwt ? jwt?.unitId : undefined,
   }
@@ -140,8 +139,43 @@ function shopperString(value: { value?: unknown } | null | undefined): string {
   return typeof value?.value === 'string' ? value.value : ''
 }
 
+/**
+ * First value that is a non-blank string, trimmed. Session values and JWT
+ * claims are only nominally typed, so anything else is skipped.
+ */
+export function firstNonBlank(...values: unknown[]): string {
+  for (const value of values) {
+    const trimmed = typeof value === 'string' ? value.trim() : ''
+    if (trimmed) return trimmed
+  }
+
+  return ''
+}
+
+/**
+ * Organizational unit of the shopper, from the session or the JWT claim.
+ * Buyer Portal identifies its buyers by the unit; `isRepresentative` alone is
+ * not enough, since it can be true outside B2B.
+ */
+export function resolveB2bUnitId(
+  authentication: { unitId?: { value?: string | null } | null } | null,
+  jwtUnitId?: unknown
+): string {
+  return firstNonBlank(authentication?.unitId?.value, jwtUnitId)
+}
+
+/**
+ * Returns `null` unless the shopper has both an organizational unit and a
+ * contract, the rule Buyer Portal uses for a B2B session.
+ *
+ * The contract falls back from the session's active contract to the session's
+ * authentication namespace and then to the JWT claim. Blank values fall
+ * through, so an empty session value never hides the claim.
+ *
+ * The deprecated `isRepresentative` field stays `true` whenever `b2b` is
+ * returned, so consumers that still read it keep working.
+ */
 export function buildB2bSession(args: {
-  isRepresentative: boolean
   authentication: {
     customerId?: { value?: string | null } | null
     unitName?: { value?: string | null } | null
@@ -152,6 +186,7 @@ export function buildB2bSession(args: {
     firstName?: { value?: unknown } | null
     lastName?: { value?: unknown } | null
     organizationManager?: { value?: boolean | null } | null
+    activeContractId?: { value?: string | null } | null
   } | null
   publicData: { postalCode?: { value?: string | null } | null } | null
   profile: Parameters<typeof resolveActiveContractDisplayName>[1]
@@ -159,7 +194,14 @@ export function buildB2bSession(args: {
   customerId?: string
   unitId?: string
 }) {
-  if (!args.isRepresentative) {
+  const unitId = resolveB2bUnitId(args.authentication, args.unitId)
+  const customerId = firstNonBlank(
+    args.shopper?.activeContractId?.value,
+    args.authentication?.customerId?.value,
+    args.customerId
+  )
+
+  if (!unitId || !customerId) {
     return null
   }
 
@@ -168,9 +210,9 @@ export function buildB2bSession(args: {
 
   return {
     isRepresentative: true,
-    customerId: args.authentication?.customerId?.value ?? args.customerId ?? '',
+    customerId,
     unitName: args.authentication?.unitName?.value ?? '',
-    unitId: args.authentication?.unitId?.value ?? args.unitId ?? '',
+    unitId,
     firstName,
     lastName,
     userName: `${firstName} ${lastName}`.trim(),

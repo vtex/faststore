@@ -110,6 +110,7 @@ const query = gql(`
         locale
         slug
       }
+      canonicalSlug
     }
   }
 `)

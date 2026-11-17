@@ -5,11 +5,15 @@ import type { PickupPoint } from '.'
 export type PickupPointsSimulation = {
   pickupPoints?: PickupPoint[]
   geoCoordinates?: Session['geoCoordinates'] | null
+  postalCode?: string | null
+  country?: string | null
 }
 
 export const initialPickupPointsSimulation: PickupPointsSimulation = {
   pickupPoints: [],
   geoCoordinates: null,
+  postalCode: null,
+  country: null,
 }
 
 export type DeliveryPromiseReducerState = {
@@ -90,6 +94,8 @@ export const deliveryPromiseReducer = (
           pickupPointsSimulation: {
             ...state.pickupPointsSimulation,
             geoCoordinates: validatedSession.geoCoordinates ?? null,
+            postalCode: validatedSession.postalCode ?? null,
+            country: validatedSession.country ?? null,
           },
           shouldUpdatePickupPoints: true,
         }

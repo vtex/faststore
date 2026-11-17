@@ -38,4 +38,28 @@ describe('clearPersistedSessionState', () => {
     expect(sessionStorage.getItem(STORAGE_KEY_PERSON_ID)).toBeNull()
     expect(sessionStorage.getItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)).toBeNull()
   })
+
+  it('also clears the persisted cart (fs::cart)', async () => {
+    await clearPersistedSessionState()
+
+    expect(mockDel).toHaveBeenCalledWith('fs::cart')
+  })
+
+  it('leaves cookies alone: the HttpOnly orderForm cookies are the route\u2019s job', async () => {
+    document.cookie = 'checkout.vtex.com=__ofid=abc123; path=/'
+
+    await clearPersistedSessionState()
+
+    expect(document.cookie).toContain('checkout.vtex.com')
+  })
+
+  it('still clears sessionStorage when IndexedDB deletion rejects', async () => {
+    mockDel.mockRejectedValue(new Error('blocked'))
+
+    await expect(clearPersistedSessionState()).resolves.toBeUndefined()
+
+    expect(sessionStorage.getItem(SESSION_READY_KEY)).toBeNull()
+    expect(sessionStorage.getItem(STORAGE_KEY_PERSON_ID)).toBeNull()
+    expect(sessionStorage.getItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)).toBeNull()
+  })
 })

@@ -22,7 +22,7 @@ export const myAccountPageTemplate = (pagePath: string) => `
     ...CUSTOM_COMPONENTS,
   }
 
-  function Page({ globalSections: globalSectionsProp, accountName, isRepresentative }: MyAccountProps) {
+  function Page({ globalSections: globalSectionsProp, accountName, isB2BBuyer }: MyAccountProps) {
     const { sections: globalSections, settings: globalSettings } = globalSectionsProp ?? {}
 
     return (
@@ -31,7 +31,7 @@ export const myAccountPageTemplate = (pagePath: string) => `
           globalSections={globalSections}
           components={COMPONENTS}
         >
-          <Layout accountName={accountName} isRepresentative={isRepresentative}>
+          <Layout accountName={accountName} isB2BBuyer={isB2BBuyer}>
             <DynamicPage />
           </Layout>
         </RenderSections>

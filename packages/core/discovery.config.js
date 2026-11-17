@@ -1,15 +1,18 @@
 const defaultConfig = require('./discovery.config.default')
 const starterConfig = require('./src/customizations/discovery.config')
 
-const deepmerge = require('deepmerge')
+const { mergeDiscoveryConfig } = require('./src/utils/mergeDiscoveryConfig')
 
 /**
  * @type {typeof defaultConfig & Record<string, any>}
  * */
-let finalConfig = deepmerge(defaultConfig, starterConfig)
+let finalConfig = mergeDiscoveryConfig(defaultConfig, starterConfig)
 
 try {
-  finalConfig = deepmerge(finalConfig, require('./discovery.config.local'))
+  finalConfig = mergeDiscoveryConfig(
+    finalConfig,
+    require('./discovery.config.local')
+  )
 } catch (error) {
   if (error?.code !== 'MODULE_NOT_FOUND') {
     throw error

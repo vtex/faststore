@@ -1,5 +1,7 @@
 import { parse } from 'cookie'
+import type { Options } from '../../../../typings/globals'
 import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
+import { OTELLogger } from '../../../../observability/telemetry'
 import { fetchAPI } from '../fetch'
 
 import {
@@ -9,6 +11,7 @@ import {
   type IProcessOrderAuthorization,
   type IUserOrderCancel,
   type QueryListUserOrdersArgs,
+  type SavedCard,
   type StoreMarketingData,
   type UserOrder,
   type UserOrderCancel,
@@ -39,12 +42,12 @@ import type {
   OrderForm,
   OrderFormInputItem,
 } from './types/OrderForm'
-import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
 import type { SalesChannel } from './types/SalesChannel'
 import type { Session } from './types/Session'
+import type { AttachedContractsResponse } from './types/StoreFrontContracts'
 import type { DeliveryMode, SelectedAddress } from './types/ShippingData'
 import type {
   Simulation,
@@ -79,6 +82,19 @@ const BASE_INIT = {
     'content-type': 'application/json',
   },
 }
+
+// Accounts already warned that they rely on public `NL` fields. The commerce
+// client is created per request, so the warning is kept once per account
+// instead of per instance, to avoid flooding the logs. The account comes from
+// the store's API options, not from the request, so the set holds at most one
+// entry per account the process is configured for (usually one). It's still
+// capped, so it can't grow without bound if that ever changes.
+const MAX_WARNED_NEWSLETTER_ACCOUNTS = 100
+const accountsWarnedAboutAnonymousNewsletter = new Set<string>()
+
+/** Test-only: forget which accounts were warned about the anonymous fallback. */
+export const resetAnonymousNewsletterWarnings = () =>
+  accountsWarnedAboutAnonymousNewsletter.clear()
 
 /**
  * Encode a by-linkid path for the category endpoint. Category link paths can be
@@ -624,30 +640,6 @@ export const VtexCommerce = (
           {}
         )
       },
-      pickupPoints: ({
-        geoCoordinates,
-      }: PickupPointsInput): Promise<PickupPoints> => {
-        if (!geoCoordinates) {
-          throw new Error(
-            'Missing required parameter for listing pickup points.'
-          )
-        }
-
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        return fetchAPI(
-          `${base}/api/logistics-shipping/pickuppoints/_search`,
-          {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({ coordinate: geoCoordinates }),
-          },
-          { storeCookies }
-        )
-      },
     },
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
@@ -673,15 +665,100 @@ export const VtexCommerce = (
         { storeCookies }
       )
     },
-    subscribeToNewsletter: (data: {
-      name: string
+    storeFront: {
+      /**
+       * Attached contracts of an Org Unit from the buyer-portal store-front BFF
+       * (requires the `buyer-portal-graphql` IO app). Buyer cookie forwarded;
+       * no app keys involved.
+       */
+      attachedContracts: (
+        orgUnitId: string
+      ): Promise<AttachedContractsResponse> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+        })
+
+        return fetchAPI(
+          `https://${account}.myvtex.com/_v/store-front/units/${encodeURIComponent(
+            orgUnitId
+          )}/contracts/attached?details=true`,
+          { headers },
+          { storeCookies }
+        )
+      },
+    },
+    /**
+     * Creates a newsletter subscription in the `NL` Master Data entity.
+     *
+     * With `FS_NEWSLETTER_APP_KEY`/`FS_NEWSLETTER_APP_TOKEN` set, the document is
+     * created with a `POST` authenticated by that dedicated key, so `NL` fields
+     * can stay private. The request is create-only: the body is built here from
+     * the validated fields and never carries a document id, so the caller can't
+     * reach an existing record.
+     *
+     * Without the credentials, it falls back to the legacy anonymous `PATCH`,
+     * which only works while `NL` fields are public.
+     */
+    subscribeToNewsletter: ({
+      name,
+      email,
+    }: {
+      name?: string
       email: string
     }): Promise<MasterDataResponse> => {
+      const body = JSON.stringify({
+        ...(name ? { name } : {}),
+        email,
+        isNewsletterOptIn: true,
+      })
+      // Use a key dedicated to the newsletter, whose role has only the Dynamic
+      // Storage "Insert or update document (not remove)" resource. Master Data
+      // permissions aren't scoped by entity, so never reuse a key that serves
+      // other features, and rotate it like any other secret. Setup steps:
+      // https://developers.vtex.com/docs/guides/faststore/organisms-newsletter#setting-up-newsletter-subscriptions
+      const appKey = process.env.FS_NEWSLETTER_APP_KEY
+      const appToken = process.env.FS_NEWSLETTER_APP_TOKEN
+
+      if (appKey && appToken) {
+        return fetchAPI(`${base}/api/dataentities/NL/documents`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            accept: 'application/json',
+            'X-VTEX-API-AppKey': appKey,
+            'X-VTEX-API-AppToken': appToken,
+          },
+          body,
+        })
+      }
+
+      if (!accountsWarnedAboutAnonymousNewsletter.has(account)) {
+        if (
+          accountsWarnedAboutAnonymousNewsletter.size >=
+          MAX_WARNED_NEWSLETTER_ACCOUNTS
+        ) {
+          accountsWarnedAboutAnonymousNewsletter.clear()
+        }
+        accountsWarnedAboutAnonymousNewsletter.add(account)
+
+        // Name only the missing variables, so a partial setup is easy to spot.
+        const missing = [
+          !appKey && 'FS_NEWSLETTER_APP_KEY',
+          !appToken && 'FS_NEWSLETTER_APP_TOKEN',
+        ].filter(Boolean)
+        const message = `[subscribeToNewsletter] ${missing.join(' and ')} ${missing.length > 1 ? 'are' : 'is'} not set. Falling back to an anonymous Master Data request, which requires public fields in the NL entity. Configure both credentials and make the NL fields private.`
+
+        // Also sent to OpenTelemetry logs, so a missing credential reaches
+        // operators and not only stdout.
+        console.warn(message)
+        OTELLogger('warn', '%s', message)
+      }
+
       return fetchAPI(
         `${base}/api/dataentities/NL/documents/`,
         {
           ...BASE_INIT,
-          body: JSON.stringify({ ...data, isNewsletterOptIn: true }),
+          body,
           method: 'PATCH',
         },
         { storeCookies }
@@ -836,6 +913,23 @@ export const VtexCommerce = (
         )
       },
     },
+    savedCards: {
+      listCreditCards: (): Promise<SavedCard[]> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/saved-cards/credit-card?an=${account}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
+    },
     units: {
       getUnitByUserId: ({
         userId,
@@ -945,6 +1039,30 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/license-manager/storefront/users/${userId}/roles`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+      /**
+       * Whether a License Manager resource key is granted to the user. The
+       * endpoint resolves the user's roles into the resource key server-side,
+       * so callers never have to match role names (which are account-
+       * configurable). Responds with a bare boolean.
+       */
+      isResourceGranted: ({
+        userId,
+        resourceKey,
+      }: { userId: string; resourceKey: string }): Promise<boolean> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/license-manager/storefront/bff/users/${userId}/resources/${resourceKey}/granted?an=${account}`,
           {
             method: 'GET',
             headers,

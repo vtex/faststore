@@ -38,7 +38,7 @@ vi.mock('@faststore/ui', async () => {
     ...actual,
     useUI: mockUseUI,
     SearchInputField: React.forwardRef(function MockSearchInputField(
-      { onBlur, onKeyDown }: any,
+      { onBlur, onKeyDown, placeholder }: any,
       ref: any
     ) {
       const inputRef = React.useRef<HTMLInputElement>(null)
@@ -46,7 +46,7 @@ vi.mock('@faststore/ui', async () => {
       return (
         <input
           ref={inputRef}
-          placeholder="Search"
+          placeholder={placeholder ?? 'Search'}
           onBlur={onBlur}
           onKeyDown={onKeyDown}
         />
@@ -228,5 +228,39 @@ describe('MyAccountListQuotes', () => {
     await new Promise((resolve) => setTimeout(resolve, 350))
 
     expect(window.location.href).toBe('/pvt/account/quotes?')
+  })
+
+  it('honors CMS-provided labels for the page title, search and filters button', () => {
+    render(
+      <MyAccountListQuotes
+        listQuotes={{ list: [{ id: 'q-1' }] } as any}
+        total={1}
+        perPage={25}
+        filters={baseFilters()}
+        labels={{
+          pageTitle: 'Cotações',
+          searchPlaceholder: 'Buscar',
+          filtersLabel: 'Filtros',
+        }}
+      />
+    )
+
+    expect(screen.getByText('Cotações')).toBeTruthy()
+    expect(screen.getByPlaceholderText('Buscar')).toBeTruthy()
+    expect(screen.getByText('Filtros')).toBeTruthy()
+  })
+
+  it('honors CMS-provided empty state labels', () => {
+    render(
+      <MyAccountListQuotes
+        listQuotes={{ list: [] } as any}
+        total={0}
+        perPage={25}
+        filters={baseFilters()}
+        labels={{ noQuotesLabel: 'Você não tem cotações' }}
+      />
+    )
+
+    expect(screen.getByText('Você não tem cotações')).toBeTruthy()
   })
 })

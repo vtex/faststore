@@ -191,6 +191,9 @@ type StoreSession {
 type StoreB2B {
   customerId: String!
   isRepresentative: Boolean
+    @deprecated(
+      reason: "Always true when `b2b` is set: a B2B session is identified by `unitId` and `customerId`. Check that `b2b` is not null instead. Scheduled for removal in the next major."
+    )
   unitName: String
   unitId: String
   firstName: String

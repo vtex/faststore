@@ -1,7 +1,12 @@
 import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils'
-import type { GraphQLSchema } from 'graphql'
+import {
+  defaultFieldResolver,
+  type GraphQLFieldResolver,
+  type GraphQLSchema,
+} from 'graphql'
 
 import { validateUserAuthentication } from '../platforms/vtex/utils/auth'
+import { hasAppliedDirective, markAppliedDirective } from './applied'
 import type { Directive } from './index'
 
 const NAME = 'auth'
@@ -14,15 +19,35 @@ const directive: Directive = {
         const authDirective = getDirective(schema, fieldConfig, NAME)?.[0]
 
         if (authDirective) {
+          if (hasAppliedDirective(fieldConfig.resolve, NAME)) {
+            return fieldConfig
+          }
+
           const originalResolver = fieldConfig.resolve
 
-          fieldConfig.resolve = async (root, args, context, info) => {
+          const resolve: GraphQLFieldResolver<any, any> = async (
+            root,
+            args,
+            context,
+            info
+          ) => {
             // Validate user authentication before proceeding with the resolver
             await validateUserAuthentication(context)
 
             // Continue with the original resolver
-            return originalResolver?.(root, args, context, info)
+            return (originalResolver ?? defaultFieldResolver)(
+              root,
+              args,
+              context,
+              info
+            )
           }
+
+          fieldConfig.resolve = markAppliedDirective(
+            resolve,
+            originalResolver,
+            NAME
+          )
         }
 
         return fieldConfig

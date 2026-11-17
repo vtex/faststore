@@ -20,6 +20,7 @@ import {
   type OrderDeliverySectionLabels,
   resolveOrderDeliveryLabels,
 } from '../orderDetailsLabels'
+import { getDeliveryOptionLabel } from '../getDeliveryOptionLabel'
 
 interface DeliveryOptionAccordionProps {
   deliveryOption: UserOrderDeliveryOption
@@ -50,14 +51,17 @@ function DeliveryOptionAccordion({
   )
   const formatPrice = useFormatPrice()
 
-  const title = deliveryOption.friendlyDeliveryOptionName ?? ''
+  const title = getDeliveryOptionLabel(deliveryOption, labels)
 
   const itemCount = labels.itemCountTemplate.replace(
     '{count}',
     String(deliveryOption.quantityOfDifferentItems)
   )
 
-  const summary = `${itemCount} – ${labels.totalLabel} ${formatPrice(deliveryOption.total ?? 0, currencyCode)}`
+  const summary = `${itemCount} – ${labels.totalLabel} ${formatPrice(
+    deliveryOption.total ?? 0,
+    currencyCode
+  )}`
 
   const onChange = (index: number) => {
     if (indicesExpanded.has(index)) {
@@ -80,6 +84,7 @@ function DeliveryOptionAccordion({
           <DeliveryOptionAccordionDeliveryInfo
             deliveryOption={deliveryOption}
             contact={contact}
+            labels={labels}
           />
           <DeliveryOptionAccordionProducts>
             {deliveryOption.items?.map((item, index) => {
@@ -101,6 +106,7 @@ function DeliveryOptionAccordion({
                   price={formatPrice(item.sellingPrice ?? 0, currencyCode)}
                   tax={formatPrice(tax, currencyCode)}
                   total={formatPrice(item.total ?? 0, currencyCode)}
+                  labels={labels}
                 />
               )
             })}

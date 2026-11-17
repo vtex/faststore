@@ -82,4 +82,104 @@ describe('MyAccountQuotesStatusSelector', () => {
 
     expect(screen.getByText('NotAStatus')).toBeTruthy()
   })
+
+  it('renders the default "Status" label when no override is given', () => {
+    render(<MyAccountQuotesStatusSelector value={[]} onChange={vi.fn()} />)
+
+    expect(screen.getByText('Status')).toBeTruthy()
+  })
+
+  it('honors a CMS-provided field label', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={[]}
+        onChange={vi.fn()}
+        statusLabel="Estado"
+      />
+    )
+
+    expect(screen.getByText('Estado')).toBeTruthy()
+    expect(screen.queryByText('Status')).toBeNull()
+  })
+
+  it('honors CMS-provided status option labels for chips and the dropdown', () => {
+    const { container } = render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        statusCmsLabels={{ draftStatus: 'Rascunho' }}
+      />
+    )
+
+    expect(screen.getByText('Rascunho')).toBeTruthy()
+
+    fireEvent.click(
+      container.querySelector('[aria-controls="status-listbox"]')!
+    )
+
+    expect(screen.getByLabelText('Rascunho')).toBeTruthy()
+  })
+
+  it('honors a CMS-provided remove-chip aria-label template', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        removeStatusAriaLabel="Remover {status}"
+      />
+    )
+
+    expect(screen.getByLabelText('Remover Draft')).toBeTruthy()
+    expect(screen.queryByLabelText('Remove Draft')).toBeNull()
+  })
+
+  it('substitutes the localized status label into the remove-chip aria-label', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        removeStatusAriaLabel="Remover {status}"
+        statusCmsLabels={{ draftStatus: 'Rascunho' }}
+      />
+    )
+
+    expect(screen.getByLabelText('Remover Rascunho')).toBeTruthy()
+  })
+
+  it('inserts a status label that contains $ verbatim into the remove aria-label', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        removeStatusAriaLabel="Remove {status}"
+        statusCmsLabels={{ draftStatus: 'Ready $& soon' }}
+      />
+    )
+
+    expect(screen.getByLabelText('Remove Ready $& soon')).toBeTruthy()
+  })
+
+  it('keeps a remove-chip template that has no status token', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        removeStatusAriaLabel="Remove selected status"
+      />
+    )
+
+    expect(screen.getByLabelText('Remove selected status')).toBeTruthy()
+  })
+
+  it('replaces only the first status token and keeps the rest of the template', () => {
+    render(
+      <MyAccountQuotesStatusSelector
+        value={['Draft']}
+        onChange={vi.fn()}
+        removeStatusAriaLabel="Remove {status} ({status})"
+      />
+    )
+
+    expect(screen.getByLabelText('Remove Draft ({status})')).toBeTruthy()
+  })
 })

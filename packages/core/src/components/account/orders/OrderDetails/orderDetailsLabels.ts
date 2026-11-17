@@ -13,15 +13,31 @@ export type OrderDetailsHeaderLabels = {
   /** Supports the `{policy}` placeholder, replaced with the policy name. */
   rejectModalMessage?: string
   rejectModalConfirmText?: string
+  /** Supports the `{policy}` placeholder, replaced with the policy name. */
+  approveSuccessToast?: string
+  approveErrorToast?: string
+  /** Supports the `{policy}` placeholder, replaced with the policy name. */
+  rejectSuccessToast?: string
+  rejectErrorToast?: string
+  pendingFurtherApprovalsAlert?: string
 }
 
 export type OrderStatusSectionLabels = {
   statusTitle?: string
   orderPlacedStep?: string
+  approvedStep?: string
+  pendingApprovalStep?: string
+  deniedStep?: string
+  paymentApprovedStep?: string
   paymentPendingStep?: string
+  paymentAuthorizationStep?: string
+  paymentDeniedStep?: string
+  readyForDeliveryStep?: string
   handlingStep?: string
+  canceledStep?: string
   invoicedStep?: string
   deliveredStep?: string
+  shipOrderStep?: string
 }
 
 export type OrderPaymentSectionLabels = {
@@ -50,12 +66,33 @@ export type OrderDeliverySectionLabels = {
   eachLabel?: string
   taxesLabel?: string
   totalLabel?: string
+  deliveryChannelLabel?: string
+  pickupChannelLabel?: string
+  takeAwayChannelLabel?: string
+  businessDaysZeroTemplate?: string
+  businessDaysOneTemplate?: string
+  businessDaysOtherTemplate?: string
+  daysZeroTemplate?: string
+  daysOneTemplate?: string
+  daysOtherTemplate?: string
+  hoursZeroTemplate?: string
+  hoursOneTemplate?: string
+  hoursOtherTemplate?: string
+  minutesZeroTemplate?: string
+  minutesOneTemplate?: string
+  minutesOtherTemplate?: string
+  toNeighborhoodTemplate?: string
 }
 
 export type OrderSummarySectionLabels = {
   summaryTitle?: string
   totalLabel?: string
   interestLabel?: string
+  itemsTotalLabel?: string
+  discountsTotalLabel?: string
+  shippingTotalLabel?: string
+  taxTotalLabel?: string
+  changeTotalLabel?: string
 }
 
 export type OrderOrderedBySectionLabels = {
@@ -91,15 +128,30 @@ export const defaultOrderDetailsHeaderLabels: Required<OrderDetailsHeaderLabels>
     rejectModalMessage:
       "You're about to reject this approval request, triggered by the {policy} policy. Rejecting any approval request will deny the entire order.\n\nThis action is permanent and cannot be undone.",
     rejectModalConfirmText: 'Reject',
+    approveSuccessToast: '{policy} policy approved successfully.',
+    approveErrorToast: "Policy couldn't be approved due to a technical issue.",
+    rejectSuccessToast: '{policy} policy rejected successfully. Order denied.',
+    rejectErrorToast: "Policy couldn't be rejected due to a technical issue.",
+    pendingFurtherApprovalsAlert:
+      'Your approval is recorded. This order is still pending further approvals.',
   }
 
 export const defaultOrderStatusLabels: Required<OrderStatusSectionLabels> = {
   statusTitle: 'Status',
   orderPlacedStep: 'Order placed',
+  approvedStep: 'Approved',
+  pendingApprovalStep: 'Pending approval',
+  deniedStep: 'Denied',
+  paymentApprovedStep: 'Payment Approved',
   paymentPendingStep: 'Payment Pending',
+  paymentAuthorizationStep: 'Payment authorization',
+  paymentDeniedStep: 'Payment Denied',
+  readyForDeliveryStep: 'Ready for Delivery',
   handlingStep: 'Handling order',
+  canceledStep: 'Canceled',
   invoicedStep: 'Invoiced',
   deliveredStep: 'Delivered',
+  shipOrderStep: 'Ship order',
 }
 
 export const defaultOrderPaymentLabels: Required<OrderPaymentSectionLabels> = {
@@ -129,12 +181,33 @@ export const defaultOrderDeliveryLabels: Required<OrderDeliverySectionLabels> =
     eachLabel: 'Each',
     taxesLabel: 'Taxes',
     totalLabel: 'Total',
+    deliveryChannelLabel: 'Delivery',
+    pickupChannelLabel: 'Pickup',
+    takeAwayChannelLabel: 'Take away',
+    businessDaysZeroTemplate: 'Today',
+    businessDaysOneTemplate: 'In 1 business day',
+    businessDaysOtherTemplate: 'Up to {count} business days',
+    daysZeroTemplate: 'Today',
+    daysOneTemplate: 'In 1 day',
+    daysOtherTemplate: 'Up to {count} days',
+    hoursZeroTemplate: 'Now',
+    hoursOneTemplate: 'In 1 hour',
+    hoursOtherTemplate: 'Up to {count} hours',
+    minutesZeroTemplate: 'Now',
+    minutesOneTemplate: 'In 1 minute',
+    minutesOtherTemplate: 'Up to {count} minutes',
+    toNeighborhoodTemplate: 'to {neighborhood}',
   }
 
 export const defaultOrderSummaryLabels: Required<OrderSummarySectionLabels> = {
   summaryTitle: 'Summary',
   totalLabel: 'Total',
   interestLabel: 'Interest',
+  itemsTotalLabel: 'Items Total',
+  discountsTotalLabel: 'Discounts Total',
+  shippingTotalLabel: 'Shipping Total',
+  taxTotalLabel: 'Tax Total',
+  changeTotalLabel: 'Change Total',
 }
 
 export const defaultOrderOrderedByLabels: Required<OrderOrderedBySectionLabels> =

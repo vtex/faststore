@@ -61,6 +61,16 @@
       "title": "Pending Approval Label",
       "default": "Pending my approval"
     },
+    "statusFilterLabel": {
+      "type": "string",
+      "title": "Status Filter Label",
+      "default": "Status"
+    },
+    "orderDateFilterLabel": {
+      "type": "string",
+      "title": "Order Date Filter Label",
+      "default": "Order Date"
+    },
     "paginationOfLabel": {
       "type": "string",
       "title": "Pagination Of Label",

@@ -12,8 +12,23 @@ const sortKeys = new Set<SearchSort>([
   'score_desc',
 ])
 
+const customSortKeys = new Set<string>()
+
+/**
+ * Registers additional `sort` values accepted from the URL (e.g. `?sort=`),
+ * matching the keys a store added via a `StoreSort` schema extension and
+ * `@faststore/api`'s `customSortMap`. Call once at app setup. Without this,
+ * `parseSearchState` throws on any `sort` value outside the built-in set,
+ * even when the API itself already supports it.
+ */
+export const registerCustomSortKeys = (keys: string[]) => {
+  for (const key of keys) {
+    customSortKeys.add(key)
+  }
+}
+
 export const isSearchSort = (x: string): x is SearchSort =>
-  sortKeys.has(x as any)
+  sortKeys.has(x as any) || customSortKeys.has(x)
 
 export const removeFacet = (facets: Facet[], facet: Facet): Facet[] => {
   const { value } = facet

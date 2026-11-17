@@ -2,6 +2,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { IntelligentSearch } from '../../../../../src/platforms/vtex/clients/search'
 import type { GraphqlContext } from '../../../../../src/platforms/vtex'
+import type { Options } from '../../../../../src/typings/globals'
+import { NotFoundError } from '../../../../../src/platforms/errors'
 
 const searchOptions = {
   platform: 'vtex',
@@ -150,5 +152,138 @@ describe('IntelligentSearch — getSegmentLocale priority', () => {
     await is.products({ page: 0, count: 1 })
 
     expect(capturedLocale()).toBeNull()
+  })
+})
+
+describe('IntelligentSearch.pickupPointAvailability', () => {
+  it('requests pickup-point availability with the postal code and segment country', async () => {
+    const segment = Buffer.from(
+      JSON.stringify({
+        channel: 1,
+        cultureInfo: 'pt-BR',
+        countryCode: 'BRA',
+        facets: 'zip-code=01002020;country=BRA;productClusterIds=158;',
+      })
+    ).toString('base64')
+
+    fetchAPIMocked.mockResolvedValueOnce({ pickupPointDistances: [] })
+
+    const is = IntelligentSearch(
+      searchOptions,
+      makeCtx({
+        cookie: `vtex_segment=${segment}`,
+        localizationEnabled: false,
+      })
+    )
+
+    await is.pickupPointAvailability({ postalCode: '22271020' })
+
+    const [url] = fetchAPIMocked.mock.calls[0]
+    const parsed = new URL(url)
+
+    expect(parsed.pathname).toBe(
+      '/api/intelligent-search/v1/pickup-point-availability/productClusterIds/158/'
+    )
+    expect(parsed.searchParams.get('zip-code')).toBe('22271020')
+    expect(parsed.searchParams.get('country')).toBe('BRA')
+    expect(parsed.searchParams.get('deliveryZonesHash')).toBeNull()
+  })
+
+  it('omits the attribute path when the segment has no extra facets', async () => {
+    const segment = Buffer.from(
+      JSON.stringify({
+        channel: 1,
+        cultureInfo: 'pt-BR',
+        countryCode: 'BRA',
+        facets: 'zip-code=01002020;country=BRA;',
+      })
+    ).toString('base64')
+
+    fetchAPIMocked.mockResolvedValueOnce({ pickupPointDistances: [] })
+
+    const is = IntelligentSearch(
+      searchOptions,
+      makeCtx({ cookie: `vtex_segment=${segment}` })
+    )
+
+    await is.pickupPointAvailability({})
+
+    const [url] = fetchAPIMocked.mock.calls[0]
+    const parsed = new URL(url)
+
+    expect(parsed.pathname).toBe(
+      '/api/intelligent-search/v1/pickup-point-availability'
+    )
+    expect(parsed.searchParams.get('zip-code')).toBe('01002020')
+  })
+
+  it('sends the server sales channel instead of the segment cookie channel', async () => {
+    const segment = Buffer.from(
+      JSON.stringify({
+        channel: 1,
+        cultureInfo: 'pt-BR',
+        countryCode: 'BRA',
+        facets: 'zip-code=01002020;country=BRA;',
+      })
+    ).toString('base64')
+
+    fetchAPIMocked.mockResolvedValueOnce({ pickupPointDistances: [] })
+
+    const ctx = makeCtx({ cookie: `vtex_segment=${segment}` })
+    ctx.storage.channel.salesChannel = '2'
+
+    const is = IntelligentSearch(searchOptions, ctx)
+    await is.pickupPointAvailability({
+      postalCode: '01310100',
+      country: 'BRA',
+    })
+
+    const [url] = fetchAPIMocked.mock.calls[0]
+
+    expect(new URL(url).searchParams.get('sc')).toBe('2')
+  })
+})
+
+describe('IntelligentSearch.productsByIdentifier', () => {
+  const product = { productId: '1', items: [] }
+
+  it('drops a product that fails, by default', async () => {
+    fetchAPIMocked
+      .mockResolvedValueOnce(product)
+      .mockRejectedValueOnce(new Error('Service Unavailable'))
+    const is = IntelligentSearch(searchOptions, makeCtx({}))
+
+    await expect(
+      is.productsByIdentifier({ field: 'sku', values: ['1', '2'] })
+    ).resolves.toEqual([product])
+  })
+
+  it('rethrows an upstream failure with throwOnUpstreamError', async () => {
+    const failure = new Error('Service Unavailable')
+    fetchAPIMocked.mockResolvedValueOnce(product).mockRejectedValueOnce(failure)
+    const is = IntelligentSearch(searchOptions, makeCtx({}))
+
+    await expect(
+      is.productsByIdentifier({
+        field: 'sku',
+        values: ['1', '2'],
+        throwOnUpstreamError: true,
+      })
+    ).rejects.toBe(failure)
+  })
+
+  it('still drops a not-found product with throwOnUpstreamError', async () => {
+    fetchAPIMocked
+      .mockResolvedValueOnce(product)
+      .mockRejectedValueOnce(new NotFoundError('Not Found'))
+    const is = IntelligentSearch(searchOptions, makeCtx({}))
+
+    await expect(
+      is.productsByIdentifier({
+        field: 'sku',
+        values: ['1', '2'],
+        throwOnUpstreamError: true,
+      })
+    ).resolves.toEqual([product])
   })
 })

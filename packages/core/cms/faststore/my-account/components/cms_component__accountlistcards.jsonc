@@ -1,0 +1,90 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountListCards",
+  "$componentTitle": "Account List Cards",
+  "title": "Account List Cards",
+  "description": "Cards list section for My Account (Personal + Shared)",
+  "type": "object",
+  "properties": {
+    "pageTitle": {
+      "type": "string",
+      "title": "Page Title",
+      "default": "Cards"
+    },
+    "personalTabLabel": {
+      "type": "string",
+      "title": "Personal Tab Label",
+      "default": "Personal"
+    },
+    "sharedTabLabel": {
+      "type": "string",
+      "title": "Shared Tab Label",
+      "default": "Shared"
+    },
+    "searchPlaceholder": {
+      "type": "string",
+      "title": "Search Placeholder",
+      "default": "Search"
+    },
+    "paginationOfLabel": {
+      "type": "string",
+      "title": "Pagination Of Label",
+      "default": "of"
+    },
+    "previousPageLabel": {
+      "type": "string",
+      "title": "Previous Page Label",
+      "default": "Previous Page"
+    },
+    "nextPageLabel": {
+      "type": "string",
+      "title": "Next Page Label",
+      "default": "Next Page"
+    },
+    "noPersonalCardsLabel": {
+      "type": "string",
+      "title": "No Personal Cards Label",
+      "default": "You don't have any cards"
+    },
+    "noSharedCardsLabel": {
+      "type": "string",
+      "title": "No Shared Cards Label",
+      "default": "Your organization has no shared cards"
+    },
+    "noResultsLabel": {
+      "type": "string",
+      "title": "No Results Label",
+      "default": "No results found"
+    },
+    "errorTitleLabel": {
+      "type": "string",
+      "title": "Error Title Label",
+      "default": "We couldn't load your cards"
+    },
+    "tryAgainLabel": {
+      "type": "string",
+      "title": "Try Again Label",
+      "default": "Try again"
+    },
+    "sharedCardsTooltipLabel": {
+      "type": "string",
+      "title": "Shared Cards Tooltip Label",
+      "default": "These cards are shared by the organization you belong to. Changes can only be made by the administrator."
+    },
+    "defaultCardLabel": {
+      "type": "string",
+      "title": "Default Card Label",
+      "default": "Default"
+    },
+    "genericCardLabel": {
+      "type": "string",
+      "title": "Generic Card Label",
+      "description": "Shown in place of the brand name when the service doesn't return one.",
+      "default": "Card"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

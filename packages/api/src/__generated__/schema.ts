@@ -142,6 +142,16 @@ export type BusinessHour = {
   openingTime?: Maybe<Scalars['String']['output']>;
 };
 
+/**
+ * Whether a saved card is personally owned by the buyer or shared by their
+ * Organization/Contract. Resolved server-side by the Saved-cards service from
+ * the buyer's `useAdHocCard` role — never inferred client-side.
+ */
+export const enum CardOrigin {
+  Personal = 'personal',
+  Shared = 'shared'
+};
+
 /** Commercial Authorization dimension status. */
 export type CommercialAuthorizationDimensionStatus = {
   __typename?: 'CommercialAuthorizationDimensionStatus';
@@ -818,7 +828,10 @@ export type PickupPoints = {
   __typename?: 'PickupPoints';
   /** List of pickup point distances for the given location. */
   pickupPointDistances?: Maybe<Array<Maybe<PickupPointDistance>>>;
-  /** Hash of the pickup points data. */
+  /**
+   * Not returned by Intelligent Search pickup-point-availability. Always null.
+   * @deprecated Not returned by Intelligent Search pickup-point-availability. Always null.
+   */
   pickupPointsHash?: Maybe<Scalars['String']['output']>;
 };
 
@@ -914,8 +927,19 @@ export type Query = {
   availableContracts: Array<StoreContract>;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /**
+   * Whether the current user holds the ad-hoc card platform permission, which
+   * gates personal card management for Unit/Contract-affiliated buyers.
+   *
+   * Resolved from the user's roles by License Manager — it is not a session token
+   * claim. Fails open (`true`) when the permission service is unreachable, so an
+   * outage never locks buyers out of their own cards.
+   */
+  hasAdHocCardAccess: Scalars['Boolean']['output'];
   /** Returns whether the current authenticated user belongs to a B2B organization unit. */
   isOrganizationMember: Scalars['Boolean']['output'];
+  /** Returns the list of saved credit cards for the current user. */
+  listCreditCards?: Maybe<SavedCardListResult>;
   /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
   /** Returns the list of Quotes that the authenticated Buyer can view. */
@@ -924,7 +948,7 @@ export type Query = {
   orderEntryOperation?: Maybe<StoreOrderEntryOperationStatus>;
   /** Returns the items in an orderForm by its ID. */
   orderFormItems: Array<StoreOrderFormCartItem>;
-  /** Returns a list of pickup points near to the given geo coordinates. */
+  /** Returns pickup points that have products available for the shopper location and sales channel. */
   pickupPoints?: Maybe<PickupPoints>;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
@@ -1010,7 +1034,10 @@ export type QueryOrderFormItemsArgs = {
 
 
 export type QueryPickupPointsArgs = {
+  channel?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
   geoCoordinates?: InputMaybe<IStoreGeoCoordinates>;
+  postalCode?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1103,6 +1130,43 @@ export type SkuSpecificationValue = {
   id?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   originalName?: Maybe<Scalars['String']['output']>;
+};
+
+/** A saved payment card returned by the Saved-cards service. */
+export type SavedCard = {
+  __typename?: 'SavedCard';
+  /** Account identifier that owns the card. */
+  accountId?: Maybe<Scalars['String']['output']>;
+  /** First digits of the card (BIN). */
+  bin?: Maybe<Scalars['String']['output']>;
+  /**
+   * Buyer- or admin-assigned nickname for the card (e.g. "Team lunch card"), when
+   * the Saved-cards service has one on file. Absent for most cards — callers
+   * should fall back to `paymentSystemName` for display.
+   */
+  cardLabel?: Maybe<Scalars['String']['output']>;
+  /** Masked card number, per PCI display rules. */
+  cardNumber?: Maybe<Scalars['String']['output']>;
+  /** Whether this card is active. */
+  isActive?: Maybe<Scalars['Boolean']['output']>;
+  /** Whether this card is the account default. */
+  isDefault?: Maybe<Scalars['Boolean']['output']>;
+  /**
+   * Whether this card is personally owned by the buyer or shared by their
+   * Organization/Contract.
+   */
+  origin: CardOrigin;
+  /** Numeric payment system identifier. */
+  paymentSystem?: Maybe<Scalars['String']['output']>;
+  /** Human-readable payment system name (e.g. Visa, Mastercard). */
+  paymentSystemName?: Maybe<Scalars['String']['output']>;
+};
+
+/** Result of listing the current user's saved credit cards. */
+export type SavedCardListResult = {
+  __typename?: 'SavedCardListResult';
+  /** The list of saved credit cards. */
+  list?: Maybe<Array<SavedCard>>;
 };
 
 /** Search result. */
@@ -1296,6 +1360,7 @@ export type StoreB2B = {
   contractName?: Maybe<Scalars['String']['output']>;
   customerId: Scalars['String']['output'];
   firstName?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Always true when `b2b` is set: a B2B session is identified by `unitId` and `customerId`. Check that `b2b` is not null instead. Scheduled for removal in the next major. */
   isRepresentative?: Maybe<Scalars['Boolean']['output']>;
   lastName?: Maybe<Scalars['String']['output']>;
   organizationManager?: Maybe<Scalars['Boolean']['output']>;
@@ -1345,13 +1410,24 @@ export type StoreCollection = {
   __typename?: 'StoreCollection';
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /**
+   * Slug the catalog resolves for the requested locale, lowercased.
+   * Meant for the page's canonical URL: `slug` echoes the path the shopper
+   * visited, and by-linkid matches case-insensitively, so without this every
+   * casing variant would claim to be canonical. Unlike `otherLocales`, it may fall
+   * back to a slug registered for another locale, so it must never be used to
+   * build hreflang annotations.
+   */
+  canonicalSlug?: Maybe<Scalars['String']['output']>;
   /** Collection ID. */
   id: Scalars['ID']['output'];
   /** Collection meta information. Used for search. */
   meta: StoreCollectionMeta;
   /**
    * Localized versions of this collection for all available locales.
-   * Only populated when localization is enabled.
+   * Only announces slugs the catalog has registered for each locale, so it is safe
+   * to build hreflang annotations from. Only populated when localization is
+   * enabled.
    */
   otherLocales?: Maybe<Array<StoreCollectionLocale>>;
   /** Meta tag data. */
@@ -1445,6 +1521,8 @@ export type StoreContract = {
   id: Scalars['ID']['output'];
   /** Indicates whether this contract is the one currently active in the session. */
   isActive: Scalars['Boolean']['output'];
+  /** Indicates whether this contract is the Organization Unit's default contract. */
+  isDefault: Scalars['Boolean']['output'];
 };
 
 /** Currency information. */
@@ -1713,6 +1791,14 @@ export type StoreProduct = {
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /**
+   * Slug for the store's default locale, including the SKU ID suffix.
+   * Navigation fallback for the locale selector when the target locale is absent
+   * from `otherLocales`. Best-effort: it may point at a slug the catalog has not
+   * registered for the default locale, so it must never be used to build hreflang
+   * annotations. Only populated when localization is enabled.
+   */
+  defaultLocaleSlug?: Maybe<Scalars['String']['output']>;
   /** Delivery Promise product's badge. */
   deliveryPromiseBadges?: Maybe<Array<Maybe<DeliveryPromiseBadge>>>;
   /** Product description. */
@@ -1738,7 +1824,7 @@ export type StoreProduct = {
   otherLocales?: Maybe<Array<StoreProductLocale>>;
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String']['output'];
-  /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
+  /** The product's release date, passed through exactly as the catalog returns it, without validation or normalization. Usually epoch milliseconds (e.g. "1774224000000"), but some accounts store an ISO 8601 string, and the value may be empty. Parse and validate it before use. */
   releaseDate: Scalars['String']['output'];
   /** Array with review information. */
   review: Array<StoreReview>;
@@ -1761,6 +1847,15 @@ export type StoreProduct = {
 export type StoreProductImageArgs = {
   context?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** A product cluster (collection) associated with a product group. */
+export type StoreProductCluster = {
+  __typename?: 'StoreProductCluster';
+  /** Product cluster ID. */
+  id: Scalars['String']['output'];
+  /** Product cluster name. */
+  name: Scalars['String']['output'];
 };
 
 /** Product connections, including pagination information and products returned by the query. */
@@ -1790,6 +1885,8 @@ export type StoreProductGroup = {
   hasVariant: Array<StoreProduct>;
   /** Product group name. */
   name: Scalars['String']['output'];
+  /** Product clusters (collections) the product group belongs to. */
+  productClusters: Array<StoreProductCluster>;
   /** Product group ID. */
   productGroupID: Scalars['String']['output'];
   /**

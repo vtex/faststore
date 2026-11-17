@@ -1,4 +1,5 @@
 import { Icon, IconButton, Link } from '@faststore/ui'
+import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
 
 export interface OrganizationDrawerFooterProps {
   orgName: string
@@ -6,6 +7,8 @@ export interface OrganizationDrawerFooterProps {
   userEmail?: string
   showManageLink?: boolean
   manageUrl?: string
+  manageLabel?: string
+  logoutLabel?: string
   onLogoutClick?: () => void
 }
 
@@ -15,8 +18,16 @@ export const OrganizationDrawerFooter = ({
   userEmail,
   showManageLink,
   manageUrl,
+  manageLabel: manageLabelProp,
+  logoutLabel: logoutLabelProp,
   onLogoutClick,
 }: OrganizationDrawerFooterProps) => {
+  const navigationLabels = useAccountNavigationLabels()
+  const manageLabel =
+    manageLabelProp ?? navigationLabels?.manageLabel ?? 'Manage'
+  const logoutLabel =
+    logoutLabelProp ?? navigationLabels?.logoutLabel ?? 'Logout'
+
   return (
     <div data-fs-organization-drawer-footer>
       <div data-fs-organization-drawer-footer-org>
@@ -31,7 +42,7 @@ export const OrganizationDrawerFooter = ({
         </div>
         {showManageLink && manageUrl && (
           <Link href={manageUrl} data-fs-organization-drawer-footer-manage>
-            Manage
+            {manageLabel}
           </Link>
         )}
       </div>
@@ -45,7 +56,7 @@ export const OrganizationDrawerFooter = ({
         </div>
         <IconButton
           data-fs-organization-drawer-footer-logout
-          aria-label="Log out"
+          aria-label={logoutLabel}
           icon={<Icon name="SignOut" width={20} height={20} />}
           onClick={onLogoutClick}
         />

@@ -7,20 +7,34 @@ import {
   type AccountOrderDetailsPageData,
   useAccountPageData,
 } from 'src/sdk/account/accountPageContext'
-import type { OrderStatusKey } from 'src/utils/userOrderStatus'
+import type {
+  OrderStatusCmsLabels,
+  OrderStatusKey,
+} from 'src/utils/userOrderStatus'
 import Section from '../Section'
 
-export type AccountOrderStatusProps = OrderStatusSectionLabels
+export type AccountOrderStatusProps = OrderStatusSectionLabels &
+  OrderStatusCmsLabels
 
 const AccountOrderStatus = ({
   statusTitle = defaultOrderStatusLabels.statusTitle,
   orderPlacedStep = defaultOrderStatusLabels.orderPlacedStep,
+  approvedStep = defaultOrderStatusLabels.approvedStep,
+  pendingApprovalStep = defaultOrderStatusLabels.pendingApprovalStep,
+  deniedStep = defaultOrderStatusLabels.deniedStep,
+  paymentApprovedStep = defaultOrderStatusLabels.paymentApprovedStep,
   paymentPendingStep = defaultOrderStatusLabels.paymentPendingStep,
+  paymentAuthorizationStep = defaultOrderStatusLabels.paymentAuthorizationStep,
+  paymentDeniedStep = defaultOrderStatusLabels.paymentDeniedStep,
+  readyForDeliveryStep = defaultOrderStatusLabels.readyForDeliveryStep,
   handlingStep = defaultOrderStatusLabels.handlingStep,
+  canceledStep = defaultOrderStatusLabels.canceledStep,
   invoicedStep = defaultOrderStatusLabels.invoicedStep,
   deliveredStep = defaultOrderStatusLabels.deliveredStep,
+  shipOrderStep = defaultOrderStatusLabels.shipOrderStep,
 }: AccountOrderStatusProps) => {
-  const { order } = useAccountPageData<AccountOrderDetailsPageData>()
+  const { order, orderStatusLabels } =
+    useAccountPageData<AccountOrderDetailsPageData>()
 
   if (!order) {
     return null
@@ -31,13 +45,23 @@ const AccountOrderStatus = ({
       <StatusCard
         status={order.status as OrderStatusKey}
         creationDate={order.creationDate}
+        statusLabels={orderStatusLabels}
         labels={{
           statusTitle,
           orderPlacedStep,
+          approvedStep,
+          pendingApprovalStep,
+          deniedStep,
+          paymentApprovedStep,
           paymentPendingStep,
+          paymentAuthorizationStep,
+          paymentDeniedStep,
+          readyForDeliveryStep,
           handlingStep,
+          canceledStep,
           invoicedStep,
           deliveredStep,
+          shipOrderStep,
         }}
       />
     </Section>

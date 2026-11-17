@@ -1,6 +1,7 @@
 import type { GetStaticProps } from 'next'
 import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { OrganizationJsonLdProps } from 'next-seo'
+import { useRouter } from 'next/router'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
@@ -29,6 +30,7 @@ function Page({
   globalSections: globalSectionsProp,
   serverData,
 }: Props) {
+  const router = useRouter()
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
   const context = {
@@ -54,7 +56,8 @@ function Page({
     {} as Record<string, string>
   )
 
-  const storeUrl = getStoreURL()
+  const storeUrl = getStoreURL(router.locale)
+  const searchStoreUrl = storeUrl.replace(/\/$/, '')
 
   return (
     <>
@@ -78,7 +81,7 @@ function Page({
         url={storeUrl}
         potentialActions={[
           {
-            target: `${storeUrl}/s/?q`,
+            target: `${searchStoreUrl}/s/?q`,
             queryInput: 'search_term_string',
           },
         ]}

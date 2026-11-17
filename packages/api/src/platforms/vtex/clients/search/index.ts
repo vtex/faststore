@@ -1,6 +1,8 @@
 import pLimit from 'p-limit'
+import type { Options } from '../../../../typings/globals'
 
 import type { GraphqlContext } from '../../'
+import { isNotFoundError } from '../../../errors'
 import { getWithCookie } from '../../utils/cookies'
 import type { SelectedFacet } from '../../utils/facets'
 import { isLocalizationEnabled } from '../../utils/localization'
@@ -64,6 +66,40 @@ export interface ProductsByIdentifierArgs {
   values: string[]
   showInvisibleItems?: boolean
   hideUnavailableItems?: boolean
+  /**
+   * Rethrow upstream failures (5xx, timeouts, network) instead of dropping the
+   * product, so callers can tell a failure from a product that does not exist.
+   * A not-found answer is still dropped.
+   */
+  throwOnUpstreamError?: boolean
+}
+
+export interface PickupPointAvailabilityArgs {
+  postalCode?: string
+  country?: string
+  coordinates?: string
+}
+
+export interface PickupPointAvailabilityResult {
+  pickupPointDistances?: Array<{
+    pickupId?: string
+    distance?: number
+    pickupName?: string
+    isActive?: boolean
+    address?: {
+      city?: string
+      state?: string
+      number?: string
+      street?: string
+      postalCode?: string
+      neighborhood?: string
+    }
+    businessHours?: Array<{
+      dayOfWeek?: number
+      openingTime?: string
+      closingTime?: string
+    }>
+  }>
 }
 
 export const isFacetBoolean = (
@@ -185,6 +221,7 @@ export const IntelligentSearch = (
     values,
     showInvisibleItems,
     hideUnavailableItems: hideUnavailable,
+    throwOnUpstreamError = false,
   }: ProductsByIdentifierArgs): Promise<Product[]> => {
     const limit = pLimit(PRODUCTS_BY_IDENTIFIER_CONCURRENCY)
 
@@ -198,7 +235,11 @@ export const IntelligentSearch = (
               hideUnavailableItems: hideUnavailable,
               showInvisibleItems,
             })
-          } catch {
+          } catch (error) {
+            if (throwOnUpstreamError && !isNotFoundError(error)) {
+              throw error
+            }
+
             return null
           }
         })
@@ -242,6 +283,26 @@ export const IntelligentSearch = (
   const facets = (args: Omit<SearchArgs, 'type'>) =>
     search<FacetSearchResult>({ ...args, type: 'facets' })
 
+  const pickupPointAvailability = ({
+    postalCode,
+    country,
+    coordinates,
+  }: PickupPointAvailabilityArgs): Promise<PickupPointAvailabilityResult> => {
+    const request = buildIntelligentSearchRequest({
+      endpoint: 'pickup-point-availability',
+      segment,
+      defaults: requestDefaults(),
+      args: { postalCode, country, coordinates },
+    })
+
+    const path = request.path ? `/${request.path}` : ''
+
+    return fetchAPI(
+      `${base}/api/intelligent-search/v1/pickup-point-availability${path}?${request.params.toString()}`,
+      { headers }
+    )
+  }
+
   const productCount = (
     args: Omit<SearchArgs, 'type' | 'page' | 'count' | 'sort'>
   ): Promise<ProductCountResult> => {
@@ -266,5 +327,6 @@ export const IntelligentSearch = (
     suggestedTerms,
     topSearches,
     productCount,
+    pickupPointAvailability,
   }
 }

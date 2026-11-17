@@ -35,7 +35,7 @@ export const myAccountCmsPageTemplate = ({
     pageSections,
     navigationLabels,
     accountName,
-    isRepresentative,
+    isB2BBuyer,
   }: MyAccountCmsPageProps) {
     const { sections: globalSections, settings: globalSettings } =
       globalSectionsProp ?? {}
@@ -48,7 +48,7 @@ export const myAccountCmsPageTemplate = ({
         >
           <Layout
             accountName={accountName}
-            isRepresentative={isRepresentative}
+            isB2BBuyer={isB2BBuyer}
             navigationLabels={navigationLabels}
           >
             ${beforePath ? '<BeforeSection />' : ''}

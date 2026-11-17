@@ -1,7 +1,8 @@
 import { logger, OTELAPI } from '@faststore/diagnostics'
 import { name, version } from '../../package.json' with { type: 'json' }
 
-const OTELLogger = logger('@faststore/api')
+/** OpenTelemetry log emitter; a no-op while telemetry is disabled. */
+export const OTELLogger = logger('@faststore/api')
 
 export const ResolverTrace = <
   TContext extends {

@@ -3,8 +3,6 @@ import { useCallback, useRef, useState } from 'react'
 
 import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
-import { Skeleton as UISkeleton } from '@faststore/ui'
-import { OrganizationSignInButton } from 'src/components/account/Drawer/OrganizationSignInButton'
 import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
@@ -13,10 +11,12 @@ import LocalizationButton from 'src/components/ui/LocalizationButton'
 import Logo from 'src/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
+import { isSignInAreaResolved } from 'src/sdk/session/isSignInAreaResolved'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 import storeConfig from 'discovery.config'
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
+import { NavbarAccountArea } from './NavbarAccountArea'
 
 const NavbarLinks = dynamic(
   () =>
@@ -121,16 +121,20 @@ function Navbar({
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
   const { isDesktop } = useScreenResize()
-  const { b2b, isSessionReady } = useSession()
+  const { b2b, isSessionReady, hasValidated } = useSession()
+  const isSignInResolved = isSignInAreaResolved({
+    isSessionReady,
+    hasValidated,
+  })
 
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
   const isFaststoreMyAccountEnabled =
     storeConfig.experimental?.enableFaststoreMyAccount
 
-  const isRepresentative = b2b?.isRepresentative
+  const isB2BBuyer = Boolean(b2b)
 
-  const isOrganizationEnabled = isFaststoreMyAccountEnabled && isRepresentative
+  const isOrganizationEnabled = isFaststoreMyAccountEnabled && isB2BBuyer
   const isLocalizationEnabled =
     storeConfig.localization?.enabled &&
     localizationButton?.shouldDisplayLocalizationButton
@@ -232,22 +236,16 @@ function Navbar({
               />
             )}
 
-            {isDesktop &&
-              (isSessionReady ? (
-                isOrganizationEnabled ? (
-                  <OrganizationSignInButton
-                    icon={signInButton.icon}
-                    isRepresentative={isRepresentative}
-                  />
-                ) : (
-                  <ButtonSignIn.Component {...signInButton} />
-                )
-              ) : (
-                <UISkeleton
-                  data-fs-navbar-signin-skeleton
-                  size={{ width: '140px', height: '2.5rem' }}
-                />
-              ))}
+            {isDesktop && (
+              <NavbarAccountArea
+                isSignInResolved={isSignInResolved}
+                isOrganizationEnabled={isOrganizationEnabled}
+                isB2BBuyer={isB2BBuyer}
+                signInButton={signInButton}
+                ButtonSignIn={ButtonSignIn}
+                skeletonAttr="data-fs-navbar-signin-skeleton"
+              />
+            )}
 
             <CartToggle {...cart} />
           </NavbarButtons.Component>
