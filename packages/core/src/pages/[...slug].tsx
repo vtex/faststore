@@ -247,7 +247,10 @@ export const getStaticProps: GetStaticProps<
     },
     // Without a window, the first page's products (price, stock, order) stay
     // frozen at the state of their first render until the next deploy.
-    revalidate: toRevalidate(storeConfig.experimental.revalidatePLP),
+    revalidate: toRevalidate(
+      storeConfig.experimental.revalidatePLP,
+      'experimental.revalidatePLP'
+    ),
   }
 }
 

@@ -1,27 +1,43 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { toRevalidate } from 'src/utils/toRevalidate'
 
+const KEY = 'experimental.revalidatePLP'
+
+afterEach(() => {
+  vi.restoreAllMocks()
+})
+
 describe('toRevalidate', () => {
-  it('returns the number of seconds when it is positive', () => {
-    expect(toRevalidate(300)).toBe(300)
-    expect(toRevalidate(1)).toBe(1)
+  it('returns the number of seconds when it is a positive integer', () => {
+    expect(toRevalidate(300, KEY)).toBe(300)
+    expect(toRevalidate(1, KEY)).toBe(1)
   })
 
-  it('returns false when the window is disabled or unset', () => {
-    expect(toRevalidate(false)).toBe(false)
-    expect(toRevalidate(undefined)).toBe(false)
-    expect(toRevalidate(null)).toBe(false)
+  it('returns false without a warning when the window is disabled or unset', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    expect(toRevalidate(false, KEY)).toBe(false)
+    expect(toRevalidate(undefined, KEY)).toBe(false)
+    expect(toRevalidate(null, KEY)).toBe(false)
+    expect(warn).not.toHaveBeenCalled()
   })
 
-  it('returns false for values Next.js would reject', () => {
-    expect(toRevalidate(0)).toBe(false)
-    expect(toRevalidate(-60)).toBe(false)
-    expect(toRevalidate(90.5)).toBe(false)
-    expect(toRevalidate(0.5)).toBe(false)
-    expect(toRevalidate(Number.NaN)).toBe(false)
-    expect(toRevalidate(Number.POSITIVE_INFINITY)).toBe(false)
-    expect(toRevalidate('300')).toBe(false)
-    expect(toRevalidate(true)).toBe(false)
+  it.each([
+    // Next.js throws for these.
+    0,
+    -60,
+    90.5,
+    0.5,
+    Number.NaN,
+    Number.POSITIVE_INFINITY,
+    '300',
+    // Next.js reads `true` as 1 second; the config expects explicit seconds.
+    true,
+  ])('returns false and warns for %s', (value) => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    expect(toRevalidate(value, KEY)).toBe(false)
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining(KEY))
   })
 })
