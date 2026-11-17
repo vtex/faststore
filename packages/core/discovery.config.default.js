@@ -196,6 +196,8 @@ module.exports = {
     enableRedirects: false,
     // ISR window (seconds) for notFound PDP/PLP paths.
     revalidate404: 60 * 5, // 5 minutes
+    // ISR window (seconds) for PLP pages. Unset keeps them static until the next deploy.
+    // revalidatePLP: 60 * 5,
     enableSearchSSR: false,
     enableFaststoreMyAccount: false,
     useIsGiftFromOrderForm: false,
