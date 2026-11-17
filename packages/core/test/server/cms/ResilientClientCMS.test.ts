@@ -314,6 +314,14 @@ describe('ResilientClientCMS', () => {
         page
       )
       expect(baseFetch).toHaveBeenCalledTimes(4)
+      // The retry after the cooldown uses a new cache-busting value.
+      expect(paramsOfCall(3)?.get(CACHE_BUST_PARAM)).not.toBe(
+        paramsOfCall(1)?.get(CACHE_BUST_PARAM)
+      )
+    })
+
+    it('lasts at least one cache-busting window', () => {
+      expect(RETRY_COOLDOWN_MS).toBeGreaterThanOrEqual(CACHE_BUST_WINDOW_MS)
     })
   })
 

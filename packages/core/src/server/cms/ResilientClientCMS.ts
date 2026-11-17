@@ -79,8 +79,13 @@ const assertValidBody = <T>(body: T, path: string): T => {
 
 /**
  * How long a URL whose cache-busting retry also failed skips further retries.
+ *
+ * Must be at least `CACHE_BUST_WINDOW_MS`: the next retry after the cooldown
+ * has to fall in a later window, so it uses a new cache-busting value instead
+ * of the one whose cached response just failed. Derived from it to keep that
+ * invariant when either value changes.
  */
-export const RETRY_COOLDOWN_MS = 60 * 1000
+export const RETRY_COOLDOWN_MS = CACHE_BUST_WINDOW_MS
 
 /**
  * `ClientCMS` that retries a request once, bypassing CDN caches, when the
