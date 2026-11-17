@@ -610,33 +610,31 @@ export const Query = {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
-      let ruleForAuthorization: ProcessOrderAuthorizationRule | null = null
+      const purchaseAgentUserId =
+        order.purchaseAgentData?.purchaseAgents?.[0]?.userId
 
-      try {
+      const [ruleForAuthorization, shopperSearch] = await Promise.all([
         /**
          * This endpoint could return a 404 error if has not an authorization
          * for the order, so we catch the error and return null
          * instead of throwing an error.
          */
-        const commercialAuth =
-          await commerce.oms.getCommercialAuthorizationsByOrderId({ orderId })
-
-        ruleForAuthorization = extractRuleForAuthorization(commercialAuth)
-      } catch (err: any) {}
-
-      /**
-       * Orders not placed through the B2B checkout (e.g. headless order
-       * ingestion) have no purchase agent. The shopper only feeds the
-       * "Ordered by" card, so a missing agent or a failed lookup must not
-       * fail the whole order.
-       */
-      const purchaseAgentUserId =
-        order.purchaseAgentData?.purchaseAgents?.[0]?.userId
-      const shopperSearch = purchaseAgentUserId
-        ? await commerce.masterData
-            .getShopperById({ userId: purchaseAgentUserId })
-            .catch(() => null)
-        : null
+        commerce.oms
+          .getCommercialAuthorizationsByOrderId({ orderId })
+          .then(extractRuleForAuthorization)
+          .catch((): ProcessOrderAuthorizationRule | null => null),
+        /**
+         * Orders not placed through the B2B checkout (e.g. headless order
+         * ingestion) have no purchase agent. The shopper only feeds the
+         * "Ordered by" card, which falls back to clientProfileData, so a
+         * missing agent or a failed lookup must not fail the whole order.
+         */
+        purchaseAgentUserId
+          ? commerce.masterData
+              .getShopperById({ userId: purchaseAgentUserId })
+              .catch(() => null)
+          : null,
+      ])
       const shopper = shopperSearch?.[0]
 
       return {
