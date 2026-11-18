@@ -59,6 +59,11 @@ function Page({
 
   const storeUrl = getStoreURL(router.locale)
 
+  // `||` so empty CMS fields fall back to the store defaults.
+  const title = settings?.seo?.title || storeConfig.seo.title
+  const description = settings?.seo?.description || storeConfig.seo.description
+  const canonical = settings?.seo?.canonical || storeUrl
+
   // Google uses the WebSite structured data to pick the site name shown in
   // search results. The sitelinks search box (`potentialAction`) is not
   // emitted: Google retired it. next-seo's SiteLinksSearchBoxJsonLd always
@@ -75,16 +80,15 @@ function Page({
     <>
       {/* SEO */}
       <NextSeo
-        title={settings?.seo?.title || storeConfig.seo.title}
-        description={settings?.seo?.description || storeConfig.seo?.description}
+        title={title}
+        description={description}
         titleTemplate={titleTemplate}
-        canonical={settings?.seo?.canonical || storeUrl}
+        canonical={canonical}
         openGraph={{
           type: 'website',
-          url: storeUrl,
-          title: settings?.seo?.title || storeConfig.seo.title,
-          description:
-            settings?.seo?.description || storeConfig.seo.description,
+          url: canonical,
+          title,
+          description,
         }}
       />
       <Head>

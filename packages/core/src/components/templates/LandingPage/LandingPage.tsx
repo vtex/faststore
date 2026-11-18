@@ -67,20 +67,24 @@ export default function LandingPage({
 
   const storeURL = getStoreURL(router.locale).replace(/\/$/, '')
 
+  // `||` so empty CMS fields fall back to the store defaults.
+  const title = settings?.seo?.title || storeConfig.seo.title
+  const description = settings?.seo?.description || storeConfig.seo.description
+  const canonical = settings?.seo?.canonical || `${storeURL}/${slug}`
+
   return (
     <>
       {/* SEO */}
       <NextSeo
-        title={settings?.seo?.title || storeConfig.seo.title}
-        description={settings?.seo?.description || storeConfig.seo?.description}
+        title={title}
+        description={description}
         titleTemplate={titleTemplate}
-        canonical={settings?.seo?.canonical || `${storeURL}/${slug}`}
+        canonical={canonical}
         openGraph={{
           type: 'website',
-          url: storeURL,
-          title: settings?.seo?.title || storeConfig.seo.title,
-          description:
-            settings?.seo?.description || storeConfig.seo.description,
+          url: canonical,
+          title,
+          description,
         }}
       />
 

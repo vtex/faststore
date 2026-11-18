@@ -123,6 +123,19 @@ describe('Product Page Seo', () => {
         expect(jsons.find((json) => json['@type'] === 'BreadcrumbList')).to.not
           .null
       })
+
+    // The last breadcrumb item is the product: it must point to the canonical
+    // URL, not to the SKU path.
+    cy.get('link[rel="canonical"]').then(($link) => {
+      cy.get('script[type="application/ld+json"]').should(($el) => {
+        const [...jsons] = $el.map((idx) => JSON.parse($el[idx].innerHTML))
+        const { itemListElement } = jsons.find(
+          (json) => json['@type'] === 'BreadcrumbList'
+        )
+
+        expect(itemListElement.at(-1).item).to.eq($link.attr('href'))
+      })
+    })
   })
 
   it('has OpenGraph and Twitter tags', () => {
