@@ -2,6 +2,7 @@ import { isNotFoundError } from '@faststore/api'
 import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
+import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import type { ComponentType } from 'react'
@@ -13,12 +14,10 @@ import type {
 } from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
 import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/components/sections/CrossSellingShelf/OverriddenDefaultCrossSellingShelf'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductDetails as ProductDetails } from 'src/components/sections/ProductDetails/OverriddenDefaultProductDetails'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
@@ -58,6 +57,25 @@ type StoreConfig = typeof storeConfig & {
     enableClientOffer?: boolean
   }
 }
+
+// Loaded on demand so the rich text editor they depend on stays out of the
+// initial PDP bundle, as in the other pages' CMS components.
+const BannerNewsletter = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "BannerNewsletter" */
+      'src/components/sections/BannerNewsletter/BannerNewsletter'
+    ),
+  { ssr: false }
+)
+const Newsletter = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "Newsletter" */
+      'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
+    ).then((mod) => mod.OverriddenDefaultNewsletter),
+  { ssr: false }
+)
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
