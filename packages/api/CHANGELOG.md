@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.11.4-dev.2](https://github.com/vtex/faststore/compare/v4.11.4-dev.1...v4.11.4-dev.2) (2026-11-17)
+
+### Bug Fixes
+
+- **api:** load order details for orders without a purchase agent ([#3594](https://github.com/vtex/faststore/issues/3594)) ([f3d30ab](https://github.com/vtex/faststore/commit/f3d30ab0434c8cdf9069b4e0d82fbcc321ec2a71))
+
 ## [4.11.4-dev.1](https://github.com/vtex/faststore/compare/v4.11.4-dev.0...v4.11.4-dev.1) (2026-11-16)
 
 ### Bug Fixes

@@ -22,6 +22,7 @@ import type {
 import { recommendations } from './recommendations'
 import {
   BadRequestError,
+  type FastStoreError,
   ForbiddenError,
   NotFoundError,
   isForbiddenError,
@@ -182,6 +183,16 @@ async function fetchProductBySlugFallback(
 
   return enhanceSku(pickBestSku(product.items), product)
 }
+
+/**
+ * Safe subset of a failed lookup's error for logging: the HTTP status and
+ * error type only. The message is left out because fetchAPI fills it with
+ * the raw upstream response body, which may carry customer data.
+ */
+const describeLookupError = (err: unknown) => ({
+  status: (err as FastStoreError)?.extensions?.status,
+  type: (err as FastStoreError)?.extensions?.type ?? (err as Error)?.name,
+})
 
 export const Query = {
   product: async (
@@ -610,25 +621,46 @@ export const Query = {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
-      let ruleForAuthorization: ProcessOrderAuthorizationRule | null = null
+      const purchaseAgentUserId =
+        order.purchaseAgentData?.purchaseAgents?.[0]?.userId
 
-      try {
+      const [ruleForAuthorization, shopperSearch] = await Promise.all([
         /**
-         * This endpoint could return a 404 error if has not an authorization
-         * for the order, so we catch the error and return null
-         * instead of throwing an error.
+         * This endpoint returns 404 when the order has no authorization, so
+         * any failure resolves to null instead of failing the order. Only
+         * failures other than 404 are logged.
          */
-        const commercialAuth =
-          await commerce.oms.getCommercialAuthorizationsByOrderId({ orderId })
-
-        ruleForAuthorization = extractRuleForAuthorization(commercialAuth)
-      } catch (err: any) {}
-
-      const shopperSearch =
-        (await commerce.masterData.getShopperById({
-          userId: order.purchaseAgentData?.purchaseAgents?.[0]?.userId ?? '',
-        })) ?? []
-      const shopper = shopperSearch[0] ?? {}
+        commerce.oms
+          .getCommercialAuthorizationsByOrderId({ orderId })
+          .then(extractRuleForAuthorization)
+          .catch((err): ProcessOrderAuthorizationRule | null => {
+            if (!isNotFoundError(err)) {
+              console.warn(
+                `[userOrder] failed to load the commercial authorization for order ${orderId}:`,
+                describeLookupError(err)
+              )
+            }
+            return null
+          }),
+        /**
+         * Orders not placed through the B2B checkout (e.g. headless order
+         * ingestion) have no purchase agent. The shopper only feeds the
+         * "Ordered by" card, which falls back to clientProfileData, so a
+         * missing agent or a failed lookup must not fail the whole order.
+         */
+        purchaseAgentUserId
+          ? commerce.masterData
+              .getShopperById({ userId: purchaseAgentUserId })
+              .catch((err) => {
+                console.warn(
+                  `[userOrder] failed to load the shopper for order ${orderId}:`,
+                  describeLookupError(err)
+                )
+                return null
+              })
+          : null,
+      ])
+      const shopper = shopperSearch?.[0]
 
       return {
         orderId: order.orderId,
