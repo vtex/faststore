@@ -16,14 +16,15 @@ export const CACHE_BUST_PARAM = 'cb'
  */
 export const CACHE_BUST_WINDOW_MS = 60 * 1000
 
-export class InvalidCMSResponseError extends Error {
-  constructor(path: string) {
-    super(`Invalid CMS API response body for "${path}"`)
-    this.name = 'InvalidCMSResponseError'
-    // Keeps `instanceof` working when compiled to ES5.
-    Object.setPrototypeOf(this, InvalidCMSResponseError.prototype)
-  }
-}
+/**
+ * How long a URL whose cache-busting retry also failed skips further retries.
+ *
+ * Must be at least `CACHE_BUST_WINDOW_MS`: the next retry after the cooldown
+ * has to fall in a later window, so it uses a new cache-busting value instead
+ * of the one whose cached response just failed. Derived from it to keep that
+ * invariant when either value changes.
+ */
+export const RETRY_COOLDOWN_MS = CACHE_BUST_WINDOW_MS
 
 type ErrorShape = {
   name?: unknown
@@ -48,52 +49,45 @@ const decodingErrorCode = (error: unknown) => {
 }
 
 /**
- * Whether `error` means the response arrived but its body is unusable:
- * - `SyntaxError`: `response.json()` with the native fetch. Checked by name so
- *   it also matches errors created in another realm (e.g. a test vm context).
- * - `invalid-json`: the same failure with `node-fetch`, the fallback
- *   `@vtex/client-cms` uses when there is no global fetch.
+ * Whether `error` means the response arrived but its body could not be parsed
+ * or decoded:
+ * - `SyntaxError`: `response.json()` on a body that is not valid JSON. Checked
+ *   by name so it also matches errors created in another realm (e.g. a test vm
+ *   context).
  * - A decoding error while reading the body, when `Content-Encoding` does not
  *   match the bytes: undici rejects with `TypeError: terminated`, caused by a
  *   zlib or brotli error.
+ * - `invalid-json`: the parse failure as reported by `node-fetch`.
+ *   `@vtex/client-cms` only falls back to it when there is no global fetch,
+ *   which does not happen on the Node versions core supports (>= 20.9), so this
+ *   case is only a safeguard.
+ *
+ * Bodies that parse to an unexpected value (e.g. `null`) are not retried: they
+ * keep reaching callers as before.
  */
 const isInvalidBodyError = (error: unknown) => {
   const { name, type } = (error ?? {}) as ErrorShape
 
   return (
     name === 'SyntaxError' ||
-    error instanceof InvalidCMSResponseError ||
     type === 'invalid-json' ||
     decodingErrorCode(error) !== undefined
   )
 }
 
-const assertValidBody = <T>(body: T, path: string): T => {
-  // Every CMS API endpoint answers with a JSON object.
-  if (body === null || typeof body !== 'object') {
-    throw new InvalidCMSResponseError(path)
-  }
-
-  return body
-}
-
-/**
- * How long a URL whose cache-busting retry also failed skips further retries.
- *
- * Must be at least `CACHE_BUST_WINDOW_MS`: the next retry after the cooldown
- * has to fall in a later window, so it uses a new cache-busting value instead
- * of the one whose cached response just failed. Derived from it to keep that
- * invariant when either value changes.
- */
-export const RETRY_COOLDOWN_MS = CACHE_BUST_WINDOW_MS
+/** Error name plus decoding code, without the message (it may embed body). */
+const describeError = (error: unknown) =>
+  [(error as ErrorShape | null)?.name, decodingErrorCode(error)]
+    .filter(Boolean)
+    .join(': ')
 
 /**
  * `ClientCMS` that retries a request once, bypassing CDN caches, when the
- * response body is not valid JSON. A single bad cached response (e.g. a
- * compressed body stored without its `Content-Encoding`) would otherwise fail
- * every page that depends on it until the cache entry expires.
+ * response body cannot be parsed or decoded. A single bad cached response
+ * (e.g. a compressed body stored without its `Content-Encoding`) would
+ * otherwise fail every page that depends on it until the cache entry expires.
  *
- * Only the invalid-body case is retried: network errors are already retried by
+ * Only that case is retried: network errors are already retried by
  * `@vtex/client-cms`, and non-2xx responses keep failing as before.
  *
  * The retry reaches the origin. When the retry fails too, for any reason (an
@@ -108,7 +102,7 @@ export class ResilientClientCMS extends ClientCMS {
 
   async fetch<T>(path = '', params?: URLSearchParams): Promise<T> {
     try {
-      return assertValidBody(await super.fetch<T>(path, params), path)
+      return await super.fetch<T>(path, params)
     } catch (error) {
       if (!isInvalidBodyError(error)) {
         throw error
@@ -121,11 +115,8 @@ export class ResilientClientCMS extends ClientCMS {
 
       // Only the error name (and decoding error code) is logged: a JSON parse
       // error message embeds the start of the body, which may be binary.
-      const reason = [(error as Error).name, decodingErrorCode(error)]
-        .filter(Boolean)
-        .join(': ')
       console.warn(
-        `[CMS] Invalid response body for "${url}" (${reason}). Retrying once bypassing the cache.`
+        `[CMS] Invalid response body for "${url}" (${describeError(error)}). Retrying once bypassing the cache.`
       )
 
       const cacheBustingParams = new URLSearchParams(params)
@@ -135,14 +126,14 @@ export class ResilientClientCMS extends ClientCMS {
       )
 
       try {
-        return assertValidBody(
-          await super.fetch<T>(path, cacheBustingParams),
-          path
-        )
+        return await super.fetch<T>(path, cacheBustingParams)
       } catch (retryError) {
         // Any retry failure backs off, not only another invalid body: a 5xx or
         // network error from the origin is also a reason not to add load.
         this.startCooldown(url)
+        console.warn(
+          `[CMS] Cache-busting retry failed for "${url}" (${describeError(retryError)}). Skipping retries for this URL for ${RETRY_COOLDOWN_MS / 1000}s.`
+        )
         throw retryError
       }
     }

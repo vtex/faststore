@@ -1,6 +1,19 @@
+import type { Server } from 'node:http'
+import { createServer } from 'node:http'
+import type { AddressInfo } from 'node:net'
+import { gzipSync } from 'node:zlib'
 import ClientCMS from '@vtex/client-cms'
 import type { ContentData, ContentPage } from '@vtex/client-cms'
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest'
 
 import { clientCMS, cmsPageCache, getCMSPage } from '../../../src/server/cms'
 import {
@@ -130,14 +143,14 @@ describe('ResilientClientCMS', () => {
     expect(paramsOfCall(1)?.get('versionId')).toBe('version')
   })
 
-  it('retries when the body is valid JSON but not an object', async () => {
-    const page = listingPage(1, 1, 1)
-    baseFetch.mockResolvedValueOnce(null).mockResolvedValueOnce(page)
+  it('passes a body that parses to null through without retrying', async () => {
+    baseFetch.mockResolvedValueOnce(null)
 
     const result = await createClient().getCMSPagesByContentType('plp')
 
-    expect(result).toEqual(page)
-    expect(baseFetch).toHaveBeenCalledTimes(2)
+    expect(result).toBeNull()
+    expect(baseFetch).toHaveBeenCalledTimes(1)
+    expect(warn).not.toHaveBeenCalled()
   })
 
   it('adds the cache-busting param to requests without params', async () => {
@@ -264,7 +277,11 @@ describe('ResilientClientCMS', () => {
         client.getCMSPagesByContentType('plp')
       ).rejects.toBeInstanceOf(SyntaxError)
       expect(baseFetch).toHaveBeenCalledTimes(3)
-      expect(warn).toHaveBeenCalledTimes(1)
+      // One warning for the retry and one for the cooldown.
+      expect(warn).toHaveBeenCalledTimes(2)
+      expect(warn.mock.calls[1][0]).toContain(
+        'Skipping retries for this URL for 60s'
+      )
     })
 
     it('also backs off when the retry fails with another error', async () => {
@@ -331,6 +348,94 @@ describe('ResilientClientCMS', () => {
     it('lasts at least one cache-busting window', () => {
       expect(RETRY_COOLDOWN_MS).toBeGreaterThanOrEqual(CACHE_BUST_WINDOW_MS)
     })
+  })
+
+  describe('with real HTTP responses', () => {
+    // Real `fetch` and `response.json()` against a local server, like
+    // `@vtex/client-cms` does, to pin the error shapes the runtime produces.
+    // The server answers the bad body until the cache-busting param is sent,
+    // and closes each connection so `server.close()` does not wait on sockets.
+    const good: ContentPage = { data: [], hasNextPage: false, totalItems: 0 }
+    const goodJSON = JSON.stringify(good)
+    const badResponses: Record<
+      string,
+      { headers: Record<string, string>; body: string | Buffer }
+    > = {
+      'gzip-without-content-encoding': {
+        headers: {},
+        body: gzipSync(goodJSON),
+      },
+      'content-encoding-gzip-on-plain-body': {
+        headers: { 'content-encoding': 'gzip' },
+        body: goodJSON,
+      },
+      'content-encoding-br-on-plain-body': {
+        headers: { 'content-encoding': 'br' },
+        body: goodJSON,
+      },
+      'html-page': {
+        headers: { 'content-type': 'text/html' },
+        body: '<html>Error</html>',
+      },
+      'truncated-json': { headers: {}, body: goodJSON.slice(0, 10) },
+    }
+
+    let server: Server
+    let origin = ''
+
+    beforeAll(async () => {
+      server = createServer((req, res) => {
+        const url = new URL(req.url ?? '/', 'http://localhost')
+        const bad = badResponses[url.pathname.slice(1)]
+
+        if (bad && !url.searchParams.has(CACHE_BUST_PARAM)) {
+          res.writeHead(200, { ...bad.headers, connection: 'close' })
+          res.end(bad.body)
+          return
+        }
+
+        res.writeHead(200, {
+          'content-type': 'application/json',
+          connection: 'close',
+        })
+        res.end(goodJSON)
+      })
+      await new Promise<void>((resolve) =>
+        server.listen(0, '127.0.0.1', resolve)
+      )
+      origin = `http://127.0.0.1:${(server.address() as AddressInfo).port}`
+    })
+
+    afterAll(async () => {
+      await new Promise<void>((resolve) => server.close(() => resolve()))
+    })
+
+    beforeEach(() => {
+      baseFetch.mockImplementation(
+        async (path?: string, params?: URLSearchParams) => {
+          const query = params?.toString()
+          const response = await fetch(
+            [`${origin}/${path}`, query].filter(Boolean).join('?')
+          )
+
+          if (!response.ok) {
+            throw new Error('Error while fetching')
+          }
+
+          return response.json()
+        }
+      )
+    })
+
+    it.each(Object.keys(badResponses))(
+      'retries a %s response',
+      async (name) => {
+        await expect(
+          createClient().getCMSPagesByContentType(name)
+        ).resolves.toEqual(good)
+        expect(baseFetch).toHaveBeenCalledTimes(2)
+      }
+    )
   })
 
   describe('getCMSPage', () => {
