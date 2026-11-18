@@ -1,5 +1,5 @@
 import type { GetStaticProps } from 'next'
-import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import { NextSeo, OrganizationJsonLd } from 'next-seo'
 import { useRouter } from 'next/router'
 
 import RenderSections from 'src/components/cms/RenderSections'
@@ -37,7 +37,6 @@ function Page({
     globalSettings,
   }
 
-  const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId
   const titleTemplate =
     settings?.seo?.titleTemplate ??
     storeConfig.seo.titleTemplate ??
@@ -56,35 +55,22 @@ function Page({
   )
 
   const storeUrl = getStoreURL(router.locale)
-  const searchStoreUrl = storeUrl.replace(/\/$/, '')
 
   return (
     <>
       {/* SEO */}
       <NextSeo
-        title={settings?.seo?.title ?? storeConfig.seo.title}
-        description={settings?.seo?.description ?? storeConfig.seo?.description}
+        title={settings?.seo?.title || storeConfig.seo.title}
+        description={settings?.seo?.description || storeConfig.seo?.description}
         titleTemplate={titleTemplate}
-        canonical={settings?.seo?.canonical ?? storeUrl}
+        canonical={settings?.seo?.canonical || storeUrl}
         openGraph={{
           type: 'website',
           url: storeUrl,
-          title: settings?.seo?.title ?? storeConfig.seo.title,
+          title: settings?.seo?.title || storeConfig.seo.title,
           description:
-            settings?.seo?.description ?? storeConfig.seo.description,
+            settings?.seo?.description || storeConfig.seo.description,
         }}
-      />
-      <SiteLinksSearchBoxJsonLd
-        type="WebSite"
-        name={settings?.seo?.name ?? storeConfig.seo.name}
-        url={storeUrl}
-        potentialActions={[
-          {
-            target: `${searchStoreUrl}/s/?q`,
-            queryInput: 'search_term_string',
-          },
-        ]}
-        {...(publisherId && { publisher: { '@id': publisherId } })}
       />
 
       {settings?.seo?.organization && (

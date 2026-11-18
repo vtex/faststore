@@ -1,4 +1,4 @@
-import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import type { ComponentType } from 'react'
 
@@ -71,26 +71,17 @@ export default function LandingPage({
     <>
       {/* SEO */}
       <NextSeo
-        title={settings?.seo?.title ?? storeConfig.seo.title}
-        description={settings?.seo?.description ?? storeConfig.seo?.description}
+        title={settings?.seo?.title || storeConfig.seo.title}
+        description={settings?.seo?.description || storeConfig.seo?.description}
         titleTemplate={titleTemplate}
-        canonical={settings?.seo?.canonical ?? `${storeURL}/${slug}`}
+        canonical={settings?.seo?.canonical || `${storeURL}/${slug}`}
         openGraph={{
           type: 'website',
           url: storeURL,
-          title: settings?.seo?.title ?? storeConfig.seo.title,
+          title: settings?.seo?.title || storeConfig.seo.title,
           description:
-            settings?.seo?.description ?? storeConfig.seo.description,
+            settings?.seo?.description || storeConfig.seo.description,
         }}
-      />
-      <SiteLinksSearchBoxJsonLd
-        url={storeURL}
-        potentialActions={[
-          {
-            target: `${storeURL}/s/?q`,
-            queryInput: 'search_term_string',
-          },
-        ]}
       />
 
       {/*
