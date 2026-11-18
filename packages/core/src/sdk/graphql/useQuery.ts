@@ -52,11 +52,18 @@ export const useQuery = <Data, Variables = Record<string, unknown>>(
     },
     {
       fetcher: () => {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
           setTimeout(async () => {
-            resolve(
-              await request<Data, Variables>(operation, variables, options)
-            )
+            // `request` throws on GraphQL errors. Without the catch, the throw
+            // happens inside this callback and the promise never settles, so
+            // SWR stays in loading (and suspense never resolves) forever.
+            try {
+              resolve(
+                await request<Data, Variables>(operation, variables, options)
+              )
+            } catch (error) {
+              reject(error)
+            }
           })
         })
       },
