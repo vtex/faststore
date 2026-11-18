@@ -1,4 +1,5 @@
 import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
+import { useMemo } from 'react'
 import RenderSections from 'src/components/cms/RenderSections'
 import COMPONENTS from 'src/components/cms/search/Components'
 import type { SearchPageContextType } from 'src/pages/s'
@@ -26,13 +27,20 @@ function SearchPage({
 }: SearchPageProps) {
   const { pages, useGalleryPage } = useCreateUseGalleryPage()
 
-  const context = {
-    data: {
-      ...serverData,
-      pages,
-    },
-    globalSettings,
-  } as SearchPageContext
+  // A new context object on every render updates every page context consumer,
+  // and an update that reaches a Suspense boundary still hydrating throws
+  // React error #421.
+  const context = useMemo(
+    () =>
+      ({
+        data: {
+          ...serverData,
+          pages,
+        },
+        globalSettings,
+      }) as SearchPageContext,
+    [serverData, pages, globalSettings]
+  )
 
   return (
     <>

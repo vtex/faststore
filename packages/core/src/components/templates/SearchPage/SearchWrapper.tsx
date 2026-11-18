@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useSearch } from '@faststore/sdk'
 import { useRouter } from 'next/router'
 
@@ -40,6 +40,15 @@ export default function SearchWrapper({
     itemsPerPage,
     selectedFacets,
   })
+
+  // The search page builds `serverData` inline, so it is a new object on every
+  // render: key the memo on its fields. The gallery query data can be `null` or
+  // `undefined` for the same empty state, so it is normalized first.
+  const galleryData = pageProductGalleryData ?? null
+  const searchPageData = useMemo(
+    () => ({ ...serverData, ...galleryData }),
+    [serverData.title, serverData.searchTerm, galleryData]
+  )
 
   const redirectUrl = pageProductGalleryData?.redirect?.url
   const lastRedirectedUrl = useRef<string | null>(null)
@@ -96,7 +105,7 @@ export default function SearchWrapper({
   return (
     <SearchPage
       page={searchContentType}
-      data={{ ...serverData, ...pageProductGalleryData }}
+      data={searchPageData}
       globalSections={globalSections}
       globalSettings={globalSettings}
     />
