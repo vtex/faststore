@@ -49,6 +49,11 @@ export default function SearchWrapper({
     () => ({ ...serverData, ...galleryData }),
     [serverData.title, serverData.searchTerm, galleryData]
   )
+  // Same reason for the empty search and redirect page context.
+  const emptySearchContext = useMemo(
+    () => ({ globalSettings }),
+    [globalSettings]
+  )
 
   const redirectUrl = pageProductGalleryData?.redirect?.url
   const lastRedirectedUrl = useRef<string | null>(null)
@@ -72,7 +77,7 @@ export default function SearchWrapper({
 
   if (!pageProductGalleryData) {
     return (
-      <PageProvider context={{ globalSettings }}>
+      <PageProvider context={emptySearchContext}>
         <RenderSections globalSections={globalSections}>
           <EmptySearch {...emptySearchProps} />
         </RenderSections>
@@ -83,7 +88,7 @@ export default function SearchWrapper({
   // Redirect when there are registered Intelligent Search redirects on VTEX Admin
   if (redirectUrl) {
     return (
-      <PageProvider context={{ globalSettings }}>
+      <PageProvider context={emptySearchContext}>
         <RenderSections globalSections={globalSections}>
           <EmptySearch {...emptySearchProps} />
         </RenderSections>
