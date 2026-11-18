@@ -246,10 +246,13 @@ export const getStaticProps: GetStaticProps<
       key: slug,
     },
     // Without a window, the first page's products (price, stock, order) stay
-    // frozen at the state of their first render until the next deploy.
+    // frozen at the state of their first render until the next deploy. Each
+    // regeneration reruns the CMS, collection and first-page search queries,
+    // so the window has a floor to bound the upstream load.
     revalidate: toRevalidate(
       storeConfig.experimental.revalidatePLP,
-      'experimental.revalidatePLP'
+      'experimental.revalidatePLP',
+      { min: 60 }
     ),
   }
 }

@@ -1,8 +1,17 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { toRevalidate } from 'src/utils/toRevalidate'
+import type { toRevalidate as ToRevalidate } from 'src/utils/toRevalidate'
 
 const KEY = 'experimental.revalidatePLP'
+
+// The helper warns once per key per process, so each test loads a fresh
+// module to start with no warnings recorded.
+let toRevalidate: typeof ToRevalidate
+
+beforeEach(async () => {
+  vi.resetModules()
+  ;({ toRevalidate } = await import('src/utils/toRevalidate'))
+})
 
 afterEach(() => {
   vi.restoreAllMocks()
@@ -44,9 +53,9 @@ describe('toRevalidate', () => {
   it('prints the received value in the warning', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-    toRevalidate('300', KEY)
-    toRevalidate(Number.NaN, KEY)
-    toRevalidate({ seconds: 300 }, KEY)
+    toRevalidate('300', 'a')
+    toRevalidate(Number.NaN, 'b')
+    toRevalidate({ seconds: 300 }, 'c')
 
     expect(warn).toHaveBeenNthCalledWith(1, expect.stringContaining('"300"'))
     expect(warn).toHaveBeenNthCalledWith(2, expect.stringContaining(': NaN.'))
@@ -62,8 +71,48 @@ describe('toRevalidate', () => {
     const circular: Record<string, unknown> = {}
     circular.self = circular
 
-    expect(toRevalidate(circular, KEY)).toBe(false)
-    expect(toRevalidate({ seconds: BigInt(300) }, KEY)).toBe(false)
-    expect(toRevalidate(BigInt(300), KEY)).toBe(false)
+    expect(toRevalidate(circular, 'a')).toBe(false)
+    expect(toRevalidate({ seconds: BigInt(300) }, 'b')).toBe(false)
+    expect(toRevalidate(BigInt(300), 'c')).toBe(false)
+  })
+
+  it('warns about an invalid value once per key', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    toRevalidate('300', KEY)
+    toRevalidate('300', KEY)
+
+    expect(warn).toHaveBeenCalledTimes(1)
+  })
+
+  describe('with a minimum', () => {
+    it('raises a lower window to the minimum and warns once', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      expect(toRevalidate(30, KEY, { min: 60 })).toBe(60)
+      expect(toRevalidate(30, KEY, { min: 60 })).toBe(60)
+      expect(toRevalidate(1, KEY, { min: 60 })).toBe(60)
+      expect(warn).toHaveBeenCalledTimes(1)
+      expect(warn).toHaveBeenCalledWith(
+        `[FastStore] ${KEY} is 30s. Using the minimum of 60s.`
+      )
+    })
+
+    it('keeps windows at or above the minimum', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      expect(toRevalidate(60, KEY, { min: 60 })).toBe(60)
+      expect(toRevalidate(120, KEY, { min: 60 })).toBe(120)
+      expect(warn).not.toHaveBeenCalled()
+    })
+
+    it('still returns false for invalid values', () => {
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      expect(toRevalidate(0, KEY, { min: 60 })).toBe(false)
+      expect(toRevalidate(30.5, 'a', { min: 60 })).toBe(false)
+      expect(toRevalidate('30', 'b', { min: 60 })).toBe(false)
+      expect(toRevalidate(false, 'c', { min: 60 })).toBe(false)
+    })
   })
 })
