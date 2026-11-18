@@ -33,18 +33,19 @@ describe('Home Page Seo', () => {
       })
   })
 
-  it('has structured data', () => {
+  it('does not publish the retired sitelinks search box structured data', () => {
     cy.visit(pages.home, options)
     cy.waitForHydration()
 
-    cy.get('script[type="application/ld+json"]')
-      .should('exist')
-      .should(($el) => {
-        const jsonld = JSON.parse($el.text())
+    // The Organization JSON-LD is only rendered when it is set in the CMS, so
+    // the home page may have no structured data at all.
+    cy.document().should((doc) => {
+      const jsons = [
+        ...doc.querySelectorAll('script[type="application/ld+json"]'),
+      ].map((el) => JSON.parse(el.innerHTML))
 
-        expect(jsonld['@context']).to.eq('https://schema.org')
-        expect(jsonld['@type']).to.eq('WebSite')
-      })
+      expect(jsons.find((json) => json['@type'] === 'WebSite')).to.be.undefined
+    })
   })
 
   it('has OpenGraph and Twitter tags', () => {
@@ -136,7 +137,7 @@ describe('Product Page Seo', () => {
     cy.get('meta[property="og:type"]')
       .should('exist')
       .should(($el) => {
-        expect($el.attr('content')).to.eq('og:product')
+        expect($el.attr('content')).to.eq('product')
       })
 
     cy.get('meta[property="og:title"]')
