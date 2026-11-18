@@ -1,5 +1,6 @@
 import type { GetStaticProps } from 'next'
 import { NextSeo, OrganizationJsonLd } from 'next-seo'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import RenderSections from 'src/components/cms/RenderSections'
@@ -16,6 +17,7 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import type { PreviewData } from 'src/server/content/types'
 import { contentService } from 'src/server/content/service'
 import { getDynamicContent } from 'src/utils/dynamicContent'
+import { serializeJsonLd } from 'src/utils/jsonLd'
 import storeConfig from '../../discovery.config'
 
 type Props = {
@@ -37,6 +39,7 @@ function Page({
     globalSettings,
   }
 
+  const publisherId = settings?.seo?.publisherId || storeConfig.seo.publisherId
   const titleTemplate =
     settings?.seo?.titleTemplate ??
     storeConfig.seo.titleTemplate ??
@@ -56,6 +59,18 @@ function Page({
 
   const storeUrl = getStoreURL(router.locale)
 
+  // Google uses the WebSite structured data to pick the site name shown in
+  // search results. The sitelinks search box (`potentialAction`) is not
+  // emitted: Google retired it. next-seo's SiteLinksSearchBoxJsonLd always
+  // adds `potentialAction`, so the script is rendered directly.
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: settings?.seo?.name || storeConfig.seo.name,
+    url: storeUrl,
+    ...(publisherId && { publisher: { '@id': publisherId } }),
+  }
+
   return (
     <>
       {/* SEO */}
@@ -72,6 +87,13 @@ function Page({
             settings?.seo?.description || storeConfig.seo.description,
         }}
       />
+      <Head>
+        <script
+          key="jsonld-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(websiteJsonLd) }}
+        />
+      </Head>
 
       {settings?.seo?.organization && (
         <OrganizationJsonLd
