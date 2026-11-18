@@ -185,6 +185,8 @@ function Navbar({
               loadingLabel={searchInput?.loadingLabel}
               searchHistoryTitle={searchInput?.searchHistoryTitle}
               searchTopTitle={searchInput?.searchTopTitle}
+              searchHistoryClearLabel={searchInput?.searchHistoryClearLabel}
+              searchProductsTitle={searchInput?.searchProductsTitle}
             />
           )}
 
@@ -222,6 +224,8 @@ function Navbar({
                 loadingLabel={searchInput?.loadingLabel}
                 searchHistoryTitle={searchInput?.searchHistoryTitle}
                 searchTopTitle={searchInput?.searchTopTitle}
+                searchHistoryClearLabel={searchInput?.searchHistoryClearLabel}
+                searchProductsTitle={searchInput?.searchProductsTitle}
               />
             )}
 

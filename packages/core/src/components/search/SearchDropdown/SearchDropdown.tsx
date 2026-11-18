@@ -24,7 +24,9 @@ interface SearchDropdownProps {
   sort: SearchState['sort']
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   searchHistoryTitle?: string
+  searchHistoryClearLabel?: string
   searchTopTitle?: string
+  searchProductsTitle?: string
   [key: string]: any
   onChangeCustomSearchDropdownVisible?: Dispatch<SetStateAction<boolean>>
 }
@@ -47,7 +49,9 @@ function SearchDropdown({
   sort,
   quickOrderSettings,
   searchHistoryTitle,
+  searchHistoryClearLabel,
   searchTopTitle,
+  searchProductsTitle,
   onChangeCustomSearchDropdownVisible,
   ...otherProps
 }: SearchDropdownProps) {
@@ -58,7 +62,11 @@ function SearchDropdown({
 
   return (
     <UISearchDropdown {...otherProps}>
-      <SearchHistory title={searchHistoryTitle} sort={sort} />
+      <SearchHistory
+        title={searchHistoryTitle}
+        clearLabel={searchHistoryClearLabel}
+        sort={sort}
+      />
       <SearchTop title={searchTopTitle} sort={sort} />
       <UISearchAutoComplete>
         {terms?.map(({ value: suggestion }) => (
@@ -95,6 +103,7 @@ function SearchDropdown({
         ))}
       </UISearchAutoComplete>
       <SearchProducts
+        title={searchProductsTitle}
         data-af-element={searchId && 'search-autocomplete'}
         data-af-onimpression={!!searchId}
         data-af-search-id={searchId}

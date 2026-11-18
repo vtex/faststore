@@ -2066,6 +2066,16 @@
               "type": "string",
               "default": "Top search"
             },
+            "searchHistoryClearLabel": {
+              "title": "Clear Search History Button Label",
+              "type": "string",
+              "default": "Clear History"
+            },
+            "searchProductsTitle": {
+              "title": "Suggested Products Title",
+              "type": "string",
+              "default": "Suggested Products"
+            },
             "quickOrderSettings": {
               "title": "Quick Order settings",
               "type": "object",

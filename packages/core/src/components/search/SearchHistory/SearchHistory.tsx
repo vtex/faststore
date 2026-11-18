@@ -7,10 +7,11 @@ import useSearchHistory from 'src/sdk/search/useSearchHistory'
 
 interface SearchHistoryProps {
   title?: string
+  clearLabel?: string
   [key: string]: unknown
 }
 
-const SearchHistory = ({ title, ...props }: SearchHistoryProps) => {
+const SearchHistory = ({ title, clearLabel, ...props }: SearchHistoryProps) => {
   const {
     values: { onSearchSelection },
   } = useSearch()
@@ -21,7 +22,12 @@ const SearchHistory = ({ title, ...props }: SearchHistoryProps) => {
   }
 
   return (
-    <UISearchHistory title={title} onClear={clearSearchHistory} {...props}>
+    <UISearchHistory
+      title={title}
+      clearLabel={clearLabel}
+      onClear={clearSearchHistory}
+      {...props}
+    >
       {searchHistory.map((item) => (
         <UISearchHistoryTerm
           key={item.term}
