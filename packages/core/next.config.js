@@ -85,9 +85,15 @@ const nextConfig = {
     // emitting a benign "Critical dependency" warning. `serverExternalPackages`
     // handles this for Turbopack, but the webpack builder still traces into it,
     // so we silence the warning for this module specifically.
+    //
+    // `discovery.config.js` also requires the optional
+    // `discovery.config.local` inside a try/catch, so webpack warns with
+    // "Module not found" when a store doesn't have that file. Only that
+    // warning, from that module, is silenced.
     config.ignoreWarnings = [
       ...(config.ignoreWarnings ?? []),
       { module: /require-in-the-middle/ },
+      { module: /discovery\.config\.js$/, message: /discovery\.config\.local/ },
     ]
 
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
