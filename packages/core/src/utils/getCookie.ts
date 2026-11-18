@@ -29,10 +29,10 @@ export function getCookie(name: string): string | undefined {
  * would pull a polyfill into the client bundle.
  */
 function decodeBase64Url(input: string) {
-  const base64 = input.replace(/-/g, '+').replace(/_/g, '/')
+  const base64 = input.replaceAll('-', '+').replaceAll('_', '/')
   const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4)
   const binary = atob(padded)
-  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0))
+  const bytes = Uint8Array.from(binary, (char) => char.codePointAt(0) ?? 0)
 
   return new TextDecoder().decode(bytes)
 }
