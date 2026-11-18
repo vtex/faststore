@@ -116,6 +116,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
+      loadingLabel,
       searchHistoryTitle,
       searchHistoryClearLabel,
       searchTopTitle,
@@ -396,6 +397,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   onChangeCustomSearchDropdownVisible={
                     setCustomSearchDropdownVisibleCondition
                   }
+                  loadingLabel={loadingLabel}
                   searchHistoryTitle={searchHistoryTitle}
                   searchHistoryClearLabel={searchHistoryClearLabel}
                   searchTopTitle={searchTopTitle}

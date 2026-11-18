@@ -2064,7 +2064,7 @@
             "searchTopTitle": {
               "title": "Top Search Title",
               "type": "string",
-              "default": "Top search"
+              "default": "Top Search"
             },
             "searchHistoryClearLabel": {
               "title": "Clear Search History Button Label",

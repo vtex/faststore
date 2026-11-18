@@ -3,12 +3,30 @@
  */
 
 import React from 'react'
-import { act, render, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-// ─── next/dynamic: return a plain functional component ───────────────────────
+// ─── next/dynamic: render the input field as a plain <input> ─────────────────
+// `onFocus` opens the dropdown, and props leaked from SearchInput show up as
+// DOM attributes.
 vi.mock('next/dynamic', () => ({
-  default: () => () => null,
+  default: () =>
+    function InputField({
+      onFocus,
+      ...props
+    }: React.InputHTMLAttributes<HTMLInputElement>) {
+      const domProps = Object.fromEntries(
+        Object.entries(props).filter(([, value]) => typeof value === 'string')
+      )
+      return (
+        <input
+          data-testid="search-field"
+          readOnly
+          onFocus={onFocus}
+          {...domProps}
+        />
+      )
+    },
 }))
 
 // ─── next/router ─────────────────────────────────────────────────────────────
@@ -17,7 +35,16 @@ vi.mock('next/router', () => ({
 }))
 
 // ─── lazy-loaded chunk ───────────────────────────────────────────────────────
-vi.mock('src/components/search/SearchDropdown', () => ({ default: () => null }))
+const dropdownProps = vi.hoisted(() => ({
+  current: null as Record<string, unknown> | null,
+}))
+
+vi.mock('src/components/search/SearchDropdown', () => ({
+  default: (props: Record<string, unknown>) => {
+    dropdownProps.current = props
+    return null
+  },
+}))
 
 // ─── discovery.config ────────────────────────────────────────────────────────
 vi.mock('discovery.config', () => ({
@@ -125,6 +152,7 @@ import SearchInput from '../../../src/components/search/SearchInput/SearchInput'
 
 afterEach(() => {
   vi.clearAllMocks()
+  dropdownProps.current = null
   oesState.status = null
   oesState.isUploading = false
   oesState.isProcessing = false
@@ -272,5 +300,44 @@ describe('SearchInput (OES integration)', () => {
     // Effect ran — products were set and drawer should open
     // We verify no errors were thrown during the effect
     expect(true).toBe(true)
+  })
+})
+
+describe('SearchInput dropdown labels', () => {
+  const labels = {
+    loadingLabel: 'Carregando...',
+    searchHistoryTitle: 'Histórico',
+    searchHistoryClearLabel: 'Limpar histórico',
+    searchTopTitle: 'Mais buscados',
+    searchProductsTitle: 'Produtos sugeridos',
+  }
+
+  it('forwards the CMS labels to the SearchDropdown', async () => {
+    const { getByTestId } = render(
+      <Wrapper>
+        <SearchInput {...labels} />
+      </Wrapper>
+    )
+
+    await act(async () => {
+      fireEvent.focus(getByTestId('search-field'))
+    })
+
+    await waitFor(() => {
+      expect(dropdownProps.current).toMatchObject(labels)
+    })
+  })
+
+  it('does not leak the CMS labels to the input element', () => {
+    const { getByTestId } = render(
+      <Wrapper>
+        <SearchInput {...labels} />
+      </Wrapper>
+    )
+
+    const field = getByTestId('search-field')
+    for (const name of Object.keys(labels)) {
+      expect(field.hasAttribute(name)).toBe(false)
+    }
   })
 })
