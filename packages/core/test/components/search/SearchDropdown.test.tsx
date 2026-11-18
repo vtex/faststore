@@ -13,7 +13,7 @@ const { received, capture } = vi.hoisted(() => {
     ({
       children,
       ...props
-    }: { children?: unknown } & Record<string, unknown>) => {
+    }: Readonly<{ children?: unknown } & Record<string, unknown>>) => {
       received[name] = props
       return (children ?? null) as never
     }

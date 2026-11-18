@@ -11,7 +11,11 @@ interface SearchHistoryProps {
   [key: string]: unknown
 }
 
-const SearchHistory = ({ title, clearLabel, ...props }: SearchHistoryProps) => {
+const SearchHistory = ({
+  title,
+  clearLabel,
+  ...props
+}: Readonly<SearchHistoryProps>) => {
   const {
     values: { onSearchSelection },
   } = useSearch()

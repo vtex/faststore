@@ -14,7 +14,7 @@ vi.mock('next/dynamic', () => ({
     function InputField({
       onFocus,
       ...props
-    }: React.InputHTMLAttributes<HTMLInputElement>) {
+    }: Readonly<React.InputHTMLAttributes<HTMLInputElement>>) {
       const domProps = Object.fromEntries(
         Object.entries(props).filter(([, value]) => typeof value === 'string')
       )
