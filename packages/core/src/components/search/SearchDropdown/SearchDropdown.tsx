@@ -54,7 +54,7 @@ function SearchDropdown({
   searchProductsTitle,
   onChangeCustomSearchDropdownVisible,
   ...otherProps
-}: SearchDropdownProps) {
+}: Readonly<SearchDropdownProps>) {
   const {
     values: { onSearchSelection, products, term, terms, searchId },
   } = useSearch()
