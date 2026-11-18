@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.11.4-dev.3](https://github.com/vtex/faststore/compare/v4.11.4-dev.2...v4.11.4-dev.3) (2026-11-18)
+
+### Bug Fixes
+
+- **core:** add experimental.revalidatePLP to refresh cached PLPs ([#3595](https://github.com/vtex/faststore/issues/3595)) ([f14ca23](https://github.com/vtex/faststore/commit/f14ca23c3581d94961eac3bdc6839207066eff74)), closes [#3553](https://github.com/vtex/faststore/issues/3553) [#3553](https://github.com/vtex/faststore/issues/3553)
+
 ## [4.11.4-dev.2](https://github.com/vtex/faststore/compare/v4.11.4-dev.1...v4.11.4-dev.2) (2026-11-17)
 
 ### Bug Fixes
