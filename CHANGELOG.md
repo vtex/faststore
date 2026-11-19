@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.11.4-dev.5](https://github.com/vtex/faststore/compare/v4.11.4-dev.4...v4.11.4-dev.5) (2026-11-19)
+
+### Bug Fixes
+
+- **core:** retry CMS fetch bypassing cache on invalid JSON ([#3590](https://github.com/vtex/faststore/issues/3590)) ([12f9062](https://github.com/vtex/faststore/commit/12f9062184eef948f29d2aeac0308c97300d842f))
+
 ## [4.11.4-dev.4](https://github.com/vtex/faststore/compare/v4.11.4-dev.3...v4.11.4-dev.4) (2026-11-19)
 
 ### Bug Fixes
