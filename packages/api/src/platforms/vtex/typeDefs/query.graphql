@@ -523,6 +523,34 @@ type Query {
   ): [StoreContract!]! @auth @cacheControl(scope: "private", sMaxAge: 0)
 
   """
+  Returns the delegations of the authenticated buyer: `grantee` lists who can act on their behalf
+  (only delegations where the buyer is the Original Shopper) and `granter` lists who they can act on behalf of.
+  """
+  listDelegations: StoreDelegationsResult!
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 0)
+
+  """
+  Returns the users of the buyer's organization who can be elected as Delegate.
+  The authenticated buyer is never part of the result.
+  """
+  listDelegateCandidates: [StoreDelegateCandidate!]!
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 0)
+
+  """
+  Compares the roles of the authenticated buyer with those of a user about to be elected as Delegate.
+  """
+  compareDelegateRoles(
+    """
+    Identifier of the user elected as Delegate.
+    """
+    delegateUserId: String!
+  ): StoreDelegateRoleComparison!
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 0)
+
+  """
   Returns whether the current authenticated user belongs to a B2B organization unit.
   """
   isOrganizationMember: Boolean!

@@ -1,4 +1,5 @@
 import UserDetails from 'src/components/account/UserDetails/UserDetails'
+import type { DelegationLabels } from 'src/components/account/UserDetails/delegation/delegationLabels'
 import type { UserDetailsSectionLabels } from 'src/components/account/UserDetails/userDetailsLabels'
 import { defaultUserDetailsLabels } from 'src/components/account/UserDetails/userDetailsLabels'
 import {
@@ -7,7 +8,8 @@ import {
 } from 'src/sdk/account/accountPageContext'
 import Section from '../Section'
 
-export type AccountUserDetailsProps = UserDetailsSectionLabels
+export type AccountUserDetailsProps = UserDetailsSectionLabels &
+  DelegationLabels
 
 const AccountUserDetails = ({
   pageTitle = defaultUserDetailsLabels.pageTitle,
@@ -17,6 +19,7 @@ const AccountUserDetails = ({
   phoneLabel = defaultUserDetailsLabels.phoneLabel,
   roleLabel = defaultUserDetailsLabels.roleLabel,
   orgUnitLabel = defaultUserDetailsLabels.orgUnitLabel,
+  ...delegationLabels
 }: AccountUserDetailsProps) => {
   const { userDetails } = useAccountPageData<AccountUserDetailsPageData>()
 
@@ -33,6 +36,7 @@ const AccountUserDetails = ({
           roleLabel,
           orgUnitLabel,
         }}
+        delegationLabels={delegationLabels}
       />
     </Section>
   )

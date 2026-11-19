@@ -85,7 +85,7 @@ const DEFAULT_ROUTES: Route[] = [
     route: QUOTES_ROUTE,
   },
   {
-    title: 'User Details',
+    title: 'User settings',
     route: USER_DETAILS_ROUTE,
   },
   {

@@ -1,4 +1,9 @@
 import { cancelOrder } from './cancelOrder'
+import {
+  createDelegation,
+  revokeDelegation,
+  updateDelegation,
+} from './delegations'
 import { processOrderAuthorization } from './processOrderAuthorization'
 import { startOrderEntryOperation } from './startOrderEntryOperation'
 import { startRecommendationSession } from './startRecommendationSession'
@@ -16,4 +21,7 @@ export const Mutation = {
   uploadFileToOrderEntry,
   startOrderEntryOperation,
   startRecommendationSession,
+  createDelegation,
+  updateDelegation,
+  revokeDelegation,
 }
