@@ -97,7 +97,7 @@ export default function ProductListingPage({
   const {
     seo: { plp: plpSeo, ...storeSeo },
   } = storeConfig
-  const title = collection?.seo.title ?? storeSeo.title
+  const title = collection?.seo.title || storeSeo.title
   const titleTemplate =
     settings?.seo?.titleTemplate ??
     plpSeo?.titleTemplate ??
