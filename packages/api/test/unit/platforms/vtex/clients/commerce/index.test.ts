@@ -22,6 +22,10 @@ const apiOptions = {
 
 const contextFactory = await GraphqlVtexContextFactory(apiOptions)
 const context = contextFactory({})
+const createRecommendationContext = () =>
+  contextFactory({
+    headers: { 'x-forwarded-host': 'www.storeframework.com' },
+  })
 
 const fetchAPIMocked = vi.fn()
 
@@ -274,7 +278,10 @@ describe('VTEX Commerce', () => {
         const mockResponse = { products: [], correlationId: '', campaign: {} }
         fetchAPIMocked.mockResolvedValueOnce(mockResponse)
 
-        const { commerce } = clients.getClients(apiOptions, context)
+        const { commerce } = clients.getClients(
+          apiOptions,
+          createRecommendationContext()
+        )
         const result = await commerce.recommendation.recommendations({
           campaignVrn: 'vrn:recommendations:acc:rec-cross-v2:c-1',
           userId: 'user-1',
@@ -284,13 +291,14 @@ describe('VTEX Commerce', () => {
         })
 
         expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
-        const [url] = fetchAPIMocked.mock.calls[0]
+        const [url, init] = fetchAPIMocked.mock.calls[0]
         expect(url).toContain('/api/recommend-bff/v2/recommendations')
         expect(url).toContain('campaignVrn=vrn')
         expect(url).toContain('userId=user-1')
         expect(url).toContain('products=pg-1%2Cpg-2')
         expect(url).toContain('salesChannel=1')
         expect(url).toContain('locale=en-US')
+        expect(init.headers['X-FORWARDED-HOST']).toBe('storeframework.com')
         // Forwards the cookie-storage hook so the BFF's `vtex-rec-*` Set-Cookie
         // headers are persisted through `ctx.storage.cookies`.
         expect(fetchAPIMocked.mock.calls[0][2]).toHaveProperty('storeCookies')
@@ -318,12 +326,9 @@ describe('VTEX Commerce', () => {
         const mockResponse = { recommendationsUserId: 'user-1' }
         fetchAPIMocked.mockResolvedValueOnce(mockResponse)
 
-        const recommendationContext = contextFactory({
-          headers: { 'x-forwarded-host': 'www.storeframework.com' },
-        })
         const { commerce } = clients.getClients(
           apiOptions,
-          recommendationContext
+          createRecommendationContext()
         )
         const result =
           await commerce.recommendation.startRecommendationSession()
