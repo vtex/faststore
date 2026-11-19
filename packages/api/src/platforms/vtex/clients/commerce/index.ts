@@ -218,6 +218,7 @@ export const VtexCommerce = (
   const recommendationHeaders: HeadersInit = withCookie({
     accept: 'application/json',
     'content-type': 'application/json',
+    'X-FORWARDED-HOST': forwardedHost,
     'x-vtex-rec-origin': `${account}/${REC_ORIGIN_SUFFIX}`,
   })
   const withBuyerAuthHeaders = (

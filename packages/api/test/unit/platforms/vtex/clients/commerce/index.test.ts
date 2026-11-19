@@ -314,11 +314,17 @@ describe('VTEX Commerce', () => {
     })
 
     describe('startRecommendationSession', () => {
-      it('posts to the start-session endpoint', async () => {
+      it('posts to the start-session endpoint with the storefront host', async () => {
         const mockResponse = { recommendationsUserId: 'user-1' }
         fetchAPIMocked.mockResolvedValueOnce(mockResponse)
 
-        const { commerce } = clients.getClients(apiOptions, context)
+        const recommendationContext = contextFactory({
+          headers: { 'x-forwarded-host': 'www.storeframework.com' },
+        })
+        const { commerce } = clients.getClients(
+          apiOptions,
+          recommendationContext
+        )
         const result =
           await commerce.recommendation.startRecommendationSession()
 
@@ -326,6 +332,7 @@ describe('VTEX Commerce', () => {
         const [url, init] = fetchAPIMocked.mock.calls[0]
         expect(url).toContain('/api/recommend-bff/v2/users/start-session')
         expect(init.method).toBe('POST')
+        expect(init.headers['X-FORWARDED-HOST']).toBe('storeframework.com')
         expect(result).toEqual(mockResponse)
       })
     })
