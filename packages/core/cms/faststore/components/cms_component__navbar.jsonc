@@ -726,7 +726,7 @@
             "enabled": {
               "title": "Display Sign up button?",
               "type": "boolean",
-              "default": true
+              "default": false
             },
             "label": {
               "title": "Label",

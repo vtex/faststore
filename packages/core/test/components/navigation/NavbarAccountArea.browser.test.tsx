@@ -120,7 +120,7 @@ describe('NavbarAccountArea', () => {
   describe('Sign up entry', () => {
     const signInWithSignUp = {
       ...signInButton,
-      signUp: { label: 'Sign up', url: '/register' },
+      signUp: { enabled: true, label: 'Sign up', url: '/register' },
     }
 
     it('renders "Sign up" next to "Sign in" for a signed-out visitor', () => {
@@ -181,6 +181,25 @@ describe('NavbarAccountArea', () => {
           signInButton={{
             ...signInButton,
             signUp: { enabled: false, label: 'Sign up', url: '/register' },
+          }}
+          ButtonSignIn={ButtonSignInStub}
+          skeletonAttr="data-fs-navbar-signin-skeleton"
+        />
+      )
+
+      expect(screen.queryByText('Sign up')).toBeNull()
+      expect(screen.getByTestId('storefront-signin')).toBeInTheDocument()
+    })
+
+    it('does not render "Sign up" when "enabled" is absent', () => {
+      render(
+        <NavbarAccountArea
+          isSignInResolved
+          isOrganizationEnabled={false}
+          isSignedIn={false}
+          signInButton={{
+            ...signInButton,
+            signUp: { label: 'Sign up', url: '/register' },
           }}
           ButtonSignIn={ButtonSignInStub}
           skeletonAttr="data-fs-navbar-signin-skeleton"

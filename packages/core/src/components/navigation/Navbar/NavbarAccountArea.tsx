@@ -61,7 +61,7 @@ export const NavbarAccountArea = ({
   const signUp = signInButton.signUp
   const showSignUp =
     !isSignedIn &&
-    signUp?.enabled !== false &&
+    signUp?.enabled === true &&
     Boolean(signUp?.label && signUp?.url)
 
   return (
