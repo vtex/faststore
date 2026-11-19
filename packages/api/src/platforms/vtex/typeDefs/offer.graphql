@@ -27,6 +27,10 @@ type StoreOffer {
   """
   priceWithTaxes: Float!
   """
+  Whether this offer has a price the shopper can see, and the reason when it does not.
+  """
+  priceState: StoreOfferPriceState!
+  """
   Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time.
   """
   priceValidUntil: String!
@@ -60,6 +64,20 @@ type StoreOffer {
   the Pricing System is unavailable. May be null when the signing step fails or the feature is disabled.
   """
   priceToken: String
+}
+
+"""
+Price availability for one offer. The numbers stay on the offer.
+"""
+type StoreOfferPriceState {
+  """
+  True when the number is a price the shopper can see, including zero.
+  """
+  available: Boolean!
+  """
+  Server-chosen reason when available is false.
+  """
+  reasonKey: String
 }
 
 """

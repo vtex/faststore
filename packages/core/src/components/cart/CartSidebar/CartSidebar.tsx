@@ -10,6 +10,8 @@ import { Icon, useFadeEffect, useUI } from '@faststore/ui'
 import { type ReactNode, useCallback, useEffect, useMemo } from 'react'
 import type { CartRecommendationShelfProps } from '../CartRecommendationShelf'
 import { useCart } from 'src/sdk/cart'
+import PriceMockSwitch from '../PriceMockSwitch/PriceMockSwitch'
+import type { CartPriceMessages } from 'src/sdk/cart/priceLine'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
 
@@ -151,6 +153,7 @@ export interface CartSidebarProps {
   recommendations?: Omit<CartRecommendationShelfProps, 'taxesConfiguration'> & {
     shouldDisplayRecommendationShelf?: boolean
   }
+  priceMessages?: CartPriceMessages
 }
 
 function CartSidebar({
@@ -168,6 +171,7 @@ function CartSidebar({
   quantitySelector,
   taxesConfiguration,
   recommendations,
+  priceMessages,
 }: Readonly<CartSidebarProps>) {
   const btnProps = useCheckoutButton()
   const {
@@ -184,7 +188,10 @@ function CartSidebar({
   const { fadeOut } = useFadeEffect()
   const { sendViewCartEvent } = useViewCartEvent()
 
-  const isEmpty = useMemo(() => items.length === 0, [items])
+  const isEmpty = useMemo(
+    () => items.length === 0 && gifts.length === 0,
+    [items, gifts]
+  )
 
   // The mini cart shelf does not mount until the cart has at least one item,
   // so empty carts never fetch — including context-agnostic campaigns. The
@@ -216,6 +223,7 @@ function CartSidebar({
 
   return (
     <>
+      <PriceMockSwitch />
       {displayCart && (
         <UICartSidebar
           overlayProps={{
@@ -241,6 +249,7 @@ function CartSidebar({
                     <CartItem
                       item={item}
                       taxesConfiguration={taxesConfiguration}
+                      priceMessages={priceMessages}
                       useUnitMultiplier={
                         quantitySelector?.useUnitMultiplier ?? false
                       }

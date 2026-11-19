@@ -27,6 +27,7 @@ const TYPES = [
   'StoreImage',
   'IStoreImage',
   'StoreOffer',
+  'StoreOfferPriceState',
   'IStoreOffer',
   'StoreOrder',
   'IStoreOrder',

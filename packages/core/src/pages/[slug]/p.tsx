@@ -514,7 +514,9 @@ export const getStaticProps: GetStaticProps<
     props: {
       data,
       sections: cmsPage.sections,
-      settings: cmsPage.settings,
+      // Content Platform templates can omit settings. Next refuses to
+      // serialize that undefined prop.
+      settings: cmsPage.settings ?? {},
       meta,
       offers,
       globalSections: globalSectionsResult,
