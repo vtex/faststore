@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.11.4-dev.4](https://github.com/vtex/faststore/compare/v4.11.4-dev.3...v4.11.4-dev.4) (2026-11-19)
+
+### Bug Fixes
+
+- **core:** forward search dropdown labels from the CMS ([#3600](https://github.com/vtex/faststore/issues/3600)) ([0f18b72](https://github.com/vtex/faststore/commit/0f18b729eb90e7053b823ceb90207967d9d383f8)), closes [#3334](https://github.com/vtex/faststore/issues/3334) [#3334](https://github.com/vtex/faststore/issues/3334) [#3240](https://github.com/vtex/faststore/issues/3240) [#3240](https://github.com/vtex/faststore/issues/3240)
+
 ## [4.11.4-dev.3](https://github.com/vtex/faststore/compare/v4.11.4-dev.2...v4.11.4-dev.3) (2026-11-18)
 
 ### Bug Fixes
