@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.11.4](https://github.com/vtex/faststore/compare/v4.11.3...v4.11.4) (2026-11-19)
+
+### Bug Fixes
+
+- **api:** forward storefront host to recommendations BFF ([#3601](https://github.com/vtex/faststore/issues/3601)) ([e91ac25](https://github.com/vtex/faststore/commit/e91ac25a5f0776fd42821cee696cb56cd2fe9f21))
+
 ## [4.11.3](https://github.com/vtex/faststore/compare/v4.11.3-dev.1...v4.11.3) (2026-11-10)
 
 **Note:** Version bump only for package @faststore/api
