@@ -30,6 +30,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 **Note:** Version bump only for package @faststore/core
 
 ## [4.11.4-dev.0](https://github.com/vtex/faststore/compare/v4.11.3...v4.11.4-dev.0) (2026-11-10)
+## [4.11.4](https://github.com/vtex/faststore/compare/v4.11.3...v4.11.4) (2026-11-19)
 
 **Note:** Version bump only for package @faststore/core
 
