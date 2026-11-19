@@ -127,6 +127,13 @@ export interface NavbarProps {
     }
     label: string
     myAccountLabel: string
+    /** Optional "Sign up" entry shown next to "Sign in" for signed-out visitors. */
+    signUp?: {
+      /** The button only renders when this is explicitly `true`. */
+      enabled?: boolean
+      label: string
+      url: string
+    }
   }
   cartIcon: {
     alt: string

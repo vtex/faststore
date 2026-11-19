@@ -45,7 +45,7 @@ function NavbarSlider({
 
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
-  const { b2b, isSessionReady, hasValidated } = useSession()
+  const { b2b, person, isSessionReady, hasValidated } = useSession()
   const isSignInResolved = isSignInAreaResolved({
     isSessionReady,
     hasValidated,
@@ -93,6 +93,7 @@ function NavbarSlider({
             isSignInResolved={isSignInResolved}
             isOrganizationEnabled={isOrganizationEnabled}
             isB2BBuyer={isB2BBuyer}
+            isSignedIn={Boolean(person?.id)}
             signInButton={signInButton}
             ButtonSignIn={ButtonSignIn}
             skeletonAttr="data-fs-navbar-slider-signin-skeleton"

@@ -121,7 +121,7 @@ function Navbar({
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
   const { isDesktop } = useScreenResize()
-  const { b2b, isSessionReady, hasValidated } = useSession()
+  const { b2b, person, isSessionReady, hasValidated } = useSession()
   const isSignInResolved = isSignInAreaResolved({
     isSessionReady,
     hasValidated,
@@ -245,6 +245,7 @@ function Navbar({
                 isSignInResolved={isSignInResolved}
                 isOrganizationEnabled={isOrganizationEnabled}
                 isB2BBuyer={isB2BBuyer}
+                isSignedIn={Boolean(person?.id)}
                 signInButton={signInButton}
                 ButtonSignIn={ButtonSignIn}
                 skeletonAttr="data-fs-navbar-signin-skeleton"
