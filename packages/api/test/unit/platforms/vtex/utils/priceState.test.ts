@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest'
+
 import { resolvePriceState } from '../../../../../src/platforms/vtex/utils/priceState'
 
 describe('resolvePriceState', () => {
