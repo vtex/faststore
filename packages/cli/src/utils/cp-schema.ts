@@ -9,6 +9,7 @@ import {
   existsSync,
   mkdirSync,
   mkdtempSync,
+  readdirSync,
   rmSync,
   statSync,
 } from 'node:fs'
@@ -128,11 +129,14 @@ export function prepareCpMergeDir({
   const copyFrom = (source: string, dest: string, pluginName?: string) => {
     if (!existsSync(source)) return
 
-    cpSync(source, dest, {
-      recursive: true,
-      filter: (src, destination) => {
-        if (!pluginName || !statSync(src).isFile()) return true
+    if (pluginName) {
+      // Walk the source first (instead of using a `cpSync` filter) so the
+      // overwrite bookkeeping stays separate from the copy itself.
+      for (const relativePath of readdirSync(source, { recursive: true })) {
+        const file = path.join(source, relativePath.toString())
+        if (!statSync(file).isFile()) continue
 
+        const destination = path.join(dest, relativePath.toString())
         const previous = pluginOwners.get(destination)
         if (previous && previous !== pluginName) {
           logger.warn(
@@ -140,9 +144,10 @@ export function prepareCpMergeDir({
           )
         }
         pluginOwners.set(destination, pluginName)
-        return true
-      },
-    })
+      }
+    }
+
+    cpSync(source, dest, { recursive: true })
   }
 
   try {
