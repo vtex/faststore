@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.12.0-dev.0](https://github.com/vtex/faststore/compare/v4.11.5-dev.0...v4.12.0-dev.0) (2026-11-19)
+
+### Features
+
+- merge plugin CMS schemas in cms-sync for Content Platform ([#3597](https://github.com/vtex/faststore/issues/3597)) ([9d42b06](https://github.com/vtex/faststore/commit/9d42b06eefa6aaf7dd55388bae8fac4c304988a3))
+
 ## [4.11.5-dev.0](https://github.com/vtex/faststore/compare/v4.11.4-dev.5...v4.11.5-dev.0) (2026-11-19)
 
 **Note:** Version bump only for package faststore
