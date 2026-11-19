@@ -18,17 +18,20 @@ vi.mock('./directory', async () => {
       userCMSDir: nodePath.join(basePath, 'cms', 'faststore'),
       coreCMSDir: coreCMSDirMock(),
       tmpDir: nodePath.join(basePath, '.faststore'),
+      getPackagePath: (...packagePath: string[]) =>
+        nodePath.join(basePath, 'node_modules', ...packagePath),
     }),
   }
 })
 
 import {
-  cleanupMyAccountMergeDir,
+  cleanupCpMergeDir,
   errorNoCustomization,
   generateAndUploadSchema,
   getCpSchemaOutputPath,
   getExistingCpDirs,
-  prepareMyAccountMergeDir,
+  hasPluginCpSchema,
+  prepareCpMergeDir,
 } from './cp-schema'
 import { logger } from './logger'
 
@@ -162,7 +165,7 @@ describe('cp-schema', () => {
     })
   })
 
-  describe('prepareMyAccountMergeDir', () => {
+  describe('prepareCpMergeDir with My Account', () => {
     function seedCoreMyAccount() {
       const coreDir = path.join(tempDir, 'core', 'cms', 'faststore')
       const componentsDir = path.join(coreDir, 'my-account', 'components')
@@ -197,7 +200,11 @@ describe('cp-schema', () => {
     it('merges core My Account components/pages into two staging dirs', () => {
       seedCoreMyAccount()
 
-      const { mergeDir, dirs } = prepareMyAccountMergeDir(tempDir)
+      const { mergeDir, dirs } = prepareCpMergeDir({
+        basePath: tempDir,
+        includeMyAccount: true,
+        plugins: [],
+      })
 
       try {
         // Staging lives inside the store's .faststore and paths are relative.
@@ -226,7 +233,11 @@ describe('cp-schema', () => {
       seedCoreMyAccount()
       seedStoreCustomizations()
 
-      const { mergeDir } = prepareMyAccountMergeDir(tempDir)
+      const { mergeDir } = prepareCpMergeDir({
+        basePath: tempDir,
+        includeMyAccount: true,
+        plugins: [],
+      })
 
       try {
         // Core My Account files present.
@@ -276,7 +287,11 @@ describe('cp-schema', () => {
         '{"owner":"store"}'
       )
 
-      const { mergeDir } = prepareMyAccountMergeDir(tempDir)
+      const { mergeDir } = prepareCpMergeDir({
+        basePath: tempDir,
+        includeMyAccount: true,
+        plugins: [],
+      })
 
       try {
         expect(
@@ -302,14 +317,20 @@ describe('cp-schema', () => {
       fs.writeFileSync(path.join(myAccount, 'components'), 'not a dir')
       coreCMSDirMock.mockReturnValue(coreDir)
 
-      expect(() => prepareMyAccountMergeDir(tempDir)).toThrow()
+      expect(() =>
+        prepareCpMergeDir({
+          basePath: tempDir,
+          includeMyAccount: true,
+          plugins: [],
+        })
+      ).toThrow()
 
       // The staging dir was created under .faststore then removed on failure.
       const stagingParent = path.join(tempDir, '.faststore')
       const leftovers = fs.existsSync(stagingParent)
         ? fs
             .readdirSync(stagingParent)
-            .filter((name) => name.startsWith('cms-myaccount-'))
+            .filter((name) => name.startsWith('cms-merge-'))
         : []
       expect(leftovers).toEqual([])
     })
@@ -319,7 +340,11 @@ describe('cp-schema', () => {
         path.join(tempDir, 'core-without-myaccount')
       )
 
-      const result = prepareMyAccountMergeDir(tempDir)
+      const result = prepareCpMergeDir({
+        basePath: tempDir,
+        includeMyAccount: true,
+        plugins: [],
+      })
 
       expect(errorMock).toHaveBeenCalledWith(
         expect.stringContaining(
@@ -336,12 +361,283 @@ describe('cp-schema', () => {
     })
   })
 
-  describe('cleanupMyAccountMergeDir', () => {
+  describe('plugin schemas', () => {
+    const PLUGIN_A = '@vtex/plugin-a'
+    const PLUGIN_B = '@vtex/plugin-b'
+
+    function seedPluginFile(
+      plugin: string,
+      subdir: 'components' | 'pages',
+      fileName: string,
+      content: string
+    ) {
+      const dir = path.join(
+        tempDir,
+        'node_modules',
+        plugin,
+        'cms',
+        'faststore',
+        subdir
+      )
+      fs.mkdirSync(dir, { recursive: true })
+      fs.writeFileSync(path.join(dir, fileName), content)
+    }
+
+    function seedStoreFile(
+      subdir: 'components' | 'pages',
+      fileName: string,
+      content: string
+    ) {
+      const dir = path.join(tempDir, 'cms', 'faststore', subdir)
+      fs.mkdirSync(dir, { recursive: true })
+      fs.writeFileSync(path.join(dir, fileName), content)
+    }
+
+    function readStaged(
+      mergeDir: string,
+      subdir: 'components' | 'pages',
+      fileName: string
+    ) {
+      return fs.readFileSync(path.join(mergeDir, subdir, fileName), 'utf-8')
+    }
+
+    describe('hasPluginCpSchema', () => {
+      it('is true when a plugin ships a components or pages directory', () => {
+        seedPluginFile(PLUGIN_A, 'pages', 'cms_content_type__a.jsonc', '{}')
+
+        expect(hasPluginCpSchema(tempDir, [PLUGIN_A])).toBe(true)
+      })
+
+      it('is false when the plugin has no cms/faststore directory', () => {
+        fs.mkdirSync(path.join(tempDir, 'node_modules', PLUGIN_A), {
+          recursive: true,
+        })
+
+        expect(hasPluginCpSchema(tempDir, [PLUGIN_A])).toBe(false)
+      })
+
+      it('is false when there are no plugins', () => {
+        expect(hasPluginCpSchema(tempDir, [])).toBe(false)
+      })
+
+      it('resolves the object form of a plugin entry', () => {
+        seedPluginFile(PLUGIN_A, 'components', 'cms_component__a.jsonc', '{}')
+
+        expect(hasPluginCpSchema(tempDir, [{ [PLUGIN_A]: {} }])).toBe(true)
+      })
+    })
+
+    describe('prepareCpMergeDir', () => {
+      it('stages plugin components and pages next to the store files', () => {
+        seedPluginFile(PLUGIN_A, 'components', 'cms_component__a.jsonc', '{}')
+        seedPluginFile(PLUGIN_A, 'pages', 'cms_content_type__a.jsonc', '{}')
+        seedStoreFile('components', 'cms_component__store.jsonc', '{}')
+
+        const { mergeDir, dirs } = prepareCpMergeDir({
+          basePath: tempDir,
+          includeMyAccount: false,
+          plugins: [PLUGIN_A],
+        })
+
+        try {
+          expect(dirs).toEqual([
+            path.relative(tempDir, path.join(mergeDir, 'components')),
+            path.relative(tempDir, path.join(mergeDir, 'pages')),
+          ])
+          expect(
+            fs.existsSync(
+              path.join(mergeDir, 'components', 'cms_component__a.jsonc')
+            )
+          ).toBe(true)
+          expect(
+            fs.existsSync(
+              path.join(mergeDir, 'pages', 'cms_content_type__a.jsonc')
+            )
+          ).toBe(true)
+          expect(
+            fs.existsSync(
+              path.join(mergeDir, 'components', 'cms_component__store.jsonc')
+            )
+          ).toBe(true)
+        } finally {
+          fs.rmSync(mergeDir, { recursive: true, force: true })
+        }
+      })
+
+      it('lets the store override a plugin file with the same name', () => {
+        seedPluginFile(
+          PLUGIN_A,
+          'components',
+          'shared.jsonc',
+          '{"owner":"plugin"}'
+        )
+        seedStoreFile('components', 'shared.jsonc', '{"owner":"store"}')
+
+        const { mergeDir } = prepareCpMergeDir({
+          basePath: tempDir,
+          includeMyAccount: false,
+          plugins: [PLUGIN_A],
+        })
+
+        try {
+          expect(readStaged(mergeDir, 'components', 'shared.jsonc')).toContain(
+            'store'
+          )
+        } finally {
+          fs.rmSync(mergeDir, { recursive: true, force: true })
+        }
+      })
+
+      it('lets a later plugin override an earlier one and warns naming both', () => {
+        const warnMock = vi.spyOn(logger, 'warn').mockImplementation(() => {})
+        seedPluginFile(PLUGIN_A, 'components', 'shared.jsonc', '{"owner":"a"}')
+        seedPluginFile(PLUGIN_B, 'components', 'shared.jsonc', '{"owner":"b"}')
+
+        const { mergeDir } = prepareCpMergeDir({
+          basePath: tempDir,
+          includeMyAccount: false,
+          plugins: [PLUGIN_A, PLUGIN_B],
+        })
+
+        try {
+          expect(readStaged(mergeDir, 'components', 'shared.jsonc')).toContain(
+            '"b"'
+          )
+          expect(warnMock).toHaveBeenCalledWith(
+            expect.stringContaining(PLUGIN_A)
+          )
+          expect(warnMock).toHaveBeenCalledWith(
+            expect.stringContaining(PLUGIN_B)
+          )
+        } finally {
+          warnMock.mockRestore()
+          fs.rmSync(mergeDir, { recursive: true, force: true })
+        }
+      })
+
+      it('applies precedence store > plugin > core My Account', () => {
+        const coreDir = path.join(tempDir, 'core', 'cms', 'faststore')
+        const coreComponents = path.join(coreDir, 'my-account', 'components')
+        fs.mkdirSync(coreComponents, { recursive: true })
+        fs.mkdirSync(path.join(coreDir, 'my-account', 'pages'), {
+          recursive: true,
+        })
+        fs.writeFileSync(
+          path.join(coreComponents, 'a.jsonc'),
+          '{"owner":"core"}'
+        )
+        fs.writeFileSync(
+          path.join(coreComponents, 'b.jsonc'),
+          '{"owner":"core"}'
+        )
+        coreCMSDirMock.mockReturnValue(coreDir)
+        seedPluginFile(PLUGIN_A, 'components', 'a.jsonc', '{"owner":"plugin"}')
+        seedPluginFile(PLUGIN_A, 'components', 'b.jsonc', '{"owner":"plugin"}')
+        seedStoreFile('components', 'b.jsonc', '{"owner":"store"}')
+
+        const { mergeDir } = prepareCpMergeDir({
+          basePath: tempDir,
+          includeMyAccount: true,
+          plugins: [PLUGIN_A],
+        })
+
+        try {
+          expect(readStaged(mergeDir, 'components', 'a.jsonc')).toContain(
+            'plugin'
+          )
+          expect(readStaged(mergeDir, 'components', 'b.jsonc')).toContain(
+            'store'
+          )
+        } finally {
+          fs.rmSync(mergeDir, { recursive: true, force: true })
+        }
+      })
+
+      it('ignores a plugin without a cms/faststore directory', () => {
+        fs.mkdirSync(path.join(tempDir, 'node_modules', PLUGIN_A), {
+          recursive: true,
+        })
+        seedStoreFile('components', 'cms_component__store.jsonc', '{}')
+
+        const { mergeDir } = prepareCpMergeDir({
+          basePath: tempDir,
+          includeMyAccount: false,
+          plugins: [PLUGIN_A],
+        })
+
+        try {
+          expect(fs.readdirSync(path.join(mergeDir, 'components'))).toEqual([
+            'cms_component__store.jsonc',
+          ])
+        } finally {
+          fs.rmSync(mergeDir, { recursive: true, force: true })
+        }
+      })
+
+      it('works when the store has no cms/faststore directory', () => {
+        seedPluginFile(PLUGIN_A, 'pages', 'cms_content_type__a.jsonc', '{}')
+
+        const { mergeDir } = prepareCpMergeDir({
+          basePath: tempDir,
+          includeMyAccount: false,
+          plugins: [PLUGIN_A],
+        })
+
+        try {
+          expect(
+            fs.existsSync(
+              path.join(mergeDir, 'pages', 'cms_content_type__a.jsonc')
+            )
+          ).toBe(true)
+          expect(exitMock).not.toHaveBeenCalled()
+        } finally {
+          fs.rmSync(mergeDir, { recursive: true, force: true })
+        }
+      })
+
+      it('removes the staging dir and rethrows when a plugin copy fails', () => {
+        const pluginCms = path.join(
+          tempDir,
+          'node_modules',
+          PLUGIN_A,
+          'cms',
+          'faststore'
+        )
+        fs.mkdirSync(pluginCms, { recursive: true })
+        fs.writeFileSync(path.join(pluginCms, 'components'), 'not a dir')
+
+        let thrown: unknown
+        try {
+          prepareCpMergeDir({
+            basePath: tempDir,
+            includeMyAccount: false,
+            plugins: [PLUGIN_A],
+          })
+        } catch (error) {
+          thrown = error
+        }
+
+        // A copy failure, not a missing function (TypeError).
+        expect(thrown).toBeInstanceOf(Error)
+        expect(thrown).not.toBeInstanceOf(TypeError)
+
+        const stagingParent = path.join(tempDir, '.faststore')
+        const leftovers = fs.existsSync(stagingParent)
+          ? fs
+              .readdirSync(stagingParent)
+              .filter((name) => name.startsWith('cms-merge-'))
+          : []
+        expect(leftovers).toEqual([])
+      })
+    })
+  })
+
+  describe('cleanupCpMergeDir', () => {
     it('removes the merge directory', () => {
       const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-cleanup-'))
       fs.writeFileSync(path.join(dir, 'a.txt'), 'x')
 
-      cleanupMyAccountMergeDir(dir)
+      cleanupCpMergeDir(dir)
 
       expect(fs.existsSync(dir)).toBe(false)
     })
@@ -349,7 +645,7 @@ describe('cp-schema', () => {
     it('does not throw when the directory is already gone', () => {
       const dir = path.join(tempDir, 'nonexistent')
 
-      expect(() => cleanupMyAccountMergeDir(dir)).not.toThrow()
+      expect(() => cleanupCpMergeDir(dir)).not.toThrow()
     })
   })
 })
