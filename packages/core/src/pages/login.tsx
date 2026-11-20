@@ -36,7 +36,7 @@ type Props = {
 function Page({
   page: { sections, settings },
   globalSections: globalSectionsProp,
-}: Props) {
+}: Readonly<Props>) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
 

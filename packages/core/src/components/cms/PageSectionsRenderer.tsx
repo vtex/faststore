@@ -9,8 +9,10 @@ export type PageSectionsRendererProps = {
 }
 
 export default function PageSectionsRenderer({
+  contentType: _contentType,
   sections,
+  settings: _settings,
   renderSections,
-}: PageSectionsRendererProps) {
+}: Readonly<PageSectionsRendererProps>) {
   return <>{renderSections(sections)}</>
 }

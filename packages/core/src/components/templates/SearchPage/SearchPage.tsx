@@ -23,7 +23,7 @@ function SearchPage({
   data: serverData,
   globalSections,
   globalSettings,
-}: SearchPageProps) {
+}: Readonly<SearchPageProps>) {
   const { pages, useGalleryPage } = useCreateUseGalleryPage()
 
   const context = {
