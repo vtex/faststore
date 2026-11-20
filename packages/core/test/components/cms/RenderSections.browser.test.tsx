@@ -1,10 +1,55 @@
 import { UIProvider } from '@faststore/ui'
 import { render, screen } from '@testing-library/react'
 import { renderToString } from 'react-dom/server'
-import { beforeAll, describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 
-import { RenderSectionsBase } from 'src/components/cms/RenderSections'
+import type { PageSectionsRendererProps } from 'src/components/cms/PageSectionsRenderer'
+import RenderSections, {
+  RenderSectionsBase,
+} from 'src/components/cms/RenderSections'
 import { getDefaultMyAccountSections } from 'src/server/cms/myAccountDefaultSections'
+
+vi.mock('next/dynamic', () => ({ default: () => () => null }))
+vi.mock('next/router', () => ({
+  useRouter: () => ({ isPreview: false }),
+}))
+vi.mock('src/sdk/performance/useTTI', () => ({
+  default: () => ({ isInteractive: true }),
+}))
+vi.mock('src/server/content/utils', () => ({
+  isContentPlatformSource: () => false,
+}))
+vi.mock('src/components/cms/global/Components', () => ({ default: {} }))
+vi.mock('src/customizations/src/components/PageSectionsRenderer', () => ({
+  default: ({
+    contentType,
+    sections,
+    settings,
+    renderSections,
+  }: Readonly<PageSectionsRendererProps>) => {
+    const pageSections = settings?.omitLastSection
+      ? sections.slice(0, -1)
+      : sections
+    const renderedSections = settings?.splitSections ? (
+      <>
+        {renderSections(pageSections.slice(0, 1))}
+        {renderSections(pageSections.slice(1))}
+      </>
+    ) : (
+      renderSections(pageSections)
+    )
+
+    return (
+      <div
+        data-testid="page-sections-renderer"
+        data-content-type={contentType}
+        data-layout={String(settings?.layout)}
+      >
+        {renderedSections}
+      </div>
+    )
+  },
+}))
 
 /**
  * First-paint behavior of the My Account pages.
@@ -131,5 +176,98 @@ describe('skipLazyLoading', () => {
     ) as HTMLElement | null
 
     expect(placeholder?.style.height).toBe('823px')
+  })
+})
+
+describe('PageSectionsRenderer customization', () => {
+  it('receives generic page context and delegates augmented sections', () => {
+    render(
+      <UIProvider>
+        <RenderSections
+          contentType="customPage"
+          globalSections={[]}
+          sections={[{ name: 'Primary', data: {} }]}
+          settings={{ layout: 'sidebar' }}
+          components={{
+            Primary: () => <div>primary</div>,
+            RegionSlider: () => <div>region slider</div>,
+          }}
+        />
+      </UIProvider>
+    )
+
+    const renderer = screen.getByTestId('page-sections-renderer')
+
+    expect(renderer.getAttribute('data-content-type')).toBe('customPage')
+    expect(renderer.getAttribute('data-layout')).toBe('sidebar')
+    expect(screen.getByText('primary')).toBeTruthy()
+    expect(screen.getByText('region slider')).toBeTruthy()
+  })
+
+  it('allows a custom renderer to group every section across multiple calls', () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    render(
+      <UIProvider>
+        <RenderSections
+          contentType="customPage"
+          globalSections={[]}
+          sections={[{ name: 'Primary', data: {} }]}
+          settings={{ splitSections: true }}
+          components={{
+            Primary: () => <div>primary</div>,
+            RegionSlider: () => <div>region slider</div>,
+          }}
+        />
+      </UIProvider>
+    )
+
+    expect(consoleWarn).not.toHaveBeenCalled()
+    consoleWarn.mockRestore()
+  })
+
+  it('resets delegated section tracking between renders', () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const page = (layout: string) => (
+      <UIProvider>
+        <RenderSections
+          contentType="customPage"
+          globalSections={[]}
+          sections={[{ name: 'Primary', data: {} }]}
+          settings={{ layout }}
+          components={{
+            Primary: () => <div>primary</div>,
+            RegionSlider: () => <div>region slider</div>,
+          }}
+        />
+      </UIProvider>
+    )
+    const { rerender } = render(page('first'))
+
+    rerender(page('second'))
+
+    expect(consoleWarn).not.toHaveBeenCalled()
+    consoleWarn.mockRestore()
+  })
+
+  it('warns when a custom renderer omits a section', () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    render(
+      <UIProvider>
+        <RenderSections
+          contentType="customPage"
+          globalSections={[]}
+          sections={[{ name: 'Primary', data: {} }]}
+          settings={{ omitLastSection: true }}
+          components={{ Primary: () => <div>primary</div> }}
+        />
+      </UIProvider>
+    )
+
+    expect(consoleWarn).toHaveBeenCalledWith(
+      'PageSectionsRenderer for "customPage" must render every section exactly once. Expected: Primary, RegionSlider. Rendered: Primary.'
+    )
+    consoleWarn.mockRestore()
   })
 })

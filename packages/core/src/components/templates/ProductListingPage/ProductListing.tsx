@@ -99,7 +99,9 @@ export default function ProductListing({
       <PageProvider context={context}>
         <UseGalleryPageContext.Provider value={useGalleryPage}>
           <RenderSections
+            contentType="plp"
             sections={sections}
+            settings={settings}
             globalSections={globalSections}
             components={COMPONENTS}
           />

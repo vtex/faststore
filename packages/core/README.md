@@ -75,6 +75,53 @@ Store-level UI components (not intended for the shared library) live in `src/com
 2. Compose using components from `@faststore/ui`
 3. Use TypeScript for props — no `data-fs-*` attributes needed here (those belong in `@faststore/components`)
 
+### Customizing page section layouts
+
+Create `src/components/PageSectionsRenderer.tsx` in the store to customize how
+CMS page sections are grouped. The renderer is content-type agnostic and
+receives the content type, its settings, and its sections. By default,
+FastStore delegates the sections directly without adding markup.
+
+```tsx
+import type { PageSectionsRendererProps } from '@faststore/core'
+
+const SIDEBAR_SECTIONS = new Set(['ProductDetails'])
+
+export default function PageSectionsRenderer({
+  contentType,
+  sections,
+  renderSections,
+}: PageSectionsRendererProps) {
+  if (contentType !== 'pdp') {
+    return <>{renderSections(sections)}</>
+  }
+
+  const sidebar = sections.filter(({ name }) => SIDEBAR_SECTIONS.has(name))
+  const main = sections.filter(({ name }) => !SIDEBAR_SECTIONS.has(name))
+
+  return (
+    <div className="page-layout">
+      <div>{renderSections(main)}</div>
+      <aside>{renderSections(sidebar)}</aside>
+    </div>
+  )
+}
+```
+
+Use `renderSections` for every section exactly once. It preserves FastStore's
+section boundaries, lazy loading, component resolution, and framework-injected
+sections. Call it synchronously while `PageSectionsRenderer` renders, not from
+an effect or event handler, so FastStore can validate the delegation. Global
+sections, page children, and the Toast remain outside this customization. A
+renderer can branch on any supported `contentType`; always delegate unchanged
+sections for content types it does not customize. System pages such as `404`,
+`500`, and `login` also use this renderer when they contain sections, so an
+exception can prevent an error or fallback page from rendering. Keep the safe
+default branch above as the first content-type-specific operation, before
+reading type-specific settings or section shapes. The `contentType` remains a
+string intentionally: stores and content platforms can define additional
+content types beyond FastStore's built-in pages.
+
 ### Adding or modifying a GraphQL query
 
 1. Edit or create a `.graphql` file with your query or fragment

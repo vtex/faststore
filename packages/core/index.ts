@@ -14,6 +14,7 @@ export { getMyAccountRoutes } from './src/sdk/account/getMyAccountRoutes'
 
 export { RichText } from './src/components/ui/RichText'
 export type { RichTextProps } from './src/components/ui/RichText'
+export type { PageSectionsRendererProps } from './src/components/cms/PageSectionsRenderer'
 
 // Overridable Sections
 export { default as AlertSection } from './src/components/sections/Alert'

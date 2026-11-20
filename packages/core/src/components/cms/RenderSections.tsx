@@ -3,13 +3,16 @@ import {
   type PropsWithChildren,
   type ReactNode,
   memo,
+  useEffect,
   useMemo,
+  useRef,
 } from 'react'
 
 import { useUI } from '@faststore/ui'
 import type { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import PageSectionsRenderer from 'src/customizations/src/components/PageSectionsRenderer'
 import useTTI from 'src/sdk/performance/useTTI'
 import { isContentPlatformSource } from 'src/server/content/utils'
 import COMPONENTS from './global/Components'
@@ -18,8 +21,10 @@ import ViewportObserver from './ViewportObserver'
 
 interface Props {
   components?: Record<string, ComponentType<any>>
+  contentType?: string
   globalSections?: Array<{ name: string; data: any }>
   sections?: Array<{ name: string; data: any; $componentKey?: string }>
+  settings?: Record<string, unknown>
   isInteractive?: boolean
 }
 
@@ -196,8 +201,10 @@ export const RenderSectionsBase = ({
 
 function RenderSections({
   children,
+  contentType,
   globalSections,
   sections,
+  settings,
   components = COMPONENTS,
 }: PropsWithChildren<Props>) {
   const { firstSections, lastSections } = useDividedSections(
@@ -208,6 +215,28 @@ function RenderSections({
     () => withRegionSliderSection(sections, globalSections),
     [sections, globalSections]
   )
+  const renderedPageSections = useRef<Section[]>([])
+  renderedPageSections.current = []
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production' || !contentType) return
+
+    const expectedNames = augmentedSections
+      .map(({ name }) => name)
+      .sort((left, right) => left.localeCompare(right))
+    const renderedNames = renderedPageSections.current
+      .map(({ name }) => name)
+      .sort((left, right) => left.localeCompare(right))
+    const renderedEverySection =
+      expectedNames.length === renderedNames.length &&
+      expectedNames.every((name, index) => name === renderedNames[index])
+
+    if (!renderedEverySection) {
+      console.warn(
+        `PageSectionsRenderer for "${contentType}" must render every section exactly once. Expected: ${expectedNames.join(', ')}. Rendered: ${renderedNames.join(', ')}.`
+      )
+    }
+  }, [augmentedSections, contentType])
 
   const { isInteractive } = useTTI()
   const router = useRouter()
@@ -231,13 +260,31 @@ function RenderSections({
           isInteractive={isInteractive}
         />
       )}
-      {augmentedSections.length > 0 && (
-        <RenderSectionsBase
-          sections={augmentedSections}
-          components={components}
-          isInteractive={isInteractive}
-        />
-      )}
+      {augmentedSections.length > 0 &&
+        (contentType ? (
+          <PageSectionsRenderer
+            contentType={contentType}
+            sections={augmentedSections}
+            settings={settings}
+            renderSections={(pageSections) => {
+              renderedPageSections.current.push(...pageSections)
+
+              return (
+                <RenderSectionsBase
+                  sections={pageSections}
+                  components={components}
+                  isInteractive={isInteractive}
+                />
+              )
+            }}
+          />
+        ) : (
+          <RenderSectionsBase
+            sections={augmentedSections}
+            components={components}
+            isInteractive={isInteractive}
+          />
+        ))}
       {children}
       <LazyLoadingSection sectionName="Toast" isInteractive={isInteractive}>
         <Toast />
