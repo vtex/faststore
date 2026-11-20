@@ -106,7 +106,9 @@ export default function LandingPage({
       */}
       <PageProvider context={context}>
         <RenderSections
+          contentType="landingPage"
           sections={sections}
+          settings={settings}
           globalSections={globalSections}
           components={COMPONENTS}
         />

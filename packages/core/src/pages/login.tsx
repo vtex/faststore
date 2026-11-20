@@ -34,7 +34,7 @@ type Props = {
 }
 
 function Page({
-  page: { sections },
+  page: { sections, settings },
   globalSections: globalSectionsProp,
 }: Props) {
   const { sections: globalSections, settings: globalSettings } =
@@ -67,7 +67,9 @@ function Page({
       */}
       <PageProvider context={{ globalSettings }}>
         <RenderSections
+          contentType="login"
           sections={sections}
+          settings={settings}
           globalSections={globalSections}
           components={COMPONENTS}
         />

@@ -10,6 +10,7 @@ import { useUI } from '@faststore/ui'
 import type { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import PageSectionsRenderer from 'src/customizations/src/components/PageSectionsRenderer'
 import useTTI from 'src/sdk/performance/useTTI'
 import { isContentPlatformSource } from 'src/server/content/utils'
 import COMPONENTS from './global/Components'
@@ -18,8 +19,10 @@ import ViewportObserver from './ViewportObserver'
 
 interface Props {
   components?: Record<string, ComponentType<any>>
+  contentType?: string
   globalSections?: Array<{ name: string; data: any }>
   sections?: Array<{ name: string; data: any; $componentKey?: string }>
+  settings?: Record<string, unknown>
   isInteractive?: boolean
 }
 
@@ -196,8 +199,10 @@ export const RenderSectionsBase = ({
 
 function RenderSections({
   children,
+  contentType,
   globalSections,
   sections,
+  settings,
   components = COMPONENTS,
 }: PropsWithChildren<Props>) {
   const { firstSections, lastSections } = useDividedSections(
@@ -231,13 +236,27 @@ function RenderSections({
           isInteractive={isInteractive}
         />
       )}
-      {augmentedSections.length > 0 && (
-        <RenderSectionsBase
-          sections={augmentedSections}
-          components={components}
-          isInteractive={isInteractive}
-        />
-      )}
+      {augmentedSections.length > 0 &&
+        (contentType ? (
+          <PageSectionsRenderer
+            contentType={contentType}
+            sections={augmentedSections}
+            settings={settings}
+            renderSections={(pageSections) => (
+              <RenderSectionsBase
+                sections={pageSections}
+                components={components}
+                isInteractive={isInteractive}
+              />
+            )}
+          />
+        ) : (
+          <RenderSectionsBase
+            sections={augmentedSections}
+            components={components}
+            isInteractive={isInteractive}
+          />
+        ))}
       {children}
       <LazyLoadingSection sectionName="Toast" isInteractive={isInteractive}>
         <Toast />

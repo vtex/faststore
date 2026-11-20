@@ -75,6 +75,45 @@ Store-level UI components (not intended for the shared library) live in `src/com
 2. Compose using components from `@faststore/ui`
 3. Use TypeScript for props — no `data-fs-*` attributes needed here (those belong in `@faststore/components`)
 
+### Customizing page section layouts
+
+Create `src/components/PageSectionsRenderer.tsx` in the store to customize how
+CMS page sections are grouped. The renderer is content-type agnostic and
+receives the content type, its settings, and its sections. By default,
+FastStore delegates the sections directly without adding markup.
+
+```tsx
+import type { PageSectionsRendererProps } from '@faststore/core'
+
+const SIDEBAR_SECTIONS = new Set(['ProductDetails'])
+
+export default function PageSectionsRenderer({
+  contentType,
+  sections,
+  renderSections,
+}: PageSectionsRendererProps) {
+  if (contentType !== 'pdp') {
+    return <>{renderSections(sections)}</>
+  }
+
+  const sidebar = sections.filter(({ name }) => SIDEBAR_SECTIONS.has(name))
+  const main = sections.filter(({ name }) => !SIDEBAR_SECTIONS.has(name))
+
+  return (
+    <div className="page-layout">
+      <div>{renderSections(main)}</div>
+      <aside>{renderSections(sidebar)}</aside>
+    </div>
+  )
+}
+```
+
+Use `renderSections` for every section exactly once. It preserves FastStore's
+section boundaries, lazy loading, component resolution, and framework-injected
+sections. Global sections, page children, and the Toast remain outside this
+customization. A renderer can branch on any supported `contentType`; always
+delegate unchanged sections for content types it does not customize.
+
 ### Adding or modifying a GraphQL query
 
 1. Edit or create a `.graphql` file with your query or fragment

@@ -1,10 +1,41 @@
 import { UIProvider } from '@faststore/ui'
 import { render, screen } from '@testing-library/react'
 import { renderToString } from 'react-dom/server'
-import { beforeAll, describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 
-import { RenderSectionsBase } from 'src/components/cms/RenderSections'
+import type { PageSectionsRendererProps } from 'src/components/cms/PageSectionsRenderer'
+import RenderSections, {
+  RenderSectionsBase,
+} from 'src/components/cms/RenderSections'
 import { getDefaultMyAccountSections } from 'src/server/cms/myAccountDefaultSections'
+
+vi.mock('next/dynamic', () => ({ default: () => () => null }))
+vi.mock('next/router', () => ({
+  useRouter: () => ({ isPreview: false }),
+}))
+vi.mock('src/sdk/performance/useTTI', () => ({
+  default: () => ({ isInteractive: true }),
+}))
+vi.mock('src/server/content/utils', () => ({
+  isContentPlatformSource: () => false,
+}))
+vi.mock('src/components/cms/global/Components', () => ({ default: {} }))
+vi.mock('src/customizations/src/components/PageSectionsRenderer', () => ({
+  default: ({
+    contentType,
+    sections,
+    settings,
+    renderSections,
+  }: PageSectionsRendererProps) => (
+    <div
+      data-testid="page-sections-renderer"
+      data-content-type={contentType}
+      data-layout={String(settings?.layout)}
+    >
+      {renderSections(sections)}
+    </div>
+  ),
+}))
 
 /**
  * First-paint behavior of the My Account pages.
@@ -131,5 +162,31 @@ describe('skipLazyLoading', () => {
     ) as HTMLElement | null
 
     expect(placeholder?.style.height).toBe('823px')
+  })
+})
+
+describe('PageSectionsRenderer customization', () => {
+  it('receives generic page context and delegates augmented sections', () => {
+    render(
+      <UIProvider>
+        <RenderSections
+          contentType="customPage"
+          globalSections={[]}
+          sections={[{ name: 'Primary', data: {} }]}
+          settings={{ layout: 'sidebar' }}
+          components={{
+            Primary: () => <div>primary</div>,
+            RegionSlider: () => <div>region slider</div>,
+          }}
+        />
+      </UIProvider>
+    )
+
+    const renderer = screen.getByTestId('page-sections-renderer')
+
+    expect(renderer.getAttribute('data-content-type')).toBe('customPage')
+    expect(renderer.getAttribute('data-layout')).toBe('sidebar')
+    expect(screen.getByText('primary')).toBeTruthy()
+    expect(screen.getByText('region slider')).toBeTruthy()
   })
 })

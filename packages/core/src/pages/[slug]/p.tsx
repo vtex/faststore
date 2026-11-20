@@ -338,7 +338,9 @@ function Page({
       >
         <PageProvider context={context}>
           <RenderSections
+            contentType="pdp"
             sections={sections}
+            settings={settings}
             globalSections={globalSections}
             components={COMPONENTS}
           />
