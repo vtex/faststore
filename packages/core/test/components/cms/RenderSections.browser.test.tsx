@@ -226,6 +226,30 @@ describe('PageSectionsRenderer customization', () => {
     consoleWarn.mockRestore()
   })
 
+  it('resets delegated section tracking between renders', () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const page = (layout: string) => (
+      <UIProvider>
+        <RenderSections
+          contentType="customPage"
+          globalSections={[]}
+          sections={[{ name: 'Primary', data: {} }]}
+          settings={{ layout }}
+          components={{
+            Primary: () => <div>primary</div>,
+            RegionSlider: () => <div>region slider</div>,
+          }}
+        />
+      </UIProvider>
+    )
+    const { rerender } = render(page('first'))
+
+    rerender(page('second'))
+
+    expect(consoleWarn).not.toHaveBeenCalled()
+    consoleWarn.mockRestore()
+  })
+
   it('warns when a custom renderer omits a section', () => {
     const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 

@@ -5,6 +5,7 @@ import {
   memo,
   useEffect,
   useMemo,
+  useRef,
 } from 'react'
 
 import { useUI } from '@faststore/ui'
@@ -214,7 +215,8 @@ function RenderSections({
     () => withRegionSliderSection(sections, globalSections),
     [sections, globalSections]
   )
-  const renderedPageSections: Section[] = []
+  const renderedPageSections = useRef<Section[]>([])
+  renderedPageSections.current = []
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production' || !contentType) return
@@ -222,7 +224,7 @@ function RenderSections({
     const expectedNames = augmentedSections
       .map(({ name }) => name)
       .sort((left, right) => left.localeCompare(right))
-    const renderedNames = renderedPageSections
+    const renderedNames = renderedPageSections.current
       .map(({ name }) => name)
       .sort((left, right) => left.localeCompare(right))
     const renderedEverySection =
@@ -234,7 +236,7 @@ function RenderSections({
         `PageSectionsRenderer for "${contentType}" must render every section exactly once. Expected: ${expectedNames.join(', ')}. Rendered: ${renderedNames.join(', ')}.`
       )
     }
-  }, [augmentedSections, contentType, renderedPageSections])
+  }, [augmentedSections, contentType])
 
   const { isInteractive } = useTTI()
   const router = useRouter()
@@ -265,7 +267,7 @@ function RenderSections({
             sections={augmentedSections}
             settings={settings}
             renderSections={(pageSections) => {
-              renderedPageSections.push(...pageSections)
+              renderedPageSections.current.push(...pageSections)
 
               return (
                 <RenderSectionsBase
