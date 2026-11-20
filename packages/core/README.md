@@ -114,7 +114,11 @@ sections. Call it synchronously while `PageSectionsRenderer` renders, not from
 an effect or event handler, so FastStore can validate the delegation. Global
 sections, page children, and the Toast remain outside this customization. A
 renderer can branch on any supported `contentType`; always delegate unchanged
-sections for content types it does not customize. The `contentType` remains a
+sections for content types it does not customize. System pages such as `404`,
+`500`, and `login` also use this renderer when they contain sections, so an
+exception can prevent an error or fallback page from rendering. Keep the safe
+default branch above as the first content-type-specific operation, before
+reading type-specific settings or section shapes. The `contentType` remains a
 string intentionally: stores and content platforms can define additional
 content types beyond FastStore's built-in pages.
 
