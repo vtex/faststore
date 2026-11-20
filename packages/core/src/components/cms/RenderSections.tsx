@@ -219,8 +219,12 @@ function RenderSections({
   useEffect(() => {
     if (process.env.NODE_ENV === 'production' || !contentType) return
 
-    const expectedNames = augmentedSections.map(({ name }) => name).sort()
-    const renderedNames = renderedPageSections.map(({ name }) => name).sort()
+    const expectedNames = augmentedSections
+      .map(({ name }) => name)
+      .sort((left, right) => left.localeCompare(right))
+    const renderedNames = renderedPageSections
+      .map(({ name }) => name)
+      .sort((left, right) => left.localeCompare(right))
     const renderedEverySection =
       expectedNames.length === renderedNames.length &&
       expectedNames.every((name, index) => name === renderedNames[index])
