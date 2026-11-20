@@ -26,15 +26,29 @@ vi.mock('src/customizations/src/components/PageSectionsRenderer', () => ({
     sections,
     settings,
     renderSections,
-  }: PageSectionsRendererProps) => (
-    <div
-      data-testid="page-sections-renderer"
-      data-content-type={contentType}
-      data-layout={String(settings?.layout)}
-    >
-      {renderSections(sections)}
-    </div>
-  ),
+  }: Readonly<PageSectionsRendererProps>) => {
+    const pageSections = settings?.omitLastSection
+      ? sections.slice(0, -1)
+      : sections
+    const renderedSections = settings?.splitSections ? (
+      <>
+        {renderSections(pageSections.slice(0, 1))}
+        {renderSections(pageSections.slice(1))}
+      </>
+    ) : (
+      renderSections(pageSections)
+    )
+
+    return (
+      <div
+        data-testid="page-sections-renderer"
+        data-content-type={contentType}
+        data-layout={String(settings?.layout)}
+      >
+        {renderedSections}
+      </div>
+    )
+  },
 }))
 
 /**
@@ -188,5 +202,48 @@ describe('PageSectionsRenderer customization', () => {
     expect(renderer.getAttribute('data-layout')).toBe('sidebar')
     expect(screen.getByText('primary')).toBeTruthy()
     expect(screen.getByText('region slider')).toBeTruthy()
+  })
+
+  it('allows a custom renderer to group every section across multiple calls', () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    render(
+      <UIProvider>
+        <RenderSections
+          contentType="customPage"
+          globalSections={[]}
+          sections={[{ name: 'Primary', data: {} }]}
+          settings={{ splitSections: true }}
+          components={{
+            Primary: () => <div>primary</div>,
+            RegionSlider: () => <div>region slider</div>,
+          }}
+        />
+      </UIProvider>
+    )
+
+    expect(consoleWarn).not.toHaveBeenCalled()
+    consoleWarn.mockRestore()
+  })
+
+  it('warns when a custom renderer omits a section', () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    render(
+      <UIProvider>
+        <RenderSections
+          contentType="customPage"
+          globalSections={[]}
+          sections={[{ name: 'Primary', data: {} }]}
+          settings={{ omitLastSection: true }}
+          components={{ Primary: () => <div>primary</div> }}
+        />
+      </UIProvider>
+    )
+
+    expect(consoleWarn).toHaveBeenCalledWith(
+      'PageSectionsRenderer for "customPage" must render every section exactly once. Expected: Primary, RegionSlider. Rendered: Primary.'
+    )
+    consoleWarn.mockRestore()
   })
 })

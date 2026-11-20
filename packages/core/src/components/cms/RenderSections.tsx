@@ -3,6 +3,7 @@ import {
   type PropsWithChildren,
   type ReactNode,
   memo,
+  useEffect,
   useMemo,
 } from 'react'
 
@@ -213,6 +214,23 @@ function RenderSections({
     () => withRegionSliderSection(sections, globalSections),
     [sections, globalSections]
   )
+  const renderedPageSections: Section[] = []
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production' || !contentType) return
+
+    const expectedNames = augmentedSections.map(({ name }) => name).sort()
+    const renderedNames = renderedPageSections.map(({ name }) => name).sort()
+    const renderedEverySection =
+      expectedNames.length === renderedNames.length &&
+      expectedNames.every((name, index) => name === renderedNames[index])
+
+    if (!renderedEverySection) {
+      console.warn(
+        `PageSectionsRenderer for "${contentType}" must render every section exactly once. Expected: ${expectedNames.join(', ')}. Rendered: ${renderedNames.join(', ')}.`
+      )
+    }
+  }, [augmentedSections, contentType, renderedPageSections])
 
   const { isInteractive } = useTTI()
   const router = useRouter()
@@ -242,13 +260,17 @@ function RenderSections({
             contentType={contentType}
             sections={augmentedSections}
             settings={settings}
-            renderSections={(pageSections) => (
-              <RenderSectionsBase
-                sections={pageSections}
-                components={components}
-                isInteractive={isInteractive}
-              />
-            )}
+            renderSections={(pageSections) => {
+              renderedPageSections.push(...pageSections)
+
+              return (
+                <RenderSectionsBase
+                  sections={pageSections}
+                  components={components}
+                  isInteractive={isInteractive}
+                />
+              )
+            }}
           />
         ) : (
           <RenderSectionsBase

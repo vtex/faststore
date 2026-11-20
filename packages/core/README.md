@@ -112,7 +112,9 @@ Use `renderSections` for every section exactly once. It preserves FastStore's
 section boundaries, lazy loading, component resolution, and framework-injected
 sections. Global sections, page children, and the Toast remain outside this
 customization. A renderer can branch on any supported `contentType`; always
-delegate unchanged sections for content types it does not customize.
+delegate unchanged sections for content types it does not customize. The
+`contentType` remains a string intentionally: stores and content platforms can
+define additional content types beyond FastStore's built-in pages.
 
 ### Adding or modifying a GraphQL query
 
