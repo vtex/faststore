@@ -109,11 +109,12 @@ export default function PageSectionsRenderer({
 }
 ```
 
-Use `renderSections` for every section exactly once. It preserves FastStore's
-section boundaries, lazy loading, component resolution, and framework-injected
-sections. Call it synchronously while `PageSectionsRenderer` renders, not from
-an effect or event handler, so FastStore can validate the delegation. Global
-sections, page children, and the Toast remain outside this customization. A
+Across all calls to `renderSections`, render every section exactly once. It
+preserves FastStore's section boundaries, lazy loading, component resolution,
+and framework-injected sections. Call it synchronously while
+`PageSectionsRenderer` renders, not from an effect or event handler, so
+FastStore can validate the delegation. Global sections, page children, and the
+Toast remain outside this customization. A
 renderer can branch on any supported `contentType`; always delegate unchanged
 sections for content types it does not customize. System pages such as `404`,
 `500`, and `login` also use this renderer when they contain sections, so an
