@@ -236,7 +236,7 @@ function RenderSections({
         `PageSectionsRenderer for "${contentType}" must render every section exactly once. Expected: ${expectedNames.join(', ')}. Rendered: ${renderedNames.join(', ')}.`
       )
     }
-  }, [augmentedSections, contentType])
+  }, [augmentedSections, contentType, settings])
 
   const { isInteractive } = useTTI()
   const router = useRouter()

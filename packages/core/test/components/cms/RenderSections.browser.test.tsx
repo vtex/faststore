@@ -250,6 +250,37 @@ describe('PageSectionsRenderer customization', () => {
     consoleWarn.mockRestore()
   })
 
+  it('revalidates delegation when settings change', () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const sections = [{ name: 'Primary', data: {} }]
+    const globalSections: [] = []
+    const components = {
+      Primary: () => <div>primary</div>,
+      RegionSlider: () => <div>region slider</div>,
+    }
+    const page = (omitLastSection: boolean) => (
+      <UIProvider>
+        <RenderSections
+          contentType="customPage"
+          globalSections={globalSections}
+          sections={sections}
+          settings={{ omitLastSection }}
+          components={components}
+        />
+      </UIProvider>
+    )
+    const { rerender } = render(page(false))
+
+    expect(consoleWarn).not.toHaveBeenCalled()
+
+    rerender(page(true))
+
+    expect(consoleWarn).toHaveBeenCalledWith(
+      'PageSectionsRenderer for "customPage" must render every section exactly once. Expected: Primary, RegionSlider. Rendered: Primary.'
+    )
+    consoleWarn.mockRestore()
+  })
+
   it('warns when a custom renderer omits a section', () => {
     const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
