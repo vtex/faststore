@@ -90,9 +90,10 @@ const SIDEBAR_SECTIONS = new Set(['ProductDetails'])
 export default function PageSectionsRenderer({
   contentType,
   sections,
+  settings,
   renderSections,
 }: PageSectionsRendererProps) {
-  if (contentType !== 'pdp') {
+  if (contentType !== 'pdp' || settings?.pageLayout !== 'two-column') {
     return <>{renderSections(sections)}</>
   }
 
@@ -120,7 +121,11 @@ exception can prevent an error or fallback page from rendering. Keep the safe
 default branch above as the first content-type-specific operation, before
 reading type-specific settings or section shapes. The `contentType` remains a
 string intentionally: stores and content platforms can define additional
-content types beyond FastStore's built-in pages.
+content types beyond FastStore's built-in pages. The `settings` record is also
+open because its schema is store-owned; narrow the fields used by each recipe
+inside the custom renderer. A renderer may compose multiple rows, column
+regions, and full-width bands, while the CMS selects an approved store recipe
+rather than providing CSS or a layout DSL.
 
 ### Adding or modifying a GraphQL query
 
