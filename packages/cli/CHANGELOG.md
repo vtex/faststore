@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.12.0-dev.2](https://github.com/vtex/faststore/compare/v4.12.0-dev.1...v4.12.0-dev.2) (2026-11-24)
+
+### Bug Fixes
+
+- render the store header and footer in plugin pages with appLayout ([#3607](https://github.com/vtex/faststore/issues/3607)) ([4e7cf9a](https://github.com/vtex/faststore/commit/4e7cf9ae6244206a5fa54335855429b949f5c9fa))
+
 # [4.12.0-dev.1](https://github.com/vtex/faststore/compare/v4.12.0-dev.0...v4.12.0-dev.1) (2026-11-19)
 
 **Note:** Version bump only for package @faststore/cli
