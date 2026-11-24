@@ -145,18 +145,30 @@ async function getServerSidePropsBase(${appLayout ? '{ previewData, ...otherProp
   const loaderData = await (page.loader || noop)(otherProps)
 ${
   appLayout
-    ? `const [globalSectionsPromise, globalSectionsHeaderPromise, globalSectionsFooterPromise] =
-    getGlobalSectionsData({ previewData, locale: otherProps.locale })
-  const [globalSectionsData, globalSectionsHeader, globalSectionsFooter] = await Promise.all([
-    globalSectionsPromise,
-    globalSectionsHeaderPromise,
-    globalSectionsFooterPromise,
-  ])
-  const { sections = [], settings: globalSettings = null } = injectGlobalSections({
-    globalSections: globalSectionsData,
-    globalSectionsHeader,
-    globalSectionsFooter,
-  })`
+    ? `let sections = []
+  let globalSettings = null
+
+  // The store header and footer are an enhancement of the plugin page: if the
+  // global sections cannot be loaded, log it and still render the page.
+  try {
+    const [globalSectionsPromise, globalSectionsHeaderPromise, globalSectionsFooterPromise] =
+      getGlobalSectionsData({ previewData, locale: otherProps.locale })
+    const [globalSectionsData, globalSectionsHeader, globalSectionsFooter] = await Promise.all([
+      globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
+    ])
+    const injected = injectGlobalSections({
+      globalSections: globalSectionsData,
+      globalSectionsHeader,
+      globalSectionsFooter,
+    })
+
+    sections = injected.sections ?? []
+    globalSettings = injected.settings ?? null
+  } catch (error) {
+    console.error('[faststore] Could not load the global sections of a plugin page', error)
+  }`
     : ``
 }
 
