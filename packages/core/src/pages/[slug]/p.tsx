@@ -87,6 +87,7 @@ const OG_PRODUCT_CONDITION_BY_SCHEMA: Record<string, string> = {
 }
 
 type Props = {
+  type: 'pdp'
   sections: PDPContentType['sections']
   settings: PDPContentType['settings']
   data: ServerProductQueryQuery
@@ -512,6 +513,7 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: {
+      type: 'pdp',
       data,
       sections: cmsPage.sections,
       settings: cmsPage.settings,
