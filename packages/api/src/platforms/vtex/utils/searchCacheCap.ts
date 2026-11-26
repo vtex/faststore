@@ -1,35 +1,45 @@
 import type { CacheControl } from '../../../directives/cacheControl'
 
+type CapOffer = {
+  PriceValidUntil?: string
+  priceState?: unknown
+}
+
 type CapItem = {
   sellers?: Array<{
-    commertialOffer?: {
-      PriceValidUntil?: string
-      priceState?: unknown
-    }
+    commertialOffer?: CapOffer
   }>
 }
 
 const isPriceStateObject = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value)
 
+const parseSignaledValidUntil = (offer: CapOffer | undefined) => {
+  if (!offer || !isPriceStateObject(offer.priceState)) {
+    return
+  }
+
+  if (typeof offer.PriceValidUntil !== 'string') {
+    return
+  }
+
+  const parsed = Date.parse(offer.PriceValidUntil)
+
+  if (!Number.isFinite(parsed)) {
+    return
+  }
+
+  return parsed
+}
+
 const earliestValidUntil = (items: CapItem[]) => {
   let earliest: number | undefined
 
   for (const item of items) {
     for (const seller of item?.sellers ?? []) {
-      const offer = seller?.commertialOffer
+      const parsed = parseSignaledValidUntil(seller?.commertialOffer)
 
-      if (!offer || !isPriceStateObject(offer.priceState)) {
-        continue
-      }
-
-      if (typeof offer.PriceValidUntil !== 'string') {
-        continue
-      }
-
-      const parsed = Date.parse(offer.PriceValidUntil)
-
-      if (!Number.isFinite(parsed)) {
+      if (parsed === undefined) {
         continue
       }
 
