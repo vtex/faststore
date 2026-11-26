@@ -50,7 +50,7 @@ A resposta de produto e de busca passa a sair com `s-maxage` e `stale-while-reva
 
 ## Steps
 
-`/ar-implement` só começa com a fase 1 em `Merged` no stream A (`feat/cart-price-state`, PR 3592). Os passos abaixo são o ledger. Este plano não autoriza código antes desse merge.
+A fase 2 está empilhada em `feat/cart-price-state` (`dev ← feat/cart-price-state ← preco-minicart-e-vitrine/p2-ttl-price-valid-until`). O loop não espera o merge da fase 1. Os passos abaixo são o ledger.
 
 - [ ] **1. Função do cap** — criar `applySearchCacheCap` em `packages/api/src/platforms/vtex/utils/searchCacheCap.ts` e o campo opcional `priceState?: Record<string, unknown> | null` em `CommertialOffer` (`packages/api/src/platforms/vtex/clients/search/types/ProductSearchResult.ts`). Assinatura: `(ctx: { cacheControl?: CacheControl }, items: Array<{ sellers?: Array<{ commertialOffer?: { PriceValidUntil?: string; priceState?: unknown } }> }> | undefined, now = Date.now()) => void`. O tipo `CacheControl` vem de `packages/api/src/directives/cacheControl.ts`. Não alargar `GraphqlContext`. Regras da função: sem `ctx.cacheControl`, retorna; lista ausente ou vazia retorna; percorre cada `commertialOffer`; objeto não nulo e não array liga o sinal; `null`, ausência, array e primitivo ficam de fora; entre as ofertas com objeto, `Date.parse` finito entra e o resto fica de fora; nenhuma data válida retorna sem escrever; `restante = max(0, floor((menorTimestamp - now) / 1000))`; grava `sMaxAge = min(atual, min(300, restante))` e `staleWhileRevalidate = min(atual, min(3600, restante))` só quando o atual é número; `scope` fica intocado. Testes em `packages/api/test/unit/platforms/vtex/utils/searchCacheCap.test.ts` com `now` fixo: sem objeto e com data; `priceState: null`; array; objeto `{}` com data válida; objeto `{ available: true, reasonKey: null }` na origem; data ilegível sozinha; data ilegível ao lado de data válida; data acima de 3600 segundos; data entre 300 e 3600; data abaixo de 300; data no passado ao lado de data futura; restante menor que 1 segundo; hint já menor que o cap; `scope` igual ao de entrada; contexto sem hint continua sem `cacheControl`.
   **Verify:** `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/utils/searchCacheCap.test.ts`
@@ -77,12 +77,13 @@ A resposta de produto e de busca passa a sair com `s-maxage` e `stale-while-reva
 - A função só baixa número já gravado e não escreve hint quando `ctx.cacheControl` falta — TDD: a função só baixa o par; `validateCart` não pode ganhar `s-maxage` por uma chamada sem hint — um campo mais curto na mesma operação permanece mais curto.
 - Sinal = objeto não nulo e não array — TDD: objeto presente liga; `null` e campo ausente não ligam — `priceState` em array não encurta o cache.
 - `now` é argumento com default `Date.now()` — o teste precisa de um instante fixo — chamador que omite o argumento usa o relógio da parede.
+- A fase 2 segue sem a fase 1 em `Merged` — em 2026-11-26 o loop foi instruído a empilhar com `gh stack` na branch anterior — o diff desta camada inclui a fase 1 até o PR 3592 entrar em `dev`.
 
 ## Blockers
 
 ## Risks & Open Questions
 
-`/ar-implement` espera a fase 1 em `Merged` (stream A, PR 3592). O status dela no roadmap, nesta data, é `PR open`. A spec pode existir antes disso.
+A implementação corre nesta camada, com base em `feat/cart-price-state`. O PR 3592 continua aberto.
 
 O teto de 10 minutos do Janus continua fora deste repositório. A pergunta aberta do roadmap sobre quem configura esse teto não bloqueia esta fase.
 
@@ -100,4 +101,4 @@ Open Questions: nenhuma.
 | [sessão](../brainstorms/preco-externo-storefront/session.md) | Reference | `Threads > Cache da fase 2` |
 | [cache-graphql-e-estatico](../brainstorms/preco-externo-storefront/knowledge/cache-graphql-e-estatico.md) | Reference | Diretiva 300/3600 e ausência de TTL no cliente de busca |
 | [bff-devolve-price-state-disponivel](../brainstorms/preco-externo-storefront/knowledge/bff-devolve-price-state-disponivel.md) | Reference | `resolvePriceState()` sem origem devolve o default |
-| [roadmap](../roadmaps/preco-minicart-e-vitrine/roadmap.md) | Roadmap (Phase #2) | Branch `preco-minicart-e-vitrine/p2-ttl-price-valid-until`. Implementação gated on #1 Merged |
+| [roadmap](../roadmaps/preco-minicart-e-vitrine/roadmap.md) | Roadmap (Phase #2) | Branch `preco-minicart-e-vitrine/p2-ttl-price-valid-until`, empilhada em `feat/cart-price-state` |
