@@ -46,9 +46,12 @@ const earliestValidUntil = (items: CapItem[]) => {
  * Lowers sMaxAge and staleWhileRevalidate already stored on ctx.cacheControl
  * when a raw Intelligent Search offer carries a priceState object and a
  * parseable PriceValidUntil. Does not create a hint and does not change scope.
+ *
+ * `headers` is not read. It stops TypeScript from treating the argument as a
+ * weak type, so GraphqlContext can be passed without declaring cacheControl.
  */
 export const applySearchCacheCap = (
-  ctx: { cacheControl?: CacheControl },
+  ctx: { cacheControl?: CacheControl; headers?: unknown },
   items: CapItem[] | undefined,
   now = Date.now()
 ): void => {
