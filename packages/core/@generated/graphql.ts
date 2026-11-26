@@ -905,7 +905,12 @@ export type Query = {
   hasAdHocCardAccess: Scalars['Boolean']['output'];
   /** Returns whether the current authenticated user belongs to a B2B organization unit. */
   isOrganizationMember: Scalars['Boolean']['output'];
-  /** Returns the list of saved credit cards for the current user. */
+  /**
+   * Returns the saved credit cards of one origin for the current user.
+   * `personal` reads `GET /api/saved-cards/credit-card/personal`.
+   * `shared` reads `GET /api/saved-cards/credit-card`.
+   * The argument selects the route, so one query performs one fetch.
+   */
   listCreditCards: Maybe<SavedCardListResult>;
   /** Returns the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>;
@@ -2861,7 +2866,7 @@ export type ServerProductQueryQuery = { product: { sku: string, gtin: string, mp
 export type ServerListCardsQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ServerListCardsQueryQuery = { hasAdHocCardAccess: boolean, listCreditCards: { list: Array<{ accountId: string | null, bin: string | null, cardNumber: string | null, cardLabel: string | null, paymentSystem: string | null, paymentSystemName: string | null, isDefault: boolean | null, isActive: boolean | null, origin: CardOrigin }> | null } | null, accountProfile: { name: string | null } };
+export type ServerListCardsQueryQuery = { hasAdHocCardAccess: boolean, personalCards: { list: Array<{ accountId: string | null, bin: string | null, cardNumber: string | null, cardLabel: string | null, paymentSystem: string | null, paymentSystemName: string | null, isDefault: boolean | null, isActive: boolean | null, origin: CardOrigin }> | null } | null, sharedCards: { list: Array<{ accountId: string | null, bin: string | null, cardNumber: string | null, cardLabel: string | null, paymentSystem: string | null, paymentSystemName: string | null, isDefault: boolean | null, isActive: boolean | null, origin: CardOrigin }> | null } | null, accountProfile: { name: string | null } };
 
 export type UserOrderItemsFragmentFragment = { id: string | null, name: string | null, quantity: number | null, sellingPrice: number | null, unitMultiplier: number | null, measurementUnit: string | null, imageUrl: string | null, detailUrl: string | null, refId: string | null, rewardValue: number | null };
 
@@ -3658,7 +3663,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"fa5f52d2e0c1c7905c1d8572b81ce48d62265a14"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
 export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"13fc9efa8628b91971e3a8aa985e6cdbed70adae"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
-export const ServerListCardsQueryDocument = {"__meta__":{"operationName":"ServerListCardsQuery","operationHash":"392cf85d18d66b94d6ea8d6b2a3c6ffb5c94683d"}} as unknown as TypedDocumentString<ServerListCardsQueryQuery, ServerListCardsQueryQueryVariables>;
+export const ServerListCardsQueryDocument = {"__meta__":{"operationName":"ServerListCardsQuery","operationHash":"da4d80071465b67068808f99b336bafd8a78a8c6"}} as unknown as TypedDocumentString<ServerListCardsQueryQuery, ServerListCardsQueryQueryVariables>;
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
 export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"672fe0f00b7b710b63fc6573c0a6b2ec54812b8f"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;

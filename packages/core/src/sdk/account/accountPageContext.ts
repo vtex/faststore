@@ -46,14 +46,13 @@ export type AccountQuotesPageData = {
 }
 
 export type AccountCardsPageData = {
-  // Both partitioned from the same listCreditCards response by `origin`
-  // (spec my-account-cards-shared-listing-unblock) — one query, no dedup.
-  // The commerce client merges GET /credit-card (shared) with
-  // GET /credit-card/personal before this partition.
+  // Each list is the result of listCreditCards(origin), so each tab is one
+  // saved-cards fetch. A card that exists in both wallets is rendered twice
+  // on purpose (spec my-account-cards-shared-listing-unblock).
   personalCards: NonNullable<
-    ServerListCardsQueryQuery['listCreditCards']
+    ServerListCardsQueryQuery['personalCards']
   >['list']
-  sharedCards: NonNullable<ServerListCardsQueryQuery['listCreditCards']>['list']
+  sharedCards: NonNullable<ServerListCardsQueryQuery['sharedCards']>['list']
   hasOrgAssociation: boolean
   // Gates the Personal tab (spec my-account-cards-gating-plan) — independent
   // of route access, which is never gated.

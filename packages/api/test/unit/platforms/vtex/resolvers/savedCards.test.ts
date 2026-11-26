@@ -29,8 +29,15 @@ describe('listCreditCards', () => {
       },
     ])
 
-    const result = await Query.listCreditCards(null, undefined, ctx as any)
+    const result = await Query.listCreditCards(
+      null,
+      { origin: 'shared' },
+      ctx as any
+    )
 
+    expect(ctx.clients.commerce.savedCards.listCreditCards).toHaveBeenCalledWith(
+      'shared'
+    )
     expect(result).toEqual({
       list: [
         {
@@ -51,8 +58,15 @@ describe('listCreditCards', () => {
     const ctx = makeContext()
     ctx.clients.commerce.savedCards.listCreditCards.mockResolvedValueOnce([])
 
-    const result = await Query.listCreditCards(null, undefined, ctx as any)
+    const result = await Query.listCreditCards(
+      null,
+      { origin: 'personal' },
+      ctx as any
+    )
 
+    expect(ctx.clients.commerce.savedCards.listCreditCards).toHaveBeenCalledWith(
+      'personal'
+    )
     expect(result).toEqual({ list: [] })
   })
 
@@ -63,24 +77,36 @@ describe('listCreditCards', () => {
       { accountId: 'acc-2', origin: 'shared' },
     ])
 
-    const result = await Query.listCreditCards(null, undefined, ctx as any)
+    const result = await Query.listCreditCards(
+      null,
+      { origin: 'shared' },
+      ctx as any
+    )
 
     expect(
       result.list.map((card: { cardLabel?: string }) => card.cardLabel)
     ).toEqual(['Team lunch card', undefined])
   })
 
-  it('passes through origin so the caller can distinguish personal from shared cards', async () => {
+  it('asks the client for only the origin the query requested', async () => {
     const ctx = makeContext()
     ctx.clients.commerce.savedCards.listCreditCards.mockResolvedValueOnce([
-      { accountId: 'acc-shared', origin: 'shared' },
       { accountId: 'acc-personal', origin: 'personal' },
     ])
 
-    const result = await Query.listCreditCards(null, undefined, ctx as any)
+    const result = await Query.listCreditCards(
+      null,
+      { origin: 'personal' },
+      ctx as any
+    )
 
+    expect(ctx.clients.commerce.savedCards.listCreditCards).toHaveBeenCalledTimes(
+      1
+    )
+    expect(ctx.clients.commerce.savedCards.listCreditCards).toHaveBeenCalledWith(
+      'personal'
+    )
     expect(result.list.map((card: { origin: string }) => card.origin)).toEqual([
-      'shared',
       'personal',
     ])
   })

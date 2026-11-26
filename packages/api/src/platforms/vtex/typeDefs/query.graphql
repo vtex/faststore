@@ -391,9 +391,17 @@ type Query {
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
-  Returns the list of saved credit cards for the current user.
+  Returns the saved credit cards of one origin for the current user.
+  `personal` reads `GET /api/saved-cards/credit-card/personal`.
+  `shared` reads `GET /api/saved-cards/credit-card`.
+  The argument selects the route, so one query performs one fetch.
   """
-  listCreditCards: SavedCardListResult
+  listCreditCards(
+    """
+    Which wallet to read.
+    """
+    origin: CardOrigin!
+  ): SavedCardListResult
     @auth
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 

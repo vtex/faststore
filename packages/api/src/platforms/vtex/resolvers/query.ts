@@ -752,12 +752,16 @@ export const Query = {
       paging: orders.paging,
     }
   },
-  listCreditCards: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
+  listCreditCards: async (
+    _: unknown,
+    { origin }: { origin: 'personal' | 'shared' },
+    ctx: GraphqlContext
+  ) => {
     const {
       clients: { commerce },
     } = ctx
 
-    const cards = await commerce.savedCards.listCreditCards()
+    const cards = await commerce.savedCards.listCreditCards(origin)
 
     return {
       list: cards?.map((card: SavedCard) => ({
