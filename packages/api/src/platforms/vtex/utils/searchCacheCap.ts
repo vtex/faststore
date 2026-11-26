@@ -42,6 +42,21 @@ const earliestValidUntil = (items: CapItem[]) => {
   return earliest
 }
 
+const lowerStoredNumber = (
+  cacheControl: CacheControl,
+  key: 'sMaxAge' | 'staleWhileRevalidate',
+  ceiling: number,
+  seconds: number
+) => {
+  const current = cacheControl[key]
+
+  if (typeof current !== 'number') {
+    return
+  }
+
+  cacheControl[key] = Math.min(current, Math.min(ceiling, seconds))
+}
+
 /**
  * Lowers sMaxAge and staleWhileRevalidate already stored on ctx.cacheControl
  * when a raw Intelligent Search offer carries a priceState object and a
@@ -69,17 +84,6 @@ export const applySearchCacheCap = (
 
   const seconds = Math.max(0, Math.floor((earliest - now) / 1000))
 
-  if (typeof cacheControl.sMaxAge === 'number') {
-    cacheControl.sMaxAge = Math.min(
-      cacheControl.sMaxAge,
-      Math.min(300, seconds)
-    )
-  }
-
-  if (typeof cacheControl.staleWhileRevalidate === 'number') {
-    cacheControl.staleWhileRevalidate = Math.min(
-      cacheControl.staleWhileRevalidate,
-      Math.min(3600, seconds)
-    )
-  }
+  lowerStoredNumber(cacheControl, 'sMaxAge', 300, seconds)
+  lowerStoredNumber(cacheControl, 'staleWhileRevalidate', 3600, seconds)
 }
