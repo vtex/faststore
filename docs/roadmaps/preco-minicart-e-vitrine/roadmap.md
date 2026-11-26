@@ -39,7 +39,7 @@ A conta com a integração vê preço indisponível, brinde ou o parâmetro que 
 
 **Docs:** `done`: [tdd](../../tdds/tdd-ttl-cdn-price-state.md), [adr-0003](../../adrs/adr-0003-ttl-cdn-so-com-price-state-da-origem.md).
 
-**Notes for the spec:** Gated on #1 Merged (other stream). `priceValidUntil` já vem nas ofertas de hoje. Usar a data sem o `priceState` da origem encurtaria o cache de todas as lojas. O cap olha a busca. `validateCart` não entra aqui.
+**Notes for the spec:** Empilhada em `feat/cart-price-state` com gh stack. Não espera o merge da fase 1. `priceValidUntil` já vem nas ofertas de hoje. Usar a data sem o `priceState` da origem encurtaria o cache de todas as lojas. O cap olha a busca. `validateCart` não entra aqui.
 
 ### Phase 3 — Query generalista e validateCart
 
@@ -52,7 +52,7 @@ A conta com a integração vê preço indisponível, brinde ou o parâmetro que 
 
 **Docs:** `done`: [tdd](../../tdds/tdd-price-affecting-params.md), [adr-0004](../../adrs/adr-0004-string-price-affecting-params.md).
 
-**Notes for the spec:** Gated on #1 Merged e em #2 Merged (other stream). #2 e #3 editam `packages/api/src/platforms/vtex/resolvers/query.ts`. A operação declara a variável. Sem essa declaração, a URL da CDN muda e o resolver não vê o valor. O cliente ordena as chaves. O BFF não ordena. A linha devolve a string recebida na mutation. A gravação no orderForm espera o nome do campo. O loop não cria `customData`.
+**Notes for the spec:** Empilhada em `preco-minicart-e-vitrine/p2-ttl-price-valid-until` com gh stack. Não espera merge. #2 e #3 editam `packages/api/src/platforms/vtex/resolvers/query.ts`. A operação declara a variável. Sem essa declaração, a URL da CDN muda e o resolver não vê o valor. O cliente ordena as chaves. O BFF não ordena. A linha devolve a string recebida na mutation. A gravação no orderForm espera o nome do campo. O loop não cria `customData`.
 
 ## Dependency Graph
 
@@ -103,7 +103,7 @@ Ruling: PRs novos saem como draft, que é o default do faseamento. Os PRs 3592 e
 
 **Simplifications:** A frase de login, a frase genérica e o preço de lista vazio ficam. A cadeia é mostrar que o preço não está disponível, e `formatCartLinePrice` já faz as três. As frases da Kitco e de `priceVariations` ficam no In da fase 3. Elas impedem argumento nativo e impedem o BFF de ler chaves. O gate de #1 Merged fica. Streams diferentes esperam merge, e o nome do sinal nasce no contrato da fase 1. #3 passou a depender de #2. As duas editam `query.ts`. O caminho crítico ficou 3 e o paralelismo ficou 1. A conta inativa continua no preço, no brinde e no TTL. `getBaseId` e o scope `private` ficam de fora do In: as fases não mudam a identidade da linha nem o scope. Nulo no GraphQL é a forma de "o campo não vem".
 
-**Pre-decisions for the loop:** A lista de membros de `reasonKey` não se inventa. O campo publicado segue `String`. Resposta de 2026-11-26 no `/ar-doc`. `validateCart` devolve a string recebida e não grava no orderForm. O nome do campo continua em aberto. O loop não cria `customData`. Resposta de 2026-11-26 nesta checagem.
+**Pre-decisions for the loop:** A lista de membros de `reasonKey` não se inventa. O campo publicado segue `String`. Resposta de 2026-11-26 no `/ar-doc`. `validateCart` devolve a string recebida e não grava no orderForm. O nome do campo continua em aberto. O loop não cria `customData`. Resposta de 2026-11-26 nesta checagem. A fase seguinte empilha com `gh stack` na branch da fase anterior e não espera merge. Resposta de 2026-11-26 no loop.
 
 ## Carry-over Log
 
