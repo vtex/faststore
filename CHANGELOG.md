@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.12.0-dev.3](https://github.com/vtex/faststore/compare/v4.12.0-dev.2...v4.12.0-dev.3) (2026-11-26)
+
+### Bug Fixes
+
+- **core:** send page type for PDP and home page views ([71741c4](https://github.com/vtex/faststore/commit/71741c4eba7c7e292daa11f5c8b96905b9803806))
+
 # [4.12.0-dev.2](https://github.com/vtex/faststore/compare/v4.12.0-dev.1...v4.12.0-dev.2) (2026-11-24)
 
 ### Bug Fixes
