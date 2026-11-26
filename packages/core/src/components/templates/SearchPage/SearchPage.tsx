@@ -19,11 +19,11 @@ export type SearchPageProps = {
 }
 
 function SearchPage({
-  page: { sections },
+  page: { sections, settings },
   data: serverData,
   globalSections,
   globalSettings,
-}: SearchPageProps) {
+}: Readonly<SearchPageProps>) {
   const { pages, useGalleryPage } = useCreateUseGalleryPage()
 
   const context = {
@@ -50,7 +50,9 @@ function SearchPage({
       <PageProvider context={context}>
         <UseGalleryPageContext.Provider value={useGalleryPage}>
           <RenderSections
+            contentType="search"
             sections={sections}
+            settings={settings}
             globalSections={globalSections}
             components={COMPONENTS}
           />

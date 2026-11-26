@@ -32,9 +32,9 @@ type Props = {
 }
 
 function Page({
-  page: { sections },
+  page: { sections, settings },
   globalSections: globalSectionsProp,
-}: Props) {
+}: Readonly<Props>) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
 
@@ -54,7 +54,9 @@ function Page({
       */}
       <PageProvider context={{ globalSettings }}>
         <RenderSections
+          contentType="404"
           sections={sections}
+          settings={settings}
           globalSections={globalSections}
           components={COMPONENTS}
         />

@@ -148,8 +148,10 @@ function Page({
       */}
       <PageProvider context={context}>
         <RenderSections
+          contentType="home"
           globalSections={globalSections}
           sections={sections}
+          settings={settings}
           components={COMPONENTS}
         />
       </PageProvider>
