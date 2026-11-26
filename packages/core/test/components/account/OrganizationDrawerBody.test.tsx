@@ -10,15 +10,8 @@ vi.mock('src/sdk/account/accountPageContext', () => ({
   useAccountNavigationLabels: mockUseAccountNavigationLabels,
 }))
 
-vi.mock('src/components/ui/Link', () => ({
-  __esModule: true,
-  default: ({
-    href,
-    children,
-  }: {
-    href: string
-    children: React.ReactNode
-  }) => <a href={href}>{children}</a>,
+vi.mock('src/sdk/ui/useLink', () => ({
+  useLink: () => ({ resolveLink: (href: string) => href }),
 }))
 
 import { OrganizationDrawerBody } from '../../../src/components/account/Drawer/OrganizationDrawer/OrganizationDrawerBody'
