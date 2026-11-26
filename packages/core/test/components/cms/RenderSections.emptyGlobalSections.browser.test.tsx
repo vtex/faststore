@@ -8,6 +8,10 @@ vi.mock('next/router', () => ({
   useRouter: () => ({ isPreview: false }),
 }))
 
+vi.mock('src/sdk/performance/useTTI', () => ({
+  default: () => ({ isInteractive: false }),
+}))
+
 class NoopIntersectionObserver implements IntersectionObserver {
   readonly root = null
   readonly rootMargin = ''
