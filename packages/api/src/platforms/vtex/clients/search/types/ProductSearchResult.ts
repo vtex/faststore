@@ -174,6 +174,8 @@ export interface CommertialOffer {
   PriceWithoutDiscount: number
   RewardValue: number
   PriceValidUntil: string
+  /** Raw Intelligent Search object. Absent or null when the source omitted it. */
+  priceState?: Record<string, unknown> | null
   AvailableQuantity: number
   Tax: number
   DeliverySlaSamples: Array<{
