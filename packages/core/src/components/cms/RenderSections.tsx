@@ -88,7 +88,7 @@ const PreviewTag = dynamic(
   { ssr: false }
 )
 
-const useDividedSections = (sections: Section[]) => {
+const useDividedSections = (sections: Section[] = []) => {
   return useMemo(() => {
     const indexChildren = sections.findIndex(({ name }) => name === 'Children')
     const hasChildren = indexChildren > -1
