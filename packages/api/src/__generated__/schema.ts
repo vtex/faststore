@@ -938,7 +938,12 @@ export type Query = {
   hasAdHocCardAccess: Scalars['Boolean']['output'];
   /** Returns whether the current authenticated user belongs to a B2B organization unit. */
   isOrganizationMember: Scalars['Boolean']['output'];
-  /** Returns the list of saved credit cards for the current user. */
+  /**
+   * Returns the saved credit cards of one origin for the current user.
+   * `personal` reads `GET /api/saved-cards/credit-card/personal`.
+   * `shared` reads `GET /api/saved-cards/credit-card`.
+   * The argument selects the route, so one query performs one fetch.
+   */
   listCreditCards?: Maybe<SavedCardListResult>;
   /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;

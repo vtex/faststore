@@ -915,14 +915,20 @@ export const VtexCommerce = (
       },
     },
     savedCards: {
-      listCreditCards: (): Promise<SavedCard[]> => {
+      // One origin, one route. Callers that need both wallets issue two queries.
+      listCreditCards: (origin: 'personal' | 'shared'): Promise<SavedCard[]> => {
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
 
+        const path =
+          origin === 'personal'
+            ? '/api/saved-cards/credit-card/personal'
+            : '/api/saved-cards/credit-card'
+
         return fetchAPI(
-          `${base}/api/saved-cards/credit-card?an=${account}`,
+          `${base}${path}?an=${account}`,
           {
             method: 'GET',
             headers,

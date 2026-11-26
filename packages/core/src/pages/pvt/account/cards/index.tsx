@@ -40,7 +40,20 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 const query = gql(`
   query ServerListCardsQuery {
-    listCreditCards {
+    personalCards: listCreditCards(origin: personal) {
+      list {
+        accountId
+        bin
+        cardNumber
+        cardLabel
+        paymentSystem
+        paymentSystemName
+        isDefault
+        isActive
+        origin
+      }
+    }
+    sharedCards: listCreditCards(origin: shared) {
       list {
         accountId
         bin
@@ -216,11 +229,8 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   })
 
-  // The Saved-cards service returns personal and shared cards merged into one
-  // list, each tagged `origin` (spec my-account-cards-shared-listing-unblock).
-  // Partition here rather than de-duplicating: a card present under both
-  // origins is intentionally rendered in both tabs.
-  const allCards = hasError ? [] : (listCards.data?.listCreditCards?.list ?? [])
+  // Each alias is one saved-cards fetch: personal hits /credit-card/personal,
+  // shared hits /credit-card. The page does not partition a merged list.
   // Mirrors MyAccountListCards.tsx's `sharedOnly` exactly — that's the only
   // combination where the UI actually hides the Personal tab (spec
   // my-account-cards-gating-plan, O1). Stripping personalCards any time
@@ -231,10 +241,13 @@ const getServerSidePropsBase: GetServerSideProps<
   // always-false strip ships nothing extra, but a too-broad one silently
   // hides real cards from buyers this gate was never meant to touch.
   const sharedOnly = !canViewPersonalCards && hasOrgAssociation
-  const personalCards = sharedOnly
+  const personalCards =
+    hasError || sharedOnly
+      ? []
+      : (listCards.data?.personalCards?.list ?? [])
+  const sharedCards = hasError
     ? []
-    : allCards.filter((card) => card.origin === 'personal')
-  const sharedCards = allCards.filter((card) => card.origin === 'shared')
+    : (listCards.data?.sharedCards?.list ?? [])
 
   return {
     props: {
