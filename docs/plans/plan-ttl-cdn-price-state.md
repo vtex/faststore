@@ -1,6 +1,6 @@
 # TTL da CDN quando o priceState vem
 
-> **Status**: In progress
+> **Status**: Built
 > **Roadmap**: preco-minicart-e-vitrine #2
 > **Branch**: preco-minicart-e-vitrine/p2-ttl-price-valid-until
 > **PR**: —
@@ -57,16 +57,16 @@ A fase 2 está empilhada em `feat/cart-price-state` (`dev ← feat/cart-price-st
   **Commit:** b09c2234290b08f1adb1c83cff26a69bb37deacc
 - [x] **2. Chamadas nos resolvers** — no mesmo commit dos testes deste passo. Depois de `const sku = await loadSku()` em `Query.product`, chamar a função com `sku.isVariantOf?.items`. Em `Query.allProducts`, com `products.products.flatMap((product) => product.items)`. Em `Query.products`, com `products.flatMap((product) => product.items)`. Em `StoreSearchResult.products`, com todos os `items` de `productSearchResult.products`, inclusive o SKU que `pickBestSku` não escolheu. Em `StoreSearchResult.suggestions`, só no ramo que aguarda `productSearchPromise`, com esses mesmos `items`. `Query.search`, `facets`, `metadata`, `searchId`, o ramo `topSearches`, `sku.ts`, `validateCart.ts`, `offer.ts`, `offer.graphql`, `discovery.config.default.js` e `packages/api/src/platforms/vtex/clients/search/index.ts` ficam sem chamada e sem header novo. Testes em `packages/api/test/unit/platforms/vtex/resolvers/searchCacheCap.test.ts`: `Query.product` baixa o hint quando `isVariantOf.items` traz o objeto e mantém 300/3600 sem ele; fallback com `skuLoader.load` rejeitando `NotFoundError` e `fetchProduct` devolvendo o produto com objeto também baixa; `allProducts` e `products` baixam; `StoreSearchResult.products` usa o item irmão, não só o SKU escolhido; `suggestions` com query baixa; `suggestions` sem query mantém o hint; `Query.search` e `metadata` mantêm o hint com o mesmo payload; `products` e `suggestions` na mesma resposta deixam o par no mesmo valor; `readFileSync` confirma ausência de `applySearchCacheCap` em `loaders/sku.ts`, `resolvers/validateCart.ts` e `clients/search/index.ts`, ausência de `Cache-Control` e `s-maxage` em `clients/search/index.ts`, e `reasonKey: String` ainda presente em `typeDefs/offer.graphql`.
   **Verify:** `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/resolvers/searchCacheCap.test.ts test/unit/platforms/vtex/resolvers/query.test.ts`
-  **Commit:** —
+  **Commit:** da6bf0a3df57464d33363feb0939b45da55b4e1c
 
 ## Verification
 
-- **C1** — `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/utils/searchCacheCap.test.ts test/unit/platforms/vtex/resolvers/searchCacheCap.test.ts` cobre oferta sem objeto e com `PriceValidUntil` preenchido — {result + date, filled by /ar-implement}
-- **C2** — o mesmo comando cobre data distante, data entre os tetos, data curta, data no passado e restante menor que 1 segundo — {result + date, filled by /ar-implement}
-- **C3** — o teste unitário cobre data ilegível, objeto com cara de default na origem, `null`, array e a ausência do campo — {result + date, filled by /ar-implement}
-- **C4** — `test/unit/platforms/vtex/resolvers/searchCacheCap.test.ts` cobre os cinco pontos de chamada e os pontos que ficam sem cap, inclusive `scope` — {result + date, filled by /ar-implement}
-- **C5** — o mesmo arquivo lê `offer.graphql`, o cliente de busca e os loaders citados no passo 2 — {result + date, filled by /ar-implement}
-- **Suite** — `pnpm --filter @faststore/api test:unit` — {result + date, filled by /ar-implement}
+- **C1** — `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/utils/searchCacheCap.test.ts test/unit/platforms/vtex/resolvers/searchCacheCap.test.ts` cobre oferta sem objeto e com `PriceValidUntil` preenchido — pass 2026-11-26, 2 files, 30 tests
+- **C2** — o mesmo comando cobre data distante, data entre os tetos, data curta, data no passado e restante menor que 1 segundo — pass 2026-11-26, same run
+- **C3** — o teste unitário cobre data ilegível, objeto com cara de default na origem, `null`, array e a ausência do campo — pass 2026-11-26, same run
+- **C4** — `test/unit/platforms/vtex/resolvers/searchCacheCap.test.ts` cobre os cinco pontos de chamada e os pontos que ficam sem cap, inclusive `scope` — pass 2026-11-26, 11 tests in that file, included in the 30-test run
+- **C5** — o mesmo arquivo lê `offer.graphql`, o cliente de busca e os loaders citados no passo 2 — pass 2026-11-26, included in that run
+- **Suite** — `pnpm --filter @faststore/api test:unit` — pass 2026-11-26, 34 files, 468 tests
 
 ## Rulings
 
