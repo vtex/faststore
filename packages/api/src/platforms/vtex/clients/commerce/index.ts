@@ -915,20 +915,35 @@ export const VtexCommerce = (
       },
     },
     savedCards: {
-      listCreditCards: (): Promise<SavedCard[]> => {
+      // Saved-cards split shared and personal wallets into two routes
+      // (`GET /credit-card` and `GET /credit-card/personal`). My Account still
+      // partitions one GraphQL list by `origin`, so this client merges both.
+      listCreditCards: async (): Promise<SavedCard[]> => {
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
 
-        return fetchAPI(
-          `${base}/api/saved-cards/credit-card?an=${account}`,
-          {
-            method: 'GET',
-            headers,
-          },
-          { storeCookies }
-        )
+        const [shared, personal] = await Promise.all([
+          fetchAPI(
+            `${base}/api/saved-cards/credit-card?an=${account}`,
+            {
+              method: 'GET',
+              headers,
+            },
+            { storeCookies }
+          ) as Promise<SavedCard[]>,
+          fetchAPI(
+            `${base}/api/saved-cards/credit-card/personal?an=${account}`,
+            {
+              method: 'GET',
+              headers,
+            },
+            { storeCookies }
+          ) as Promise<SavedCard[]>,
+        ])
+
+        return [...(shared ?? []), ...(personal ?? [])]
       },
     },
     units: {

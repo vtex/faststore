@@ -216,10 +216,11 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   })
 
-  // The Saved-cards service returns personal and shared cards merged into one
-  // list, each tagged `origin` (spec my-account-cards-shared-listing-unblock).
-  // Partition here rather than de-duplicating: a card present under both
-  // origins is intentionally rendered in both tabs.
+  // The commerce client merges shared (GET /credit-card) and personal
+  // (GET /credit-card/personal) into one list, each tagged `origin`
+  // (spec my-account-cards-shared-listing-unblock). Partition here rather
+  // than de-duplicating: a card present under both origins is intentionally
+  // rendered in both tabs.
   const allCards = hasError ? [] : (listCards.data?.listCreditCards?.list ?? [])
   // Mirrors MyAccountListCards.tsx's `sharedOnly` exactly — that's the only
   // combination where the UI actually hides the Personal tab (spec

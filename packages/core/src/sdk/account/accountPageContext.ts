@@ -48,6 +48,8 @@ export type AccountQuotesPageData = {
 export type AccountCardsPageData = {
   // Both partitioned from the same listCreditCards response by `origin`
   // (spec my-account-cards-shared-listing-unblock) — one query, no dedup.
+  // The commerce client merges GET /credit-card (shared) with
+  // GET /credit-card/personal before this partition.
   personalCards: NonNullable<
     ServerListCardsQueryQuery['listCreditCards']
   >['list']
