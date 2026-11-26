@@ -194,8 +194,8 @@ export function getFormattedVariations(
       )
 
       const formattedVariant = {
-        src: variantImageToUse.imageUrl,
-        alt: variantImageToUse.imageLabel ?? '',
+        src: variantImageToUse?.imageUrl ?? '',
+        alt: variantImageToUse?.imageLabel ?? '',
         label: `${dominantVariantName}: ${dominantVariantEntry.values[0]}`,
         value: dominantVariantEntry.values[0],
       }
@@ -224,8 +224,8 @@ export function getFormattedVariations(
       )
 
       const formattedVariant = {
-        src: variantImageToUse.imageUrl,
-        alt: variantImageToUse.imageText ?? '',
+        src: variantImageToUse?.imageUrl ?? '',
+        alt: variantImageToUse?.imageText ?? '',
         label: `${variationProperty.name}: ${variationProperty.values[0]}`,
         value: variationProperty.values[0],
       }
