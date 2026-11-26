@@ -105,3 +105,42 @@ Open Questions: nenhuma.
 | [cache-graphql-e-estatico](../brainstorms/preco-externo-storefront/knowledge/cache-graphql-e-estatico.md) | Reference | Diretiva 300/3600 e ausência de TTL no cliente de busca |
 | [bff-devolve-price-state-disponivel](../brainstorms/preco-externo-storefront/knowledge/bff-devolve-price-state-disponivel.md) | Reference | `resolvePriceState()` sem origem devolve o default |
 | [roadmap](../roadmaps/preco-minicart-e-vitrine/roadmap.md) | Roadmap (Phase #2) | Branch `preco-minicart-e-vitrine/p2-ttl-price-valid-until`, empilhada em `feat/cart-price-state` |
+
+## Smell Review
+
+O código revisto termina em `0577d0564aee97639710a3f161ef99a3a0b1416b`. O commit que só grava esta seção fica de fora. O plano permanece Built.
+
+Complexidade ciclomática estimada à mão: o Biome não mede esse número e `lizard` não está instalado. A conta parte de 1 e soma `if`, `for`, `catch`, `&&`, `||`, `??` e ternário. `?.` fica de fora. O teto é 10.
+
+| Função | CC estimada |
+| --- | --- |
+| `isPriceStateObject` | 3 |
+| `parseSignaledValidUntil` | 5 |
+| `earliestValidUntil` | 7 |
+| `lowerStoredNumber` | 2 |
+| `applySearchCacheCap` | 4 |
+| `Query.product` | 3 |
+| `Query.allProducts` | 2 |
+| `Query.products` | 2 |
+| `StoreSearchResult.suggestions` | 2 |
+| `StoreSearchResult.products` | 1 |
+
+Antes do split, `earliestValidUntil` estava em 11. Os resolvers só receberam a chamada; nenhum ganhou ramo.
+
+| Cheiro | Onde | Lente | Desfecho |
+| --- | --- | --- | --- |
+| A baixa de `sMaxAge` e de `staleWhileRevalidate` repetia a mesma regra: só desce um número já gravado, até `min(atual, teto, segundos)` | `packages/api/src/platforms/vtex/utils/searchCacheCap.ts` (`lowerStoredNumber`) | DRY | Ajustado em `b58c8318f03b39f12001c0b92bbf032da215c8a3` |
+| `earliestValidUntil` decidia se a oferta entra e ainda escolhia o mínimo. CC estimada 11 | `searchCacheCap.ts` (`parseSignaledValidUntil`) | complexidade | Ajustado em `0577d0564aee97639710a3f161ef99a3a0b1416b` |
+| `headers` entra na assinatura e a função não lê o campo | `applySearchCacheCap` | pureza | Aceito |
+
+### Avisos
+
+`headers` não é lido — `{ cacheControl? }` sozinho é tipo fraco e o TypeScript recusa `GraphqlContext`; o plano proíbe declarar `cacheControl` no contexto, e `headers` é a propriedade em comum que libera a passagem — vale rever se `GraphqlContext` passar a declarar `cacheControl`.
+
+### Sugestões
+
+- `packages/api/src/platforms/vtex/resolvers/searchResult.ts`: `suggestions` e `products` repetem o mesmo mapa `pickBestSku` + `enhanceSku`. As duas cópias já existiam antes do cap. Cabem num helper privado do arquivo quando alguém mexer nessa escolha de SKU.
+- `packages/api/src/directives/cacheControl.ts`: `min` parece a mesma conta e devolve o outro número quando um lado falta. Reutilizá-la no cap criaria um número onde o hint tem de continuar ausente. A regra ficou em `lowerStoredNumber`.
+- `AGENTS.md` should gain a cyclomatic complexity ceiling. `biome.json` não define teto; esta revisão usou 10.
+
+Os mesmos testes passaram depois dos ajustes: 2 arquivos, 30 testes; `pnpm --filter @faststore/api test:unit`, 34 arquivos, 468 testes.
