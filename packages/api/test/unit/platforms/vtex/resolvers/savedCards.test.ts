@@ -7,6 +7,7 @@ const makeContext = (overrides = {}) => ({
     commerce: {
       savedCards: {
         listCreditCards: vi.fn(),
+        listPersonalCreditCards: vi.fn(),
       },
     },
   },
@@ -83,5 +84,50 @@ describe('listCreditCards', () => {
       'shared',
       'personal',
     ])
+  })
+})
+
+describe('listPersonalCreditCards', () => {
+  it('reads the personal route only and maps the array into { list }', async () => {
+    const ctx = makeContext()
+    ctx.clients.commerce.savedCards.listPersonalCreditCards.mockResolvedValueOnce(
+      [{ accountId: 'acc-personal', cardLabel: 'Mine', origin: 'personal' }]
+    )
+
+    const result = await Query.listPersonalCreditCards(
+      null,
+      undefined,
+      ctx as any
+    )
+
+    expect(result).toEqual({
+      list: [
+        expect.objectContaining({
+          accountId: 'acc-personal',
+          origin: 'personal',
+        }),
+      ],
+    })
+    expect(
+      ctx.clients.commerce.savedCards.listPersonalCreditCards
+    ).toHaveBeenCalledTimes(1)
+    expect(
+      ctx.clients.commerce.savedCards.listCreditCards
+    ).not.toHaveBeenCalled()
+  })
+
+  it('returns an empty list when there are no personal cards', async () => {
+    const ctx = makeContext()
+    ctx.clients.commerce.savedCards.listPersonalCreditCards.mockResolvedValueOnce(
+      []
+    )
+
+    const result = await Query.listPersonalCreditCards(
+      null,
+      undefined,
+      ctx as any
+    )
+
+    expect(result).toEqual({ list: [] })
   })
 })

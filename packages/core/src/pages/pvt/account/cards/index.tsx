@@ -40,7 +40,20 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 const query = gql(`
   query ServerListCardsQuery {
-    listCreditCards {
+    personalCards: listPersonalCreditCards {
+      list {
+        accountId
+        bin
+        cardNumber
+        cardLabel
+        paymentSystem
+        paymentSystemName
+        isDefault
+        isActive
+        origin
+      }
+    }
+    sharedCards: listCreditCards {
       list {
         accountId
         bin
@@ -216,11 +229,13 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   })
 
-  // The Saved-cards service returns personal and shared cards merged into one
-  // list, each tagged `origin` (spec my-account-cards-shared-listing-unblock).
-  // Partition here rather than de-duplicating: a card present under both
-  // origins is intentionally rendered in both tabs.
-  const allCards = hasError ? [] : (listCards.data?.listCreditCards?.list ?? [])
+  // Each tab has its own query, backed by its own saved-cards route
+  // (`listPersonalCreditCards` and `listCreditCards`). A card present in both
+  // wallets is intentionally rendered in both tabs.
+  const allPersonalCards = hasError
+    ? []
+    : (listCards.data?.personalCards?.list ?? [])
+  const sharedCards = hasError ? [] : (listCards.data?.sharedCards?.list ?? [])
   // Mirrors MyAccountListCards.tsx's `sharedOnly` exactly — that's the only
   // combination where the UI actually hides the Personal tab (spec
   // my-account-cards-gating-plan, O1). Stripping personalCards any time
@@ -231,10 +246,7 @@ const getServerSidePropsBase: GetServerSideProps<
   // always-false strip ships nothing extra, but a too-broad one silently
   // hides real cards from buyers this gate was never meant to touch.
   const sharedOnly = !canViewPersonalCards && hasOrgAssociation
-  const personalCards = sharedOnly
-    ? []
-    : allCards.filter((card) => card.origin === 'personal')
-  const sharedCards = allCards.filter((card) => card.origin === 'shared')
+  const personalCards = sharedOnly ? [] : allPersonalCards
 
   return {
     props: {

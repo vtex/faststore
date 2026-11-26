@@ -194,6 +194,18 @@ const describeLookupError = (err: unknown) => ({
   type: (err as FastStoreError)?.extensions?.type ?? (err as Error)?.name,
 })
 
+const toSavedCard = (card: SavedCard) => ({
+  accountId: card.accountId,
+  bin: card.bin,
+  cardNumber: card.cardNumber,
+  cardLabel: card.cardLabel,
+  paymentSystem: card.paymentSystem,
+  paymentSystemName: card.paymentSystemName,
+  isDefault: card.isDefault,
+  isActive: card.isActive,
+  origin: card.origin,
+})
+
 export const Query = {
   product: async (
     _: unknown,
@@ -759,19 +771,20 @@ export const Query = {
 
     const cards = await commerce.savedCards.listCreditCards()
 
-    return {
-      list: cards?.map((card: SavedCard) => ({
-        accountId: card.accountId,
-        bin: card.bin,
-        cardNumber: card.cardNumber,
-        cardLabel: card.cardLabel,
-        paymentSystem: card.paymentSystem,
-        paymentSystemName: card.paymentSystemName,
-        isDefault: card.isDefault,
-        isActive: card.isActive,
-        origin: card.origin,
-      })),
-    }
+    return { list: cards?.map(toSavedCard) }
+  },
+  listPersonalCreditCards: async (
+    _: unknown,
+    __: unknown,
+    ctx: GraphqlContext
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const cards = await commerce.savedCards.listPersonalCreditCards()
+
+    return { list: cards?.map(toSavedCard) }
   },
   hasAdHocCardAccess: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
     const {

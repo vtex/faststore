@@ -52,13 +52,15 @@ const CARD_PERSONAL = { accountId: 'p1', origin: 'personal' }
 const CARD_SHARED = { accountId: 's1', origin: 'shared' }
 
 function mockSuccessfulExecute({
-  cards = [CARD_PERSONAL, CARD_SHARED],
+  personal = [CARD_PERSONAL],
+  shared = [CARD_SHARED],
   hasAdHocCardAccess = true,
   accountName = 'Jane Buyer',
 } = {}) {
   mockExecute.mockResolvedValueOnce({
     data: {
-      listCreditCards: { list: cards },
+      personalCards: { list: personal },
+      sharedCards: { list: shared },
       accountProfile: { name: accountName },
       hasAdHocCardAccess,
     },
@@ -133,7 +135,7 @@ describe('Cards page getServerSideProps', () => {
     expect(result.props.accountPageData.sharedCards).toEqual([])
   })
 
-  it('partitions the merged card list by origin and computes canViewPersonalCards', async () => {
+  it('reads each tab from its own query and computes canViewPersonalCards', async () => {
     mockGetB2BSessionClaims.mockReturnValueOnce({
       hasOrgAssociation: true,
       hasCustomerId: true,
@@ -192,7 +194,8 @@ describe('Cards page getServerSideProps', () => {
     })
     mockExecute.mockResolvedValueOnce({
       data: {
-        listCreditCards: { list: [] },
+        personalCards: { list: [] },
+        sharedCards: { list: [] },
         accountProfile: { name: 'Jane' },
         hasAdHocCardAccess: undefined,
       },

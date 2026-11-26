@@ -74,6 +74,7 @@ const QUERIES = [
   'productCount',
   'userOrder',
   'listCreditCards',
+  'listPersonalCreditCards',
   'hasAdHocCardAccess',
   'listUserOrders',
   'listUserQuotes',
