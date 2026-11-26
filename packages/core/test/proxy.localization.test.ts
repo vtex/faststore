@@ -9,6 +9,7 @@ const isValidLocaleMock = vi.hoisted(() => vi.fn())
 vi.mock('discovery.config', () => ({
   __esModule: true,
   default: {
+    api: { storeId: 'test-store' },
     localization: {
       enabled: true,
       locales: {
@@ -29,6 +30,12 @@ vi.mock('src/utils/localization/bindingPaths', () => ({
   getCustomPathsFromBindings: getCustomPathsFromBindingsMock,
   getSubdomainBindings: getSubdomainBindingsMock,
   isValidLocale: isValidLocaleMock,
+}))
+
+vi.mock('../src/server/csp', () => ({
+  CspService: class {
+    apply = async (response: NextResponse) => response
+  },
 }))
 
 function localizedRequest(

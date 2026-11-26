@@ -2,10 +2,12 @@ import { NextRequest, NextResponse } from 'next/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const checkStoreProtectionMock = vi.hoisted(() => vi.fn())
+const cspApplyMock = vi.hoisted(() => vi.fn())
 
 vi.mock('discovery.config', () => ({
   __esModule: true,
   default: {
+    api: { storeId: 'test-store' },
     localization: {
       enabled: false,
       locales: {},
@@ -16,6 +18,12 @@ vi.mock('discovery.config', () => ({
 vi.mock('../src/server/password-protection-service', () => ({
   PasswordProtectionService: class {
     checkStoreProtection = checkStoreProtectionMock
+  },
+}))
+
+vi.mock('../src/server/csp', () => ({
+  CspService: class {
+    apply = cspApplyMock
   },
 }))
 
@@ -34,6 +42,7 @@ function request(path = '/products'): NextRequest {
 describe('proxy', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    cspApplyMock.mockImplementation(async (response: NextResponse) => response)
   })
 
   it('returns an error response when access check throws', async () => {
@@ -43,6 +52,7 @@ describe('proxy', () => {
     const response = await proxy(request('/products'))
 
     expect(response.type).toBe('error')
+    expect(cspApplyMock).not.toHaveBeenCalled()
   })
 
   it('returns the protection response when access is blocked', async () => {
@@ -60,6 +70,7 @@ describe('proxy', () => {
     expect(response).toBe(redirect)
     expect(response.status).toBe(307)
     expect(response.headers.get('location')).toContain('/password-protection')
+    expect(cspApplyMock).not.toHaveBeenCalled()
   })
 
   it('continues the request and copies protection cookies when access is allowed', async () => {
@@ -73,6 +84,28 @@ describe('proxy', () => {
     expect(response.status).toBe(200)
     expect(response.cookies.get('__fs_password_protection')?.value).toBe(
       'jwt-abc'
+    )
+  })
+
+  it('applies CSP to the pass-through response after copying protection cookies', async () => {
+    const protectionResponse = NextResponse.next()
+    protectionResponse.cookies.set('__fs_password_protection', 'jwt-abc')
+    checkStoreProtectionMock.mockResolvedValue({ response: protectionResponse })
+    cspApplyMock.mockImplementation(async (response: NextResponse) => {
+      expect(response.cookies.get('__fs_password_protection')?.value).toBe(
+        'jwt-abc'
+      )
+      response.headers.set('Content-Security-Policy', "frame-ancestors 'self'")
+      return response
+    })
+    const { proxy } = await import('../src/proxy')
+
+    const response = (await proxy(request('/products'))) as NextResponse
+
+    expect(cspApplyMock).toHaveBeenCalledTimes(1)
+    expect(cspApplyMock).toHaveBeenCalledWith(response, 'test-store')
+    expect(response.headers.get('Content-Security-Policy')).toBe(
+      "frame-ancestors 'self'"
     )
   })
 
