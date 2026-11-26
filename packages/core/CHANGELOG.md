@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.15](https://github.com/vtex/faststore/compare/v3.100.14...v3.100.15) (2026-11-26)
+
+### Bug Fixes
+
+- propagate upstream error status and stop retrying 429 (v3) ([#3420](https://github.com/vtex/faststore/issues/3420)) ([dbf6e09](https://github.com/vtex/faststore/commit/dbf6e0972721b25ce490f5dcdd3a652c5d976d10)), closes [#3453](https://github.com/vtex/faststore/issues/3453) [#3379](https://github.com/vtex/faststore/issues/3379) [#3379](https://github.com/vtex/faststore/issues/3379) [#3379](https://github.com/vtex/faststore/issues/3379) [#3379](https://github.com/vtex/faststore/issues/3379) [#3453](https://github.com/vtex/faststore/issues/3453)
+
 ## [3.100.14](https://github.com/vtex/faststore/compare/v3.100.13...v3.100.14) (2026-11-19)
 
 ### Bug Fixes
