@@ -32,6 +32,7 @@ import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
+import { toRevalidate } from 'src/utils/toRevalidate'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
@@ -244,6 +245,15 @@ export const getStaticProps: GetStaticProps<
       type: 'plp',
       key: slug,
     },
+    // Without a window, the first page's products (price, stock, order) stay
+    // frozen at the state of their first render until the next deploy. Each
+    // regeneration reruns the CMS, collection and first-page search queries,
+    // so the window has a floor to bound the upstream load.
+    revalidate: toRevalidate(
+      storeConfig.experimental.revalidatePLP,
+      'experimental.revalidatePLP',
+      { min: 60 }
+    ),
   }
 }
 

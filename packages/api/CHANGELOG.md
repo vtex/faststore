@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.12.0-dev.3](https://github.com/vtex/faststore/compare/v4.12.0-dev.2...v4.12.0-dev.3) (2026-11-26)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.12.0-dev.2](https://github.com/vtex/faststore/compare/v4.12.0-dev.1...v4.12.0-dev.2) (2026-11-24)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.12.0-dev.1](https://github.com/vtex/faststore/compare/v4.12.0-dev.0...v4.12.0-dev.1) (2026-11-19)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.12.0-dev.0](https://github.com/vtex/faststore/compare/v4.11.5-dev.0...v4.12.0-dev.0) (2026-11-19)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.11.5-dev.0](https://github.com/vtex/faststore/compare/v4.11.4-dev.5...v4.11.5-dev.0) (2026-11-19)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.11.4-dev.5](https://github.com/vtex/faststore/compare/v4.11.4-dev.4...v4.11.4-dev.5) (2026-11-19)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.11.4-dev.4](https://github.com/vtex/faststore/compare/v4.11.4-dev.3...v4.11.4-dev.4) (2026-11-19)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.11.4-dev.3](https://github.com/vtex/faststore/compare/v4.11.4-dev.2...v4.11.4-dev.3) (2026-11-18)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.11.4-dev.2](https://github.com/vtex/faststore/compare/v4.11.4-dev.1...v4.11.4-dev.2) (2026-11-17)
+
+### Bug Fixes
+
+- **api:** load order details for orders without a purchase agent ([#3594](https://github.com/vtex/faststore/issues/3594)) ([f3d30ab](https://github.com/vtex/faststore/commit/f3d30ab0434c8cdf9069b4e0d82fbcc321ec2a71))
+
+## [4.11.4-dev.1](https://github.com/vtex/faststore/compare/v4.11.4-dev.0...v4.11.4-dev.1) (2026-11-16)
+
+### Bug Fixes
+
+- **api:** send postal code coordinates when creating the cart address ([#3586](https://github.com/vtex/faststore/issues/3586)) ([52d6572](https://github.com/vtex/faststore/commit/52d6572e06c6f62a9ea525af28a69d92dd2d54eb))
+
+## [4.11.4-dev.0](https://github.com/vtex/faststore/compare/v4.11.3...v4.11.4-dev.0) (2026-11-10)
+
+**Note:** Version bump only for package @faststore/api
+
+## [4.11.4](https://github.com/vtex/faststore/compare/v4.11.3...v4.11.4) (2026-11-19)
+
+- **api:** forward storefront host to recommendations BFF ([#3601](https://github.com/vtex/faststore/issues/3601)) ([e91ac25](https://github.com/vtex/faststore/commit/e91ac25a5f0776fd42821cee696cb56cd2fe9f21))
+
+## [4.11.3](https://github.com/vtex/faststore/compare/v4.11.3-dev.1...v4.11.3) (2026-11-10)
+
+**Note:** Version bump only for package @faststore/api
+
 ## [4.11.3-dev.1](https://github.com/vtex/faststore/compare/v4.11.3-dev.0...v4.11.3-dev.1) (2026-11-10)
 
 **Note:** Version bump only for package @faststore/api

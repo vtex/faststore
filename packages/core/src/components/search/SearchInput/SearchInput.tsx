@@ -73,7 +73,9 @@ export type SearchInputProps = {
   submitButtonAriaLabel?: string
   loadingLabel?: string
   searchHistoryTitle?: string
+  searchHistoryClearLabel?: string
   searchTopTitle?: string
+  searchProductsTitle?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit' | 'attachmentButtonIcon'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -114,6 +116,11 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
+      loadingLabel,
+      searchHistoryTitle,
+      searchHistoryClearLabel,
+      searchTopTitle,
+      searchProductsTitle,
       ...otherProps
     },
     ref
@@ -390,6 +397,11 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   onChangeCustomSearchDropdownVisible={
                     setCustomSearchDropdownVisibleCondition
                   }
+                  loadingLabel={loadingLabel}
+                  searchHistoryTitle={searchHistoryTitle}
+                  searchHistoryClearLabel={searchHistoryClearLabel}
+                  searchTopTitle={searchTopTitle}
+                  searchProductsTitle={searchProductsTitle}
                 />
               </Suspense>
             )}

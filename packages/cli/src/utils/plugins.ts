@@ -126,7 +126,7 @@ const copyPluginPublicFiles = async (basePath: string, plugins: Plugin[]) => {
   })
 }
 
-const getPluginPageFileContent = (
+export const getPluginPageFileContent = (
   pluginName: string,
   pageName: string,
   appLayout: boolean
@@ -136,17 +136,46 @@ const getPluginPageFileContent = (
 import * as page from 'src/plugins/${pluginName}/pages/${pageName}'
 ${appLayout ? `import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'` : ``}
 ${appLayout ? `import RenderSections from 'src/components/cms/RenderSections'` : ``}
+${appLayout ? `import PageProvider from 'src/sdk/overrides/PageProvider'` : ``}
+${appLayout ? `import { injectGlobalSections } from 'src/server/cms/global'` : ``}
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
 async function getServerSidePropsBase(${appLayout ? '{ previewData, ...otherProps }' : 'otherProps'}) {
   const noop = async function() {}
   const loaderData = await (page.loader || noop)(otherProps)
-${appLayout ? `const { sections = [] } = await getGlobalSectionsData(previewData)` : ``}
+${
+  appLayout
+    ? `let sections = []
+  let globalSettings = null
+
+  // The store header and footer are an enhancement of the plugin page: if the
+  // global sections cannot be loaded, log it and still render the page.
+  try {
+    const [globalSectionsPromise, globalSectionsHeaderPromise, globalSectionsFooterPromise] =
+      getGlobalSectionsData({ previewData, locale: otherProps.locale })
+    const [globalSectionsData, globalSectionsHeader, globalSectionsFooter] = await Promise.all([
+      globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
+    ])
+    const injected = injectGlobalSections({
+      globalSections: globalSectionsData,
+      globalSectionsHeader,
+      globalSectionsFooter,
+    })
+
+    sections = injected.sections ?? []
+    globalSettings = injected.settings ?? null
+  } catch (error) {
+    console.error('[faststore] Could not load the global sections of a plugin page', error)
+  }`
+    : ``
+}
 
   return {
     props: {
         data: loaderData,
-        ${appLayout ? 'globalSections: sections' : ``}
+        ${appLayout ? 'globalSections: sections,\n        globalSettings' : ``}
     }
   }
 }
@@ -155,9 +184,11 @@ export const getServerSideProps = withLocaleValidationSSR(getServerSidePropsBase
 export default function Page(props) {
   ${
     appLayout
-      ? `return <RenderSections globalSections={props.globalSections}>
-            {page.default(props.data)}
-          </RenderSections>`
+      ? `return <PageProvider context={{ globalSettings: props.globalSettings }}>
+            <RenderSections globalSections={props.globalSections}>
+              {page.default(props.data)}
+            </RenderSections>
+          </PageProvider>`
       : `return page.default(props.data)`
   }
 }

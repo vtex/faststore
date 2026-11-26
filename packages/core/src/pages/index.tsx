@@ -19,6 +19,7 @@ import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../discovery.config'
 
 type Props = {
+  type: 'home'
   page: PageContentType
   globalSections: GlobalSectionsData
   serverData?: unknown
@@ -211,6 +212,7 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: {
+      type: 'home',
       page,
       globalSections: globalSectionsResult,
       serverData,

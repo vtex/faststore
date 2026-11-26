@@ -3,6 +3,66 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.12.0-dev.3](https://github.com/vtex/faststore/compare/v4.12.0-dev.2...v4.12.0-dev.3) (2026-11-26)
+
+### Bug Fixes
+
+- **core:** send page type for PDP and home page views ([71741c4](https://github.com/vtex/faststore/commit/71741c4eba7c7e292daa11f5c8b96905b9803806))
+
+# [4.12.0-dev.2](https://github.com/vtex/faststore/compare/v4.12.0-dev.1...v4.12.0-dev.2) (2026-11-24)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.12.0-dev.1](https://github.com/vtex/faststore/compare/v4.12.0-dev.0...v4.12.0-dev.1) (2026-11-19)
+
+### Features
+
+- **core:** add optional Sign up button next to Sign in in the header ([#3596](https://github.com/vtex/faststore/issues/3596)) ([5cf65b4](https://github.com/vtex/faststore/commit/5cf65b41a42cdf064056b72e790f8f48a93b90f8))
+
+# [4.12.0-dev.0](https://github.com/vtex/faststore/compare/v4.11.5-dev.0...v4.12.0-dev.0) (2026-11-19)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.11.5-dev.0](https://github.com/vtex/faststore/compare/v4.11.4-dev.5...v4.11.5-dev.0) (2026-11-19)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.11.4-dev.5](https://github.com/vtex/faststore/compare/v4.11.4-dev.4...v4.11.4-dev.5) (2026-11-19)
+
+### Bug Fixes
+
+- **core:** retry CMS fetch bypassing cache on invalid JSON ([#3590](https://github.com/vtex/faststore/issues/3590)) ([12f9062](https://github.com/vtex/faststore/commit/12f9062184eef948f29d2aeac0308c97300d842f))
+
+## [4.11.4-dev.4](https://github.com/vtex/faststore/compare/v4.11.4-dev.3...v4.11.4-dev.4) (2026-11-19)
+
+### Bug Fixes
+
+- **core:** forward search dropdown labels from the CMS ([#3600](https://github.com/vtex/faststore/issues/3600)) ([0f18b72](https://github.com/vtex/faststore/commit/0f18b729eb90e7053b823ceb90207967d9d383f8)), closes [#3334](https://github.com/vtex/faststore/issues/3334) [#3334](https://github.com/vtex/faststore/issues/3334) [#3240](https://github.com/vtex/faststore/issues/3240) [#3240](https://github.com/vtex/faststore/issues/3240)
+
+## [4.11.4-dev.3](https://github.com/vtex/faststore/compare/v4.11.4-dev.2...v4.11.4-dev.3) (2026-11-18)
+
+### Bug Fixes
+
+- **core:** add experimental.revalidatePLP to refresh cached PLPs ([#3595](https://github.com/vtex/faststore/issues/3595)) ([f14ca23](https://github.com/vtex/faststore/commit/f14ca23c3581d94961eac3bdc6839207066eff74)), closes [#3553](https://github.com/vtex/faststore/issues/3553) [#3553](https://github.com/vtex/faststore/issues/3553)
+
+## [4.11.4-dev.2](https://github.com/vtex/faststore/compare/v4.11.4-dev.1...v4.11.4-dev.2) (2026-11-17)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.11.4-dev.1](https://github.com/vtex/faststore/compare/v4.11.4-dev.0...v4.11.4-dev.1) (2026-11-16)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.11.4-dev.0](https://github.com/vtex/faststore/compare/v4.11.3...v4.11.4-dev.0) (2026-11-10)
+
+## [4.11.4](https://github.com/vtex/faststore/compare/v4.11.3...v4.11.4) (2026-11-19)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.11.3](https://github.com/vtex/faststore/compare/v4.11.3-dev.1...v4.11.3) (2026-11-10)
+
+**Note:** Version bump only for package @faststore/core
+
 ## [4.11.3-dev.1](https://github.com/vtex/faststore/compare/v4.11.3-dev.0...v4.11.3-dev.1) (2026-11-10)
 
 ### Bug Fixes

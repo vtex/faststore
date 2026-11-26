@@ -60,5 +60,23 @@
     &[data-fs-overlay] {
       height: 100%;
     }
+
+    // "Sign up" next to "Sign in" (B2BTEAM-4144): keep both labels on one line,
+    // never let the flex row squeeze them, and leave a gap between the two.
+    [data-fs-button-signup-link] {
+      flex-shrink: 0;
+      margin-inline-end: var(--fs-spacing-1);
+      white-space: nowrap;
+
+      ~ [data-fs-button-signin-link] {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+    }
+
+    [data-fs-navbar-slider-footer] [data-fs-button-signup-link] {
+      width: fit-content;
+      padding-left: 0;
+    }
   }
 }

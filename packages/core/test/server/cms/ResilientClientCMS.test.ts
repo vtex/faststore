@@ -1,0 +1,482 @@
+import type { Server } from 'node:http'
+import { createServer } from 'node:http'
+import type { AddressInfo } from 'node:net'
+import { gzipSync } from 'node:zlib'
+import ClientCMS from '@vtex/client-cms'
+import type { ContentData, ContentPage } from '@vtex/client-cms'
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest'
+
+import { clientCMS, cmsPageCache, getCMSPage } from '../../../src/server/cms'
+import {
+  CACHE_BUST_PARAM,
+  CACHE_BUST_WINDOW_MS,
+  RETRY_COOLDOWN_MS,
+  ResilientClientCMS,
+} from '../../../src/server/cms/ResilientClientCMS'
+
+const invalidJSON = () =>
+  new SyntaxError('Unexpected token \u001f in JSON at position 0')
+
+const contentData = (id: string): ContentData => ({
+  id,
+  name: id,
+  status: 'published',
+  type: 'plp',
+  sections: [],
+  releaseId: '',
+})
+
+const listingPage = (
+  page: number,
+  count: number,
+  totalItems: number
+): ContentPage => ({
+  data: Array.from({ length: count }, (_, i) =>
+    contentData(`page-${page}-item-${i}`)
+  ),
+  hasNextPage: page * 10 < totalItems,
+  totalItems,
+})
+
+describe('ResilientClientCMS', () => {
+  // `ResilientClientCMS#fetch` delegates to the `ClientCMS` implementation,
+  // which performs the HTTP request and parses the JSON body.
+  let baseFetch: ReturnType<typeof vi.spyOn>
+  let warn: ReturnType<typeof vi.spyOn>
+
+  const createClient = () =>
+    new ResilientClientCMS({
+      tenant: 'store',
+      workspace: 'master',
+      builder: 'faststore',
+      host: 'www.example.com',
+    })
+
+  const paramsOfCall = (call: number) =>
+    baseFetch.mock.calls[call][1] as URLSearchParams | undefined
+
+  beforeEach(() => {
+    cmsPageCache.clear()
+    baseFetch = vi.spyOn(ClientCMS.prototype, 'fetch')
+    warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('makes a single request when the response is valid', async () => {
+    const page = listingPage(1, 3, 3)
+    baseFetch.mockResolvedValueOnce(page)
+
+    const result = await createClient().getCMSPagesByContentType('plp')
+
+    expect(result).toEqual(page)
+    expect(baseFetch).toHaveBeenCalledTimes(1)
+    expect(paramsOfCall(0)?.has(CACHE_BUST_PARAM)).toBe(false)
+    expect(warn).not.toHaveBeenCalled()
+  })
+
+  it('retries once bypassing the cache when the body is not valid JSON', async () => {
+    const page = listingPage(8, 10, 100)
+    baseFetch.mockRejectedValueOnce(invalidJSON()).mockResolvedValueOnce(page)
+
+    const result = await createClient().getCMSPagesByContentType('plp', {
+      page: 8,
+      perPage: 10,
+    })
+
+    expect(result).toEqual(page)
+    expect(baseFetch).toHaveBeenCalledTimes(2)
+
+    expect(baseFetch.mock.calls[1][0]).toBe('plp')
+    const retryParams = paramsOfCall(1)
+    expect(retryParams?.get('page')).toBe('8')
+    expect(retryParams?.get('per_page')).toBe('10')
+    expect(retryParams?.get(CACHE_BUST_PARAM)).toMatch(/^\d+$/)
+    // The original params are not mutated.
+    expect(paramsOfCall(0)?.has(CACHE_BUST_PARAM)).toBe(false)
+
+    expect(warn).toHaveBeenCalledTimes(1)
+    expect(warn.mock.calls[0][0]).toContain('plp?page=8&per_page=10')
+  })
+
+  it('rejects when the retry is not valid JSON either', async () => {
+    baseFetch
+      .mockRejectedValueOnce(invalidJSON())
+      .mockRejectedValueOnce(invalidJSON())
+
+    await expect(
+      createClient().getCMSPagesByContentType('plp')
+    ).rejects.toBeInstanceOf(SyntaxError)
+    expect(baseFetch).toHaveBeenCalledTimes(2)
+  })
+
+  it('handles the invalid-json error raised by node-fetch', async () => {
+    const nodeFetchError = Object.assign(
+      new Error('invalid json response body'),
+      { type: 'invalid-json' }
+    )
+    const document = contentData('document')
+    baseFetch
+      .mockRejectedValueOnce(nodeFetchError)
+      .mockResolvedValueOnce(document)
+
+    const result = await createClient().getCMSPage({
+      contentType: 'landingPage',
+      documentId: 'document',
+      versionId: 'version',
+    })
+
+    expect(result).toEqual(document)
+    expect(baseFetch).toHaveBeenCalledTimes(2)
+    expect(baseFetch.mock.calls[1][0]).toBe('landingPage/document')
+    expect(paramsOfCall(1)?.get('versionId')).toBe('version')
+  })
+
+  it('passes a body that parses to null through without retrying', async () => {
+    baseFetch.mockResolvedValueOnce(null)
+
+    const result = await createClient().getCMSPagesByContentType('plp')
+
+    expect(result).toBeNull()
+    expect(baseFetch).toHaveBeenCalledTimes(1)
+    expect(warn).not.toHaveBeenCalled()
+  })
+
+  it('adds the cache-busting param to requests without params', async () => {
+    baseFetch
+      .mockRejectedValueOnce(invalidJSON())
+      .mockResolvedValueOnce({ contentTypes: [{ id: 'plp' }] })
+
+    const result = await createClient().getAllContentTypeIds()
+
+    expect(result).toEqual(['plp'])
+    expect(paramsOfCall(1)?.has(CACHE_BUST_PARAM)).toBe(true)
+  })
+
+  it('does not retry other errors', async () => {
+    const error = new Error('Error while fetching')
+    baseFetch.mockRejectedValueOnce(error)
+
+    await expect(createClient().getCMSPagesByContentType('plp')).rejects.toBe(
+      error
+    )
+    expect(baseFetch).toHaveBeenCalledTimes(1)
+    expect(warn).not.toHaveBeenCalled()
+  })
+
+  it('retries when the body cannot be decoded', async () => {
+    // undici's error when `Content-Encoding` does not match the body bytes.
+    const decodingError = Object.assign(new TypeError('terminated'), {
+      cause: Object.assign(new Error('incorrect header check'), {
+        code: 'Z_DATA_ERROR',
+      }),
+    })
+    const page = listingPage(1, 1, 1)
+    baseFetch.mockRejectedValueOnce(decodingError).mockResolvedValueOnce(page)
+
+    const result = await createClient().getCMSPagesByContentType('plp')
+
+    expect(result).toEqual(page)
+    expect(baseFetch).toHaveBeenCalledTimes(2)
+    expect(warn.mock.calls[0][0]).toContain('TypeError: Z_DATA_ERROR')
+  })
+
+  it('retries a SyntaxError created in another realm', async () => {
+    const foreignSyntaxError = Object.assign(new Error('Unexpected token'), {
+      name: 'SyntaxError',
+    })
+    const page = listingPage(1, 1, 1)
+    baseFetch
+      .mockRejectedValueOnce(foreignSyntaxError)
+      .mockResolvedValueOnce(page)
+
+    const result = await createClient().getCMSPagesByContentType('plp')
+
+    expect(result).toEqual(page)
+    expect(baseFetch).toHaveBeenCalledTimes(2)
+  })
+
+  it('does not retry a connection reset while reading the body', async () => {
+    const error = Object.assign(new TypeError('terminated'), {
+      cause: Object.assign(new Error('read ECONNRESET'), {
+        code: 'ECONNRESET',
+      }),
+    })
+    baseFetch.mockRejectedValueOnce(error)
+
+    await expect(createClient().getCMSPagesByContentType('plp')).rejects.toBe(
+      error
+    )
+    expect(baseFetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('retries when a brotli body cannot be decoded', async () => {
+    // Node's brotli decoder codes start with `ERR__ERROR_` (double underscore).
+    const decodingError = Object.assign(new TypeError('terminated'), {
+      cause: Object.assign(new Error('Decompression failed'), {
+        code: 'ERR__ERROR_FORMAT_PADDING_1',
+      }),
+    })
+    const page = listingPage(1, 1, 1)
+    baseFetch.mockRejectedValueOnce(decodingError).mockResolvedValueOnce(page)
+
+    const result = await createClient().getCMSPagesByContentType('plp')
+
+    expect(result).toEqual(page)
+    expect(baseFetch).toHaveBeenCalledTimes(2)
+    expect(warn.mock.calls[0][0]).toContain(
+      'TypeError: ERR__ERROR_FORMAT_PADDING_1'
+    )
+  })
+
+  it('reuses the cache-busting value within a window', async () => {
+    const now = vi.spyOn(Date, 'now').mockReturnValue(10 * CACHE_BUST_WINDOW_MS)
+    const client = createClient()
+    const page = listingPage(1, 1, 1)
+    baseFetch
+      .mockRejectedValueOnce(invalidJSON())
+      .mockResolvedValueOnce(page)
+      .mockRejectedValueOnce(invalidJSON())
+      .mockResolvedValueOnce(page)
+      .mockRejectedValueOnce(invalidJSON())
+      .mockResolvedValueOnce(page)
+
+    await client.getCMSPagesByContentType('plp')
+    now.mockReturnValue(11 * CACHE_BUST_WINDOW_MS - 1)
+    await client.getCMSPagesByContentType('plp')
+    now.mockReturnValue(11 * CACHE_BUST_WINDOW_MS)
+    await client.getCMSPagesByContentType('plp')
+
+    expect(paramsOfCall(1)?.get(CACHE_BUST_PARAM)).toBe('10')
+    expect(paramsOfCall(3)?.get(CACHE_BUST_PARAM)).toBe('10')
+    expect(paramsOfCall(5)?.get(CACHE_BUST_PARAM)).toBe('11')
+  })
+
+  describe('retry cooldown', () => {
+    it('fails fast for a URL whose retry also failed', async () => {
+      const client = createClient()
+      baseFetch.mockRejectedValue(invalidJSON())
+
+      await expect(
+        client.getCMSPagesByContentType('plp')
+      ).rejects.toBeInstanceOf(SyntaxError)
+      expect(baseFetch).toHaveBeenCalledTimes(2)
+
+      await expect(
+        client.getCMSPagesByContentType('plp')
+      ).rejects.toBeInstanceOf(SyntaxError)
+      expect(baseFetch).toHaveBeenCalledTimes(3)
+      // One warning for the retry and one for the cooldown.
+      expect(warn).toHaveBeenCalledTimes(2)
+      expect(warn.mock.calls[1][0]).toContain(
+        'Skipping retries for this URL for 60s'
+      )
+    })
+
+    it('also backs off when the retry fails with another error', async () => {
+      const client = createClient()
+      const originError = new Error('Error while fetching')
+      baseFetch
+        .mockRejectedValueOnce(invalidJSON())
+        .mockRejectedValueOnce(originError)
+        .mockRejectedValueOnce(invalidJSON())
+
+      await expect(client.getCMSPagesByContentType('plp')).rejects.toBe(
+        originError
+      )
+      await expect(
+        client.getCMSPagesByContentType('plp')
+      ).rejects.toBeInstanceOf(SyntaxError)
+      expect(baseFetch).toHaveBeenCalledTimes(3)
+    })
+
+    it('still retries other URLs', async () => {
+      const client = createClient()
+      const page = listingPage(2, 10, 20)
+      baseFetch
+        .mockRejectedValueOnce(invalidJSON())
+        .mockRejectedValueOnce(invalidJSON())
+        .mockRejectedValueOnce(invalidJSON())
+        .mockResolvedValueOnce(page)
+
+      await expect(
+        client.getCMSPagesByContentType('plp')
+      ).rejects.toBeInstanceOf(SyntaxError)
+      await expect(
+        client.getCMSPagesByContentType('plp', { page: 2 })
+      ).resolves.toEqual(page)
+      expect(baseFetch).toHaveBeenCalledTimes(4)
+    })
+
+    it('retries the URL again after the cooldown', async () => {
+      const now = vi.spyOn(Date, 'now').mockReturnValue(1_000_000)
+      const client = createClient()
+      const page = listingPage(1, 1, 1)
+      baseFetch
+        .mockRejectedValueOnce(invalidJSON())
+        .mockRejectedValueOnce(invalidJSON())
+        .mockRejectedValueOnce(invalidJSON())
+        .mockResolvedValueOnce(page)
+
+      await expect(
+        client.getCMSPagesByContentType('plp')
+      ).rejects.toBeInstanceOf(SyntaxError)
+
+      now.mockReturnValue(1_000_000 + RETRY_COOLDOWN_MS)
+
+      await expect(client.getCMSPagesByContentType('plp')).resolves.toEqual(
+        page
+      )
+      expect(baseFetch).toHaveBeenCalledTimes(4)
+      // The retry after the cooldown uses a new cache-busting value.
+      expect(paramsOfCall(3)?.get(CACHE_BUST_PARAM)).not.toBe(
+        paramsOfCall(1)?.get(CACHE_BUST_PARAM)
+      )
+    })
+
+    it('lasts at least one cache-busting window', () => {
+      expect(RETRY_COOLDOWN_MS).toBeGreaterThanOrEqual(CACHE_BUST_WINDOW_MS)
+    })
+  })
+
+  describe('with real HTTP responses', () => {
+    // Real `fetch` and `response.json()` against a local server, like
+    // `@vtex/client-cms` does, to pin the error shapes the runtime produces.
+    // The server answers the bad body until the cache-busting param is sent,
+    // and closes each connection so `server.close()` does not wait on sockets.
+    const good: ContentPage = { data: [], hasNextPage: false, totalItems: 0 }
+    const goodJSON = JSON.stringify(good)
+    const badResponses: Record<
+      string,
+      { headers: Record<string, string>; body: string | Buffer }
+    > = {
+      'gzip-without-content-encoding': {
+        headers: {},
+        body: gzipSync(goodJSON),
+      },
+      'content-encoding-gzip-on-plain-body': {
+        headers: { 'content-encoding': 'gzip' },
+        body: goodJSON,
+      },
+      'content-encoding-br-on-plain-body': {
+        headers: { 'content-encoding': 'br' },
+        body: goodJSON,
+      },
+      'html-page': {
+        headers: { 'content-type': 'text/html' },
+        body: '<html>Error</html>',
+      },
+      'truncated-json': { headers: {}, body: goodJSON.slice(0, 10) },
+    }
+
+    let server: Server
+    let origin = ''
+
+    beforeAll(async () => {
+      server = createServer((req, res) => {
+        const url = new URL(req.url ?? '/', 'http://localhost')
+        const bad = badResponses[url.pathname.slice(1)]
+
+        if (bad && !url.searchParams.has(CACHE_BUST_PARAM)) {
+          res.writeHead(200, { ...bad.headers, connection: 'close' })
+          res.end(bad.body)
+          return
+        }
+
+        res.writeHead(200, {
+          'content-type': 'application/json',
+          connection: 'close',
+        })
+        res.end(goodJSON)
+      })
+      await new Promise<void>((resolve) =>
+        server.listen(0, '127.0.0.1', resolve)
+      )
+      origin = `http://127.0.0.1:${(server.address() as AddressInfo).port}`
+    })
+
+    afterAll(async () => {
+      await new Promise<void>((resolve) => server.close(() => resolve()))
+    })
+
+    beforeEach(() => {
+      baseFetch.mockImplementation(
+        async (path?: string, params?: URLSearchParams) => {
+          const query = params?.toString()
+          const response = await fetch(
+            [`${origin}/${path}`, query].filter(Boolean).join('?')
+          )
+
+          if (!response.ok) {
+            throw new Error('Error while fetching')
+          }
+
+          return response.json()
+        }
+      )
+    })
+
+    it.each(Object.keys(badResponses))(
+      'retries a %s response',
+      async (name) => {
+        await expect(
+          createClient().getCMSPagesByContentType(name)
+        ).resolves.toEqual(good)
+        expect(baseFetch).toHaveBeenCalledTimes(2)
+      }
+    )
+  })
+
+  describe('getCMSPage', () => {
+    // Page 1 says there are 25 items, so pages 2 and 3 are fetched in
+    // parallel. Page 2 answers with an invalid body the first time.
+    const mockListingWithOneBadPage = () => {
+      let badResponses = 1
+
+      baseFetch.mockImplementation(async (_path, params) => {
+        const page = Number((params as URLSearchParams).get('page'))
+
+        if (page === 2 && badResponses > 0) {
+          badResponses -= 1
+          throw invalidJSON()
+        }
+
+        return listingPage(page, page === 3 ? 5 : 10, 25)
+      })
+    }
+
+    it('recovers when one page of a listing has an invalid body', async () => {
+      mockListingWithOneBadPage()
+
+      const result = await getCMSPage({ contentType: 'plp' }, createClient())
+
+      expect(result.data).toHaveLength(25)
+      expect(result.data[10].id).toBe('page-2-item-0')
+      // Pages 1, 2 and 3, plus the retry of page 2.
+      expect(baseFetch).toHaveBeenCalledTimes(4)
+      expect(warn).toHaveBeenCalledTimes(1)
+      expect(warn.mock.calls[0][0]).toContain('page=2')
+    })
+
+    it('is used by the default CMS client', async () => {
+      mockListingWithOneBadPage()
+
+      const result = await getCMSPage({ contentType: 'plp' }, clientCMS)
+
+      expect(clientCMS).toBeInstanceOf(ResilientClientCMS)
+      expect(result.data).toHaveLength(25)
+      expect(baseFetch).toHaveBeenCalledTimes(4)
+    })
+  })
+})

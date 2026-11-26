@@ -196,6 +196,11 @@ module.exports = {
     enableRedirects: false,
     // ISR window (seconds) for notFound PDP/PLP paths.
     revalidate404: 60 * 5, // 5 minutes
+    // ISR window (seconds) for PLPs served by `[...slug]`. `false` (default)
+    // caches the page until the next deploy. Set a positive integer number of
+    // seconds (values below 60 are raised to 60) to refresh the
+    // server-rendered first page (price, stock, order).
+    revalidatePLP: false,
     enableSearchSSR: false,
     enableFaststoreMyAccount: false,
     useIsGiftFromOrderForm: false,

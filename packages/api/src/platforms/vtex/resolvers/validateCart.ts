@@ -41,6 +41,7 @@ import type { SelectedAddress } from '../clients/commerce/types/ShippingData'
 import { createNewAddress } from '../utils/createNewAddress'
 import { getAddressOrderForm } from '../utils/getAddressOrderForm'
 import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
+import { withGeoCoordinates } from '../utils/withGeoCoordinates'
 import { parseJwt } from '../utils/cookies'
 import type { SessionJwt } from '../clients/commerce/types/Session'
 
@@ -509,7 +510,9 @@ const updateOrderFormShippingData = async (
     // Check if the orderForm address matches the one from the session
     const oldAddress = getAddressOrderForm(orderForm, session, addressChanged)
 
-    const address = oldAddress ? oldAddress : createNewAddress(session)
+    const address =
+      oldAddress ??
+      createNewAddress(await withGeoCoordinates(session, commerce))
 
     const selectedAddresses = address as SelectedAddress[]
 

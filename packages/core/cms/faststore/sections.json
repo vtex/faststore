@@ -235,7 +235,17 @@
             "searchTopTitle": {
               "title": "Top Search Title",
               "type": "string",
-              "default": "Top search"
+              "default": "Top Search"
+            },
+            "searchHistoryClearLabel": {
+              "title": "Clear Search History Button Label",
+              "type": "string",
+              "default": "Clear History"
+            },
+            "searchProductsTitle": {
+              "title": "Suggested Products Title",
+              "type": "string",
+              "default": "Suggested Products"
             },
             "quickOrderSettings": {
               "title": "Quick Order settings",
@@ -864,6 +874,28 @@
               "title": "My Account Label",
               "type": "string",
               "default": "My account"
+            },
+            "signUp": {
+              "title": "Sign up",
+              "description": "Optional entry shown next to Sign in for signed-out visitors, usually pointing to the organization registration.",
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "title": "Display Sign up button?",
+                  "type": "boolean",
+                  "default": false
+                },
+                "label": {
+                  "title": "Label",
+                  "type": "string",
+                  "default": "Sign up"
+                },
+                "url": {
+                  "title": "URL",
+                  "type": "string",
+                  "default": "/register"
+                }
+              }
             }
           }
         },
