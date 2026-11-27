@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.12.0-dev.6](https://github.com/vtex/faststore/compare/v4.12.0-dev.5...v4.12.0-dev.6) (2026-11-27)
+
+### Bug Fixes
+
+- **core:** avoid crash on My Account when sections are missing ([ae8d731](https://github.com/vtex/faststore/commit/ae8d731dc65c571a4449d24973ad3be534fb2f4e))
+- **core:** recover My Account pages from empty page props ([881eed8](https://github.com/vtex/faststore/commit/881eed887519071cfa3bf7b3cb413e80010eb1b7))
+- **core:** use full page navigation for My Account links ([25fac83](https://github.com/vtex/faststore/commit/25fac83d2e18e5115c816e725e761be82f3333cb))
+- **core:** use globalThis in My Account empty props recovery hook ([7256af5](https://github.com/vtex/faststore/commit/7256af59c8d46c6a53f2c30e4c266f01af6ba1a8))
+
 # [4.12.0-dev.5](https://github.com/vtex/faststore/compare/v4.12.0-dev.4...v4.12.0-dev.5) (2026-11-27)
 
 ### Bug Fixes
