@@ -457,3 +457,65 @@ describe('sku loader source', () => {
     )
   })
 })
+
+const repoSource = (relativePath: string) =>
+  readFileSync(resolve(apiRoot, '../..', relativePath), 'utf8')
+
+describe('native documents stay without the string', () => {
+  it('keeps validateCart uncached and reasonKey a string', () => {
+    const mutation = source('src/platforms/vtex/typeDefs/mutation.graphql')
+    const validateCartField = mutation.slice(
+      mutation.indexOf('validateCart('),
+      mutation.indexOf('validateSession')
+    )
+    const validateCart = source('src/platforms/vtex/resolvers/validateCart.ts')
+    const etagStart = validateCart.indexOf('const setOrderFormEtag')
+    const etag = validateCart.slice(
+      etagStart,
+      validateCart.indexOf('const isOrderFormStale')
+    )
+    const offer = source('src/platforms/vtex/typeDefs/offer.graphql')
+
+    expect(validateCartField).not.toContain('@cacheControl')
+    expect(validateCart).not.toContain('cacheControl')
+    expect(etag).toContain("key: 'cartEtag'")
+    expect(etag).toContain("appId: 'faststore'")
+    expect(offer).toContain('reasonKey: String')
+    expect(offer).not.toContain('priceVariations')
+  })
+
+  it('keeps useOffer, the cart mutation cache list, and native queries free of the string', () => {
+    const fetcher = repoSource('packages/core/src/sdk/offer/fetcher.ts')
+
+    expect(fetcher).toContain('product_search')
+    expect(fetcher).toContain('sku.id')
+    expect(fetcher).not.toContain('priceAffectingParams')
+    expect(
+      repoSource('packages/core/@generated/cached-operations.json')
+    ).not.toContain('ValidateCartMutation')
+
+    for (const path of [
+      'packages/core/src/sdk/product/useProductQuery.ts',
+      'packages/core/src/pages/[slug]/p.tsx',
+      'packages/core/src/sdk/product/useAllVariantProducts.ts',
+      'packages/core/src/customizations/src/fragments/ClientProduct.ts',
+      'packages/core/src/customizations/src/fragments/ServerProduct.ts',
+      'packages/core/src/sdk/product/useProductGalleryQuery.ts',
+      'packages/core/src/utils/fetchProductGallerySSR.ts',
+      'packages/core/src/sdk/product/useProductsQuery.ts',
+      'packages/core/src/sdk/product/useProductsPrefetch.ts',
+      'packages/core/src/sdk/product/usePageProductsQuery.ts',
+      'packages/core/src/sdk/search/useSuggestions.ts',
+      'packages/core/src/sdk/search/useTopSearch.ts',
+      'packages/core/src/customizations/src/fragments/ClientProductGallery.ts',
+      'packages/core/src/customizations/src/fragments/ClientManyProducts.ts',
+      'packages/core/src/customizations/src/fragments/ClientSearchSuggestions.ts',
+      'packages/core/src/customizations/src/fragments/ClientTopSearchSuggestions.ts',
+      'packages/core/src/sdk/product/useProductsSelected.tsx',
+      'packages/core/src/sdk/product/index.ts',
+      'packages/core/src/sdk/cart/index.ts',
+    ]) {
+      expect(repoSource(path), path).not.toContain('priceAffectingParams')
+    }
+  })
+})
