@@ -47,6 +47,7 @@ export interface SearchArgs {
   showSponsored?: boolean
   sponsoredCount?: number
   allowRedirect?: boolean
+  priceAffectingParams?: string | null
 }
 
 export interface ProductLocator {
@@ -59,6 +60,7 @@ export interface FetchProductArgs {
   value: string
   showInvisibleItems?: boolean
   hideUnavailableItems?: boolean
+  priceAffectingParams?: string | null
 }
 
 export interface ProductsByIdentifierArgs {
@@ -72,6 +74,7 @@ export interface ProductsByIdentifierArgs {
    * A not-found answer is still dropped.
    */
   throwOnUpstreamError?: boolean
+  priceAffectingParams?: string | null
 }
 
 export interface PickupPointAvailabilityArgs {
@@ -197,6 +200,7 @@ export const IntelligentSearch = (
     value,
     hideUnavailableItems: hideUnavailable,
     showInvisibleItems,
+    priceAffectingParams,
   }: FetchProductArgs): Promise<Product> => {
     const request = buildIntelligentSearchRequest({
       endpoint: 'products',
@@ -207,6 +211,7 @@ export const IntelligentSearch = (
         value,
         hideUnavailableItems: hideUnavailable,
         showInvisibleItems,
+        priceAffectingParams,
       },
     })
 
@@ -222,6 +227,7 @@ export const IntelligentSearch = (
     showInvisibleItems,
     hideUnavailableItems: hideUnavailable,
     throwOnUpstreamError = false,
+    priceAffectingParams,
   }: ProductsByIdentifierArgs): Promise<Product[]> => {
     const limit = pLimit(PRODUCTS_BY_IDENTIFIER_CONCURRENCY)
 
@@ -234,6 +240,7 @@ export const IntelligentSearch = (
               value,
               hideUnavailableItems: hideUnavailable,
               showInvisibleItems,
+              priceAffectingParams,
             })
           } catch (error) {
             if (throwOnUpstreamError && !isNotFoundError(error)) {

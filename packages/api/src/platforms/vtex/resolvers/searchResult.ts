@@ -1,14 +1,19 @@
 import type { GraphqlResolver } from '..'
 import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
-import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
+import type {
+  Product,
+  ProductSearchResult,
+} from '../clients/search/types/ProductSearchResult'
 import { enhanceSku } from '../utils/enhanceSku'
+import { stampPriceAffectingParams } from '../utils/priceAffectingParams'
 import { applySearchCacheCap } from '../utils/searchCacheCap'
 import { pickBestSku } from '../utils/sku'
 
 export type Root = {
   searchArgs: Omit<SearchArgs, 'type'>
   productSearchPromise: Promise<ProductSearchResult>
+  priceAffectingParams?: string | null
 }
 
 const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
@@ -18,13 +23,30 @@ const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
       ? facet.key === 'brand'
       : false
 
+const searchResultSku = (
+  product: Product,
+  priceAffectingParams: string | null
+) => {
+  // What determines the presentation of the SKU is the price order
+  // https://help.vtex.com/pt/tutorial/ordenando-imagens-na-vitrine-e-na-pagina-de-produto--tutorials_278
+  const maybeSku = pickBestSku(product.items)
+
+  return (
+    maybeSku &&
+    stampPriceAffectingParams(
+      enhanceSku(maybeSku, product),
+      priceAffectingParams
+    )
+  )
+}
+
 export const StoreSearchResult: Record<string, GraphqlResolver<Root>> = {
   suggestions: async (root, _, ctx) => {
     const {
       clients: { search },
     } = ctx
 
-    const { searchArgs } = root
+    const { searchArgs, priceAffectingParams = null } = root
 
     // If there's no search query, suggest the most popular searches.
     if (!searchArgs.query) {
@@ -51,13 +73,7 @@ export const StoreSearchResult: Record<string, GraphqlResolver<Root>> = {
     )
 
     const skus = productSearchResult.products
-      .map((product) => {
-        // What determines the presentation of the SKU is the price order
-        // https://help.vtex.com/pt/tutorial/ordenando-imagens-na-vitrine-e-na-pagina-de-produto--tutorials_278
-        const maybeSku = pickBestSku(product.items)
-
-        return maybeSku && enhanceSku(maybeSku, product)
-      })
+      .map((product) => searchResultSku(product, priceAffectingParams))
       .filter((sku) => !!sku)
 
     const { searches } = terms
@@ -67,7 +83,11 @@ export const StoreSearchResult: Record<string, GraphqlResolver<Root>> = {
       products: skus,
     }
   },
-  products: async ({ productSearchPromise }, _, ctx) => {
+  products: async (
+    { productSearchPromise, priceAffectingParams = null },
+    _,
+    ctx
+  ) => {
     const productSearchResult = await productSearchPromise
 
     applySearchCacheCap(
@@ -76,13 +96,7 @@ export const StoreSearchResult: Record<string, GraphqlResolver<Root>> = {
     )
 
     const skus = productSearchResult.products
-      .map((product) => {
-        // What determines the presentation of the SKU is the price order
-        // https://help.vtex.com/pt/tutorial/ordenando-imagens-na-vitrine-e-na-pagina-de-produto--tutorials_278
-        const maybeSku = pickBestSku(product.items)
-
-        return maybeSku && enhanceSku(maybeSku, product)
-      })
+      .map((product) => searchResultSku(product, priceAffectingParams))
       .filter((sku) => !!sku)
 
     return {

@@ -78,6 +78,10 @@ type StoreOfferPriceState {
   Server-chosen reason when available is false.
   """
   reasonKey: String
+  """
+  The client text copied for this response. Null when this response had no string.
+  """
+  priceAffectingParams: String
 }
 
 """

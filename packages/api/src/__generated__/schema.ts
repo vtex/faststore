@@ -746,6 +746,7 @@ export type MutationUploadFileToOrderEntryArgs = {
 
 export type MutationValidateCartArgs = {
   cart: IStoreCart;
+  priceAffectingParams?: InputMaybe<Scalars['String']['input']>;
   session?: InputMaybe<IStoreSession>;
 };
 
@@ -1043,6 +1044,7 @@ export type QueryPickupPointsArgs = {
 
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>;
+  priceAffectingParams?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1077,6 +1079,7 @@ export type QueryRedirectArgs = {
 export type QuerySearchArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   first: Scalars['Int']['input'];
+  priceAffectingParams?: InputMaybe<Scalars['String']['input']>;
   selectedFacets?: InputMaybe<Array<IStoreSelectedFacet>>;
   sort?: InputMaybe<StoreSort>;
   sponsoredCount?: InputMaybe<Scalars['Int']['input']>;
@@ -1694,6 +1697,8 @@ export type StoreOfferPriceState = {
   __typename?: 'StoreOfferPriceState';
   /** True when the number is a price the shopper can see, including zero. */
   available: Scalars['Boolean']['output'];
+  /** The client text copied for this response. Null when this response had no string. */
+  priceAffectingParams?: Maybe<Scalars['String']['output']>;
   /** Server-chosen reason when available is false. */
   reasonKey?: Maybe<Scalars['String']['output']>;
 };

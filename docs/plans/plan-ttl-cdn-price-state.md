@@ -1,9 +1,9 @@
 # TTL da CDN quando o priceState vem
 
-> **Status**: Reviewed
+> **Status**: PR open
 > **Roadmap**: preco-minicart-e-vitrine #2
 > **Branch**: preco-minicart-e-vitrine/p2-ttl-price-valid-until
-> **PR**: —
+> **PR**: https://github.com/vtex/faststore/pull/3613
 > **Last updated**: 2026-11-26
 
 ## Goal

@@ -9,6 +9,7 @@ import {
   price,
   sellingPrice,
 } from '../utils/productStock'
+import { readPriceAffectingParamsStamp } from '../utils/priceAffectingParams'
 import { resolvePriceState } from '../utils/priceState'
 import { withTax } from '../utils/taxes'
 import type { StoreAggregateOffer } from './aggregateOffer'
@@ -78,7 +79,12 @@ export const StoreOffer: Record<string, GraphqlResolver<Root>> = {
 
     return null
   },
-  priceState: () => resolvePriceState(),
+  priceState: (root) => ({
+    ...resolvePriceState(root.priceState),
+    priceAffectingParams: readPriceAffectingParamsStamp(
+      isSearchItem(root) ? root.product : isOrderFormItem(root) ? root : null
+    ),
+  }),
   price: (root) => {
     if (isSearchItem(root)) {
       return price(root)

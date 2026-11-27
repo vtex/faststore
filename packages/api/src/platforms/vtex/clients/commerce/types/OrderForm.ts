@@ -75,6 +75,14 @@ export interface OrderFormItem {
   attachments: Attachment[]
   /** Services applied to this line. `null`, `undefined` and `[]` all mean none. */
   bundleItems?: OrderFormBundleItem[] | null
+  /**
+   * Set when Checkout sends the external price state. Omitted means the
+   * numeric price stands.
+   */
+  priceState?: {
+    available?: boolean | null
+    reasonKey?: string | null
+  } | null
 }
 
 export interface SKUSpecification {

@@ -13,6 +13,10 @@ import {
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
 import { enhanceSkuFromOrderFormItem } from '../utils/enhanceSku'
+import {
+  followPriceAffectingParams,
+  stampPriceAffectingParams,
+} from '../utils/priceAffectingParams'
 import { isNotFoundError } from '../../errors'
 import {
   attachmentToPropertyValue,
@@ -378,18 +382,24 @@ const loadCartSku = (
 const orderFormToCart = async (
   form: OrderForm,
   skuLoader: GraphqlContext['loaders']['skuLoader'],
-  shouldSplitItem?: boolean | null,
-  adoptedSalesChannel?: string | null,
-  preserveLines = false
+  shouldSplitItem: boolean | null | undefined,
+  adoptedSalesChannel: string | null | undefined,
+  preserveLines: boolean,
+  followed: string | null
 ) => {
   return {
     order: {
       orderNumber: form.orderFormId,
-      acceptedOffer: form.items.map(async (item) => ({
-        ...item,
-        product: await loadCartSku(item, skuLoader),
-        ...(preserveLines ? { lineId: item.uniqueId } : {}),
-      })),
+      acceptedOffer: form.items.map(async (item) =>
+        stampPriceAffectingParams(
+          {
+            ...item,
+            product: await loadCartSku(item, skuLoader),
+            ...(preserveLines ? { lineId: item.uniqueId } : {}),
+          },
+          followed
+        )
+      ),
       shouldSplitItem,
       ...(adoptedSalesChannel ? { salesChannel: adoptedSalesChannel } : {}),
     },
@@ -628,7 +638,8 @@ const cartWhenSalesChannelAdoptedOrNull = (
   skuLoader: GraphqlContext['loaders']['skuLoader'],
   shouldSplitItem: boolean | null | undefined,
   adoptedSalesChannel: string | null,
-  preserveLines = false
+  preserveLines: boolean,
+  followed: string | null
 ) => {
   if (!adoptedSalesChannel) {
     return null
@@ -639,7 +650,8 @@ const cartWhenSalesChannelAdoptedOrNull = (
     skuLoader,
     shouldSplitItem,
     adoptedSalesChannel,
-    preserveLines
+    preserveLines,
+    followed
   )
 }
 
@@ -654,7 +666,8 @@ const cartWhenItemsUnchanged = (
   skuLoader: GraphqlContext['loaders']['skuLoader'],
   shouldSplitItem: boolean | null | undefined,
   adoptedSalesChannel: string | null,
-  preserveLines: boolean
+  preserveLines: boolean,
+  followed: string | null
 ) => {
   if (preserveLines && !equals(order, form, preserveLines)) {
     return orderFormToCart(
@@ -662,7 +675,8 @@ const cartWhenItemsUnchanged = (
       skuLoader,
       shouldSplitItem,
       adoptedSalesChannel,
-      preserveLines
+      preserveLines,
+      followed
     )
   }
 
@@ -671,7 +685,8 @@ const cartWhenItemsUnchanged = (
     skuLoader,
     shouldSplitItem,
     adoptedSalesChannel,
-    preserveLines
+    preserveLines,
+    followed
   )
 }
 
@@ -782,9 +797,10 @@ const getItemChanges = (
  */
 export const validateCart = async (
   _: unknown,
-  { cart: { order }, session }: MutationValidateCartArgs,
+  { cart: { order }, session, priceAffectingParams }: MutationValidateCartArgs,
   ctx: GraphqlContext
 ) => {
+  const followed = followPriceAffectingParams(priceAffectingParams)
   const orderFormIdFromCookie = getCookieCheckoutOrderNumber(
     ctx.headers.cookie,
     'checkout.vtex.com'
@@ -871,7 +887,8 @@ export const validateCart = async (
         skuLoader,
         shouldSplitItem,
         adoptedSalesChannel,
-        preserveLines
+        preserveLines,
+        followed
       )
     }
   }
@@ -901,7 +918,8 @@ export const validateCart = async (
       skuLoader,
       shouldSplitItem,
       adoptedSalesChannel,
-      preserveLines
+      preserveLines,
+      followed
     )
   }
 
@@ -976,7 +994,8 @@ export const validateCart = async (
       skuLoader,
       shouldSplitItem,
       adoptedSalesChannel,
-      preserveLines
+      preserveLines,
+      followed
     )
   }
 
@@ -986,6 +1005,7 @@ export const validateCart = async (
     skuLoader,
     shouldSplitItem,
     adoptedSalesChannel,
-    preserveLines
+    preserveLines,
+    followed
   )
 }

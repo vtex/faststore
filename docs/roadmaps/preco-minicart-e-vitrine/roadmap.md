@@ -12,8 +12,8 @@ A conta com a integração vê preço indisponível, brinde ou o parâmetro que 
 | # | Phase | Depends on | Docs | Status | Jira |
 |---|---|---|---|---|---|
 | 1 | Frase do preço no minicart | — | done: [tdd](../../tdds/tdd-frase-preco-minicart.md), [adr-0001](../../adrs/adr-0001-contrato-do-price-state.md), [adr-0002](../../adrs/adr-0002-brinde-nao-e-preco-indisponivel.md) | PR open | |
-| 2 | TTL da CDN quando o priceState vem | #1 | done: [tdd](../../tdds/tdd-ttl-cdn-price-state.md), [adr-0003](../../adrs/adr-0003-ttl-cdn-so-com-price-state-da-origem.md) | Reviewed | |
-| 3 | Query generalista e validateCart | #1, #2 | done: [tdd](../../tdds/tdd-price-affecting-params.md), [adr-0004](../../adrs/adr-0004-string-price-affecting-params.md) | Pending | |
+| 2 | TTL da CDN quando o priceState vem | #1 | done: [tdd](../../tdds/tdd-ttl-cdn-price-state.md), [adr-0003](../../adrs/adr-0003-ttl-cdn-so-com-price-state-da-origem.md) | PR open | |
+| 3 | Query generalista e validateCart | #1, #2 | done: [tdd](../../tdds/tdd-price-affecting-params.md), [adr-0004](../../adrs/adr-0004-string-price-affecting-params.md) | PR open | |
 
 ### Phase 1 — Frase do preço no minicart
 
@@ -83,8 +83,8 @@ Ruling: PRs novos saem como draft, que é o default do faseamento. Os PRs 3592 e
 | Phase | Stream / stack | Branch | PR |
 |---|---|---|---|
 | #1 | A (bottom) | `feat/cart-price-state` | https://github.com/vtex/faststore/pull/3592 |
-| #2 | B (bottom) | `preco-minicart-e-vitrine/p2-ttl-price-valid-until` | |
-| #3 | C (bottom) | `preco-minicart-e-vitrine/p3-price-affecting-params` | |
+| #2 | B (bottom) | `preco-minicart-e-vitrine/p2-ttl-price-valid-until` | https://github.com/vtex/faststore/pull/3613 |
+| #3 | C (bottom) | `preco-minicart-e-vitrine/p3-price-affecting-params` | https://github.com/vtex/faststore/pull/3614 |
 
 ## Plan Check
 
@@ -142,3 +142,33 @@ Wholesale e store, no RFC, ainda não têm dono. Não entram em fase até o clie
 A lista de membros de `reasonKey` não está fechada. O campo publicado segue `String`.
 
 O campo do orderForm que carrega `priceAffectingParams` não está nomeado. O loop não cria `customData`.
+
+## Final Smell Pass
+
+O código revisto termina em `7105b48307c2eab356a8cd7b67e6498ace5608f8`. O commit que só grava esta seção fica de fora. O status das fases e a tabela de entrega ficam como estão.
+
+Ruling: o diff desta passagem é `origin/dev...HEAD` (`d3152ffa98a932e241413ce91a93456b32ea54d0`) — o `dev` local aponta para `c1c0cb577` (Release 3.96.0-dev.3, 2025-12-22) e a stack nasce em `origin/dev` (4.11.4-dev.1) — o custo de usar o ref local seria varrer um ano de histórico que não é esta entrega.
+
+Lentes: a mesma regra escrita em duas fases; os arquivos que a entrega adicionou, vistos juntos.
+
+A fase 1 acrescenta `priceState.ts`, `priceLine.ts`, `priceMock.ts` e `PriceMockSwitch`. A fase 2 acrescenta `searchCacheCap.ts`. A fase 3 acrescenta `priceAffectingParams.ts`. Os três utilitários da API ficam em `packages/api/src/platforms/vtex/utils/`, ao lado dos outros helpers da plataforma. Os testes ficam em `test/unit/.../utils`, `test/unit/.../resolvers` e `test/integration/vtex.validateCart.priceAffectingParams.test.ts`, no mesmo desenho dos vizinhos. No core, a regra da linha fica em `sdk/cart/` e o teste em `test/sdk/cart/`. O interruptor de desenvolvimento fica em `components/cart/`, montado pelo `CartSidebar`.
+
+`resolvePriceState` lê `available === false`. `isPriceStateObject` lê objeto cru, não nulo e não array. O default do BFF fica fora do cap. `applySearchCacheCap` é uma função, chamada em `query.ts` e em `searchResult.ts`. `followPriceAffectingParams` e `stampPriceAffectingParams` também são uma função, chamadas na URL, na oferta e na linha. `searchResultSku` junta a escolha do SKU com o carimbo. `suggestions` e `products` seguem com duas chamadas do cap: a lista de ofertas muda com a regra de cache, e o SKU apresentado muda com o carimbo.
+
+| Cheiro | Onde | Lente | Desfecho |
+| --- | --- | --- | --- |
+| `fetchSkuForPriceAffectingParams` acha o item, chama `enhanceSku` e lança o mesmo `NotFoundError` que `getSkuLoader` | `packages/api/src/platforms/vtex/resolvers/query.ts` (159–184) e `packages/api/src/platforms/vtex/loaders/sku.ts` (26–45) | duplicação entre fases | Sugestão |
+| `resolvePriceState` sai no entry público. `applySearchCacheCap` e os helpers de `priceAffectingParams` ficam no módulo | `packages/api/src/index.ts` (48) | coerência da árvore | Sugestão |
+
+### Avisos
+
+Nenhum.
+
+### Sugestões
+
+- `packages/api/src/platforms/vtex/loaders/sku.ts` fica fora do diff `origin/dev...HEAD`. Uma função pura ao lado de `enhanceSku` serviria ao loader e a `fetchSkuForPriceAffectingParams`. O teste da fase 3 falha se `priceAffectingParams` aparecer em `loaders/sku.ts`. A fase 3 já registrou isso. Esta passagem não mexe na camada de baixo.
+- `AGENTS.md` diz que helper interno não é reexportado no entry público. O commit `f77838e69` publicou `resolvePriceState` e nenhum arquivo deste repositório importa esse símbolo de `@faststore/api`. Tirar o export muda a superfície pública. Fica para uma decisão humana. As fases 2 e 3 deixaram os helpers delas no módulo.
+
+Não houve refactor. A suíte de base e a suíte final são a mesma execução, em 2026-11-27, no commit `7105b48307c2eab356a8cd7b67e6498ace5608f8`.
+
+- Suíte — `pnpm --pm-on-fail=ignore --config.verify-deps-before-run=false --filter @faststore/api test:unit` — pass, 36 arquivos, 493 testes
