@@ -40,7 +40,20 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 const query = gql(`
   query ServerListCardsQuery {
-    listCreditCards {
+    personalCards: listPersonalCreditCards {
+      list {
+        accountId
+        bin
+        cardNumber
+        cardLabel
+        paymentSystem
+        paymentSystemName
+        isDefault
+        isActive
+        origin
+      }
+    }
+    sharedCards: listCreditCards {
       list {
         accountId
         bin
@@ -176,24 +189,46 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooterPromise,
   ])
 
-  const hasError = !!listCards.errors
+  // Each tab has its own query, backed by its own saved-cards route
+  // (`listPersonalCreditCards` and `listCreditCards`), so they can fail
+  // independently. A failure attributable to one field only empties and flags
+  // that tab; `hasError` (whole page) is kept for failures that can't be
+  // attributed to a single tab, or when both tabs failed.
+  const queryErrors = (listCards.errors ?? []) as Array<{
+    path?: ReadonlyArray<string | number>
+  }>
+  const failedFields = new Set(
+    queryErrors.map((error) => error.path?.[0] as string | undefined)
+  )
+  const personalHasError = failedFields.has('personalCards')
+  const sharedHasError = failedFields.has('sharedCards')
+  const hasUnattributedError = queryErrors.some(
+    (error) =>
+      error.path?.[0] !== 'personalCards' && error.path?.[0] !== 'sharedCards'
+  )
+  const hasError = hasUnattributedError || (personalHasError && sharedHasError)
 
-  if (hasError) {
-    console.error(...listCards.errors)
+  if (queryErrors.length > 0) {
+    console.error(...queryErrors)
+  }
 
-    const statusCode = extractStatusFromError(listCards.errors[0])
+  // Auth failures still redirect (consistent with Orders), but only when the
+  // whole page failed. A 401/403 that belongs to a single tab's query degrades
+  // to that tab's error state instead of discarding the other tab's cards.
+  // Anything else (e.g. the Saved-cards service being down) also renders the
+  // page's own error state instead of a hard redirect (spec US-5) — the buyer
+  // stays in My Account and can retry.
+  const hasAuthError = queryErrors.some((error) => {
+    const statusCode = extractStatusFromError(error)
+    return statusCode === 403 || statusCode === 401
+  })
 
-    // Auth failures still redirect (consistent with Orders); anything else
-    // (e.g. the Saved-cards service being down) renders the page's own error
-    // state instead of a hard redirect (spec US-5) — the buyer stays in My
-    // Account and can retry.
-    if (statusCode === 403 || statusCode === 401) {
-      return {
-        redirect: {
-          destination: `/pvt/account/403?from=${encodeURIComponent('/pvt/account/cards')}`,
-          permanent: false,
-        },
-      }
+  if (hasError && hasAuthError) {
+    return {
+      redirect: {
+        destination: `/pvt/account/403?from=${encodeURIComponent('/pvt/account/cards')}`,
+        permanent: false,
+      },
     }
   }
 
@@ -216,11 +251,19 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   })
 
-  // The Saved-cards service returns personal and shared cards merged into one
-  // list, each tagged `origin` (spec my-account-cards-shared-listing-unblock).
-  // Partition here rather than de-duplicating: a card present under both
-  // origins is intentionally rendered in both tabs.
-  const allCards = hasError ? [] : (listCards.data?.listCreditCards?.list ?? [])
+  // A card present in both wallets is intentionally rendered in both tabs.
+  const allPersonalCards =
+    hasError || personalHasError
+      ? []
+      : (listCards.data?.personalCards?.list ?? [])
+  // Defensive: keep only shared cards in the Shared tab, so a personal card
+  // can never surface there without the Personal tab's gate.
+  const sharedCards =
+    hasError || sharedHasError
+      ? []
+      : (listCards.data?.sharedCards?.list ?? []).filter(
+          (card) => card.origin === 'shared'
+        )
   // Mirrors MyAccountListCards.tsx's `sharedOnly` exactly — that's the only
   // combination where the UI actually hides the Personal tab (spec
   // my-account-cards-gating-plan, O1). Stripping personalCards any time
@@ -231,10 +274,7 @@ const getServerSidePropsBase: GetServerSideProps<
   // always-false strip ships nothing extra, but a too-broad one silently
   // hides real cards from buyers this gate was never meant to touch.
   const sharedOnly = !canViewPersonalCards && hasOrgAssociation
-  const personalCards = sharedOnly
-    ? []
-    : allCards.filter((card) => card.origin === 'personal')
-  const sharedCards = allCards.filter((card) => card.origin === 'shared')
+  const personalCards = sharedOnly ? [] : allPersonalCards
 
   return {
     props: {
@@ -247,6 +287,8 @@ const getServerSidePropsBase: GetServerSideProps<
         hasOrgAssociation,
         canViewPersonalCards,
         hasError,
+        personalHasError,
+        sharedHasError,
       },
       pageSections,
       isB2BBuyer,

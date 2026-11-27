@@ -32,6 +32,8 @@ const AccountListCards = ({
     hasOrgAssociation,
     canViewPersonalCards,
     hasError,
+    personalHasError,
+    sharedHasError,
   } = useAccountPageData<AccountCardsPageData>()
 
   return (
@@ -42,6 +44,8 @@ const AccountListCards = ({
         hasOrgAssociation={hasOrgAssociation}
         canViewPersonalCards={canViewPersonalCards}
         hasError={hasError}
+        personalHasError={personalHasError}
+        sharedHasError={sharedHasError}
         labels={{
           pageTitle,
           personalTabLabel,

@@ -46,17 +46,19 @@ export type AccountQuotesPageData = {
 }
 
 export type AccountCardsPageData = {
-  // Both partitioned from the same listCreditCards response by `origin`
-  // (spec my-account-cards-shared-listing-unblock) — one query, no dedup.
-  personalCards: NonNullable<
-    ServerListCardsQueryQuery['listCreditCards']
-  >['list']
-  sharedCards: NonNullable<ServerListCardsQueryQuery['listCreditCards']>['list']
+  // Each list comes from its own query (listPersonalCreditCards and
+  // listCreditCards), one saved-cards route per tab. No dedup.
+  personalCards: NonNullable<ServerListCardsQueryQuery['personalCards']>['list']
+  sharedCards: NonNullable<ServerListCardsQueryQuery['sharedCards']>['list']
   hasOrgAssociation: boolean
   // Gates the Personal tab (spec my-account-cards-gating-plan) — independent
   // of route access, which is never gated.
   canViewPersonalCards: boolean
+  // Whole-page failure (not attributable to one tab, or both tabs failed).
   hasError: boolean
+  // One tab's query failed while the other loaded.
+  personalHasError?: boolean
+  sharedHasError?: boolean
 }
 
 export type AccountOrderDetailsPageData = {

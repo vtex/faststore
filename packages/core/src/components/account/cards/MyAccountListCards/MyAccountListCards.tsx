@@ -42,6 +42,10 @@ export type MyAccountListCardsProps = {
   canViewPersonalCards: boolean
   /** Whether either list failed to load — renders the error state instead of the grid (US-5). */
   hasError?: boolean
+  /** The Personal tab's query failed while the Shared one loaded. */
+  personalHasError?: boolean
+  /** The Shared tab's query failed while the Personal one loaded. */
+  sharedHasError?: boolean
   labels?: MyAccountListCardsSectionLabels
 }
 
@@ -270,7 +274,9 @@ export default function MyAccountListCards({
   sharedCards,
   hasOrgAssociation,
   canViewPersonalCards,
-  hasError = false,
+  hasError: hasPageError = false,
+  personalHasError = false,
+  sharedHasError = false,
   labels: labelsProp,
 }: Readonly<MyAccountListCardsProps>) {
   const router = useRouter()
@@ -291,6 +297,9 @@ export default function MyAccountListCards({
   const sharedTabRef = useRef<HTMLButtonElement>(null)
 
   const isShared = activeTab === 'shared'
+  // A tab shows the error state when the whole page failed or its own query did.
+  const hasError =
+    hasPageError || (isShared ? sharedHasError : personalHasError)
   const allCards = isShared ? sharedCards : personalCards
 
   const filteredCards = useMemo(

@@ -52,13 +52,15 @@ const CARD_PERSONAL = { accountId: 'p1', origin: 'personal' }
 const CARD_SHARED = { accountId: 's1', origin: 'shared' }
 
 function mockSuccessfulExecute({
-  cards = [CARD_PERSONAL, CARD_SHARED],
+  personal = [CARD_PERSONAL],
+  shared = [CARD_SHARED],
   hasAdHocCardAccess = true,
   accountName = 'Jane Buyer',
 } = {}) {
   mockExecute.mockResolvedValueOnce({
     data: {
-      listCreditCards: { list: cards },
+      personalCards: { list: personal },
+      sharedCards: { list: shared },
       accountProfile: { name: accountName },
       hasAdHocCardAccess,
     },
@@ -133,7 +135,7 @@ describe('Cards page getServerSideProps', () => {
     expect(result.props.accountPageData.sharedCards).toEqual([])
   })
 
-  it('partitions the merged card list by origin and computes canViewPersonalCards', async () => {
+  it('reads each tab from its own query and computes canViewPersonalCards', async () => {
     mockGetB2BSessionClaims.mockReturnValueOnce({
       hasOrgAssociation: true,
       hasCustomerId: true,
@@ -192,7 +194,8 @@ describe('Cards page getServerSideProps', () => {
     })
     mockExecute.mockResolvedValueOnce({
       data: {
-        listCreditCards: { list: [] },
+        personalCards: { list: [] },
+        sharedCards: { list: [] },
         accountProfile: { name: 'Jane' },
         hasAdHocCardAccess: undefined,
       },
@@ -202,5 +205,126 @@ describe('Cards page getServerSideProps', () => {
     const result: any = await getServerSideProps(makeContext())
 
     expect(result.props.accountPageData.canViewPersonalCards).toBe(true)
+  })
+
+  it('keeps only shared cards in the Shared tab even if the shared route returns a personal one', async () => {
+    mockGetB2BSessionClaims.mockReturnValueOnce({
+      hasOrgAssociation: true,
+      hasCustomerId: true,
+    })
+    mockSuccessfulExecute({ shared: [CARD_SHARED, CARD_PERSONAL] })
+
+    const result: any = await getServerSideProps(makeContext())
+
+    expect(result.props.accountPageData.sharedCards).toEqual([CARD_SHARED])
+    expect(result.props.accountPageData.personalCards).toEqual([CARD_PERSONAL])
+  })
+
+  it('flags only the Personal tab when just the personal query fails', async () => {
+    mockGetB2BSessionClaims.mockReturnValueOnce({
+      hasOrgAssociation: true,
+      hasCustomerId: true,
+    })
+    mockExecute.mockResolvedValueOnce({
+      data: {
+        personalCards: null,
+        sharedCards: { list: [CARD_SHARED] },
+        accountProfile: { name: 'Jane' },
+        hasAdHocCardAccess: true,
+      },
+      errors: [{ path: ['personalCards'], extensions: { status: 502 } }],
+    })
+
+    const result: any = await getServerSideProps(makeContext())
+
+    const data = result.props.accountPageData
+    expect(data.hasError).toBe(false)
+    expect(data.personalHasError).toBe(true)
+    expect(data.sharedHasError).toBe(false)
+    expect(data.personalCards).toEqual([])
+    expect(data.sharedCards).toEqual([CARD_SHARED])
+  })
+
+  it('flags only the Shared tab when just the shared query fails', async () => {
+    mockGetB2BSessionClaims.mockReturnValueOnce({
+      hasOrgAssociation: true,
+      hasCustomerId: true,
+    })
+    mockExecute.mockResolvedValueOnce({
+      data: {
+        personalCards: { list: [CARD_PERSONAL] },
+        sharedCards: null,
+        accountProfile: { name: 'Jane' },
+        hasAdHocCardAccess: true,
+      },
+      errors: [{ path: ['sharedCards'], extensions: { status: 502 } }],
+    })
+
+    const result: any = await getServerSideProps(makeContext())
+
+    const data = result.props.accountPageData
+    expect(data.hasError).toBe(false)
+    expect(data.sharedHasError).toBe(true)
+    expect(data.personalHasError).toBe(false)
+    expect(data.sharedCards).toEqual([])
+    expect(data.personalCards).toEqual([CARD_PERSONAL])
+  })
+
+  it('treats both queries failing as a whole-page error', async () => {
+    mockGetB2BSessionClaims.mockReturnValueOnce({
+      hasOrgAssociation: true,
+      hasCustomerId: true,
+    })
+    mockExecute.mockResolvedValueOnce({
+      data: { accountProfile: { name: 'Jane' }, hasAdHocCardAccess: true },
+      errors: [
+        { path: ['personalCards'], extensions: { status: 502 } },
+        { path: ['sharedCards'], extensions: { status: 502 } },
+      ],
+    })
+
+    const result: any = await getServerSideProps(makeContext())
+
+    expect(result.props.accountPageData.hasError).toBe(true)
+  })
+
+  it('does not redirect when a 403 belongs to a single tab query', async () => {
+    mockGetB2BSessionClaims.mockReturnValueOnce({
+      hasOrgAssociation: true,
+      hasCustomerId: true,
+    })
+    mockExecute.mockResolvedValueOnce({
+      data: {
+        personalCards: null,
+        sharedCards: { list: [CARD_SHARED] },
+        accountProfile: { name: 'Jane' },
+        hasAdHocCardAccess: true,
+      },
+      errors: [{ path: ['personalCards'], extensions: { status: 403 } }],
+    })
+
+    const result: any = await getServerSideProps(makeContext())
+
+    expect(result.redirect).toBeUndefined()
+    expect(result.props.accountPageData.personalHasError).toBe(true)
+    expect(result.props.accountPageData.sharedCards).toEqual([CARD_SHARED])
+  })
+
+  it('redirects to /pvt/account/403 when both tab queries fail with 401', async () => {
+    mockGetB2BSessionClaims.mockReturnValueOnce({
+      hasOrgAssociation: true,
+      hasCustomerId: true,
+    })
+    mockExecute.mockResolvedValueOnce({
+      data: undefined,
+      errors: [
+        { path: ['personalCards'], extensions: { status: 401 } },
+        { path: ['sharedCards'], extensions: { status: 401 } },
+      ],
+    })
+
+    const result: any = await getServerSideProps(makeContext())
+
+    expect(result.redirect.destination).toContain('/pvt/account/403')
   })
 })
