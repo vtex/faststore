@@ -1,8 +1,8 @@
-import { Button, Icon } from '@faststore/ui'
-import Link from 'next/link'
+import { Button, Icon, Link } from '@faststore/ui'
 import type { ReactNode } from 'react'
 import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
 import { useSession } from 'src/sdk/session'
+import { useLink } from 'src/sdk/ui/useLink'
 
 export type ProfileSummaryProps = {
   onLogoutClick?: (storeConfig: unknown) => void
@@ -29,11 +29,13 @@ export const ProfileSummary = ({
   ...otherProps
 }: ProfileSummaryProps) => {
   const { b2b } = useSession()
+  const { resolveLink } = useLink()
   const navigationLabels = useAccountNavigationLabels()
   const manageLabel =
     manageLabelProp ?? navigationLabels?.manageLabel ?? 'Manage'
   const logoutLabel =
     logoutLabelProp ?? navigationLabels?.logoutLabel ?? 'Logout'
+  const manageRoute = `/pvt/organization-account/org-unit/${b2b?.unitId}`
 
   return (
     <section
@@ -46,7 +48,7 @@ export const ProfileSummary = ({
         {showManageLink && (
           <Link
             data-fs-profile-summary-org-link
-            href={`/pvt/organization-account/org-unit/${b2b?.unitId}`}
+            href={resolveLink(manageRoute) ?? manageRoute}
           >
             {manageLabel} <Icon name="OpenInNew" width={23} height={23} />
           </Link>
