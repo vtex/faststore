@@ -42,6 +42,12 @@ type Documents = {
     "\n  query ServerUserDetailsQuery {\n    accountProfile {\n      name\n    }\n    userDetails {\n      username\n      name\n      email\n      phone\n      role\n      orgUnit\n    }\n  }\n": typeof types.ServerUserDetailsQueryDocument,
     "\n  query AvailableContractsQuery($orgUnitId: String!) {\n    availableContracts(orgUnitId: $orgUnitId) {\n      id\n      corporateName\n      isActive\n      isDefault\n    }\n  }\n": typeof types.AvailableContractsQueryDocument,
     "\n  mutation CancelOrderMutation($data: IUserOrderCancel!) {\n    cancelOrder(data: $data) {\n      data\n    }\n  }\n": typeof types.CancelOrderMutationDocument,
+    "\n  query ListDelegationsQuery {\n    listDelegations {\n      grantee {\n        id\n        granteeUserId\n        granteeUsername\n        granteeEmail\n        startDate\n        endDate\n      }\n      granter {\n        id\n        granterUserId\n        granterUsername\n        granterEmail\n        startDate\n        endDate\n      }\n    }\n  }\n": typeof types.ListDelegationsQueryDocument,
+    "\n  query ListDelegateCandidatesQuery {\n    listDelegateCandidates {\n      userId\n      username\n      email\n    }\n  }\n": typeof types.ListDelegateCandidatesQueryDocument,
+    "\n  query CompareDelegateRolesQuery($delegateUserId: String!) {\n    compareDelegateRoles(delegateUserId: $delegateUserId) {\n      hasFewerRoles\n    }\n  }\n": typeof types.CompareDelegateRolesQueryDocument,
+    "\n  mutation CreateDelegationMutation($data: IStoreCreateDelegation!) {\n    createDelegation(data: $data)\n  }\n": typeof types.CreateDelegationMutationDocument,
+    "\n  mutation UpdateDelegationMutation($id: ID!, $data: IStoreUpdateDelegation!) {\n    updateDelegation(id: $id, data: $data)\n  }\n": typeof types.UpdateDelegationMutationDocument,
+    "\n  mutation RevokeDelegationMutation($id: ID!) {\n    revokeDelegation(id: $id)\n  }\n": typeof types.RevokeDelegationMutationDocument,
     "\n  mutation ProcessOrderAuthorizationMutation($data: IProcessOrderAuthorization!) {\n    processOrderAuthorization(data: $data) {\n      isPendingForOtherAuthorizer\n      ruleForAuthorization {\n        orderAuthorizationId\n        dimensionId\n        rule {\n          id\n          name\n          status\n          doId\n          authorizedEmails\n          priority\n          trigger {\n            condition {\n              conditionType\n              description\n              lessThan\n              greatherThan\n              expression\n            }\n            effect {\n              description\n              effectType\n              funcPath\n            }\n          }\n          timeout\n          notification\n          scoreInterval {\n            accept\n            deny\n          }\n          authorizationData {\n            requireAllApprovals\n            authorizers {\n              id\n              email\n              type\n              authorizationDate\n            }\n          }\n          isUserAuthorized\n          isUserNextAuthorizer\n        }\n      }\n    }\n  }\n": typeof types.ProcessOrderAuthorizationMutationDocument,
     "\n  query ValidateUser {\n    validateUser {\n      isValid\n    }\n  }\n": typeof types.ValidateUserDocument,
     "\n  mutation StartRecommendationSession {\n    startRecommendationSession\n  }\n": typeof types.StartRecommendationSessionDocument,
@@ -95,6 +101,12 @@ const documents: Documents = {
     "\n  query ServerUserDetailsQuery {\n    accountProfile {\n      name\n    }\n    userDetails {\n      username\n      name\n      email\n      phone\n      role\n      orgUnit\n    }\n  }\n": types.ServerUserDetailsQueryDocument,
     "\n  query AvailableContractsQuery($orgUnitId: String!) {\n    availableContracts(orgUnitId: $orgUnitId) {\n      id\n      corporateName\n      isActive\n      isDefault\n    }\n  }\n": types.AvailableContractsQueryDocument,
     "\n  mutation CancelOrderMutation($data: IUserOrderCancel!) {\n    cancelOrder(data: $data) {\n      data\n    }\n  }\n": types.CancelOrderMutationDocument,
+    "\n  query ListDelegationsQuery {\n    listDelegations {\n      grantee {\n        id\n        granteeUserId\n        granteeUsername\n        granteeEmail\n        startDate\n        endDate\n      }\n      granter {\n        id\n        granterUserId\n        granterUsername\n        granterEmail\n        startDate\n        endDate\n      }\n    }\n  }\n": types.ListDelegationsQueryDocument,
+    "\n  query ListDelegateCandidatesQuery {\n    listDelegateCandidates {\n      userId\n      username\n      email\n    }\n  }\n": types.ListDelegateCandidatesQueryDocument,
+    "\n  query CompareDelegateRolesQuery($delegateUserId: String!) {\n    compareDelegateRoles(delegateUserId: $delegateUserId) {\n      hasFewerRoles\n    }\n  }\n": types.CompareDelegateRolesQueryDocument,
+    "\n  mutation CreateDelegationMutation($data: IStoreCreateDelegation!) {\n    createDelegation(data: $data)\n  }\n": types.CreateDelegationMutationDocument,
+    "\n  mutation UpdateDelegationMutation($id: ID!, $data: IStoreUpdateDelegation!) {\n    updateDelegation(id: $id, data: $data)\n  }\n": types.UpdateDelegationMutationDocument,
+    "\n  mutation RevokeDelegationMutation($id: ID!) {\n    revokeDelegation(id: $id)\n  }\n": types.RevokeDelegationMutationDocument,
     "\n  mutation ProcessOrderAuthorizationMutation($data: IProcessOrderAuthorization!) {\n    processOrderAuthorization(data: $data) {\n      isPendingForOtherAuthorizer\n      ruleForAuthorization {\n        orderAuthorizationId\n        dimensionId\n        rule {\n          id\n          name\n          status\n          doId\n          authorizedEmails\n          priority\n          trigger {\n            condition {\n              conditionType\n              description\n              lessThan\n              greatherThan\n              expression\n            }\n            effect {\n              description\n              effectType\n              funcPath\n            }\n          }\n          timeout\n          notification\n          scoreInterval {\n            accept\n            deny\n          }\n          authorizationData {\n            requireAllApprovals\n            authorizers {\n              id\n              email\n              type\n              authorizationDate\n            }\n          }\n          isUserAuthorized\n          isUserNextAuthorizer\n        }\n      }\n    }\n  }\n": types.ProcessOrderAuthorizationMutationDocument,
     "\n  query ValidateUser {\n    validateUser {\n      isValid\n    }\n  }\n": types.ValidateUserDocument,
     "\n  mutation StartRecommendationSession {\n    startRecommendationSession\n  }\n": types.StartRecommendationSessionDocument,
@@ -229,6 +241,30 @@ export function gql(source: "\n  query AvailableContractsQuery($orgUnitId: Strin
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation CancelOrderMutation($data: IUserOrderCancel!) {\n    cancelOrder(data: $data) {\n      data\n    }\n  }\n"): typeof import('./graphql').CancelOrderMutationDocument;
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query ListDelegationsQuery {\n    listDelegations {\n      grantee {\n        id\n        granteeUserId\n        granteeUsername\n        granteeEmail\n        startDate\n        endDate\n      }\n      granter {\n        id\n        granterUserId\n        granterUsername\n        granterEmail\n        startDate\n        endDate\n      }\n    }\n  }\n"): typeof import('./graphql').ListDelegationsQueryDocument;
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query ListDelegateCandidatesQuery {\n    listDelegateCandidates {\n      userId\n      username\n      email\n    }\n  }\n"): typeof import('./graphql').ListDelegateCandidatesQueryDocument;
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query CompareDelegateRolesQuery($delegateUserId: String!) {\n    compareDelegateRoles(delegateUserId: $delegateUserId) {\n      hasFewerRoles\n    }\n  }\n"): typeof import('./graphql').CompareDelegateRolesQueryDocument;
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation CreateDelegationMutation($data: IStoreCreateDelegation!) {\n    createDelegation(data: $data)\n  }\n"): typeof import('./graphql').CreateDelegationMutationDocument;
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdateDelegationMutation($id: ID!, $data: IStoreUpdateDelegation!) {\n    updateDelegation(id: $id, data: $data)\n  }\n"): typeof import('./graphql').UpdateDelegationMutationDocument;
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation RevokeDelegationMutation($id: ID!) {\n    revokeDelegation(id: $id)\n  }\n"): typeof import('./graphql').RevokeDelegationMutationDocument;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

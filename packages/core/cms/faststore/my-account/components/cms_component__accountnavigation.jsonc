@@ -18,8 +18,8 @@
     },
     "userDetailsLabel": {
       "type": "string",
-      "title": "User Details Menu Label",
-      "default": "User Details"
+      "title": "User Settings Menu Label",
+      "default": "User settings"
     },
     "securityLabel": {
       "type": "string",
