@@ -3,12 +3,14 @@ import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
 import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 import { enhanceSku } from '../utils/enhanceSku'
+import { stampPriceAffectingParams } from '../utils/priceAffectingParams'
 import { applySearchCacheCap } from '../utils/searchCacheCap'
 import { pickBestSku } from '../utils/sku'
 
 export type Root = {
   searchArgs: Omit<SearchArgs, 'type'>
   productSearchPromise: Promise<ProductSearchResult>
+  priceAffectingParams?: string | null
 }
 
 const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
@@ -24,7 +26,7 @@ export const StoreSearchResult: Record<string, GraphqlResolver<Root>> = {
       clients: { search },
     } = ctx
 
-    const { searchArgs } = root
+    const { searchArgs, priceAffectingParams = null } = root
 
     // If there's no search query, suggest the most popular searches.
     if (!searchArgs.query) {
@@ -56,7 +58,13 @@ export const StoreSearchResult: Record<string, GraphqlResolver<Root>> = {
         // https://help.vtex.com/pt/tutorial/ordenando-imagens-na-vitrine-e-na-pagina-de-produto--tutorials_278
         const maybeSku = pickBestSku(product.items)
 
-        return maybeSku && enhanceSku(maybeSku, product)
+        return (
+          maybeSku &&
+          stampPriceAffectingParams(
+            enhanceSku(maybeSku, product),
+            priceAffectingParams
+          )
+        )
       })
       .filter((sku) => !!sku)
 
@@ -67,7 +75,11 @@ export const StoreSearchResult: Record<string, GraphqlResolver<Root>> = {
       products: skus,
     }
   },
-  products: async ({ productSearchPromise }, _, ctx) => {
+  products: async (
+    { productSearchPromise, priceAffectingParams = null },
+    _,
+    ctx
+  ) => {
     const productSearchResult = await productSearchPromise
 
     applySearchCacheCap(
@@ -81,7 +93,13 @@ export const StoreSearchResult: Record<string, GraphqlResolver<Root>> = {
         // https://help.vtex.com/pt/tutorial/ordenando-imagens-na-vitrine-e-na-pagina-de-produto--tutorials_278
         const maybeSku = pickBestSku(product.items)
 
-        return maybeSku && enhanceSku(maybeSku, product)
+        return (
+          maybeSku &&
+          stampPriceAffectingParams(
+            enhanceSku(maybeSku, product),
+            priceAffectingParams
+          )
+        )
       })
       .filter((sku) => !!sku)
 

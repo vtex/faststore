@@ -57,6 +57,10 @@ import {
   transformSelectedFacet,
 } from '../utils/facets'
 import { getCatalogLocale, isLocalizationEnabled } from '../utils/localization'
+import {
+  followPriceAffectingParams,
+  stampPriceAffectingParams,
+} from '../utils/priceAffectingParams'
 import { applySearchCacheCap } from '../utils/searchCacheCap'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { slugify } from '../utils/slugify'
@@ -152,9 +156,38 @@ async function assertSkuMatchesSlug(
  * found, or slug mismatch): resolves the slug through the legacy pagetype
  * route and fetches the product from Intelligent Search by id instead.
  */
+async function fetchSkuForPriceAffectingParams(
+  ctx: GraphqlContext,
+  skuId: string,
+  followed: string
+): Promise<EnhancedSku> {
+  const products = await ctx.clients.search.productsByIdentifier({
+    field: 'sku',
+    values: [skuId],
+    throwOnUpstreamError: true,
+    priceAffectingParams: followed,
+    ...(ctx.storage.flags?.enableUnavailableItemsOnCart && {
+      hideUnavailableItems: false,
+    }),
+  })
+
+  for (const product of products) {
+    const item = product.items?.find((candidate) => candidate.itemId === skuId)
+
+    if (item) {
+      return enhanceSku(item, product)
+    }
+  }
+
+  throw new NotFoundError(
+    `Search API did not found the following skus: ${skuId}`
+  )
+}
+
 async function fetchProductBySlugFallback(
   ctx: GraphqlContext,
-  slug: string | null | undefined
+  slug: string | null | undefined,
+  followed: string | null
 ): Promise<EnhancedSku> {
   if (slug == null) {
     throw new BadRequestError('Missing slug or id')
@@ -174,6 +207,7 @@ async function fetchProductBySlugFallback(
     .fetchProduct({
       field: 'id',
       value: String(route.id),
+      ...(followed ? { priceAffectingParams: followed } : {}),
     })
     .catch(() => null)
 
@@ -187,9 +221,10 @@ async function fetchProductBySlugFallback(
 export const Query = {
   product: async (
     _: unknown,
-    { locator }: QueryProductArgs,
+    { locator, priceAffectingParams }: QueryProductArgs,
     ctx: GraphqlContext
   ) => {
+    const followed = followPriceAffectingParams(priceAffectingParams)
     // Insert channel in context for later usage
     const channel = findChannel(locator)
     const locale = findLocale(locator)
@@ -216,7 +251,9 @@ export const Query = {
           throw new Error(INVALID_SKU_ID_ERROR)
         }
 
-        const sku = await skuLoader.load(skuId)
+        const sku = followed
+          ? await fetchSkuForPriceAffectingParams(ctx, skuId, followed)
+          : await skuLoader.load(skuId)
 
         await assertSkuMatchesSlug(ctx, sku, slug, locale)
 
@@ -226,7 +263,7 @@ export const Query = {
           throw err
         }
 
-        return fetchProductBySlugFallback(ctx, slug)
+        return fetchProductBySlugFallback(ctx, slug, followed)
       }
     }
 
@@ -238,7 +275,7 @@ export const Query = {
 
     applySearchCacheCap(ctx, sku.isVariantOf?.items)
 
-    return sku
+    return stampPriceAffectingParams(sku, followed)
   },
   collection: (
     _: unknown,
@@ -267,9 +304,11 @@ export const Query = {
       term,
       selectedFacets,
       sponsoredCount,
+      priceAffectingParams,
     }: QuerySearchArgs,
     ctx: GraphqlContext
   ) => {
+    const followed = followPriceAffectingParams(priceAffectingParams)
     // Insert channel in context for later usage
     const channel = findChannel(selectedFacets)
     const locale = findLocale(selectedFacets)
@@ -311,7 +350,11 @@ export const Query = {
 
       const productSearchPromise: Promise<ProductSearchResult> =
         ctx.clients.search
-          .productsByIdentifier({ field: 'id', values: productIds })
+          .productsByIdentifier({
+            field: 'id',
+            values: productIds,
+            priceAffectingParams: followed,
+          })
           .then((products) => ({
             products,
             recordsFiltered: products.length,
@@ -336,12 +379,19 @@ export const Query = {
             searchId: '',
           }))
 
-      return { searchArgs, productSearchPromise }
+      return {
+        searchArgs,
+        productSearchPromise,
+        priceAffectingParams: followed,
+      }
     }
 
-    const productSearchPromise = ctx.clients.search.products(searchArgs)
+    const productSearchPromise = ctx.clients.search.products({
+      ...searchArgs,
+      priceAffectingParams: followed,
+    })
 
-    return { searchArgs, productSearchPromise }
+    return { searchArgs, productSearchPromise, priceAffectingParams: followed }
   },
   allProducts: async (
     _: unknown,
