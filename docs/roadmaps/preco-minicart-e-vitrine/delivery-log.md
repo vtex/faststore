@@ -15,3 +15,5 @@
 2026-11-27 13:17 | #3 | smell | CONTINUE | Smell review em `84976c920`. Dois ajustes (`aed0aae31`, `6641599b6`) e um aceite em `validateCart`. Suíte unitária da API passou (493 testes) antes e depois. Nada enviado ao remoto. Próxima ação: review.
 
 2026-11-27 14:02 | #3 | review | CONTINUE | Approve em `313431366`. Nenhum achado. Suíte unitária da API passou (493 testes). Nada enviado ao remoto. Próxima ação: smell pass final do roadmap.
+
+2026-11-27 14:12 | — | smell | DONE | Smell pass final em `16a3620bb`. Nenhum refactor. Duas sugestões fora desta camada. Suíte unitária da API passou (493 testes). Lições em `docs/knowledge/`. Nada enviado ao remoto. Próximo comando: `/ar-ship preco-minicart-e-vitrine`.

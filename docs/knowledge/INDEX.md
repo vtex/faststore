@@ -1,0 +1,3 @@
+- [A frase do preço fica na vitrine, não num rótulo da API](frase-do-preco-fica-na-vitrine.md) — lesson, price, cart, 2026-11-27
+- [Checkout que não trava a vitrine fica fora do caminho crítico](checkout-ui-fora-do-caminho-critico.md) — lesson, checkout, roadmap, 2026-11-27
+- [Quantidade e pagamento não viram argumento nativo de busca](query-de-preco-nao-e-argumento-nativo.md) — lesson, price, search, 2026-11-27
