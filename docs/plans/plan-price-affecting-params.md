@@ -1,9 +1,9 @@
 # Query generalista e validateCart
 
-> **Status**: Reviewed
+> **Status**: PR open
 > **Roadmap**: preco-minicart-e-vitrine #3
 > **Branch**: preco-minicart-e-vitrine/p3-price-affecting-params
-> **PR**: —
+> **PR**: https://github.com/vtex/faststore/pull/3614
 > **Last updated**: 2026-11-27
 
 ## Goal

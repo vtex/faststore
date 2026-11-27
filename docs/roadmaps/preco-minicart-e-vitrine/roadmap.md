@@ -12,8 +12,8 @@ A conta com a integração vê preço indisponível, brinde ou o parâmetro que 
 | # | Phase | Depends on | Docs | Status | Jira |
 |---|---|---|---|---|---|
 | 1 | Frase do preço no minicart | — | done: [tdd](../../tdds/tdd-frase-preco-minicart.md), [adr-0001](../../adrs/adr-0001-contrato-do-price-state.md), [adr-0002](../../adrs/adr-0002-brinde-nao-e-preco-indisponivel.md) | PR open | |
-| 2 | TTL da CDN quando o priceState vem | #1 | done: [tdd](../../tdds/tdd-ttl-cdn-price-state.md), [adr-0003](../../adrs/adr-0003-ttl-cdn-so-com-price-state-da-origem.md) | Reviewed | |
-| 3 | Query generalista e validateCart | #1, #2 | done: [tdd](../../tdds/tdd-price-affecting-params.md), [adr-0004](../../adrs/adr-0004-string-price-affecting-params.md) | Reviewed | |
+| 2 | TTL da CDN quando o priceState vem | #1 | done: [tdd](../../tdds/tdd-ttl-cdn-price-state.md), [adr-0003](../../adrs/adr-0003-ttl-cdn-so-com-price-state-da-origem.md) | PR open | |
+| 3 | Query generalista e validateCart | #1, #2 | done: [tdd](../../tdds/tdd-price-affecting-params.md), [adr-0004](../../adrs/adr-0004-string-price-affecting-params.md) | PR open | |
 
 ### Phase 1 — Frase do preço no minicart
 
@@ -83,8 +83,8 @@ Ruling: PRs novos saem como draft, que é o default do faseamento. Os PRs 3592 e
 | Phase | Stream / stack | Branch | PR |
 |---|---|---|---|
 | #1 | A (bottom) | `feat/cart-price-state` | https://github.com/vtex/faststore/pull/3592 |
-| #2 | B (bottom) | `preco-minicart-e-vitrine/p2-ttl-price-valid-until` | |
-| #3 | C (bottom) | `preco-minicart-e-vitrine/p3-price-affecting-params` | |
+| #2 | B (bottom) | `preco-minicart-e-vitrine/p2-ttl-price-valid-until` | https://github.com/vtex/faststore/pull/3613 |
+| #3 | C (bottom) | `preco-minicart-e-vitrine/p3-price-affecting-params` | https://github.com/vtex/faststore/pull/3614 |
 
 ## Plan Check
 
