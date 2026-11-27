@@ -189,9 +189,9 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooterPromise,
   ])
 
-  const hasError = !!listCards.errors
+  const hasQueryErrors = !!listCards.errors
 
-  if (hasError) {
+  if (hasQueryErrors) {
     console.error(...listCards.errors)
 
     const statusCode = extractStatusFromError(listCards.errors[0])
@@ -230,12 +230,37 @@ const getServerSidePropsBase: GetServerSideProps<
   })
 
   // Each tab has its own query, backed by its own saved-cards route
-  // (`listPersonalCreditCards` and `listCreditCards`). A card present in both
-  // wallets is intentionally rendered in both tabs.
-  const allPersonalCards = hasError
-    ? []
-    : (listCards.data?.personalCards?.list ?? [])
-  const sharedCards = hasError ? [] : (listCards.data?.sharedCards?.list ?? [])
+  // (`listPersonalCreditCards` and `listCreditCards`), so they can fail
+  // independently. A failure attributable to one field only empties and flags
+  // that tab; `hasError` (whole page) is kept for failures that can't be
+  // attributed to a single tab, or when both tabs failed.
+  const queryErrors = (listCards.errors ?? []) as Array<{
+    path?: ReadonlyArray<string | number>
+  }>
+  const failedFields = new Set(
+    queryErrors.map((error) => error.path?.[0] as string | undefined)
+  )
+  const personalHasError = failedFields.has('personalCards')
+  const sharedHasError = failedFields.has('sharedCards')
+  const hasUnattributedError = queryErrors.some(
+    (error) =>
+      error.path?.[0] !== 'personalCards' && error.path?.[0] !== 'sharedCards'
+  )
+  const hasError = hasUnattributedError || (personalHasError && sharedHasError)
+
+  // A card present in both wallets is intentionally rendered in both tabs.
+  const allPersonalCards =
+    hasError || personalHasError
+      ? []
+      : (listCards.data?.personalCards?.list ?? [])
+  // Defensive: keep only shared cards in the Shared tab, so a personal card
+  // can never surface there without the Personal tab's gate.
+  const sharedCards =
+    hasError || sharedHasError
+      ? []
+      : (listCards.data?.sharedCards?.list ?? []).filter(
+          (card) => card.origin === 'shared'
+        )
   // Mirrors MyAccountListCards.tsx's `sharedOnly` exactly — that's the only
   // combination where the UI actually hides the Personal tab (spec
   // my-account-cards-gating-plan, O1). Stripping personalCards any time
@@ -259,6 +284,8 @@ const getServerSidePropsBase: GetServerSideProps<
         hasOrgAssociation,
         canViewPersonalCards,
         hasError,
+        personalHasError,
+        sharedHasError,
       },
       pageSections,
       isB2BBuyer,

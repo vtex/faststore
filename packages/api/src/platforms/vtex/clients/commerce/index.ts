@@ -233,6 +233,23 @@ export const VtexCommerce = (
     })
   }
 
+  // Both saved-cards lists share the request shape and differ only in the route.
+  const fetchSavedCards = (path: string): Promise<SavedCard[]> => {
+    const headers: HeadersInit = withCookie({
+      'content-type': 'application/json',
+      'X-FORWARDED-HOST': forwardedHost,
+    })
+
+    return fetchAPI(
+      `${base}${path}?an=${account}`,
+      {
+        method: 'GET',
+        headers,
+      },
+      { storeCookies }
+    )
+  }
+
   return {
     catalog: {
       salesChannel: (sc: string): Promise<SalesChannel> =>
@@ -917,38 +934,12 @@ export const VtexCommerce = (
     savedCards: {
       // Shared wallet: the contract cards scoped to the unit.
       // Does not return personal cards.
-      listCreditCards: (): Promise<SavedCard[]> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        return fetchAPI(
-          `${base}/api/saved-cards/credit-card?an=${account}`,
-          {
-            method: 'GET',
-            headers,
-          },
-          { storeCookies }
-        )
-      },
+      listCreditCards: (): Promise<SavedCard[]> =>
+        fetchSavedCards('/api/saved-cards/credit-card'),
       // Personal wallet: the shopper's own cards. Does not depend on the
       // `useAdHocCard` role.
-      listPersonalCreditCards: (): Promise<SavedCard[]> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        return fetchAPI(
-          `${base}/api/saved-cards/credit-card/personal?an=${account}`,
-          {
-            method: 'GET',
-            headers,
-          },
-          { storeCookies }
-        )
-      },
+      listPersonalCreditCards: (): Promise<SavedCard[]> =>
+        fetchSavedCards('/api/saved-cards/credit-card/personal'),
     },
     units: {
       getUnitByUserId: ({

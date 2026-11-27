@@ -299,6 +299,27 @@ describe('MyAccountListCards', () => {
     expect(mockReload).toHaveBeenCalledTimes(1)
   })
 
+  it('shows the error state only on the tab whose query failed', () => {
+    render(
+      <MyAccountListCards
+        personalCards={[]}
+        sharedCards={[AMEX_SHARED]}
+        hasOrgAssociation
+        canViewPersonalCards
+        personalHasError
+      />
+    )
+
+    expect(screen.getByText("We couldn't load your cards")).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Shared' }))
+
+    expect(
+      screen.queryByText("We couldn't load your cards")
+    ).not.toBeInTheDocument()
+    expect(screen.getByText('Amex')).toBeInTheDocument()
+  })
+
   // Regression guard for the search/list spacing fix. The stylesheet hangs the
   // column gap off this attribute because .page's own gap stops at this
   // wrapper and never separates the controls row from the list below it.

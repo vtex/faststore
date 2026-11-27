@@ -130,4 +130,45 @@ describe('listPersonalCreditCards', () => {
 
     expect(result).toEqual({ list: [] })
   })
+
+  it('passes through cardLabel when the service has a nickname on file', async () => {
+    const ctx = makeContext()
+    ctx.clients.commerce.savedCards.listPersonalCreditCards.mockResolvedValueOnce(
+      [
+        { accountId: 'p1', cardLabel: 'My travel card', origin: 'personal' },
+        { accountId: 'p2', origin: 'personal' },
+      ]
+    )
+
+    const result = await Query.listPersonalCreditCards(
+      null,
+      undefined,
+      ctx as any
+    )
+
+    expect(
+      result.list.map((card: { cardLabel?: string }) => card.cardLabel)
+    ).toEqual(['My travel card', undefined])
+  })
+
+  it('keeps the service order when there are several personal cards', async () => {
+    const ctx = makeContext()
+    ctx.clients.commerce.savedCards.listPersonalCreditCards.mockResolvedValueOnce(
+      [
+        { accountId: 'p3', origin: 'personal' },
+        { accountId: 'p1', origin: 'personal' },
+        { accountId: 'p2', origin: 'personal' },
+      ]
+    )
+
+    const result = await Query.listPersonalCreditCards(
+      null,
+      undefined,
+      ctx as any
+    )
+
+    expect(
+      result.list.map((card: { accountId: string }) => card.accountId)
+    ).toEqual(['p3', 'p1', 'p2'])
+  })
 })

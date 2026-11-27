@@ -54,7 +54,11 @@ export type AccountCardsPageData = {
   // Gates the Personal tab (spec my-account-cards-gating-plan) — independent
   // of route access, which is never gated.
   canViewPersonalCards: boolean
+  // Whole-page failure (not attributable to one tab, or both tabs failed).
   hasError: boolean
+  // One tab's query failed while the other loaded.
+  personalHasError?: boolean
+  sharedHasError?: boolean
 }
 
 export type AccountOrderDetailsPageData = {
