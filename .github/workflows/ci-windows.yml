@@ -127,7 +127,7 @@ jobs:
       # only package.json — regardless of what actually failed.
       - name: Upload starter diagnostics
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: starter-windows-${{ github.run_id }}
           path: |
