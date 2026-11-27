@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useSearch } from '@faststore/sdk'
 import { useRouter } from 'next/router'
 
@@ -41,6 +41,20 @@ export default function SearchWrapper({
     selectedFacets,
   })
 
+  // The search page builds `serverData` inline, so it is a new object on every
+  // render: key the memo on its fields. The gallery query data can be `null` or
+  // `undefined` for the same empty state, so it is normalized first.
+  const galleryData = pageProductGalleryData ?? null
+  const searchPageData = useMemo(
+    () => ({ ...serverData, ...galleryData }),
+    [serverData.title, serverData.searchTerm, galleryData]
+  )
+  // Same reason for the empty search and redirect page context.
+  const emptySearchContext = useMemo(
+    () => ({ globalSettings }),
+    [globalSettings]
+  )
+
   const redirectUrl = pageProductGalleryData?.redirect?.url
   const lastRedirectedUrl = useRef<string | null>(null)
 
@@ -63,7 +77,7 @@ export default function SearchWrapper({
 
   if (!pageProductGalleryData) {
     return (
-      <PageProvider context={{ globalSettings }}>
+      <PageProvider context={emptySearchContext}>
         <RenderSections globalSections={globalSections}>
           <EmptySearch {...emptySearchProps} />
         </RenderSections>
@@ -74,7 +88,7 @@ export default function SearchWrapper({
   // Redirect when there are registered Intelligent Search redirects on VTEX Admin
   if (redirectUrl) {
     return (
-      <PageProvider context={{ globalSettings }}>
+      <PageProvider context={emptySearchContext}>
         <RenderSections globalSections={globalSections}>
           <EmptySearch {...emptySearchProps} />
         </RenderSections>
@@ -96,7 +110,7 @@ export default function SearchWrapper({
   return (
     <SearchPage
       page={searchContentType}
-      data={{ ...serverData, ...pageProductGalleryData }}
+      data={searchPageData}
       globalSections={globalSections}
       globalSettings={globalSettings}
     />

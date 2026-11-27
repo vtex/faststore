@@ -51,15 +51,13 @@ export const useQuery = <Data, Variables = Record<string, unknown>>(
       return `${baseKey}::${sessionSuffix}`
     },
     {
-      fetcher: () => {
-        return new Promise((resolve) => {
-          setTimeout(async () => {
-            resolve(
-              await request<Data, Variables>(operation, variables, options)
-            )
-          })
-        })
-      },
+      // Defers the request to the next task, then chains it so a GraphQL
+      // error thrown by `request` rejects the promise SWR gets. Awaiting it
+      // inside the `setTimeout` callback left the promise pending forever.
+      fetcher: () =>
+        new Promise<void>((resolve) => setTimeout(resolve)).then(() =>
+          request<Data, Variables>(operation, variables, options)
+        ),
       ...DEFAULT_OPTIONS,
       ...options,
     }

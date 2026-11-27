@@ -16,7 +16,7 @@ import RenderSections, {
 import type { PLPContentType } from 'src/server/cms/plp'
 
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import PageProvider, { type PLPContext } from 'src/sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
@@ -71,17 +71,28 @@ export default function ProductListing({
     serverManyProductsVariables,
   })
 
-  const context = {
-    data: {
-      ...deepmerge(
-        { ...server },
-        { ...pageProductGalleryData },
-        { arrayMerge: overwriteMerge }
-      ),
-      pages,
-    },
-    globalSettings,
-  } as PLPContext
+  // The gallery query data can be `null` or `undefined` for the same empty
+  // state; normalizing keeps the memo below from seeing it as a change.
+  const galleryData = pageProductGalleryData ?? null
+
+  // A new context object on every render updates every page context consumer,
+  // and an update that reaches a Suspense boundary still hydrating throws
+  // React error #421.
+  const context = useMemo(
+    () =>
+      ({
+        data: {
+          ...deepmerge(
+            { ...server },
+            { ...galleryData },
+            { arrayMerge: overwriteMerge }
+          ),
+          pages,
+        },
+        globalSettings,
+      }) as PLPContext,
+    [server, galleryData, pages, globalSettings]
+  )
 
   return (
     <>
