@@ -132,3 +132,59 @@ Open Questions: nenhuma.
 | [cache-graphql-e-estatico](../brainstorms/preco-externo-storefront/knowledge/cache-graphql-e-estatico.md) | Reference | O GET leva `variables` e o hint da diretiva |
 | [bff-devolve-price-state-disponivel](../brainstorms/preco-externo-storefront/knowledge/bff-devolve-price-state-disponivel.md) | Reference | `resolvePriceState()` sem origem devolve o default e não inventa texto |
 | [roadmap](../roadmaps/preco-minicart-e-vitrine/roadmap.md) | Roadmap (Phase #3) | Branch `preco-minicart-e-vitrine/p3-price-affecting-params`, empilhada em `preco-minicart-e-vitrine/p2-ttl-price-valid-until` |
+
+## Smell Review
+
+O código revisto termina em `6641599b601cf3e1afadc17bcdffec6ceae7fc18`. O commit que só grava esta seção fica de fora. O plano permanece Built.
+
+Complexidade ciclomática estimada à mão: o Biome não mede esse número e `lizard` não está instalado. A conta parte de 1 e soma `if`, `for`, `catch`, `&&`, `||`, `??` e ternário. `?.` fica de fora. O teto é 10.
+
+| Função | CC estimada |
+| --- | --- |
+| `followPriceAffectingParams` | 3 |
+| `stampPriceAffectingParams` | 2 |
+| `readPriceAffectingParamsStamp` | 4 |
+| `appendPriceAffectingParams` | 2 |
+| `buildIntelligentSearchRequest` | 7 |
+| `fetchSkuForPriceAffectingParams` | 4 |
+| `fetchProductBySlugFallback` | 6 |
+| `Query.product` | 9 |
+| `Query.search` | 10 |
+| `searchResultSku` | 2 |
+| `StoreSearchResult.suggestions` | 2 |
+| `StoreSearchResult.products` | 1 |
+| `StoreOffer.priceState` | 3 |
+| `fetchProduct` | 1 |
+| `productsByIdentifier` | 4 |
+| `orderFormToCart` | 3 |
+| `cartWhenSalesChannelAdoptedOrNull` | 2 |
+| `cartWhenItemsUnchanged` | 3 |
+| `validateCart` | 18 |
+
+Antes do extract, `buildIntelligentSearchRequest` estava em 9: o `if (text !== null)` existia no `product-search` e de novo no `products`. `suggestions` estava em 3 e `products` em 2, cada um com o `&&` do carimbo.
+
+| Cheiro | Onde | Lente | Desfecho |
+| --- | --- | --- | --- |
+| A cópia da string para a URL estava escrita duas vezes, uma no `product-search` e outra no `products`. `facets` continua no mesmo `case` e não chama o helper | `packages/api/src/platforms/vtex/utils/intelligentSearchRequest.ts` (`appendPriceAffectingParams`) | DRY | Ajustado em `aed0aae310bfeebfaebb66024b1506a6de2d0c83` |
+| `suggestions` e `products` escolhiam o SKU, montavam o produto e carimbavam a string com o mesmo bloco | `packages/api/src/platforms/vtex/resolvers/searchResult.ts` (`searchResultSku`) | DRY | Ajustado em `6641599b601cf3e1afadc17bcdffec6ceae7fc18` |
+| `validateCart` está em 18 | `packages/api/src/platforms/vtex/resolvers/validateCart.ts` | complexidade | Aceito |
+
+### Avisos
+
+`validateCart` está em 18 — o algoritmo já decide canal, locale, mensagens, carrinho stale, frete, itens, marketing, locale do orderForm e etag — esta fase só atravessou a string até `orderFormToCart` — vale repartir quando esse algoritmo mudar.
+
+### Sugestões
+
+- `packages/api/src/platforms/vtex/loaders/sku.ts` e `fetchSkuForPriceAffectingParams` acham o item, chamam `enhanceSku` e lançam o mesmo `NotFoundError`. Uma função pura ao lado de `enhanceSku` serviria aos dois. O loader fica de fora deste diff: o teste da fase falha se `priceAffectingParams` aparecer em `loaders/sku.ts`.
+- `packages/api/src/platforms/vtex/resolvers/searchResult.ts`: `suggestions` e `products` ainda chamam `applySearchCacheCap` com o mesmo `flatMap` dos itens. Essa cópia é anterior a esta fase. A entrada do cap muda com a regra de cache; o SKU apresentado muda com o carimbo. As duas ficam separadas.
+- `AGENTS.md` should gain a cyclomatic complexity ceiling. `biome.json` não define teto; esta revisão usou 10.
+
+Os mesmos testes passaram depois dos ajustes, em 2026-11-27. O `pnpm` desta máquina só chega no Vitest com `npm_config_manage_package_manager_versions=false`.
+
+- C1 — `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/utils/priceAffectingParams.test.ts` — pass, 1 arquivo, 5 testes
+- C2 — `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/utils/intelligentSearchRequest.test.ts test/unit/platforms/vtex/clients/search.test.ts test/unit/platforms/vtex/resolvers/priceAffectingParams.test.ts` — pass, 3 arquivos, 64 testes
+- C4 — `pnpm --filter @faststore/api exec vitest run test/integration/vtex.validateCart.priceAffectingParams.test.ts` — pass, 1 arquivo, 3 testes
+- C6 — `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/resolvers/priceAffectingParams.test.ts test/unit/platforms/vtex/resolvers/searchCacheCap.test.ts` — pass, 2 arquivos, 24 testes
+- Suíte — `pnpm --filter @faststore/api test:unit` — pass, 36 arquivos, 493 testes
+
+A suíte antes dos ajustes foi a mesma: 36 arquivos, 493 testes. Depois do helper da URL, 2 arquivos, 51 testes. Depois de `searchResultSku`, 3 arquivos, 63 testes.
