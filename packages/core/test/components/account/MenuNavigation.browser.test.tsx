@@ -134,4 +134,50 @@ describe('Menu navigation links', () => {
       '/europe/uk/pvt/account/orders'
     )
   })
+
+  describe('with extra routes', () => {
+    const extraItems = [
+      ...items,
+      { title: 'Help', route: 'https://example.com/help' },
+      { title: 'Store credit', route: '/pvt/custom/store-credit' },
+    ]
+
+    it('keeps an external URL untouched, even on a non-default locale', () => {
+      mockRouter.locale = 'fr-CA'
+      mockRouter.asPath = '/fr-CA/pvt/account/profile'
+
+      render(<Menu accountName="Jane" items={extraItems} />)
+
+      const link = screen.getByRole('link', { name: 'Help' })
+
+      expect(link.tagName).toBe('A')
+      expect(link).toHaveAttribute('href', 'https://example.com/help')
+    })
+
+    it('localizes a custom store route outside /pvt/account', () => {
+      mockRouter.locale = 'fr-CA'
+      mockRouter.asPath = '/fr-CA/pvt/account/profile'
+
+      render(<Menu accountName="Jane" items={extraItems} />)
+
+      expect(
+        screen.getByRole('link', { name: 'Store credit' })
+      ).toHaveAttribute('href', '/fr-CA/pvt/custom/store-credit')
+    })
+
+    it('does not prefetch extra routes on hover, touch or focus', () => {
+      render(<Menu accountName="Jane" items={extraItems} />)
+
+      for (const title of ['Help', 'Store credit']) {
+        const link = screen.getByRole('link', { name: title })
+
+        fireEvent.mouseEnter(link)
+        fireEvent.mouseOver(link)
+        fireEvent.touchStart(link)
+        fireEvent.focus(link)
+      }
+
+      expect(mockPrefetch).not.toHaveBeenCalled()
+    })
+  })
 })
