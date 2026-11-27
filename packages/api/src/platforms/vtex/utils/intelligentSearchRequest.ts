@@ -674,6 +674,17 @@ function createRequest(
   }
 }
 
+function appendPriceAffectingParams(
+  params: URLSearchParams,
+  value: string | null | undefined
+) {
+  const text = followPriceAffectingParams(value)
+
+  if (text !== null) {
+    params.append('priceAffectingParams', text)
+  }
+}
+
 /**
  * Pure builder for intelligent-search v1 path + query params.
  * Callers assemble the full URL: `/api/intelligent-search/v1/${endpoint}/${request.path}?${request.params}`.
@@ -695,11 +706,7 @@ export function buildIntelligentSearchRequest(
       )
 
       if (endpoint === 'product-search') {
-        const text = followPriceAffectingParams(args.priceAffectingParams)
-
-        if (text !== null) {
-          params.append('priceAffectingParams', text)
-        }
+        appendPriceAffectingParams(params, args.priceAffectingParams)
       }
 
       return createRequest(path, params)
@@ -718,11 +725,8 @@ export function buildIntelligentSearchRequest(
 
     case 'products': {
       const params = buildProductsParams(args, segmentData.segmentParams)
-      const text = followPriceAffectingParams(args.priceAffectingParams)
 
-      if (text !== null) {
-        params.append('priceAffectingParams', text)
-      }
+      appendPriceAffectingParams(params, args.priceAffectingParams)
 
       return createRequest('', params)
     }
