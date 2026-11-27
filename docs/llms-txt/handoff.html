@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>llms.txt for FastStore — PR handoff</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#FAFAFA',
+            ink: '#0A0A0A',
+            pink: { DEFAULT: '#F8C8D8', soft: '#FDE7EE' },
+            mint: '#C8E6D0',
+            butter: '#FCE8B2',
+            blush: '#F5C2C2',
+            gray: {
+              100: '#F2F2F2',
+              300: '#D6D6D6',
+              500: '#8A8A8A',
+              700: '#3A3A3A',
+            },
+          },
+          fontFamily: {
+            serif: ['ui-serif', 'Georgia', "'Times New Roman'", 'serif'],
+            sans:  ['system-ui', '-apple-system', "'Segoe UI'", 'Roboto', 'sans-serif'],
+            mono:  ['ui-monospace', "'SF Mono'", 'Menlo', 'Monaco', 'monospace'],
+          },
+          fontSize: {
+            base: ['14.5px', { lineHeight: '1.6' }],
+            sm:   ['13.5px', { lineHeight: '1.55' }],
+            xs:   ['12px',   { lineHeight: '1.5' }],
+          },
+          maxWidth: { page: '1120px' },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="file:///Users/marcosoliveira/.claude/skills/to-html/template/to-html.css" />
+  <script src="file:///Users/marcosoliveira/.claude/skills/to-html/template/to-html.js"></script>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+</head>
+<body class="bg-paper font-sans">
+  <main class="th-body max-w-page mx-auto px-8 py-14 pb-32" x-data="jumpFlash">
+
+    <header class="mb-12 max-w-[820px]">
+      <div class="uppercase tracking-widest text-xs text-gray-500 mb-3">PR handoff · FastStore · @faststore/core</div>
+      <h1 class="th-h1 mb-4">llms.txt for FastStore</h1>
+      <p class="th-lede mb-5">Research, benchmark, and PoC plan for serving a curated <code>/llms.txt</code> from the FastStore core, with all open questions logged for reviewers.</p>
+      <div class="flex flex-wrap gap-2 items-center mb-4">
+        <span class="th-tag">branch · feat/llms-txt-poc</span>
+        <span class="th-tag th-tag-mute">date · 2026-05-20</span>
+        <span class="th-tag th-tag-mute">package · @faststore/core</span>
+        <span class="th-tag th-tag-happy">status · investigation complete</span>
+      </div>
+      <nav class="th-prompt-box">
+        <span class="th-prompt-label">Jump to</span>
+        <a data-th-jump href="#s01" class="underline mr-3">01 TL;DR</a>
+        <a data-th-jump href="#s02" class="underline mr-3">02 Why / why not</a>
+        <a data-th-jump href="#s03" class="underline mr-3">03 Spec</a>
+        <a data-th-jump href="#s04" class="underline mr-3">04 Benchmark</a>
+        <a data-th-jump href="#s05" class="underline mr-3">05 Crawler reality</a>
+        <a data-th-jump href="#s06" class="underline mr-3">06 FastStore today</a>
+        <a data-th-jump href="#s07" class="underline mr-3">07 Decisions</a>
+        <a data-th-jump href="#s08" class="underline mr-3">08 Open questions</a>
+        <a data-th-jump href="#s09" class="underline mr-3">09 Risks</a>
+        <a data-th-jump href="#s10" class="underline">10 Artifacts &amp; sources</a>
+      </nav>
+    </header>
+
+    <!-- Summary strip -->
+    <div class="th-summary mb-16">
+      <div class="th-cell"><div class="th-k">Scope v1</div><div class="th-v">Single <code>/llms.txt</code></div></div>
+      <div class="th-cell"><div class="th-k">Source of truth</div><div class="th-v">Dynamic (build/request)</div></div>
+      <div class="th-cell"><div class="th-k">Default state</div><div class="th-v th-v-accent">opt-in</div></div>
+      <div class="th-cell"><div class="th-k">Blocker</div><div class="th-v">Edge proxy check</div></div>
+    </div>
+
+    <!-- 01 — TL;DR -->
+    <section id="s01" class="th-section">
+      <div class="th-sec-head">
+        <span class="th-sec-num">01</span>
+        <h2 class="th-h2">TL;DR</h2>
+      </div>
+      <div class="th-callout-good">
+        <ul class="th-stack-tight">
+          <li><code>llms.txt</code> is a 2024 proposal by Jeremy Howard (Answer.AI): a curated Markdown index at <code>/llms.txt</code>, sized for small LLM context windows.</li>
+          <li>As of May 2026 the spec is widely adopted in <strong>technical documentation</strong> (Anthropic, Stripe, Vercel, Cloudflare, Mintlify, Cursor) and largely <strong>ignored by general web crawlers</strong>. Google publicly declined; GPTBot / ClaudeBot / PerplexityBot show no consistent fetch behavior in audits.</li>
+          <li>For e-commerce, consensus says: <strong>do not dump the SKU catalog</strong>. Expose brand, top categories, policies, FAQ, contact. Keep the file small and curated.</li>
+          <li>We picked the smallest sensible scope for FastStore v1: a single, build-time-dynamic <code>/llms.txt</code> at the root. No per-page <code>.md</code>, no <code>llms-full.txt</code>. Feature-flagged.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 02 — Why bother / why skeptical -->
+    <section id="s02" class="th-section">
+      <div class="th-sec-head">
+        <span class="th-sec-num">02</span>
+        <h2 class="th-h2">Why bother (and why be skeptical)</h2>
+      </div>
+      <p class="th-sec-intro">Net call: ship it, keep it cheap, do not over-invest until a major provider commits.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="th-callout-good">
+          <h3 class="th-h3 mb-2">Pro</h3>
+          <ul class="th-stack-tight">
+            <li>Cost is near-zero once the pipeline exists.</li>
+            <li>Forces an editorial inventory of what the store wants AI to cite.</li>
+            <li>Coding agents (Cursor, Claude Code, Windsurf) demonstrably fetch <code>llms.txt</code> for libraries. The same mechanism may extend to commerce agents (Rufus, Perplexity Shopping, ChatGPT shopping) as those tools mature.</li>
+            <li>Easier to ship now than retrofit when (if) a provider commits.</li>
+          </ul>
+        </div>
+        <div class="th-callout-warn">
+          <h3 class="th-h3 mb-2">Con</h3>
+          <ul class="th-stack-tight">
+            <li>No measurable lift in AI citations in published studies through late 2025.</li>
+            <li>Redundant with <code>sitemap.xml</code> + clean HTML + Schema.org for crawlers that already index the public web.</li>
+            <li>Risk of stale content if the file isn't generated dynamically.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 — Spec summary -->
+    <section id="s03" class="th-section">
+      <div class="th-sec-head">
+        <span class="th-sec-num">03</span>
+        <h2 class="th-h2">Spec summary</h2>
+      </div>
+      <p class="th-sec-intro">From <a href="https://llmstxt.org/" class="underline">llmstxt.org</a>. Required surface is small; the rest is convention.</p>
+
+      <div class="th-subsection">
+        <ul class="th-stack-tight">
+          <li><strong>Location.</strong> <code>/llms.txt</code> at site root.</li>
+          <li><strong>Format.</strong> Markdown. Served as <code>text/markdown</code> (or <code>text/plain</code>).</li>
+          <li><strong>Required.</strong> A single <code>#</code> H1 title.</li>
+          <li><strong>Recommended.</strong> A <code>&gt;</code> blockquote one-line summary, then free-form context paragraphs, then <code>##</code> section headers each containing a list of <code>[name](url): description</code> links.</li>
+          <li><strong>Reserved.</strong> A <code>## Optional</code> section that ingestion tools may skip when context is tight.</li>
+          <li><strong>Companion (de facto).</strong> Each HTML page also reachable as Markdown — either at <code>&lt;url&gt;.md</code> or via <code>Accept: text/markdown</code> content negotiation.</li>
+        </ul>
+      </div>
+
+      <div class="th-subsection">
+        <h3 class="th-h3">llms.txt vs llms-full.txt</h3>
+        <div class="th-table-wrap">
+          <table class="th-table">
+            <thead>
+              <tr><th></th><th><code>llms.txt</code></th><th><code>llms-full.txt</code></th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Purpose</td><td>Curated index, pointers</td><td>Full content dump for ingestion / RAG</td></tr>
+              <tr><td>Size</td><td>Small (fits a context window)</td><td>Can be huge (Anthropic's is millions of tokens)</td></tr>
+              <tr><td>Audience</td><td>Agents fetching at runtime</td><td>Bulk ingestion pipelines</td></tr>
+              <tr><td>Freshness need</td><td>High</td><td>Lower</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3">We are shipping only <code>llms.txt</code> for now. <code>llms-full.txt</code> doesn't make sense for a live commerce catalog and the ingestion-side value for commerce is unproven.</p>
+      </div>
+    </section>
+
+    <!-- 04 — Benchmark -->
+    <section id="s04" class="th-section">
+      <div class="th-sec-head">
+        <span class="th-sec-num">04</span>
+        <h2 class="th-h2">Benchmark — who is doing this, and how</h2>
+      </div>
+
+      <div class="th-subsection">
+        <div class="th-table-wrap">
+          <table class="th-table">
+            <thead>
+              <tr><th>Org</th><th>Pattern</th><th>What's interesting</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Anthropic</td>
+                <td><code>llms.txt</code> + <code>llms-full.txt</code> + per-page <code>.md</code></td>
+                <td>The reference implementation. <code>llms-full.txt</code> is a single concatenated dump.</td>
+              </tr>
+              <tr>
+                <td>Stripe</td>
+                <td>Curated catalog by product vertical</td>
+                <td>Sections per product (Payments, Connect, Billing) instead of one flat list.</td>
+              </tr>
+              <tr>
+                <td>Vercel</td>
+                <td><code>llms.txt</code> + per-page <code>.md</code> via content negotiation</td>
+                <td>Same URL serves HTML or Markdown depending on <code>Accept</code>.</td>
+              </tr>
+              <tr>
+                <td>Cloudflare</td>
+                <td>Per-product catalog, similar to Stripe</td>
+                <td>Heavy use of <code>## Optional</code> to defer ancillary pages.</td>
+              </tr>
+              <tr>
+                <td>Mintlify</td>
+                <td>Auto-generated for every hosted docs site (Nov 2024)</td>
+                <td>This is why most "adopters" are docs sites — Mintlify ships it by default.</td>
+              </tr>
+              <tr>
+                <td>Cursor / Windsurf</td>
+                <td>Focused workflow (small <code>llms.txt</code>)</td>
+                <td>Slim, opinionated, points only at canonical references.</td>
+              </tr>
+              <tr>
+                <td>Supabase, LangGraph, Bolt</td>
+                <td>Similar to Vercel</td>
+                <td>Standard docs pattern.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="th-subsection">
+        <h3 class="th-h3">E-commerce specific reading</h3>
+        <p>There are blog posts (Kiwi Commerce, Stryde, Goodie, tngshopper, Shero) recommending <code>llms.txt</code> for DTC brands. None publish convincing measurement of lift. Their structural recommendations converge:</p>
+        <ol class="list-decimal pl-6 th-stack-tight marker:text-pink marker:font-mono text-sm mt-3">
+          <li>Brand summary at the top.</li>
+          <li>Top-level categories only — not leaves, not SKUs.</li>
+          <li>Policies (shipping, returns, warranty, privacy, terms).</li>
+          <li>FAQ / size guides / customer service.</li>
+          <li>About / contact.</li>
+          <li>Rely on Schema.org Product JSON-LD (already present in FastStore PDP) for product-level signal — not <code>llms.txt</code>.</li>
+        </ol>
+        <p class="mt-3">This matches the scope we picked.</p>
+      </div>
+    </section>
+
+    <!-- 05 — Crawler reality check -->
+    <section id="s05" class="th-section">
+      <div class="th-sec-head">
+        <span class="th-sec-num">05</span>
+        <h2 class="th-h2">Crawler reality check (May 2026)</h2>
+      </div>
+
+      <div class="th-callout-warn">
+        <ul class="th-stack-tight">
+          <li><strong>Google</strong> (Search Central Live, Jul 2025): does not support <code>llms.txt</code>, no plans to.</li>
+          <li><strong>GPTBot, ClaudeBot, PerplexityBot</strong>: audits through Oct 2025 show no consistent fetch of <code>/llms.txt</code>. Sporadic GPTBot hits, no commitment.</li>
+          <li><strong>Coding assistants</strong> (Cursor, Claude Code, Windsurf, Continue): do fetch on demand. Measurable value here, but for library docs — not for commerce.</li>
+          <li><strong>Discovery</strong>: no standardized mechanism. Crawlers must guess <code>/llms.txt</code>. <code>robots.txt</code> does not reference it.</li>
+        </ul>
+      </div>
+      <p class="mt-4">What this means for FastStore: the immediate upside is low. The bet is option value if/when shopping-oriented agents adopt the convention.</p>
+    </section>
+
+    <!-- 06 — FastStore today -->
+    <section id="s06" class="th-section">
+      <div class="th-sec-head">
+        <span class="th-sec-num">06</span>
+        <h2 class="th-h2">What FastStore looks like today</h2>
+      </div>
+      <p class="th-sec-intro">Findings from <code>packages/core</code>.</p>
+
+      <ul class="th-stack-tight">
+        <li>Next.js Pages Router. PDP is <code>src/pages/[slug]/p.tsx</code> with <code>getStaticProps</code> and <code>ProductJsonLd</code> / <code>BreadcrumbJsonLd</code>. Search at <code>src/pages/s.tsx</code>. CMS catch-all at <code>src/pages/[...slug].tsx</code>.</li>
+        <li>API routes in <code>src/pages/api/fs/</code> (only <code>logout.ts</code>, <code>graphql.ts</code>, <code>preview.ts</code> today).</li>
+        <li><code>public/</code> contains only favicon / logo / icons. No <code>robots.txt</code> or <code>sitemap.xml</code> in the repo — those are served upstream by the VTEX edge.</li>
+        <li><code>next.config.js</code> uses <code>storeConfig.rewrites</code>. No <code>headers()</code> block. No existing precedent for serving static-like text endpoints from the Next app.</li>
+        <li>Existing server-side helpers: <code>execute</code> for GraphQL (<code>src/server</code>), <code>contentService</code> for CMS (<code>src/server/content</code>), <code>getStoreURL()</code> for absolute URLs (<code>src/sdk/localization/useLocalizationConfig</code>).</li>
+        <li>Locale / binding awareness already wired via <code>src/utils/localization/bindingPaths</code>.</li>
+      </ul>
+      <p class="mt-4">The route + builder pattern fits cleanly into this layout.</p>
+    </section>
+
+    <!-- 07 — Decisions taken -->
+    <section id="s07" class="th-section">
+      <div class="th-sec-head">
+        <span class="th-sec-num">07</span>
+        <h2 class="th-h2">Decisions taken</h2>
+      </div>
+      <div class="th-table-wrap">
+        <table class="th-table">
+          <thead>
+            <tr><th>Decision</th><th>Choice</th><th>Why</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Scope v1</td><td>Single <code>/llms.txt</code> only</td><td>Cheapest path to learn. No <code>.md</code> per page, no <code>llms-full.txt</code>.</td></tr>
+            <tr><td>Source of truth</td><td>Dynamic at build / request</td><td>Static file goes stale. <code>discovery.config</code> + GraphQL + CMS.</td></tr>
+            <tr><td>Default state</td><td><code>enabled: false</code> in <code>discovery.config.default.js</code></td><td>Stores opt in. Flip default after a bake period.</td></tr>
+            <tr><td>Include SKUs</td><td>No</td><td>Catalogs go stale in hours. Schema.org on PDP covers product signal.</td></tr>
+            <tr><td>Multi-binding</td><td>Single locale (current binding) in v1</td><td>Multi-locale fan-out is a follow-up.</td></tr>
+            <tr><td>Implementation surface</td><td><code>packages/core</code> only</td><td>Don't touch <code>starter.store</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 08 — Open questions -->
+    <section id="s08" class="th-section">
+      <div class="th-sec-head">
+        <span class="th-sec-num">08</span>
+        <h2 class="th-h2">Open questions</h2>
+      </div>
+
+      <div class="th-subsection">
+        <h3 class="th-h3">Must resolve before merge</h3>
+        <p class="th-sec-intro">These do not block opening a draft PR. They block merging.</p>
+        <div class="th-stack">
+          <div class="th-q" style="border-color: #F5C2C2;">
+            <div class="th-q-title">1. VTEX edge proxy interception of <code>/llms.txt</code></div>
+            <div class="th-q-body"><code>robots.txt</code> and <code>sitemap.xml</code> are served by the upstream proxy, not the Next app. We need to confirm <code>/llms.txt</code> is <em>not</em> intercepted, or arrange a passthrough.</div>
+            <div class="th-q-owner">Decide with · platform team</div>
+          </div>
+          <div class="th-q" style="border-color: #F5C2C2;">
+            <div class="th-q-title">2. Multi-binding store behavior</div>
+            <div class="th-q-body">Single file with multi-locale links, or one file per binding (<code>/en/llms.txt</code>, <code>/pt/llms.txt</code>)? For v1 we ship single-binding; need product input on whether that is acceptable for current customers.</div>
+            <div class="th-q-owner">Decide with · product</div>
+          </div>
+          <div class="th-q" style="border-color: #F5C2C2;">
+            <div class="th-q-title">3. CMS content type for institutional pages</div>
+            <div class="th-q-body">Which content type and which slugs canonically represent shipping / returns / privacy / terms? Likely store-specific, hence the <code>institutionalSlugs</code> config slot — but a sensible default would be nice.</div>
+            <div class="th-q-owner">Decide with · CMS team</div>
+          </div>
+          <div class="th-q" style="border-color: #F5C2C2;">
+            <div class="th-q-title">4. Caching TTL alignment</div>
+            <div class="th-q-body">Default <code>s-maxage=3600, stale-while-revalidate=86400</code> — confirm this aligns with the VTEX edge cache policy.</div>
+            <div class="th-q-owner">Decide with · platform team</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="th-subsection">
+        <h3 class="th-h3">Soft — can defer</h3>
+        <div class="th-stack">
+          <div class="th-q" style="border-color: #FCE8B2;">
+            <div class="th-q-title">5. Advertise <code>/llms.txt</code> in <code>robots.txt</code>?</div>
+            <div class="th-q-body">Not part of the spec. Some advocate it. Defer until robots.txt ownership is clarified (platform-side today).</div>
+            <div class="th-q-owner">Defer</div>
+          </div>
+          <div class="th-q" style="border-color: #FCE8B2;">
+            <div class="th-q-title">6. <code>X-Robots-Tag: noindex</code> on the response?</div>
+            <div class="th-q-body">Probably yes — the file isn't meant for SERPs. Low-risk default; included in the plan.</div>
+            <div class="th-q-owner">Defer (default: yes)</div>
+          </div>
+          <div class="th-q" style="border-color: #FCE8B2;">
+            <div class="th-q-title">7. Rate limiting / abuse</div>
+            <div class="th-q-body">The endpoint is cheap and cached, but if it becomes a hotspot we may want to align with existing FastStore rate-limit primitives. No action for v1.</div>
+            <div class="th-q-owner">Defer</div>
+          </div>
+          <div class="th-q" style="border-color: #FCE8B2;">
+            <div class="th-q-title">8. i18n of the markdown body itself</div>
+            <div class="th-q-body">Section titles like "Shop by category". For v1 we use English; later expose strings via the existing i18n surface.</div>
+            <div class="th-q-owner">Defer</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 — Risks -->
+    <section id="s09" class="th-section">
+      <div class="th-sec-head">
+        <span class="th-sec-num">09</span>
+        <h2 class="th-h2">Risks</h2>
+      </div>
+      <div class="th-table-wrap">
+        <table class="th-table">
+          <thead>
+            <tr><th>Risk</th><th>Sev</th><th>Mitigation</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Edge proxy collision (open question #1). If unresolved, the PR ships but the route is unreachable in production.</td>
+              <td><span class="th-tag th-tag-error">HIGH</span></td>
+              <td>Validate with platform team before opening the PR for review.</td>
+            </tr>
+            <tr>
+              <td>Drift between this convention and a future "official" spec from a major provider.</td>
+              <td><span class="th-tag th-tag-warn">MED</span></td>
+              <td>Feature-flag, isolated module under <code>src/server/llms/</code>, easy to rip out.</td>
+            </tr>
+            <tr>
+              <td>Customer expectations. Once we ship, stores may expect AI traffic / citation lift that may not materialize in 2026.</td>
+              <td><span class="th-tag th-tag-warn">MED</span></td>
+              <td>Be explicit in release notes about the "option value" framing.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 10 — Artifacts + sources -->
+    <section id="s10" class="th-section">
+      <div class="th-sec-head">
+        <span class="th-sec-num">10</span>
+        <h2 class="th-h2">Artifacts &amp; sources</h2>
+      </div>
+
+      <div class="th-subsection">
+        <h3 class="th-h3">Artifacts in this PR</h3>
+        <ul class="th-stack-tight">
+          <li><code>docs/llms-txt/plan.md</code> — implementation plan (this is what Claude will follow).</li>
+          <li><code>docs/llms-txt/handoff.md</code> — markdown source of this document.</li>
+          <li><code>docs/llms-txt/handoff.html</code> — this HTML render.</li>
+        </ul>
+      </div>
+
+      <div class="th-subsection">
+        <h3 class="th-h3">Sources</h3>
+        <ul class="th-stack-tight">
+          <li><a class="underline" href="https://llmstxt.org/">llmstxt.org — official spec</a></li>
+          <li><a class="underline" href="https://www.mintlify.com/blog/real-llms-txt-examples">Mintlify — real llms.txt examples</a></li>
+          <li><a class="underline" href="https://www.mintlify.com/docs/ai/llmstxt">Mintlify — llms.txt docs</a></li>
+          <li><a class="underline" href="https://www.mintlify.com/blog/the-value-of-llms-txt-hype-or-real">Mintlify — value of llms.txt: hype or real?</a></li>
+          <li><a class="underline" href="https://www.mintlify.com/blog/context-for-agents">Mintlify — context for agents (content negotiation)</a></li>
+          <li><a class="underline" href="https://codersera.com/blog/llms-txt-complete-guide-2026/">Codersera — honest guide May 2026</a></li>
+          <li><a class="underline" href="https://llms-txt.io/blog/is-llms-txt-dead">llms-txt.io — Is llms.txt dead? (2025)</a></li>
+          <li><a class="underline" href="https://www.indexlab.ai/blog/llms-txt-does-it-actually-work-october-2025-updated">IndexLab — Does it actually work? Oct 2025</a></li>
+          <li><a class="underline" href="https://www.longato.ch/llms-recommendation-2025-august/">Longato — AI crawlers ignore it, 2025 audit</a></li>
+          <li><a class="underline" href="https://www.pixelmojo.io/blogs/llms-txt-static-vs-dynamic-implementation-guide">Pixelmojo — static vs dynamic implementation</a></li>
+          <li><a class="underline" href="https://kiwicommerce.co.uk/llms-txt-setup-guide-for-wordpress-shopify-magento-and-custom-websites/">Kiwi Commerce — setup for WordPress / Shopify / Magento</a></li>
+          <li><a class="underline" href="https://www.tngshopper.com/post/llms-txt-for-e-commerce-a-practical-guide-to-preparing-your-site-for-ai-crawlers">tngshopper — llms.txt for e-commerce</a></li>
+          <li><a class="underline" href="https://higoodie.com/blog/llms-txt-for-ecommerce/">Goodie — optimizing llms.txt for e-commerce</a></li>
+          <li><a class="underline" href="https://www.stryde.com/llms-txt-for-dtc-brands-what-it-is-why-it-matters-and-how-to-implement-it/">Stryde — llms.txt for DTC brands</a></li>
+          <li><a class="underline" href="https://sherocommerce.com/blogs/insights/10-real-examples-of-llm-friendly-product-descriptions">Shero Commerce — LLM-friendly product descriptions</a></li>
+          <li><a class="underline" href="https://www.deployhq.com/blog/making-your-documentation-ai-friendly-serving-markdown-to-ai-coding-assistants">DeployHQ — content negotiation &amp; Markdown serving</a></li>
+          <li><a class="underline" href="https://www.akuparaai.com/blog/robots-txt-llms-txt-ai-txt-standards">Akupara — robots.txt vs llms.txt vs ai.txt</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="th-provenance">
+      Generated by /to-html from docs/llms-txt/handoff.md on 2026-05-20. Branch feat/llms-txt-poc.
+    </footer>
+  </main>
+</body>
+</html>
