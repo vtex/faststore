@@ -28,7 +28,7 @@ const isAccountRoute = (pathname: string | undefined) =>
 const claimReload = (path: string) => {
   try {
     const now = Date.now()
-    const raw = window.sessionStorage.getItem(RECOVERY_STORAGE_KEY)
+    const raw = globalThis.sessionStorage.getItem(RECOVERY_STORAGE_KEY)
     const last = raw ? JSON.parse(raw) : null
 
     if (
@@ -39,7 +39,7 @@ const claimReload = (path: string) => {
       return false
     }
 
-    window.sessionStorage.setItem(
+    globalThis.sessionStorage.setItem(
       RECOVERY_STORAGE_KEY,
       JSON.stringify({ path, timestamp: now })
     )
@@ -70,9 +70,9 @@ export function useRecoverFromEmptyPageProps(pageProps: unknown) {
       return
     }
 
-    if (claimReload(window.location.pathname)) {
+    if (claimReload(globalThis.location.pathname)) {
       console.warn(EMPTY_PAGE_PROPS_RELOAD_MESSAGE)
-      window.location.reload()
+      globalThis.location.reload()
     } else {
       console.warn(EMPTY_PAGE_PROPS_SKIPPED_MESSAGE)
     }
