@@ -9,3 +9,5 @@
 2026-11-26 18:50 | #2 | review | CONTINUE | Approve em `617f203a6`. Nenhum achado. Suíte unitária da API passou (468 testes). Nada enviado ao remoto. Próxima ação: spec da fase 3 empilhada neste branch.
 
 2026-11-27 11:12 | #3 | spec | CONTINUE | Plano Ready em `docs/plans/plan-price-affecting-params.md`, commit `48fe8fbb2` no branch `preco-minicart-e-vitrine/p3-price-affecting-params`, empilhado em `preco-minicart-e-vitrine/p2-ttl-price-valid-until`. Nada enviado ao remoto. Próxima ação: build da fase 3 nesta stack.
+
+2026-11-27 12:28 | #3 | build | CONTINUE | Plano Built em `7ee269389`. Commits `f117e6131`, `a3365e014`, `082fa9e0b`, `d6c662156`. Suíte unitária da API passou (493 testes). Nada enviado ao remoto. Próxima ação: smell review.
