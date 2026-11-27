@@ -2,7 +2,14 @@ type Mutation {
   """
   Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`.
   """
-  validateCart(cart: IStoreCart!, session: IStoreSession): StoreCart
+  validateCart(
+    cart: IStoreCart!
+    session: IStoreSession
+    """
+    Opaque client text for this query. Absent, null, and empty do not follow.
+    """
+    priceAffectingParams: String
+  ): StoreCart
   """
   Updates a web session with the specified values.
   """

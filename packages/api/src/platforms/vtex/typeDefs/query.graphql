@@ -219,6 +219,10 @@ type Query {
     An array of selected search facets.
     """
     locator: [IStoreSelectedFacet!]!
+    """
+    Opaque client text for this query. Absent, null, and empty do not follow.
+    """
+    priceAffectingParams: String
   ): StoreProduct!
     @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
@@ -261,6 +265,10 @@ type Query {
     Search advertisement products return in result.
     """
     sponsoredCount: Int
+    """
+    Opaque client text for this query. Absent, null, and empty do not follow.
+    """
+    priceAffectingParams: String
   ): StoreSearchResult!
     @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
