@@ -659,4 +659,97 @@ describe('buildIntelligentSearchRequest', () => {
       ).toThrow(/delivery location/i)
     })
   })
+
+  describe('priceAffectingParams', () => {
+    const copied = ['{"b":1,"a":2}', '{}', '  ', '{"q":"a&b=c"}'] as const
+    const otherOrder = '{"a":2,"b":1}'
+
+    const productSearch = (priceAffectingParams?: string | null) =>
+      buildIntelligentSearchRequest({
+        endpoint: 'product-search',
+        defaults: baseDefaults,
+        args: { page: 0, count: 1, priceAffectingParams },
+      })
+
+    const products = (priceAffectingParams?: string | null) =>
+      buildIntelligentSearchRequest({
+        endpoint: 'products',
+        defaults: baseDefaults,
+        args: { field: 'sku', value: '1', priceAffectingParams },
+      })
+
+    it('copies the text onto product-search and products', () => {
+      for (const text of copied) {
+        expect(productSearch(text).params.get('priceAffectingParams')).toBe(
+          text
+        )
+        expect(products(text).params.get('priceAffectingParams')).toBe(text)
+      }
+
+      expect(
+        productSearch(copied[0]).params.get('priceAffectingParams')
+      ).not.toBe(otherOrder)
+      expect(products(copied[0]).params.get('priceAffectingParams')).not.toBe(
+        otherOrder
+      )
+    })
+
+    it('omits the key for an empty string, null, and a missing field', () => {
+      const requests = [
+        productSearch(''),
+        productSearch(null),
+        buildIntelligentSearchRequest({
+          endpoint: 'product-search',
+          defaults: baseDefaults,
+          args: { page: 0, count: 1 },
+        }),
+        products(''),
+        products(null),
+        buildIntelligentSearchRequest({
+          endpoint: 'products',
+          defaults: baseDefaults,
+          args: { field: 'sku', value: '1' },
+        }),
+      ]
+
+      for (const request of requests) {
+        expect(request.params.has('priceAffectingParams')).toBe(false)
+      }
+    })
+
+    it('does not copy the text onto the other endpoints', () => {
+      const text = copied[0]
+      const requests = [
+        buildIntelligentSearchRequest({
+          endpoint: 'facets',
+          defaults: baseDefaults,
+          args: { page: 0, count: 1, priceAffectingParams: text },
+        }),
+        buildIntelligentSearchRequest({
+          endpoint: 'catalog-count',
+          defaults: baseDefaults,
+          args: { query: 'jacket', priceAffectingParams: text },
+        }),
+        buildIntelligentSearchRequest({
+          endpoint: 'search-suggestions',
+          defaults: baseDefaults,
+          args: { query: 'camisa', priceAffectingParams: text },
+        }),
+        buildIntelligentSearchRequest({
+          endpoint: 'top-searches',
+          defaults: baseDefaults,
+          args: { priceAffectingParams: text },
+        }),
+        buildIntelligentSearchRequest({
+          endpoint: 'pickup-point-availability',
+          defaults: baseDefaults,
+          args: { coordinates: '-43.19,-22.95', priceAffectingParams: text },
+        }),
+      ]
+
+      for (const request of requests) {
+        expect(request.params.has('priceAffectingParams')).toBe(false)
+      }
+    })
+  })
 })

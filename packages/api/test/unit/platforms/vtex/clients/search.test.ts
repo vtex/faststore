@@ -287,3 +287,69 @@ describe('IntelligentSearch.productsByIdentifier', () => {
     ).resolves.toEqual([product])
   })
 })
+
+describe('IntelligentSearch priceAffectingParams', () => {
+  const text = '{"b":1,"a":2}'
+
+  it('copies the text onto the product-search URL', async () => {
+    fetchAPIMocked.mockResolvedValueOnce({ products: [] })
+    const is = IntelligentSearch(searchOptions, makeCtx({}))
+
+    await is.products({ page: 0, count: 1, priceAffectingParams: text })
+
+    const [url] = fetchAPIMocked.mock.calls[0] as [string]
+    const parsed = new URL(url)
+
+    expect(parsed.pathname).toContain('/product-search/')
+    expect(parsed.searchParams.get('priceAffectingParams')).toBe(text)
+  })
+
+  it('copies the text onto the products URL', async () => {
+    fetchAPIMocked.mockResolvedValueOnce({ productId: '1' })
+    const is = IntelligentSearch(searchOptions, makeCtx({}))
+
+    await is.fetchProduct({
+      field: 'sku',
+      value: '1',
+      priceAffectingParams: text,
+    })
+
+    const [url] = fetchAPIMocked.mock.calls[0] as [string]
+
+    expect(url).toContain('/products?')
+    expect(new URL(url).searchParams.get('priceAffectingParams')).toBe(text)
+  })
+
+  it('does not copy the text onto facets', async () => {
+    fetchAPIMocked.mockResolvedValueOnce({ facets: [] })
+    const is = IntelligentSearch(searchOptions, makeCtx({}))
+
+    await is.facets({ page: 0, count: 1, priceAffectingParams: text })
+
+    const [url] = fetchAPIMocked.mock.calls[0] as [string]
+
+    expect(url).not.toContain('priceAffectingParams')
+  })
+
+  it('forwards the text on each productsByIdentifier request', async () => {
+    fetchAPIMocked
+      .mockResolvedValueOnce({ productId: '1' })
+      .mockResolvedValueOnce({ productId: '2' })
+    const is = IntelligentSearch(searchOptions, makeCtx({}))
+
+    await is.productsByIdentifier({
+      field: 'sku',
+      values: ['1', '2'],
+      priceAffectingParams: text,
+    })
+
+    const urls = fetchAPIMocked.mock.calls.map(([url]) => url as string)
+
+    expect(urls).toHaveLength(2)
+
+    for (const url of urls) {
+      expect(url).toContain('/products?')
+      expect(new URL(url).searchParams.get('priceAffectingParams')).toBe(text)
+    }
+  })
+})

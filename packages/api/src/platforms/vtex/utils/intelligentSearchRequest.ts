@@ -1,5 +1,7 @@
 import { parse } from 'cookie'
 
+import { followPriceAffectingParams } from './priceAffectingParams'
+
 export interface IntelligentSearchFacet {
   key: string
   value: string
@@ -84,6 +86,8 @@ export interface IntelligentSearchRequestArgs {
   country?: string
   /** `longitude,latitude`. Used to sort pickup points. */
   coordinates?: string
+  /** Opaque client text. Copied onto product-search and products only. */
+  priceAffectingParams?: string | null
 }
 
 export interface IntelligentSearchRequestInput {
@@ -690,6 +694,14 @@ export function buildIntelligentSearchRequest(
         { includePagination: true, includeSort: true }
       )
 
+      if (endpoint === 'product-search') {
+        const text = followPriceAffectingParams(args.priceAffectingParams)
+
+        if (text !== null) {
+          params.append('priceAffectingParams', text)
+        }
+      }
+
       return createRequest(path, params)
     }
 
@@ -706,6 +718,11 @@ export function buildIntelligentSearchRequest(
 
     case 'products': {
       const params = buildProductsParams(args, segmentData.segmentParams)
+      const text = followPriceAffectingParams(args.priceAffectingParams)
+
+      if (text !== null) {
+        params.append('priceAffectingParams', text)
+      }
 
       return createRequest('', params)
     }
