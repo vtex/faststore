@@ -33,17 +33,19 @@ describe('Home Page Seo', () => {
       })
   })
 
-  it('has structured data', () => {
+  it('has WebSite structured data without the retired sitelinks search box', () => {
     cy.visit(pages.home, options)
     cy.waitForHydration()
 
     cy.get('script[type="application/ld+json"]')
       .should('exist')
       .should(($el) => {
-        const jsonld = JSON.parse($el.text())
+        const [...jsons] = $el.map((idx) => JSON.parse($el[idx].innerHTML))
+        const website = jsons.find((json) => json['@type'] === 'WebSite')
 
-        expect(jsonld['@context']).to.eq('https://schema.org')
-        expect(jsonld['@type']).to.eq('WebSite')
+        expect(website).to.not.be.undefined
+        expect(website['@context']).to.eq('https://schema.org')
+        expect(website).to.not.have.property('potentialAction')
       })
   })
 
@@ -121,6 +123,19 @@ describe('Product Page Seo', () => {
         expect(jsons.find((json) => json['@type'] === 'BreadcrumbList')).to.not
           .null
       })
+
+    // The last breadcrumb item is the product: it must point to the canonical
+    // URL, not to the SKU path.
+    cy.get('link[rel="canonical"]').then(($link) => {
+      cy.get('script[type="application/ld+json"]').should(($el) => {
+        const [...jsons] = $el.map((idx) => JSON.parse($el[idx].innerHTML))
+        const { itemListElement } = jsons.find(
+          (json) => json['@type'] === 'BreadcrumbList'
+        )
+
+        expect(itemListElement.at(-1).item).to.eq($link.attr('href'))
+      })
+    })
   })
 
   it('has OpenGraph and Twitter tags', () => {
@@ -136,7 +151,7 @@ describe('Product Page Seo', () => {
     cy.get('meta[property="og:type"]')
       .should('exist')
       .should(($el) => {
-        expect($el.attr('content')).to.eq('og:product')
+        expect($el.attr('content')).to.eq('product')
       })
 
     cy.get('meta[property="og:title"]')

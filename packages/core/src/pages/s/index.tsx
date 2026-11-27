@@ -72,7 +72,7 @@ function generateSEOData(
 
   const isSSREnabled = storeConfig.experimental.enableSearchSSR
 
-  const title = searchTerm ?? seo.title ?? 'Search Results'
+  const title = searchTerm || seo.title || 'Search Results'
   const titleTemplate =
     pageSeoSettings?.titleTemplate ??
     searchSeo?.titleTemplate ??

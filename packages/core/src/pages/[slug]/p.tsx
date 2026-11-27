@@ -178,9 +178,14 @@ function Page({
   if (itemListElements.length !== 0) {
     const storeURL = getStoreURL(router.locale).replace(/\/$/, '')
 
+    const lastIndex = itemListElements.length - 1
+
     itemListElements = itemListElements.map(
-      ({ item: pathname, name, position }) => {
-        const pageUrl = storeURL + pathname
+      ({ item: pathname, name, position }, index) => {
+        // The last item is the product itself. Its breadcrumb path carries the
+        // SKU suffix, so use the canonical URL instead.
+        const pageUrl =
+          index === lastIndex ? meta.canonical : storeURL + pathname
 
         return { name, position, item: pageUrl }
       }
@@ -246,7 +251,7 @@ function Page({
         description={description}
         canonical={meta.canonical}
         openGraph={{
-          type: 'og:product',
+          type: 'product',
           url: meta.canonical,
           title,
           description,
