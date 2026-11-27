@@ -1,3 +1,4 @@
+import { useCallback, useRef } from 'react'
 import useSWR from 'swr'
 
 import { type Operation, request } from './request'
@@ -15,16 +16,23 @@ export const useLazyQuery = <Data, Variables = Record<string, unknown>>(
     DEFAULT_OPTIONS
   )
 
-  const execute = async (queryVariables: Variables) => {
+  // Keep `execute` referentially stable. Callers list it in effect deps, and a
+  // new identity on every render re-runs those effects (and their requests) on
+  // unrelated re-renders. The ref always holds the latest operation/options.
+  const latestRef = useRef({ operation, options, mutate: response.mutate })
+  latestRef.current = { operation, options, mutate: response.mutate }
+
+  const execute = useCallback(async (queryVariables: Variables) => {
+    const { operation, options, mutate } = latestRef.current
     const data = await request<Data, Variables>(
       operation,
       queryVariables,
       options
     )
 
-    const updatedData = await response.mutate(data, false)
+    const updatedData = await mutate(data, false)
     return updatedData
-  }
+  }, [])
 
   return [execute, response] as [typeof execute, typeof response]
 }
