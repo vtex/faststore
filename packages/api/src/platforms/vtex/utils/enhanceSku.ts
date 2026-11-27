@@ -18,6 +18,20 @@ export const enhanceSku = (item: Item, product: Product): EnhancedSku => ({
   isVariantOf: sanitizeProduct(product),
 })
 
+export const enhancedSkusByItemId = (
+  products: Product[]
+): Record<string, EnhancedSku> => {
+  const indexed: Record<string, EnhancedSku> = {}
+
+  for (const product of products) {
+    for (const item of product.items) {
+      indexed[item.itemId] = enhanceSku(item, product)
+    }
+  }
+
+  return indexed
+}
+
 /** `/some-product/p` -> `some-product` */
 const linkTextFromDetailUrl = (detailUrl: string) =>
   detailUrl.replace(/^\//, '').replace(/\/p$/, '')

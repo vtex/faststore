@@ -47,7 +47,11 @@ import {
 import { assertProductInContractAssortment } from '../utils/contractAssortment'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
-import { enhanceSku, type EnhancedSku } from '../utils/enhanceSku'
+import {
+  enhanceSku,
+  enhancedSkusByItemId,
+  type EnhancedSku,
+} from '../utils/enhanceSku'
 import {
   findChannel,
   findCrossSelling,
@@ -171,12 +175,10 @@ async function fetchSkuForPriceAffectingParams(
     }),
   })
 
-  for (const product of products) {
-    const item = product.items?.find((candidate) => candidate.itemId === skuId)
+  const sku = enhancedSkusByItemId(products)[skuId]
 
-    if (item) {
-      return enhanceSku(item, product)
-    }
+  if (sku) {
+    return sku
   }
 
   throw new NotFoundError(
