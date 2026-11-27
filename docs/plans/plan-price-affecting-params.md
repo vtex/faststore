@@ -1,6 +1,6 @@
 # Query generalista e validateCart
 
-> **Status**: Built
+> **Status**: Reviewed
 > **Roadmap**: preco-minicart-e-vitrine #3
 > **Branch**: preco-minicart-e-vitrine/p3-price-affecting-params
 > **PR**: —
@@ -188,3 +188,42 @@ Os mesmos testes passaram depois dos ajustes, em 2026-11-27. O `pnpm` desta máq
 - Suíte — `pnpm --filter @faststore/api test:unit` — pass, 36 arquivos, 493 testes
 
 A suíte antes dos ajustes foi a mesma: 36 arquivos, 493 testes. Depois do helper da URL, 2 arquivos, 51 testes. Depois de `searchResultSku`, 3 arquivos, 63 testes.
+
+## Review
+
+> **Verdict**: Approve
+> **Date**: 2026-11-27
+> **Commit reviewed**: `6065d6b2946cacb52d1fd6f1ff7aedccc316a721`
+
+Achados bloqueantes: 0. Advisory: 0.
+
+| # | Check | Onde | Contrato | Achado | Severidade |
+| --- | --- | --- | --- | --- | --- |
+
+O diff `preco-minicart-e-vitrine/p2-ttl-price-valid-until...6065d6b294` fecha os quatro checks.
+
+Os passos 1 a 4 estão em `f117e6131b8317048ca2ded7dd35605f81f2117f`, `a3365e014c05afff7bc5d286fda9d53b7d3ae7e8`, `082fa9e0b88eb38fa4997cd30029d2dcc1bcee96` e `d6c662156338230053fc432ef9fa16af84c54b83`. `aed0aae310bfeebfaebb66024b1506a6de2d0c83` extrai `appendPriceAffectingParams` e segue chamando só nos endpoints `product-search` e `products`. `6641599b601cf3e1afadc17bcdffec6ceae7fc18` move o mesmo `pickBestSku`, `enhanceSku` e carimbo para `searchResultSku`. Os dois commits mudam estrutura. O comportamento fica o mesmo. As rulings ficam de pé: `ctx.storage.flags?.enableUnavailableItemsOnCart` trata flag ausente como falso; o PUT stale grava o md5 que o teste recalcula dos itens de `checkoutOrderFormStaleFetch`; o runner de integração é cópia local e os fetches são os de `mutations.test.ts`. A stack continua em `preco-minicart-e-vitrine/p2-ttl-price-valid-until`.
+
+Os testes novos conferem a string, o nulo, a URL e o corpo do etag. Nenhum está skipped. O etag esperado do carrinho stale é um md5 calculado no teste, com `id`, `quantity`, `seller` e `attachments`, sem chamar `getOrderFormEtag`. O `readFileSync` falha se a string entrar em `loaders/sku.ts`, nos documentos nativos de `@faststore/core`, em `fetcher.ts` ou em `cached-operations.json` como `ValidateCartMutation`, se `validateCart` ganhar `@cacheControl` ou `cacheControl`, ou se `offer.graphql` perder `reasonKey: String` ou ganhar `priceVariations`. `query.test.ts` permanece na suíte, com 39 testes.
+
+ADR-0004: `product`, `search` e `validateCart` aceitam `priceAffectingParams: String` opcional. Ausente, `null` e `""` ficam de fora. O BFF copia o texto. `{"b":1,"a":2}` e `{"a":2,"b":1}` seguem como vieram. A URL v1 de `product-search` e de `products` leva o param. `facets`, `search-suggestions`, `top-searches`, `catalog-count` e `pickup-point-availability` ficam sem ele. Cada oferta de `product` e de `search` devolve a mesma string em `priceState.priceAffectingParams`. Sem string, o campo é nulo. `validateCart` devolve a string na linha, o `PUT` continua em `/customData/faststore/cartEtag` e o corpo é o etag. A hidratação do carrinho usa o `skuLoader`, sem o param. Os documentos nativos de produto e de busca não declaram a variável. `quantity` e `paymentMethod` não são argumento. `useOffer` continua em `product_search` com `sku.id`. ADR-0001: `reasonKey` em `offer.graphql` segue `String`. O diff não acrescenta `priceVariations` nem enum. ADR-0003: `applySearchCacheCap` permanece `(ctx, items, now?)`. Com string e sem objeto cru, o hint fica 300 e 3600. Sem string e com objeto cru, o par desce. `validateCart.ts` não atribui `ctx.cacheControl`.
+
+C1–C6 estão no código e nos testes do Walkthrough. Reexecução nesta review, em 2026-11-27. O prefixo `npm_config_manage_package_manager_versions=false` não segura o pnpm 11.1.3: o comando ainda procura `pnpm@10.28.0` no store e morre com ENOENT. O `--filter` também dispara `verify-deps-before-run`, que chama `pnpm install` e cai no mesmo erro. Os números abaixo saíram de `pnpm --pm-on-fail=ignore --config.verify-deps-before-run=false --filter @faststore/api`:
+
+- C1 — `exec vitest run test/unit/platforms/vtex/utils/priceAffectingParams.test.ts` — pass, 1 arquivo, 5 testes
+- C2 — `exec vitest run test/unit/platforms/vtex/utils/intelligentSearchRequest.test.ts test/unit/platforms/vtex/clients/search.test.ts test/unit/platforms/vtex/resolvers/priceAffectingParams.test.ts` — pass, 3 arquivos, 64 testes (36 + 15 + 13)
+- C4 — `exec vitest run test/integration/vtex.validateCart.priceAffectingParams.test.ts` — pass, 1 arquivo, 3 testes
+- C6 — `exec vitest run test/unit/platforms/vtex/resolvers/priceAffectingParams.test.ts test/unit/platforms/vtex/resolvers/searchCacheCap.test.ts` — pass, 2 arquivos, 24 testes (13 + 11)
+- Suíte — `test:unit` — pass, 36 arquivos, 493 testes
+
+## Walkthrough
+
+1. Em `packages/api`, rode `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/utils/priceAffectingParams.test.ts`. `'  '` e `'{}'` voltam iguais. `{"b":1,"a":2}` volta igual a si e diferente de `{"a":2,"b":1}`. `undefined`, `null` e `""` voltam `null`. O schema gerado tem o argumento opcional em `QueryProductArgs`, `QuerySearchArgs` e `MutationValidateCartArgs`, e `priceAffectingParams` em `StoreOfferPriceState`. `allProducts` e `products` em `query.graphql` continuam sem esse argumento. (C1)
+2. Rode `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/utils/intelligentSearchRequest.test.ts test/unit/platforms/vtex/clients/search.test.ts`. Em `product-search` e `products`, `params.get('priceAffectingParams')` é `{"b":1,"a":2}`, `{}`, `'  '` e `{"q":"a&b=c"}`. `""`, `null` e campo ausente não criam a chave. `facets`, `catalog-count`, `search-suggestions`, `top-searches` e `pickup-point-availability` com o mesmo texto também não. A URL de `products` contém `/product-search/` e o param. A URL de `fetchProduct` contém `/products?` e o param. `productsByIdentifier` repete o param em cada pedido. `facets` com o campo no args não contém a chave. (C2)
+3. Rode `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/resolvers/priceAffectingParams.test.ts`. `Query.product` com a string chama `productsByIdentifier` e não chama `skuLoader`. O fallback de slug chama `fetchProduct` com o texto. Cada oferta de `suggestions` e de `products` devolve a mesma string. Sem string, o campo é nulo, mesmo com `commertialOffer.priceState` igual a `{}`. `allProducts` e `Query.products` chamam a busca sem o campo e não carimbam. `offer.graphql` tem `reasonKey: String` e não tem `priceVariations`. `StoreOffer.priceState` chama `resolvePriceState()` sem origem e lê o carimbo no SKU ou na linha. (C3)
+4. Rode `pnpm --filter @faststore/api exec vitest run test/integration/vtex.validateCart.priceAffectingParams.test.ts`. Com a string e o carrinho stale, cada `acceptedOffer.priceState.priceAffectingParams` é `{"b":1,"a":2}`. Com a variável omitida, com `null` e com `""`, o campo da linha é nulo. Nenhuma URL de `mockedFetch` contém `priceAffectingParams`. O `PUT` cai em `/customData/faststore/cartEtag` e o corpo é o md5 dos itens, sem o texto do cliente. `ValidCart` com a string continua `validateCart: null`. (C4)
+5. No mesmo arquivo de resolver, o teste `keeps useOffer, the cart mutation cache list, and native queries free of the string` lê os documentos nativos do Recon, `packages/core/src/pages/[slug]/p.tsx`, `packages/core/src/sdk/offer/fetcher.ts` e `packages/core/src/sdk/cart/index.ts`. Nenhum contém `priceAffectingParams`. `fetcher.ts` ainda aponta para `product_search` com `sku.id`. `cached-operations.json` não contém `ValidateCartMutation`. O documento da integração que envia a string declara `$priceAffectingParams: String`. O documento que omite a variável não a declara. (C5)
+6. No teste de `Query.product`, com a string e sem objeto `priceState` na oferta, o hint fica 300 e 3600. Sem a string e com o objeto cru, o hint fica 120 e 120. `applySearchCacheCap` em `searchCacheCap.ts` continua `(ctx, items, now?)`. `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/resolvers/searchCacheCap.test.ts` passa os 11 testes da fase 2. (C6)
+7. `pnpm --filter @faststore/api test:unit` — 36 arquivos, 493 testes, todos passando. Inclui `query.test.ts`, 39 testes.
+
+`flags` ausente não manda `hideUnavailableItems: false`. A flag verdadeira manda. O PUT stale grava o md5 calculado dos itens da fixture, não o `init.body` antigo. O texto do cliente fica fora desse corpo. O nome do campo no orderForm continua sem escolha. Esta fase não grava nesse campo.
