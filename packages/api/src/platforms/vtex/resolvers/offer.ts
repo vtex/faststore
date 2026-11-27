@@ -80,7 +80,7 @@ export const StoreOffer: Record<string, GraphqlResolver<Root>> = {
     return null
   },
   priceState: (root) => ({
-    ...resolvePriceState(),
+    ...resolvePriceState(root.priceState),
     priceAffectingParams: readPriceAffectingParamsStamp(
       isSearchItem(root) ? root.product : isOrderFormItem(root) ? root : null
     ),

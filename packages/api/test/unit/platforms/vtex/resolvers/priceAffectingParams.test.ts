@@ -136,6 +136,36 @@ describe('StoreOffer.priceState', () => {
     })
   })
 
+  it('echoes an unavailable priceState from the offer and from the cart line', () => {
+    const unavailable = {
+      available: false,
+      reasonKey: 'PRICE_REQUIRES_LOGIN',
+    }
+
+    expect(
+      priceStateOf({
+        Price: 10,
+        seller: { sellerId: '1' },
+        product: { itemId: '100' },
+        priceState: unavailable,
+      })
+    ).toEqual({
+      available: false,
+      reasonKey: 'PRICE_REQUIRES_LOGIN',
+      priceAffectingParams: null,
+    })
+    expect(
+      priceStateOf({
+        skuName: 'Shirt',
+        priceState: { available: false },
+      })
+    ).toEqual({
+      available: false,
+      reasonKey: null,
+      priceAffectingParams: null,
+    })
+  })
+
   it('returns null without a stamp even when commertialOffer.priceState is an object', () => {
     expect(
       priceStateOf(offerFromSku({ itemId: '100' })).priceAffectingParams

@@ -22,4 +22,15 @@ describe('resolvePriceState', () => {
       reasonKey: 'PRICE_REQUIRES_LOGIN',
     })
   })
+
+  it('drops a reason that is not a string and ignores a non-object', () => {
+    expect(resolvePriceState({ available: false, reasonKey: 1 })).toEqual({
+      available: false,
+      reasonKey: null,
+    })
+    expect(resolvePriceState([])).toEqual({
+      available: true,
+      reasonKey: null,
+    })
+  })
 })
