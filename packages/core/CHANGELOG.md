@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.12.0-dev.4](https://github.com/vtex/faststore/compare/v4.12.0-dev.3...v4.12.0-dev.4) (2026-11-27)
+
+### Bug Fixes
+
+- **core:** keep useLazyQuery execute referentially stable ([#3612](https://github.com/vtex/faststore/issues/3612)) ([50b8518](https://github.com/vtex/faststore/commit/50b85185d653662b14a068368bdac2b40556952e))
+
 # [4.12.0-dev.3](https://github.com/vtex/faststore/compare/v4.12.0-dev.2...v4.12.0-dev.3) (2026-11-26)
 
 ### Bug Fixes
