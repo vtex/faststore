@@ -58,6 +58,7 @@ import {
   transformSelectedFacet,
 } from '../utils/facets'
 import { getCatalogLocale, isLocalizationEnabled } from '../utils/localization'
+import { applySearchCacheCap } from '../utils/searchCacheCap'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { slugify } from '../utils/slugify'
 import { resolveSort } from '../utils/sort'
@@ -246,6 +247,8 @@ export const Query = {
     // slug fallback, which would refetch and return the same product.
     assertProductInContractAssortment(ctx, sku)
 
+    applySearchCacheCap(ctx, sku.isVariantOf?.items)
+
     return sku
   },
   collection: (
@@ -366,6 +369,11 @@ export const Query = {
       count: first,
     })
 
+    applySearchCacheCap(
+      ctx,
+      products.products.flatMap((product) => product.items)
+    )
+
     const skus = products.products
       .flatMap((product) =>
         product.items.map((sku) => enhanceSku(sku, product))
@@ -404,6 +412,11 @@ export const Query = {
       field: 'id',
       values: productIds,
     })
+
+    applySearchCacheCap(
+      ctx,
+      products.flatMap((product) => product.items)
+    )
 
     return products
       .flatMap((product) =>

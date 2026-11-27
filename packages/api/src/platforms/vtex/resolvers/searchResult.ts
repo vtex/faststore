@@ -3,6 +3,7 @@ import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
 import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 import { enhanceSku } from '../utils/enhanceSku'
+import { applySearchCacheCap } from '../utils/searchCacheCap'
 import { pickBestSku } from '../utils/sku'
 
 export type Root = {
@@ -44,6 +45,11 @@ export const StoreSearchResult: Record<string, GraphqlResolver<Root>> = {
       productSearchPromise,
     ])
 
+    applySearchCacheCap(
+      ctx,
+      productSearchResult.products.flatMap((product) => product.items)
+    )
+
     const skus = productSearchResult.products
       .map((product) => {
         // What determines the presentation of the SKU is the price order
@@ -61,8 +67,13 @@ export const StoreSearchResult: Record<string, GraphqlResolver<Root>> = {
       products: skus,
     }
   },
-  products: async ({ productSearchPromise }) => {
+  products: async ({ productSearchPromise }, _, ctx) => {
     const productSearchResult = await productSearchPromise
+
+    applySearchCacheCap(
+      ctx,
+      productSearchResult.products.flatMap((product) => product.items)
+    )
 
     const skus = productSearchResult.products
       .map((product) => {
