@@ -287,4 +287,44 @@ describe('Cards page getServerSideProps', () => {
 
     expect(result.props.accountPageData.hasError).toBe(true)
   })
+
+  it('does not redirect when a 403 belongs to a single tab query', async () => {
+    mockGetB2BSessionClaims.mockReturnValueOnce({
+      hasOrgAssociation: true,
+      hasCustomerId: true,
+    })
+    mockExecute.mockResolvedValueOnce({
+      data: {
+        personalCards: null,
+        sharedCards: { list: [CARD_SHARED] },
+        accountProfile: { name: 'Jane' },
+        hasAdHocCardAccess: true,
+      },
+      errors: [{ path: ['personalCards'], extensions: { status: 403 } }],
+    })
+
+    const result: any = await getServerSideProps(makeContext())
+
+    expect(result.redirect).toBeUndefined()
+    expect(result.props.accountPageData.personalHasError).toBe(true)
+    expect(result.props.accountPageData.sharedCards).toEqual([CARD_SHARED])
+  })
+
+  it('redirects to /pvt/account/403 when both tab queries fail with 401', async () => {
+    mockGetB2BSessionClaims.mockReturnValueOnce({
+      hasOrgAssociation: true,
+      hasCustomerId: true,
+    })
+    mockExecute.mockResolvedValueOnce({
+      data: undefined,
+      errors: [
+        { path: ['personalCards'], extensions: { status: 401 } },
+        { path: ['sharedCards'], extensions: { status: 401 } },
+      ],
+    })
+
+    const result: any = await getServerSideProps(makeContext())
+
+    expect(result.redirect.destination).toContain('/pvt/account/403')
+  })
 })
