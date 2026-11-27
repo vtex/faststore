@@ -1588,6 +1588,8 @@ export type StoreOffer = {
   price: Scalars['Float']['output'];
   /** ISO code of the currency used for the offer prices. */
   priceCurrency: Scalars['String']['output'];
+  /** Whether this offer has a price the shopper can see, and the reason when it does not. */
+  priceState: StoreOfferPriceState;
   /**
    * Signed price token (JWT) used by the Pricing Fallback feature. When present, it should be
    * forwarded to Checkout on add-to-cart so the platform can trust the offer's price even if
@@ -1604,6 +1606,14 @@ export type StoreOffer = {
   seller: StoreOrganization;
   /** Computed price before applying coupons, taxes or benefits. This may change before it reaches the shelf. */
   sellingPrice: Scalars['Float']['output'];
+};
+
+/** Price availability for one offer. The numbers stay on the offer. */
+export type StoreOfferPriceState = {
+  /** True when the number is a price the shopper can see, including zero. */
+  available: Scalars['Boolean']['output'];
+  /** Server-chosen reason when available is false. */
+  reasonKey: Maybe<Scalars['String']['output']>;
 };
 
 /** Information of a specific order. */
@@ -2957,11 +2967,11 @@ export type ValidateCartMutationMutationVariables = Exact<{
 }>;
 
 
-export type ValidateCartMutationMutation = { validateCart: { order: { orderNumber: string, salesChannel: string | null, shouldSplitItem: boolean | null, acceptedOffer: Array<{ quantity: number, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, isGift: boolean | null, priceToken: string | null, seller: { identifier: string }, itemOffered: { sku: string, name: string, unitMultiplier: number | null, gtin: string, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } }> }, messages: Array<{ text: string, status: StoreStatus }> } | null };
+export type ValidateCartMutationMutation = { validateCart: { order: { orderNumber: string, salesChannel: string | null, shouldSplitItem: boolean | null, acceptedOffer: Array<{ quantity: number, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, isGift: boolean | null, priceToken: string | null, priceState: { available: boolean, reasonKey: string | null }, seller: { identifier: string }, itemOffered: { sku: string, name: string, unitMultiplier: number | null, gtin: string, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } }> }, messages: Array<{ text: string, status: StoreStatus }> } | null };
 
 export type CartMessageFragment = { text: string, status: StoreStatus };
 
-export type CartItemFragment = { quantity: number, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, isGift: boolean | null, priceToken: string | null, seller: { identifier: string }, itemOffered: { sku: string, name: string, unitMultiplier: number | null, gtin: string, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
+export type CartItemFragment = { quantity: number, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, isGift: boolean | null, priceToken: string | null, priceState: { available: boolean, reasonKey: string | null }, seller: { identifier: string }, itemOffered: { sku: string, name: string, unitMultiplier: number | null, gtin: string, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
 
 export type CartProductItemFragment = { sku: string, name: string, unitMultiplier: number | null, gtin: string, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> };
 
@@ -3616,6 +3626,10 @@ export const CartItemFragmentDoc = new TypedDocumentString(`
   listPriceWithTaxes
   isGift
   priceToken
+  priceState {
+    available
+    reasonKey
+  }
   itemOffered {
     ...CartProductItem
   }
@@ -3671,7 +3685,7 @@ export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelO
 export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operationName":"ProcessOrderAuthorizationMutation","operationHash":"8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d"}} as unknown as TypedDocumentString<ProcessOrderAuthorizationMutationMutation, ProcessOrderAuthorizationMutationMutationVariables>;
 export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
 export const StartRecommendationSessionDocument = {"__meta__":{"operationName":"StartRecommendationSession","operationHash":"1def6438c0cd87b85002411ac7326c221f192583"}} as unknown as TypedDocumentString<StartRecommendationSessionMutation, StartRecommendationSessionMutationVariables>;
-export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"3c71b0d3fc2bade14df68abfa271858beb361b12"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
+export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"e3267a3b6fd82543828de6c248d912a3e7d37340"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
 export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"ClientPickupPointsQuery","operationHash":"0f70fea0ad598b50c0ca9c086860907881a68e4f"}} as unknown as TypedDocumentString<ClientPickupPointsQueryQuery, ClientPickupPointsQueryQueryVariables>;
 export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"SubscribeToNewsletter","operationHash":"feb7005103a859e2bc8cf2360d568806fd88deba"}} as unknown as TypedDocumentString<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;
 export const StartOrderEntryOperationMutationDocument = {"__meta__":{"operationName":"StartOrderEntryOperationMutation","operationHash":"78c50fbf9b85d03dbeac9b05b06405217f2ec440"}} as unknown as TypedDocumentString<StartOrderEntryOperationMutationMutation, StartOrderEntryOperationMutationMutationVariables>;

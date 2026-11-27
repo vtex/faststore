@@ -44,3 +44,5 @@ export type Resolver<
   TArgs = unknown,
   TReturn = any,
 > = GraphqlResolver<TRoot, TArgs, TReturn>
+
+export { resolvePriceState } from './platforms/vtex/utils/priceState'

@@ -15,6 +15,11 @@ import type { AnalyticsItem } from 'src/sdk/analytics/types'
 import type { CartItem as ICartItem } from 'src/sdk/cart'
 import { cartStore } from 'src/sdk/cart'
 import { useRemoveButton } from 'src/sdk/cart/useRemoveButton'
+import {
+  DEFAULT_CART_PRICE_MESSAGES,
+  formatCartLinePrice,
+} from 'src/sdk/cart/priceLine'
+import type { CartPriceMessages } from 'src/sdk/cart/priceLine'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 
@@ -68,12 +73,14 @@ interface Props {
     usePriceWithTaxes?: boolean
     taxesLabel?: string
   }
+  priceMessages?: CartPriceMessages
 }
 
 function CartItem({
   item,
   useUnitMultiplier = false,
   taxesConfiguration,
+  priceMessages = DEFAULT_CART_PRICE_MESSAGES,
 }: Props) {
   const btnProps = useRemoveButton(item)
 
@@ -110,7 +117,13 @@ function CartItem({
       price={{
         value: price,
         listPrice: useUnitMultiplier ? listPrice * unitMultiplier : listPrice,
-        formatter: useFormattedPrice,
+        formatter: (value, variant) =>
+          formatCartLinePrice(
+            item,
+            useFormattedPrice(value),
+            priceMessages,
+            variant !== 'listing'
+          ),
       }}
       quantity={item.quantity}
       onQuantityChange={onQuantityChange}

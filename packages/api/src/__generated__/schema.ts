@@ -1669,6 +1669,8 @@ export type StoreOffer = {
   price: Scalars['Float']['output'];
   /** ISO code of the currency used for the offer prices. */
   priceCurrency: Scalars['String']['output'];
+  /** Whether this offer has a price the shopper can see, and the reason when it does not. */
+  priceState: StoreOfferPriceState;
   /**
    * Signed price token (JWT) used by the Pricing Fallback feature. When present, it should be
    * forwarded to Checkout on add-to-cart so the platform can trust the offer's price even if
@@ -1685,6 +1687,15 @@ export type StoreOffer = {
   seller: StoreOrganization;
   /** Computed price before applying coupons, taxes or benefits. This may change before it reaches the shelf. */
   sellingPrice: Scalars['Float']['output'];
+};
+
+/** Price availability for one offer. The numbers stay on the offer. */
+export type StoreOfferPriceState = {
+  __typename?: 'StoreOfferPriceState';
+  /** True when the number is a price the shopper can see, including zero. */
+  available: Scalars['Boolean']['output'];
+  /** Server-chosen reason when available is false. */
+  reasonKey?: Maybe<Scalars['String']['output']>;
 };
 
 /** Information of a specific order. */

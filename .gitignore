@@ -48,6 +48,7 @@ storybook-static/
 # Dependency directories
 node_modules/
 jspm_packages/
+.pnpm-store/
 
 !packages/cli/src/__mocks__/**/node_modules
 
@@ -119,3 +120,6 @@ oclif.manifest.json
 packages/core/discovery.config.local.js
 
 *storybook.log
+
+# Local study notes. Promote chosen docs into the repo later.
+/local-docs/
