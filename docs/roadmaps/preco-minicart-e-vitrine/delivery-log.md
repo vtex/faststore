@@ -7,3 +7,5 @@
 2026-11-26 18:10 | #2 | smell | CONTINUE | Smell review em `56e26c4ee`. Dois ajustes (`b58c8318f`, `0577d0564`) e um aceite. Suíte unitária da API passou (468 testes) antes e depois. Nada enviado ao remoto. Próxima ação: review.
 
 2026-11-26 18:50 | #2 | review | CONTINUE | Approve em `617f203a6`. Nenhum achado. Suíte unitária da API passou (468 testes). Nada enviado ao remoto. Próxima ação: spec da fase 3 empilhada neste branch.
+
+2026-11-27 11:12 | #3 | spec | CONTINUE | Plano Ready em `docs/plans/plan-price-affecting-params.md`, commit `48fe8fbb2` no branch `preco-minicart-e-vitrine/p3-price-affecting-params`, empilhado em `preco-minicart-e-vitrine/p2-ttl-price-valid-until`. Nada enviado ao remoto. Próxima ação: build da fase 3 nesta stack.
