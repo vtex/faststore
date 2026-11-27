@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.12.0-dev.5](https://github.com/vtex/faststore/compare/v4.12.0-dev.4...v4.12.0-dev.5) (2026-11-27)
+
+### Bug Fixes
+
+- **api,core:** list personal and shared cards from separate queries (B2BTEAM-4224) ([#3611](https://github.com/vtex/faststore/issues/3611)) ([6e09972](https://github.com/vtex/faststore/commit/6e09972bdfc892b435c91ce81d6d1c4be3e916c9)), closes [#3610](https://github.com/vtex/faststore/issues/3610)
+
 # [4.12.0-dev.4](https://github.com/vtex/faststore/compare/v4.12.0-dev.3...v4.12.0-dev.4) (2026-11-27)
 
 **Note:** Version bump only for package @faststore/api
