@@ -1,6 +1,6 @@
 # TTL da CDN quando o priceState vem
 
-> **Status**: Built
+> **Status**: Reviewed
 > **Roadmap**: preco-minicart-e-vitrine #2
 > **Branch**: preco-minicart-e-vitrine/p2-ttl-price-valid-until
 > **PR**: —
@@ -144,3 +144,38 @@ Antes do split, `earliestValidUntil` estava em 11. Os resolvers só receberam a 
 - `AGENTS.md` should gain a cyclomatic complexity ceiling. `biome.json` não define teto; esta revisão usou 10.
 
 Os mesmos testes passaram depois dos ajustes: 2 arquivos, 30 testes; `pnpm --filter @faststore/api test:unit`, 34 arquivos, 468 testes.
+
+## Review
+
+> **Verdict**: Approve
+> **Date**: 2026-11-26
+> **Commit reviewed**: `4245a9c04b3b72ca456c2565a6d4ec2570149f2a`
+
+Achados bloqueantes: 0. Advisory: 0.
+
+| # | Check | Onde | Contrato | Achado | Severidade |
+| --- | --- | --- | --- | --- | --- |
+
+O diff `feat/cart-price-state...4245a9c04` fecha os quatro checks.
+
+Os passos 1 e 2 estão em `b09c2234290b08f1adb1c83cff26a69bb37deacc` e `da6bf0a3df57464d33363feb0939b45da55b4e1c`. `b58c8318f` e `0577d0564` só separam a baixa do par e o parse da oferta sinalizada. `sMaxAge` e `staleWhileRevalidate` continuam `min(atual, min(teto, segundos))` quando o atual é número. `scope` não é escrito. As rulings ficam de pé: `Date.parse` com `NaN` de fora, objeto não nulo e não array como sinal, `headers?` só para o TypeScript aceitar `GraphqlContext`, `facets` e `searchId` fora do cap, fase empilhada sem esperar merge.
+
+Os testes novos assertam o par gravado (300/3600, 120/120, 300/1000, 0/0) e o `itemId` que `pickBestSku` escolhe. Nenhum está skipped. Nenhum esperado sai da função sob teste. O `readFileSync` do passo 2 falha se `applySearchCacheCap` entrar no loader, no `validateCart` ou no cliente, ou se `reasonKey` deixar de ser `String`. Nenhum teste antigo foi afrouxado.
+
+ADR-0003: sem objeto cru o hint fica 300 e 3600; com objeto, a fórmula do `min`; data ilegível fica de fora; data no passado zera os dois; `resolvePriceState()` sem origem não é lido; `discovery.config` não entra; `validateCart` e `skuLoader` não chamam o cap; o cliente não manda `Cache-Control`. ADR-0001: `reasonKey` em `offer.graphql` segue `String`. O diff não cria enum, `priceAffectingParams` nem `customData`.
+
+C1–C5 estão no código e nos testes do Walkthrough. Reexecução nesta review, em 2026-11-26. O `pnpm` desta máquina só chega no Vitest com `npm_config_manage_package_manager_versions=false`; sem isso o binário `pnpm@10.28.0` não está no store e o comando morre antes dos testes. Os números abaixo são dessa invocação:
+
+- `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/utils/searchCacheCap.test.ts test/unit/platforms/vtex/resolvers/searchCacheCap.test.ts` — pass, 2 arquivos, 30 testes (19 + 11)
+- `pnpm --filter @faststore/api test:unit` — pass, 34 arquivos, 468 testes
+
+## Walkthrough
+
+1. Em `packages/api/test/unit/platforms/vtex/utils/searchCacheCap.test.ts`, o teste `keeps 300 and 3600 when no offer has a priceState object` preenche `PriceValidUntil` e omite `priceState`. O hint que volta é 300 e 3600. Comando: `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/utils/searchCacheCap.test.ts`. (C1)
+2. No mesmo arquivo, data a 7200 segundos deixa 300 e 3600; data a 1000 segundos deixa `sMaxAge` 300 e `staleWhileRevalidate` 1000; data a 120 segundos deixa 120 e 120; data no passado ao lado de data futura, e restante de 999 ms, deixam 0 e 0. (C2)
+3. No mesmo arquivo, `not-a-date` sozinha deixa 300 e 3600; `null`, array e primitivo também; `{}` e `{ available: true, reasonKey: null }` na origem baixam o par. `applySearchCacheCap` não importa `resolvePriceState`. O default do BFF, em `packages/api/src/platforms/vtex/resolvers/offer.ts`, continua sem a oferta e não entra no cap. (C3)
+4. `pnpm --filter @faststore/api exec vitest run test/unit/platforms/vtex/resolvers/searchCacheCap.test.ts`. `Query.product` com o objeto em `isVariantOf.items`, o fallback de slug, `allProducts`, `products`, `StoreSearchResult.products` (o SKU escolhido é `chosen` e o irmão encurta) e `suggestions` com query baixam para 120 e 120. `suggestions` sem query, `Query.search`, `facets`, `metadata` e `searchId` ficam em 300 e 3600, com `scope` `public`. O teste de `scope` `private` está no arquivo do passo 1: o par desce e o scope permanece. (C4)
+5. O último teste desse arquivo lê `typeDefs/offer.graphql` (`reasonKey: String`), confirma que `clients/search/index.ts` não contém `Cache-Control` nem `s-maxage`, e que `loaders/sku.ts`, `resolvers/validateCart.ts` e o cliente não chamam `applySearchCacheCap`. O header da resposta segue `getSuccessCacheControl` em `packages/core/src/pages/api/graphql.ts`: com hint, devolve o `stringify` desse hint. Este checkout não sobe uma loja com `priceState` cru na Intelligent Search, então o header ao vivo não foi visto. (C5)
+6. `pnpm --filter @faststore/api test:unit` — 34 arquivos, 468 testes, todos passando. Inclui o `query.test.ts` do passo 2, que o cap não pode quebrar quando `isVariantOf.items` falta.
+
+`headers?` não é lido. Está na assinatura porque `{ cacheControl? }` sozinho é tipo fraco e `GraphqlContext` não declara o campo. Se o contexto passar a declarar `cacheControl`, o parâmetro pode sair. Objeto vazio e `{ available: true, reasonKey: null }` na origem encurtam o cache. Só o objeto montado por `resolvePriceState()` sem origem fica de fora. `Date.parse` lê a string gravada. Data que o parse rejeita mantém 300 e 3600.
