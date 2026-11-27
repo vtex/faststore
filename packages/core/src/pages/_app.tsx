@@ -10,6 +10,7 @@ import { useReloadAfterLogoutReturn } from 'src/components/account/Drawer/Organi
 import ThirdPartyScripts from 'src/components/ThirdPartyScripts'
 import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
+import { useRecoverFromEmptyPageProps } from 'src/sdk/account/useRecoverFromEmptyPageProps'
 import { DeliveryPromiseProvider } from 'src/sdk/deliveryPromise'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import useGeolocation from 'src/sdk/geolocation/useGeolocation'
@@ -33,6 +34,7 @@ function LocalizationConfigUpdater() {
 function App({ Component, pageProps }: AppProps) {
   useGeolocation()
   useReloadAfterLogoutReturn()
+  useRecoverFromEmptyPageProps(pageProps)
   storeConfig.experimental?.scrollRestoration && useScrollRestoration()
   const router = useRouter()
   const { start: startGlobalSearchState } = useSearch()

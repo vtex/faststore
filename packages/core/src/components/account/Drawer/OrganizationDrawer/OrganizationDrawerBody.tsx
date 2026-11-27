@@ -1,4 +1,4 @@
-import Link from 'src/components/ui/Link'
+import { Link } from '@faststore/ui'
 
 import menuRoutes from 'src/customizations/src/myAccount/navigation'
 import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
@@ -8,6 +8,7 @@ import {
   getExtraMyAccountRoutes,
   getMyAccountRoutes,
 } from 'src/sdk/account/getMyAccountRoutes'
+import { useLink } from 'src/sdk/ui/useLink'
 
 const ROUTES_ONLY_FOR_B2B_BUYERS = new Set<string>([USER_DETAILS_ROUTE])
 
@@ -19,6 +20,7 @@ export const OrganizationDrawerBody = ({
   isOrgMember: boolean
 }) => {
   const navigationLabels = useAccountNavigationLabels()
+  const { resolveLink } = useLink()
 
   const menuItems = getMyAccountRoutes({
     routes: getExtraMyAccountRoutes(menuRoutes),
@@ -40,7 +42,7 @@ export const OrganizationDrawerBody = ({
           <Link
             key={route.route}
             data-fs-organization-drawer-body-link
-            href={route.route}
+            href={resolveLink(route.route) ?? route.route}
           >
             {route.title}
           </Link>

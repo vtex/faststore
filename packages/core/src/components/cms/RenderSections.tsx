@@ -3,6 +3,7 @@ import {
   type PropsWithChildren,
   type ReactNode,
   memo,
+  useEffect,
   useMemo,
 } from 'react'
 
@@ -18,8 +19,12 @@ import ViewportObserver from './ViewportObserver'
 
 interface Props {
   components?: Record<string, ComponentType<any>>
-  globalSections?: Array<{ name: string; data: any }>
-  sections?: Array<{ name: string; data: any; $componentKey?: string }>
+  globalSections?: Array<{ name: string; data: any }> | null
+  sections?: Array<{
+    name: string
+    data: any
+    $componentKey?: string
+  }> | null
   isInteractive?: boolean
 }
 
@@ -65,8 +70,8 @@ function getSectionProps(data: Record<string, unknown>) {
  * stores that have it persisted in their CMS.
  */
 function withRegionSliderSection(
-  sections: Section[] | undefined,
-  globalSections: Section[] | undefined
+  sections: Section[] | null | undefined,
+  globalSections: Section[] | null | undefined
 ): Section[] {
   const base = sections ?? []
   const isPresent =
@@ -88,15 +93,27 @@ const PreviewTag = dynamic(
   { ssr: false }
 )
 
-const useDividedSections = (sections: Section[]) => {
+const EMPTY_SECTIONS: Section[] = []
+
+export const EMPTY_SECTIONS_WARNING =
+  '[faststore:empty-page-props] RenderSections received neither globalSections nor sections. The page props are empty, which usually means a cached or skipped Next.js data response.'
+
+const useDividedSections = (sections: Section[] | null | undefined) => {
   return useMemo(() => {
-    const indexChildren = sections.findIndex(({ name }) => name === 'Children')
+    const resolvedSections = sections ?? EMPTY_SECTIONS
+    const indexChildren = resolvedSections.findIndex(
+      ({ name }) => name === 'Children'
+    )
     const hasChildren = indexChildren > -1
 
     return {
       hasChildren,
-      firstSections: hasChildren ? sections.slice(0, indexChildren) : sections,
-      ...(hasChildren && { lastSections: sections.slice(indexChildren + 1) }),
+      firstSections: hasChildren
+        ? resolvedSections.slice(0, indexChildren)
+        : resolvedSections,
+      ...(hasChildren && {
+        lastSections: resolvedSections.slice(indexChildren + 1),
+      }),
     }
   }, [sections])
 }
@@ -208,6 +225,14 @@ function RenderSections({
     () => withRegionSliderSection(sections, globalSections),
     [sections, globalSections]
   )
+
+  const hasNoSections = globalSections == null && sections == null
+
+  useEffect(() => {
+    if (hasNoSections) {
+      console.warn(EMPTY_SECTIONS_WARNING)
+    }
+  }, [hasNoSections])
 
   const { isInteractive } = useTTI()
   const router = useRouter()

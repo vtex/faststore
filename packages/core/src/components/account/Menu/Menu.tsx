@@ -1,13 +1,13 @@
-import { Button } from '@faststore/ui'
+import { Button, Link } from '@faststore/ui'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-import Link from 'src/components/ui/Link'
 import styles from '../section.module.scss'
 
 import { OrganizationDrawer } from '../Drawer/OrganizationDrawer/OrganizationDrawer'
 import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
 import { useSession } from 'src/sdk/session'
+import { useLink } from 'src/sdk/ui/useLink'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 interface NavItem {
@@ -24,6 +24,7 @@ export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
 const Nav = ({ items }: Pick<MenuProps, 'items'>) => {
   const router = useRouter()
   const currentRoute = router.pathname
+  const { resolveLink } = useLink()
 
   return (
     <ul className={styles.nav}>
@@ -33,7 +34,7 @@ const Nav = ({ items }: Pick<MenuProps, 'items'>) => {
           data-is-selected={currentRoute.includes(route)}
           key={route}
         >
-          <Link href={route} tabIndex={0}>
+          <Link href={resolveLink(route) ?? route} tabIndex={0}>
             {title}
           </Link>
         </li>
