@@ -287,10 +287,18 @@ export function useDeliveryPromise({
       } else {
         // Toggle previously selected pickupPoint facet
         unique = isRadioFacet(facet?.key)
+        const stalePickupPointFacets = currentSelectedFacets.filter(
+          ({ key }) => key === PICKUP_POINT_FACET_KEY
+        )
         currentSelectedFacets = currentSelectedFacets.filter(
           ({ key }) => key !== PICKUP_POINT_FACET_KEY
         )
-        facetsToToggle.concat(currentSelectedFacets)
+
+        // The filter reducer toggles against the full `selected` list, so a
+        // stale pickupPoint facet has to be toggled off explicitly.
+        if (filterDispatch) {
+          facetsToToggle.push(...stalePickupPointFacets)
+        }
       }
 
       // Filter Slider should dispatch filter actions
